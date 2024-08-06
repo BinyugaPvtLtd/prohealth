@@ -7,13 +7,45 @@ class TokenManager {
     return token ?? "";
   }
 
-  static void setAccessToken({required String token}) async {
+  static Future<String> getUserName() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? userName = sharedPreferences.getString("userName");
+    return userName ?? "";
+  }
+  static Future<int> getCompanyId() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    int? companyId = sharedPreferences.getInt("companyId");
+    return companyId ?? 0;
+  }
+
+
+  static void setAccessToken({required String token, required String username, required int companyId}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    print('User Name set $username');
+    print("Token to set $token");
+    print('companyId ${companyId}');
     sharedPreferences.setString("accessToken", token);
+    sharedPreferences.setString("userName", username);
+    sharedPreferences.setInt("companyId", companyId);
+  }
+
+  static void setAccessRegisterToken({required String token, required String username, required int companyId}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    print('userNameRegister set $username');
+    print("accessTokenRegister Token to set $token");
+    print('companyIdRegister ${companyId}');
+    sharedPreferences.setString("accessTokenRegister", token);
+    sharedPreferences.setString("userNameRegister", username);
+    sharedPreferences.setInt("companyIdRegister", companyId);
   }
 
   static void removeAccessToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString("accessToken", "");
+  }
+
+  static void removeAccessRegisterToken() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("accessTokenRegister", "");
   }
 }

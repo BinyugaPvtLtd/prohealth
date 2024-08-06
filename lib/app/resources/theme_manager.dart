@@ -4,10 +4,30 @@ import 'package:prohealth/app/resources/font_manager.dart';
 
 import 'color.dart';
 
+/// listview table heading
+class TableHeadingStyle{
+  static const TextStyle firaSansWhite12Bold = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w700,
+    color: Colors.white,
+    fontFamily: 'FiraSans',
+  );
+}
+
+
+class TableListTextStyle{
+  static final TextStyle firaSansGray10Bold = GoogleFonts.firaSans(
+    fontSize: 10,
+    fontWeight: FontWeight.w700,
+    color: Color(0xff686464),
+  );
+}
+
+
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 150;
+    double fontSize = MediaQuery.of(context).size.width / 140;
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xFF686464),
@@ -18,7 +38,7 @@ class ThemeManager {
 
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 150;
+    double fontSize = MediaQuery.of(context).size.width/140;
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xFF2A2827),
@@ -95,7 +115,7 @@ class ThemeManageWhitebold {
 
 class RegisterTableHead {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 100;
+    double fontSize = 12;
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.white,
@@ -197,8 +217,8 @@ class CodeVerficationText {
   static TextStyle VerifyCode(BuildContext context) {
     return GoogleFonts.firaSans(
       color: ColorManager.darkgrey,
-      //fontSize: FontSize.s10,
-      fontSize: MediaQuery.of(context).size.width / 120,
+     // fontSize: FontSize.s10,
+      fontSize: MediaQuery.of(context).size.width / 110,
       fontWeight: FontWeightManager.semiBold,
     );
   }

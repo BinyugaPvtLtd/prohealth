@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -11,10 +12,12 @@ class McqWidget extends StatelessWidget {
   final List<String> items;
   final RxInt selectedItemIndex = RxInt(-1);
   final Function(int)? onChanged;
+  final double? fontSize;
   McqWidget({
     required this.title,
     required this.items,
     this.onChanged,
+    this.fontSize
   });
 
   @override
@@ -26,20 +29,25 @@ class McqWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: textFontSize,
-            color: ColorManager.mediumgrey,
-            fontWeight: FontWeightManager.medium,
+        Flexible(
+          child: Text(
+            title,
+            style: GoogleFonts.firaSans(
+              // fontSize: textFontSize,
+              fontSize: fontSize,
+              color: ColorManager.mediumgrey,
+              fontWeight: FontWeight.w600
+            ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: AppPadding.p3,right: AppPadding.p6),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: buildItemList(context, textFontSize, radioButtonSize),
+          child: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: buildItemList(context, textFontSize, radioButtonSize),
+            ),
           ),
         ),
       ],
@@ -71,10 +79,10 @@ class McqWidget extends StatelessWidget {
             )),
             Text(
               items[i],
-              style: TextStyle(
-                fontSize: textFontSize,
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
                 color: Color(0xff6000000),
-                fontWeight: FontWeightManager.medium,
+                fontWeight: FontWeight.w500,
               ),
             ),
             SizedBox(width: AppSize.s20),

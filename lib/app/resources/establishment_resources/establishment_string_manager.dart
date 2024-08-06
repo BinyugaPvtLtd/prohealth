@@ -1,6 +1,10 @@
 class AppStringEM{
   ///company identity
   static const String hcoNumber = "HCO Number";
+  static const String type = "Type";
+  static const String specialization = "Specialization";
+  static const String location = "Location";
+  static const String edit = "Edit";
   static const String medicareid = "Medicare ID";
   static const String npinum = "NPI Number";
   static const String emabled = "Enabled: ";
@@ -9,14 +13,16 @@ class AppStringEM{
   static const String secNum = "Secondary Number";
   static const String address = "Address";
   static const String primNum = "Primary Number";
-  static const String alternatephone = "Alternative Phone";
+  static const String alternatephone = "Alternative Number";
   static const String primarymail = "Primary Email";
   static const String services = "Services";
   static const String save = "Save";
   static const String add = "Add";
+  static const String addShift = "Add Shift";
   static const String submit = "Submit";
   static const String roleManager =  "Role Manager";
   static const String orgdoc =   "Org Document";
+  static const String Add =   "Add";
 
   ///CI Zone
   static const String countyName = "County Name";
@@ -30,6 +36,8 @@ class AppStringEM{
   // static const String landmark = "Landmark";
   // static const String landmark = "Landmark";
   ///all hr screen
+  static const String cancel = 'Cancel';
+  static const String delete = 'Delete';
   ///hr screen
   static const String srno = 'Sr No.';
   static const String employee = 'Employee Type';

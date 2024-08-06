@@ -3,13 +3,21 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/hr_home_screen.dart';
+import 'package:prohealth/presentation/screens/login_module/login/login_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/sm_desktop_screen.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../../widgets/widgets/login_screen/desk_dashboard_hrm.dart';
+import '../../hr_module/hr_home_screen/desk_dashboard_hrm.dart';
 import '../../../widgets/widgets/login_screen/widgets/child_container_constant_login.dart';
-import '../../em_module/responsive_screen_sm.dart';
+import '../../em_module/responsive_screen_em.dart';
+import '../../scheduler_model/widgets/responsive_screen_sm.dart';
 
 class HomeScreenWeb extends StatelessWidget {
   const HomeScreenWeb({super.key});
@@ -17,6 +25,7 @@ class HomeScreenWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           ///bg image
@@ -84,7 +93,8 @@ class HomeScreenWeb extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Select a Module',
@@ -95,6 +105,14 @@ class HomeScreenWeb extends StatelessWidget {
                                       color: ColorManager.darkgrey,
                                     ),
                                   ),
+                                  IconButton(
+                                      onPressed: () async{
+                                         TokenManager.removeAccessToken();
+                                         Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName,(route) => false);
+                                        // Navigator.pushNamedAndRemoveUntil(
+                                        //     context, '/', (route) => false);
+                                      },
+                                      icon: const Icon(Icons.logout))
                                 ],
                               ),
                             ),
@@ -128,6 +146,7 @@ class HomeScreenWeb extends StatelessWidget {
                                         ),
                                         InkWell(
                                             onTap: () {
+                                              documentTypeGet(context);
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -150,7 +169,9 @@ class HomeScreenWeb extends StatelessWidget {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          const HomeScreenHRM()));
+                                                          // HomeScreenHRM()
+                                                          HRHomeScreen()
+                                                  ));
                                             },
                                             child: const ResponsiveContainer(
                                               'Human Resource Manager',
@@ -208,10 +229,19 @@ class HomeScreenWeb extends StatelessWidget {
                                     ),
                                     Row(
                                       children: [
-                                        const ResponsiveContainer(
-                                          'Intake & Scheduler',
-                                          AssetImage("images/i_s.png"),
-                                        ),
+                                        InkWell(
+                                            onTap: () {
+                                              documentTypeGet(context);
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ResponsiveScreenSM()));
+                                            },
+                                            child: const ResponsiveContainer(
+                                              'Intake & Scheduler',
+                                              AssetImage("images/i_s.png"),
+                                            )),
                                         SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size

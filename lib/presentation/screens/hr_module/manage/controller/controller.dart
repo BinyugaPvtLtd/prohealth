@@ -83,7 +83,6 @@ class MyAppTabBarController extends GetxController
 class CenteredTabBarController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
-
   final List<Widget> tabs;
   final List<Widget> tabViews;
   final double tabBarViewHeight;
@@ -92,10 +91,10 @@ class CenteredTabBarController extends GetxController
   CenteredTabBarController({
     required this.tabs,
     required this.tabViews,
-    this.tabBarViewHeight = 325.0, //320
+    this.tabBarViewHeight = 400.0, //320
     this.tabBarViewWidth = 600.0,
   });
-
+//////////////////////////////////////////////////////////////////
   @override
   void onInit() {
     tabController = TabController(length: tabs.length, vsync: this);
@@ -224,8 +223,38 @@ class QualificationTabBarController extends GetxController
   QualificationTabBarController({
     required this.tabs,
     required this.tabViews,
-    this.tabBarViewHeight = 250.0, //320
+    this.tabBarViewHeight = 400.0, //320
     this.tabBarViewWidth = 600.0,
+  });
+
+  @override
+  void onInit() {
+    tabController = TabController(length: tabs.length, vsync: this);
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    tabController.dispose();
+    super.onClose();
+  }
+}
+
+
+///rohit
+class SeeAllHrController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  late TabController tabController;
+  final List<Widget> tabs;
+  final List<Widget> tabViews;
+  final double tabBarViewHeight;
+  final double tabBarViewWidth;
+
+  SeeAllHrController({
+    required this.tabs,
+    required this.tabViews,
+    this.tabBarViewHeight = 300.0, //250
+    this.tabBarViewWidth = 500.0,
   });
 
   @override

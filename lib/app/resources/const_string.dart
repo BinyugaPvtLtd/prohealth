@@ -7,6 +7,7 @@ class AppString {
   static const String employmentType = "Employment Type";
   static const String saanJoes = "San joes.24";
   static const String address = "Address";
+  static const String summary = "Summary";
   static const String houseaddress =
       "House No., Street No. Area City, Zip\nCode";
   static const String dateprofile = "05-03-1997(27)";
@@ -69,6 +70,26 @@ class AppString {
   static const String homeCare = "Home Care";
   static const String palliative = "Palliative Care";
   static const String selectIndex = "Selected index";
+  static const String security_code = "Security Code";
+  static const String phone_number ="Phone Number";
+  static const String verify_user = "Verify User";
+  static const String upload_signature = "Upload Signature";
+  static const String draw = "Draw";
+  static const String upload ="Upload";
+  static const String cancel ="Cancel";
+  static const String reset ="Reset";
+  static const String enter_otp ="Enter OTP";
+  static const String save ="Save";
+  static const String submit = "Submit";
+
+  static const String references ="References";
+  static const String add_education ="Add Education";
+  static const String title_position ="Title/Position";
+  static const String company_organization ="Company/ Organization";
+  static const String mobile_number ="Mobile Number";
+  static const String length_of_association ="Length of Association";
+  static const String how_do_you_know_this_person = "How do you know this person ?";
+
 
   ///Onboarding
   static const String onboarding = "Onboarding";
@@ -116,7 +137,8 @@ class AppString {
   //static const String = "";
 
   ///common
-  static const String srNo = "Sr. No";
+  static const String znNo = "Zn. No.";
+  static const String srNo = "Sr No.";
   static const String name = "Name";
   static const String code = "Code";
   static const String phone = "Phone No.";
@@ -128,6 +150,7 @@ class AppString {
   static const String country = "Country";
   static const String phoneNumber = "Phone Number";
   static const String next = "Next";
+
   static const String reject = "Reject";
   static const String enterText = "Please enter some text";
 
@@ -147,6 +170,57 @@ class AppString {
   static const String didntreccode = "Didn’t recieve a code? ";
   static const String resend = "Resend";
   static const String poweredby = "Powered By";
+
+
+
+
+
+
+
+
+
+
+  static const String licenses = "Licenses";
+  static const String profiled = "Profiled";
+  static const String phoneCmt = "PhoneCmt";
+  static const String date = "Date";
+
+  static const String nationality = "Nationality";
+  static const String comment = "Comment";
+  static const String aboutToExpireLicense = "About To Expire License";
+  static const String expiredLicense = "Expired License";
+
+
+  //intake & schedular
+
+  static String state ="State";
+  static String zip_code ="Zip Code";
+  static String primary_phone_number="Primary Phone Number";
+  static String secondary_phone_number="Secondary Phone Number";
+  static String date_of_death ="Date of Death";
+  static String date_of_birth ="Date of Birth";
+  static String suffix ="Suffix";
+  static String comments ="Comments";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   ///verify
   static const String incorrectOtp = 'Incorrect OTP. Please try again.';
@@ -196,17 +270,20 @@ class AppString {
   static const String addemployeetype = 'Add Employee Type';
   static const String employeetype = 'Employee Type';
   static const String addnewvisit = "Add New Visit";
-  static const String visit = "Visit";
+  static const String visit = "Type of Visit";
   static const String actions = "Actions";
   static const String eligibleClinician = "Eligible Clinicians";
   static const String notapplicable = "Not Applicable";
   static const String expiry = "Expiry";
-  static const String clinician = "Clinician";
+  static const String clinician = "Clinicians";
   static const String sales = "Sales";
   static const String roles= "Roles";
   static const String ruleroles= "Rule Roles";
   static const String administration = "Administration";
   static const String reminderthershold= "Reminder Threshold";
+
+  /// Api 404 Error
+ static const String dataNotFound= "No Data!";
 
 }
 

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
@@ -31,9 +32,15 @@ class _LoginWebState extends State<LoginWeb> {
   FocusNode passwordFocusNode = FocusNode();
   String? otpFromRunTab;
   String? _errorMessage;
+   void clearSvgCache() {
+     final cache = PaintingBinding.instance.imageCache;
+     cache.clear();
+     cache.clearLiveImages();
+   }
   @override
   void initState() {
     super.initState();
+    clearSvgCache();
   }
 
   @override
@@ -163,3 +170,4 @@ class _LoginWebState extends State<LoginWeb> {
     );
   }
 }
+///

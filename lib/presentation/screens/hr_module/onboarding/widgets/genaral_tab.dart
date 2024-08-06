@@ -1,14 +1,43 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/onboarding_tab_bar_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/widgets/ob_general_heading_constant.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../app/services/api/managers/hr_module_manager/see_all/see_all_manager.dart';
+import '../../../../../data/api_data/hr_module_data/see_all_data/see_all_data.dart';
 
-///prachi
-class OnboardingGeneral extends StatelessWidget {
-  const OnboardingGeneral({Key? key}) : super(key: key);
+class OnboardingGeneral extends StatefulWidget {
+  final Function(int) selectButton;
+  const OnboardingGeneral({Key? key, required this.selectButton}) : super(key: key);
+
+  @override
+  State<OnboardingGeneral> createState() => _OnboardingGeneralState();
+}
+
+class _OnboardingGeneralState extends State<OnboardingGeneral> {
+  final StreamController<List<SeeAllData>> generalController =
+  StreamController<List<SeeAllData>>();
+  late int currentPage;
+  late int itemsPerPage;
+  late List<String> items;
+
+  @override
+  void initState() {
+    super.initState();
+    currentPage = 1;
+    itemsPerPage = 20;
+    items = List.generate(20, (index) => 'Item ${index + 1}');
+    getEmployeeSeeAll(context).then((data) {
+      generalController.add(data);
+    }).catchError((error) {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,146 +46,228 @@ class OnboardingGeneral extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: 7,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Material(
-                        elevation: 4,
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          width: containerWidth,
-                          height: containerHeight,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              width: 1,
-                              color: ColorManager.grey,
-                            ),
+          child: StreamBuilder<List<SeeAllData>>(
+            stream: generalController.stream,
+            builder: (context, snapshot) {
+              print('1111111');
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                );
+              }
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
+                    ),
+                  ),
+                );
+              }
+              if (snapshot.hasData) {
+                int totalItems = snapshot.data!.length;
+                List<SeeAllData> currentPageItems = snapshot.data!.sublist(
+                  (currentPage - 1) * itemsPerPage,
+                  (currentPage * itemsPerPage) > totalItems
+                      ? totalItems
+                      : (currentPage * itemsPerPage),
+                );
+                return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: currentPageItems.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Material(
                             color: ColorManager.white,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Container(
-                                  width: AppSize.s88,
-                                  height: AppSize.s20,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager.greenF,
-                                      borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(20))),
-                                  child: Text(
-                                    AppString.approve,
-                                    textAlign: TextAlign.center,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                        color: ColorManager.white,
-                                        fontSize: FontSize.s11,
-                                        fontWeight: FontWeightManager.bold
-                                    )
-                                  )),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.width / 60),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        CircleAvatar(
-                                          radius: 28,
-                                          child:
-                                              Image.asset('images/profile.png'),
-                                        ),
-                                        Text(
-                                         AppString.amogh,
-                                          style: CustomTextStylesCommon.commonStyle(
-                                              color: ColorManager.black,
-                                              fontSize: MediaQuery.of(context).size.width / 99,
-                                              fontWeight: FontWeightManager.bold
-                                          )
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          50,
-                                    ),
-                                    InfoTextWidget(
-                                      texts: [
-                                       AppString.genSocSec,
-                                       AppString.genClinician,
-                                       AppString.genPhoneNo,
-                                       AppString.genEmail,
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          50,
-                                    ),
-                                    InfoTextWidget(
-                                      texts: [
-                                        AppString.gennum,
-                                        AppString.genst,
-                                        AppString.gennum2,
-                                        AppString.genbdate,
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          50,
-                                    ),
-                                    InfoTextWidget(
-                                      texts: [
-                                        AppString.gennum,
-                                        AppString.genst,
-                                        AppString.gennum2,
-                                        AppString.genbdate,
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          50,
-                                    ),
-                                    InfoTextWidget(
-                                      texts: [
-                                        AppString.gennum,
-                                        AppString.genst,
-                                        AppString.gennum2,
-                                        AppString.genbdate,
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          50,
-                                    ),
-                                    InfoTextWidget(
-                                      texts: [
-                                        AppString.gennum,
-                                        AppString.genst,
-                                        AppString.gennum2,
-                                        AppString.genbdate,
-                                      ],
-                                    ),
-                                  ],
+                            elevation: 4,
+                            borderRadius: BorderRadius.circular(20),
+                            child: Container(
+                              width: containerWidth,
+                              height: 150,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  width: 1,
+                                  color: ColorManager.grey,
                                 ),
                               ),
-                            ],
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                          width: AppSize.s88,
+                                          height: AppSize.s20,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.greenF,
+                                              borderRadius: BorderRadius.only(
+                                                  topRight:
+                                                  Radius.circular(20))),
+                                          child: Center(
+                                            child: Text(
+                                                snapshot.data![index].approved.toString(),
+                                                textAlign: TextAlign.center,
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                    color:
+                                                    ColorManager.white,
+                                                    fontSize: FontSize.s11,
+                                                    fontWeight:
+                                                    FontWeightManager
+                                                        .bold)),
+                                          )),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left:
+                                        MediaQuery.of(context).size.width /
+                                            60),
+                                    child: GestureDetector(
+                                      onTap: () => widget.selectButton(1), // Corrected reference
+                                      child: Container(
+                                        color: Colors.white,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                      50,
+                                                  child: Image.asset(
+                                                      'images/profile.png'),
+                                                ),
+                                                SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                      80,
+                                                ),
+                                                Text(
+                                                  '${snapshot.data![index].firstName ?? ''} ${snapshot.data![index].lastName ?? ''}',
+                                                  style: CustomTextStylesCommon
+                                                      .commonStyle(
+                                                    color: ColorManager.black,
+                                                    fontSize: FontSize.s12,
+                                                    fontWeight:
+                                                    FontWeightManager.bold,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            // SizedBox(
+                                            //   width: MediaQuery.of(context)
+                                            //       .size
+                                            //       .width /
+                                            //       50,
+                                            // ),
+
+                                            ObGeneralHeadingConstant(
+                                                text1: 'Social Security Number',
+                                                text2: 'Type of Clinician',
+                                                text3: 'Phone Number',
+                                                text4: 'Personal Email'),
+
+                                            Column(
+                                              children: [
+                                                ObGeneralDataConstant(
+                                                  text1: snapshot.data![index].ssnnbr,
+                                                  text2: snapshot.data![index].type,
+                                                  text3: snapshot.data![index].primaryPhoneNbr ?? '-',
+                                                  text4: snapshot.data![index].personalEmail ?? '-',
+                                                )
+                                              ],
+                                            ),
+
+                                            ObGeneralHeadingConstant(
+                                              text1: 'Drivers License Number',
+                                              text2: 'Speciality',
+                                              text3: 'City',
+                                              text4: 'Zone',
+                                            ),
+
+                                            Column(
+                                              children: [
+                                                ObGeneralDataConstant(
+                                                  text1: snapshot.data![index].driverLicenseNum,
+                                                  text2: snapshot.data![index].rehirable,///experties
+                                                  text3: snapshot.data![index].cityID.toString(),
+                                                  text4: snapshot.data![index].zoneId.toString(),
+                                                )
+                                              ],
+                                            ),
+
+                                            ObGeneralHeadingConstant(
+                                                text1: 'Address',
+                                                text2: 'Employment',
+                                                text3: 'City',
+                                                text4: 'Date of Birth'),
+
+                                            Column(
+                                              children: [
+                                                ObGeneralDataConstant(
+                                                  text1: snapshot.data![index].finalAddress,
+                                                  text2: snapshot.data![index].employment,
+                                                  text3: snapshot.data![index].cityID.toString(),
+                                                  text4: snapshot.data![index].dateOfBirth,
+                                                )
+                                              ],
+                                            ),
+
+                                            ObGeneralHeadingConstant(
+                                              text1: 'Status',
+                                              text2: 'Race',
+                                              text3: 'Service',
+                                              text4: '',
+                                            ),
+
+                                            Column(
+                                              children: [
+                                                ObGeneralDataConstant(
+                                                  text1: snapshot.data![index].status,
+                                                  text2: snapshot.data![index].race,
+                                                  text3: snapshot.data![index].service,
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      SizedBox(height: AppSize.s8,
-                      )
-                    ],
-                  );
-                }))
+                          SizedBox(
+                            height: AppSize.s5,
+                          )
+                        ],
+                      );
+                    });
+              }
+              return Offstage();
+            },
+          ),
+        )
       ],
     );
   }
@@ -173,15 +284,16 @@ class InfoTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(
           texts.length,
-          (index) => Text(
+              (index) => Text(
             texts[index],
-            style: TextStyle(
+            style: GoogleFonts.firaSans(
+              fontWeight: FontWeightManager.lightbold,
               color: ColorManager.mediumgrey,
-              fontSize: MediaQuery.of(context).size.width / 120,
+              fontSize: FontSize.s10,
             ),
           ),
         ),

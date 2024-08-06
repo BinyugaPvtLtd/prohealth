@@ -5,24 +5,25 @@ import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../app/resources/font_manager.dart';
 
-///saloni
+///saloni///
 class CustomIconButtonConst extends StatelessWidget {
-  final String text;
+  final String? text;
   final IconData? icon;
   final VoidCallback onPressed;
-
+  final double? width;
 
   const CustomIconButtonConst({
-    required this.text,
+    this.text,
     this.icon,
     required this.onPressed,
+    this.width,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-
+      width: width ?? MediaQuery.of(context).size.width / 15, //11
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
@@ -31,7 +32,7 @@ class CustomIconButtonConst extends StatelessWidget {
             blurRadius: 4,
           ),
         ],
-        borderRadius: BorderRadius.circular(12)
+        borderRadius: BorderRadius.circular(12),
       ),
       child: ElevatedButton.icon(
         onPressed: onPressed,
@@ -39,15 +40,15 @@ class CustomIconButtonConst extends StatelessWidget {
             ? Icon(icon!, color: ColorManager.white, size: AppSize.s20)
             : SizedBox.shrink(),
         label: Text(
-          text,
+          text!,
           style: GoogleFonts.firaSans(
             fontSize: AppSize.s12,
             fontWeight: FontWeightManager.bold,
             color: ColorManager.white,
-          )
+          ),
         ),
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: AppSize.s15, vertical: AppSize.s10),
+          padding: EdgeInsets.symmetric(horizontal: AppSize.s10, vertical: AppSize.s10),
           backgroundColor: ColorManager.blueprime,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -59,3 +60,4 @@ class CustomIconButtonConst extends StatelessWidget {
     );
   }
 }
+

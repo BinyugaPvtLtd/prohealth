@@ -8,8 +8,8 @@ import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../../widgets/widgets/login_screen/desk_dashboard_hrm.dart';
-import '../../em_module/responsive_screen_sm.dart';
+import '../../hr_module/hr_home_screen/desk_dashboard_hrm.dart';
+import '../../em_module/responsive_screen_em.dart';
 
 class HomeScreenTab extends StatelessWidget {
   const HomeScreenTab({super.key});
