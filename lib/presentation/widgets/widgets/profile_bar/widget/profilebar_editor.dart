@@ -1274,7 +1274,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                               const SizedBox(width: 3,),
                                                               Text(
                                                                 'Add Coverage',
-                                                                style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                                                                style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s15,
                                                                   fontWeight: FontWeight.w700,
                                                                   color: ColorManager.bluebottom,),
                                                               ),

@@ -93,7 +93,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
               style:FormHeading.customTextStyle(context)
           ),
         ),
-        SizedBox(height: MediaQuery.of(context).size.height / 60),
+        SizedBox(height: MediaQuery.of(context).size.height / 30),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 150),
           child: Container(

@@ -127,31 +127,29 @@ class LicensesChildTabbar extends StatelessWidget {
               ),
               SizedBox(width: 10),
               ///Add button
-              Container(
-                width: 100,
-                margin: EdgeInsets.only(right: 60),
-                child: CustomIconButtonConst(
-                    text: AppStringHr.add,
-                    icon: Icons.add,
-                    onPressed: () {
-                      livensureController.clear();
-                      issueDateController.clear();
-                      expiryDateController.clear();
-                      issuingOrganizationController.clear();
-                      countryController.clear();
-                      numberIDController.clear();
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddLicencesPopup(
-                              onpressedClose: () {
-                                // Navigator.pop(context);
-                              },
-                              title: 'Add License', employeeId: employeeId,
-                            );
-                          });
-                    }),
-              ),
+              CustomIconButtonConst(
+                  width: 80,
+                  text: AppStringHr.add,
+                  icon: Icons.add,
+                  onPressed: () {
+                    livensureController.clear();
+                    issueDateController.clear();
+                    expiryDateController.clear();
+                    issuingOrganizationController.clear();
+                    countryController.clear();
+                    numberIDController.clear();
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddLicencesPopup(
+                            onpressedClose: () {
+                              // Navigator.pop(context);
+                            },
+                            title: 'Add License', employeeId: employeeId,
+                          );
+                        });
+                  }),
+              SizedBox(width: 60,)
             ],
           ),
         ),

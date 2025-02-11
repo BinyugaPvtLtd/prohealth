@@ -258,7 +258,7 @@ class _generalFormState extends State<generalForm> {
             ),
           ),
           const SizedBox(
-            height: AppSize.s5,
+            height: AppSize.s20,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 140),

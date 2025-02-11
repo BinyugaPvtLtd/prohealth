@@ -56,43 +56,41 @@ class AcknowledgementsChildBar extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-              margin: EdgeInsets.only(right: 60),
-              child: CustomIconButtonConst(
-                  width: 130,
-                  text: AppStringHr.addNew,
-                  icon: Icons.add,
-                  onPressed: () async {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return FutureBuilder<List<EmployeeDocSetupModal>>(
-                              future: getEmployeeDocSetupDropDown(
-                                  context, AppConfig.acknowledgementDocId),
-                              builder: (contex, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                }
-                                if (snapshot.hasData) {
-                                  return AcknowledgementAddPopup(
-                                    title: 'Add Acknowledgement',
-                                    employeeId: employeeId,
-                                    // docTypeMetaIdCC: 10,
-                                    // selectedSubDocId: 48,
-                                    dataList: snapshot.data!,
-                                  );
-                                } else {
-                                  return ErrorPopUp(
-                                      title: "Received Error",
-                                      text: snapshot.error.toString());
-                                }
-                              });
-                        });
-                    //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
-                  }),
-            ),
+            CustomIconButtonConst(
+                width: 110,
+                text: AppStringHr.addNew,
+                icon: Icons.add,
+                onPressed: () async {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return FutureBuilder<List<EmployeeDocSetupModal>>(
+                            future: getEmployeeDocSetupDropDown(
+                                context, AppConfig.acknowledgementDocId),
+                            builder: (contex, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasData) {
+                                return AcknowledgementAddPopup(
+                                  title: 'Add Acknowledgement',
+                                  employeeId: employeeId,
+                                  // docTypeMetaIdCC: 10,
+                                  // selectedSubDocId: 48,
+                                  dataList: snapshot.data!,
+                                );
+                              } else {
+                                return ErrorPopUp(
+                                    title: "Received Error",
+                                    text: snapshot.error.toString());
+                              }
+                            });
+                      });
+                  //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+                }),
+            SizedBox(width: 60,)
           ],
         ),
         SizedBox(

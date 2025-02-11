@@ -121,7 +121,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
                 ),
                 child: Text(
           widget.text,
-          style: LoginFlowBase.customTextStyle(context)
+          style: TransparentButtonTextConst.customTextStyle(context)
                 ),
               ),
         );

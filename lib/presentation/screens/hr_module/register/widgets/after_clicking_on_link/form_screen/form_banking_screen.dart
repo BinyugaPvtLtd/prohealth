@@ -167,7 +167,7 @@ class _BankingScreenState extends State<BankingScreen> {
             style:  FormHeading.customTextStyle(context)
           ),
         ),
-        SizedBox(height: MediaQuery.of(context).size.height / 60),
+        SizedBox(height: MediaQuery.of(context).size.height / 30),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 160),
           child: Container(

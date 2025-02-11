@@ -171,7 +171,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
                                     child: Icon(Icons.arrow_drop_down),
                                   ),
                                 ],

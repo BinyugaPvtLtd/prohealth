@@ -89,7 +89,7 @@ class TransparentButtonTextConst {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: FontSize.s14,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
       color: ColorManager.blueprime,
       decoration: TextDecoration.none,
     );

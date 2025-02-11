@@ -123,7 +123,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
               style: FormHeading.customTextStyle(context)
           ),
         ),
-        SizedBox(height: MediaQuery.of(context).size.height / 60),
+        SizedBox(height: MediaQuery.of(context).size.height / 30),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 120),
           child: Container(

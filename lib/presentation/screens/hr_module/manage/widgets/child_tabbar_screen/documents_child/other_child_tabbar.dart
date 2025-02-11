@@ -48,7 +48,7 @@ class OtherChildTabbar extends StatelessWidget {
             // Container(
             //   margin: EdgeInsets.only(right: 60),
             //   child: CustomIconButtonConst(
-            //       width: 130,
+            //       width: 110,
             //       text: AppStringHr.addNew,
             //       icon: Icons.add,
             //       onPressed: () async {

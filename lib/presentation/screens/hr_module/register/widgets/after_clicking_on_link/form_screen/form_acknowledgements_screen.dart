@@ -193,7 +193,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
               style:FormHeading.customTextStyle(context)
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 60),
+          SizedBox(height: MediaQuery.of(context).size.height / 30),
           Container(
             // height: 50,
             // width: 940,
