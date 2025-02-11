@@ -199,15 +199,21 @@ class CustomeTransparentAddShift extends StatelessWidget {
           decoration: BoxDecoration(
               border: Border.all(color: ColorManager.blueprime),
               borderRadius: BorderRadius.circular(30)),
+          padding: EdgeInsets.only(right: 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Icon(Icons.add,
                   color: ColorManager.blueprime,
-                  size: 15),
+                  size: IconSize.I14),
               Text(
                 text,
-                style: TransparentButtonTextConst.customTextStyle(context),
+                style: TextStyle(
+                  fontSize: FontSize.s12,
+                  fontWeight: FontWeight.w600,
+                  color: ColorManager.blueprime,
+                  decoration: TextDecoration.none,
+                ),
               ),
             ],
           )),

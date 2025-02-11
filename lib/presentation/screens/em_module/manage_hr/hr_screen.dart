@@ -748,7 +748,7 @@ class HRTabScreens extends StatelessWidget {
                                                                   typeController: provider.typeController,
                                                                   shorthandController: provider.shorthandController,
                                                                   containerColor: hexColor, // Pass the prefilled color
-                                                                  onSavePressed: () async {
+                                                                  onSavePressed: (String selectedColorToSave) async {
                                                                     print('Selected color: ${provider.colorToHex(provider.hrContainerColors[index])}');
                                                                     var response = await AllFromHrPatch(
                                                                         context,
@@ -756,7 +756,7 @@ class HRTabScreens extends StatelessWidget {
                                                                         snapshot.data!.deptId,
                                                                         type == provider.typeController.text ? type : provider.typeController.text,
                                                                         shorthand == provider.shorthandController.text ? shorthand : provider.shorthandController.text,
-                                                                        provider.colorToHex(provider.hrContainerColors[index]) // Send the updated color
+                                                                        selectedColorToSave//provider.colorToHex(provider.hrContainerColors[index]) // Send the updated color
                                                                     );
 
                                                                     // Refresh data after saving

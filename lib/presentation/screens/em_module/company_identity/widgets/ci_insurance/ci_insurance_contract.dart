@@ -117,7 +117,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
+                                  padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
@@ -89,7 +90,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
     return Material(
       color: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30),
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p60),
         child: Column(
           children: [
             Padding(
@@ -227,7 +228,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     children: [
                                       //SizedBox(height: 5),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
+                                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p10),
                                         child: Container(
                                             decoration: BoxDecoration(
                                               color: Colors.white,
@@ -253,12 +254,12 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                       Container(
                                                           width: 62,
                                                           height: 45,
-                                                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                                                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
                                                           decoration: BoxDecoration(
                                                             borderRadius: BorderRadius.circular(4),
                                                             border: Border.all(width: 2, color: ColorManager.faintGrey),
                                                           ),
-                                                          child: Image.asset('images/Vector.png')),
+                                                          child: SvgPicture.asset('images/doc_vector.svg')),
                                                       SizedBox(width: AppSize.s10,),
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,

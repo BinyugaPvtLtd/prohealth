@@ -105,7 +105,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/25),
+      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/26),
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -276,7 +276,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.all(AppPadding.p8),
+                                        padding: const EdgeInsets.all(AppPadding.p6),
                                         child: Container(
                                             padding: EdgeInsets.only(bottom: AppPadding.p5),
                                             decoration: BoxDecoration(

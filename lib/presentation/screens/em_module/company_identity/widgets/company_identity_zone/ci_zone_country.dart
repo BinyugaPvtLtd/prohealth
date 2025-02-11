@@ -51,9 +51,6 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          const SizedBox(
-            height: AppSize.s5,
-          ),
           Container(
             height: AppSize.s30,
             decoration: BoxDecoration(

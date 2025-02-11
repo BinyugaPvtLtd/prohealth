@@ -29,6 +29,9 @@ class CustomIconButtonConst extends StatelessWidget {
       elevation: 4,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         onTap: onPressed,
         child: Container(
           width: width ?? AppSize.s145,

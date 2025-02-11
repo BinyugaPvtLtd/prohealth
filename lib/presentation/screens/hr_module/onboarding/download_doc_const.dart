@@ -54,7 +54,6 @@ class PdfDownloadButton extends StatelessWidget {
       hoverColor: Colors.transparent,
       icon: Icon(Icons.save_alt_outlined, size: iconsize ?? IconSize.I20, color: Color(0xff1696C8),),
       onPressed: _downloadPdf,
-      tooltip: 'Download PDF',
     );
   }
 }

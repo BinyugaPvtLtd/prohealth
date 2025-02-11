@@ -210,11 +210,16 @@ class HealthEmpDoc extends StatelessWidget {
                         );
                       }
 
-                      final employeeDocs = snapshot.data!;
-                      print('Fetched ${employeeDocs.length} employee documents');
-
-                      final paginatedData = provider.getPaginatedData(employeeDocs);
-
+                      // final employeeDocs = snapshot.data!;
+                      // print('Fetched ${employeeDocs.length} employee documents');
+                      //
+                      // final paginatedData = provider.getPaginatedData(employeeDocs);
+                      int totalItems = snapshot.data!.length;
+                      int totalPages = (totalItems / provider.itemsPerPage).ceil();
+                      List<EmployeeDocumentModal> paginatedData = snapshot.data!
+                          .skip((provider.currentPage - 1) * provider.itemsPerPage)
+                          .take(provider.itemsPerPage)
+                          .toList();
                       return Column(
                         children: [
                           Expanded(
@@ -335,12 +340,30 @@ class HealthEmpDoc extends StatelessWidget {
                           ),
                           PaginationControlsWidget(
                             currentPage: provider.currentPage,
-                            items: employeeDocs,
+                            items: snapshot.data!,
                             itemsPerPage: provider.itemsPerPage,
-                            onPreviousPagePressed: provider.onPreviousPagePressed,
-                            onPageNumberPressed: provider.onPageNumberPressed,
-                            onNextPagePressed: provider.onNextPagePressed,
+                            onPreviousPagePressed: () {
+                              if (provider.currentPage > 1) {
+                                provider.currentPage--;
+                              }
+                            },
+                            onPageNumberPressed: (pageNumber) {
+                              provider.currentPage = pageNumber;
+                            },
+                            onNextPagePressed: () {
+                              if (provider.currentPage < totalPages) {
+                                provider.currentPage++;
+                              }
+                            },
                           ),
+                          // PaginationControlsWidget(
+                          //   currentPage: provider.currentPage,
+                          //   items: employeeDocs,
+                          //   itemsPerPage: provider.itemsPerPage,
+                          //   onPreviousPagePressed: provider.onPreviousPagePressed,
+                          //   onPageNumberPressed: provider.onPageNumberPressed,
+                          //   onNextPagePressed: provider.onNextPagePressed,
+                          // ),
                         ],
                       );
                     },
