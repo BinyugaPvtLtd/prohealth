@@ -135,7 +135,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: AppPadding.p30),
+          padding: const EdgeInsets.only(right: AppPadding.p65),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -222,7 +222,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 60),
+                horizontal: AppPadding.p65),
             child: NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {

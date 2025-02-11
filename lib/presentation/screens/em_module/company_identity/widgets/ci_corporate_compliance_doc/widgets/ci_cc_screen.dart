@@ -141,7 +141,7 @@ class _CiCorporateComplianceScreenState
                 child: Container()),
             ///tabbar
             Expanded(
-              flex: 5,
+              flex: 4,
               child: Padding(
                 padding: const EdgeInsets.only(top: AppPadding.p10),
                 child: Row(
@@ -170,7 +170,7 @@ class _CiCorporateComplianceScreenState
 
            ///button
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p5, right: AppPadding.p20),
+              padding: const EdgeInsets.only(bottom: AppPadding.p5, right: AppPadding.p65),
               child: CustomIconButtonConst(
                   icon: Icons.add,
                   text: AppStringEM.addDocument,
@@ -221,7 +221,7 @@ class _CiCorporateComplianceScreenState
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 60),
+                horizontal: AppPadding.p65),
             child: NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {

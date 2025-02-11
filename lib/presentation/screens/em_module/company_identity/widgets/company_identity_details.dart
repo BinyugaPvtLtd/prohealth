@@ -137,7 +137,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
 
                   rowChildren.add(
                     Padding(
-                      padding: const EdgeInsets.only(top: AppPadding.p10, bottom: AppPadding.p10),
+                      padding: const EdgeInsets.only( bottom: AppPadding.p12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -403,7 +403,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                 children: [
                   Padding(
                     padding:
-                    const EdgeInsets.symmetric(vertical: AppPadding.p20),
+                    const EdgeInsets.only(bottom: AppPadding.p25),
                     child: Row(
                       children: [
                         Text(

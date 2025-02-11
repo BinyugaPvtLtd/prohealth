@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
@@ -133,7 +134,7 @@ class _CICCADRState extends State<CICCADR> {
                                   children: [
                                     // SizedBox(height: 5),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
+                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: ColorManager.white,
@@ -157,12 +158,12 @@ class _CICCADRState extends State<CICCADR> {
                                                     Container(
                                                         width: 62,
                                                         height: 45,
-                                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
                                                         decoration: BoxDecoration(
                                                           borderRadius: BorderRadius.circular(4),
                                                           border: Border.all(width: 2, color: ColorManager.faintGrey),
                                                         ),
-                                                        child: Image.asset('images/Vector.png')),
+                                                        child:SvgPicture.asset('images/doc_vector.svg')),
                                                     SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,

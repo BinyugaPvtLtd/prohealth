@@ -544,28 +544,18 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
               FutureBuilder<List<HRHeadBar>>(
                 future: companyHRHeadApi(context, deptId),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     List<String>dropDownServiceList =[];
-                    return Column(
-                      children: [
-                        Container(
-                            alignment: Alignment.center,
-                            child:
-                            HRUManageDropdown(
-                              controller:
-                              TextEditingController(
-                                  text: selectedDeptName ?? ''
-                              ),
-                              labelFontSize: FontSize.s12,
-                              items:  dropDownServiceList,
-                            )
-                        ),
-                        SizedBox(height: AppSize.s14,),
-                      ],
+                    return Container(
+                        alignment: Alignment.center,
+                        child: HRUManageDropdown(
+                          controller: TextEditingController(text: selectedDeptName ?? ''),
+                          labelFontSize: FontSize.s12,
+                          items:  dropDownServiceList,
+                        )
                     );
                   }
-                  if (snapshot.hasData && snapshot.data!.isEmpty) {
+                  if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
                         ErrorMessageString.noroleAdded,
@@ -575,46 +565,24 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   }
                   if (snapshot.hasData) {
 
-                    List<String> dropDownServiceList = snapshot
-                        .data!
-                        .map((dept) => dept.deptName!)
-                        .toList();
-                    String? firstDeptName =
-                    snapshot.data!.isNotEmpty
-                        ? snapshot.data![0].deptName
-                        : null;
-                    int? firstDeptId = snapshot.data!.isNotEmpty
-                        ? snapshot.data![0].deptId
-                        : null;
+                    List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName!).toList();
+                    // String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName : null;
+                    // int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId : null;
                     return StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            HRUManageDropdown(
-                              controller: TextEditingController(
-                                  text: selectedDeptName ?? ''),
-                              hintText: "Department",
-                              labelFontSize: FontSize.s12,
-                              items: dropDownServiceList,
-                              onChanged: (val) {
-                                setState(() {
-                                  _departmentError = null;
-                                  selectedDeptName = val;
-                                  selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
-                                });
-                              },
-                            ),
-                            _departmentError != null ?
-                            Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
-                              child: Text(
-                                _departmentError!,
-                                style: CommonErrorMsg.customTextStyle(context),
-                              ),
-                            ) : SizedBox(height: AppSize.s14,),
-                          ],
+                        return HRUManageDropdown(
+                          controller: TextEditingController(
+                              text: selectedDeptName ?? ''),
+                          hintText: "Department",
+                          labelFontSize: FontSize.s12,
+                          items: dropDownServiceList,
+                          onChanged: (val) {
+                            setState(() {
+                              _departmentError = null;
+                              selectedDeptName = val;
+                              selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                            });
+                          },
                         );
                       },
                     );
@@ -622,6 +590,15 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   return const SizedBox();
                 },
               ),
+              _departmentError != null ?
+              Padding(
+                padding: const EdgeInsets.only(top: 2.0),
+                child: Text(
+                  _departmentError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
+              )
+                  : SizedBox(height: AppSize.s14,),
               SizedBox(height: AppSize.s9,),
               SMTextfieldAsteric(controller: widget.emailController,
                   keyboardType: TextInputType.emailAddress,

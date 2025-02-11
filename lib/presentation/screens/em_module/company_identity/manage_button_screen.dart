@@ -99,8 +99,8 @@ class _ManageWidgetState extends State<ManageWidget> {
       child: Column(
         children: [
           Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSize.s140, vertical: AppPadding.p20),
+                  padding: const EdgeInsets.only(
+                      left: AppSize.s140, bottom: AppPadding.p30,top: AppPadding.p20),
                   child: Row(
                     children: [
                       Text(

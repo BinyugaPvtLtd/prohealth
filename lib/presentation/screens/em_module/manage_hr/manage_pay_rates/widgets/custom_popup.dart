@@ -165,7 +165,7 @@ class PayRateAddPopup extends StatelessWidget {
                            Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CICCDropDownExcel(
+                              CICCDropdown(
                                 initialValue: visitList.isEmpty ? ErrorMessageString.noVisit :provider.docAddVisitTypeId,
                                 onChange: (val) {
                                   for (var a in visitList) {
