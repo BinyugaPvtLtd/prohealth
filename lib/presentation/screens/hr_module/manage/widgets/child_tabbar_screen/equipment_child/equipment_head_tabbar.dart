@@ -60,7 +60,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                       context: context,
                       builder: (_) => EquipmentAddPopup(employeeId: widget.employeeId));
                 }),
-            SizedBox(width: 60,)
+            SizedBox(width: 30,)
           ],
         ),
         SizedBox(
