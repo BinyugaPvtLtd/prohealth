@@ -301,7 +301,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         // crossAxisAlignment: CrossAxisAlignment.start,
+
                             children: List.generate(
                               6,
                                   (index) {
