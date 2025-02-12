@@ -1,9 +1,6 @@
 import 'dart:async';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -20,25 +17,20 @@ import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profile_bar_editor_popup.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
-import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/profile_mnager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
-import '../../../../../data/api_data/api_data.dart';
-import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../../data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import '../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import '../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 import '../../../../screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import '../../../../screens/em_module/widgets/dialogue_template.dart';
 import 'add_coverage_popup.dart';
 
 
@@ -89,37 +81,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   _countyStreamController =
   StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
   TextEditingController dummyCtrl = TextEditingController();
-
   TextEditingController nameController = TextEditingController();
-
   TextEditingController deptController = TextEditingController();
-
   TextEditingController empTypeController = TextEditingController();
-
   TextEditingController addressController = TextEditingController();
-
   TextEditingController ageController = TextEditingController();
-
   TextEditingController genderController = TextEditingController();
-
   TextEditingController ssNController = TextEditingController();
-
   TextEditingController workPhoneController = TextEditingController();
-
   TextEditingController phoneNController = TextEditingController();
-
   TextEditingController personalEmailController = TextEditingController();
-
   TextEditingController workEmailController = TextEditingController();
-
   TextEditingController zoneController = TextEditingController();
-
   TextEditingController countyController = TextEditingController();
-
   TextEditingController serviceController = TextEditingController();
-
   TextEditingController reportingOfficeController = TextEditingController();
-
   TextEditingController summaryController = TextEditingController();
   List<DropdownMenuItem<String>> countyDropDownList = [];
   List<DropdownMenuItem<String>> zoneDropDownList = [];
@@ -190,8 +166,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-
-    // print("Edit Mode Cancel :::::::::::::::::::::::############");
     return FutureBuilder<ProfileEditorModal>(
           future: getEmployeePrefill(context, widget.employeeId),
           builder: (context, snapshot) {
@@ -302,31 +276,22 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                 ],
                                                               ),
                                                               child: CircleAvatar(
-                                                                radius: 30, // Adjust the size of the avatar
-                                                                //backgroundColor: ColorManager.faintGrey,
+                                                                radius: 30,
                                                                 child: ClipOval(
                                                                   child: Image.memory(
-                                                                    finalPath!, // Display the selected image from gallery
-                                                                    fit: BoxFit.cover, // Ensure the image fills the avatar
-                                                                    width: double.infinity, // Ensures the image fills the avatar width
-                                                                    height: double.infinity, // Ensures the image fills the avatar height
+                                                                    finalPath!,
+                                                                    fit: BoxFit.cover,
+                                                                    width: double.infinity,
+                                                                    height: double.infinity,
                                                                   ),
                                                                 ),
                                                               ),
                                                             )
                                                                 : profileData.imgurl == null
-                                                                ? const Text('') // Display nothing if no image is available
+                                                                ? const Text('')
                                                                 : Container(
                                                               decoration: BoxDecoration(
                                                                 shape: BoxShape.circle,
-                                                                // boxShadow: [
-                                                                //   BoxShadow(
-                                                                //     color: Colors.black.withOpacity(0.2),
-                                                                //     spreadRadius: 2,
-                                                                //     blurRadius: 5,
-                                                                //     offset: const Offset(0, 3), // Shadow position
-                                                                //   ),
-                                                                // ],
                                                               ),
                                                               child: CircleAvatar(
                                                                 radius: 20, // Adjust the size of the avatar
@@ -352,22 +317,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                   ),
                                                                 ),
                                                               ),
-                                                              // CircleAvatar(
-                                                              //   radius: 20, // Adjust the size of the avatar
-                                                              //   backgroundColor: ColorManager.faintGrey,
-                                                              //   child: ClipOval(
-                                                              //     child: CachedNetworkImage(
-                                                              //       imageUrl: profileData.imgurl,
-                                                              //       fit: BoxFit.cover, // Ensures the image fills the avatar
-                                                              //       width: double.infinity, // Ensures the image fills the avatar width
-                                                              //       height: double.infinity, // Ensures the image fills the avatar height
-                                                              //       placeholder: (context, url) =>
-                                                              //       const CircularProgressIndicator(),
-                                                              //       errorWidget: (context, url, error) =>
-                                                              //           CircleAvatar(child: Image.asset("images/profilepic.png",fit:BoxFit.cover),),
-                                                              //     ),
-                                                              //   ),
-                                                              // ),
                                                             ),
                                                             const SizedBox(width: 10),
                                                             // Custom icon button for uploading files
@@ -428,7 +377,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       child: CircularProgressIndicator(
                                                         color: ColorManager.blueprime,
                                                       ),
-                                                    ) :CustomButton(
+                                                    )
+                                                        :CustomButton(
                                                       height: AppSize.s30,
                                                       width: AppSize.s100,
                                                       onPressed: () async {
@@ -576,7 +526,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       ),
                                       const SizedBox(height: 10,),
 
-                                      /// row 1
+                                      /// row 1 work 1
                                       Padding(
                                         padding: const EdgeInsets.only(left:18,right:23),
                                         child: Row(
@@ -586,10 +536,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               controller: nameController,
                                               keyboardType: TextInputType.text,
                                               text: AppString.name,
-
                                             ),
-
-
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -607,7 +554,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     ],
                                                   ),
                                                 ),
-                                                //Text('Select Employee Type', style: AllPopupHeadings.customTextStyle(context)),
                                                 SizedBox(height: 5,),
                                                 FutureBuilder<List<AEClinicalDiscipline>>(
                                                   future: HrAddEmplyClinicalDisciplinApi(context, deptId),
@@ -617,10 +563,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                         alignment: Alignment.center,
                                                         child: HRUManageDropdown(
                                                           controller: TextEditingController(text: ''),
-                                                         // labelText: 'Select Employee Type',
-                                                         //  labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                         //    color: Color(0xff575757),
-                                                         //    fontWeight: FontWeight.w500,),
                                                           labelFontSize: 12,
                                                           items: [], // Empty while loading
                                                         ),
@@ -629,10 +571,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     if (snapshot.hasData && snapshot.data!.isEmpty) {
                                                       return HRUManageDropdown(
                                                         controller: TextEditingController(text: ''),
-                                                        //labelText: 'Select Employee Type',
-                                                        // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                        //   color: ColorManager.mediumgrey,
-                                                        //   fontWeight: FontWeight.w500,),
                                                         labelFontSize: 12,
                                                         items: [],
                                                       );
@@ -651,10 +589,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                                       return HRUManageDropdown(
                                                         controller: TextEditingController(text: profileData.employeType),
-                                                       // labelText: "Select Employee Type",
-                                                       //  labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                       //    color: ColorManager.mediumgrey,
-                                                       //    fontWeight: FontWeight.w500,),
                                                         labelFontSize: 12,
                                                         items: dropDownEmployeeTypes,
                                                         onChanged: (val) {
@@ -682,122 +616,15 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               text: 'Department',
                                               enable:false
                                             ),
-                                            // Column(
-                                            //   crossAxisAlignment: CrossAxisAlignment.start,
-                                            //   children: [
-                                            //     // RichText(
-                                            //     //   text: TextSpan(
-                                            //     //     text: "Select Department", // Main text
-                                            //     //     style: AllPopupHeadings.customTextStyle(context), // Main style
-                                            //     //     children: [
-                                            //     //       TextSpan(
-                                            //     //         text: ' *', // Asterisk
-                                            //     //         style: AllPopupHeadings.customTextStyle(context).copyWith(
-                                            //     //           color: ColorManager.red, // Asterisk color
-                                            //     //         ),
-                                            //     //       ),
-                                            //     //     ],
-                                            //     //   ),
-                                            //     // ),
-                                            //    // Text('Select Department', style: AllPopupHeadings.customTextStyle(context)),
-                                            //     SizedBox(height: 5,),
-                                            //
-                                            //     // FutureBuilder<List<HRHeadBar>>(
-                                            //     //   future: companyHRHeadApi(context, deptId),
-                                            //     //   builder: (context, snapshot) {
-                                            //     //     if (snapshot.connectionState ==
-                                            //     //         ConnectionState.waiting) {
-                                            //     //       List<String>dropDownServiceList =[];
-                                            //     //       return Container(
-                                            //     //           alignment: Alignment.center,
-                                            //     //           child:
-                                            //     //           HRUManageDropdown(
-                                            //     //             controller: TextEditingController(
-                                            //     //                 text: ''),
-                                            //     //             //labelText: 'Select Department',
-                                            //     //             // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                            //     //             //   color: Color(0xff575757),
-                                            //     //             //   fontWeight: FontWeight.w500,),
-                                            //     //             labelFontSize: 12,
-                                            //     //             items:  dropDownServiceList,
-                                            //     //
-                                            //     //           )
-                                            //     //       );
-                                            //     //     }
-                                            //     //     if (snapshot.hasData &&
-                                            //     //         snapshot.data!.isEmpty) {
-                                            //     //       return Center(
-                                            //     //         child: Text(
-                                            //     //           ErrorMessageString.noroleAdded,
-                                            //     //           style: CustomTextStylesCommon.commonStyle(
-                                            //     //             fontWeight: FontWeight.w500,
-                                            //     //             fontSize: FontSize.s14,
-                                            //     //             color: ColorManager.mediumgrey,
-                                            //     //           ),
-                                            //     //         ),
-                                            //     //       );
-                                            //     //     }
-                                            //     //     if (snapshot.hasData) {
-                                            //     //
-                                            //     //       // Extract dropdown items from snapshot
-                                            //     //       List<String> dropDownServiceList = snapshot
-                                            //     //           .data!
-                                            //     //           .map((dept) => dept.deptName!)
-                                            //     //           .toList();
-                                            //     //       String? firstDeptName =
-                                            //     //       snapshot.data!.isNotEmpty
-                                            //     //           ? snapshot.data![0].deptName
-                                            //     //           : null;
-                                            //     //       int? firstDeptId = snapshot.data!.isNotEmpty
-                                            //     //           ? snapshot.data![0].deptId
-                                            //     //           : null;
-                                            //     //
-                                            //     //       if (selectedDeptName == null &&
-                                            //     //           dropDownServiceList.isNotEmpty) {
-                                            //     //         // selectedDeptName = firstDeptName;
-                                            //     //         // selectedDeptId = firstDeptId;
-                                            //     //       }
-                                            //     //
-                                            //     //       return HRUManageDropdown(
-                                            //             controller: TextEditingController(
-                                            //                 text: profileData.department),
-                                            //     //         //labelText: "Select Department",
-                                            //     //         // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                            //     //         //   color: const Color(0xff575757),
-                                            //     //         //   fontWeight: FontWeight.w500,),
-                                            //     //         labelFontSize: 12,
-                                            //     //         items: dropDownServiceList,
-                                            //     //         onChanged: (val) {
-                                            //     //           // setState(() {
-                                            //     //           selectedDeptName = val;
-                                            //     //           selectedDeptId = snapshot.data!
-                                            //     //               .firstWhere(
-                                            //     //                   (dept) => dept.deptName == val)
-                                            //     //               .deptId;
-                                            //     //           // });
-                                            //     //         },
-                                            //     //       );
-                                            //     //     }
-                                            //     //     return const SizedBox();
-                                            //     //   },
-                                            //     // ),
-                                            //   ],
-                                            // ),
                                           ],
                                         ),
                                       ),
-                                      ///row 2
+                                      ///row 2 work 1
                                       Padding(
                                         padding: const EdgeInsets.only(left:18,right: 23),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            // FirstSMTextFConst(
-                                            //   controller: addressController,
-                                            //   keyboardType: TextInputType.text,
-                                            //   text: AppString.addresss,
-                                            //
-                                            // ),
                                             AddressInput(
                                               controller: addressController,
                                               onSuggestionSelected: (selectedSuggestion) {
@@ -805,8 +632,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 print("Selected suggestion: $selectedSuggestion");
                                               }, onChanged: (String ) {  },
                                             ),
-
-
 
                                             FirstSMTextFConst(
                                               controller: ageController,
@@ -831,7 +656,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     ],
                                                   ),
                                                 ),
-                                               // Text('Gender', style: AllPopupHeadings.customTextStyle(context)),
                                                 const SizedBox(height: 5,),
                                                 FutureBuilder<List<GenderData>>(
                                                   future: getGenderDropdown(context),
@@ -854,11 +678,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       }
                                                       return HRUManageDropdown(
                                                         hintText: "Gender",
-                                                        // labelStyle: const TextStyle(
-                                                        //   fontSize: 12,
-                                                        //   color: Color(0xff575757),
-                                                        //   fontWeight: FontWeight.w400,
-                                                        // ),
                                                         labelFontSize: 12,
                                                         items: dropDownList,
                                                         onChanged: (newValue) {
@@ -879,16 +698,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 ),
                                               ],
                                             ),
-                                            // FirstSMTextFConst(
-                                            //   controller: genderController,
-                                            //   keyboardType: TextInputType.text,
-                                            //   text: 'Gender',
-                                            //   // showDatePicker: true,
-                                            // ),
                                           ],
                                         ),
                                       ),
-                                      ///row 3
+                                      ///row 3 work
                                       Padding(
                                         padding: const EdgeInsets.only(left:18,right: 23),
                                         child: Row(
@@ -898,28 +711,23 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               controller: ssNController,
                                               keyboardType: TextInputType.number,
                                               text: AppString.ssnProfile,
-                                              // showDatePicker: true,
                                             ),
 
                                             SMTextFConstPhone(
                                               controller: phoneNController,
                                               keyboardType: TextInputType.phone,
                                               text: AppString.phone_number,
-
-                                              // showDatePicker: true,
                                             ),
                                             SMTextFConstPhone(
                                               controller: workPhoneController,
                                               keyboardType: TextInputType.text,
                                               text:  AppStringMobile.worNo,
-
-                                              // showDatePicker: true,
                                             ),
                                           ],
                                         ),
                                       ),
 
-                                      /// row 4
+                                      /// row 4 work
                                       Padding(
                                         padding: const EdgeInsets.only(left:18,right:23),
                                         child: Row(
@@ -971,40 +779,31 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     ],
                                                   ),
                                                 ),
-                                               // Text('Select Service', style: AllPopupHeadings.customTextStyle(context)),
                                                 SizedBox(height: 5,),
                                                 FutureBuilder<List<ServicesMetaData>>(
                                                   future: getServicesMetaData(context),
                                                   builder: (context, snapshot) {
                                                     if (snapshot.connectionState == ConnectionState.waiting) {
-                                                      // Show loading indicator or dummy dropdown
                                                       return HRUManageDropdown(
                                                         hintText: '',
                                                         controller: TextEditingController(text: ''),
-                                                        // labelText: 'Select Service',
-                                                        // labelStyle: TextStyle(fontSize: 14),
                                                         items: [], labelFontSize: 12,
                                                       );
                                                     }
 
                                                     if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                                      List<String> serviceNames = snapshot.data!
-                                                          .map((service) => service.serviceName)
-                                                          .toList();
+                                                      List<String> serviceNames = snapshot.data!.map((service) => service.serviceName).toList();
 
                                                       return HRUManageDropdown(
                                                         controller: TextEditingController(text:profileData.service),
-                                                        // labelText: 'Select Service',
                                                         hintText: 'Select Service',
                                                         items: serviceNames,
                                                         onChanged: (val) {
-                                                          // Handle selected service
                                                           var selectedService = snapshot.data!
                                                               .firstWhere((service) => service.serviceName == val);
                                                           selectedServiceId = selectedService.serviceName;
                                                           print('Selected Service ID: ${selectedService.serviceId}');
                                                         },
-                                                        // labelStyle:  const TextStyle(fontSize: 14),
                                                         labelFontSize: 12 ,
                                                       );
                                                     }
@@ -1030,7 +829,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     ],
                                                   ),
                                                 ),
-                                               // Text('Reporting Office', style: AllPopupHeadings.customTextStyle(context)),
                                                 const SizedBox(height: 5,),
                                                 FutureBuilder<List<CompanyOfficeListData>>(
                                                   future: getCompanyOfficeList(context),
@@ -1038,21 +836,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     if (snapshot.connectionState ==
                                                         ConnectionState.waiting) {
                                                       return HRUManageDropdown(
-
                                                         hintText: "Reporting Office",
-                                                        // width: 320,
-                                                        // height: 40,
                                                         controller: TextEditingController(text:""),
                                                         items: ['item 1', 'item 2'],
-                                                        // labelText: 'Reporting Office',
-                                                        // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                        //   color: const Color(0xff575757),
-                                                        //   fontWeight: FontWeight.w400,),
-                                                        // GoogleFonts.firaSans(
-                                                        //   fontSize: 12,
-                                                        //   color: Color(0xff575757),
-                                                        //   fontWeight: FontWeight.w400,
-                                                        // ),
                                                         labelFontSize: 12,
                                                       );
                                                     }
@@ -1092,7 +878,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  //color: Colors.red,
                                                   width:354,
                                                   height:30,
                                                 ),
@@ -1108,7 +893,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           return  Column(
                                             children: [
                                               Row(
-                                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Padding(
                                                     padding: const EdgeInsets.only(top: 10.0, left: 18,bottom: 5),
@@ -1126,7 +910,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 ],
                                               ),
                                               ///Coverage
-                                              ///
                                               FutureBuilder <EmployeeModel>(
                                                   future: getCoverageList(context: context, employeeId: widget.employeeId,
                                                       employeeEnrollId:profileData.employeeEnrollId ),
@@ -1291,49 +1074,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       ),
                                     ],
                                   ),
-                                    // if (_suggestions.isNotEmpty)
-                                    //   Positioned(
-                                    //     top: 55,
-                                    //     right: 60,
-                                    //     child: Container(
-                                    //       height: 100,
-                                    //       width: 300,
-                                    //       decoration: BoxDecoration(
-                                    //         color: Colors.white,
-                                    //         borderRadius: BorderRadius.circular(8),
-                                    //         boxShadow: [
-                                    //           BoxShadow(
-                                    //             color: Colors.black26,
-                                    //             blurRadius: 4,
-                                    //             offset: Offset(0, 2),
-                                    //           ),
-                                    //         ],
-                                    //       ),
-                                    //       child: ListView.builder(
-                                    //         shrinkWrap: true,
-                                    //         itemCount: _suggestions.length,
-                                    //         itemBuilder: (context, index) {
-                                    //           return ListTile(
-                                    //             title: Text(
-                                    //               _suggestions[index],
-                                    //               style: TableSubHeading.customTextStyle(context),
-                                    //             ),
-                                    //             onTap: () {
-                                    //               FocusScope.of(context)
-                                    //                   .unfocus(); // Dismiss the keyboard
-                                    //               String selectedSuggestion = _suggestions[index];
-                                    //               addressController.text = selectedSuggestion;
-                                    //
-                                    //               setState(() {
-                                    //                 _suggestions.clear();
-                                    //                 //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
-                                    //               });
-                                    //             },
-                                    //           );
-                                    //         },
-                                    //       ),
-                                    //     ),
-                                    //   ),
                                   ]
                               ),
                               const SizedBox(height: 20,),
@@ -1345,14 +1085,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   ),
                 ],
               );
-
             }
             return const Center(
               child: Text('No data available'),
             );
           },
         );
-
   }
 }
 
@@ -1523,11 +1261,6 @@ class ProfileEditCancelButton extends StatelessWidget {
     final defaultTextStyle =  CustomTextStylesCommon.commonStyle( color: textColor,
       fontSize: FontSize.s14,
       fontWeight: FontWeight.w600,);
-    // GoogleFonts.firaSans(
-    //   color: textColor,
-    //   fontSize: 12,
-    //   fontWeight: FontWeightManager.bold,
-    // );
     final mergedTextStyle = defaultTextStyle.merge(style);
     return Container(
       width: width,
@@ -1558,9 +1291,6 @@ class ProfileEditCancelButton extends StatelessWidget {
     );
   }
 }
-
-
-
 
 class AddressInput extends StatefulWidget {
   final TextEditingController controller;
@@ -1695,130 +1425,152 @@ class _AddressInputState extends State<AddressInput> {
     );
   }
 }
+///department dropdown
+// Column(
+//   crossAxisAlignment: CrossAxisAlignment.start,
+//   children: [
+//     // RichText(
+//     //   text: TextSpan(
+//     //     text: "Select Department", // Main text
+//     //     style: AllPopupHeadings.customTextStyle(context), // Main style
+//     //     children: [
+//     //       TextSpan(
+//     //         text: ' *', // Asterisk
+//     //         style: AllPopupHeadings.customTextStyle(context).copyWith(
+//     //           color: ColorManager.red, // Asterisk color
+//     //         ),
+//     //       ),
+//     //     ],
+//     //   ),
+//     // ),
+//    // Text('Select Department', style: AllPopupHeadings.customTextStyle(context)),
+//     SizedBox(height: 5,),
+//
+//     // FutureBuilder<List<HRHeadBar>>(
+//     //   future: companyHRHeadApi(context, deptId),
+//     //   builder: (context, snapshot) {
+//     //     if (snapshot.connectionState ==
+//     //         ConnectionState.waiting) {
+//     //       List<String>dropDownServiceList =[];
+//     //       return Container(
+//     //           alignment: Alignment.center,
+//     //           child:
+//     //           HRUManageDropdown(
+//     //             controller: TextEditingController(
+//     //                 text: ''),
+//     //             //labelText: 'Select Department',
+//     //             // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+//     //             //   color: Color(0xff575757),
+//     //             //   fontWeight: FontWeight.w500,),
+//     //             labelFontSize: 12,
+//     //             items:  dropDownServiceList,
+//     //
+//     //           )
+//     //       );
+//     //     }
+//     //     if (snapshot.hasData &&
+//     //         snapshot.data!.isEmpty) {
+//     //       return Center(
+//     //         child: Text(
+//     //           ErrorMessageString.noroleAdded,
+//     //           style: CustomTextStylesCommon.commonStyle(
+//     //             fontWeight: FontWeight.w500,
+//     //             fontSize: FontSize.s14,
+//     //             color: ColorManager.mediumgrey,
+//     //           ),
+//     //         ),
+//     //       );
+//     //     }
+//     //     if (snapshot.hasData) {
+//     //
+//     //       // Extract dropdown items from snapshot
+//     //       List<String> dropDownServiceList = snapshot
+//     //           .data!
+//     //           .map((dept) => dept.deptName!)
+//     //           .toList();
+//     //       String? firstDeptName =
+//     //       snapshot.data!.isNotEmpty
+//     //           ? snapshot.data![0].deptName
+//     //           : null;
+//     //       int? firstDeptId = snapshot.data!.isNotEmpty
+//     //           ? snapshot.data![0].deptId
+//     //           : null;
+//     //
+//     //       if (selectedDeptName == null &&
+//     //           dropDownServiceList.isNotEmpty) {
+//     //         // selectedDeptName = firstDeptName;
+//     //         // selectedDeptId = firstDeptId;
+//     //       }
+//     //
+//     //       return HRUManageDropdown(
+//             controller: TextEditingController(
+//                 text: profileData.department),
+//     //         //labelText: "Select Department",
+//     //         // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+//     //         //   color: const Color(0xff575757),
+//     //         //   fontWeight: FontWeight.w500,),
+//     //         labelFontSize: 12,
+//     //         items: dropDownServiceList,
+//     //         onChanged: (val) {
+//     //           // setState(() {
+//     //           selectedDeptName = val;
+//     //           selectedDeptId = snapshot.data!
+//     //               .firstWhere(
+//     //                   (dept) => dept.deptName == val)
+//     //               .deptId;
+//     //           // });
+//     //         },
+//     //       );
+//     //     }
+//     //     return const SizedBox();
+//     //   },
+//     // ),
+//   ],
+// ),
 
 
-
-
-// class AddressInput extends StatefulWidget {
-//   final TextEditingController controller;
-//   final Function(String)? onSuggestionSelected; // Callback to notify parent
-//
-//   AddressInput({required this.controller, this.onSuggestionSelected});
-//
-//   @override
-//   _AddressInputState createState() => _AddressInputState();
-// }
-//
-// class _AddressInputState extends State<AddressInput> {
-//   List<String> _suggestions = [];
-//   OverlayEntry? _overlayEntry;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     widget.controller.addListener(_onCountyNameChanged);
-//   }
-//
-//   @override
-//   void dispose() {
-//     widget.controller.removeListener(_onCountyNameChanged);
-//     _removeOverlay();
-//     super.dispose();
-//   }
-//
-//   void _onCountyNameChanged() async {
-//     final query = widget.controller.text;
-//     if (query.isEmpty) {
-//       _suggestions.clear();
-//       _removeOverlay();
-//       return;
-//     }
-//
-//     final suggestions = await fetchSuggestions(query);
-//     setState(() {
-//       _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
-//     });
-//     _showOverlay();
-//   }
-//
-//   void _showOverlay() {
-//     _removeOverlay();
-//
-//     if (_suggestions.isEmpty) return;
-//
-//     final overlay = Overlay.of(context);
-//     final renderBox = context.findRenderObject() as RenderBox;
-//     final position = renderBox.localToGlobal(Offset.zero);
-//
-//     _overlayEntry = OverlayEntry(
-//       builder: (context) => Positioned(
-//         left: position.dx,
-//         top: position.dy + renderBox.size.height,
-//         width: 354,
-//         child: Material(
-//           elevation: 4.0,
-//           borderRadius: BorderRadius.circular(8),
-//           child: Container(
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.circular(8),
-//               boxShadow: [
-//                 BoxShadow(
-//                   color: Colors.black26,
-//                   blurRadius: 4,
-//                   offset: Offset(0, 2),
-//                 ),
-//               ],
-//             ),
-//             child: ConstrainedBox(
-//               constraints: BoxConstraints(
-//                 maxHeight: _suggestions.length > 5 ? 80.0 : double.infinity,
-//               ),
-//               child: ListView.builder(
-//                 padding: EdgeInsets.zero,
-//                 shrinkWrap: true,
-//                 itemCount: _suggestions.length,
-//                 itemBuilder: (context, index) {
-//                   return ListTile(
-//                     title: Text(
-//                       _suggestions[index],
-//                       style: TableSubHeading.customTextStyle(context),
-//                     ),
-//                     onTap: () {
-//                       FocusScope.of(context).unfocus();
-//                       widget.controller.text = _suggestions[index];
-//                       _suggestions.clear();
-//                       _removeOverlay();
-//
-//                       // Call the callback with the selected suggestion
-//                       if (widget.onSuggestionSelected != null) {
-//                         widget.onSuggestionSelected!(_suggestions[index]);
-//                       }
-//                     },
-//                   );
-//                 },
-//               ),
-//             ),
+///suggestion
+// if (_suggestions.isNotEmpty)
+//   Positioned(
+//     top: 55,
+//     right: 60,
+//     child: Container(
+//       height: 100,
+//       width: 300,
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.circular(8),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.black26,
+//             blurRadius: 4,
+//             offset: Offset(0, 2),
 //           ),
-//         ),
+//         ],
 //       ),
-//     );
+//       child: ListView.builder(
+//         shrinkWrap: true,
+//         itemCount: _suggestions.length,
+//         itemBuilder: (context, index) {
+//           return ListTile(
+//             title: Text(
+//               _suggestions[index],
+//               style: TableSubHeading.customTextStyle(context),
+//             ),
+//             onTap: () {
+//               FocusScope.of(context)
+//                   .unfocus(); // Dismiss the keyboard
+//               String selectedSuggestion = _suggestions[index];
+//               addressController.text = selectedSuggestion;
 //
-//     overlay.insert(_overlayEntry!);
-//   }
-//
-//   void _removeOverlay() {
-//     _overlayEntry?.remove();
-//     _overlayEntry = null;
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return FirstSMTextFConst(
-//       controller: widget.controller,
-//       keyboardType: TextInputType.text,
-//       text: AppString.addresss,
-//     );
-//   }
-// }
+//               setState(() {
+//                 _suggestions.clear();
+//                 //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+//               });
+//             },
+//           );
+//         },
+//       ),
+//     ),
+//   ),
 

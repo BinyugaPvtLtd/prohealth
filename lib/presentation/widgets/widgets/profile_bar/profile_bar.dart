@@ -216,7 +216,7 @@ class ProfileBar extends StatelessWidget {
                                               if (snapshot.connectionState ==
                                                   ConnectionState.waiting) {
                                                 return Padding(
-                                                  padding: const EdgeInsets.only(bottom: 48.0),
+                                                  padding: const EdgeInsets.only(bottom: 43.0),
                                                   child: Column(
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
@@ -229,7 +229,7 @@ class ProfileBar extends StatelessWidget {
                                                 );
                                               }
                                               return Padding(
-                                                padding: const EdgeInsets.only(bottom: 48.0),
+                                                padding: const EdgeInsets.only(bottom: 43.0),
                                                 child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
@@ -247,7 +247,7 @@ class ProfileBar extends StatelessWidget {
                                   SizedBox(width: 30,),
                                   ///edit button column
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 18.0, bottom: 12),
+                                    padding: const EdgeInsets.only(top: 18.0, bottom: 8),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,9 +315,12 @@ class ProfileBar extends StatelessWidget {
                                           searchByEmployeeIdProfileData!.zone,
                                           style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                         ),
-                                        Text(
-                                          AppString.address,
-                                          style: ThemeManagerDark.customTextStyle(context),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 2.0),
+                                          child: Text(
+                                            AppString.address,
+                                            style: ThemeManagerDark.customTextStyle(context),
+                                          ),
                                         ),
 
                                         MouseRegion(
@@ -348,22 +351,6 @@ class ProfileBar extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-
-                                        // MouseRegion(
-                                        //   onEnter: (event) => profileState.showOverlayAddress(
-                                        //       context, event.position,searchByEmployeeIdProfileData!.finalAddress),
-                                        //   onExit: (_) => profileState.removeOverlayAddress(),
-                                        //   child: Container(
-                                        //     height: 30,
-                                        //     color: ColorManager.red,
-                                        //     child: Text(
-                                        //         providerState.trimmedAddress,
-                                        //         textAlign: TextAlign.start,
-                                        //         style:
-                                        //         ThemeManagerAddressPB.customTextStyle(
-                                        //             context)),
-                                        //   ),
-                                        // ),
                                       ],
                                     ),
                                   ),
@@ -374,7 +361,7 @@ class ProfileBar extends StatelessWidget {
                               Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(bottom: 10.0,top: 10),
+                                    padding: const EdgeInsets.only(bottom: 10.0,top: 11),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
