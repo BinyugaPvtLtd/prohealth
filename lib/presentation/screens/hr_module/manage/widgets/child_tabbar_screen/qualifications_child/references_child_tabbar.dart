@@ -125,7 +125,7 @@ class ReferencesChildTabbar extends StatelessWidget {
                         );
                       });
                 }),
-            SizedBox(width: 60,)
+            SizedBox(width: 100,)
           ],
         ),
         SizedBox(

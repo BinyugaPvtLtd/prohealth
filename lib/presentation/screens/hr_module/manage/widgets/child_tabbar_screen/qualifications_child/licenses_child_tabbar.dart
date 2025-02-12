@@ -149,7 +149,7 @@ class LicensesChildTabbar extends StatelessWidget {
                           );
                         });
                   }),
-              SizedBox(width: 60,)
+              SizedBox(width: 100,)
             ],
           ),
         ),

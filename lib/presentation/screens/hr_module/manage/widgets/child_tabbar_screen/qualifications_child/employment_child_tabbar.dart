@@ -175,7 +175,7 @@ class EmploymentContainerConstant extends StatelessWidget {
                     },
                   );
                 }),
-                 SizedBox(width: 60,)
+            SizedBox(width: 100,)
           ],
         ),
         StreamBuilder<List<EmployeementData>>(
