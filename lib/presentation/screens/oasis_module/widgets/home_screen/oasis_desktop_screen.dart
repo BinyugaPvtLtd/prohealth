@@ -833,7 +833,7 @@ class _EMRDesktopScreenState extends State<EMRDesktopScreen> {
                                                     availabilityName:
                                                     dropdownAvailability);
                                               });
-                                            },
+                                            }, clearFilter: SizedBox(),
                                           );
                                         },
                                       );

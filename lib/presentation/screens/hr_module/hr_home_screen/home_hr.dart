@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/provider/hr_search_provider.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
@@ -16,6 +17,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/comp
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/dashoboard_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/referesh_provider.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/web_manage/manage_screen.dart';
@@ -213,6 +215,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   int selectedZoneId = 0;
   bool searchSelect = false;
   var firstResult;
+
   Future<void> _searchByFilter(
       {required int zoneId,
       required bool isZoneSelectedBool,
@@ -243,6 +246,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     print("Search : ${isSelected}");
     print('Search successful');
     //print("result ${result.data}");
+
 
     // Process the list of results
     setState(() {
@@ -360,6 +364,11 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('currentIndex', index);
   }
+  // void changeState(){
+  //   setState((){
+  //     searchSelect = false;
+  //   });
+  // }
 
 
   @override
@@ -531,20 +540,24 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                             border: OutlineInputBorder(
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(20))),
-                                            suffixIcon: IconButton(
-                                              splashColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              icon: Center(
-                                                child: Icon(
-                                                  Icons.search,
-                                                  size: 18,
-                                                ),
-                                              ),
-                                              onPressed: () {},
+                                            suffixIcon: Icon(
+                                              Icons.search,
+                                              size: 18,
                                             ),
+                                            // InkWell(
+                                            //   splashColor: Colors.transparent,
+                                            //   highlightColor: Colors.transparent,
+                                            //   hoverColor: Colors.transparent,
+                                            //   child: Center(
+                                            //     child: Icon(
+                                            //       Icons.search,
+                                            //       size: 18,
+                                            //     ),
+                                            //   ),
+                                            //   onTap: () {},
+                                            // ),
                                             contentPadding: EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 5)),
+                                                horizontal: 20, vertical: 6)),
                                       ),
                                     )),
                                 SizedBox(
@@ -574,6 +587,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                 ],
                                               ),
                                               child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
                                                 onTap: () {
                                                   // isReportingOfficeId = false;
                                                   // isDropdownAvailability = false;
@@ -583,252 +599,276 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                     context: context,
                                                     builder:
                                                         (BuildContext context) {
-                                                      return ProfilePatientPopUp(
-                                                        officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
-                                                          future: getCompanyOfficeList(context),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            if (snapshot
-                                                                    .connectionState ==
-                                                                ConnectionState
-                                                                    .waiting) {
-                                                              return PatientCustomDropDown(
-                                                                items: ['Office'],
-                                                                labelText: '',
-                                                                value: 'Office',
-                                                                onChanged:
-                                                                    (value) {},
-                                                              );
-                                                            }
-                                                            if (snapshot.hasData) {
-                                                              {
-                                                                List<DropdownMenuItem<String>>dropDownList = [];
-                                                                for (var i in snapshot.data!) {
-                                                                  dropDownList.add(DropdownMenuItem<String>(
-                                                                    child: Text(i.name,
-                                                                      style: SearchDropdownConst.customTextStyle(context),
-                                                                    ),
-                                                                    value: i.name,
-                                                                  ));
-                                                                }
-                                                                // snapshot.data!
-                                                                //     .map((zone) => zone.zoneName ?? '')
-                                                                //     .toList();
-                                                                return Container(
-//height: 31,
-                                                                  width: 170,
+                                                      return Consumer<HrSearchProviderManager>(
+                                                        builder: (context,providerState, child) {
+                                                          return ProfilePatientPopUp(
+                                                            officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
+                                                              future: getCompanyOfficeList(context),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                        .connectionState ==
+                                                                    ConnectionState
+                                                                        .waiting) {
+                                                                  return Container(
+                                                                    //height: 31,
+                                                                    width: 170,
 
-                                                                  child:  CustomDropdownTextFieldwidh(
-                                                                    dropDownMenuList: dropDownList,
-                                                                    onChanged: (newValue) {for (var a
-                                                                    in snapshot.data!) {
-                                                                      if (a.name == newValue) {
-                                                                        reportingOfficeId =a.name;
-                                                                        isReportingOfficeId = true;
-                                                                        print(
-                                                                            'Office Name : ${reportingOfficeId}');
-                                                                        //empTypeId = docType;
-                                                                      }
+                                                                    child:  CustomDropdownTextFieldwidh(
+                                                                      //dropDownMenuList: dropDownList,
+                                                                      items: ['Office'],
+                                                                      initialValue: providerState.officeText,
+                                                                      onChanged: (newValue) {
+                                                                      },
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                if (snapshot.hasData) {
+                                                                  {
+                                                                    List<DropdownMenuItem<String>>dropDownList = [];
+                                                                    for (var i in snapshot.data!) {
+                                                                      dropDownList.add(DropdownMenuItem<String>(
+                                                                        child: Text(i.name,
+                                                                          style: SearchDropdownConst.customTextStyle(context),
+                                                                        ),
+                                                                        value: i.name,
+                                                                      ));
                                                                     }
+                                                                    // snapshot.data!
+                                                                    //     .map((zone) => zone.zoneName ?? '')
+                                                                    //     .toList();
+                                                                    return Container(
+                                                                      //height: 31,
+                                                                      width: 170,
+                                                                      child:  CustomDropdownTextFieldwidh(
+                                                                        dropDownMenuList: dropDownList,
+                                                                        initialValue: providerState.officeText,
+                                                                        onChanged: (newValue) {for (var a
+                                                                        in snapshot.data!) {
+                                                                          if (a.name == newValue) {
+                                                                            providerState.officeTextChange(changeText: a.name);
+                                                                            reportingOfficeId = a.name;
+                                                                            isReportingOfficeId = true;
+                                                                            print(
+                                                                                'Office Name : ${reportingOfficeId}');
+                                                                              //empTypeId = docType;
+                                                                          }
+                                                                        }
+                                                                        },
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                } else {
+                                                                  return const Offstage();
+                                                                }
+                                                              },
+                                                            ),
+                                                            avabilityWidget: Row(
+                                                              children: [
+                                                                Container( width: 170,
+                                                                  child: CustomDropdownTextFieldwidh(
+                                                                    initialValue: providerState.avalableStatus,
+                                                                    items: [
+                                                                      'Full Time',
+                                                                      'Part Time'
+                                                                    ],
+
+                                                                    // labelStyle: SearchDropdownConst.customTextStyle(context),
+                                                                    onChanged: (value) {
+                                                                      setState(() {
+                                                                        providerState.avalableTextChange(changeText: value!);
+                                                                        dropdownAvailability = value!;
+                                                                        isDropdownAvailability = true;
+                                                                        print("Availability Status :: ${dropdownAvailability}");
+                                                                      });
                                                                     },
                                                                   ),
-                                                                );
-                                                              }
-                                                            } else {
-                                                              return const Offstage();
-                                                            }
-                                                          },
-                                                        ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            licensesWidget: Row(
+                                                              children: [
+                                                                Container(
+                                                                  // height: 31,
+                                                                  width: 170,
+                                                                  // margin: EdgeInsets.symmetric(horizontal: 20),
+                                                                  child: CustomDropdownTextFieldwidh(
+                                                                    initialValue: providerState.expTypeValue,
+                                                                    items:[
+                                                                      'Expired',
+                                                                              'About to Expire',
+                                                                              'Upto date'],
+                                                                    onChanged: (value) {
+                                                                      setState(() {
+                                                                        providerState.expTypeTextChange(changeText: value!);
+                                                                        dropdownLicenseStatus = value!;
+                                                                        isDropdownLicenseStatus = true;
+                                                                        print("License Status :: ${dropdownLicenseStatus}");
+                                                                      });
+                                                                    },
+                                                                  ) ,
 
-
-                                                        avabilityWidget: Row(
-                                                          children: [
-                                                            Container( width: 170,
-                                                              child: CustomDropdownTextFieldwidh(
-                                                                items: [
-                                                                  'Full Time',
-                                                                  'Part Time'
-                                                                ],
-
-                                                                // labelStyle: SearchDropdownConst.customTextStyle(context),
-                                                                onChanged: (value) {
-                                                                  setState(() {
-                                                                    dropdownAvailability = value!;
-                                                                    isDropdownAvailability = true;
-                                                                    print("Availability Status :: ${dropdownAvailability}");
-                                                                  });
-                                                                },
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            // Row(
+                                                            //   children: [
+                                                            //     Center(
+                                                            //       child:
+                                                            //           PatientCustomDropDown(
+                                                            //         items: [
+                                                            //           'Expired',
+                                                            //           'About to Expire',
+                                                            //           'Upto date'
+                                                            //         ],
+                                                            //         labelText: 'License Status',
+                                                            //         value: 'Expired',
+                                                            //         onChanged: (value) {
+                                                            //           setState(() {
+                                                            //             dropdownLicenseStatus = value!;
+                                                            //             isDropdownLicenseStatus = true;
+                                                            //             print("License Status :: ${dropdownLicenseStatus}");
+                                                            //           });
+                                                            //         },
+                                                            //       ),
+                                                            //     ),
+                                                            //   ],
+                                                            // ),
+                                                            zoneDropDown: FutureBuilder<List<SortByZoneData>>(
+                                                              future:
+                                                              PayRateZoneDropdown(
+                                                                context,
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        licensesWidget: Row(
-                                                          children: [
-                                                            Container(
-                                                              // height: 31,
-                                                              width: 170,
-                                                              // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                              child: CustomDropdownTextFieldwidh(
-                                                                items:[
-                                                                  'Expired',
-                                                                          'About to Expire',
-                                                                          'Upto date'],
-                                                                onChanged: (value) {
-                                                                  setState(() {
-                                                                    dropdownLicenseStatus = value!;
-                                                                    isDropdownLicenseStatus = true;
-                                                                    print("License Status :: ${dropdownLicenseStatus}");
-                                                                  });
-                                                                },
-                                                              ) ,
+                                                              builder: (context, snapshot) {
+                                                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                  return Container(
+                                                                    width: 170,
+                                                                    child: CustomDropdownTextFieldwidh(
+                                                                      items: ['Zone'],
+                                                                      initialValue: providerState.zoneValue,
+                                                                      //dropDownMenuList: dropDownList,
+                                                                      onChanged: (newValue) {
 
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        // Row(
-                                                        //   children: [
-                                                        //     Center(
-                                                        //       child:
-                                                        //           PatientCustomDropDown(
-                                                        //         items: [
-                                                        //           'Expired',
-                                                        //           'About to Expire',
-                                                        //           'Upto date'
-                                                        //         ],
-                                                        //         labelText: 'License Status',
-                                                        //         value: 'Expired',
-                                                        //         onChanged: (value) {
-                                                        //           setState(() {
-                                                        //             dropdownLicenseStatus = value!;
-                                                        //             isDropdownLicenseStatus = true;
-                                                        //             print("License Status :: ${dropdownLicenseStatus}");
-                                                        //           });
-                                                        //         },
-                                                        //       ),
-                                                        //     ),
-                                                        //   ],
-                                                        // ),
-                                                        zoneDropDown: FutureBuilder<List<SortByZoneData>>(
-                                                          future:
-                                                          PayRateZoneDropdown(
-                                                            context,
-                                                          ),
-                                                          builder: (context, snapshot) {
-                                                            if (snapshot.connectionState == ConnectionState.waiting) {
-                                                              return PatientCustomDropDown(
-                                                                items: ['Zone'],
-                                                                labelText: '',
-                                                                value: 'Zone',
-                                                                onChanged: (value) {},
-                                                              );
-                                                            } else if (snapshot.hasData) {
-                                                              List<DropdownMenuItem<String>>dropDownList = [];
-                                                              int zoneId = 0;
-                                                              for (var i
-                                                              in snapshot.data!) {
-                                                                dropDownList.add(DropdownMenuItem<String>(
-                                                                      child: Text(
-                                                                        i.zoneName,
-                                                                        style: SearchDropdownConst.customTextStyle(context),
-                                                                      ),
-                                                                      value: i.zoneName,
-                                                                    ));
-                                                              }
+                                                                      },
+                                                                    ),
+                                                                  );
+                                                                } else if (snapshot.hasData) {
+                                                                  List<DropdownMenuItem<String>>dropDownList = [];
+                                                                  int zoneId = 0;
+                                                                  for (var i
+                                                                  in snapshot.data!) {
+                                                                    dropDownList.add(DropdownMenuItem<String>(
+                                                                          child: Text(
+                                                                            i.zoneName,
+                                                                            style: SearchDropdownConst.customTextStyle(context),
+                                                                          ),
+                                                                          value: i.zoneName,
+                                                                        ));
+                                                                  }
 
-                                                              print("Zone: ");
-                                                              return Container(
-                                                               // height: 31,
-                                                                width: 170,
-                                                                // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                               child: CustomDropdownTextFieldwidh(
-                                                                 dropDownMenuList: dropDownList,
-                                                                 onChanged: (newValue) {
-                                                                   for (var a in snapshot.data!) {
-                                                                     if (a.zoneName == newValue) {
-                                                                       zoneId = a.zoneId;
-                                                                       selectedZoneId = zoneId;
-                                                                       isZoneSelected = true;
-                                                                       print("Zone id :: ${selectedZoneId}");
-                                                                       //empTypeId = docType;
-                                                                     }
-                                                                   }
-                                                                 },
-                                                               ) ,
-                                                                // child: DropdownButtonFormField<String>(
-                                                                //     focusColor: Colors
-                                                                //         .transparent,
-                                                                //     icon:
-                                                                //     const Icon(
-                                                                //       Icons
-                                                                //           .arrow_drop_down_sharp,
-                                                                //       color: Color(
-                                                                //           0xff686464),
-                                                                //     ),
-                                                                //     decoration: const InputDecoration
-                                                                //         .collapsed(
-                                                                //         hintText:
-                                                                //         ''),
-                                                                //     items:
-                                                                //     dropDownList,
-                                                                //     onChanged:
-                                                                //         (newValue) {
-                                                                //       for (var a
-                                                                //       in snapshot
-                                                                //           .data!) {
-                                                                //         if (a.zoneName ==
-                                                                //             newValue) {
-                                                                //           zoneId =
-                                                                //               a.zoneId;
-                                                                //           selectedZoneId =
-                                                                //               zoneId;
-                                                                //           isZoneSelected =
-                                                                //           true;
-                                                                //           print(
-                                                                //               "Zone id :: ${selectedZoneId}");
-                                                                //           //empTypeId = docType;
-                                                                //         }
-                                                                //       }
-                                                                //     },
-                                                                //     value:
-                                                                //     dropDownList[
-                                                                //     0]
-                                                                //         .value,
-                                                                //     style: DropdownItemStyle
-                                                                //         .customTextStyle(
-                                                                //         context)),
-                                                              );
-                                                            } else {
-                                                              return CustomDropdownTextField(
-                                                                // width: MediaQuery.of(context).size.width / 5,
-                                                                headText: 'Zone',
-                                                                items: [
-                                                                  'No Data'
-                                                                ],
-                                                              );
-                                                            }
-                                                          },
-                                                        ),
-                                                          onSearch: () {
-                                                          setState(() {
-                                                            _searchByFilter(
-                                                                zoneId:
-                                                                    selectedZoneId,
-                                                                isZoneSelectedBool:
-                                                                    isZoneSelected,
-                                                                isReportingOffice:
-                                                                    isReportingOfficeId,
-                                                                officeName:
-                                                                    reportingOfficeId,
-                                                                isLicensesSelected:
-                                                                    isDropdownLicenseStatus,
-                                                                licenseStatusName:
-                                                                    dropdownLicenseStatus,
-                                                                isSelectAvailability:
-                                                                    isDropdownAvailability,
-                                                                availabilityName:
-                                                                    dropdownAvailability);
-                                                          });
-                                                        },
+                                                                  print("Zone: ");
+                                                                  return Container(
+                                                                   // height: 31,
+                                                                    width: 170,
+                                                                    // margin: EdgeInsets.symmetric(horizontal: 20),
+                                                                   child: CustomDropdownTextFieldwidh(
+                                                                     dropDownMenuList: dropDownList,
+                                                                     initialValue: providerState.zoneValue,
+                                                                     onChanged: (newValue) {
+                                                                       for (var a in snapshot.data!) {
+                                                                         if (a.zoneName == newValue) {
+                                                                           providerState.zoneTextChange(changeText: a.zoneName);
+                                                                           zoneId = a.zoneId;
+                                                                           selectedZoneId = zoneId;
+                                                                           isZoneSelected = true;
+                                                                           print("Zone id :: ${selectedZoneId}");
+                                                                           //empTypeId = docType;
+                                                                         }
+                                                                       }
+                                                                     },
+                                                                   ) ,
+                                                                    // child: DropdownButtonFormField<String>(
+                                                                    //     focusColor: Colors
+                                                                    //         .transparent,
+                                                                    //     icon:
+                                                                    //     const Icon(
+                                                                    //       Icons
+                                                                    //           .arrow_drop_down_sharp,
+                                                                    //       color: Color(
+                                                                    //           0xff686464),
+                                                                    //     ),
+                                                                    //     decoration: const InputDecoration
+                                                                    //         .collapsed(
+                                                                    //         hintText:
+                                                                    //         ''),
+                                                                    //     items:
+                                                                    //     dropDownList,
+                                                                    //     onChanged:
+                                                                    //         (newValue) {
+                                                                    //       for (var a
+                                                                    //       in snapshot
+                                                                    //           .data!) {
+                                                                    //         if (a.zoneName ==
+                                                                    //             newValue) {
+                                                                    //           zoneId =
+                                                                    //               a.zoneId;
+                                                                    //           selectedZoneId =
+                                                                    //               zoneId;
+                                                                    //           isZoneSelected =
+                                                                    //           true;
+                                                                    //           print(
+                                                                    //               "Zone id :: ${selectedZoneId}");
+                                                                    //           //empTypeId = docType;
+                                                                    //         }
+                                                                    //       }
+                                                                    //     },
+                                                                    //     value:
+                                                                    //     dropDownList[
+                                                                    //     0]
+                                                                    //         .value,
+                                                                    //     style: DropdownItemStyle
+                                                                    //         .customTextStyle(
+                                                                    //         context)),
+                                                                  );
+                                                                } else {
+                                                                  return CustomDropdownTextField(
+                                                                    // width: MediaQuery.of(context).size.width / 5,
+                                                                    headText: 'Zone',
+                                                                    items: [
+                                                                      'No Data'
+                                                                    ],
+                                                                  );
+                                                                }
+                                                              },
+                                                            ),
+                                                              onSearch: () {
+                                                              setState(() {
+                                                                _searchByFilter(
+                                                                    zoneId:
+                                                                        selectedZoneId,
+                                                                    isZoneSelectedBool:
+                                                                        isZoneSelected,
+                                                                    isReportingOffice:
+                                                                        isReportingOfficeId,
+                                                                    officeName:
+                                                                        reportingOfficeId,
+                                                                    isLicensesSelected:
+                                                                        isDropdownLicenseStatus,
+                                                                    licenseStatusName:
+                                                                        dropdownLicenseStatus,
+                                                                    isSelectAvailability:
+                                                                        isDropdownAvailability,
+                                                                    availabilityName:
+                                                                        dropdownAvailability);
+                                                              });
+                                                            }, clearFilter:  CustomButtonTransparentSM(text: 'Clear', onPressed: (){
+                                                            providerState.clearFilter();
+                                                            setState((){
+                                                              searchSelect = false;
+                                                            });
+                                                          },),
+                                                          );
+                                                        }
                                                       );
                                                     },
                                                   );

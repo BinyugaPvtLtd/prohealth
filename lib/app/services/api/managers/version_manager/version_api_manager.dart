@@ -5,7 +5,7 @@ import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dar
 import 'package:prohealth/data/api_data/version/version_model_data.dart';
 
 ///get Employee API
-Future<HRAddEmployeeGet> getApplicationVersion(
+Future<VersionData> getApplicationVersion(
     BuildContext context,
     ) async {
   var itemsList;

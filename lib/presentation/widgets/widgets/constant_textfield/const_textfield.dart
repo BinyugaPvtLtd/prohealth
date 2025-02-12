@@ -526,9 +526,9 @@ class CustomDropdownTextFieldwidh extends StatefulWidget
   final double? width;
   final double? widthone;
   final double? height;
-  final String? initialValue;
+  String? initialValue;
 
-  const CustomDropdownTextFieldwidh({
+   CustomDropdownTextFieldwidh({
     Key? key,
     this.dropDownMenuList,
 
