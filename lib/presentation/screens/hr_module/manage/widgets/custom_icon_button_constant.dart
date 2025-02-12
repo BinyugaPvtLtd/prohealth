@@ -223,7 +223,7 @@ class CustomeTransparentAddShift extends StatelessWidget {
 
 class CustomButton extends StatelessWidget {
   final String? text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color backgroundColor; // Added parameter for background color
   final Color textColor;
   final double borderRadius;
@@ -262,14 +262,16 @@ class CustomButton extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        boxShadow: [
+        boxShadow: onPressed != null
+            ? [
           const BoxShadow(
             color: Color(0x40000000),
             offset: Offset(0, 4),
             blurRadius: 3,
             spreadRadius: 0,
           ),
-        ],
+        ]
+            : [],
       ),
       child: ElevatedButton(
         onPressed: onPressed,

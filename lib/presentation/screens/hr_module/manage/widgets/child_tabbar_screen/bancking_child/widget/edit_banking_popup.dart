@@ -253,10 +253,13 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   ),
                                 ),
                                 _pickFileError != null? // Display error if any
-                                Text(
-                                  _pickFileError!,
-                                  style: CommonErrorMsg.customTextStyle(context),
-                                ):SizedBox(height: 12,)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: Text(
+                                    _pickFileError!,
+                                    style: CommonErrorMsg.customTextStyle(context),
+                                  ),
+                                ):SizedBox(height: 14,)
                               ],
                             ),
                           ],
