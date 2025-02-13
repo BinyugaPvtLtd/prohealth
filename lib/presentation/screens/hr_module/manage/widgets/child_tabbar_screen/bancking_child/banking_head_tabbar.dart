@@ -19,6 +19,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/hr_resources/string_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../const_wrap_widget.dart';
 
 class BankingHeadTabbar extends StatelessWidget {
@@ -714,8 +715,8 @@ class BankingContainerConst extends StatelessWidget {
                       ),
                     ],
                   ),
-                  height: MediaQuery.of(context).size.height / 33,
-                  width: MediaQuery.of(context).size.width / 17,
+                  height: AppSize.s28,
+                  width: AppSize.s70,
                   child: ElevatedButton(
                     onPressed: onPressed,
                     child: Text(AppStringHr.edit,

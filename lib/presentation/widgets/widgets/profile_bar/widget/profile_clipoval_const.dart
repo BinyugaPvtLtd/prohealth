@@ -42,10 +42,10 @@ class ProfileBarClipConst extends StatelessWidget {
                 color: containerColor,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.shade600,
-                    spreadRadius: 1,
-                    blurRadius: 10,
-                    offset: const Offset(0, 15),
+                    color: Colors.grey.shade500,
+                    spreadRadius: 2,
+                    blurRadius: 2,
+                    offset: const Offset(0, 4),
                   ),
                 ],
               ),
