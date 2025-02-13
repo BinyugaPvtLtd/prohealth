@@ -424,7 +424,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 55,
+                            width: MediaQuery.of(context).size.width / 50,
                           ),
                           Obx(
                             () => CustomTitleButton(
@@ -445,7 +445,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 55,
+                            width: MediaQuery.of(context).size.width / 50,
                           ),
                           // Obx(
                           //   () => CustomTitleButton(
@@ -483,7 +483,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 55,
+                            width: MediaQuery.of(context).size.width / 50,
                           ),
                           Obx(
                             () => CustomTitleButton(
@@ -539,7 +539,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                             ),
                                             border: OutlineInputBorder(
                                                 borderRadius: BorderRadius.all(
-                                                    Radius.circular(20))),
+                                                    Radius.circular(15))),
                                             suffixIcon: Icon(
                                               Icons.search,
                                               size: 18,
@@ -861,12 +861,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     availabilityName:
                                                                         dropdownAvailability);
                                                               });
-                                                            }, clearFilter:  CustomButtonTransparentSM(text: 'Clear', onPressed: (){
+                                                            }, clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0) ? CustomButtonTransparentSM(text: 'Clear', onPressed: (){
                                                             providerState.clearFilter();
                                                             setState((){
                                                               searchSelect = false;
                                                             });
-                                                          },),
+                                                          },): Offstage(),
                                                           );
                                                         }
                                                       );

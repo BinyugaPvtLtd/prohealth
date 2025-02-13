@@ -207,7 +207,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
                   constraints: BoxConstraints(
                     maxHeight: widget.constraintHeight!, // Limit height for scrolling
                   ),
-                  child: Scrollbar(
+                  child: SingleChildScrollView(
                     child: ListView(
                       shrinkWrap: true,
                       children: widget.items.map((DropdownMenuItem<String> item) {

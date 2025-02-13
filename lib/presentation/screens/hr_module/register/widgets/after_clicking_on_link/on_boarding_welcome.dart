@@ -5,6 +5,7 @@ import 'package:prohealth/data/api_data/hr_module_data/offer_letter_html_data/of
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/verify_user_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 
 import '../../../../../../app/constants/app_config.dart';
 import '../../../manage/widgets/bottom_row.dart';
@@ -263,6 +264,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                       //   context,
                       //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
                       // );
+
                       if (offerLetterData.statusCode == 409) {
                         Navigator.push(
                           context,
@@ -279,7 +281,11 @@ class OnBoardingCongratulation extends StatelessWidget {
                                 builder: (context) =>
                                     OfferLetterDescriptionScreen(
                                         employeeId: employeeId, depID: depID,)));
-                      } else {
+                      } else if(offerLetterData.statusCode != 200 || offerLetterData.statusCode != 201 || offerLetterData.statusCode != 409){
+                        showDialog(context: context, builder:(BuildContext context){
+                          return FailedPopup(text: offerLetterData.message,);
+                        });
+                      } else{
                         print("Something went wrong!");
                       }
                     },

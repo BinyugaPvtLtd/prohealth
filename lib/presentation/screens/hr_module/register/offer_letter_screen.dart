@@ -1207,6 +1207,7 @@ class CheckBoxTileConst extends StatelessWidget {
       width: 40,
       height: 50,
       child: CheckboxListTile(
+        hoverColor: Colors.transparent,
         activeColor: ColorManager.bluebottom,
         title: Text(
           text,
@@ -1333,6 +1334,17 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                         color: Colors.white,
                                         border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
                                         borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      child: CustomDropdownTextFieldpadding(
+                                       items: [''],
+                                        hintText:'Select',
+                                        initialValue: 'Select',
+                                        onChanged: (newValue) {
+
+                                        },
+                                        // hintText: initialValue,
+                                        height: 32,
+
                                       ),
                                     ),
                                   );
@@ -1501,12 +1513,13 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                       child: Text(
                                         ErrorMessageString.noZoneAdded,
                                         //  AppString.dataNotFound,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: FontSize.s12,
-                                          color: ColorManager.mediumgrey,
-                                          decoration: TextDecoration.none,
-                                        ),
+                                        style: DocumentTypeDataStyle.customTextStyle(context)
+                                        // TextStyle(
+                                        //   fontWeight: FontWeight.w600,
+                                        //   fontSize: FontSize.s12,
+                                        //   color: ColorManager.mediumgrey,
+                                        //   decoration: TextDecoration.none,
+                                        // ),
                                       ),
                                     ),
                                   ),
@@ -1631,7 +1644,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                       const SizedBox(height: 10),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0, right: 100.0),
+                          padding: const EdgeInsets.only(left: 20.0, right: 300.0),
                           child: StreamBuilder<List<ZipcodeByCountyIdData>>(
                             stream: _ZipStreamController.stream,
                             builder: (BuildContext context, snapshot) {

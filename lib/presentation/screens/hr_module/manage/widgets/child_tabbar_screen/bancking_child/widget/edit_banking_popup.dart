@@ -472,6 +472,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   height: 4,
                                 ),
                                 CustomTextFieldSSn(
+                                  keyboardType: TextInputType.number,
                                   width: 240,
                                   maxLength: 9,
                                   controller: routingnumber,
@@ -520,6 +521,8 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   height: 4,
                                 ),
                                 CustomTextFieldRegister(
+                                  keyboardType: TextInputType.number,
+                                  isDigitSelect: true,
                                   width: 240,
                                   controller: accountnumber,
                                   hintText: 'Enter AC Number',
@@ -567,6 +570,8 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   height: 4,
                                 ),
                                 CustomTextFieldRegister(
+                                  keyboardType: TextInputType.number,
+                                  isDigitSelect: true,
                                   width: 240,
                                   controller: verifyaccountnumber,
                                   // controller: ,
@@ -630,6 +635,8 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   children: [
                                     //HRMamangeFlowTextfield(
                                     CustomTextFieldRegister(
+                                      keyboardType: TextInputType.number,
+                                      isDigitSelect: true,
                                       width: 150,
                                       controller: requestammount,
                                       prefixText: '\$',
@@ -641,7 +648,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     },
                                       prefixStyle: onlyFormDataStyle.customTextStyle(context),
                                       height: 30,
-                                      keyboardType: TextInputType.number,
+
                                     ),
                                     SizedBox(width: 10),
                                     ElevatedButton(
@@ -1286,7 +1293,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         //Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
-          capitalIsSelect: capitalIsSelect,
+          isDigitSelect: capitalIsSelect,
           phoneNumberField:false, // Specify if this is the phone field
           height: AppSize.s30,
           // width:250 ,

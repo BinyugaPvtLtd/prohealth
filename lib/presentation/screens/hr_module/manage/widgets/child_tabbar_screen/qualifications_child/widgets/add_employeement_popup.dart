@@ -318,7 +318,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               height: 4,
             ),
             CustomTextFieldRegister(
-              capitalIsSelect: capitalIsSelect,
+              isDigitSelect: capitalIsSelect,
               phoneNumberField: errorKey == 'supervisorMobileNumber' ||
                   errorKey == 'emergencyMobileNumber',
               height: AppSize.s30,

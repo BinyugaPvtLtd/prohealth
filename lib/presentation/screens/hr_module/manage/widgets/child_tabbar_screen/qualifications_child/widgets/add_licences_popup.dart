@@ -486,7 +486,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
           // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
           SizedBox(height: 4,),
           CustomTextFieldRegister(
-            capitalIsSelect: capitalIsSelect,
+            isDigitSelect: capitalIsSelect,
             height: AppSize.s30,
             width: MediaQuery.of(context).size.width / 6,
             controller: controller,
@@ -962,7 +962,7 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
         // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
-          capitalIsSelect: capitalIsSelect,
+          isDigitSelect: capitalIsSelect,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
