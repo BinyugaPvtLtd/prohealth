@@ -189,7 +189,7 @@ class ProfileBar extends StatelessWidget {
                                                 height: AppSize.s70,
                                                 width: AppSize.s70,
                                                 child: CircularProgressIndicator(
-                                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenF),
+                                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.grey),
                                                   strokeWidth: 3,
                                                   value: searchByEmployeeIdProfileData!.profileScorePercentage,
                                                 ),
