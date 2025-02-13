@@ -319,8 +319,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       //"2024-08-12",
                       // ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
                       ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text,
-
-                      1,
+                      0,
                       'At Land OSC',
                       'case',
                       'Type',

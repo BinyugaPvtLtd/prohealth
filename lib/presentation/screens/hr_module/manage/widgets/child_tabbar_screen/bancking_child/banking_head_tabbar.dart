@@ -259,7 +259,8 @@ class BankingHeadTabbar extends StatelessWidget {
                                                     );
                                                   }
                                                   var bankName = snapshotPrefill
-                                                      .data!.bankName;
+                                                      .data!.
+                                                  bankName;
                                                   bankNameController =
                                                       TextEditingController(
                                                           text: snapshotPrefill
