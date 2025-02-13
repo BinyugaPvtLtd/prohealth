@@ -372,6 +372,9 @@ class DZoneButton extends StatelessWidget {
         ],
       ),
       child: InkWell(
+        splashColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         onTap: onTap,
         child: Center(
           child: Text(
