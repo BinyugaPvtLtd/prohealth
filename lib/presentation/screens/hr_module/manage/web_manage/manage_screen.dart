@@ -90,35 +90,32 @@ class _ManageScreenState extends State<ManageScreen> {
                           length: 7,
                           initialIndex: tabState.currentTab,
                           child: Column(
-                            ///sub tab bar
                             children: [
                               TabBar(
                                 onTap: (index) {
-                                  tabState.setTab(index); // Update the active tab
+                                  tabState.setTab(index);
                                   print('Tab index $index');
                                 },
                                 indicatorWeight: 6,
-                                overlayColor: MaterialStateProperty.all(
-                                    Colors.transparent),
-                                indicatorPadding:
-                                    EdgeInsets.symmetric(horizontal: 15),
-                                indicator: UnderlineTabIndicator(
-                                    borderSide: BorderSide(
-                                        width: 6, color: Color(0xFF50B5E5)),
-                                    borderRadius: BorderRadius.circular(13)),
+                                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                                indicator: CustomTabIndicator(
+                                  color: Color(0xFF50B5E5), // Blue color
+                                  radius: 13, // Circular border
+                                  height: 6, // Thickness
+                                  shadowBlurRadius: 6, // Shadow blur
+                                  shadowColor: Colors.black26, // Shadow color
+                                ),
                                 indicatorSize: TabBarIndicatorSize.tab,
                                 labelColor: Color(0xFF50B5E5),
                                 labelStyle: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700,
                                 ),
-                                unselectedLabelColor:
-                                    ColorManager.textPrimaryColor,
+                                unselectedLabelColor: ColorManager.textPrimaryColor,
                                 dividerColor: Colors.transparent,
                                 tabs: [
-                                  Tab(
-                                    text: AppStringHr.qualification,
-                                  ),
+                                  Tab(text: AppStringHr.qualification),
                                   Tab(text: AppStringHr.documents),
                                   Tab(text: AppStringHr.bankings),
                                   Tab(text: AppStringHr.inventory),
@@ -485,5 +482,70 @@ class _ManageScreenState extends State<ManageScreen> {
                     )),
           //BottomBarRow(),
         ]));
+  }
+}
+
+class CustomTabIndicator extends Decoration {
+  final Color color;
+  final double radius;
+  final double height;
+  final double shadowBlurRadius;
+  final Color shadowColor;
+
+  CustomTabIndicator({
+    required this.color,
+    this.radius = 13,
+    this.height = 6,
+    this.shadowBlurRadius = 6,
+    this.shadowColor = Colors.black26,
+  });
+
+  @override
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
+    return _CustomPainter(
+      color: color,
+      radius: radius,
+      height: height,
+      shadowBlurRadius: shadowBlurRadius,
+      shadowColor: shadowColor,
+    );
+  }
+}
+
+class _CustomPainter extends BoxPainter {
+  final Color color;
+  final double radius;
+  final double height;
+  final double shadowBlurRadius;
+  final Color shadowColor;
+
+  _CustomPainter({
+    required this.color,
+    required this.radius,
+    required this.height,
+    required this.shadowBlurRadius,
+    required this.shadowColor,
+  });
+
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+    final double width = configuration.size!.width;
+    final double xPos = offset.dx;
+    final double yPos = offset.dy + configuration.size!.height - height / 2;
+
+    final Paint shadowPaint = Paint()
+      ..color = shadowColor
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, shadowBlurRadius);
+
+    final Paint paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+
+    final RRect indicatorRect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(xPos, yPos, width, height),
+      Radius.circular(radius),
+    );
+    canvas.drawRRect(indicatorRect.shift(Offset(0, 2)), shadowPaint);
+    canvas.drawRRect(indicatorRect, paint);
   }
 }
