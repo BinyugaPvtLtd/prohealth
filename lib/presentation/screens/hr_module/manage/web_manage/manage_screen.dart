@@ -102,24 +102,10 @@ class _ManageScreenState extends State<ManageScreen> {
                                     Colors.transparent),
                                 indicatorPadding:
                                     EdgeInsets.symmetric(horizontal: 15),
-                                // indicator: UnderlineTabIndicator(
-                                //     borderSide: BorderSide(
-                                //         width: 6, color: Color(0xFF50B5E5)),
-                                //     borderRadius: BorderRadius.circular(13)),
-
-
-                                indicator: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(13),
-                                  color: Color(0xFF50B5E5), // The color of the underline
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.3), // Shadow color
-                                      offset: Offset(0, 3), // Shadow position (below the indicator)
-                                      blurRadius: 6, // Shadow spread
-                                    ),
-                                  ],
-                                ),
-
+                                indicator: UnderlineTabIndicator(
+                                    borderSide: BorderSide(
+                                        width: 6, color: Color(0xFF50B5E5)),
+                                    borderRadius: BorderRadius.circular(13)),
                                 indicatorSize: TabBarIndicatorSize.tab,
                                 labelColor: Color(0xFF50B5E5),
                                 labelStyle: TextStyle(
