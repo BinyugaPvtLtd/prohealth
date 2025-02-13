@@ -197,7 +197,7 @@ class ProfileBar extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                      //  SizedBox(height: 15,),
+
                                         searchByEmployeeIdProfileData!.active
                                             ? Text(
                                               "Active",
