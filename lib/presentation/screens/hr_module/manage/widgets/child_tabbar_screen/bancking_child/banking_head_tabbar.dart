@@ -148,6 +148,7 @@ class BankingHeadTabbar extends StatelessWidget {
                     //   },
                     // ),
                     //   ));
+
                   }),
               SizedBox(width: 60,)
             ],
