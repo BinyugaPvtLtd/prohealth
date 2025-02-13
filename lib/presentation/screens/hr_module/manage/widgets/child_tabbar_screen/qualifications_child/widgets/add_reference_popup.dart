@@ -258,7 +258,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
 
           keyboardType: keyboardType ?? TextInputType.text,
           padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
-          capitalIsSelect: capitalIsSelect, // Pass the parameter here
+          isDigitSelect: capitalIsSelect, // Pass the parameter here
           onChanged: (value) {
             setState(() {
               if (validator != null) {

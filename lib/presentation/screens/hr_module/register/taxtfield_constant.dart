@@ -472,14 +472,14 @@ class CustomTextFieldRegister extends StatelessWidget {
   final String? prefixText;
   final double? cursorHeight;
   final int? maxLength;
-  final bool capitalIsSelect;
+  bool isDigitSelect;
   final bool readOnly;
   final bool? phoneNumberField;
 
   CustomTextFieldRegister({
     Key? key,
     this.phoneNumberField = false,
-    this.capitalIsSelect = false, // Default to false
+    this.isDigitSelect = false, // Default to false
     this.maxLength,
     this.controller,
     this.labelText,
@@ -564,7 +564,8 @@ class CustomTextFieldRegister extends StatelessWidget {
           focusNode: focusNode,
           readOnly: readOnly,
           onFieldSubmitted: onFieldSubmitted,
-          inputFormatters: capitalIsSelect ? [
+          inputFormatters: isDigitSelect ? [
+            FilteringTextInputFormatter.digitsOnly,
             //CapitalizeFirstLetterFormatter()
           ]:phoneNumberField! ? [PhoneNumberInputFormatter()] : [],
 

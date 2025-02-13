@@ -92,7 +92,7 @@ Future<EmployeeBankingPrefillData> getPrefillEmployeeBancking(
             checkUrl: response.data['checkUrl'],
             effectiveDate: effectiveFormattedDate,
             routinNumber: response.data['routingNumber'],
-            type: response.data['type'], documentName: response.data['documentName'] ?? "--",
+            type: response.data['type'], documentName: response.data['documentName'] ?? "--", action: response.data['action']??"",
            // approve: response.data['approve'] ?? true
             );
         print("ItemData${itemsData.toString()}");

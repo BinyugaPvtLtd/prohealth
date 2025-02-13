@@ -783,6 +783,7 @@ class _BankingFormState extends State<BankingForm> {
                                           MediaQuery.of(context).size.height /
                                               60),
                                   CustomTextFieldSSn(
+                                    keyboardType: TextInputType.number,
                                     maxLength: 9,
                                     controller: routingnumber,
                                     hintText: 'Enter Number',
@@ -855,6 +856,8 @@ class _BankingFormState extends State<BankingForm> {
                                           MediaQuery.of(context).size.height /
                                               60),
                                   CustomTextFieldRegister(
+                                    keyboardType: TextInputType.number,
+                                    isDigitSelect: true,
                                     controller: accountnumber,
                                     hintText: 'Enter AC Number',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
@@ -878,6 +881,8 @@ class _BankingFormState extends State<BankingForm> {
                                           MediaQuery.of(context).size.height /
                                               60),
                                   CustomTextFieldRegister(
+                                    keyboardType: TextInputType.number,
+                                    isDigitSelect: true,
                                     controller: verifyaccountnumber,
                                     // controller: ,
                                     hintText: 'Enter AC Number',
@@ -920,6 +925,8 @@ class _BankingFormState extends State<BankingForm> {
                                   //   },
                                   // ),
                                   CustomTextFieldRegister(
+                                    keyboardType: TextInputType.number,
+                                    isDigitSelect: true,
                                     hintText: 'Enter Requested amount',
                                     controller: requestammount,
                                     prefixText: '\$',
@@ -930,7 +937,7 @@ class _BankingFormState extends State<BankingForm> {
                                         isPrefill= false;
                                       }
                                     },
-                                    keyboardType: TextInputType.number,
+
                                   ),
                                 ],
                               ),

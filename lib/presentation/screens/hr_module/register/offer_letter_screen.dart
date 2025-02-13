@@ -1207,6 +1207,7 @@ class CheckBoxTileConst extends StatelessWidget {
       width: 40,
       height: 50,
       child: CheckboxListTile(
+        hoverColor: Colors.transparent,
         activeColor: ColorManager.bluebottom,
         title: Text(
           text,
@@ -1631,7 +1632,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                       const SizedBox(height: 10),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0, right: 100.0),
+                          padding: const EdgeInsets.only(left: 20.0, right: 300.0),
                           child: StreamBuilder<List<ZipcodeByCountyIdData>>(
                             stream: _ZipStreamController.stream,
                             builder: (BuildContext context, snapshot) {
