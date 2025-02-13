@@ -219,15 +219,15 @@ class RegisterEnrollPopup extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {
-              Navigator.pop(context);
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId, depID: 1,)),
-                            // );
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen(employeeId: widget.employeeId, depID: 1,)),
-                            // );
+             // Navigator.pop(context);
+             //                Navigator.push(
+             //                  context,
+             //                  MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId, depID: 1,)),
+             //                );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen(employeeId: employeeId, depID: 1,)),
+                            );
                           },
                           icon: Icon(Icons.close,color: ColorManager.white,),
                         ),
