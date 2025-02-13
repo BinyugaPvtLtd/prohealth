@@ -314,12 +314,12 @@ class _INineSignPopupState extends State<INineSignPopup> {
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: ColorManager.fmediumgrey, width: 2),
+                                  color: Color(0xFFB1B1B1), width: 1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: ColorManager.fmediumgrey, width: 2),
+                                  color: Color(0xFFB1B1B1), width: 1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             hintText: 'yyyy-mm-dd',
@@ -328,7 +328,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(
-                                  width: 2, color: ColorManager.fmediumgrey),
+                                  color: Color(0xFFB1B1B1), width: 1),
                             ),
                             contentPadding: EdgeInsets.symmetric(horizontal: 16),
                             suffixIcon: Icon(Icons.calendar_month_outlined,

@@ -919,7 +919,7 @@ class _BankingFormState extends State<BankingForm> {
                                   //     });
                                   //   },
                                   // ),
-                                  CustomTextFieldRegister(
+                                  CustomRegisternumberonly(
                                     hintText: 'Enter Requested amount',
                                     controller: requestammount,
                                     prefixText: '\$',
@@ -931,6 +931,7 @@ class _BankingFormState extends State<BankingForm> {
                                       }
                                     },
                                     keyboardType: TextInputType.number,
+                                  //  textInputAction: TextInputAction.,
                                   ),
                                 ],
                               ),

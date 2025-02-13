@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -18,6 +19,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import 'dart:typed_data';
@@ -160,13 +162,14 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                           margin: EdgeInsets.symmetric(horizontal: 60),
                           decoration: BoxDecoration(
                             color:Colors.white,
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(4),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.25),
-                                //spreadRadius: 1,
+                                color: Color(0xff000000)
+                                    .withOpacity(0.25),
+                                spreadRadius: 0,
                                 blurRadius: 4,
-                                offset: Offset(0, 5),
+                                offset: Offset(0, 2),
                               ),
                             ],
                           ),
@@ -176,31 +179,38 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Container(
-                                      width: 62,
-                                      height: 45,
-                                      padding: EdgeInsets.symmetric(horizontal: 10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        border: Border.all(width: 2,color:ColorManager.faintGrey),
-                                      ),
-                                      child: Image.asset('images/Vector.png')),
+                                  SizedBox(width: AppSize.s20,),
+                                  GestureDetector(
+                                    onTap:()async{
+                                      print("FileExtension:${fileExtension}");
+                                      await downloadFile(fileUrl);
+                                    },
+                                    child: Container(
+                                        width: 62,
+                                        height: 45,
+                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(4),
+                                          border: Border.all(width: 2,color:ColorManager.faintGrey),
+                                        ),
+                                        child: SvgPicture.asset('images/doc_vector.svg')),
+                                  ),
                                   SizedBox(width: 10),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text('ID:${health.idOfTheDocument}',
-                                          style:AknowledgementStyleConst.customTextStyle(context)),
-                                      SizedBox(height: 5,),
+                                          style:DocDefineTableDataID.customTextStyle(context)),
+                                      SizedBox(height: AppSize.s8,),
                                       Text(health.documentFileName,
-                                          style: AknowledgementStyleNormal.customTextStyle(context)),
+                                          style: DocDefineTableData.customTextStyle(context)),
                                     ],
                                   )
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ///
                                   IconButton(
@@ -216,8 +226,10 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                                     },
                                     icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
+                                  SizedBox(width: AppSize.s10,),
                                   PdfDownloadButton(apiUrl: health.DocumentUrl, documentName: health.documentFileName,),
                                   ///
+                                  SizedBox(width: AppSize.s10,),
                                   IconButton(
                                     onPressed: () {
                                       showDialog(
@@ -266,6 +278,7 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                                     hoverColor:
                                     Colors.transparent,
                                     iconSize: 20,),
+                                  SizedBox(width: AppSize.s10,),
                                   IconButton(
                                     onPressed: () async{
                                       await showDialog(context: context,

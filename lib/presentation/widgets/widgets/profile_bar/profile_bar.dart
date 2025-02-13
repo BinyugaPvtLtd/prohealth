@@ -793,10 +793,7 @@ class ProfileBar extends StatelessWidget {
                                                                             ),
                                                                             child: Padding(
                                                                               padding:
-                                                                              const EdgeInsets
-                                                                                  .symmetric(
-                                                                                  horizontal:
-                                                                                  15),
+                                                                              const EdgeInsets.symmetric(horizontal: 15),
                                                                               child: Row(
                                                                                 mainAxisAlignment:
                                                                                 MainAxisAlignment
@@ -936,7 +933,7 @@ class ProfileBar extends StatelessWidget {
                                                                                                       ),
                                                                                                       height: 50,
                                                                                                       child: Padding(
-                                                                                                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                                        padding: const EdgeInsets.symmetric(horizontal: 20),
                                                                                                         child: Row(
                                                                                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                                                           children: [

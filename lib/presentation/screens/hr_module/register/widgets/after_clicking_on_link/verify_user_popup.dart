@@ -19,6 +19,8 @@ import '../../../../em_module/company_identity/widgets/whitelabelling/success_po
 import '../../taxtfield_constant.dart';
 import 'on_boarding_welcome.dart';
 
+
+
 class VerifyUserpopup extends StatefulWidget {
 
 
@@ -249,8 +251,8 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                       width: 27,
                       child: CircularProgressIndicator(
                         color: ColorManager.blueprime,
-                                              ),
-                                            )
+                      ),
+                    )
                         : ElevatedButton(
                       focusNode: getOtpButtonFocusNode,
                       autofocus: true,
@@ -289,7 +291,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
 
                     // OTP Input Fields
                     Container(
-                    //  color: Colors.red,
+                      //  color: Colors.red,
                       width: MediaQuery.of(context).size.width / 5,
                       child: Column(
                         //mainAxisAlignment: MainAxisAlignment.start,
@@ -308,7 +310,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                 return Container(
                                   width: MediaQuery.of(context).size.width / 50,
                                   height: MediaQuery.of(context).size.height / 19,
-                               // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 150),
+                                  // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 150),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(2.26),
                                     border: Border.all(
@@ -525,13 +527,13 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                           ),
                         ),
                       )
-    else
-    Padding(
-      padding: const EdgeInsets.only(top: 10.0,bottom: 10.0),
-      child: const SizedBox(height:12),
-    ),
+                    else
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0,bottom: 10.0),
+                        child: const SizedBox(height:12),
+                      ),
 
-    // Submit Button
+                    // Submit Button
                     isOtpLoading
                         ? SizedBox(
                       height: 25,
@@ -565,7 +567,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                             },
                           );
 
-                         // emailController.clear();
+                          // emailController.clear();
                         } else {
                           return print('OTP not valid');
                         }
