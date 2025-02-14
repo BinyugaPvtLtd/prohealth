@@ -244,6 +244,8 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ),
                     onTap: patientId != 0 ? () => selectButton(2) : null,
                   ),
+
+
                   InkWell(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
