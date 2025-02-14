@@ -66,7 +66,7 @@ packages:
     source: hosted
     version: "0.4.8"
   amplify_flutter:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: amplify_flutter
       sha256: "062eee8ce099e59aa7c9c96836d5c856e2bc481414f96951c41d5dab58214dad"
@@ -89,22 +89,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.3"
-  amplify_storage_s3:
-    dependency: "direct main"
-    description:
-      name: amplify_storage_s3
-      sha256: bf8613729f0203b2a0924e5969c907d94caff5d1b0faf38e5b9682359f738c12
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.6.0"
-  amplify_storage_s3_dart:
-    dependency: transitive
-    description:
-      name: amplify_storage_s3_dart
-      sha256: "2f595fa4b1892a1526bdf9579e92fcf3c5d17785bccc878315bce57e11729797"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.8"
   app_links:
     dependency: "direct main"
     description:

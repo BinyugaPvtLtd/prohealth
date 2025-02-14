@@ -52,8 +52,8 @@ dependencies:
   shimmer: any
   js: ^0.6.4
   open_file: any
-  amplify_flutter: any
-  amplify_storage_s3: any
+#  amplify_flutter: any
+#  amplify_storage_s3: any
   flutter_aws_s3_client: ^0.6.0
   #http: ^0.13.3
   http: any
