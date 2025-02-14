@@ -1192,19 +1192,21 @@ class CoverageRowWidget extends StatelessWidget {
           ),
          // color: ColorManager.red
       ),
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.only( left: 17),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  "County :",
-                  style: AllPopupHeadings.customTextStyle(context),
-                ),
-              )),
+          Container(
+            child: Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(
+                    "County :",
+                    style: AllPopupHeadings.customTextStyle(context),
+                  ),
+                )),
+          ),
           SizedBox(width: 1,),
           Expanded(
               flex: 3,
@@ -1219,12 +1221,11 @@ class CoverageRowWidget extends StatelessWidget {
           ],)),
           SizedBox(width: 5,),
           Expanded(
-              flex: 2,
+              flex: 1,
               child: Text(
-                "Zone :",
+                "Zones :",
                 style: AllPopupHeadings.customTextStyle(context),
               )),
-          SizedBox(width: 1,),
           Expanded(
               flex: 3,
               child: Row(
@@ -1244,7 +1245,7 @@ class CoverageRowWidget extends StatelessWidget {
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             hoverColor: Colors.transparent,
-            icon: Icon(Icons.edit_outlined, color: ColorManager.bluebottom, size: 15),
+            icon: Icon(Icons.edit_outlined, color: ColorManager.bluebottom, size: IconSize.I16),
             onPressed: onEdit,
           ),
           const SizedBox(width: 3),
@@ -1252,7 +1253,7 @@ class CoverageRowWidget extends StatelessWidget {
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             hoverColor: Colors.transparent,
-            icon: const Icon(Icons.delete, color: Colors.red, size: 15),
+            icon: const Icon(Icons.delete, color: Colors.red, size: IconSize.I16),
             onPressed: onDelete,
           ),
                       ],),

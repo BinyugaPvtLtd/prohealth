@@ -111,12 +111,12 @@ class ManageEmpDocWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: AppPadding.p70, vertical: AppPadding.p20),
+                    horizontal: AppPadding.p65, vertical: AppPadding.p20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomIconButtonConst(
-                     // width: AppSize.s170,
+                     width: AppSize.s137,
                       height: AppSize.s30,
                       text: AppStringEM.adddoctype,
                       onPressed: () async {

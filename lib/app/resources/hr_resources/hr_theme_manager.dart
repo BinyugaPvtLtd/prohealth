@@ -83,7 +83,7 @@ class HeadingFormStyle {
     return TextStyle(
       fontSize: FontSize.s16,
       fontWeight: FontWeight.w700,
-      color: ColorManager.mediumgrey,
+      color: ColorManager.black,
       decoration: TextDecoration.none,
     );
   }

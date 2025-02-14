@@ -168,7 +168,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
               Container(
                 height:AppSize.s50,
                 decoration: BoxDecoration(
-                  color: ColorManager.blueprime,
+                  color: ColorManager.bluebottom,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
@@ -244,11 +244,11 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 12,
-                                        fontWeight: FontWeight.w700,
+                                        fontWeight: FontWeight.w800,
                                       ),
                                     ),
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color(0xFF27A3E0),
+                                      backgroundColor: ColorManager.bluebottom,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12.0),
                                       ),
@@ -623,10 +623,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     ],
                                   ),
                                 ),
-                                // Text(
-                                //   'Specific Amount',
-                                //   style: AllPopupHeadings.customTextStyle(context),
-                                // ),
                                 SizedBox(
                                   height: 4,
                                 ),
@@ -664,7 +660,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                         ),
                                       ),
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color(0xFF27A3E0),
+                                        backgroundColor: ColorManager.bluebottom,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(20),
                                         ),
@@ -679,14 +675,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   ):SizedBox(height:12),
                               ],
                             ),
-
-                            // SizedBox(
-                            //   height: 30,
-                            // ),
-                            //
-                            // SizedBox(
-                            //   height: 40,
-                            // )
                           ],
                         ),
                       ],
@@ -700,14 +688,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                         CustomButtonTransparent(
                           text: "Cancel",
                           onPressed: () {
-                            // widget.effectiveDateController.clear();
-                            // widget.specificAmountController.clear();
-                            // widget.bankNameController.clear();
-                            // widget.routingNumberController.clear();
-                            // widget.accountNumberController.clear();
-                            // widget.verifyAccountController.clear();
-                            // widget.selectedType = null;
-                            // _typeFieldKey.currentState?.reset();
                           },
                         ),
                         SizedBox(width: AppSize.s13),

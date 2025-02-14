@@ -129,7 +129,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         /// Render top row with buttons only if both manage and whitelabelling screens are not shown
         if (!showManageScreen && !showWhitelabellingScreen)
           Padding(
-            padding: const EdgeInsets.only(right: AppPadding.p20, bottom: AppPadding.p15),
+            padding: const EdgeInsets.only(right: AppPadding.p25, bottom: AppPadding.p15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -155,6 +155,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     mobNumController.clear();
                     secNumController.clear();
                     OptionalController.clear();
+                    selectedServices.clear();
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -214,8 +215,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                         companyOfficeListGet(context, 1, 30).then((data) {
                           _companyIdentityController.add(data);
                         }).catchError((error) {});
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
                           return Center(
                               child: CircularProgressIndicator(
                                   color: Colors.blue));
@@ -229,7 +229,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                             ),
                           );
                         }
-
                         if (snapshot.hasData) {
                           int totalItems = snapshot.data!.length;
                           int totalPages =
@@ -241,315 +240,311 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               .toList();
 
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20,vertical: 10),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: LayoutBuilder(
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: 10),
+                            child: Container(
+                             // color: Colors.red,
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: ScrollConfiguration(
+                                      behavior: ScrollBehavior().copyWith(scrollbars: false) ,
+                                      child: LayoutBuilder(
 
-                                    builder: (BuildContext context, BoxConstraints constraints) {
-                                      double screenWidth = MediaQuery.of(context).size.width;
+                                        builder: (BuildContext context, BoxConstraints constraints) {
+                                          double screenWidth = MediaQuery.of(context).size.width;
 
-                                      int columns = 4;  // Default to 4 columns for larger screens (laptops, desktops)
-                                      double childAspectRatio = 1;  // Default aspect ratio for larger screens
+                                          int columns = 4;  // Default to 4 columns for larger screens (laptops, desktops)
+                                          double childAspectRatio = 1;  // Default aspect ratio for larger screens
 
-                                      if (screenWidth <= 400) {
-                                        columns = 1;
-                                        childAspectRatio = 2;  // Use a taller aspect ratio for very small screens
-                                      } else if (screenWidth <= 600) {
-                                        columns = 2;
-                                        childAspectRatio = 1.5; // Increase aspect ratio to use more space per item
-                                      } else if (screenWidth <= 800) {
-                                        columns = 2;
-                                        childAspectRatio = 1.2; // Adjust aspect ratio to fit more content
-                                      } else if (screenWidth <= 1000) {
-                                        // For medium-sized tablets and small laptops (width <= 1000px)
-                                        columns = 3;
-                                        childAspectRatio = 1; // Default aspect ratio for tablets and small laptops
-                                      } else if (screenWidth <= 1300) {
-                                        // For large tablets and laptops (width <= 1200px)
-                                        columns = 3;
-                                        childAspectRatio = 0.95; // Slightly smaller items for larger screens
-                                      }
-                                      else {
-                                        // For desktops and very large screens (> 1200px)
-                                        columns = 4;
-                                        childAspectRatio = 0.9; // More compact items for very large screens
-                                      }
-                                      return  GridView.builder(
-                                        shrinkWrap: true,
-                                        gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount:
-                                          columns,
-                                          crossAxisSpacing: 25,
-                                          mainAxisSpacing:
-                                          25,
-                                          childAspectRatio:childAspectRatio, // Aspect ratio of each grid item
-                                        ),
-                                        itemCount: paginatedData.length,
-                                        itemBuilder: (context, index) {
-                                          int serialNumber = index +
-                                              1 +
-                                              (currentPage - 1) * itemsPerPage;
-                                          // String formattedSerialNumber =
-                                          //     serialNumber.toString().padLeft(2, '0');
-
-                                          bool isHeadOffice =
-                                          (currentPage == 1 && index == 0);
-
-                                          return Container(
-                                            // padding: const EdgeInsets.only(left: 20,right: 20,top: 0,bottom: 15),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                              BorderRadius.circular(8),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.5),
-                                                  spreadRadius: 1,
-                                                  blurRadius: 4,
-                                                  offset: const Offset(0, 2),
-                                                ),
-                                              ],
+                                          if (screenWidth <= 400) {
+                                            columns = 1;
+                                            childAspectRatio = 2;  // Use a taller aspect ratio for very small screens
+                                          } else if (screenWidth <= 600) {
+                                            columns = 2;
+                                            childAspectRatio = 1.5; // Increase aspect ratio to use more space per item
+                                          } else if (screenWidth <= 800) {
+                                            columns = 2;
+                                            childAspectRatio = 1.2; // Adjust aspect ratio to fit more content
+                                          } else if (screenWidth <= 1000) {
+                                            // For medium-sized tablets and small laptops (width <= 1000px)
+                                            columns = 3;
+                                            childAspectRatio = 1; // Default aspect ratio for tablets and small laptops
+                                          } else if (screenWidth <= 1300) {
+                                            // For large tablets and laptops (width <= 1200px)
+                                            columns = 3;
+                                            childAspectRatio = 0.95; // Slightly smaller items for larger screens
+                                          }
+                                          else {
+                                            // For desktops and very large screens (> 1200px)
+                                            columns = 4;
+                                            childAspectRatio = 0.9; // More compact items for very large screens
+                                          }
+                                          return  GridView.builder(
+                                            shrinkWrap: true,
+                                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: columns,
+                                              crossAxisSpacing: 25,
+                                              mainAxisSpacing: 25,
+                                              childAspectRatio:childAspectRatio, // Aspect ratio of each grid item
                                             ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              children: [
-                                                isHeadOffice == true ?
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                                  children: [
-                                                    Container(
-                                                      height: AppSize.s22,
-                                                      width: AppSize.s100,
-                                                      decoration: BoxDecoration(
-                                                        color: ColorManager
-                                                            .faintOrange,
-                                                        borderRadius:
-                                                        BorderRadius.only(
-                                                          bottomLeft:
-                                                          Radius.circular(10),
-                                                          topRight:
-                                                          Radius.circular(4),
-                                                        ),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          AppStringEM.headOffice,
-                                                          style: TableHeading
-                                                              .customTextStyle(
-                                                              context),
-                                                        ),
-                                                      ),
+                                            itemCount: paginatedData.length,
+                                            itemBuilder: (context, index) {
+                                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                              bool isHeadOffice = (currentPage == 1 && index == 0);
+
+                                              return Container(
+                                                margin:  EdgeInsets.symmetric(horizontal: AppPadding.p10,),
+                                                // padding: const EdgeInsets.only(left: 20,right: 20,top: 0,bottom: 15),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey.withOpacity(0.5),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 4,
+                                                      offset: const Offset(1, 2),
                                                     ),
                                                   ],
-                                                ):SizedBox(  height: AppSize.s22,),
-                                                SizedBox(height: AppSize.s8,),
-                                                // Google Map Display
-                                                if (snapshot.data![index].lat != null)
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: AppPadding.p25,right: AppPadding.p25,),
-                                                    child: Column(
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    isHeadOffice == true ?
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      crossAxisAlignment: CrossAxisAlignment.end,
                                                       children: [
-
                                                         Container(
-                                                          height: AppSize.s181,
-                                                          child: GoogleMap(
-                                                            initialCameraPosition:
-                                                            CameraPosition(
-                                                              target: LatLng(
-                                                                double.parse(snapshot
-                                                                    .data![index].lat),
-                                                                double.parse(snapshot
-                                                                    .data![index].long),
-                                                              ),
-                                                              zoom: 15.0,
+                                                          height: AppSize.s22,
+                                                          width: AppSize.s100,
+                                                          decoration: BoxDecoration(
+                                                            color: ColorManager
+                                                                .faintOrange,
+                                                            borderRadius:
+                                                            BorderRadius.only(
+                                                              bottomLeft:
+                                                              Radius.circular(10),
+                                                              topRight:
+                                                              Radius.circular(4),
                                                             ),
-                                                            markers: {
-                                                              Marker(
-                                                                markerId: MarkerId(''),
-                                                                position: LatLng(
-                                                                  double.parse(snapshot
-                                                                      .data![index]
-                                                                      .lat),
-                                                                  double.parse(snapshot
-                                                                      .data![index]
-                                                                      .long),
-                                                                ),
-                                                              ),
-                                                            },
-                                                            zoomControlsEnabled: false,
-                                                            mapToolbarEnabled: false,
                                                           ),
-                                                        ),
-                                                        SizedBox(height: AppSize.s12),
-                                                        //SizedBox(height: 4,),
-                                                        Center(
-                                                          child: InkWell(onTap: () async {
-                                                            String googleMapsUrl =
-                                                                'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
-                                                            if (await canLaunchUrlString(googleMapsUrl)) {
-                                                              await launchUrlString(googleMapsUrl);
-                                                            } else {
-                                                              print('Could not open the map.');
-                                                            }
-                                                          },
+                                                          child: Center(
                                                             child: Text(
-                                                                "View in map", textAlign: TextAlign.center,
-
-                                                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: FontSize.s12, color: ColorManager.bluebottom, decoration: TextDecoration.underline,
-                                                                )),
+                                                              AppStringEM.headOffice,
+                                                              style: TableHeading
+                                                                  .customTextStyle(
+                                                                  context),
+                                                            ),
                                                           ),
                                                         ),
-                                                        SizedBox(height: AppSize.s6),
-                                                        // Office Name and Address
-                                                        Column(
+                                                      ],
+                                                    ):SizedBox(  height: AppSize.s22,),
+                                                    SizedBox(height: AppSize.s8,),
+                                                    // Google Map Display
+                                                    if (snapshot.data![index].lat != null)
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(left: AppPadding.p25,right: AppPadding.p25,),
+                                                        child: Column(
                                                           children: [
-                                                            Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                Column(
-                                                                  children: [
-                                                                    Text(
-                                                                      AppStringEM.officeName,
-                                                                      textAlign: TextAlign.start,
-                                                                      style: TableSubHeading.customTextStyle(context),
-                                                                    ),
-                                                                  ],
-                                                                ),
 
-                                                                Flexible(
-                                                                  child: Column(
-                                                                    children: [
-                                                                      Container(
-                                                                        width:AppSize.s200,
-                                                                        child: Text(
-                                                                          paginatedData[index].officeName.toString(),
-                                                                          textAlign: TextAlign.end,
-                                                                          style: TableSubHeading.customTextStyle(context),
-                                                                        ),
-                                                                      ),
-                                                                    ],
+                                                            Container(
+                                                              height: AppSize.s181,
+                                                              child: GoogleMap(
+                                                                initialCameraPosition:
+                                                                CameraPosition(
+                                                                  target: LatLng(
+                                                                    double.parse(snapshot
+                                                                        .data![index].lat),
+                                                                    double.parse(snapshot
+                                                                        .data![index].long),
                                                                   ),
+                                                                  zoom: 15.0,
                                                                 ),
-                                                              ],
+                                                                markers: {
+                                                                  Marker(
+                                                                    markerId: MarkerId(''),
+                                                                    position: LatLng(
+                                                                      double.parse(snapshot
+                                                                          .data![index]
+                                                                          .lat),
+                                                                      double.parse(snapshot
+                                                                          .data![index]
+                                                                          .long),
+                                                                    ),
+                                                                  ),
+                                                                },
+                                                                zoomControlsEnabled: false,
+                                                                mapToolbarEnabled: false,
+                                                              ),
                                                             ),
+                                                            SizedBox(height: AppSize.s12),
+                                                            //SizedBox(height: 4,),
+                                                            Center(
+                                                              child: InkWell(onTap: () async {
+                                                                String googleMapsUrl =
+                                                                    'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
+                                                                if (await canLaunchUrlString(googleMapsUrl)) {
+                                                                  await launchUrlString(googleMapsUrl);
+                                                                } else {
+                                                                  print('Could not open the map.');
+                                                                }
+                                                              },
+                                                                child: Text(
+                                                                    "View in map", textAlign: TextAlign.center,
 
+                                                                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: FontSize.s12, color: ColorManager.bluebottom, decoration: TextDecoration.underline,
+                                                                    )),
+                                                              ),
+                                                            ),
                                                             SizedBox(height: AppSize.s6),
-                                                            Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                            // Office Name and Address
+                                                            Column(
                                                               children: [
-                                                                Column(
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
-                                                                    Text(
-                                                                      AppStringEM.officeAddress,
-                                                                      textAlign: TextAlign.start,
-                                                                      style: TableSubHeading.customTextStyle(context),
+                                                                    Column(
+                                                                      children: [
+                                                                        Text(
+                                                                          AppStringEM.officeName,
+                                                                          textAlign: TextAlign.start,
+                                                                          style: TableSubHeading.customTextStyle(context),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+
+                                                                    Flexible(
+                                                                      child: Column(
+                                                                        children: [
+                                                                          Container(
+                                                                            width:AppSize.s200,
+                                                                            child: Text(
+                                                                              paginatedData[index].officeName.toString(),
+                                                                              textAlign: TextAlign.end,
+                                                                              style: TableSubHeading.customTextStyle(context),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
-                                                                Flexible(
-                                                                  child: Column(
-                                                                    children: [
-                                                                      Container(
-                                                                        // color:Colors.red,
-                                                                        width:AppSize.s200,
-                                                                        child: Text(
-                                                                         paginatedData[index].address.toString() ,
-                                                                          textAlign: TextAlign.end,
+
+                                                                SizedBox(height: AppSize.s6),
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Column(
+                                                                      children: [
+                                                                        Text(
+                                                                          AppStringEM.officeAddress,
+                                                                          textAlign: TextAlign.start,
                                                                           style: TableSubHeading.customTextStyle(context),
                                                                         ),
+                                                                      ],
+                                                                    ),
+                                                                    Flexible(
+                                                                      child: Column(
+                                                                        children: [
+                                                                          Container(
+                                                                            // color:Colors.red,
+                                                                            width:AppSize.s200,
+                                                                            child: Text(
+                                                                             paginatedData[index].address.toString() ,
+                                                                              textAlign: TextAlign.end,
+                                                                              style: TableSubHeading.customTextStyle(context),
+                                                                            ),
+                                                                          ),
+                                                                        ],
                                                                       ),
-                                                                    ],
-                                                                  ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ],
                                                             ),
                                                           ],
                                                         ),
-                                                      ],
-                                                    ),
-                                                  ),
-
-                                                // Manage Button
-                                                Spacer(),
-                                               Padding(
-                                                  padding: const EdgeInsets.only(bottom: AppPadding.p13),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                    CustomElevatedButton(
-                                                    width: AppSize.s105,
-                                                    height: AppSize.s30,
-                                                    text: AppStringEM.manage,
-                                                        color:  ColorManager.blueprime,
-                                                        onPressed: ()async {
-                                                          showManageScreenFunction(
-                                                            officeId:
-                                                            paginatedData[index]
-                                                                .officeId,
-                                                            officeName:
-                                                            paginatedData[index]
-                                                                .officeName,
-                                                            compId:
-                                                            paginatedData[index]
-                                                                .companyId,
-                                                            companyOfficeId:
-                                                            paginatedData[index]
-                                                                .companyOfficeId,
-                                                            stateName:
-                                                            paginatedData[index]
-                                                                .stateName,
-                                                            countryName:
-                                                            paginatedData[index]
-                                                                .countryName,
-                                                          );
-                                                        },
                                                       ),
-                                                    ],
-                                                  ),
+
+                                                    // Manage Button
+                                                    Spacer(),
+                                                   Padding(
+                                                      padding: const EdgeInsets.only(bottom: AppPadding.p15),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                        CustomElevatedButton(
+                                                        width: AppSize.s105,
+                                                        height: AppSize.s30,
+                                                        text: AppStringEM.manage,
+                                                            color:  ColorManager.blueprime,
+                                                            onPressed: ()async {
+                                                              showManageScreenFunction(
+                                                                officeId:
+                                                                paginatedData[index]
+                                                                    .officeId,
+                                                                officeName:
+                                                                paginatedData[index]
+                                                                    .officeName,
+                                                                compId:
+                                                                paginatedData[index]
+                                                                    .companyId,
+                                                                companyOfficeId:
+                                                                paginatedData[index]
+                                                                    .companyOfficeId,
+                                                                stateName:
+                                                                paginatedData[index]
+                                                                    .stateName,
+                                                                countryName:
+                                                                paginatedData[index]
+                                                                    .countryName,
+                                                              );
+                                                            },
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+
+                                                  ],
                                                 ),
+                                              );
+                                            },
+                                          );  },
 
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );  },
-
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                /// Pagination Controls
-                                PaginationControlsWidget(
-                                  currentPage: currentPage,
-                                  items: snapshot.data!,
-                                  itemsPerPage: itemsPerPage,
-                                  onPreviousPagePressed: () {
-                                    setState(() {
-                                      currentPage = currentPage > 1
-                                          ? currentPage - 1
-                                          : 1;
-                                    });
-                                  },
-                                  onPageNumberPressed: (pageNumber) {
-                                    setState(() {
-                                      currentPage = pageNumber;
-                                    });
-                                  },
-                                  onNextPagePressed: () {
-                                    setState(() {
-                                      currentPage = currentPage < totalPages
-                                          ? currentPage + 1
-                                          : totalPages;
-                                    });
-                                  },
-                                ),
-                              ],
+                                  /// Pagination Controls
+                                  PaginationControlsWidget(
+                                    currentPage: currentPage,
+                                    items: snapshot.data!,
+                                    itemsPerPage: itemsPerPage,
+                                    onPreviousPagePressed: () {
+                                      setState(() {
+                                        currentPage = currentPage > 1
+                                            ? currentPage - 1
+                                            : 1;
+                                      });
+                                    },
+                                    onPageNumberPressed: (pageNumber) {
+                                      setState(() {
+                                        currentPage = pageNumber;
+                                      });
+                                    },
+                                    onNextPagePressed: () {
+                                      setState(() {
+                                        currentPage = currentPage < totalPages
+                                            ? currentPage + 1
+                                            : totalPages;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         }

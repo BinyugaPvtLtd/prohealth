@@ -170,7 +170,7 @@ class _CiCorporateComplianceScreenState
 
            ///button
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p5, right: AppPadding.p65),
+              padding: const EdgeInsets.only(bottom: AppPadding.p5, right: AppPadding.p65,top: AppPadding.p5),
               child: CustomIconButtonConst(
                   icon: Icons.add,
                   text: AppStringEM.addDocument,
@@ -221,7 +221,7 @@ class _CiCorporateComplianceScreenState
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: AppPadding.p65),
+                horizontal: AppPadding.p60),
             child: NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {
