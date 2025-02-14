@@ -234,29 +234,35 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ElevatedButton.icon(
-                                  onPressed: _handleFileUpload,
-                                  icon: Icon(Icons.file_upload_outlined, color: Colors.white),
-                                  label: Text(
-                                    'Upload',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
+                                Container(
+                                  width: AppSize.s120,
+                                  child: ElevatedButton.icon(
+                                    onPressed: _handleFileUpload,
+                                    icon: Icon(Icons.file_upload_outlined, color: Colors.white),
+                                    label: Text(
+                                      'Upload',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xFF27A3E0),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color(0xFF27A3E0),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                      ),
                                     ),
                                   ),
                                 ),
                                 _pickFileError != null? // Display error if any
-                                Text(
-                                  _pickFileError!,
-                                  style: CommonErrorMsg.customTextStyle(context),
-                                ):SizedBox(height: 12,)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: Text(
+                                    _pickFileError!,
+                                    style: CommonErrorMsg.customTextStyle(context),
+                                  ),
+                                ):SizedBox(height: 14,)
                               ],
                             ),
                           ],
@@ -466,6 +472,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   height: 4,
                                 ),
                                 CustomTextFieldSSn(
+                                  keyboardType: TextInputType.number,
                                   width: 240,
                                   maxLength: 9,
                                   controller: routingnumber,
@@ -514,6 +521,8 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   height: 4,
                                 ),
                                 CustomTextFieldRegister(
+                                  keyboardType: TextInputType.number,
+                                  isDigitSelect: true,
                                   width: 240,
                                   controller: accountnumber,
                                   hintText: 'Enter AC Number',
@@ -561,6 +570,8 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   height: 4,
                                 ),
                                 CustomTextFieldRegister(
+                                  keyboardType: TextInputType.number,
+                                  isDigitSelect: true,
                                   width: 240,
                                   controller: verifyaccountnumber,
                                   // controller: ,
@@ -624,6 +635,8 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   children: [
                                     //HRMamangeFlowTextfield(
                                     CustomTextFieldRegister(
+                                      keyboardType: TextInputType.number,
+                                      isDigitSelect: true,
                                       width: 150,
                                       controller: requestammount,
                                       prefixText: '\$',
@@ -635,7 +648,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     },
                                       prefixStyle: onlyFormDataStyle.customTextStyle(context),
                                       height: 30,
-                                      keyboardType: TextInputType.number,
+
                                     ),
                                     SizedBox(width: 10),
                                     ElevatedButton(
@@ -1280,7 +1293,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         //Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
-          capitalIsSelect: capitalIsSelect,
+          isDigitSelect: capitalIsSelect,
           phoneNumberField:false, // Specify if this is the phone field
           height: AppSize.s30,
           // width:250 ,

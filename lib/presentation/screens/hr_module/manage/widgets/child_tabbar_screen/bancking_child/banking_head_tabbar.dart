@@ -19,6 +19,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/hr_resources/string_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../const_wrap_widget.dart';
 
 class BankingHeadTabbar extends StatelessWidget {
@@ -43,114 +44,113 @@ class BankingHeadTabbar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: CustomIconButtonConst(
-                    width: 130,
-                    text: AppStringHr.addNew,
-                    icon: Icons.add,
-                    onPressed: () {
-                      effectiveDateController.clear();
-                      bankNameController.clear();
-                      accountNumberController.clear();
-                      verifyAccountController.clear();
-                      routingNumberController.clear();
-                      specificAmountController.clear();
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AddBankingPopup(
-                                employeeID: employeeID,
-                                banckId: 0,
-                              ));
+              CustomIconButtonConst(
+                  width: 110,
+                  text: AppStringHr.addNew,
+                  icon: Icons.add,
+                  onPressed: () {
+                    effectiveDateController.clear();
+                    bankNameController.clear();
+                    accountNumberController.clear();
+                    verifyAccountController.clear();
+                    routingNumberController.clear();
+                    specificAmountController.clear();
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AddBankingPopup(
+                              employeeID: employeeID,
+                              banckId: 0,
+                            ));
 
-                      //   EditBankingPopUp(
-                      //     title: "Add Banking",
-                      //     banckId: 0,
-                      //     effectiveDateController:
-                      //         effectiveDateController,
-                      //     bankNameController: bankNameController,
-                      //     accountNumberController:
-                      //         accountNumberController,
-                      //     verifyAccountController:
-                      //         verifyAccountController,
-                      //     routingNumberController:
-                      //         routingNumberController,
-                      //     specificAmountController:
-                      //         specificAmountController,
-                      //
-                      //     onPressed: () async {
-                      //       var response = await addNewEmployeeBanking(
-                      //           context: context,
-                      //           employeeId: widget.employeeID,
-                      //           accountNumber:
-                      //               accountNumberController.text,
-                      //           bankName: bankNameController.text,
-                      //           amountRequested: int.parse(
-                      //               specificAmountController.text),
-                      //           checkUrl: "",
-                      //           effectiveDate:
-                      //               effectiveDateController.text,
-                      //           routingNumber:
-                      //               routingNumberController.text,
-                      //           percentage: 'Na',
-                      //           //type: "Checking",
-                      //           type: expiryType.toString(),
-                      //           //type:selectedType.toString(),
-                      //       );
+                    //   EditBankingPopUp(
+                    //     title: "Add Banking",
+                    //     banckId: 0,
+                    //     effectiveDateController:
+                    //         effectiveDateController,
+                    //     bankNameController: bankNameController,
+                    //     accountNumberController:
+                    //         accountNumberController,
+                    //     verifyAccountController:
+                    //         verifyAccountController,
+                    //     routingNumberController:
+                    //         routingNumberController,
+                    //     specificAmountController:
+                    //         specificAmountController,
+                    //
+                    //     onPressed: () async {
+                    //       var response = await addNewEmployeeBanking(
+                    //           context: context,
+                    //           employeeId: widget.employeeID,
+                    //           accountNumber:
+                    //               accountNumberController.text,
+                    //           bankName: bankNameController.text,
+                    //           amountRequested: int.parse(
+                    //               specificAmountController.text),
+                    //           checkUrl: "",
+                    //           effectiveDate:
+                    //               effectiveDateController.text,
+                    //           routingNumber:
+                    //               routingNumberController.text,
+                    //           percentage: 'Na',
+                    //           //type: "Checking",
+                    //           type: expiryType.toString(),
+                    //           //type:selectedType.toString(),
+                    //       );
 
-                      //   Navigator.pop(context);
-                      //   if(response.statusCode == 200 || response.statusCode == 201){
-                      //     showDialog(
-                      //       context: context,
-                      //       builder: (BuildContext context) {
-                      //         return AddSuccessPopup(
-                      //           message: 'Banking Added Successfully',
-                      //         );
-                      //       },
-                      //     );
-                      //   }
-                      // },
-                      //
-                      // radioButton: StatefulBuilder(
-                      //   builder: (BuildContext context, void Function(void Function()) setState) {
-                      //     return Container(
-                      //       width: 280,
-                      //       child: Row(
-                      //         children: [
-                      //           Expanded(
-                      //             child: CustomRadioListTile(
-                      //               value: "Yes",
-                      //               groupValue:
-                      //               expiryType.toString(),
-                      //               onChanged: (value) {
-                      //                 setState(() {
-                      //                   expiryType = value!;
-                      //                 });
-                      //               },
-                      //               title: "Yes",
-                      //             ),
-                      //           ),
-                      //           Expanded(
-                      //             child: CustomRadioListTile(
-                      //               value: "No",
-                      //               groupValue:
-                      //               expiryType.toString(),
-                      //               onChanged: (value) {
-                      //                 setState(() {
-                      //                   expiryType = value!;
-                      //                 });
-                      //               },
-                      //               title: "No",
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
-                      //   ));
-                    }),
-              ),
+                    //   Navigator.pop(context);
+                    //   if(response.statusCode == 200 || response.statusCode == 201){
+                    //     showDialog(
+                    //       context: context,
+                    //       builder: (BuildContext context) {
+                    //         return AddSuccessPopup(
+                    //           message: 'Banking Added Successfully',
+                    //         );
+                    //       },
+                    //     );
+                    //   }
+                    // },
+                    //
+                    // radioButton: StatefulBuilder(
+                    //   builder: (BuildContext context, void Function(void Function()) setState) {
+                    //     return Container(
+                    //       width: 280,
+                    //       child: Row(
+                    //         children: [
+                    //           Expanded(
+                    //             child: CustomRadioListTile(
+                    //               value: "Yes",
+                    //               groupValue:
+                    //               expiryType.toString(),
+                    //               onChanged: (value) {
+                    //                 setState(() {
+                    //                   expiryType = value!;
+                    //                 });
+                    //               },
+                    //               title: "Yes",
+                    //             ),
+                    //           ),
+                    //           Expanded(
+                    //             child: CustomRadioListTile(
+                    //               value: "No",
+                    //               groupValue:
+                    //               expiryType.toString(),
+                    //               onChanged: (value) {
+                    //                 setState(() {
+                    //                   expiryType = value!;
+                    //                 });
+                    //               },
+                    //               title: "No",
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+                    //   ));
+
+                  }),
+              SizedBox(width: 60,)
             ],
           ),
           SizedBox(
@@ -261,7 +261,8 @@ class BankingHeadTabbar extends StatelessWidget {
                                                     );
                                                   }
                                                   var bankName = snapshotPrefill
-                                                      .data!.bankName;
+                                                      .data!.
+                                                  bankName;
                                                   bankNameController =
                                                       TextEditingController(
                                                           text: snapshotPrefill
@@ -284,6 +285,7 @@ class BankingHeadTabbar extends StatelessWidget {
                                                           text: snapshotPrefill
                                                               .data!
                                                               .accountNumber);
+
 
                                                   //var verifyAcNumber = snapshotPrefill.data.
                                                   var routingNumber =
@@ -716,8 +718,8 @@ class BankingContainerConst extends StatelessWidget {
                       ),
                     ],
                   ),
-                  height: MediaQuery.of(context).size.height / 33,
-                  width: MediaQuery.of(context).size.width / 17,
+                  height: AppSize.s28,
+                  width: AppSize.s70,
                   child: ElevatedButton(
                     onPressed: onPressed,
                     child: Text(AppStringHr.edit,

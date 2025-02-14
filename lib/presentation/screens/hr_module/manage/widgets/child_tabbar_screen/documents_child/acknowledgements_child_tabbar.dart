@@ -1,15 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:pdf/pdf.dart';
-import 'package:printing/printing.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
@@ -20,17 +15,13 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:http/http.dart' as http;
-import 'dart:html' as html;
-import 'dart:js' as js;
 import 'dart:html' as html;
 import 'package:flutter/material.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
-import '../../../../../../../app/services/token/token_manager.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import '../../../../onboarding/download_doc_const.dart';
 
@@ -67,43 +58,41 @@ class AcknowledgementsChildBar extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-              margin: EdgeInsets.only(right: 60),
-              child: CustomIconButtonConst(
-                  width: 130,
-                  text: AppStringHr.addNew,
-                  icon: Icons.add,
-                  onPressed: () async {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return FutureBuilder<List<EmployeeDocSetupModal>>(
-                              future: getEmployeeDocSetupDropDown(
-                                  context, AppConfig.acknowledgementDocId),
-                              builder: (contex, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                }
-                                if (snapshot.hasData) {
-                                  return AcknowledgementAddPopup(
-                                    title: 'Add Acknowledgement',
-                                    employeeId: employeeId,
-                                    // docTypeMetaIdCC: 10,
-                                    // selectedSubDocId: 48,
-                                    dataList: snapshot.data!,
-                                  );
-                                } else {
-                                  return ErrorPopUp(
-                                      title: "Received Error",
-                                      text: snapshot.error.toString());
-                                }
-                              });
-                        });
-                    //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
-                  }),
-            ),
+            CustomIconButtonConst(
+                width: 110,
+                text: AppStringHr.addNew,
+                icon: Icons.add,
+                onPressed: () async {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return FutureBuilder<List<EmployeeDocSetupModal>>(
+                            future: getEmployeeDocSetupDropDown(
+                                context, AppConfig.acknowledgementDocId),
+                            builder: (contex, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasData) {
+                                return AcknowledgementAddPopup(
+                                  title: 'Add Acknowledgement',
+                                  employeeId: employeeId,
+                                  // docTypeMetaIdCC: 10,
+                                  // selectedSubDocId: 48,
+                                  dataList: snapshot.data!,
+                                );
+                              } else {
+                                return ErrorPopUp(
+                                    title: "Received Error",
+                                    text: snapshot.error.toString());
+                              }
+                            });
+                      });
+                  //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+                }),
+            SizedBox(width: 60,)
           ],
         ),
         SizedBox(
@@ -186,39 +175,43 @@ class AcknowledgementsChildBar extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.only(
                                 top: 5, bottom: 5, left: 10, right: 100),
-                            margin: EdgeInsets.symmetric(horizontal: 40),
+                            margin: EdgeInsets.symmetric(horizontal: 60),
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(4),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(0.25),
-                                  //spreadRadius: 1,
+                                  color: Color(0xff000000)
+                                      .withOpacity(0.25),
+                                  spreadRadius: 0,
                                   blurRadius: 4,
-                                  offset: Offset(0, 5),
+                                  offset: Offset(0, 2),
                                 ),
                               ],
                             ),
-                            height: 65,
+                            height: AppSize.s65,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
-                                    Container(
-                                        width: 62,
-                                        height: 45,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          border: Border.all(
-                                              width: 2,
-                                              color: ColorManager.faintGrey),
-                                        ),
-                                        child:
-                                            Image.asset('images/Vector.png')),
+                                    SizedBox(width: AppSize.s20,),
+                                    GestureDetector(
+                            onTap:()async{
+                      print("FileExtension:${fileExtension}");
+                      await downloadFile(fileUrl);
+                      },
+                                      child: Container(
+                                          width: 62,
+                                          height: 45,
+                                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(4),
+                                            border: Border.all(width: 2,
+                                                color: ColorManager.faintGrey),
+                                          ),
+                                          child: SvgPicture.asset('images/doc_vector.svg')),
+                                    ),
                                     SizedBox(width: 10),
                                     Column(
                                       mainAxisAlignment:
@@ -227,21 +220,17 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text('ID:${ackData.idOfTheDocument}',
-                                            style: AknowledgementStyleConst
-                                                .customTextStyle(context)),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
+                                            style: DocDefineTableDataID.customTextStyle(context)),
+                                        SizedBox(height: AppSize.s8,),
                                         Text(ackData.documentFileName,
-                                            style: AknowledgementStyleNormal
-                                                .customTextStyle(context)),
+                                            style: DocDefineTableData.customTextStyle(context)),
                                       ],
                                     )
                                   ],
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.center,
                                   children: [
                                     ///download
                                     // IconButton(
@@ -413,7 +402,9 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                       ),
                                       iconSize: 20,
                                     ),
+                                    SizedBox(width: AppSize.s10,),
                                     PdfDownloadButton(apiUrl: ackData.DocumentUrl, documentName: ackData.documentFileName,),
+                                    SizedBox(width: AppSize.s10,),
                                     ///edit
                                     IconButton(
                                       onPressed: () {
@@ -466,10 +457,8 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                                       // );
                                                     } else {
                                                       return ErrorPopUp(
-                                                          title:
-                                                              "Received Error",
-                                                          text: snapshot.error
-                                                              .toString());
+                                                          title: "Received Error",
+                                                          text: snapshot.error.toString());
                                                     }
                                                   });
                                             });
@@ -483,6 +472,7 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                       hoverColor: Colors.transparent,
                                       iconSize: 20,
                                     ),
+                                    SizedBox(width: AppSize.s10,),
                                     ///delete
                                     IconButton(
                                       onPressed: () async {

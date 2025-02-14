@@ -65,11 +65,7 @@ class _CiOrgDocumentState extends State<CiZone> {
     setState(() {
       _selectedIndex = index;
     });
-    _tabPageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
+    _tabPageController.jumpToPage(index,);
   }
 
   String? selectedCounty;
@@ -134,7 +130,7 @@ class _CiOrgDocumentState extends State<CiZone> {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width / 50.0),
+              horizontal: AppPadding.p65),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -142,8 +138,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                   ? Expanded(
                 flex: 2,
                     child: FutureBuilder<List<OfficeWiseCountyData>>(
-                                      future: getCountyListOfficeIdWise(context: context, OfficeId: widget.officeId),
-                                      builder: (context, snapshotZone) {
+                      future: getCountyListOfficeIdWise(context: context, OfficeId: widget.officeId),
+                      builder: (context, snapshotZone) {
                     if (snapshotZone.connectionState == ConnectionState.waiting) {
                       return Container(
                         width:  354,
@@ -151,15 +147,15 @@ class _CiOrgDocumentState extends State<CiZone> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                         child: Row(
                           children: [
-                            SizedBox(width: AppSize.s8),
+                            SizedBox(width: AppSize.s10),
                             Expanded(
                               child: Text(
-                                "Select",
-                                style: TableSubHeading.customTextStyle(context),
+                                coyntyNameVal ??  "Select County",
+                                style: DocumentTypeDataStyle.customTextStyle(context),
                               ),
                             ),
                             Padding(
@@ -279,7 +275,7 @@ class _CiOrgDocumentState extends State<CiZone> {
               ///button
               _selectedIndex == 0
               ? CustomIconButtonConst(
-              width: 79,
+              width: AppSize.s80,
               icon: Icons.add,
               text: AppStringEM.add,
               onPressed: () {
@@ -322,9 +318,9 @@ class _CiOrgDocumentState extends State<CiZone> {
               })
               : _selectedIndex == 1
               ? CustomIconButtonConst(
-              width: 79,
-              icon: Icons.add,
-              text: AppStringEM.add,
+                width: AppSize.s80,
+                icon: Icons.add,
+                text: AppStringEM.add,
               onPressed: isAddButtonEnabled
                   ? () {
                 //selectedExpiryType = expiryType;
@@ -465,9 +461,9 @@ class _CiOrgDocumentState extends State<CiZone> {
               },
                             enabled: isAddButtonEnabled,)
               : CustomIconButtonConst(
-              width: 79,
-              icon: Icons.add,
-              text: "Add",
+                width: AppSize.s80,
+                  icon: Icons.add,
+                  text: AppStringEM.add,
               onPressed: () {
                 countynameController.clear();
                 cityController.clear();

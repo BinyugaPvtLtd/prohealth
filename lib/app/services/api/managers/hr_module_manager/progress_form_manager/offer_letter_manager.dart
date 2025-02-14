@@ -33,14 +33,15 @@ Future<OfferLetterData> GetOfferLetter(BuildContext context,
                 docUploadStatus: response.data['DocumentUploadStatus'],
                 templateName: response.data['templateName'],
                 template: response.data['template'],
-                statusCode: response.statusCode
+                statusCode: response.statusCode, message: response.statusMessage!,
             );
     }else if(response.statusCode == 409){
       itemsList = OfferLetterData(
           docUploadStatus: "",
           templateName: "",
           template: "",
-          statusCode: response.statusCode, offerId: 0
+          statusCode: response.statusCode, offerId: 0,
+          message: response.statusMessage!
       );
     }
     else {

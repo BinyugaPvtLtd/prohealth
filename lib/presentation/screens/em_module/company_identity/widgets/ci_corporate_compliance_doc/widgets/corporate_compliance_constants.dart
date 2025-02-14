@@ -158,11 +158,13 @@ class CICCDropdown extends StatefulWidget {
   final Function(String)? onChange;
   final bool? isEnabled;
   final double? constraintHeight;
+  final double? borderRadius;
 
   const CICCDropdown({
     Key? key,
     required this.items,
     this.width,
+    this.borderRadius,
     this.initialValue,
     String? hintText,
     this.onChange,
@@ -205,7 +207,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
                   constraints: BoxConstraints(
                     maxHeight: widget.constraintHeight!, // Limit height for scrolling
                   ),
-                  child: Scrollbar(
+                  child: SingleChildScrollView(
                     child: ListView(
                       shrinkWrap: true,
                       children: widget.items.map((DropdownMenuItem<String> item) {
@@ -243,13 +245,13 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
         height: AppSize.s30,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey, width: 1),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(widget.borderRadius ?? 5.0),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
               child: Text(
                 _selectedValue ?? 'Select',
                 style: DocumentTypeDataStyle.customTextStyle(context),
@@ -339,6 +341,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
         GestureDetector(
           onTap: _showCustomDropdown,
           child: Container(
+            padding: EdgeInsets.only(left: AppPadding.p2),
             key: _dropdownKey,
             width: widget.width == null ? AppSize.s354 : widget.width,
             height: AppSize.s30,
@@ -369,6 +372,159 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
   }
 }
 
+///
+///
+///prajwal
+class CICCDropDownedit extends StatefulWidget {
+  final double? width;
+  final List<DropdownMenuItem<String>> items;
+  final String? initialValue;
+  final Function(String)? onChange;
+  final bool? isEnabled;
+  final double? constraintHeight;
+
+  const CICCDropDownedit({
+    Key? key,
+    required this.items,
+    this.width,
+    this.initialValue,
+    this.onChange,
+    String? hintText,
+    this.isEnabled,
+    this.constraintHeight = 250,
+  }) : super(key: key);
+
+  @override
+  _CIDetailsDropState createState() => _CIDetailsDropState();
+}
+
+class _CIDetailsDropState extends State<CICCDropDownedit> {
+  String? _selectedValue;
+  GlobalKey _dropdownKey = GlobalKey();
+  List items = [];
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.initialValue;
+  }
+
+  void _showCustomDropdown() async {
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+
+
+
+    showDialog(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Positioned(
+              left: offset.dx,
+              top: offset.dy + size.height,
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  width: widget.width ?? size.width,
+                  constraints: BoxConstraints(
+                    maxHeight: widget.constraintHeight!, // Limit height for scrolling
+                  ),
+                  child: Scrollbar(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: widget.items.map((DropdownMenuItem<String> item) {
+                        return ListTile(
+                          title: Text(
+                            item.value ?? '',
+                            style: DocumentTypeDataStyle.customTextStyle(context),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              _selectedValue = item.value;
+                              widget.onChange?.call(item.value!);
+                            });
+                            Navigator.pop(context);
+                          },
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    // final result = await showMenu<String>(
+    //   context: context,
+    //   position: RelativeRect.fromLTRB(
+    //       offset.dx, offset.dy + size.height, offset.dx + size.width, 0),
+    //   items: widget.items.map((DropdownMenuItem<String> item) {
+    //     return PopupMenuItem<String>(
+    //       textStyle: DocumentTypeDataStyle.customTextStyle(context),
+    //       value: item.value,
+    //       child: Container(
+    //         width: size.width - 16,
+    //
+    //         ///minus padding/margin
+    //         child: Text(item.value ?? ''),
+    //       ),
+    //     );
+    //   }).toList(),
+    //   color: ColorManager.white,
+    // );
+    //
+    // if (result != null) {
+    //   setState(() {
+    //     _selectedValue = result;
+    //     widget.onChange!(result);
+    //   });
+    // }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: _showCustomDropdown,
+          child: Container(
+            padding: EdgeInsets.only(left: AppPadding.p2),
+            key: _dropdownKey,
+            width: widget.width == null ? AppSize.s354 : widget.width,
+            height: AppSize.s30,
+            decoration: BoxDecoration(
+              border: Border.all(
+                  color: ColorManager.containerBorderGrey, width: AppSize.s1),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: AppSize.s8),
+                Expanded(
+                  child: Text(
+                    _selectedValue ?? '',
+                    style:  DocumentTypeDataStyle.customTextStyle(context),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: AppPadding.p10),
+                  child: Icon(Icons.arrow_drop_down),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+///
 ///
 
 ///edit popup

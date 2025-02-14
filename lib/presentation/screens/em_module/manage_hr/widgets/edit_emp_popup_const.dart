@@ -16,7 +16,7 @@ class EditPopupWidget extends StatefulWidget {
   final TextEditingController typeController;
   final TextEditingController shorthandController;
   final TextEditingController? emailController;
-  final Future<void> Function() onSavePressed;
+  final Future<void> Function(String) onSavePressed;
   final Color containerColor;
   // final Widget child;
   final Function(Color)? onColorChanged;
@@ -51,7 +51,9 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
   @override
   void initState() {
     super.initState();
-    _selectedColors = [widget.containerColor];
+
+    // Ensure the selected color is properly initialized
+    _selectedColors = [widget.containerColor == Colors.white ? Colors.transparent : widget.containerColor];
   }
 
   void _openColorPicker() async {
@@ -100,10 +102,13 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
     if (pickedColor != null) {
       setState(() {
         _selectedColors[0] = pickedColor;
-        widget.onColorChanged!(pickedColor);
+        if (widget.onColorChanged != null) {
+          widget.onColorChanged!(pickedColor);
+        }
       });
     }
   }
+
 
   // Method to validate 'Type'
   void _validateType() {
@@ -241,7 +246,10 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
             setState(() {
               isLoading = true;
             });
-            await widget.onSavePressed();
+            Color selectedColor = _selectedColors[0] == Colors.transparent ? Colors.white : _selectedColors[0];
+            String selectedColorToSave = '#${selectedColor.value.toRadixString(16).substring(2).toUpperCase()}';
+
+            await widget.onSavePressed(selectedColorToSave);
             setState(() {
               isLoading = false;
             });

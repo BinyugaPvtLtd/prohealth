@@ -21,339 +21,339 @@ import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 
-class CustomDialog extends StatefulWidget {
-  final String title;
-  final TextEditingController lastNameController;
-  final TextEditingController emailController;
-  final TextEditingController firstNameController;
-  final TextEditingController passwordController;
-  final VoidCallback? onCancel;
-  CustomDialog({
-    required this.title,
-     this.onCancel,
-    required this.lastNameController,
-    required this.emailController,
-    required this.firstNameController,
-    required this.passwordController,
-  });
-
-  @override
-  State<CustomDialog> createState() => _CustomDialogState();
-}
-
-class _CustomDialogState extends State<CustomDialog> {
-
-  @override
-  void initState() {
-    super.initState();
-    _generatePassword();
-  }
-
-  void _generatePassword() {
-    final random = Random();
-    final characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
-    String password = '';
-    for (int i = 0; i < 8; i++) {
-      password += characters[random.nextInt(characters.length)];
-    }
-    setState(() {
-      widget.passwordController.text = password;
-    });
-  }
-
-  void _copyToClipboard() {
-    Clipboard.setData(ClipboardData(text: widget.passwordController.text)).then((_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Copied to clipboard')),
-      );
-    });
-  }
-  final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  String? _nameDocError;
-  String? _emailDocError;
-  String? _stateDocError;
-  String? _PasswordDocError;
-  bool isLoading = false;
-
-  bool _isFormValid = true;
-  String? _validateTextField(String value, String fieldName) {
-    if (value.isEmpty) {
-      _isFormValid = false;
-      return "Please Enter $fieldName";
-    }
-    return null;
-  }
-
-  void _validateForm() {
-    setState(() {
-      _isFormValid = true;
-      _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
-      _emailDocError = _validateTextField(widget.emailController.text, 'Email');
-      _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
-      _PasswordDocError =
-          _validateTextField(widget.passwordController.text, 'Password');
-     });
-  }
-
-  var deptId = 1;
-  int? firstDeptId;
-  String? selectedDeptName;
-  int? selectedDeptId;
-
-  @override
-  Widget build(BuildContext context) {
-    return DialogueTemplate(
-        width: AppSize.s410,
-        height: AppSize.s550,
-        //title: "Create User",
-        title: widget.title,
-        onClear: (){
-          widget.firstNameController.clear();
-          widget.lastNameController.clear();
-          widget.emailController.clear();
-          selectedDeptId = AppConfig.AdministrationId;
-          Navigator.pop(context);
-        },
-        body: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SMTextfieldAsteric(
-                  controller: widget.firstNameController,
-                  keyboardType: TextInputType.text,
-                  text: "First Name",
-                ),
-                if (_nameDocError != null)
-                  Text(
-                    _nameDocError!,
-                    style: CommonErrorMsg.customTextStyle(context),
-                  ),
-                SizedBox(height: AppSize.s5,),
-                ///
-                SMTextfieldAsteric(
-                  controller: widget.lastNameController,
-                  keyboardType: TextInputType.text,
-                  text: 'Last Name',
-                ),
-                if (_stateDocError != null)
-                  Text(
-                    _stateDocError!,
-                    style: CommonErrorMsg.customTextStyle(context),
-                  ),
-                SizedBox(height: AppSize.s10,),
-                RichText(
-                  text: TextSpan(
-                    text:"Select Department",
-                    style: AllPopupHeadings.customTextStyle(context),
-                    children: [
-                      TextSpan(
-                        text: ' *', // Asterisk
-                        style: AllPopupHeadings.customTextStyle(context).copyWith(
-                          color: ColorManager.red,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: AppSize.s5,),
-                FutureBuilder<List<HRHeadBar>>(
-                  future: companyHRHeadApi(context, deptId),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      List<String>dropDownServiceList =[];
-                      return Container(
-                          alignment: Alignment.center,
-                          child:
-                          HRUManageDropdown(
-                            controller:
-                            TextEditingController(
-                                text: ''
-                            ),
-                            labelFontSize: FontSize.s12,
-                            items:  dropDownServiceList,
-                          )
-                      );
-                    }
-                    if (snapshot.hasData &&
-                        snapshot.data!.isEmpty) {
-                      return Center(
-                        child: Text(
-                          ErrorMessageString.noroleAdded,
-                          style: AllNoDataAvailable.customTextStyle(context),
-                        ),
-                      );
-                    }
-                    if (snapshot.hasData) {
-
-                      List<String> dropDownServiceList = snapshot
-                          .data!
-                          .map((dept) => dept.deptName!)
-                          .toList();
-                      String? firstDeptName =
-                      snapshot.data!.isNotEmpty
-                          ? snapshot.data![0].deptName
-                          : null;
-                      int? firstDeptId = snapshot.data!.isNotEmpty
-                          ? snapshot.data![0].deptId
-                          : null;
-
-                      if (selectedDeptName == null &&
-                          dropDownServiceList.isNotEmpty) {
-                        selectedDeptName = firstDeptName;
-                        selectedDeptId = firstDeptId;
-                      }
-
-                      return StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) {
-                          return HRUManageDropdown(
-                            controller: TextEditingController(
-                                text: selectedDeptName ?? ''),
-                            hintText: "Department",
-                            labelFontSize: FontSize.s12,
-                            items: dropDownServiceList,
-                            onChanged: (val) {
-                              setState(() {
-                                selectedDeptName = val;
-
-                                selectedDeptId = snapshot.data!
-                                    .firstWhere(
-                                        (dept) => dept.deptName == val)
-                                    .deptId;
-                              });
-                            },
-                          );
-                        },
-                      );
-                    }
-                    return const SizedBox();
-                  },
-                ),
-                SizedBox(height: AppSize.s14,),
-                SMTextfieldAsteric(controller: widget.emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    text: 'Email'),
-                if (_emailDocError != null) // Display error if any
-                  Text(
-                    _emailDocError!,
-                    style: CommonErrorMsg.customTextStyle(context),
-                  ),
-                SizedBox(height: AppSize.s14,),
-                Padding(
-                  padding: const EdgeInsets.only(left: 1),
-                  child: Text("Password",
-                      style: AllPopupHeadings.customTextStyle(context)),
-                ),
-                SizedBox(height: AppSize.s5,),
-                CustomTextFieldWithIcon(
-                  controller: widget.passwordController,
-                  // suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
-                  keyboardType: TextInputType.text,
-                  text: "Password",
-                  cursorHeight: 12,
-                  // labelText: "Password",
-                  hintText: "Password",
-                  labelStyle: TextStyle(),
-                  labelFontSize: FontSize.s12,
-                  errorText: 'Password is required',
-                  onSuffixIconPressed: _copyToClipboard,
-                ),
-                if (_PasswordDocError != null)
-                  Text(
-                    _PasswordDocError!,
-                    style: CommonErrorMsg.customTextStyle(context),
-                  ),
-              ],
-            ),
-          )
-
-        ],
-      bottomButtons: isLoading
-          ? SizedBox(
-        height: AppSize.s25,
-        width: AppSize.s25,
-        child: CircularProgressIndicator(
-          color: ColorManager.blueprime,
-        ),
-      )
-          : CustomElevatedButton(
-        height: AppSize.s30,
-        width: AppSize.s120,
-        text: 'Create',
-        onPressed: () async {
-          _validateForm();
-          if (!_isFormValid) {
-            return;
-          }
-          if (widget.passwordController.text.length < 6) {
-            setState(() {
-              _PasswordDocError = "Password must be longer than or equal to 6 characters";
-            });
-            return;
-          }
-          setState(() {
-            isLoading = true;
-          });
-
-          print('$selectedDeptId');
-          print('${widget.firstNameController.text}');
-          print('${widget.lastNameController.text}');
-          print('${widget.emailController.text}');
-          print('${widget.passwordController.text}');
-
-          try {
-            var response = await createUserPost(
-              context,
-              widget.firstNameController.text,
-              widget.lastNameController.text,
-              selectedDeptId!,
-              widget.emailController.text,
-              widget.passwordController.text,
-            );
-
-            if (response.statusCode == 200 || response.statusCode == 201) {
-              Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AddSuccessPopup(
-                    message: 'User Added Successfully',
-                  );
-                },
-              );
-              widget.onCancel!();
-              widget.firstNameController.clear();
-              widget.lastNameController.clear();
-              widget.emailController.clear();
-              selectedDeptId = AppConfig.AdministrationId;
-            } else {
-
-              await showDialog(
-                context: context,
-                builder: (BuildContext context) => FailedPopup(text: response.message),
-              );
-            }
-          } catch (e) {
-
-            await showDialog(
-              context: context,
-              builder: (BuildContext context) => FailedPopup(text: e.toString()),
-            );
-          } finally {
-            setState(() {
-              isLoading = false;
-            });
-          }
-        },
-      ),
-        );
-  }
-}
+// class CustomDialog extends StatefulWidget {
+//   final String title;
+//   final TextEditingController lastNameController;
+//   final TextEditingController emailController;
+//   final TextEditingController firstNameController;
+//   final TextEditingController passwordController;
+//   final VoidCallback? onCancel;
+//   CustomDialog({
+//     required this.title,
+//      this.onCancel,
+//     required this.lastNameController,
+//     required this.emailController,
+//     required this.firstNameController,
+//     required this.passwordController,
+//   });
+//
+//   @override
+//   State<CustomDialog> createState() => _CustomDialogState();
+// }
+//
+// class _CustomDialogState extends State<CustomDialog> {
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _generatePassword();
+//   }
+//
+//   void _generatePassword() {
+//     final random = Random();
+//     final characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
+//     String password = '';
+//     for (int i = 0; i < 8; i++) {
+//       password += characters[random.nextInt(characters.length)];
+//     }
+//     setState(() {
+//       widget.passwordController.text = password;
+//     });
+//   }
+//
+//   void _copyToClipboard() {
+//     Clipboard.setData(ClipboardData(text: widget.passwordController.text)).then((_) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(content: Text('Copied to clipboard')),
+//       );
+//     });
+//   }
+//   final TextEditingController passwordController = TextEditingController();
+//   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+//
+//   String? _nameDocError;
+//   String? _emailDocError;
+//   String? _stateDocError;
+//   String? _PasswordDocError;
+//   bool isLoading = false;
+//
+//   bool _isFormValid = true;
+//   String? _validateTextField(String value, String fieldName) {
+//     if (value.isEmpty) {
+//       _isFormValid = false;
+//       return "Please Enter $fieldName";
+//     }
+//     return null;
+//   }
+//
+//   void _validateForm() {
+//     setState(() {
+//       _isFormValid = true;
+//       _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
+//       _emailDocError = _validateTextField(widget.emailController.text, 'Email');
+//       _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
+//       _PasswordDocError =
+//           _validateTextField(widget.passwordController.text, 'Password');
+//      });
+//   }
+//
+//   var deptId = 1;
+//   int? firstDeptId;
+//   String? selectedDeptName;
+//   int? selectedDeptId;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return DialogueTemplate(
+//         width: AppSize.s410,
+//         height: AppSize.s550,
+//         //title: "Create User",
+//         title: widget.title,
+//         onClear: (){
+//           widget.firstNameController.clear();
+//           widget.lastNameController.clear();
+//           widget.emailController.clear();
+//           selectedDeptId = AppConfig.AdministrationId;
+//           Navigator.pop(context);
+//         },
+//         body: [
+//           Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               children: [
+//                 SMTextfieldAsteric(
+//                   controller: widget.firstNameController,
+//                   keyboardType: TextInputType.text,
+//                   text: "First Name",
+//                 ),
+//                 if (_nameDocError != null)
+//                   Text(
+//                     _nameDocError!,
+//                     style: CommonErrorMsg.customTextStyle(context),
+//                   ),
+//                 SizedBox(height: AppSize.s5,),
+//                 ///
+//                 SMTextfieldAsteric(
+//                   controller: widget.lastNameController,
+//                   keyboardType: TextInputType.text,
+//                   text: 'Last Name',
+//                 ),
+//                 if (_stateDocError != null)
+//                   Text(
+//                     _stateDocError!,
+//                     style: CommonErrorMsg.customTextStyle(context),
+//                   ),
+//                 SizedBox(height: AppSize.s10,),
+//                 RichText(
+//                   text: TextSpan(
+//                     text:"Select Department",
+//                     style: AllPopupHeadings.customTextStyle(context),
+//                     children: [
+//                       TextSpan(
+//                         text: ' *', // Asterisk
+//                         style: AllPopupHeadings.customTextStyle(context).copyWith(
+//                           color: ColorManager.red,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(height: AppSize.s5,),
+//                 FutureBuilder<List<HRHeadBar>>(
+//                   future: companyHRHeadApi(context, deptId),
+//                   builder: (context, snapshot) {
+//                     if (snapshot.connectionState ==
+//                         ConnectionState.waiting) {
+//                       List<String>dropDownServiceList =[];
+//                       return Container(
+//                           alignment: Alignment.center,
+//                           child:
+//                           HRUManageDropdown(
+//                             controller:
+//                             TextEditingController(
+//                                 text: ''
+//                             ),
+//                             labelFontSize: FontSize.s12,
+//                             items:  dropDownServiceList,
+//                           )
+//                       );
+//                     }
+//                     if (snapshot.hasData &&
+//                         snapshot.data!.isEmpty) {
+//                       return Center(
+//                         child: Text(
+//                           ErrorMessageString.noroleAdded,
+//                           style: AllNoDataAvailable.customTextStyle(context),
+//                         ),
+//                       );
+//                     }
+//                     if (snapshot.hasData) {
+//
+//                       List<String> dropDownServiceList = snapshot
+//                           .data!
+//                           .map((dept) => dept.deptName!)
+//                           .toList();
+//                       String? firstDeptName =
+//                       snapshot.data!.isNotEmpty
+//                           ? snapshot.data![0].deptName
+//                           : null;
+//                       int? firstDeptId = snapshot.data!.isNotEmpty
+//                           ? snapshot.data![0].deptId
+//                           : null;
+//
+//                       if (selectedDeptName == null &&
+//                           dropDownServiceList.isNotEmpty) {
+//                         selectedDeptName = firstDeptName;
+//                         selectedDeptId = firstDeptId;
+//                       }
+//
+//                       return StatefulBuilder(
+//                         builder: (BuildContext context, void Function(void Function()) setState) {
+//                           return HRUManageDropdown(
+//                             controller: TextEditingController(
+//                                 text: selectedDeptName ?? ''),
+//                             hintText: "Department",
+//                             labelFontSize: FontSize.s12,
+//                             items: dropDownServiceList,
+//                             onChanged: (val) {
+//                               setState(() {
+//                                 selectedDeptName = val;
+//
+//                                 selectedDeptId = snapshot.data!
+//                                     .firstWhere(
+//                                         (dept) => dept.deptName == val)
+//                                     .deptId;
+//                               });
+//                             },
+//                           );
+//                         },
+//                       );
+//                     }
+//                     return const SizedBox();
+//                   },
+//                 ),
+//                 SizedBox(height: AppSize.s14,),
+//                 SMTextfieldAsteric(controller: widget.emailController,
+//                     keyboardType: TextInputType.emailAddress,
+//                     text: 'Email'),
+//                 if (_emailDocError != null) // Display error if any
+//                   Text(
+//                     _emailDocError!,
+//                     style: CommonErrorMsg.customTextStyle(context),
+//                   ),
+//                 SizedBox(height: AppSize.s14,),
+//                 Padding(
+//                   padding: const EdgeInsets.only(left: 1),
+//                   child: Text("Password",
+//                       style: AllPopupHeadings.customTextStyle(context)),
+//                 ),
+//                 SizedBox(height: AppSize.s5,),
+//                 CustomTextFieldWithIcon(
+//                   controller: widget.passwordController,
+//                   // suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
+//                   keyboardType: TextInputType.text,
+//                   text: "Password",
+//                   cursorHeight: 12,
+//                   // labelText: "Password",
+//                   hintText: "Password",
+//                   labelStyle: TextStyle(),
+//                   labelFontSize: FontSize.s12,
+//                   errorText: 'Password is required',
+//                   onSuffixIconPressed: _copyToClipboard,
+//                 ),
+//                 if (_PasswordDocError != null)
+//                   Text(
+//                     _PasswordDocError!,
+//                     style: CommonErrorMsg.customTextStyle(context),
+//                   ),
+//               ],
+//             ),
+//           )
+//
+//         ],
+//       bottomButtons: isLoading
+//           ? SizedBox(
+//         height: AppSize.s25,
+//         width: AppSize.s25,
+//         child: CircularProgressIndicator(
+//           color: ColorManager.blueprime,
+//         ),
+//       )
+//           : CustomElevatedButton(
+//         height: AppSize.s30,
+//         width: AppSize.s120,
+//         text: 'Create',
+//         onPressed: () async {
+//           _validateForm();
+//           if (!_isFormValid) {
+//             return;
+//           }
+//           if (widget.passwordController.text.length < 6) {
+//             setState(() {
+//               _PasswordDocError = "Password must be longer than or equal to 6 characters";
+//             });
+//             return;
+//           }
+//           setState(() {
+//             isLoading = true;
+//           });
+//
+//           print('$selectedDeptId');
+//           print('${widget.firstNameController.text}');
+//           print('${widget.lastNameController.text}');
+//           print('${widget.emailController.text}');
+//           print('${widget.passwordController.text}');
+//
+//           try {
+//             var response = await createUserPost(
+//               context,
+//               widget.firstNameController.text,
+//               widget.lastNameController.text,
+//               selectedDeptId!,
+//               widget.emailController.text,
+//               widget.passwordController.text,
+//             );
+//
+//             if (response.statusCode == 200 || response.statusCode == 201) {
+//               Navigator.pop(context);
+//               showDialog(
+//                 context: context,
+//                 builder: (BuildContext context) {
+//                   return AddSuccessPopup(
+//                     message: 'User Added Successfully',
+//                   );
+//                 },
+//               );
+//               widget.onCancel!();
+//               widget.firstNameController.clear();
+//               widget.lastNameController.clear();
+//               widget.emailController.clear();
+//               selectedDeptId = AppConfig.AdministrationId;
+//             } else {
+//
+//               showDialog(
+//                 context: context,
+//                 builder: (BuildContext context) => FailedPopup(text: response.message),
+//               );
+//             }
+//           } catch (e) {
+//
+//             showDialog(
+//               context: context,
+//               builder: (BuildContext context) => FailedPopup(text: e.toString()),
+//             );
+//           } finally {
+//             setState(() {
+//               isLoading = false;
+//             });
+//           }
+//         },
+//       ),
+//         );
+//   }
+// }
 
 ///old code without provider
 class CustomDialogSEE extends StatefulWidget {
@@ -362,9 +362,10 @@ class CustomDialogSEE extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController firstNameController;
   final TextEditingController passwordController;
-
+  final VoidCallback? onCancel;
   CustomDialogSEE({
     required this.title,
+    this.onCancel,
     required this.lastNameController,
     required this.emailController,
     required this.firstNameController,
@@ -505,7 +506,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   _nameDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ): SizedBox(height: AppSize.s12,),
-              SizedBox(height: AppSize.s5,),
+              SizedBox(height: AppSize.s10,),
               ///
               SMTextfieldAsteric(
                 controller: widget.lastNameController,
@@ -524,7 +525,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   _stateDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ) : SizedBox(height: AppSize.s12,),
-              SizedBox(height: AppSize.s10,),
+              SizedBox(height: AppSize.s12,),
               RichText(
                 text: TextSpan(
                   text:"Select Department",
@@ -543,28 +544,18 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
               FutureBuilder<List<HRHeadBar>>(
                 future: companyHRHeadApi(context, deptId),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     List<String>dropDownServiceList =[];
-                    return Column(
-                      children: [
-                        Container(
-                            alignment: Alignment.center,
-                            child:
-                            HRUManageDropdown(
-                              controller:
-                              TextEditingController(
-                                  text: selectedDeptName ?? ''
-                              ),
-                              labelFontSize: FontSize.s12,
-                              items:  dropDownServiceList,
-                            )
-                        ),
-                        SizedBox(height: AppSize.s14,),
-                      ],
+                    return Container(
+                        alignment: Alignment.center,
+                        child: HRUManageDropdown(
+                          controller: TextEditingController(text: selectedDeptName ?? ''),
+                          labelFontSize: FontSize.s12,
+                          items:  dropDownServiceList,
+                        )
                     );
                   }
-                  if (snapshot.hasData && snapshot.data!.isEmpty) {
+                  if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
                         ErrorMessageString.noroleAdded,
@@ -574,46 +565,24 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   }
                   if (snapshot.hasData) {
 
-                    List<String> dropDownServiceList = snapshot
-                        .data!
-                        .map((dept) => dept.deptName!)
-                        .toList();
-                    String? firstDeptName =
-                    snapshot.data!.isNotEmpty
-                        ? snapshot.data![0].deptName
-                        : null;
-                    int? firstDeptId = snapshot.data!.isNotEmpty
-                        ? snapshot.data![0].deptId
-                        : null;
+                    List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName!).toList();
+                    // String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName : null;
+                    // int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId : null;
                     return StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            HRUManageDropdown(
-                              controller: TextEditingController(
-                                  text: selectedDeptName ?? ''),
-                              hintText: "Department",
-                              labelFontSize: FontSize.s12,
-                              items: dropDownServiceList,
-                              onChanged: (val) {
-                                setState(() {
-                                  _departmentError = null;
-                                  selectedDeptName = val;
-                                  selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
-                                });
-                              },
-                            ),
-                            _departmentError != null ?
-                            Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
-                              child: Text(
-                                _departmentError!,
-                                style: CommonErrorMsg.customTextStyle(context),
-                              ),
-                            ) : SizedBox(height: AppSize.s14,),
-                          ],
+                        return HRUManageDropdown(
+                          controller: TextEditingController(
+                              text: selectedDeptName ?? ''),
+                          hintText: "Department",
+                          labelFontSize: FontSize.s12,
+                          items: dropDownServiceList,
+                          onChanged: (val) {
+                            setState(() {
+                              _departmentError = null;
+                              selectedDeptName = val;
+                              selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                            });
+                          },
                         );
                       },
                     );
@@ -621,7 +590,16 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   return const SizedBox();
                 },
               ),
-              SizedBox(height: AppSize.s14,),
+              _departmentError != null ?
+              Padding(
+                padding: const EdgeInsets.only(top: 2.0),
+                child: Text(
+                  _departmentError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
+              )
+                  : SizedBox(height: AppSize.s14,),
+              SizedBox(height: AppSize.s9,),
               SMTextfieldAsteric(controller: widget.emailController,
                   keyboardType: TextInputType.emailAddress,
                   text: 'Email',
@@ -637,7 +615,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   _emailDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ) : SizedBox(height: AppSize.s12,),
-              SizedBox(height: AppSize.s14,),
+              SizedBox(height: AppSize.s12,),
               Padding(
                 padding: const EdgeInsets.only(left: 1),
                 child: Text("Password",
@@ -727,24 +705,24 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   );
                 },
               );
-
+              widget.onCancel!();
               widget.firstNameController.clear();
               widget.lastNameController.clear();
               widget.emailController.clear();
               selectedDeptId = AppConfig.AdministrationId;
             } else {
               // Handle other errors, such as email already used
-              await showDialog(
+            showDialog(
                 context: context,
                 builder: (BuildContext context) => FailedPopup(text: response.message),
               );
             }
           } catch (e) {
             // Handle unexpected errors
-            await showDialog(
-              context: context,
-              builder: (BuildContext context) => FailedPopup(text: e.toString()),
-            );
+            // showDialog(
+            //   context: context,
+            //   builder: (BuildContext context) => FailedPopup(text: e.toString()),
+            // );
           } finally {
             setState(() {
               isLoading = false; // Ensure loader is always reset
@@ -820,7 +798,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
           contentPadding: EdgeInsets.only(
               bottom: AppPadding.p3,
               top: AppPadding.p5,
-              left: AppPadding.p12
+              left: AppPadding.p10
           ),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: 1),
@@ -943,7 +921,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                 ],
               ): SizedBox(height: AppSize.s12,),
 
-              SizedBox(height: 5,),
+              SizedBox(height: AppSize.s5,),
               ///
               SMTextfieldAsteric(
                 controller:lastnameController,
@@ -968,7 +946,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                 ],
               ): SizedBox(height: AppSize.s12,),
 
-              SizedBox(height: AppSize.s10,),
+              SizedBox(height: AppSize.s8,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -1043,7 +1021,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                   return const SizedBox();
                 },
               ),
-              SizedBox(height: 14,),
+              SizedBox(height: AppSize.s20,),
               SMTextfieldAsteric(controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   text: 'Email',

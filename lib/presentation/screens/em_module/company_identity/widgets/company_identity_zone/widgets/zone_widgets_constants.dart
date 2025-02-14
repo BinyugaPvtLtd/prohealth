@@ -366,11 +366,11 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                             .containerBorderGrey,
                                         width: AppSize.s1),
                                     borderRadius:
-                                    BorderRadius.circular(4),
+                                    BorderRadius.circular(8),
                                   ),
                                   child:  Row(
                                     children: [
-                                      SizedBox(width: AppSize.s8),
+                                      SizedBox(width: AppSize.s10),
                                       Expanded(
                                         child: Text(
                                           selectedZipCodeCounty ?? '',
@@ -378,13 +378,13 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(right: AppPadding.p10),
+                                        padding: const EdgeInsets.only(right: AppPadding.p8),
                                         child: Icon(Icons.arrow_drop_down),
                                       ),
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 14),
+                                SizedBox(height: 12),
                               ],
                             );
                           }
@@ -397,7 +397,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                   width: AppSize.s354,
                                   decoration: BoxDecoration(
                                     border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                                    borderRadius: BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
@@ -410,7 +410,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 14),
+                                SizedBox(height: 12),
                               ],
                             );
                           }
@@ -431,6 +431,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 CICCDropdown(
+                                    borderRadius: 8,
                                     initialValue:selectedZipCodeCounty,
                                     //dropDownTypesList[0].value,
                                     onChange: (val) {
@@ -508,14 +509,14 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                             .containerBorderGrey,
                                         width: AppSize.s1),
                                     borderRadius:
-                                    BorderRadius.circular(4),
+                                    BorderRadius.circular(8),
                                   ),
                                   child: const Text(
                                     "",
                                     //AppString.dataNotFound,
                                   ),
                                 ),
-                                SizedBox(height: 14),
+                                SizedBox(height: 12),
                               ],
                             );
                           }
@@ -531,7 +532,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                             .containerBorderGrey,
                                         width: AppSize.s1),
                                     borderRadius:
-                                    BorderRadius.circular(4),
+                                    BorderRadius.circular(8),
                                   ),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
@@ -549,7 +550,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 14),
+                                SizedBox(height: 12),
                               ],
                             );
                           }
@@ -574,6 +575,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             return Column(
                               children: [
                                 CICCDropdown(
+                                    borderRadius: 8,
                                     initialValue:selectedZipCodeZone,
                                     // dropDownTypesList[0].value,
                                     onChange: (val) {
@@ -591,7 +593,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                       print(":::<>${docZoneId}");
                                     },
                                     items: dropDownTypesList),
-                                SizedBox(height: 14),
+                                SizedBox(height: 12),
                               ],
                             );
                           }
@@ -903,7 +905,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             decoration: BoxDecoration(
                               border: Border.all(
                                   color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             child:  Row(
                               children: [
@@ -929,7 +931,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             decoration: BoxDecoration(
                               border: Border.all(
                                   color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             child: Align(
                               alignment: Alignment.centerLeft,
@@ -968,6 +970,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                           //   countyName = 'Select County';
                           // }
                           return CICCDropdown(
+                              borderRadius: 8,
                               initialValue: countyNameText,
                               onChange: (val){
                                 for(var a in snapshotZone.data!){
@@ -1018,7 +1021,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             decoration: BoxDecoration(
                               border: Border.all(
                                   color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Text(
                               "",
@@ -1033,7 +1036,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             decoration: BoxDecoration(
                               border: Border.all(
                                   color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             child: Align(
                               alignment: Alignment.centerLeft,
@@ -1068,6 +1071,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             );
                           }
                           return CICCDropdown(
+                            borderRadius: 8,
                               initialValue: dropDownTypesList[0].value,
                               onChange: (val){
                                 for(var a in snapshotZone.data!){

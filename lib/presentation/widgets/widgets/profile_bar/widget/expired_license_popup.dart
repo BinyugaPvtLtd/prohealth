@@ -45,14 +45,17 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
                       style: PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.close,
-                      color: ColorManager.white,
-                      //size: 16,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        color: ColorManager.white,
+                        //size: 16,
+                      ),
                     ),
                   ),
                 ],

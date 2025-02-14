@@ -19,12 +19,11 @@ class _CiTempaletsState extends State<CiTempalets> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: AppPadding.p10,right: AppPadding.p30),
+            padding: const EdgeInsets.only(top: AppPadding.p10,right: AppPadding.p65),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CustomIconButtonConst(
-                  width: AppSize.s130,
                     icon: Icons.add,
                     text: AppStringEM.addTemplate, onPressed: () {},
                     ),

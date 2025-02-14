@@ -203,6 +203,7 @@ class RegisterScreen extends StatelessWidget {
                                       Colors.grey.withOpacity(0.1)), // Background color when pressed.
                                 ),
 
+
                                 /// buttonPadding: const EdgeInsets.symmetric(horizontal: 8),
                                 // dropdownMaxHeight: 200,
                                 // dropdownDecoration: BoxDecoration(
@@ -239,7 +240,7 @@ class RegisterScreen extends StatelessWidget {
                                     await showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return CustomDialog(
+                                        return CustomDialogSEE(
                                           title: "Enroll User",
                                           lastNameController: newUserLastNameController,
                                           emailController: newUserEmailController,

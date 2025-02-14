@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -28,6 +29,8 @@ import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 
 class CompensationChildTabbar extends StatelessWidget {
@@ -48,41 +51,39 @@ class CompensationChildTabbar extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-              margin: EdgeInsets.only(right: 60),
-              child: CustomIconButtonConst(
-                  width: 130,
-                  text: AppStringHr.addNew,
-                  icon: Icons.add,
-                  onPressed: () async {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return FutureBuilder<List<EmployeeDocSetupModal>>(
-                              future: getEmployeeDocSetupDropDown(
-                                  context, AppConfig.compensationDocId),
-                              builder: (contex, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                }
-                                if (snapshot.hasData) {
-                                  return CustomDocumedAddPopup(
-                                    title: 'Add Compensation',
-                                    employeeId: employeeId,
-                                    dataList: snapshot.data!,
-                                  );
-                                } else {
-                                  return ErrorPopUp(
-                                      title: "Received Error",
-                                      text: snapshot.error.toString());
-                                }
-                              });
-                        });
-                    //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
-                  }),
-            ),
+            CustomIconButtonConst(
+                width: 110,
+                text: AppStringHr.addNew,
+                icon: Icons.add,
+                onPressed: () async {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return FutureBuilder<List<EmployeeDocSetupModal>>(
+                            future: getEmployeeDocSetupDropDown(
+                                context, AppConfig.compensationDocId),
+                            builder: (contex, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasData) {
+                                return CustomDocumedAddPopup(
+                                  title: 'Add Compensation',
+                                  employeeId: employeeId,
+                                  dataList: snapshot.data!,
+                                );
+                              } else {
+                                return ErrorPopUp(
+                                    title: "Received Error",
+                                    text: snapshot.error.toString());
+                              }
+                            });
+                      });
+                  //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+                }),
+            SizedBox(width: 60,)
           ],
         ),
         SizedBox(
@@ -168,36 +169,44 @@ class CompensationChildTabbar extends StatelessWidget {
                             margin: EdgeInsets.symmetric(horizontal: 60),
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(4),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(0.25),
-                                  //spreadRadius: 1,
+                                  color: Color(0xff000000)
+                                      .withOpacity(0.25),
+                                  spreadRadius: 0,
                                   blurRadius: 4,
-                                  offset: Offset(0, 5),
+                                  offset: Offset(0, 2),
                                 ),
                               ],
                             ),
-                            height: 65,
+                            height: AppSize.s65,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
-                                    Container(
-                                        width: 62,
-                                        height: 45,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          border: Border.all(
-                                              width: 2,
-                                              color: ColorManager.faintGrey),
-                                        ),
-                                        child:
-                                            Image.asset('images/Vector.png')),
+                                    SizedBox(width: AppSize.s20,),
+                                    GestureDetector(
+                                      onTap:()async{
+                                        print("FileExtension:${fileExtension}");
+                                        await downloadFile(fileUrl);
+                                      },
+                                      child: Container(
+                                          width: 62,
+                                          height: 45,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            border: Border.all(
+                                                width: 2,
+                                                color: ColorManager.faintGrey),
+                                          ),
+                                          child:
+                                          SvgPicture.asset('images/doc_vector.svg')),
+                                    ),
                                     SizedBox(width: 10),
                                     Column(
                                       mainAxisAlignment:
@@ -207,13 +216,11 @@ class CompensationChildTabbar extends StatelessWidget {
                                       children: [
                                         Text(
                                             'ID:${compaensation.idOfTheDocument}',
-                                            style: AknowledgementStyleConst
+                                            style: DocDefineTableDataID
                                                 .customTextStyle(context)),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
+                                        SizedBox(height: AppSize.s8,),
                                         Text(compaensation.documentFileName,
-                                            style: AknowledgementStyleNormal
+                                            style: DocDefineTableData
                                                 .customTextStyle(context)),
                                       ],
                                     )
@@ -222,7 +229,7 @@ class CompensationChildTabbar extends StatelessWidget {
                                 //SizedBox(width: MediaQuery.of(context).size.width/2.2,),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.center,
                                   children: [
 
                                     ///
@@ -243,8 +250,10 @@ class CompensationChildTabbar extends StatelessWidget {
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                     ),
+                                    SizedBox(width: AppSize.s10,),
                                     PdfDownloadButton(apiUrl: compaensation.DocumentUrl, documentName: compaensation.documentFileName,),
                                     ///
+                                    SizedBox(width: AppSize.s10,),
                                     IconButton(
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
@@ -312,6 +321,7 @@ class CompensationChildTabbar extends StatelessWidget {
                                       ),
                                       iconSize: 20,
                                     ),
+                                    SizedBox(width: AppSize.s10,),
                                     IconButton(
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,

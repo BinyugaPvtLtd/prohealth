@@ -64,120 +64,118 @@ class EmploymentContainerConstant extends StatelessWidget {
           children: [
 
             ///add button
-            Container(
-              width: 100,
-              margin: EdgeInsets.only(right: 60),
-              child: CustomIconButtonConst(
-                  text: AppStringHr.add,
-                  icon: Icons.add,
-                  onPressed: () {
-                    positionTitleController.clear();
-                    leavingResonController.clear();
-                    startDateContoller.clear();
-                    endDateController.clear();
-                    lastSupervisorNameController.clear();
-                    supervisorMobileNumber.clear();
-                    cityNameController.clear();
-                    employeerController.clear();
-                    emergencyMobileNumber.clear();
-                    countryController.clear();
-                    showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      // routeSettings: ,
-                      builder: (BuildContext context) {
-                        return StatefulBuilder(
-                          builder: (BuildContext context,
-                              void Function(void Function()) setState) {
-                            return AddEmployeementPopup(
-                              positionTitleController: positionTitleController,
-                              leavingResonController: leavingResonController,
-                              startDateContoller: startDateContoller,
-                              endDateController: endDateController,
-                              lastSupervisorNameController: lastSupervisorNameController,
-                              supervisorMobileNumber: supervisorMobileNumber,
-                              cityNameController: cityNameController,
-                              employeerController: employeerController,
-                              emergencyMobileNumber: emergencyMobileNumber,
-                              countryController: countryController,
+            CustomIconButtonConst(
+                width: 80,
+                text: AppStringHr.add,
+                icon: Icons.add,
+                onPressed: () {
+                  positionTitleController.clear();
+                  leavingResonController.clear();
+                  startDateContoller.clear();
+                  endDateController.clear();
+                  lastSupervisorNameController.clear();
+                  supervisorMobileNumber.clear();
+                  cityNameController.clear();
+                  employeerController.clear();
+                  emergencyMobileNumber.clear();
+                  countryController.clear();
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    // routeSettings: ,
+                    builder: (BuildContext context) {
+                      return StatefulBuilder(
+                        builder: (BuildContext context,
+                            void Function(void Function()) setState) {
+                          return AddEmployeementPopup(
+                            positionTitleController: positionTitleController,
+                            leavingResonController: leavingResonController,
+                            startDateContoller: startDateContoller,
+                            endDateController: endDateController,
+                            lastSupervisorNameController: lastSupervisorNameController,
+                            supervisorMobileNumber: supervisorMobileNumber,
+                            cityNameController: cityNameController,
+                            employeerController: employeerController,
+                            emergencyMobileNumber: emergencyMobileNumber,
+                            countryController: countryController,
 
-                              onpressedSave: () async {
-                                var response = await addEmployeement(
-                                    context,
-                                    employeeId,
-                                    employeerController.text,
-                                    cityNameController.text,
-                                    leavingResonController.text,
-                                    lastSupervisorNameController.text,
-                                    supervisorMobileNumber.text,
-                                    positionTitleController.text,
-                                    startDateContoller.text,
-                                    isSelectedADD
-                                        ? "Currently Working"
-                                        : endDateController.text,
-                                    emergencyMobileNumber.text,
-                                    countryController.text);
+                            onpressedSave: () async {
+                              var response = await addEmployeement(
+                                  context,
+                                  employeeId,
+                                  employeerController.text,
+                                  cityNameController.text,
+                                  leavingResonController.text,
+                                  lastSupervisorNameController.text,
+                                  supervisorMobileNumber.text,
+                                  positionTitleController.text,
+                                  startDateContoller.text,
+                                  isSelectedADD
+                                      ? "Currently Working"
+                                      : endDateController.text,
+                                  emergencyMobileNumber.text,
+                                  countryController.text);
 
-                                var approveResponse = await approveOnboardQualifyEmploymentPatch(
-                                    context, response.employeementId!);
-                                if (approveResponse.statusCode == 200 ||
-                                    approveResponse.statusCode == 201) {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AddSuccessPopup(
-                                        message: 'Employement Added Successfully',
-                                      );
-                                    },
-                                  );
-                                } else if (response.statusCode == 400 ||
-                                    response.statusCode == 404) {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (
-                                        BuildContext context) => const FourNotFourPopup(),
-                                  );
-                                }
-                                else {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        FailedPopup(text: response.message),
-                                  );
-                                }
-                              },
-                              checkBoxTile: StatefulBuilder(
-                                builder: (BuildContext context,
-                                    void Function(void Function()) setState) {
-                                  return Container(
-                                    //color: Colors.red,
-                                      width: 300,
-                                      child: CheckboxTile(
-                                        title: 'Currently work here',
-                                        initialValue: isSelectedADD,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            isSelectedADD = !isSelectedADD;
-                                            endDateController.clear();
-                                          });
-                                        },
-                                      ));
-                                },
-                              ),
-                              tite: 'Add Employment',
-                              onpressedClose: () {
+                              var approveResponse = await approveOnboardQualifyEmploymentPatch(
+                                  context, response.employeementId!);
+                              if (approveResponse.statusCode == 200 ||
+                                  approveResponse.statusCode == 201) {
                                 Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AddSuccessPopup(
+                                      message: 'Employement Added Successfully',
+                                    );
+                                  },
+                                );
+                              } else if (response.statusCode == 400 ||
+                                  response.statusCode == 404) {
+                                Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (
+                                      BuildContext context) => const FourNotFourPopup(),
+                                );
+                              }
+                              else {
+                                Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      FailedPopup(text: response.message),
+                                );
+                              }
+                            },
+                            checkBoxTile: StatefulBuilder(
+                              builder: (BuildContext context,
+                                  void Function(void Function()) setState) {
+                                return Container(
+                                  //color: Colors.red,
+                                    width: 300,
+                                    child: CheckboxTile(
+                                      title: 'Currently work here',
+                                      initialValue: isSelectedADD,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          isSelectedADD = !isSelectedADD;
+                                          endDateController.clear();
+                                        });
+                                      },
+                                    ));
                               },
-                            );
-                          },
-                        );
-                      },
-                    );
-                  }),
-            ),
+                            ),
+                            tite: 'Add Employment',
+                            onpressedClose: () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
+                }),
+            SizedBox(width: 100,)
           ],
         ),
         StreamBuilder<List<EmployeementData>>(

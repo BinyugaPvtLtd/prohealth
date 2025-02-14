@@ -116,7 +116,6 @@ class AddNewOrgDocButton extends StatelessWidget {
         body: [
           Padding(
             padding: const EdgeInsets.symmetric(
-              // vertical: AppPadding.p1,
               horizontal: AppPadding.p10,
             ),
             child: Column(
@@ -153,7 +152,7 @@ class AddNewOrgDocButton extends StatelessWidget {
                   content: Container(
                     width: AppSize.s354,
                     height: AppSize.s30,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     decoration: BoxDecoration(
                       color: ColorManager.white,
                       borderRadius: BorderRadius.circular(8),
@@ -164,7 +163,7 @@ class AddNewOrgDocButton extends StatelessWidget {
                       children: [
                         Text(
                           docTypeText,
-                          style: DocumentTypeDataStyle.customTextStyle(context),
+                          style: TableSubHeading.customTextStyle(context),
                         ),
                       ],
                     ),
@@ -179,12 +178,11 @@ class AddNewOrgDocButton extends StatelessWidget {
                     : Column(
                       children: [
                         HeaderContentConst(
-                                          heading: AppString.sub_type_of_the_document,
-                                          //isAsterisk: true,
-                                          content: Container(
+                          heading: AppString.sub_type_of_the_document,
+                          content: Container(
                         width: AppSize.s354,
                         height: AppSize.s30,
-                        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                         decoration: BoxDecoration(
                           color: ColorManager.white,
                           borderRadius: BorderRadius.circular(8),
@@ -196,12 +194,12 @@ class AddNewOrgDocButton extends StatelessWidget {
                           children: [
                             Text(
                               subDocTypeText,
-                              style: DocumentTypeDataStyle.customTextStyle(context),
+                              style: TableSubHeading.customTextStyle(context),
                             ),
                           ],
                         ),
-                                          ),
-                                        ),
+                          ),
+                        ),
                         SizedBox(height: AppSize.s8,),
                       ],
                     ),
@@ -284,13 +282,13 @@ class AddNewOrgDocButton extends StatelessWidget {
                                           borderSide: BorderSide(
                                               color: Colors.grey,
                                               width: 1),
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius: BorderRadius.circular(4),
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey,
                                               width: 1),
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius: BorderRadius.circular(4),
                                         ),
                                         contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                       ),
@@ -663,7 +661,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                 content: Container(
                   width: AppSize.s354,
                   height: AppSize.s30,
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -674,7 +672,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                     children: [
                       Text(
                         idOfDoc,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: TableSubHeading.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -709,7 +707,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                 content: Container(
                   width: AppSize.s354,
                   height: AppSize.s30,
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -720,7 +718,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                     children: [
                       Text(
                         docTypeText,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: TableSubHeading.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -737,7 +735,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                   width: AppSize.s354,
                   height: AppSize.s30,
                   padding:
-                  const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                  const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -749,7 +747,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                     children: [
                       Text(
                         subDocTypeText,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: TableSubHeading.customTextStyle(context),
                       ),
                     ],
                   ),

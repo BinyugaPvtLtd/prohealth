@@ -11,6 +11,8 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/manage
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/error_pop_up.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -127,24 +129,19 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         /// Render top row with buttons only if both manage and whitelabelling screens are not shown
         if (!showManageScreen && !showWhitelabellingScreen)
           Padding(
-            padding: const EdgeInsets.only(right: AppPadding.p50, bottom: AppPadding.p8),
+            padding: const EdgeInsets.only(right: AppPadding.p20, bottom: AppPadding.p15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  height: 40,
-                  child: CustomIconButtonConst(
-                    // paddingVertical: 1,
-                    // borderRadius: 12,
-                    text: AppStringEM.whitelabelling,
-                    //style: PopupBlueBarText.customTextStyle(context),
-                    width: AppSize.s160,
-                    // height: 26,
-                    onPressed: showWhitelabellingScreenFunction,
-                  ),
+                CustomElevatedButton(
+                  width: AppSize.s150,
+                  height: AppSize.s32,
+                  text: AppStringEM.whitelabelling,
+                  color: ColorManager.blueprime,
+                  onPressed: showWhitelabellingScreenFunction,
                 ),
                 SizedBox(
-                  width: AppSize.s10,
+                  width: AppSize.s35,
                 ),
                 CustomIconButtonConst(
                   width: AppSize.s150,
@@ -167,8 +164,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                             return FutureBuilder<List<ServicesMetaData>>(
                                 future: getServicesMetaData(context),
                                 builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
                                     return Center(
                                         child: CircularProgressIndicator());
                                   }
@@ -245,7 +241,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               .toList();
 
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20,vertical: 10),
                             child: Column(
                               children: [
                                 Expanded(
@@ -354,8 +350,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                 ):SizedBox(  height: AppSize.s22,),
                                                 SizedBox(height: AppSize.s8,),
                                                 // Google Map Display
-                                                if (snapshot.data![index].lat !=
-                                                    null)
+                                                if (snapshot.data![index].lat != null)
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: AppPadding.p25,right: AppPadding.p25,),
                                                     child: Column(
@@ -391,7 +386,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                             mapToolbarEnabled: false,
                                                           ),
                                                         ),
-                                                        SizedBox(height: AppSize.s8),
+                                                        SizedBox(height: AppSize.s12),
                                                         //SizedBox(height: 4,),
                                                         Center(
                                                           child: InkWell(onTap: () async {
@@ -489,8 +484,11 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      CustomIconButton(
-                                                        text: AppStringEM.manage,
+                                                    CustomElevatedButton(
+                                                    width: AppSize.s105,
+                                                    height: AppSize.s30,
+                                                    text: AppStringEM.manage,
+                                                        color:  ColorManager.blueprime,
                                                         onPressed: ()async {
                                                           showManageScreenFunction(
                                                             officeId:

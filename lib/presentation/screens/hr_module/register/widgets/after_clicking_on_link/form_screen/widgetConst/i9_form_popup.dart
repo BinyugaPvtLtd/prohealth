@@ -196,33 +196,33 @@ class _INineSignPopupState extends State<INineSignPopup> {
                 keyboardType: TextInputType.text,
                 text: 'Middle Name',
               ),
-              if (nameError != null)
+              nameError != null ?
                 Text(
                   nameError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s8),
               SMTextfieldAsteric(
                 controller: lastNameController,
                 keyboardType: TextInputType.text,
                 text: 'Other Last Name',
               ),
-              if (lastNameError != null)
+             lastNameError != null ?
                 Text(
                   lastNameError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s8),
               SMTextfieldAsteric(
                 controller: aptNumController,
                 keyboardType: TextInputType.text,
                 text: 'ATP Number',
               ),
-              if (aptNumError != null)
+              aptNumError != null ?
                 Text(
                   aptNumError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s8),
               SizedBox(height: AppSize.s8),
               Text( 'Citizenship', style: AllPopupHeadings.customTextStyle(context),
@@ -314,12 +314,12 @@ class _INineSignPopupState extends State<INineSignPopup> {
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: ColorManager.fmediumgrey, width: 2),
+                                  color: Color(0xFFB1B1B1), width: 1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: ColorManager.fmediumgrey, width: 2),
+                                  color: Color(0xFFB1B1B1), width: 1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             hintText: 'yyyy-mm-dd',
@@ -328,7 +328,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(
-                                  width: 2, color: ColorManager.fmediumgrey),
+                                  color: Color(0xFFB1B1B1), width: 1),
                             ),
                             contentPadding: EdgeInsets.symmetric(horizontal: 16),
                             suffixIcon: Icon(Icons.calendar_month_outlined,

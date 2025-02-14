@@ -20,7 +20,7 @@ class AddEducationPopup extends StatefulWidget {
   final TextEditingController majorSubjectController;
   final TextEditingController countryNameController;
   final VoidCallback onpressedClose;
-  final Future<void> Function() onpressedSave;
+   Future<void> Function() onpressedSave;
   final String title;
   final Widget? radioButton;
 
@@ -286,7 +286,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
         //Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
-          capitalIsSelect: capitalIsSelect,
+          isDigitSelect: capitalIsSelect,
           phoneNumberField: labelText == "Phone", // Specify if this is the phone field
           height: AppSize.s30,
           controller: controller,
@@ -357,6 +357,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
        // !_radioButtonError
     ) {
       try {
+        print("<<<<<<<<<<,,Start");
         await widget.onpressedSave();
       } finally {
         setState(() {

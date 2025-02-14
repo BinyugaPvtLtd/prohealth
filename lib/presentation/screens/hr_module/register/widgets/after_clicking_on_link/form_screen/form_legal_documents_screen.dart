@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,7 @@ import '../../../../../../../app/services/api/managers/hr_module_manager/manage_
 import '../../../../../../../app/services/api/managers/hr_module_manager/onboarding_manager/form_status_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 import '../../../../../../../data/api_data/hr_module_data/onboarding_data/form_status_data.dart';
+import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_legal_doc_data.dart';
 import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
@@ -71,6 +73,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
 
   @override
   void initState() {
+    _initializeFormWithPrefilledData();
     super.initState();
 
   }
@@ -113,7 +116,29 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
   dynamic? filePath;
   File? xfileToFile;
   var finalPath;
+  String? docName;
+  String? docUrl;
   // PlatformFile? fileName;
+
+
+  Future<void> _initializeFormWithPrefilledData() async {
+    try {
+
+      List<EmployeeLegalDocument> prefilledData = await legalDocumentPrifill(context, widget.employeeID); // Assuming getLegalDocuments is your GET API function
+
+      if (prefilledData.isNotEmpty) {
+        var data = prefilledData[0]; // Assuming index matches the data list
+        setState(() {
+          docUrl = data.docUrl ; // URL for the document
+          docName = data.docName ?? '--'; // Default value if no docName is found
+        });
+      }
+    } catch (e) {
+      print('Failed to load prefilled data: $e');
+    }
+  }
+
+
 
   Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
     // Get the directory to save the file.
@@ -153,6 +178,110 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
       throw Exception('File not found');
     }
   }
+
+
+  Future<void> saveDataWithoutFile() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      // Save data logic here, as no file needs to be uploaded
+      ApiDataRegister result = await legalDocumentAdd(
+        context: context,
+        employeeId: widget.employeeID,
+        documentName: fileName,
+        docUrl: '',
+        officeId: '',
+      );
+
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AddSuccessPopup(
+              message: 'Data Saved Successfully Without File',
+            );
+          },
+        );
+        await widget.onSave(); // Save the data to parent
+      } else {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AddFailePopup(
+              message: 'Failed to save data without file',
+            );
+          },
+        );
+      }
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const FourNotFourPopup();
+        },
+      );
+    }
+  }
+
+
+
+
+  Future<void> saveDataWithFile() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      // Perform the API call to save data
+      ApiDataRegister result = await legalDocumentAdd(
+        context: context,
+        employeeId: widget.employeeID,
+        documentName: fileName,
+        docUrl: '',
+        officeId: '',
+      );
+
+      // Upload the document
+      var response = await uploadLegalDocumentBase64(
+        context: context,
+        employeeLegalDocumentId: result.legalDocumentId!,
+        documentFile: finalPath,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AddSuccessPopup(
+              message: 'Document Uploaded Successfully',
+            );
+          },
+        );
+        await widget.onSave(); // Save the data to parent
+      } else {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AddFailePopup(
+              message: 'Failed to upload document',
+            );
+          },
+        );
+        print('Document upload error');
+      }
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const FourNotFourPopup();
+        },
+      );
+    }
+  }
+
+
 
   Future<void> callHtmlData(String htmlName, int id) async{
     setState(() {
@@ -371,376 +500,406 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false,),
       child: SingleChildScrollView(
           child: Column(children: [
-        Container(
-            child: Padding(
-          padding: const EdgeInsets.only(left: 166, right: 166),
-          child: Column(
+        Padding(
+                  padding: const EdgeInsets.only(left: 166, right: 166),
+                  child: Column(
+        children: [
+          Center(
+            child: Text('Legal Documents',
+                style: FormHeading.customTextStyle(context)),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 30),
+          Container(
+            //color: Colors.redAccent,
+
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: BoxDecoration(
+              color: const Color(0xFFE6F7FF),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(
+              child: Text(
+                'Please add information about your legal documents',
+                textAlign: TextAlign.center,
+                style:ZoneDataStyle.customTextStyle(context),
+              ),
+            ),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
             children: [
-              Center(
-                child: Text('Legal Documents',
-                    style: FormHeading.customTextStyle(context)),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
-              Container(
-                //color: Colors.redAccent,
-                height: 50,
-                width: 940,
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE6F7FF),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Text(
-                    'Please add information about your legal documents',
-                    textAlign: TextAlign.center,
-                    style:ZoneDataStyle.customTextStyle(context),
-                  ),
+              Expanded(
+                child: Text(
+                  'Upload one of your government ids ( e.g. drivers license )',
+                  style: FileuploadString.customTextStyle(context),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
-              Row(
+              const SizedBox(width: 40),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Expanded(
-                    child: Text(
-                      'Upload one of your government ids ( e.g. drivers license )',
-                      style: FileuploadString.customTextStyle(context),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      // FilePicker allows only one file to be selected at a time
+                      FilePickerResult? result = await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['pdf'],
+                        allowMultiple: false, // Ensure only one file is selected
+                      );
+                      final fileSize = result?.files.first.size; // File size in bytes
+                      final isAbove20MB = fileSize! > (20 * 1024 * 1024);
+
+                      if (result != null) {
+                        try {
+                          // Get the selected file's bytes and path
+                          Uint8List? bytes = result.files.first.bytes;
+                          XFile xlfile = XFile(result.xFiles.first.path);
+                          xfileToFile = File(xlfile.path); // Store the file as a File object
+
+                          print("::::XFile To File ${xfileToFile.toString()}");
+
+                          // Optional: You can convert bytes to XFile if needed for further processing
+                          XFile xFile = await convertBytesToXFile(
+                              bytes!, result.xFiles.first.name
+                          );
+
+                          // Update the file name and path in your state
+                          _fileNames.clear(); // Clear previous file name(s) to ensure only one file is listed
+                          _fileNames.add(result.files.first.name!);
+
+                          print('File picked: ${_fileNames}');
+
+                          finalPath = result.files.first.bytes;
+                          fileName = result.files.first.name;
+
+                          // Update the UI to indicate the file has been uploaded
+                          setState(() {
+                            _documentUploaded = true;
+                            fileAbove20Mb = !isAbove20MB;
+                            // Indicate the document was uploaded
+                          });
+                        } catch (e) {
+                          print('Error picking file: $e');
+                        }
+                      }
+                    },
+
+                    // onPressed: () async {
+                    //   FilePickerResult? result =
+                    //   await FilePicker.platform.pickFiles(
+                    //     allowMultiple: false,
+                    //   );
+                    //   if (result != null) {
+                    //     PlatformFile file = result.files.first;
+                    //     print('File picked: ${file.name}');
+                    //   } else {
+                    //     // User canceled the picker
+                    //   }
+                    // },
+
+
+
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xff50B5E5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    icon: docName == "--" ? Icon(Icons.upload, color: Colors.white) : null,
+                    label: docName == null || docName == "--"
+                        ? Text(
+                      'Upload File',
+                      style: BlueButtonTextConst.customTextStyle(context),
+                    )
+                        : Text(
+                      'Uploaded',
+                      style: BlueButtonTextConst.customTextStyle(context),
                     ),
                   ),
-                  const SizedBox(width: 40),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () async {
-                          // FilePicker allows only one file to be selected at a time
-                          FilePickerResult? result = await FilePicker.platform.pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: ['pdf'],
-                            allowMultiple: false, // Ensure only one file is selected
-                          );
-                          final fileSize = result?.files.first.size; // File size in bytes
-                          final isAbove20MB = fileSize! > (20 * 1024 * 1024);
-
-                          if (result != null) {
-                            try {
-                              // Get the selected file's bytes and path
-                              Uint8List? bytes = result.files.first.bytes;
-                              XFile xlfile = XFile(result.xFiles.first.path);
-                              xfileToFile = File(xlfile.path); // Store the file as a File object
-
-                              print("::::XFile To File ${xfileToFile.toString()}");
-
-                              // Optional: You can convert bytes to XFile if needed for further processing
-                              XFile xFile = await convertBytesToXFile(
-                                  bytes!, result.xFiles.first.name
-                              );
-
-                              // Update the file name and path in your state
-                              _fileNames.clear(); // Clear previous file name(s) to ensure only one file is listed
-                              _fileNames.add(result.files.first.name!);
-
-                              print('File picked: ${_fileNames}');
-
-                              finalPath = result.files.first.bytes;
-                              fileName = result.files.first.name;
-
-                              // Update the UI to indicate the file has been uploaded
-                              setState(() {
-                                _documentUploaded = true;
-                                fileAbove20Mb = !isAbove20MB;
-                                // Indicate the document was uploaded
-                              });
-                            } catch (e) {
-                              print('Error picking file: $e');
-                            }
-                          }
-                        },
-
-                        // onPressed: () async {
-                        //   FilePickerResult? result =
-                        //   await FilePicker.platform.pickFiles(
-                        //     allowMultiple: false,
-                        //   );
-                        //   if (result != null) {
-                        //     PlatformFile file = result.files.first;
-                        //     print('File picked: ${file.name}');
-                        //   } else {
-                        //     // User canceled the picker
-                        //   }
-                        // },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff50B5E5),
-                          // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        icon: const Icon(Icons.file_upload_outlined,
-                            color: Colors.white),
-                        label: Text(
-                          'Upload Document',
-                          style: BlueButtonTextConst.customTextStyle(context),
-                        ),
-                      ),
-                      _loading
-                          ? SizedBox(
-                              width: 25,
-                              height: 25,
-                              child: CircularProgressIndicator(
-                                color: ColorManager.blueprime, // Loader color
-                                // Loader size
-                              ),
-                            )
-                          : _fileNames.isNotEmpty
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: _fileNames
-                                      .map((fileName) => Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              'File picked: $fileName',
-                                              style: onlyFormDataStyle
-                                                  .customTextStyle(context),
-                                            ),
-                                          ))
-                                      .toList(),
-                                )
-                              : const SizedBox(),
-                    ],
-                  ), // Display file names if picked
+                  SizedBox(height: 8),
+                  docName != null
+                      ? AutoSizeText(
+                    'Uploaded File: $docName',
+                    style: onlyFormDataStyle.customTextStyle(context),
+                  )
+                      : fileName != null
+                      ? AutoSizeText(
+                    'File picked: $fileName',
+                    style: onlyFormDataStyle.customTextStyle(context),
+                  )
+                      : SizedBox(),
+                  //   style: ElevatedButton.styleFrom(
+                  //     backgroundColor: const Color(0xff50B5E5),
+                  //     // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(8.0),
+                  //     ),
+                  //   ),
+                  //   icon: const Icon(Icons.file_upload_outlined,
+                  //       color: Colors.white),
+                  //   label: Text(
+                  //     'Upload Document',
+                  //     style: BlueButtonTextConst.customTextStyle(context),
+                  //   ),
+                  // ),
+                  // _loading
+                  //     ? SizedBox(
+                  //         width: 25,
+                  //         height: 25,
+                  //         child: CircularProgressIndicator(
+                  //           color: ColorManager.blueprime, // Loader color
+                  //           // Loader size
+                  //         ),
+                  //       )
+                  //     : _fileNames.isNotEmpty
+                  //         ? Column(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             children: _fileNames
+                  //                 .map((fileName) => Padding(
+                  //                       padding: const EdgeInsets.all(8.0),
+                  //                       child: Text(
+                  //                         'File picked: $fileName',
+                  //                         style: onlyFormDataStyle
+                  //                             .customTextStyle(context),
+                  //                       ),
+                  //                     ))
+                  //                 .toList(),
+                  //           )
+                  //         : const SizedBox(),
                 ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'List Of Documents',
-                    style: HeadingFormStyle.customTextStyle(context),
-                  ),
-
-                ],
-              ),
-              const SizedBox(height: 50),
-              StreamBuilder<List<FormModel>>(
-                  stream: formController.stream,
-                  builder: (context, snapshot) {
-                    getFormStatus(
-                      context,
-                      widget.employeeID,
-                    ).then((data) {
-                      formController.add(data);
-                    }).catchError((error) {});
-                    print('1111111');
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ),
-                      );
-                    }
-                    if (snapshot.data!.isEmpty) {
-                      return Center(
-                        child: Text(
-                          AppStringHRNoData.nolegalDocData,
-                          style: AllNoDataAvailable.customTextStyle(context),
-                        ),
-                      );
-                    }
-                    if (snapshot.hasData) {
-                      // int totalItems = snapshot.data!.length;
-                      // int totalPages = (totalItems / itemsPerPage).ceil();
-                      // List<FormModel> paginatedData = snapshot.data!
-                      //     .skip((currentPage - 1) * itemsPerPage)
-                      //     .take(itemsPerPage)
-                      //     .toList();
-                      return Container(
-                        height: MediaQuery.of(context).size.height / 1,
-                        child: ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            FormModel formStatus = snapshot.data![index];
-                            return Column(
-                              children: [
-                                // const SizedBox(height: AppSize.s10),
-                                // DefineFormList(formName: AppStringLegalDocument.onCall, onSigned: () async{
-                                //   OnCallDocument oncallDoc = await getLegalOnCallDocument(context: context, callHtmlId: 1, employeeId: 169);
-                                //   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-                                //     documentName: AppStringLegalDocument.onCall,
-                                //     onPressed: () {  },
-                                //     htmlFormData: oncallDoc.html,
-                                //     employeeId: 169,//widget.employeeID,
-                                //     htmlFormTemplateId: 1,)));
-                                // }, onView: () {  },),
-                                // const SizedBox(height: AppSize.s10),
-                                /// dont delete this code
-                                DefineFormList(
-                                  isReturnCompany: (formStatus.htmlname == AppStringLegalDocument.returnOfcompanyProperty)?true:false,
-                                  isHandbook: (formStatus.htmlname == AppStringLegalDocument.employeeHandbook)?true:false,
-                                  handBookView:(formStatus.htmlname == AppStringLegalDocument.employeeHandbook)?() async{
-                            await callHtmlData(formStatus.htmlname,formStatus.formHtmlTemplatesId);
-                            print("${formStatus.htmlname} signed.");
-                            }:(){},
-                                  formName: formStatus.htmlname,
-                                  onSigned: formStatus.signed
-                                      ? null
-                                      : () async{
-                                     await callHtmlData(formStatus.htmlname,formStatus.formHtmlTemplatesId);
-                                    print("${formStatus.htmlname} signed.");
-                                  },
-                                  onView: formStatus.signed ?  () {
-                                    // Logic for viewing the form
-                                    downloadFile(formStatus.url);
-                                    print("Viewing ${formStatus.htmlname}");
-                                  } : (){},
-                                  isSigned: formStatus.signed,
-                                ),
-                                const SizedBox(height: AppSize.s10),
-                                const Divider(
-                                  height: 1,
-                                  color: Color(0xFFD1D1D1),
-                                ),
-                                const SizedBox(height: AppSize.s10),
-                              ],
-                            );
-                          },
-                        ),
-                      );
-
-
-                      //   Container(
-                      //   height: MediaQuery.of(context).size.height/1,
-                      //   child: ListView.builder(
-                      //       scrollDirection: Axis.vertical,
-                      //       itemCount: paginatedData.length,
-                      //       itemBuilder: (context, index) {
-                      //         FormModel formStatus = paginatedData[index];
-                      //         return Column(
-                      //           children: [
-                      //             DefineFormList(
-                      //                 formName: formStatus.htmlname,
-                      //                 onSigned: () {},
-                      //                 onView: () {}),
-                      //             const SizedBox(height: AppSize.s10),
-                      //             const Divider(
-                      //               height: 1,
-                      //               color: Color(0xFFD1D1D1),
-                      //             ),
-                      //             const SizedBox(height: AppSize.s10),
-                      //           ],
-                      //         );
-                      //       }),
-                      // );
-                    }
-                    return Offstage();
-                  }),
-              const SizedBox(height: AppSize.s10),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     isSelected == false ?const Text(''): CustomButton(
-              //       width: 117,
-              //       height: 30,
-              //       text: 'Save',
-              //       style: BlueButtonTextConst.customTextStyle(context),
-              //       borderRadius: 12,
-              //       onPressed: () async {
-              //         if (finalPath == null || finalPath.isEmpty) {
-              //           print('Loading');
-              //         } else {
-              //           try {
-              //             ApiDataRegister result = await legalDocumentAdd(context: context,
-              //                 employeeId: widget.employeeID,
-              //                 documentName: fileName,
-              //                 docUrl: '',
-              //                 officeId: '');
-              //             var response = await uploadLegalDocumentBase64(context: context,
-              //                 employeeLegalDocumentId: result.legalDocumentId!,
-              //                 documentFile: finalPath
-              //             );
-              //
-              //             if(response.statusCode == 201 || response.statusCode == 200){
-              //               showDialog(
-              //                 context: context,
-              //                 builder: (BuildContext context) {
-              //                   return const AddSuccessPopup(
-              //                     message: 'Document Uploaded Successfully',
-              //                   );
-              //                 },
-              //               );
-              //             }else{
-              //               showDialog(
-              //                 context: context,
-              //                 builder: (BuildContext context) {
-              //                   return const AddSuccessPopup(
-              //                     message: 'Failed To Upload Document',
-              //                   );
-              //                 },
-              //               );
-              //               print('Document upload Error');
-              //             }
-              //
-              //           } catch (e) {
-              //             showDialog(
-              //               context: context,
-              //               builder: (BuildContext context) {
-              //                 return const AddSuccessPopup(
-              //                   message: 'Failed To Upload Document',
-              //                 );
-              //               },
-              //             );
-              //           }
-              //         }
-              //       },
-              //       // onPressed: () async {
-              //       //
-              //       //   try {
-              //       //     // File filePath = File(finalPath!);
-              //       //     await uploadDocuments(
-              //       //         context: context,
-              //       //         employeeDocumentMetaId: 10,
-              //       //         employeeDocumentTypeSetupId: 48,
-              //       //         employeeId: 2,
-              //       //         documentFile: finalPath,
-              //       //         documentName: 'Legal Document ID'
-              //       //     );
-              //       //
-              //       //
-              //       //     ScaffoldMessenger.of(context).showSnackBar(
-              //       //       SnackBar(
-              //       //         content: Text('Document uploaded successfully!'),
-              //       //         backgroundColor: Colors.green,
-              //       //       ),
-              //       //     );
-              //       //   } catch (e) {
-              //       //
-              //       //     ScaffoldMessenger.of(context).showSnackBar(
-              //       //       SnackBar(
-              //       //         content: Text('Failed to upload document: $e'),
-              //       //         backgroundColor: Colors.red,
-              //       //       ),
-              //       //     );
-              //       //   }
-              //       // },
-              //
-              //       // onPressed: () async{
-              //       //   try{
-              //       //     //File filePath = File(finalPath!);
-              //       //     await uploadDocuments(context: context, employeeDocumentMetaId: 10, employeeDocumentTypeSetupId: 48,
-              //       //     employeeId: 2, //documentName: widget.AcknowledgementnameController.text,
-              //       //     documentFile: finalPath, documentName: 'Legal Document ID');
-              //       //   }catch(e){
-              //       //     print(e);
-              //       //   }
-              //       //
-              //       // },
-              //     ),
-              //   ],
-              // )
+              ), // Display file names if picked
             ],
           ),
-        )),
+          SizedBox(height: MediaQuery.of(context).size.height / 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'List Of Documents',
+                style: HeadingFormStyle.customTextStyle(context),
+              ),
+
+            ],
+          ),
+          const SizedBox(height: 50),
+          StreamBuilder<List<FormModel>>(
+              stream: formController.stream,
+              builder: (context, snapshot) {
+                getFormStatus(
+                  context,
+                  widget.employeeID,
+                ).then((data) {
+                  formController.add(data);
+                }).catchError((error) {});
+                print('1111111');
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
+                  );
+                }
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      AppStringHRNoData.nolegalDocData,
+                      style: AllNoDataAvailable.customTextStyle(context),
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  // int totalItems = snapshot.data!.length;
+                  // int totalPages = (totalItems / itemsPerPage).ceil();
+                  // List<FormModel> paginatedData = snapshot.data!
+                  //     .skip((currentPage - 1) * itemsPerPage)
+                  //     .take(itemsPerPage)
+                  //     .toList();
+                  return Container(
+                    height: MediaQuery.of(context).size.height / 1,
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        FormModel formStatus = snapshot.data![index];
+                        return Column(
+                          children: [
+                            // const SizedBox(height: AppSize.s10),
+                            // DefineFormList(formName: AppStringLegalDocument.onCall, onSigned: () async{
+                            //   OnCallDocument oncallDoc = await getLegalOnCallDocument(context: context, callHtmlId: 1, employeeId: 169);
+                            //   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                            //     documentName: AppStringLegalDocument.onCall,
+                            //     onPressed: () {  },
+                            //     htmlFormData: oncallDoc.html,
+                            //     employeeId: 169,//widget.employeeID,
+                            //     htmlFormTemplateId: 1,)));
+                            // }, onView: () {  },),
+                            // const SizedBox(height: AppSize.s10),
+                            /// dont delete this code
+                            DefineFormList(
+                              isReturnCompany: (formStatus.htmlname == AppStringLegalDocument.returnOfcompanyProperty)?true:false,
+                              isHandbook: (formStatus.htmlname == AppStringLegalDocument.employeeHandbook)?true:false,
+                              handBookView:(formStatus.htmlname == AppStringLegalDocument.employeeHandbook)?() async{
+                        await callHtmlData(formStatus.htmlname,formStatus.formHtmlTemplatesId);
+                        print("${formStatus.htmlname} signed.");
+                        }:(){},
+                              formName: formStatus.htmlname,
+                              onSigned: formStatus.signed
+                                  ? null
+                                  : () async{
+                                 await callHtmlData(formStatus.htmlname,formStatus.formHtmlTemplatesId);
+                                print("${formStatus.htmlname} signed.");
+                              },
+                              onView: formStatus.signed ?  () {
+                                // Logic for viewing the form
+                                downloadFile(formStatus.url);
+                                print("Viewing ${formStatus.htmlname}");
+                              } : (){},
+                              isSigned: formStatus.signed,
+                            ),
+                            const SizedBox(height: AppSize.s10),
+                            const Divider(
+                              height: 1,
+                              color: Color(0xFFD1D1D1),
+                            ),
+                            const SizedBox(height: AppSize.s10),
+                          ],
+                        );
+                      },
+                    ),
+                  );
+
+
+                  //   Container(
+                  //   height: MediaQuery.of(context).size.height/1,
+                  //   child: ListView.builder(
+                  //       scrollDirection: Axis.vertical,
+                  //       itemCount: paginatedData.length,
+                  //       itemBuilder: (context, index) {
+                  //         FormModel formStatus = paginatedData[index];
+                  //         return Column(
+                  //           children: [
+                  //             DefineFormList(
+                  //                 formName: formStatus.htmlname,
+                  //                 onSigned: () {},
+                  //                 onView: () {}),
+                  //             const SizedBox(height: AppSize.s10),
+                  //             const Divider(
+                  //               height: 1,
+                  //               color: Color(0xFFD1D1D1),
+                  //             ),
+                  //             const SizedBox(height: AppSize.s10),
+                  //           ],
+                  //         );
+                  //       }),
+                  // );
+                }
+                return Offstage();
+              }),
+          const SizedBox(height: AppSize.s10),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     isSelected == false ?const Text(''): CustomButton(
+          //       width: 117,
+          //       height: 30,
+          //       text: 'Save',
+          //       style: BlueButtonTextConst.customTextStyle(context),
+          //       borderRadius: 12,
+          //       onPressed: () async {
+          //         if (finalPath == null || finalPath.isEmpty) {
+          //           print('Loading');
+          //         } else {
+          //           try {
+          //             ApiDataRegister result = await legalDocumentAdd(context: context,
+          //                 employeeId: widget.employeeID,
+          //                 documentName: fileName,
+          //                 docUrl: '',
+          //                 officeId: '');
+          //             var response = await uploadLegalDocumentBase64(context: context,
+          //                 employeeLegalDocumentId: result.legalDocumentId!,
+          //                 documentFile: finalPath
+          //             );
+          //
+          //             if(response.statusCode == 201 || response.statusCode == 200){
+          //               showDialog(
+          //                 context: context,
+          //                 builder: (BuildContext context) {
+          //                   return const AddSuccessPopup(
+          //                     message: 'Document Uploaded Successfully',
+          //                   );
+          //                 },
+          //               );
+          //             }else{
+          //               showDialog(
+          //                 context: context,
+          //                 builder: (BuildContext context) {
+          //                   return const AddSuccessPopup(
+          //                     message: 'Failed To Upload Document',
+          //                   );
+          //                 },
+          //               );
+          //               print('Document upload Error');
+          //             }
+          //
+          //           } catch (e) {
+          //             showDialog(
+          //               context: context,
+          //               builder: (BuildContext context) {
+          //                 return const AddSuccessPopup(
+          //                   message: 'Failed To Upload Document',
+          //                 );
+          //               },
+          //             );
+          //           }
+          //         }
+          //       },
+          //       // onPressed: () async {
+          //       //
+          //       //   try {
+          //       //     // File filePath = File(finalPath!);
+          //       //     await uploadDocuments(
+          //       //         context: context,
+          //       //         employeeDocumentMetaId: 10,
+          //       //         employeeDocumentTypeSetupId: 48,
+          //       //         employeeId: 2,
+          //       //         documentFile: finalPath,
+          //       //         documentName: 'Legal Document ID'
+          //       //     );
+          //       //
+          //       //
+          //       //     ScaffoldMessenger.of(context).showSnackBar(
+          //       //       SnackBar(
+          //       //         content: Text('Document uploaded successfully!'),
+          //       //         backgroundColor: Colors.green,
+          //       //       ),
+          //       //     );
+          //       //   } catch (e) {
+          //       //
+          //       //     ScaffoldMessenger.of(context).showSnackBar(
+          //       //       SnackBar(
+          //       //         content: Text('Failed to upload document: $e'),
+          //       //         backgroundColor: Colors.red,
+          //       //       ),
+          //       //     );
+          //       //   }
+          //       // },
+          //
+          //       // onPressed: () async{
+          //       //   try{
+          //       //     //File filePath = File(finalPath!);
+          //       //     await uploadDocuments(context: context, employeeDocumentMetaId: 10, employeeDocumentTypeSetupId: 48,
+          //       //     employeeId: 2, //documentName: widget.AcknowledgementnameController.text,
+          //       //     documentFile: finalPath, documentName: 'Legal Document ID');
+          //       //   }catch(e){
+          //       //     print(e);
+          //       //   }
+          //       //
+          //       // },
+          //     ),
+          //   ],
+          // )
+        ],
+                  ),
+                ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -776,81 +935,30 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     color: ColorManager.blueprime,
                   ),
                 )
-                    : CustomButton(
+
+                    :CustomButton(
                   width: 117,
                   height: 30,
                   text: 'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
                   borderRadius: 12,
-                  onPressed: () async{
+                  onPressed: () async {
+                    // Check if a file is selected
                     if (finalPath == null || finalPath.isEmpty) {
-                    await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return VendorSelectNoti(
-                            message: 'Please Select File',
-                          );
-                        },
-                      );
-                      print('Loading');
+                      // If no file is selected, just save the data
+                      await saveDataWithoutFile(); // Function to save data without file upload
                     } else {
-                      setState(() {
-                        isLoading = true;
-                      });
+                      // If file is selected, check if it's under 20 MB
                       if (fileAbove20Mb) {
-                        try {
-                          ApiDataRegister result = await legalDocumentAdd(
-                              context: context,
-                              employeeId: widget.employeeID,
-                              documentName: fileName,
-                              docUrl: '',
-                              officeId: '');
-                          var response = await uploadLegalDocumentBase64(
-                              context: context,
-                              employeeLegalDocumentId: result.legalDocumentId!,
-                              documentFile: finalPath
-                          );
+                        // Show error message if file is too large
 
-                          if (response.statusCode == 201 ||
-                              response.statusCode == 200) {
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const AddSuccessPopup(
-                                  message: 'Document Uploaded Successfully',
-                                );
-                              },
-                            );
-                            await widget.onSave();
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const AddFailePopup(
-                                  message: 'Failed To Upload Document',
-                                );
-                              },
-                            );
-                            print('Document upload Error');
-                          }
-                        } catch (e) {
-                          await showDialog(
-                            context: context,
-                            builder: (
-                                BuildContext context) => const FourNotFourPopup(),
-                          );
-                          // await  showDialog(
-                          //   context: context,
-                          //   builder: (BuildContext context) {
-                          //     return const AddFailePopup(
-                          //       message: 'Failed To Upload Document',
-                          //     );
-                          //   },
-                          // );
-                        }
-                      }
-                      else{
-                        showDialog(
+                        await saveDataWithFile();
+
+                      } else {
+                        // If file size is acceptable, proceed with saving data and uploading the file
+                        // await saveDataWithFile();
+                        // Function to save data and upload the file
+                        await showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AddErrorPopup(
@@ -862,15 +970,110 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     }
 
                     setState(() {
-                      isLoading = false;
+                      isLoading = false; // Stop loading
                     });
-
                   },
                   child: Text(
                     'Save',
                     style: BlueButtonTextConst.customTextStyle(context),
                   ),
                 ),
+
+                //     : CustomButton(
+                //   width: 117,
+                //   height: 30,
+                //   text: 'Save',
+                //   style: BlueButtonTextConst.customTextStyle(context),
+                //   borderRadius: 12,
+                //   onPressed: () async{
+                //     if (finalPath == null || finalPath.isEmpty) {
+                //     await showDialog(
+                //         context: context,
+                //         builder: (BuildContext context) {
+                //           return VendorSelectNoti(
+                //             message: 'Please Select File',
+                //           );
+                //         },
+                //       );
+                //       print('Loading');
+                //     } else {
+                //       setState(() {
+                //         isLoading = true;
+                //       });
+                //       if (fileAbove20Mb) {
+                //         try {
+                //           ApiDataRegister result = await legalDocumentAdd(
+                //               context: context,
+                //               employeeId: widget.employeeID,
+                //               documentName: fileName,
+                //               docUrl: '',
+                //               officeId: '');
+                //           var response = await uploadLegalDocumentBase64(
+                //               context: context,
+                //               employeeLegalDocumentId: result.legalDocumentId!,
+                //               documentFile: finalPath
+                //           );
+                //
+                //           if (response.statusCode == 201 ||
+                //               response.statusCode == 200) {
+                //             await showDialog(
+                //               context: context,
+                //               builder: (BuildContext context) {
+                //                 return const AddSuccessPopup(
+                //                   message: 'Document Uploaded Successfully',
+                //                 );
+                //               },
+                //             );
+                //             await widget.onSave();
+                //           } else {
+                //             await showDialog(
+                //               context: context,
+                //               builder: (BuildContext context) {
+                //                 return const AddFailePopup(
+                //                   message: 'Failed To Upload Document',
+                //                 );
+                //               },
+                //             );
+                //             print('Document upload Error');
+                //           }
+                //         } catch (e) {
+                //           await showDialog(
+                //             context: context,
+                //             builder: (
+                //                 BuildContext context) => const FourNotFourPopup(),
+                //           );
+                //           // await  showDialog(
+                //           //   context: context,
+                //           //   builder: (BuildContext context) {
+                //           //     return const AddFailePopup(
+                //           //       message: 'Failed To Upload Document',
+                //           //     );
+                //           //   },
+                //           // );
+                //         }
+                //       }
+                //       else{
+                //         showDialog(
+                //           context: context,
+                //           builder: (BuildContext context) {
+                //             return AddErrorPopup(
+                //               message: 'File is too large!',
+                //             );
+                //           },
+                //         );
+                //       }
+                //     }
+                //
+                //     setState(() {
+                //       isLoading = false;
+                //     });
+                //
+                //   },
+                //   child: Text(
+                //     'Save',
+                //     style: BlueButtonTextConst.customTextStyle(context),
+                //   ),
+                // ),
               ],
             ),
 

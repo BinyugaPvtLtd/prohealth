@@ -219,16 +219,15 @@ class RegisterEnrollPopup extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {
-              Navigator.pop(context);
+                          Navigator.pop(context);
                             // Navigator.push(
                             //   context,
-                            //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId, depID: 1,)),
-                            // )
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen(employeeId: widget.employeeId, depID: 1,)),
+                            //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId, depID: 1,)),
                             // );
-
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen(employeeId:employeeId, depID: 1,)),
+                            // );
                           },
                           icon: Icon(Icons.close,color: ColorManager.white,),
                         ),
@@ -1114,159 +1113,172 @@ class RegisterEnrollPopup extends StatelessWidget {
                           height: 25,
                           width: 25,
                           child: CircularProgressIndicator(color: ColorManager.blueprime,))
-                          :  Container(width:100,
-                        child: CustomIconButton(
-                            text: AppString.next,
-                            onPressed: () async{
-                              providerState.validateFields(
-                                  position: position.text,
-                                  phone: phone.text,
-                                  speciality: speciality.text,
-                                  firstName: firstName.text,
-                                  lastName: lastName.text,
-                                  email: email.text, clinicalType: clinicialName,
-                                  repoartingOffice: reportingOfficeId,
-                                  zone: selectedZone,
-                                  city:selectedCity);
-                              if (providerState.isFormValid) {
-                                providerState.loaderTrue();
-                                providerState.generateUrlLink();
-                                // ApiData response = await addEmpEnroll(
-                                //   context: context,
-                                //   employeeId: widget
-                                //       .employeeId,
-                                //   code: "",
-                                //   userId: widget.userId,
-                                //   firstName: widget
-                                //       .firstName.text,
-                                //   lastName: widget
-                                //       .lastName.text,
-                                //   phoneNbr: phone.text,
-                                //   email: widget.email
-                                //       .text,
-                                //   link: generatedURL,
-                                //   status: widget.status,
-                                //   departmentId: widget.depId,
-                                //   position: position
-                                //       .text,
-                                //   speciality: speciality
-                                //       .text,
-                                //   clinicianTypeId:clinicalId,
-                                //   reportingOfficeId: reportingOfficeId,
-                                //   cityId: cityId,
-                                //   countryId: countryId,
-                                //   countyId: countyId,
-                                //   zoneId: zoneId,
-                                //  // employment: "Full Time",
-                                //   employment: emptype.toString(),
-                                //  // service: "Hospice",
-                                // service: selectedServiceName.toString(),
-                                // );
-                                print("countryname>>>> :: ${selectedCountry}");
-                                print("countryID>>>>> :: ${countryId}");
-                                print("countryID :: ${countryId}");
+                          :  Container(
+                        width:80,
+                        height: 30,
+                            child: ElevatedButton(
+                                 onPressed: () async{
+                                                    providerState.validateFields(
+                              position: position.text,
+                              phone: phone.text,
+                              speciality: speciality.text,
+                              firstName: firstName.text,
+                              lastName: lastName.text,
+                              email: email.text, clinicalType: clinicialName,
+                              repoartingOffice: reportingOfficeId,
+                              zone: selectedZone,
+                              city:selectedCity);
+                                                    if (providerState.isFormValid) {
+                            providerState.loaderTrue();
+                            providerState.generateUrlLink();
+                            // ApiData response = await addEmpEnroll(
+                            //   context: context,
+                            //   employeeId: widget
+                            //       .employeeId,
+                            //   code: "",
+                            //   userId: widget.userId,
+                            //   firstName: widget
+                            //       .firstName.text,
+                            //   lastName: widget
+                            //       .lastName.text,
+                            //   phoneNbr: phone.text,
+                            //   email: widget.email
+                            //       .text,
+                            //   link: generatedURL,
+                            //   status: widget.status,
+                            //   departmentId: widget.depId,
+                            //   position: position
+                            //       .text,
+                            //   speciality: speciality
+                            //       .text,
+                            //   clinicianTypeId:clinicalId,
+                            //   reportingOfficeId: reportingOfficeId,
+                            //   cityId: cityId,
+                            //   countryId: countryId,
+                            //   countyId: countyId,
+                            //   zoneId: zoneId,
+                            //  // employment: "Full Time",
+                            //   employment: emptype.toString(),
+                            //  // service: "Hospice",
+                            // service: selectedServiceName.toString(),
+                            // );
+                            print("countryname>>>> :: ${selectedCountry}");
+                            print("countryID>>>>> :: ${countryId}");
+                            print("countryID :: ${countryId}");
 
-                                providerState.loaderFalse();
+                            providerState.loaderFalse();
 
-                                // if (response.statusCode == 200 || response.statusCode == 201) {
-                                  Navigator.pop(
-                                      context);
-                                  Provider.of<RouteProvider>(context, listen: false)
-                                      .navigateWithData(
-                                    context,
-                                        (ctx) => OfferLetterScreen(
-                                          //apiData: response,
-                                          employeeId: employeeId,
-                                          email:email
-                                              .text,
-                                          userId: userId,
-                                          status:status,
-                                          firstName:firstName
-                                              .text,
-                                          lastName: lastName
-                                              .text,
-                                          role: role,
-                                          position: position
-                                              .text,
-                                          phone: phone
-                                              .text,
-                                          reportingOffice: reportingOfficeId,
-                                          services: selectedServiceName.toString(),
-                                          employement: emptype.toString(),
-                                          clinicalId: clinicalId,
-                                          soecalityName: speciality.text,
-                                          onRefreshRegister: onReferesh,
-                                          depId: depId,
-                                          cityId: cityId,
-                                          countyId: countyId,
-                                          zoneId: zoneId,
-                                          link: providerState.generatedURL,
-                                          countryId: countryId,
-                                        ),
-                                  );
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (
-                                  //             context) =>
-                                  //             OfferLetterScreen(
-                                  //               apiData: response,
-                                  //               employeeId: widget
-                                  //                   .employeeId,
-                                  //               email: widget
-                                  //                   .email
-                                  //                   .text,
-                                  //               userId: widget
-                                  //                   .userId,
-                                  //               status: widget
-                                  //                   .status,
-                                  //               firstName: widget
-                                  //                   .firstName
-                                  //                   .text,
-                                  //               lastName: widget
-                                  //                   .lastName
-                                  //                   .text,
-                                  //               role: widget
-                                  //                   .role,
-                                  //               position: position
-                                  //                   .text,
-                                  //               phone: phone
-                                  //                   .text,
-                                  //               reportingOffice: reportingOfficeId,
-                                  //               services: selectedServiceName.toString(),
-                                  //               employement: emptype.toString(),
-                                  //               clinicalId: clinicalId,
-                                  //               soecalityName: speciality.text,
-                                  //               onRefreshRegister: () {
-                                  //                 setState(() {
-                                  //
-                                  //                 });
-                                  //               }, depId: widget.depId,
-                                  //               cityId: cityId,
-                                  //               countyId: countyId,
-                                  //               zoneId: zoneId,
-                                  //               link: generatedURL,
-                                  //               countryId: countryId,
-                                  //             )));
-                                // } else if(response.statusCode == 400 || response.statusCode == 404){
-                                //   // Navigator.pop(context);
-                                //   await showDialog(
-                                //     context: context,
-                                //     builder: (BuildContext context) => const FourNotFourPopup(),
-                                //   );
-                                // }
-                                // else {
-                                //   // Navigator.pop(context);
-                                //   await showDialog(
-                                //     context: context,
-                                //     builder: (BuildContext context) => FailedPopup(text: response.message),
-                                //   );
-                                // }
-                                print("${employeeId}");
-                              }
+                            // if (response.statusCode == 200 || response.statusCode == 201) {
+                            Navigator.pop(
+                                context);
+                            Provider.of<RouteProvider>(context, listen: false)
+                                .navigateWithData(
+                              context,
+                                  (ctx) => OfferLetterScreen(
+                                //apiData: response,
+                                employeeId: employeeId,
+                                email:email
+                                    .text,
+                                userId: userId,
+                                status:status,
+                                firstName:firstName
+                                    .text,
+                                lastName: lastName
+                                    .text,
+                                role: role,
+                                position: position
+                                    .text,
+                                phone: phone
+                                    .text,
+                                reportingOffice: reportingOfficeId,
+                                services: selectedServiceName.toString(),
+                                employement: emptype.toString(),
+                                clinicalId: clinicalId,
+                                soecalityName: speciality.text,
+                                onRefreshRegister: onReferesh,
+                                depId: depId,
+                                cityId: cityId,
+                                countyId: countyId,
+                                zoneId: zoneId,
+                                link: providerState.generatedURL,
+                                countryId: countryId,
+                              ),
+                            );
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (
+                            //             context) =>
+                            //             OfferLetterScreen(
+                            //               apiData: response,
+                            //               employeeId: widget
+                            //                   .employeeId,
+                            //               email: widget
+                            //                   .email
+                            //                   .text,
+                            //               userId: widget
+                            //                   .userId,
+                            //               status: widget
+                            //                   .status,
+                            //               firstName: widget
+                            //                   .firstName
+                            //                   .text,
+                            //               lastName: widget
+                            //                   .lastName
+                            //                   .text,
+                            //               role: widget
+                            //                   .role,
+                            //               position: position
+                            //                   .text,
+                            //               phone: phone
+                            //                   .text,
+                            //               reportingOffice: reportingOfficeId,
+                            //               services: selectedServiceName.toString(),
+                            //               employement: emptype.toString(),
+                            //               clinicalId: clinicalId,
+                            //               soecalityName: speciality.text,
+                            //               onRefreshRegister: () {
+                            //                 setState(() {
+                            //
+                            //                 });
+                            //               }, depId: widget.depId,
+                            //               cityId: cityId,
+                            //               countyId: countyId,
+                            //               zoneId: zoneId,
+                            //               link: generatedURL,
+                            //               countryId: countryId,
+                            //             )));
+                            // } else if(response.statusCode == 400 || response.statusCode == 404){
+                            //   // Navigator.pop(context);
+                            //   await showDialog(
+                            //     context: context,
+                            //     builder: (BuildContext context) => const FourNotFourPopup(),
+                            //   );
+                            // }
+                            // else {
+                            //   // Navigator.pop(context);
+                            //   await showDialog(
+                            //     context: context,
+                            //     builder: (BuildContext context) => FailedPopup(text: response.message),
+                            //   );
+                            // }
+                            print("${employeeId}");
+                                                    }
 
-                            }),
-                      ),
+                                                  },
+
+                                                    child: Text("Next",style: BlueButtonTextConst.customTextStyle(context),),
+                                                    style: ElevatedButton.styleFrom(
+                              padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                              backgroundColor:  Color(0xFF50B5E5) ,
+                              // shadowColor: Colors.grey,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              elevation: 5
+                                                    ),
+                                ),
+                          ),
                     ],
                   );
                   },

@@ -193,10 +193,10 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
               style:FormHeading.customTextStyle(context)
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 60),
+          SizedBox(height: MediaQuery.of(context).size.height / 30),
           Container(
-            height: 50,
-            width: 940,
+            // height: 50,
+            // width: 940,
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
               color: Color(0xFFE6F7FF),
@@ -389,6 +389,9 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                 },
               ),
             ),
+          ),
+          SizedBox(
+            height: AppSize.s20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -69,14 +69,14 @@ class _CiOrgDocumentState extends State<CIInsurance> {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 60.0),
+                horizontal: AppPadding.p65),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   flex: 2,
                   child:  _selectedIndex == 0
-                    ? SizedBox(width: AppSize.s285)
+                    ? Container(width: AppSize.s285)
                     : FutureBuilder<List<ManageVendorData>>(
                   future: companyVendorGet(context, widget.officeId, 1, 20),
                   builder: (context, snapshotZone) {
@@ -151,7 +151,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         ),
                       );
 
-                        //CICCDropdown(items: [],initialValue: ErrorMessageString.noVendorAdded,);
                     }
                     if (snapshotZone.hasData) {
                       List<DropdownMenuItem<String>> dropDownTypesList = [];
@@ -163,13 +162,11 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                           ),
                         );
                       }
-
                       if (selectedValue == null && dropDownTypesList.isNotEmpty) {
                         selectedValue = dropDownTypesList[0].value;
                       }
 
                       return CICCDropdown(
-                        width:  AppSize.s285,
                         initialValue: "Select",
                         onChange: (val) {
                           setState(() {
@@ -195,35 +192,44 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                 ),),
                 Expanded(
                     flex: 2,
-                    child: Container()),
+                    child: Container(
+                      height: 30,
+                    //  color: ColorManager.red,
+                    )),
                 ///tabbar
                 Expanded(
                   flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: AppPadding.p10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        EMTabbar(onTap: (int index){
-                          _selectButton(0);
-                        }, index: 0, grpIndex: _selectedIndex, heading: AppStringEM.vendor),
-                        EMTabbar(onTap: (int index){
-                          _selectButton(1);
-                        }, index: 1, grpIndex: _selectedIndex, heading: AppStringEM.contract),
-                      ],
+                  child: Container(
+                  //  color: Colors.greenAccent,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: AppPadding.p10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          EMTabbar(onTap: (int index){
+                            _selectButton(0);
+                          }, index: 0, grpIndex: _selectedIndex, heading: AppStringEM.vendor),
+                          EMTabbar(onTap: (int index){
+                            _selectButton(1);
+                          }, index: 1, grpIndex: _selectedIndex, heading: AppStringEM.contract),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
                     flex: 3,
-                    child: Container()),
+                    child: Container(
+                      height: 30,
+                    //  color: Colors.grey,
+                    )),
                 ///buttons
                 _selectedIndex == 0
                 ? CustomIconButtonConst(
-                 width: AppSize.s100,
-                 icon: Icons.add,
-                 text: AppStringEM.add,
+                    icon: Icons.add,
+                 text: AppStringEM.addVendor,
+                 width: AppSize.s140,
                  onPressed: () {
                    vendorNameController.clear();
                    showDialog(
@@ -237,12 +243,10 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                    );
                  })
                 : CustomIconButtonConst(
-                                width: 150,
-                                icon: Icons.add,
+                  icon: Icons.add,
+                  width: AppSize.s140,
                                 text: AppStringEM.adddoctype,
-                                onPressed:
-                                isAddButtonEnabled
-                ? () {
+                                onPressed: isAddButtonEnabled ? () {
                                   //selectedExpiryType = expiryType;
                                   showDialog(
                 context: context,
@@ -277,7 +281,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 60),
+                  horizontal: AppPadding.p65),
               child: NonScrollablePageView(
                 controller: _tabPageController,
                 onPageChanged: (index) {

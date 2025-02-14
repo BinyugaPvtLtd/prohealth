@@ -94,98 +94,80 @@ class _EducationScreenState extends State<EducationScreen> {
     }
   }
 
-  Future<void> processEducationForms() async{
-    try{
+
+
+
+  Future<void> processEducationForms() async {
+    try {
       setState(() {
         isLoading = true;
       });
+
       List<Future> tasks = [];
       for (var key in educationFormKeys) {
         final st = key.currentState!;
 
         try {
-
-
           // Only execute the code if st.isPrefill is false
-          tasks.add(Future(()async {
-            if (st.isPrefill == false) {
+          if (st.isPrefill == false) {
 
-              // Check if the file is selected
-              if (st.finalPath == null || st.finalPath!.isEmpty) {
-                // Show a message asking the user to select a file
-                await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const AddFailePopup(
-                      message: 'Please Select A File',
-                    );
-                  },
-                );
-                setState(() {
-                  isLoading = false;
-                });
-                return; // Stop further execution if no file is selected
-              }
-              if(st.fileAbove20Mb) {
-                // Call the posteducationscreen API regardless of whether the file is selected
-                ApiDataRegister response = await FormEducationManager()
-                    .posteducationscreen(
-                  context,
-                  st.widget.employeeID,
-                  st.graduatetype.toString(),
-                  st.selectedDegree.toString(),
-                  st.majorsubject.text,
-                  st.city.text,
-                  st.collegeuniversity.text,
-                  st.phone.text,
-                  st.state.text,
-                  "USA",
-                  "2024-08-09",
-                );
-
-                // If the file is selected, upload it
-                await uploadEducationDocument(
-                  context,
-                  response.educationId!,
-                  st.finalPath,
-                  st.fileName!,
-                );
-
-                // If the API call is successful
-                if (response.statusCode == 200 ||
-                    response.statusCode == 201) {
-                  await showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddSuccessPopup(
-                        message: 'Education Data Saved',
-                      );
-                    },
+            // Check if the file is too large
+            if (st.finalPath != null && st.finalPath!.isNotEmpty && !st.fileAbove20Mb) {
+              // Show error message and do not save data if file is too large
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddErrorPopup(
+                    message: 'File is too large!',
                   );
-
-                  await  _loadEducationData();
-
-                }
-              }
-              else{
-                await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AddErrorPopup(
-                      message: 'File is too large!',
-                    );
-                  },
-                );
-              }
-
+                },
+              );
+              // Stop further execution (no data saved)
+              setState(() {
+                isLoading = false;
+              });
+              return; // Exit early to prevent saving data
             }
-          }));
-          // Wait for all tasks to complete
-          await Future.wait(tasks);
 
-          // Call widget.save() after all tasks are completed
+            // Save form data
+            ApiDataRegister response = await FormEducationManager()
+                .posteducationscreen(
+              context,
+              st.widget.employeeID,
+              st.graduatetype.toString(),
+              st.selectedDegree.toString(),
+              st.majorsubject.text,
+              st.city.text,
+              st.collegeuniversity.text,
+              st.phone.text,
+              st.state.text,
+              "USA",
+              "2024-08-09",
+            );
 
+            // If a file is selected and within the size limit, upload it
+            if (st.finalPath != null && st.finalPath!.isNotEmpty) {
+              await uploadEducationDocument(
+                context,
+                response.educationId!,
+                st.finalPath,
+                st.fileName!,
+              );
+            }
 
+            // If the API call is successful, show success message
+            if (response.statusCode == 200 || response.statusCode == 201) {
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddSuccessPopup(
+                    message: 'Education Data Saved',
+                  );
+                },
+              );
+              await _loadEducationData();
+            }
+          }
         } catch (e) {
           // If an error occurs, show failure dialog
           await showDialog(
@@ -196,27 +178,148 @@ class _EducationScreenState extends State<EducationScreen> {
               );
             },
           );
-          // await showDialog(
-          //   context: context,
-          //   builder: (BuildContext context) => const FourNotFourPopup(),
-          // );
         }
-
-        // Close the loading state and call onSave
-        // setState(() {
-        //   isLoading = false;
-        // });
-
       }
-    }finally{
+
+      // Wait for all tasks to complete
+      await Future.wait(tasks);
+    } finally {
       setState(() {
         isLoading = false;
       });
-       widget.onSave();
+      widget.onSave();
     }
-
-
   }
+
+
+
+
+
+
+
+  // Future<void> processEducationForms() async{
+  //   try{
+  //     setState(() {
+  //       isLoading = true;
+  //     });
+  //     List<Future> tasks = [];
+  //     for (var key in educationFormKeys) {
+  //       final st = key.currentState!;
+  //
+  //       try {
+  //
+  //
+  //         // Only execute the code if st.isPrefill is false
+  //         tasks.add(Future(()async {
+  //           if (st.isPrefill == false) {
+  //
+  //           //  Check if the file is selected
+  //             if (st.finalPath == null || st.finalPath!.isEmpty) {
+  //               // Show a message asking the user to select a file
+  //               await showDialog(
+  //                 context: context,
+  //                 builder: (BuildContext context) {
+  //                   return const AddFailePopup(
+  //                     message: 'Please Select A File',
+  //                   );
+  //                 },
+  //               );
+  //               setState(() {
+  //                 isLoading = false;
+  //               });
+  //               return; // Stop further execution if no file is selected
+  //             }
+  //             if(st.fileAbove20Mb) {
+  //               // Call the posteducationscreen API regardless of whether the file is selected
+  //               ApiDataRegister response = await FormEducationManager()
+  //                   .posteducationscreen(
+  //                 context,
+  //                 st.widget.employeeID,
+  //                 st.graduatetype.toString(),
+  //                 st.selectedDegree.toString(),
+  //                 st.majorsubject.text,
+  //                 st.city.text,
+  //                 st.collegeuniversity.text,
+  //                 st.phone.text,
+  //                 st.state.text,
+  //                 "USA",
+  //                 "2024-08-09",
+  //               );
+  //
+  //               // If the file is selected, upload it
+  //               await uploadEducationDocument(
+  //                 context,
+  //                 response.educationId!,
+  //                 st.finalPath,
+  //                 st.fileName!,
+  //               );
+  //
+  //               // If the API call is successful
+  //               if (response.statusCode == 200 ||
+  //                   response.statusCode == 201) {
+  //                 await showDialog(
+  //                   context: context,
+  //                   builder: (BuildContext context) {
+  //                     return AddSuccessPopup(
+  //                       message: 'Education Data Saved',
+  //                     );
+  //                   },
+  //                 );
+  //
+  //                 await  _loadEducationData();
+  //
+  //               }
+  //             }
+  //             else{
+  //               await showDialog(
+  //                 context: context,
+  //                 builder: (BuildContext context) {
+  //                   return AddErrorPopup(
+  //                     message: 'File is too large!',
+  //                   );
+  //                 },
+  //               );
+  //             }
+  //
+  //           }
+  //         }));
+  //         // Wait for all tasks to complete
+  //         await Future.wait(tasks);
+  //
+  //         // Call widget.save() after all tasks are completed
+  //
+  //
+  //       } catch (e) {
+  //         // If an error occurs, show failure dialog
+  //         await showDialog(
+  //           context: context,
+  //           builder: (BuildContext context) {
+  //             return AddFailePopup(
+  //               message: 'Failed To Save Education Data',
+  //             );
+  //           },
+  //         );
+  //         // await showDialog(
+  //         //   context: context,
+  //         //   builder: (BuildContext context) => const FourNotFourPopup(),
+  //         // );
+  //       }
+  //
+  //       // Close the loading state and call onSave
+  //       // setState(() {
+  //       //   isLoading = false;
+  //       // });
+  //
+  //     }
+  //   }finally{
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //      widget.onSave();
+  //   }
+  //
+  //
+  // }
 
   void addEducationForm() {
     setState(() {
@@ -231,232 +334,235 @@ class _EducationScreenState extends State<EducationScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Center(
-            child: Text(
-                'Education',
-                style:FormHeading.customTextStyle(context)
-            ),
+    return Column(
+      children: [
+        Center(
+          child: Text(
+              'Education',
+              style:FormHeading.customTextStyle(context)
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 60),
-          Container(
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 30),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 150),
+          child: Container(
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
               color: Color(0xFFE6F7FF),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(
-              'Your personal details will be required to proceed through the recruitment process.',
-              textAlign: TextAlign.center,
-              style:ZoneDataStyle.customTextStyle(context),
+            child: Center(
+              child: Text(
+                'Your personal details will be required to proceed through the recruitment process.',
+                textAlign: TextAlign.center,
+                style:ZoneDataStyle.customTextStyle(context),
+              ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Column(
-            children: educationFormKeys.asMap().entries.map((entry) {
-              int index = entry.key;
-              GlobalKey<_EducationFormState> key = entry.value;
-              return EducationForm(
-                key: key,
-                index: index + 1,
-                onRemove: () => removeEduacationForm(key),
-                employeeID: widget.employeeID, isVisible: isVisible,
-              );
-            }).toList(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Padding(
-            padding: const EdgeInsets.only(left: 150),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      isVisible = true;
-                      addEducationForm();
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff50B5E5),
-                    // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  icon: Icon(Icons.add, color: Colors.white),
-                  label: Text(
-                      'Add Education',
-                      style: BlueButtonTextConst.customTextStyle(context)
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Column(
+          children: educationFormKeys.asMap().entries.map((entry) {
+            int index = entry.key;
+            GlobalKey<_EducationFormState> key = entry.value;
+            return EducationForm(
+              key: key,
+              index: index + 1,
+              onRemove: () => removeEduacationForm(key),
+              employeeID: widget.employeeID, isVisible: isVisible,
+            );
+          }).toList(),
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 150),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                //color: Colors.white,
-                width: 117,
-                height: 30,
-                child: ElevatedButton(
-                  onPressed: (){
-                    widget.onBack();
-                  },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      side: BorderSide(
-                        color: ColorManager.bluebottom,
-                        width: 1,
-                      ),
-                    ),),
-                  child: Text('Previous',
-                    style: TransparentButtonTextConst.customTextStyle(context),
-                  ),),
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-
-              isLoading
-                  ? SizedBox(
-                height: 25,
-                width: 25,
-                child: CircularProgressIndicator(
-                  color: ColorManager.blueprime,
-                ),
-              )
-                  :CustomButton(
-                width: 117,
-                height: 30,
-                text: 'Save',
-                style: BlueButtonTextConst.customTextStyle(context),
-                borderRadius: 12,
-                onPressed: () async {
-                  // Loop through each form and extract data to post
-                  processEducationForms();
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    isVisible = true;
+                    addEducationForm();
+                  });
                 },
-                child: Text(
-                  'Save',
-                  style: BlueButtonTextConst.customTextStyle(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff50B5E5),
+                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                icon: Icon(Icons.add, color: Colors.white),
+                label: Text(
+                    'Add Education',
+                    style: BlueButtonTextConst.customTextStyle(context)
                 ),
               ),
-              const SizedBox(
-                width: AppSize.s30,
-              ),
-              Container(
-                //color: Colors.white,
-                width: 117,
-                height: 30,
-                child: ElevatedButton(
-                  onPressed: ()async{
-                    await widget.onNext();
-                  },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      side: BorderSide(
-                        color: ColorManager.bluebottom,
-                        width: 1,
-                      ),
-                    ),),
-                  child: Text('Next',
-                    style: TransparentButtonTextConst.customTextStyle(context),
-                  ),),
-              ),
-              //     : CustomButton(
-              //   width: 117,
-              //   height: 30,
-              //   text: 'Save',
-              //   style:  BlueButtonTextConst.customTextStyle(context),
-              //   borderRadius: 12,
-              //   onPressed: () async {
-              //
-              //     // Loop through each form and extract data to post
-              //     for (var key in educationFormKeys) {
-              //
-              //       final st = key.currentState!;
-              //       if (st.finalPath == null || st.finalPath!.isEmpty) {
-              //         print("Loading");
-              //         // showDialog(
-              //         //   context: context,
-              //         //   builder: (BuildContext context) {
-              //         //     return const VendorSelectNoti(
-              //         //       message: 'Please Select File',
-              //         //     );
-              //         //   },
-              //         // );
-              //       } else {
-              //         try {
-              //           setState(() {
-              //             isLoading = true;
-              //           });
-              //           if(st.isPrefill ==false){
-              //             ApiDataRegister result =  await FormEducationManager().posteducationscreen(
-              //                 context,
-              //                 st.widget.employeeID,
-              //                 st.graduatetype.toString(),
-              //                 st.selectedDegree.toString(),
-              //                 st.majorsubject.text,
-              //                 st.city.text,
-              //                 st.collegeuniversity.text,
-              //                 st.phone.text,
-              //                 st.state.text,
-              //                 "USA",
-              //                 "2024-08-09");
-              //             await uploadEducationDocument(
-              //                 context,
-              //                 result.educationId!,
-              //                 st.finalPath,
-              //                 st.fileName!
-              //             );
-              //             if(result.success){
-              //               await showDialog(
-              //                 context: context,
-              //                 builder: (BuildContext context) {
-              //                   return AddSuccessPopup(
-              //                     message: 'Education Data Saved',
-              //                   );
-              //                 },
-              //               );
-              //             }
-              //           }
-              //
-              //
-              //
-              //         } catch (e) {
-              //           await  showDialog(
-              //             context: context,
-              //             builder: (BuildContext context) {
-              //               return AddFailePopup(
-              //                 message: 'Failed To Save Education Data',
-              //               );
-              //             },
-              //           );
-              //         }
-              //       }
-              //     }
-              //     setState(() {
-              //       isLoading = false;
-              //     });
-              //     widget.onSave();
-              //     _loadEducationData();
-              //   },
-              //   child: Text(
-              //     'Save',
-              //     style: BlueButtonTextConst.customTextStyle(context),
-              //   ),
-              // ),
             ],
           ),
-        ],
-      ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              //color: Colors.white,
+              width: 117,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: (){
+                  widget.onBack();
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: ColorManager.bluebottom,
+                      width: 1,
+                    ),
+                  ),),
+                child: Text('Previous',
+                  style: TransparentButtonTextConst.customTextStyle(context),
+                ),),
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+
+            isLoading
+                ? SizedBox(
+              height: 25,
+              width: 25,
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
+            )
+                :CustomButton(
+              width: 117,
+              height: 30,
+              text: 'Save',
+              style: BlueButtonTextConst.customTextStyle(context),
+              borderRadius: 12,
+              onPressed: () async {
+                // Loop through each form and extract data to post
+                processEducationForms();
+              },
+              child: Text(
+                'Save',
+                style: BlueButtonTextConst.customTextStyle(context),
+              ),
+            ),
+            const SizedBox(
+              width: AppSize.s30,
+            ),
+            Container(
+              //color: Colors.white,
+              width: 117,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: ()async{
+                  await widget.onNext();
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: ColorManager.bluebottom,
+                      width: 1,
+                    ),
+                  ),),
+                child: Text('Next',
+                  style: TransparentButtonTextConst.customTextStyle(context),
+                ),),
+            ),
+            //     : CustomButton(
+            //   width: 117,
+            //   height: 30,
+            //   text: 'Save',
+            //   style:  BlueButtonTextConst.customTextStyle(context),
+            //   borderRadius: 12,
+            //   onPressed: () async {
+            //
+            //     // Loop through each form and extract data to post
+            //     for (var key in educationFormKeys) {
+            //
+            //       final st = key.currentState!;
+            //       if (st.finalPath == null || st.finalPath!.isEmpty) {
+            //         print("Loading");
+            //         // showDialog(
+            //         //   context: context,
+            //         //   builder: (BuildContext context) {
+            //         //     return const VendorSelectNoti(
+            //         //       message: 'Please Select File',
+            //         //     );
+            //         //   },
+            //         // );
+            //       } else {
+            //         try {
+            //           setState(() {
+            //             isLoading = true;
+            //           });
+            //           if(st.isPrefill ==false){
+            //             ApiDataRegister result =  await FormEducationManager().posteducationscreen(
+            //                 context,
+            //                 st.widget.employeeID,
+            //                 st.graduatetype.toString(),
+            //                 st.selectedDegree.toString(),
+            //                 st.majorsubject.text,
+            //                 st.city.text,
+            //                 st.collegeuniversity.text,
+            //                 st.phone.text,
+            //                 st.state.text,
+            //                 "USA",
+            //                 "2024-08-09");
+            //             await uploadEducationDocument(
+            //                 context,
+            //                 result.educationId!,
+            //                 st.finalPath,
+            //                 st.fileName!
+            //             );
+            //             if(result.success){
+            //               await showDialog(
+            //                 context: context,
+            //                 builder: (BuildContext context) {
+            //                   return AddSuccessPopup(
+            //                     message: 'Education Data Saved',
+            //                   );
+            //                 },
+            //               );
+            //             }
+            //           }
+            //
+            //
+            //
+            //         } catch (e) {
+            //           await  showDialog(
+            //             context: context,
+            //             builder: (BuildContext context) {
+            //               return AddFailePopup(
+            //                 message: 'Failed To Save Education Data',
+            //               );
+            //             },
+            //           );
+            //         }
+            //       }
+            //     }
+            //     setState(() {
+            //       isLoading = false;
+            //     });
+            //     widget.onSave();
+            //     _loadEducationData();
+            //   },
+            //   child: Text(
+            //     'Save',
+            //     style: BlueButtonTextConst.customTextStyle(context),
+            //   ),
+            // ),
+          ],
+        ),
+      ],
     );
     //   }
     //
@@ -498,7 +604,7 @@ class _EducationFormState extends State<EducationForm> {
   int selectedDegreeId = 0;
 
   String? graduatetype='Yes';
-  String? selectedDegree;
+  String? selectedDegree ='Select';
   String? docName;
 
   final StreamController<List<AEClinicalDiscipline>> Degreestream =
@@ -550,7 +656,7 @@ class _EducationFormState extends State<EducationForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 160, right: 160),
+      padding: const EdgeInsets.symmetric(horizontal: 150),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -806,6 +912,8 @@ class _EducationFormState extends State<EducationForm> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
+            height: 30,
+            padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(4),
@@ -814,7 +922,7 @@ class _EducationFormState extends State<EducationForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '',
+                  selectedDegree!,
                   style: DocumentTypeDataStyle.customTextStyle(context),
                 ),
                 Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),

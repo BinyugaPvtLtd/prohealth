@@ -9,6 +9,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_v
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/visit_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -104,39 +105,36 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/25),
+      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/26),
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-              width: AppSize.s150,
-              // margin: EdgeInsets.only(right: AppMargin.m30),
-              child: CustomIconButton(
-                  text: AppString.addnewvisit,
-                  icon: Icons.add,
-                  onPressed: () async {
-                    docIdController.clear();
-                    docNamecontroller.clear();
-                    selectedChips.clear();
-                    selectedServiceName = "";
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return StatefulBuilder(
-                            builder: (BuildContext context,
-                                void Function(void Function()) setState) {
-                              //  List<Widget> listWidget = selectedChips;
-                              return AddVisitPopup(
-                                title: AppStringEM.addNewvisit,
-                                nameOfDocumentController: docNamecontroller,
-                                idOfDocumentController: docIdController,
-                              );
-                            },
-                          );
-                        });
-                  }),
-            ),
+            CustomIconButtonConst(
+                text: AppString.addnewvisit,
+                height: AppSize.s30,
+                icon: Icons.add,
+                onPressed: () async {
+                  docIdController.clear();
+                  docNamecontroller.clear();
+                  selectedChips.clear();
+                  selectedServiceName = "";
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function()) setState) {
+                            //  List<Widget> listWidget = selectedChips;
+                            return AddVisitPopup(
+                              title: AppStringEM.addNewvisit,
+                              nameOfDocumentController: docNamecontroller,
+                              idOfDocumentController: docIdController,
+                            );
+                          },
+                        );
+                      });
+                }),
           ],
         ),
         SizedBox(
@@ -278,7 +276,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.all(AppPadding.p8),
+                                        padding: const EdgeInsets.all(AppPadding.p6),
                                         child: Container(
                                             padding: EdgeInsets.only(bottom: AppPadding.p5),
                                             decoration: BoxDecoration(

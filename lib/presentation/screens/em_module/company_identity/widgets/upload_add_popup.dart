@@ -18,6 +18,7 @@ import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../widgets/error_popups/failed_popup.dart';
 import '../../../../widgets/error_popups/four_not_four_popup.dart';
+import '../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
@@ -78,6 +79,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   String selectedExpiryType = "Not Applicable";
   bool _isFormValid = true;
   String? selectedYear = AppConfig.year;
+  bool isDropdownAvailability = false;
   String? _idDocError;
   String? _nameDocError;
   String? _dropdownError;
@@ -136,12 +138,14 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         _isFormValid = false;
       } else {
         _dropdownError = null;
+        //_isFormValid = true;
       }
       if (selectedExpiryType == AppConfig.issuer && expiryDateController.text.isEmpty) {
         _issueDateError = "Please select an expiry date";
         _isFormValid = false;
       } else {
         _issueDateError = null;
+        _isFormValid = true;
       }
     });
   }
@@ -199,6 +203,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   children: [
                     CICCDropdown(
                       width: AppSize.s354,
+                      borderRadius: 8,
                       initialValue: dropDownMenuItems.isEmpty ? "No available documents":selectedDocType ?? "Select",
                       onChange: (val) {
                         setState(() {
@@ -253,18 +258,18 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                               borderSide: BorderSide(
                                   color: ColorManager.fmediumgrey,
                                   width: 1),
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: ColorManager.fmediumgrey,
                                   width: 1),
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             hintText: 'yyyy-mm-dd',
                             hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(
                                   width: 1,
                                   color: ColorManager.fmediumgrey),
@@ -315,13 +320,13 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         child: Container(
                           height: AppSize.s30,
                           width: AppSize.s354,
-                          padding: EdgeInsets.only(left: AppPadding.p15),
+                          padding: EdgeInsets.only(left: AppPadding.p10),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: ColorManager.containerBorderGrey,
                               width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(0),
@@ -369,6 +374,9 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         ],
                       ),
             )
+
+
+
             : Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
           child: Column(
@@ -419,7 +427,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 content: Container(
                   height: AppSize.s30,
                   width: AppSize.s354,
-                  padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p12),
+                  padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p10),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -430,7 +438,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     children: [
                       Text(
                         widget.docTypeText,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: TableSubHeading.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -447,7 +455,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 content: Container(
                   height: AppSize.s30,
                   width: AppSize.s354,
-                  padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p12),
+                  padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p10),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -458,7 +466,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     children: [
                       Text(
                         widget.subDocTypeText,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: TableSubHeading.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -468,6 +476,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
               /// Upload document
               HeaderContentConst(
                   isAsterisk: true,
+                 // isDoc: true,
                   heading: AppString.upload_document,
                   content: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -478,13 +487,13 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         child: Container(
                           height: AppSize.s30,
                           width: AppSize.s354,
-                          padding: EdgeInsets.only(left: AppPadding.p15),
+                          padding: EdgeInsets.only(left: AppPadding.p8),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: ColorManager.containerBorderGrey,
                               width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(0),
@@ -495,8 +504,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                 Expanded(
                                   child: Text(
                                     fileName,
-                                    style: DocumentTypeDataStyle
-                                        .customTextStyle(context),
+                                    style: TableSubHeading.customTextStyle(context),
                                   ),
                                 ),
                                 IconButton(
@@ -596,81 +604,49 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   daysController, // Use the controller initialized with "1"
                                   cursorColor: ColorManager.black,
                                   cursorWidth: 1,
-                                  style: DocumentTypeDataStyle
-                                      .customTextStyle(context),
+                                  style: TableSubHeading.customTextStyle(context),
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color:
-                                          ColorManager.fmediumgrey,
-                                          width: 2),
+                                          color: Colors.grey),
                                       borderRadius:
-                                      BorderRadius.circular(8),
+                                      BorderRadius.circular(4),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: ColorManager.fmediumgrey,
-                                          width: 2),
+                                          color: Colors.grey),
                                       borderRadius:
-                                      BorderRadius.circular(8),
+                                      BorderRadius.circular(4),
                                     ),
                                     contentPadding:
                                     EdgeInsets.symmetric(horizontal: AppPadding.p10),
                                   ),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
-                                    FilteringTextInputFormatter
-                                        .digitsOnly, // This ensures only digits are accepted
+                                    FilteringTextInputFormatter.digitsOnly, // This ensures only digits are accepted
                                   ],
                                 ),
                               ),
                               SizedBox(width: AppSize.s10),
                               Container(
-                                height: AppSize.s30,
                                 width: AppSize.s80,
-                                padding:
-                                EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: ColorManager.fmediumgrey),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: DropdownButtonFormField<String>(
-                                  value: selectedYear, // Initial value (you should define this variable)
+                                height: AppSize.s30,
+                                child:CustomDropdownTextFieldwidh(
                                   items: [
-                                    DropdownMenuItem(
-                                      value: AppConfig.year,
-                                      child: Text(
-                                        AppConfig.year,
-                                        style: DocumentTypeDataStyle.customTextStyle(context),
-                                      ),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: AppConfig.month,
-                                      child: Text(
-                                        AppConfig.month,
-                                        style: DocumentTypeDataStyle.customTextStyle(context),
-                                      ),
-                                    ),
+                                    AppConfig.year,
+                                    AppConfig.month,
                                   ],
+
+                                  // labelStyle: SearchDropdownConst.customTextStyle(context),
                                   onChanged: (value) {
-                                    setState(() {
-                                      selectedYear = value; // Update the selected option (Year/Month)
-                                    });
+                                    //  setState(() {
+                                    selectedYear = value;
+                                    isDropdownAvailability = true;
+                                    print("Year,month Status :: ${selectedYear}");
+                                    //  });
                                   },
-                                  decoration: InputDecoration(
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    hintText: AppConfig.year,
-                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                    contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
-                                  ),
-                                  icon: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: ColorManager.black,
-                                    size: IconSize.I16,
-                                  ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ],
@@ -698,27 +674,24 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                             child: TextFormField(
                               controller: expiryDateController,
                               cursorColor: ColorManager.black,
-                              style: DocumentTypeDataStyle.customTextStyle(
-                                  context),
+                              style: TableSubHeading.customTextStyle(context),
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: ColorManager.fmediumgrey,
                                       width: 1),
-                                  borderRadius: BorderRadius.circular(6),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: ColorManager.fmediumgrey,
                                       width: 1),
-                                  borderRadius: BorderRadius.circular(6),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 hintText: 'yyyy-mm-dd',
-                                hintStyle:
-                                DocumentTypeDataStyle.customTextStyle(
-                                    context),
+                                hintStyle: TableSubHeading.customTextStyle(context),
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(6),
+                                  borderRadius: BorderRadius.circular(8),
                                   borderSide: BorderSide(
                                       width: 1,
                                       color: ColorManager.fmediumgrey),
@@ -738,11 +711,17 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   lastDate: DateTime(3101),
                                 );
                                 if (pickedDate != null) {
-                                  datePicked = pickedDate;
-                                  expiryDateController.text =
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(pickedDate);
+                                  setState(() {
+                                    datePicked = pickedDate;
+                                    expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                    _issueDateError = null; // Hide error message when date is selected
+                                  });
                                 }
+                              },
+                              onChanged: (value) {
+                                setState(() {
+                                  _issueDateError = null; // Hide error message when text is changed
+                                });
                               },
                             ),
                           );
@@ -754,11 +733,85 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         padding: const EdgeInsets.only(left: AppPadding.p5),
                         child: Text(
                           _issueDateError!,
-                          style:CommonErrorMsg.customTextStyle(context),
+                          style: CommonErrorMsg.customTextStyle(context),
                         ),
                       ),
                   ],
-                ),
+                )
+
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     HeaderContentConst(
+                //       isAsterisk: true,
+                //       heading: AppString.expiry_date,
+                //       content: FormField<String>(
+                //         builder: (FormFieldState<String> field) {
+                //           return SizedBox(
+                //             height: AppSize.s30,
+                //             width: AppSize.s354,
+                //             child: TextFormField(
+                //               controller: expiryDateController,
+                //               cursorColor: ColorManager.black,
+                //               style:TableSubHeading.customTextStyle(context),
+                //               decoration: InputDecoration(
+                //                 enabledBorder: OutlineInputBorder(
+                //                   borderSide: BorderSide(
+                //                       color: ColorManager.fmediumgrey,
+                //                       width: 1),
+                //                   borderRadius: BorderRadius.circular(6),
+                //                 ),
+                //                 focusedBorder: OutlineInputBorder(
+                //                   borderSide: BorderSide(
+                //                       color: ColorManager.fmediumgrey,
+                //                       width: 1),
+                //                   borderRadius: BorderRadius.circular(6),
+                //                 ),
+                //                 hintText: 'yyyy-mm-dd',
+                //                 hintStyle:TableSubHeading.customTextStyle(context),
+                //                 border: OutlineInputBorder(
+                //                   borderRadius: BorderRadius.circular(6),
+                //                   borderSide: BorderSide(
+                //                       width: 1,
+                //                       color: ColorManager.fmediumgrey),
+                //                 ),
+                //                 contentPadding:
+                //                 EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                //                 suffixIcon: Icon(
+                //                     Icons.calendar_month_outlined,
+                //                     color: ColorManager.blueprime),
+                //                 errorText: field.errorText,
+                //               ),
+                //               onTap: () async {
+                //                 DateTime? pickedDate = await showDatePicker(
+                //                   context: context,
+                //                   initialDate: DateTime.now(),
+                //                   firstDate: DateTime(1901),
+                //                   lastDate: DateTime(3101),
+                //                 );
+                //                 if (pickedDate != null) {
+                //                   datePicked = pickedDate;
+                //                   expiryDateController.text =
+                //                       DateFormat('yyyy-MM-dd')
+                //                           .format(pickedDate);
+                //                 }
+                //               },
+                //             ),
+                //           );
+                //         },
+                //       ),
+                //     ),
+                //     if (_issueDateError != null) // Display error if any
+                //       Padding(
+                //         padding: const EdgeInsets.only(left: AppPadding.p5),
+                //         child: Text(
+                //           _issueDateError!,
+                //           style:CommonErrorMsg.customTextStyle(context),
+                //         ),
+                //       ),
+                //   ],
+                // ),
               ),
             ],
           ),
@@ -773,19 +826,35 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         ),
       )
           : selectedRadio == "Pre-defined"
-          ?CustomElevatedButton(
+          ? CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
         text: AppStringEM.add, // submit
         onPressed: () async {
           _validateForm();
-          setState(() {
-            isFileErrorVisible = !isFileSelected;
-          });
+          // setState(() {
+          //   isFileErrorVisible = !isFileSelected;
+          // });
 
-          if (!isFileSelected) {
+
+          // Check if a document type is selected
+          if (selectedDocType == null || selectedDocType == "Select" || selectedDocType == "No available documents") {
+            setState(() {
+              _dropdownError = "Please select a document type";  // Show error
+            });
             return;
           }
+
+          // Check if the file is selected
+          if (!isFileSelected) {
+            setState(() {
+              isFileErrorVisible = true;  // Show file upload error
+            });
+            return;
+          }
+          // if (!isFileSelected) {
+          //   return;
+          // }
 
           setState(() {
             load = true;
@@ -861,13 +930,15 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     },
                   );
                 }
-              } else if (response.statusCode == 400 || response.statusCode == 404) {
+              }
+              else if (response.statusCode == 400 || response.statusCode == 404) {
                 Navigator.pop(context);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => const FourNotFourPopup(),
                 );
-              } else {
+              }
+              else {
                 Navigator.pop(context);
                 showDialog(
                   context: context,
@@ -906,6 +977,13 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
           }
         },
       )
+
+
+
+
+
+
+
           : CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
@@ -933,7 +1011,8 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             }
 
             int threshold = 0;
-            if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
+            if (selectedExpiryType == AppConfig.scheduled &&
+                daysController.text.isNotEmpty) {
               int enteredValue = int.parse(daysController.text);
               if (selectedYear == AppConfig.year) {
                 threshold = enteredValue * 365;
@@ -941,94 +1020,111 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 threshold = enteredValue * 30;
               }
             }
+            if (fileAbove20Mb) {
+              ApiData newResponse = await addOtherOfficeDocPost(
+                context: context,
+                docTypeid: widget.docTypeMetaIdCC,
+                docSubTypeid: widget.selectedSubDocId == AppConfig.subDocId0
+                    ? AppConfig.subDocId0
+                    : widget.selectedSubDocId,
+                documentName: nameDocController.text,
+                expiryType: selectedExpiryType.toString(),
+                threshold: threshold,
+                expiryDate: expiryDate,
+                expiryReminder: selectedExpiryType.toString(),
+                idOfDoc: idDocController.text,
+                docCreated: DateTime.now().toIso8601String() + "Z",
+                fileName: fileName,
+                url: 'url',
+                officeId: widget.officeId,
+              );
 
-            ApiData newResponse = await addOtherOfficeDocPost(
-              context: context,
-              docTypeid: widget.docTypeMetaIdCC,
-              docSubTypeid: widget.selectedSubDocId == AppConfig.subDocId0
-                  ? AppConfig.subDocId0
-                  : widget.selectedSubDocId,
-              documentName: nameDocController.text,
-              expiryType: selectedExpiryType.toString(),
-              threshold: threshold,
-              expiryDate: expiryDate,
-              expiryReminder: selectedExpiryType.toString(),
-              idOfDoc: idDocController.text,
-              docCreated: DateTime.now().toIso8601String() + "Z",
-              fileName: fileName,
-              url: 'url',
-              officeId: widget.officeId,
-            );
-
-            if (newResponse.statusCode == 200 || newResponse.statusCode == 201) {
-              try {
-                var uploadDocNew = await uploadDocumentsoffice(
-                  context: context,
-                  documentFile: filePath,
-                  fileName: fileName,
-                  orgOfficeDocumentId: newResponse.orgOfficeDocumentId!,
-                );
-
-                if (uploadDocNew.statusCode == 413) {
-                  Navigator.pop(context);
-                  showDialog(
+              if (newResponse.statusCode == 200 ||
+                  newResponse.statusCode == 201) {
+                try {
+                  var uploadDocNew = await uploadDocumentsoffice(
                     context: context,
-                    builder: (BuildContext context) {
-                      return AddErrorPopup(
-                        message: 'Request entity too large! File size exceeds limit.',
-                      );
-                    },
+                    documentFile: filePath,
+                    fileName: fileName,
+                    orgOfficeDocumentId: newResponse.orgOfficeDocumentId!,
                   );
-                } else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CountySuccessPopup(
-                        message: 'Saved Successfully',
-                      );
-                    },
-                  );
-                } else {
-                  Navigator.pop(context);
+
+                  if (uploadDocNew.statusCode == 413) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'Request entity too large! File size exceeds limit.',
+                        );
+                      },
+                    );
+                  } else if (uploadDocNew.statusCode == 200 ||
+                      uploadDocNew.statusCode == 201) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CountySuccessPopup(
+                          message: 'Saved Successfully',
+                        );
+                      },
+                    );
+                  } else {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return FailedPopup(
+                          text: 'Failed to upload document. Please edit upload again.',
+                        );
+                      },
+                    );
+                  }
+                } catch (e) {
+                  Navigator.pop(context); // Close the loader
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return FailedPopup(
-                        text: 'Failed to upload document. Please edit upload again.',
+                        text: 'An error occurred during file upload. Check your connection or file size.',
                       );
                     },
                   );
                 }
-              } catch (e) {
+              }
+              else if (newResponse.statusCode == 400 ||
+                  newResponse.statusCode == 404) {
+                Navigator.pop(context); // Close the loader
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const FourNotFourPopup(),
+                );
+              }
+              else {
                 Navigator.pop(context); // Close the loader
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return FailedPopup(
-                      text: 'An error occurred during file upload. Check your connection or file size.',
+                      text: newResponse.message ??
+                          'An error occurred. Please try again.',
                     );
                   },
                 );
               }
-            } else if (newResponse.statusCode == 400 || newResponse.statusCode == 404) {
-              Navigator.pop(context); // Close the loader
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => const FourNotFourPopup(),
-              );
             } else {
-              Navigator.pop(context); // Close the loader
+              Navigator.pop(context);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return FailedPopup(
-                    text: newResponse.message ?? 'An error occurred. Please try again.',
+                  return AddErrorPopup(
+                    message: 'File is too large!',
                   );
                 },
               );
             }
-          } catch (e) {
+          }catch (e) {
             Navigator.pop(context); // Close the loader
             showDialog(
               context: context,
@@ -1050,17 +1146,4 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
     );
   }
 }
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
 ///

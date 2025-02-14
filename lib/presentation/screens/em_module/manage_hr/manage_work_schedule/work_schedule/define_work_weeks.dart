@@ -132,13 +132,13 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                             )),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: AppPadding.p8, vertical: AppPadding.p2),
+                                              horizontal: AppPadding.p6, vertical: AppPadding.p2),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.only(left:AppPadding.p8),
+                                                padding: const EdgeInsets.only(left:AppPadding.p5),
                                                 child: Text(
                                                   AppStringEM.officeStartTime,
                                                   style: DefineWorkWeekStyle.customTextStyle(context)
@@ -168,9 +168,10 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                           children: [
                                             Padding(
                                               padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: AppPadding.p8,
-                                                      vertical: AppPadding.p8),
+                                                  const EdgeInsets.only(
+                                                      left: AppPadding.p8,
+                                                      right: AppPadding.p8,
+                                                      top: AppPadding.p12,bottom: 6),
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
@@ -226,7 +227,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                               thickness: 1,
                                             ),
                                             Container(
-                                              height: mediaQuery.height / 9,
+                                              height: mediaQuery.height / 8.7,
                                                 child: FutureBuilder<List<WorkWeekShiftScheduleData>>(
                                                     future: workWeekShiftScheduleGet(context,
                                                             //snapshot.data![index].companyId,
@@ -292,9 +293,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                         children: [
                                                                                           ...List.generate(min(snapshot.data!.length, 1),(index){
                                                                                             return Container(
-                                                                                              padding: EdgeInsets.symmetric(horizontal: 2),
+                                                                                              padding: EdgeInsets.symmetric(horizontal: 1),
                                                                                               height: mediaQuery.height / 30,
-                                                                                              width: mediaQuery.width / 14.5,
+                                                                                              width: mediaQuery.width / 14.4,
                                                                                               decoration: BoxDecoration(color: ColorManager.white,
                                                                                                   border: Border.all(color: Color(0xFFEEEEEE), width: 1),
                                                                                                   borderRadius: BorderRadius.circular(20)),
@@ -302,8 +303,8 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                 child: Text(
                                                                                                   '${snapshot.data![index].officeStartTime} - ${snapshot.data![index].officeEndTime}',
                                                                                                   style: TextStyle(
-                                                                                                    fontSize: FontSize.s12,
-                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                    fontSize: FontSize.s11,
+                                                                                                    fontWeight: FontWeight.w700,
                                                                                                     color: ColorManager.mediumgrey,
                                                                                                     decoration: TextDecoration.none,
                                                                                                   ),
@@ -351,6 +352,8 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                           borderRadius: BorderRadius.circular(5), color: ColorManager.white),
                                                                                       child: InkWell(
                                                                                         onTap: () {
+                                                                                          startTimeController.clear();
+                                                                                          endTimeController.clear();
                                                                                           showDialog(
                                                                                               context: context,
                                                                                               builder: (BuildContext context) {
@@ -470,11 +473,14 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                             ),
                                             const Spacer(),
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                                              padding: const EdgeInsets.only(left: AppPadding.p8,right: AppPadding.p8, bottom: AppPadding.p8),
                                               child: Align(alignment: Alignment.bottomRight,
                                                   child: CustomeTransparentAddShift(
                                                     text: 'Add Shift',
                                                     onPressed: () {
+                                                      shiftnameController.clear();
+                                                      shiftStartTimeController.clear();
+                                                      shiftEndTimeController.clear();
                                                       showDialog(context: context, builder: (BuildContext context){
                                                         return  AddShiftPopup(
                                                           controller1: shiftStartTimeController,

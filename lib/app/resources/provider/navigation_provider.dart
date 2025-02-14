@@ -224,7 +224,7 @@ class HrManageProvider extends ChangeNotifier{
   get tooltipText => _tooltipText;
 
   void updateAddress(String address) {
-    const int line1MaxLength = 25;
+    const int line1MaxLength = 27;
     const int line2MaxLength = 20;
 
     if (address.length > line1MaxLength) {

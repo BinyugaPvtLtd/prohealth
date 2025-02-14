@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
@@ -133,7 +134,7 @@ class _CICCADRState extends State<CICCADR> {
                                   children: [
                                     // SizedBox(height: 5),
                                     Padding(
-                                      padding: const EdgeInsets.all(AppPadding.p8),
+                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: ColorManager.white,
@@ -147,13 +148,30 @@ class _CICCADRState extends State<CICCADR> {
                                               ),
                                             ],
                                           ),
-                                          height: AppSize.s50,
-                                          child: Padding(padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
+                                          height: AppSize.s65,
+                                          child: Padding(padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
+                                                    GestureDetector(
+                                                      onTap: (){
+                                                        print("FileExtension:${fileExtension}");
+                                                        downloadFile(fileUrl);
+                                                        //DowloadFile();
+                                                        //.downloadPdfFromBase64(fileExtension,"Acknowledgement");
+                                                      },
+                                                      child: Container(
+                                                          width: AppSize.s62,
+                                                          height: AppSize.s45,
+                                                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(4),
+                                                            border: Border.all(width: 2, color: ColorManager.faintGrey),
+                                                          ),
+                                                          child:SvgPicture.asset('images/doc_vector.svg')),
+                                                    ),
                                                     SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,12 +179,13 @@ class _CICCADRState extends State<CICCADR> {
                                                       children: [
                                                         Text(
                                                           "ID : ${manageCCADR.idOfDocument}",
-                                                          style:  TableSubHeading.customTextStyle(context),
+                                                          style:  DocDefineTableDataID.customTextStyle(context),
                                                         ),
+                                                        SizedBox(height: AppSize.s8,),
                                                         Text(
                                                           manageCCADR.fileName.toString(),
                                                           textAlign: TextAlign.center,
-                                                          style:  TableSubHeading.customTextStyle(context),
+                                                          style:  DocDefineTableData.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),
@@ -186,13 +205,14 @@ class _CICCADRState extends State<CICCADR> {
                                                       },
                                                       icon:  Icon(
                                                         Icons.history,
-                                                        size: IconSize.I18,
+                                                        size: IconSize.I22,
                                                         color: IconColorManager.bluebottom,
                                                       ),
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
                                                       hoverColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     ///print
                                                     IconButton(
                                                       onPressed: () {
@@ -201,15 +221,18 @@ class _CICCADRState extends State<CICCADR> {
                                                       },
                                                       icon: Icon(
                                                         Icons.print_outlined,
-                                                        size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                        size:IconSize.I22,color: IconColorManager.bluebottom,
                                                       ),
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
                                                       hoverColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     ///download saloni
                                                     PdfDownloadButton(apiUrl: manageCCADR.docurl,
+                                                        iconsize: IconSize.I22,
                                                         documentName: manageCCADR.docName!),
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
                                                       onPressed: () {
                                                         showDialog(
@@ -257,11 +280,12 @@ class _CICCADRState extends State<CICCADR> {
                                                         );
                                                       },
                                                       icon: Icon(Icons.edit_outlined,
-                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
+                                                        size:IconSize.I22,color: IconColorManager.bluebottom,),
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
                                                       hoverColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
                                                         splashColor: Colors.transparent,
                                                         highlightColor: Colors.transparent,
@@ -298,7 +322,7 @@ class _CICCADRState extends State<CICCADR> {
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,
-                                                          size:IconSize.I18,color: IconColorManager.red,
+                                                          size:IconSize.I22,color: IconColorManager.red,
                                                         )),
                                                   ],
                                                 ),
