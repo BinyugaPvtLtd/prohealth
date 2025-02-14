@@ -400,7 +400,7 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                         Icons.print_outlined,
                                         color: Color(0xff1696C8),
                                       ),
-                                      iconSize: 20,
+                                      iconSize: IconSize.I22,
                                     ),
                                     SizedBox(width: AppSize.s10,),
                                     PdfDownloadButton(apiUrl: ackData.DocumentUrl, documentName: ackData.documentFileName,),
@@ -470,7 +470,7 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
-                                      iconSize: 20,
+                                      iconSize: IconSize.I22,
                                     ),
                                     SizedBox(width: AppSize.s10,),
                                     ///delete
@@ -525,7 +525,7 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
-                                      iconSize: 20,
+                                      iconSize:IconSize.I22,
                                     ),
                                   ],
                                 )

@@ -359,15 +359,12 @@ class _SignaturePageState extends State<SignaturePage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left:100),
-                              child: Text(
-                                'Please draw or upload a signature before saving.',
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                            child: Text(
+                              'Please draw or upload a signature before saving.',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),

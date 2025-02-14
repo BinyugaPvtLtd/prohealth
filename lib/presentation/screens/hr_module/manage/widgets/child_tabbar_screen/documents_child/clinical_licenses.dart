@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -12,6 +13,8 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+
+import '../../../../../../../app/resources/value_manager.dart';
 
 class ClinicalLicensesDoc extends StatelessWidget {
   final int employeeId;
@@ -133,12 +136,13 @@ class ClinicalLicensesDoc extends StatelessWidget {
                             Container(
                                 width: 62,
                                 height: 45,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(width: 2,color:ColorManager.faintGrey),
+                                  border: Border.all(width: 2,
+                                      color: ColorManager.faintGrey),
                                 ),
-                                child: Image.asset('images/Vector.png')),
+                                child: SvgPicture.asset('images/doc_vector.svg')),
                             SizedBox(width: 10),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,

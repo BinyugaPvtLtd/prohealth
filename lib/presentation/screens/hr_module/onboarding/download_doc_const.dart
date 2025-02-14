@@ -52,7 +52,7 @@ class PdfDownloadButton extends StatelessWidget {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
-      icon: Icon(Icons.save_alt_outlined, size: iconsize ?? IconSize.I20, color: Color(0xff1696C8),),
+      icon: Icon(Icons.save_alt_outlined, size: iconsize ?? IconSize.I22, color: Color(0xff1696C8),),
       onPressed: _downloadPdf,
     );
   }

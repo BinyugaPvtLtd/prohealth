@@ -393,11 +393,12 @@ class BankingHeadTabbar extends StatelessWidget {
                                                       print(
                                                           "::::;${accountNumber}");
 
-                                                      Navigator.pop(context);
+                                                      //Navigator.pop(context);
                                                       if (response.statusCode ==
                                                               200 ||
                                                           response.statusCode ==
                                                               201) {
+                                                        Navigator.pop(context);
                                                         showDialog(
                                                           context: context,
                                                           builder: (BuildContext
@@ -409,14 +410,14 @@ class BankingHeadTabbar extends StatelessWidget {
                                                           },
                                                         );
                                                       } else if(response.statusCode == 400 || response.statusCode == 404){
-                                                        Navigator.pop(context);
+                                                        // Navigator.pop(context);
                                                         showDialog(
                                                           context: context,
                                                           builder: (BuildContext context) => const FourNotFourPopup(),
                                                         );
                                                       }
                                                       else {
-                                                        Navigator.pop(context);
+                                                        // Navigator.pop(context);
                                                         showDialog(
                                                           context: context,
                                                           builder: (BuildContext context) => FailedPopup(text: response.message),

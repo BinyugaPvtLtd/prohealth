@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -136,13 +137,13 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                                                   Container(
                                                       width: 62,
                                                       height: 45,
+                                                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
                                                       decoration: BoxDecoration(
                                                         borderRadius: BorderRadius.circular(4),
-                                                        border: Border.all(
-                                                            width: 2,
+                                                        border: Border.all(width: 2,
                                                             color: ColorManager.faintGrey),
                                                       ),
-                                                      child: Image.asset('images/Vector.png')),
+                                                      child: SvgPicture.asset('images/doc_vector.svg')),
                                                   SizedBox(width: AppSize.s30),
                                                   Expanded(
                                                     child: Text(

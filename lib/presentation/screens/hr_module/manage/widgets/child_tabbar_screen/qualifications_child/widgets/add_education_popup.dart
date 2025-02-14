@@ -116,7 +116,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       children: [
                         Expanded(
                           child: _buildTextField(
-                            capitalIsSelect:true,
+                            capitalIsSelect:false,
                             controller: widget.collegeUniversityController,
                             labelText: "College/University",
                             errorText: _collegeUniversityError ? 'Please enter College/University Name' : null, hintText: 'Enter College/University',
@@ -175,7 +175,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                         SizedBox(width: 20),
                         Expanded(
                           child: _buildTextField(
-                            capitalIsSelect:true,
+                            capitalIsSelect:false,
                             controller: widget.cityController,
                             labelText: AppString.city,
                             errorText: _cityError ? 'Please Enter City' : null, hintText: 'Enter City',
@@ -186,7 +186,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                           child: _buildTextField(
                             controller: widget.degreeController,
                             labelText: "Degree",
-                            errorText: _degreeError ? 'Please Enter Degree' : null, capitalIsSelect: true, hintText: 'Enter Degree',
+                            errorText: _degreeError ? 'Please Enter Degree' : null, capitalIsSelect: false, hintText: 'Enter Degree',
                           ),
                         ),
                       ],
@@ -196,7 +196,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       children: [
                         Expanded(
                           child: _buildTextField(
-                            capitalIsSelect:true,
+                            capitalIsSelect:false,
                             controller: widget.stateController,
                             labelText: AppString.state,
                             errorText: _stateError ? 'Please Enter State' : null, hintText: 'Enter State',
@@ -205,7 +205,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                         SizedBox(width: AppSize.s20),
                         Expanded(
                           child: _buildTextField(
-                            capitalIsSelect:true,
+                            capitalIsSelect:false,
                             controller: widget.majorSubjectController,
                             labelText: "Major Subject",
                             errorText: _majorSubjectError ? 'Please Enter Major Subject' : null, hintText: 'Enter Major Subject',
@@ -214,7 +214,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                         SizedBox(width: AppSize.s20),
                         Expanded(
                           child: _buildTextField(
-                            capitalIsSelect:true,
+                            capitalIsSelect:false,
                             controller: widget.countryNameController,
                             labelText: "Country Name",
                             errorText: _countryNameError ? 'Please Enter Country Name' : null, hintText: 'Enter Country Name',

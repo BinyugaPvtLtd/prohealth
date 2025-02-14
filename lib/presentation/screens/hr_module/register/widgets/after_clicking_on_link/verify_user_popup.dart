@@ -135,7 +135,8 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
       ),
       backgroundColor: Colors.white,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.3,
+        //width: MediaQuery.of(context).size.width * 0.2,
+        width: 420,
         height: MediaQuery.of(context).size.height * 0.55,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -157,12 +158,13 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     padding: EdgeInsets.only(left: 16),
                     child: Row(
                       children: [
+                        const SizedBox(width: 10),
                         Icon(
                           FontAwesomeIcons.userCheck,
                           color: Colors.white,
-                          size: 12,
+                          size: 14,
                         ),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 15),
                         Text(
                           AppString.verify_user,
                           style:PopupBlueBarText.customTextStyle(context),

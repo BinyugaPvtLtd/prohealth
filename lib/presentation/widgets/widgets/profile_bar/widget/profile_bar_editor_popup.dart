@@ -47,6 +47,21 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
     docZoneId = widget.zoneId;
     selectedCountyId = widget.countyId;
     selectedZipCodeZone =  widget.zoneNameValue;
+    zipCodes= widget.zipCode;
+
+    // If zip codes are passed in initState, check the checkboxes
+    for (var zip in zipCodes) {
+      checkedZipCodes[zip.toString()] = true;
+    }
+
+    print("<<<<<<<Selected County: $selectedCounty");
+    print("<<<<<<<County Name: $countyName");
+    print(">>>>Zone Name: $zoneName");
+    print("><<<<<<<Document Zone ID: $docZoneId");
+    print(">>>>Selected County ID: $selectedCountyId");
+    print(">>>>Selected Zip Code Zone: $selectedZipCodeZone");
+    print("><<<<<<<Selected Zip Code Zone: $zipCodes");
+
     super.initState();
 
     // Call the method to load the zone value based on pre-filled data
@@ -342,8 +357,8 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                     itemCount: snapshot.data!.length,
                                     itemBuilder: (BuildContext context, int index) {
                                       String zipCode = snapshot.data![index].zipCode;
-                                      bool isChecked = widget.zipCode.contains(int.parse(zipCode))?
-                                      checkedZipCodes[zipCode] = true
+                                      bool isChecked = zipCodes.contains(int.parse(zipCode))
+                                          ? checkedZipCodes[zipCode] = true
                                           :checkedZipCodes[zipCode] ?? false;
                                       return CheckBoxTileConst(
                                         text: zipCode,
@@ -398,18 +413,31 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
             return;
           }
 
-          if (selectedZipCodes.isEmpty) {
+          // if (selectedZipCodes.isEmpty) {
+          //   await showDialog(
+          //   context: context,
+          //   builder: (BuildContext context) {
+          //     return AddErrorPopup(
+          //       message: 'Please select at least one zip code',
+          //     );
+          //   },
+          //   );
+          //   // _showErrorDialog('Please select at least one zip code.');
+          //   return;
+          // }
+
+          if (checkedZipCodes.values.every((isChecked) => !isChecked)) {
             await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AddErrorPopup(
-                message: 'Please select at least one zip code',
-              );
-            },
+              context: context,
+              builder: (BuildContext context) {
+                return AddErrorPopup(
+                  message: 'Please select at least one zip code',
+                );
+              },
             );
-            // _showErrorDialog('Please select at least one zip code.');
             return;
           }
+
 
           if (selectedZipCodeZone == null || selectedZipCodeZone!.isEmpty) {
             await showDialog(
@@ -423,7 +451,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
             // _showErrorDialog('Please select a zone.');
             return;
           }
-          List<int> zipCodesAsInt = selectedZipCodes.map((zip) => int.parse(zip)).toList();
+         // List<int> zipCodesAsInt = selectedZipCodes.map((zip) => int.parse(zip)).toList();
 
 
           addCovrage.add(ApiPatchCovrageData(
@@ -432,7 +460,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
               countyId: selectedCountyId,
               countyName: countyName,
               zoneId: docZoneId,
-              zoneName: zoneName!, zipCodes: zipCodesAsInt)
+              zoneName: zoneName!, zipCodes: zipCodes)
           );
           //var patchCoverage =
           patchEmpEnrollAddCoverage(context,widget.employeeEnrollId,widget.employeeId,addCovrage);
@@ -446,7 +474,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
           print('Selected coverage ID::::::::::::::::: ${widget.employeeEnrollCoverageId} ...................,');
           print('Selected Zone ID: $docZoneId');
           print('//////Selected Zip Codes: $selectedZipCodes');
-          print('?>>>>>>>>>>>Selected Zip Codes: $zipCodesAsInt');
+          print('?>>>>>>>>>>>Selected Zip Codes: $zipCodes');
         //  print('Selected City: $selectedCityName');
           setState((){
             getCoverageList(context: context, employeeId: widget.employeeId,
