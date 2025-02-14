@@ -490,6 +490,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SMTextfieldAsteric(
+                hintText: "First Name",
                 controller: widget.firstNameController,
                 keyboardType: TextInputType.text,
                 text: "First Name",
@@ -509,6 +510,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
               SizedBox(height: AppSize.s10,),
               ///
               SMTextfieldAsteric(
+                hintText: 'Last Name',
                 controller: widget.lastNameController,
                 keyboardType: TextInputType.text,
                 text: 'Last Name',
@@ -600,7 +602,9 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
               )
                   : SizedBox(height: AppSize.s14,),
               SizedBox(height: AppSize.s9,),
-              SMTextfieldAsteric(controller: widget.emailController,
+              SMTextfieldAsteric(
+                hintText: 'Email',
+                  controller: widget.emailController,
                   keyboardType: TextInputType.emailAddress,
                   text: 'Email',
                   onChange: () {
