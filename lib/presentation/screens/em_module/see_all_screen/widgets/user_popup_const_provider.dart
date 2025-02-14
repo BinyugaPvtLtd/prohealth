@@ -422,35 +422,14 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
     }
     return null;
   }
-///
-  ///
-  ///
-  ///
-  // void _validateForm() {
-  //   setState(() {
-  //     _isFormValid = true;
-  //     _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
-  //     _emailDocError = _validateTextField(widget.emailController.text, 'Email');
-  //     _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
-  //     _PasswordDocError = _validateTextField(widget.passwordController.text, 'Password');
-  //     if (selectedDeptId == null || selectedDeptId == 0) {  // Assuming 1 is the default "Select Department"
-  //       _departmentError = "Please select a department";
-  //       _isFormValid = false;
-  //     } else {
-  //       _departmentError = null;
-  //     }
-  //   });
-  // }
+
   void _validateForm() {
-    // Run validation logic without calling setState multiple times.
     bool isFormValid = true;
     setState(() {
       _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
       _emailDocError = _validateTextField(widget.emailController.text, 'Email');
       _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
       _PasswordDocError = _validateTextField(widget.passwordController.text, 'Password');
-
-      // Validate department field only during form submission.
       if (selectedDeptId == null || selectedDeptId == 0) {  // Assuming 1 is the default "Select Department"
         _departmentError = "Please select a department";
         isFormValid = false;
@@ -458,8 +437,6 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
         _departmentError = null;
       }
     });
-
-    // Set the final validation status
     _isFormValid = isFormValid;
   }
 
@@ -568,24 +545,18 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   if (snapshot.hasData) {
 
                     List<String> dropDownServiceList = snapshot.data!.map((dept) => dept.deptName!).toList();
-                    // String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName : null;
-                    // int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId : null;
-                    return StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) {
-                        return HRUManageDropdown(
-                          controller: TextEditingController(
-                              text: selectedDeptName ?? ''),
-                          hintText: "Department",
-                          labelFontSize: FontSize.s12,
-                          items: dropDownServiceList,
-                          onChanged: (val) {
-                            setState(() {
-                              _departmentError = null;
-                              selectedDeptName = val;
-                              selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
-                            });
-                          },
-                        );
+                    return HRUManageDropdown(
+                      controller: TextEditingController(
+                          text: selectedDeptName ?? ''),
+                      hintText: "Department",
+                      labelFontSize: FontSize.s12,
+                      items: dropDownServiceList,
+                      onChanged: (val) {
+                        setState(() {
+                          _departmentError = null;
+                          selectedDeptName = val;
+                          selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                        });
                       },
                     );
                   }

@@ -306,21 +306,43 @@ class _ManageWidgetState extends State<ManageWidget> {
               _selectedIndex == 0
                   ? const Offstage()
                   : Container(
-                      //height: MediaQuery.of(context).size.height / 3,
-                      decoration: BoxDecoration(
-                          color: Color(0xFFF2F9FC),
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorManager.mediumgrey.withOpacity(0.5),
-                              blurRadius: 2,
-                              spreadRadius: -3,
-                              offset: const Offset(0, -6),
-                            ),
-                          ]),
+                height: MediaQuery.of(context).size.height / 3.5,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF2F9FC),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: Stack(
+                  children: [
+                    // Inner shadow effect at the top
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        padding:  EdgeInsets.only(top: AppPadding.p10),
+                        height: 6, // Adjust the height of the shadow effect
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.black.withOpacity(0.2), // Darker at top
+                              Colors.transparent, // Fades out
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
+                  ],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: AppPadding.p5),
                 child: PageView(

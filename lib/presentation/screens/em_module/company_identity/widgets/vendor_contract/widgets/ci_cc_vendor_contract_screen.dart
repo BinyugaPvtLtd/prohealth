@@ -135,7 +135,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: AppPadding.p65),
+          padding: const EdgeInsets.only(right: AppPadding.p65,top: AppSize.s5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

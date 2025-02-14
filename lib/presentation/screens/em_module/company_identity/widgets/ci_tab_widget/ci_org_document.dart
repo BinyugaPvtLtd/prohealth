@@ -140,57 +140,128 @@ class CiOrgDocument extends StatelessWidget {
               SizedBox(height: AppSize.s30),
               Expanded(
                 child: Stack(
-          children: [
-          provider.selectedIndex == 2
-          ? Offstage()
-              :Container(
-             height: MediaQuery.of(context).size.height / 3.5,
-            decoration: BoxDecoration(
-                color: Color(0xFFF2F9FC),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)),
-                boxShadow: [
-                  BoxShadow(
-                    color: ColorManager.faintGrey,
-                    blurRadius: 2,
-                    spreadRadius: -2,
-                    offset: Offset(0, -4),
-                  ),
-                ]),
-          ),
-                NonScrollablePageView(
-                  controller: provider.tabPageController,
-                  onPageChanged: provider.selectButton,
                   children: [
-                    // Container(color: ColorManager.red,),
-                    // Container(color: ColorManager.fGrey,),
-                  CICorporateCompilianceDocument(
-                    docID: AppConfig.corporateAndCompliance,
-                    selectedSubDocType: provider.selectedSubDocType,
-                    onSubDocIdSelected: provider.updateSelectedSubDocId, //officeId: widget.officeId,
-                  ),
-                  // ChangeNotifierProvider(
-                  //   create: (context) => CIVendorContract(),
-                  //   child:
-                   CIVendorContract(
-                      docId: AppConfig.vendorContracts,
-                      onSubDocIdSelected: provider.updateSelectedSubDocId,
-                      selectedSubDocType: provider.selectedSubDocType, //officeId: widget.officeId
-                    ),
-                  //),
-                    ChangeNotifierProvider(
-                      create: (context) => CIPoliciesProcedureProvider(),
-                      child: CIPoliciesProcedure(
-                        docId: AppConfig.policiesAndProcedure,
-                        subDocId: AppConfig.subDocId0,
+                    provider.selectedIndex == 2
+                        ? Offstage()
+                        : Container(
+                      height: MediaQuery.of(context).size.height / 3.5,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF2F9FC),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
                       ),
+                      child: Stack(
+                        children: [
+                          // Inner shadow effect at the top
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              height: 8, // Adjust the height of the shadow effect
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.black.withOpacity(0.2), // Darker at top
+                                    Colors.transparent, // Fades out
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // PageView Content
+                    NonScrollablePageView(
+                      controller: provider.tabPageController,
+                      onPageChanged: provider.selectButton,
+                      children: [
+                        CICorporateCompilianceDocument(
+                          docID: AppConfig.corporateAndCompliance,
+                          selectedSubDocType: provider.selectedSubDocType,
+                          onSubDocIdSelected: provider.updateSelectedSubDocId,
+                        ),
+                        CIVendorContract(
+                          docId: AppConfig.vendorContracts,
+                          onSubDocIdSelected: provider.updateSelectedSubDocId,
+                          selectedSubDocType: provider.selectedSubDocType,
+                        ),
+                        ChangeNotifierProvider(
+                          create: (context) => CIPoliciesProcedureProvider(),
+                          child: CIPoliciesProcedure(
+                            docId: AppConfig.policiesAndProcedure,
+                            subDocId: AppConfig.subDocId0,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-          ],
-                ),
-              ),
+              )
+
+              //     Expanded(
+          //       child: Stack(
+          // children: [
+          // provider.selectedIndex == 2
+          // ? Offstage()
+          //     :Container(
+          //    height: MediaQuery.of(context).size.height / 3.5,
+          //   decoration: BoxDecoration(
+          //       color: Color(0xFFF2F9FC),
+          //       borderRadius: BorderRadius.only(
+          //           topLeft: Radius.circular(20),
+          //           topRight: Radius.circular(20)),
+          //       boxShadow: [
+          //         BoxShadow(
+          //           color: ColorManager.faintGrey,
+          //           blurRadius: 2,
+          //           spreadRadius: -2,
+          //           offset: Offset(0, -4),
+          //         ),
+          //       ]),
+          // ),
+          //       NonScrollablePageView(
+          //         controller: provider.tabPageController,
+          //         onPageChanged: provider.selectButton,
+          //         children: [
+          //           // Container(color: ColorManager.red,),
+          //           // Container(color: ColorManager.fGrey,),
+          //         CICorporateCompilianceDocument(
+          //           docID: AppConfig.corporateAndCompliance,
+          //           selectedSubDocType: provider.selectedSubDocType,
+          //           onSubDocIdSelected: provider.updateSelectedSubDocId, //officeId: widget.officeId,
+          //         ),
+          //         // ChangeNotifierProvider(
+          //         //   create: (context) => CIVendorContract(),
+          //         //   child:
+          //          CIVendorContract(
+          //             docId: AppConfig.vendorContracts,
+          //             onSubDocIdSelected: provider.updateSelectedSubDocId,
+          //             selectedSubDocType: provider.selectedSubDocType, //officeId: widget.officeId
+          //           ),
+          //         //),
+          //           ChangeNotifierProvider(
+          //             create: (context) => CIPoliciesProcedureProvider(),
+          //             child: CIPoliciesProcedure(
+          //               docId: AppConfig.policiesAndProcedure,
+          //               subDocId: AppConfig.subDocId0,
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          // ],
+          //       ),
+          //     ),
             ],
           );
         },
@@ -229,6 +300,7 @@ class CiOrgDocument extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomRight,
       child: CustomIconButtonConst(
+        width: AppSize.s137,
         height: AppSize.s30,
         icon: Icons.add,
         text: AddPopupString.addDocType,
