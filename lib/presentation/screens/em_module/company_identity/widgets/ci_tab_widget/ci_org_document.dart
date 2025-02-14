@@ -144,7 +144,7 @@ class CiOrgDocument extends StatelessWidget {
           provider.selectedIndex == 2
           ? Offstage()
               :Container(
-            // height: MediaQuery.of(context).size.height / 3.5,
+             height: MediaQuery.of(context).size.height / 3.5,
             decoration: BoxDecoration(
                 color: Color(0xFFF2F9FC),
                 borderRadius: BorderRadius.only(

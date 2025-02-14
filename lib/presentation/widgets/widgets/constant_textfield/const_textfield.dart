@@ -265,7 +265,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                   constraints: BoxConstraints(
                     maxHeight: 250, // Restrict height for scroll
                   ),
-                  child: Scrollbar(
+                  child: SingleChildScrollView(
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: widget.items?.length ?? widget.dropDownMenuList?.length ?? 0,
@@ -526,9 +526,9 @@ class CustomDropdownTextFieldwidh extends StatefulWidget
   final double? width;
   final double? widthone;
   final double? height;
-  final String? initialValue;
+  String? initialValue;
 
-  const CustomDropdownTextFieldwidh({
+   CustomDropdownTextFieldwidh({
     Key? key,
     this.dropDownMenuList,
 

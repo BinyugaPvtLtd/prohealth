@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/hr_module/see_all_hr/sales_hr.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
@@ -490,11 +492,13 @@ enum Availability { fullTime, partTime }
 class ProfilePatientPopUp extends StatefulWidget {
   final Widget? zoneDropDown;
   final VoidCallback onSearch;
+  final Widget clearFilter;
   final Widget officceIdWidget;
   final Widget licensesWidget;
   final Widget avabilityWidget;
   final Widget? abbrivationWidget;
   ProfilePatientPopUp({Key? key,
+    required this.clearFilter,
     required this.avabilityWidget,
     required this.licensesWidget,
      this.abbrivationWidget,
@@ -523,6 +527,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
@@ -575,19 +580,32 @@ class _PopUpState extends State<ProfilePatientPopUp> {
               SizedBox(height: 5,),
               widget.avabilityWidget,
 
+              SizedBox(height: 5,),
+              widget.clearFilter
+
             ],
           ),
         )
 
 
     ],
-      bottomButtons:  ElevatedButton(
-        onPressed: (){
+      bottomButtons:  CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: "Search",
+        onPressed: () async {
           widget.onSearch();
           Navigator.pop(context);
         },
-        child: Text('Search', style: BlueButtonTextConst.customTextStyle(context),),
-      ), title: 'Clinician Search Filter',
+      ),
+      // ElevatedButton(
+      //   onPressed: (){
+      //     widget.onSearch();
+      //     Navigator.pop(context);
+      //   },
+      //   child: Text('Search', style: BlueButtonTextConst.customTextStyle(context),),
+      // ),
+      title: 'Clinician Search Filter',
     );
   }
 }

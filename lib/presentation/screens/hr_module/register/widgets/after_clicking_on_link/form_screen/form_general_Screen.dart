@@ -258,7 +258,7 @@ class _generalFormState extends State<generalForm> {
             ),
           ),
           const SizedBox(
-            height: AppSize.s5,
+            height: AppSize.s20,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 140),
@@ -418,6 +418,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: 10,),
                       Text(
                         'Legal Last Name',
                         style:  AllPopupHeadings.customTextStyle(context),
@@ -440,6 +441,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: 10,),
                       Text(
                         'Social Security Number',
                         style: AllPopupHeadings.customTextStyle(context),
@@ -486,6 +488,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: 10,),
                       Text(
                         'Personal Mobile Number',
                         style:  AllPopupHeadings.customTextStyle(context),
@@ -509,6 +512,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: 10,),
                       Text(
                         'Personal Email',
                         style:  AllPopupHeadings.customTextStyle(context),
@@ -531,6 +535,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: 10,),
                       Text(
                         'Driver’s License Number',
                         style:  AllPopupHeadings.customTextStyle(context),
@@ -662,6 +667,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: 10,),
                       AddressInput(
                         controller: address,
                         onSuggestionSelected: (selectedSuggestion) {
@@ -690,7 +696,9 @@ class _generalFormState extends State<generalForm> {
                               ),
                             ),
                           ],
-                        ),
+                        )else
+                        SizedBox(height:12),
+
                       // Stack(
                       //   children :[
                       //     Column(
@@ -892,6 +900,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: 10,),
                       Text(
                         "Race",
                         style: AllPopupHeadings.customTextStyle(context),

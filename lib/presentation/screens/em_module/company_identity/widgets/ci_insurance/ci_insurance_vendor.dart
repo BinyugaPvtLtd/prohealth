@@ -54,7 +54,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p40),
+      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [

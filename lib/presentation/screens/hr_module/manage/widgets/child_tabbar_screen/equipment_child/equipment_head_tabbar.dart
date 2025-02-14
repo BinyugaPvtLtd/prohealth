@@ -51,18 +51,16 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 60),
-              child: CustomIconButtonConst(
-                  width: 130,
-                  text: AppStringHr.addNew,
-                  icon: Icons.add,
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (_) => EquipmentAddPopup(employeeId: widget.employeeId));
-                  }),
-            ),
+            CustomIconButtonConst(
+                width: 110,
+                text: AppStringHr.addNew,
+                icon: Icons.add,
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => EquipmentAddPopup(employeeId: widget.employeeId));
+                }),
+            SizedBox(width: 30,)
           ],
         ),
         SizedBox(

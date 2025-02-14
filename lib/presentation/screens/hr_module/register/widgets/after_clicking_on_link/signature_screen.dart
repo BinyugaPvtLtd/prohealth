@@ -13,6 +13,7 @@ import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_
 import 'package:signature/signature.dart';
 import 'dart:typed_data';
 
+import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
@@ -64,96 +65,266 @@ class _SignaturePageState extends State<SignaturePage> {
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 10),
-                      Text(
-                        'Upload Signature',
-                        style: BlueButtonTextConst.customTextStyle(context)
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 40),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFE6F7FF),
-                          borderRadius: BorderRadius.circular(12),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 110.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Upload Signature',
+                              style: FormHeading.customTextStyle(context)
+                            ),
+                            SizedBox(height: MediaQuery.of(context).size.height / 40),
+                            Container(
+                              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 100),
+                              decoration: BoxDecoration(
+                                color: Color(0xFFE6F7FF),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                'Signature is needed to sign the declination form and few other forms',
+                                style:ZoneDataStyle.customTextStyle(context)
+                              ),
+                            ),
+                            SizedBox(height: MediaQuery.of(context).size.height / 40),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                // "Draw" Button with Radio
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Radio<bool>(
+                                          value: true,
+                                          groupValue: _isDrawing,
+                                          onChanged: (bool? value) {
+                                            setState(() {
+                                              _isDrawing = value ?? false;
+                                              _selectedImageBytes = null;
+                                            });
+                                          },
+                                        ),
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          onTap: () {
+                                            setState(() {
+                                              _isDrawing = true;
+                                              _selectedImageBytes = null;
+                                            });
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Image.asset('images/pen.png',color: _isDrawing ?ColorManager.blueprime  :  ColorManager.mediumgrey,height: 25,),
+                                             // Icon(, color: _isDrawing ?ColorManager.blueprime  :  ColorManager.mediumgrey, size: 24),
+                                              SizedBox(width: 8),
+                                              Text(
+                                                'Draw',
+                                                style: TextStyle(
+                                                  color: _isDrawing ? ColorManager.blueprime  : ColorManager.mediumgrey,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    // Blue line under "Draw" when selected
+                                    Container(
+                                      height: 2,
+                                      width: 130,
+                                      color: _isDrawing ? ColorManager.blueprime  : Colors.transparent,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(width: 12),
+                                // "Upload" Button with Radio
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Radio<bool>(
+                                          value: false,
+                                          groupValue: _isDrawing,
+                                          onChanged: (bool? value) {
+                                            setState(() {
+                                              _isDrawing = value ?? true;
+                                              _selectedImageBytes = null; // Optionally clear any previous drawing
+                                            });
+                                          },
+                                        ),
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          onTap: () {
+                                            setState(() {
+                                              _isDrawing = false;
+                                              _selectedImageBytes = null; // Optionally clear any previous drawing
+                                            });
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Icon(Icons.file_upload_outlined, color: !_isDrawing ?ColorManager.blueprime  :  ColorManager.mediumgrey, size: 24),
+                                              SizedBox(width: 8),
+                                              Text(
+                                                'Upload',
+                                                style: TextStyle(
+                                                  color: !_isDrawing ? ColorManager.blueprime  : ColorManager.mediumgrey,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    // Blue line under "Upload" when selected
+                                    Container(
+                                      height: 2,
+                                      width: 130,
+                                      color: !_isDrawing ? ColorManager.blueprime : Colors.transparent,
+                                    ),
+                                  ],
+                                ),
+                                Expanded(child: Container()),
+                              ],
+                            ),
+///
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.start,
+                            //   children: [
+                            //     // "Draw" Button
+                            //     Column(
+                            //       crossAxisAlignment: CrossAxisAlignment.start,
+                            //       children: [
+                            //         InkWell(
+                            //           splashColor: Colors.transparent,
+                            //           highlightColor: Colors.transparent,
+                            //           hoverColor: Colors.transparent,
+                            //           onTap: () {
+                            //             setState(() {
+                            //               _isDrawing = true;
+                            //               _selectedImageBytes = null;
+                            //             });
+                            //           },
+                            //           child: Row(
+                            //             children: [
+                            //               Icon(Icons.edit, color: Color(0xFF50B5E5), size: 24),
+                            //               SizedBox(width: 8),
+                            //               Text(
+                            //                 'Draw',
+                            //                  style: TextStyle(
+                            //                   color: ColorManager.mediumgrey,
+                            //   fontSize: 14,
+                            //   fontWeight: FontWeight.w600,
+                            // ),
+                            //               ),
+                            //             ],
+                            //           ),
+                            //         ),
+                            //         // Blue line under "Draw" when selected
+                            //         Container(
+                            //           height: 2,
+                            //           width: 85,
+                            //           color: _isDrawing ? Color(0xFF50B5E5) : Colors.transparent,
+                            //         ),
+                            //       ],
+                            //     ),
+                            //     SizedBox(width: 12),
+                            //     // "Upload" Button
+                            //     Column(
+                            //       crossAxisAlignment: CrossAxisAlignment.start,
+                            //       children: [
+                            //         InkWell(
+                            //           splashColor: Colors.transparent,
+                            //           highlightColor: Colors.transparent,
+                            //           hoverColor: Colors.transparent,
+                            //           onTap: () {
+                            //             setState(() {
+                            //               _isDrawing = false;
+                            //               _selectedImageBytes = null; // Optionally clear any previous drawing
+                            //             });
+                            //           },
+                            //           child: Row(
+                            //             children: [
+                            //               Icon(Icons.file_upload_outlined, color: Colors.grey, size: 24),
+                            //               SizedBox(width: 8),
+                            //               Text(
+                            //                 'Upload',
+                            //                 style: TextStyle(
+                            //                   color: ColorManager.mediumgrey,
+                            //       fontSize: 14,
+                            //       fontWeight: FontWeight.w600,
+                            //     ),
+                            //               ),
+                            //             ],
+                            //           ),
+                            //         ),
+                            //         // Blue line under "Upload" when selected
+                            //         Container(
+                            //           height: 2,
+                            //           width: 85,
+                            //           color: !_isDrawing ? Color(0xFF50B5E5) : Colors.transparent,
+                            //         ),
+                            //       ],
+                            //     ),
+                            //     Expanded(child: Container()),
+                            //   ],
+                            // ),
+
+                          ],
                         ),
-                        child: Text(
-                          'Signature is needed to sign the declination form and few other forms',
-                          style:DefineWorkWeekStyle.customTextStyle(context)
-                        ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 40),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextButton.icon(
-                                icon: Icon(Icons.edit, color: Color(0xFF50B5E5), size: 24),
-                                label: Text(
-                                  'Draw',
-                                  style:DefineWorkWeekStyle.customTextStyle(context)
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    _isDrawing = true;
-                                    _selectedImageBytes = null;
-                                  });
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 2),
-                                  alignment: Alignment.centerLeft,
-                                ),
-                              ),
-                              Container(
-                                height: 2,
-                                width: 85,
-                                color: _isDrawing ? Color(0xFF50B5E5) : Colors.transparent,
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 8),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextButton.icon(
-                                icon: Icon(Icons.file_upload_outlined, color: Colors.grey, size: 24),
-                                label: Text(
-                                  'Upload',
-                                  style: DefineWorkWeekStyle.customTextStyle(context)
-                                ),
-                                onPressed: _pickFile,
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 2),
-                                  alignment: Alignment.centerLeft,
-                                ),
-                              ),
-                              Container(
-                                height: 2,
-                                color: !_isDrawing ? Color(0xFF50B5E5) : Colors.transparent,
-                              ),
-                            ],
-                          ),
-                          Expanded(child: Container()),
-                        ],
-                      ),
-                      Divider(color: Colors.grey[300]),
+                      //Divider(color: Colors.grey[300]),
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Center(
-                        child: Text(
-                          _isDrawing
-                              ? 'Sign your name using mouse or touchpad in center of the signature box'
-                              : 'Uploaded signature',
-                          style:DefineWorkWeekStyle.customTextStyle(context)
+                        child:  _isDrawing
+                            ?Container(
+                          height: 30,
+                              child: Text(
+                                  "Sign your name using mouse or touchpad",
+                                style: TextStyle(
+                                  color: ColorManager.textPrimaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
                         ),
+                              ),
+                            )
+                            :Container(
+                          height: 30,
+                              child: ElevatedButton(onPressed:_pickFile,
+                                child: Text("Upload a signature from this device",
+                              style: TextStyle(
+                              color:ColorManager.blueprime,
+                                fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                                                        ),),
+                                                        style: ElevatedButton.styleFrom(
+                                                        backgroundColor: Colors.white,
+                                                        foregroundColor: ColorManager.blueprime ,
+                                                        shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                side: BorderSide(color: ColorManager.blueprime , width: 1)),
+                                                      ),
+                                                      ),
+                            ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 20),
                       Center(
                         child: Container(
                          height: 389,
                         width: 947,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey[300]!),
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           child: ClipRect(
                             child: _selectedImageBytes != null && !_isDrawing
@@ -200,7 +371,10 @@ class _SignaturePageState extends State<SignaturePage> {
                               ),
                             ),
                           ),
-                        ),
+                        )else Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: const SizedBox(height:16),
+                      ),
 
 
                       Padding(

@@ -636,7 +636,7 @@ class CustomElevatedButton extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: 10.0,
+              fontSize: 12.0,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -645,7 +645,7 @@ class CustomElevatedButton extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: 10.0,
+              fontSize: 12.0,
               fontWeight: FontWeight.w700,
             ),
           ),

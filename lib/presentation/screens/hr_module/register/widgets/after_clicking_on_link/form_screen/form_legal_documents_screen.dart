@@ -508,7 +508,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
             child: Text('Legal Documents',
                 style: FormHeading.customTextStyle(context)),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 60),
+          SizedBox(height: MediaQuery.of(context).size.height / 30),
           Container(
             //color: Colors.redAccent,
 

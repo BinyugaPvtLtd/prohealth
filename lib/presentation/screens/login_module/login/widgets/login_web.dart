@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
+import 'package:prohealth/app/resources/provider/version_provider.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -79,11 +81,15 @@ class _LoginWebState extends State<LoginWeb> {
 
   @override
   Widget build(BuildContext context) {
+    final providerState = Provider.of<VersionProviderManager>(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      providerState.getVersionManager(context);
+    });
     return Scaffold(
       body: LoginBaseConstant(
           onTap: () {},
           titleText: AppString.login,
-          textAction: 'Please refresh your browser for new version.',
+          textAction: providerState.refreshVersionText,
           child: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(24),
@@ -100,9 +106,10 @@ class _LoginWebState extends State<LoginWeb> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text(
+                         Text(
                            // "Version 1.0.3 (4) demo",
-                          AppConfig.version,
+                  providerState.versionText,
+                          //AppConfig.version,
                           style: TextStyle(
                             fontSize: 10,
                           ),

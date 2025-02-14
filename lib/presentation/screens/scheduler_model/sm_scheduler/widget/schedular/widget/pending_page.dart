@@ -408,7 +408,6 @@ class _PendingPageViewState extends State<PendingPageView> {
                                 ),
                               ],
                             ),
-
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

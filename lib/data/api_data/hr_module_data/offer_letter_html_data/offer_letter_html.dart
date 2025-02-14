@@ -6,8 +6,10 @@ class OfferLetterData{
   final String template;
   final int offerId;
   final int? statusCode;
+  final String message;
 
-  OfferLetterData( {
+  OfferLetterData({
+   required this.message,
     this.statusCode,
     required this.offerId,
     required this.docUploadStatus, required this.templateName, required this.template,

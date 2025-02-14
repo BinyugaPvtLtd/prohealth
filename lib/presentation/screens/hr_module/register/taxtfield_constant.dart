@@ -472,14 +472,14 @@ class CustomTextFieldRegister extends StatelessWidget {
   final String? prefixText;
   final double? cursorHeight;
   final int? maxLength;
-  final bool capitalIsSelect;
+  bool isDigitSelect;
   final bool readOnly;
   final bool? phoneNumberField;
 
   CustomTextFieldRegister({
     Key? key,
     this.phoneNumberField = false,
-    this.capitalIsSelect = false, // Default to false
+    this.isDigitSelect = false, // Default to false
     this.maxLength,
     this.controller,
     this.labelText,
@@ -564,7 +564,8 @@ class CustomTextFieldRegister extends StatelessWidget {
           focusNode: focusNode,
           readOnly: readOnly,
           onFieldSubmitted: onFieldSubmitted,
-          inputFormatters: capitalIsSelect ? [
+          inputFormatters: isDigitSelect ? [
+            FilteringTextInputFormatter.digitsOnly,
             //CapitalizeFirstLetterFormatter()
           ]:phoneNumberField! ? [PhoneNumberInputFormatter()] : [],
 
@@ -789,3 +790,131 @@ class CustomTextFieldSSn extends StatelessWidget {
     );
   }
 }
+
+///only number
+class CustomRegisternumberonly extends StatelessWidget {
+  final TextEditingController? controller;
+  final String? labelText;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final bool obscureText;
+  final bool autofocus;
+  final bool enabled;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final ValueChanged<String>? onChanged;
+  final FormFieldValidator<String>? validator;
+  VoidCallback? onTap;
+  final FocusNode? focusNode;
+  final ValueChanged<String>? onFieldSubmitted;
+  final EdgeInsetsGeometry? padding;
+  final double? width;
+  final double? height;
+  final String? hintText;
+  final TextStyle? hintStyle;
+  final TextStyle? prefixStyle;
+  final String? prefixText;
+  final double? cursorHeight;
+  final int? maxLength;
+  final bool capitalIsSelect;
+  final bool readOnly;
+  final bool? phoneNumberField;
+
+  CustomRegisternumberonly({
+    Key? key,
+    this.phoneNumberField = false,
+    this.capitalIsSelect = false, // Default to false
+    this.maxLength,
+    this.controller,
+    this.labelText,
+    this.keyboardType,
+    this.textInputAction,
+    this.obscureText = false,
+    this.autofocus = false,
+    this.enabled = true,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.hintText,
+    this.hintStyle,
+    this.prefixText,
+    this.prefixStyle,
+    this.onChanged,
+    this.validator,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.padding,
+    this.width,
+    this.height,
+    this.cursorHeight,
+    this.onTap,
+    this.readOnly = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: Padding(
+        padding: const EdgeInsets.all(1.0),
+        child: TextFormField(
+          controller: controller,
+          cursorHeight: cursorHeight,
+          cursorColor: Colors.black,
+          cursorWidth: 1.5,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(
+                bottom: AppPadding.p3,
+                top: AppPadding.p4,
+                left: AppPadding.p12
+            ),
+            hintText: hintText,
+            hintStyle: hintStyle,
+            prefixText: prefixText,
+            prefixStyle: prefixStyle,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide:  BorderSide(
+                color: Color(0xFFB1B1B1),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide:  BorderSide(
+                color: Color(0xFFB1B1B1),
+              ),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide:  BorderSide(
+                color: Color(0xFFB1B1B1),
+              ),
+            ),
+            labelText: labelText,
+            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            //contentPadding: padding,
+          ),
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          style:DocumentTypeDataStyle.customTextStyle(context),
+          obscureText: obscureText,
+          autofocus: autofocus,
+          enabled: enabled,
+          onTap: onTap,
+          onChanged: onChanged,
+          validator: validator,
+          focusNode: focusNode,
+          readOnly: readOnly,
+          onFieldSubmitted: onFieldSubmitted,
+          inputFormatters:  [
+            FilteringTextInputFormatter.digitsOnly,
+          ]
+
+        ),
+      ),
+    );
+  }
+}
+///

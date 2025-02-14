@@ -121,7 +121,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
                 ),
                 child: Text(
           widget.text,
-          style: LoginFlowBase.customTextStyle(context)
+          style: TransparentButtonTextConst.customTextStyle(context)
                 ),
               ),
         );
@@ -199,15 +199,21 @@ class CustomeTransparentAddShift extends StatelessWidget {
           decoration: BoxDecoration(
               border: Border.all(color: ColorManager.blueprime),
               borderRadius: BorderRadius.circular(30)),
+          padding: EdgeInsets.only(right: 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Icon(Icons.add,
                   color: ColorManager.blueprime,
-                  size: 15),
+                  size: IconSize.I14),
               Text(
                 text,
-                style: TransparentButtonTextConst.customTextStyle(context),
+                style: TextStyle(
+                  fontSize: FontSize.s12,
+                  fontWeight: FontWeight.w600,
+                  color: ColorManager.blueprime,
+                  decoration: TextDecoration.none,
+                ),
               ),
             ],
           )),
@@ -217,7 +223,7 @@ class CustomeTransparentAddShift extends StatelessWidget {
 
 class CustomButton extends StatelessWidget {
   final String? text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color backgroundColor; // Added parameter for background color
   final Color textColor;
   final double borderRadius;
@@ -256,14 +262,16 @@ class CustomButton extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        boxShadow: [
+        boxShadow: onPressed != null
+            ? [
           const BoxShadow(
             color: Color(0x40000000),
             offset: Offset(0, 4),
             blurRadius: 3,
             spreadRadius: 0,
           ),
-        ],
+        ]
+            : [],
       ),
       child: ElevatedButton(
         onPressed: onPressed,
@@ -364,6 +372,9 @@ class DZoneButton extends StatelessWidget {
         ],
       ),
       child: InkWell(
+        splashColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         onTap: onTap,
         child: Center(
           child: Text(

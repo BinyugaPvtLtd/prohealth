@@ -286,7 +286,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
         //Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
-          capitalIsSelect: capitalIsSelect,
+          isDigitSelect: capitalIsSelect,
           phoneNumberField: labelText == "Phone", // Specify if this is the phone field
           height: AppSize.s30,
           controller: controller,

@@ -130,7 +130,7 @@ class _CiOrgDocumentState extends State<CiZone> {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width / 50.0),
+              horizontal: AppPadding.p65),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

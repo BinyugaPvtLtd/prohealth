@@ -53,81 +53,79 @@ class ReferencesChildTabbar extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-              width: 100,
-              margin: EdgeInsets.only(right: 60),
-              child: CustomIconButtonConst(
-                  text: AppStringHr.add,
-                  icon: Icons.add,
-                  onPressed: () {
-                    nameController.clear();
-                    emailController.clear();
-                    titlePositionController.clear();
-                    knowPersonController.clear();
-                    companyNameController.clear();
-                    associationLengthController.clear();
-                    referredBController.clear();
-                    mobileNumberController.clear();
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddReferencePopup(
-                            nameController: nameController,
-                            emailController: emailController,
-                            titlePositionController: titlePositionController,
-                            knowPersonController: knowPersonController,
-                            companyNameController: companyNameController,
-                            associationLengthController: associationLengthController,
-                            mobileNumberController: mobileNumberController,
-                            referredBy: referredBController,
-                            onpressedClose: () {},
-                            onpressedSave: () async {
-                              var response = await addReferencePost(
-                                  context,
-                                  associationLengthController.text,
-                                  'Reference',
-                                  companyNameController.text,
-                                  emailController.text,
-                                  employeeId!,
-                                  mobileNumberController.text,
-                                  nameController.text,
-                                  knowPersonController.text,
-                                  titlePositionController.text);
-                              var referenceResponse =
-                              await approveOnboardQualifyReferencePatch(
-                                  context, response.referenceId!);
+            CustomIconButtonConst(
+                width: 80,
+                text: AppStringHr.add,
+                icon: Icons.add,
+                onPressed: () {
+                  nameController.clear();
+                  emailController.clear();
+                  titlePositionController.clear();
+                  knowPersonController.clear();
+                  companyNameController.clear();
+                  associationLengthController.clear();
+                  referredBController.clear();
+                  mobileNumberController.clear();
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddReferencePopup(
+                          nameController: nameController,
+                          emailController: emailController,
+                          titlePositionController: titlePositionController,
+                          knowPersonController: knowPersonController,
+                          companyNameController: companyNameController,
+                          associationLengthController: associationLengthController,
+                          mobileNumberController: mobileNumberController,
+                          referredBy: referredBController,
+                          onpressedClose: () {},
+                          onpressedSave: () async {
+                            var response = await addReferencePost(
+                                context,
+                                associationLengthController.text,
+                                'Reference',
+                                companyNameController.text,
+                                emailController.text,
+                                employeeId!,
+                                mobileNumberController.text,
+                                nameController.text,
+                                knowPersonController.text,
+                                titlePositionController.text);
+                            var referenceResponse =
+                            await approveOnboardQualifyReferencePatch(
+                                context, response.referenceId!);
 
-                              if (referenceResponse.statusCode == 200 ||
-                                  referenceResponse.statusCode == 201) {
-                                Navigator.pop(context);
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AddSuccessPopup(
-                                      message: 'Reference Added Successfully',
-                                    );
-                                  },
-                                );
-                              }else if(response.statusCode == 400 || response.statusCode == 404){
-                                Navigator.pop(context);
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => const FourNotFourPopup(),
-                                );
-                              }
-                              else {
-                                Navigator.pop(context);
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => FailedPopup(text: response.message),
-                                );
-                              }
-                            },
-                            title: 'Add Reference',
-                          );
-                        });
-                  }),
-            ),
+                            if (referenceResponse.statusCode == 200 ||
+                                referenceResponse.statusCode == 201) {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddSuccessPopup(
+                                    message: 'Reference Added Successfully',
+                                  );
+                                },
+                              );
+                            }else if(response.statusCode == 400 || response.statusCode == 404){
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => const FourNotFourPopup(),
+                              );
+                            }
+                            else {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FailedPopup(text: response.message),
+                              );
+                            }
+                          },
+                          title: 'Add Reference',
+                        );
+                      });
+                }),
+            SizedBox(width: 100,)
           ],
         ),
         SizedBox(

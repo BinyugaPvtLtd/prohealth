@@ -82,32 +82,6 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
   String countyName = "";
   String? zoneName = "";
 
-
-
-
-
-  // void loadZoneValue() async {
-  //   // Call your API or stream fetching logic here
-  //   final zones = await fetchCountyWiseZone(context, selectedCountyId); // Assuming this is a method that gets zones based on the countyId
-  //
-  //   // Once zones are fetched, iterate through them and set the selected zone by matching zoneId
-  //   for (var zone in zones) {
-  //     if (zone.zone_id == widget.zoneId) {
-  //       setState(() {
-  //         selectedZone = zone.zoneName; // Set the selected zone value here
-  //         zoneName = selectedZone!;
-  //         docZoneId = widget.zoneId; // Ensure the zoneId is updated if necessary
-  //       });
-  //       break; // Exit once you find the matching zone
-  //     }
-  //   }
-  // }
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
@@ -122,7 +96,6 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Container(
-                //color: ColorManager.red,
                 height: 125,
                 width: 354,
                 child:

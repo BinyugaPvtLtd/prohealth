@@ -46,15 +46,18 @@ class QualificationActionButtons extends StatelessWidget {
                       ),
             )
             : approve == false
-            ? Text(
-          'Rejected',
-          textAlign: TextAlign.center,
-          style: CustomTextStylesCommon.commonStyle(
-            fontSize: FontSize.s14,
-            fontWeight: FontWeight.w600,
-            color: ColorManager.mediumgrey,
-          ),
-        )
+            ? Container(
+          width: AppSize.s90,
+              child: Text(
+                        'Rejected',
+                        textAlign: TextAlign.center,
+                        style: CustomTextStylesCommon.commonStyle(
+              fontSize: FontSize.s14,
+              fontWeight: FontWeight.w600,
+              color: ColorManager.mediumgrey,
+                        ),
+                      ),
+            )
             : SizedBox(width: AppSize.s90),
         SizedBox(width: MediaQuery.of(context).size.width / 75),
         approve == false
@@ -77,15 +80,18 @@ class QualificationActionButtons extends StatelessWidget {
                       ),
             )
             : approve == true
-            ? Text(
-          'Approved',
-          textAlign: TextAlign.center,
-          style: CustomTextStylesCommon.commonStyle(
-            fontSize: FontSize.s14,
-            fontWeight: FontWeight.w600,
-            color: ColorManager.blueprime,
-          ),
-        )
+            ? Container(
+          width: AppSize.s90,
+              child: Text(
+                        'Approved',
+                        textAlign: TextAlign.center,
+                        style: CustomTextStylesCommon.commonStyle(
+              fontSize: FontSize.s14,
+              fontWeight: FontWeight.w600,
+              color: ColorManager.blueprime,
+                        ),
+                      ),
+            )
             : SizedBox(width: AppSize.s90),
       ],
     );

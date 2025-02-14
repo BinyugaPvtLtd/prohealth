@@ -189,7 +189,7 @@ class ProfileBar extends StatelessWidget {
                                                 height: AppSize.s70,
                                                 width: AppSize.s70,
                                                 child: CircularProgressIndicator(
-                                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenF),
+                                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.grey),
                                                   strokeWidth: 3,
                                                   value: searchByEmployeeIdProfileData!.profileScorePercentage,
                                                 ),
@@ -197,7 +197,7 @@ class ProfileBar extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                      //  SizedBox(height: 15,),
+
                                         searchByEmployeeIdProfileData!.active
                                             ? Text(
                                               "Active",
@@ -216,7 +216,7 @@ class ProfileBar extends StatelessWidget {
                                               if (snapshot.connectionState ==
                                                   ConnectionState.waiting) {
                                                 return Padding(
-                                                  padding: const EdgeInsets.only(bottom: 48.0),
+                                                  padding: const EdgeInsets.only(bottom: 43.0),
                                                   child: Column(
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
@@ -229,7 +229,7 @@ class ProfileBar extends StatelessWidget {
                                                 );
                                               }
                                               return Padding(
-                                                padding: const EdgeInsets.only(bottom: 48.0),
+                                                padding: const EdgeInsets.only(bottom: 43.0),
                                                 child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
@@ -247,7 +247,7 @@ class ProfileBar extends StatelessWidget {
                                   SizedBox(width: 30,),
                                   ///edit button column
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 18.0, bottom: 12),
+                                    padding: const EdgeInsets.only(top: 18.0, bottom: 8),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,9 +315,12 @@ class ProfileBar extends StatelessWidget {
                                           searchByEmployeeIdProfileData!.zone,
                                           style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                         ),
-                                        Text(
-                                          AppString.address,
-                                          style: ThemeManagerDark.customTextStyle(context),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 2.0),
+                                          child: Text(
+                                            AppString.address,
+                                            style: ThemeManagerDark.customTextStyle(context),
+                                          ),
                                         ),
 
                                         MouseRegion(
@@ -348,22 +351,6 @@ class ProfileBar extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-
-                                        // MouseRegion(
-                                        //   onEnter: (event) => profileState.showOverlayAddress(
-                                        //       context, event.position,searchByEmployeeIdProfileData!.finalAddress),
-                                        //   onExit: (_) => profileState.removeOverlayAddress(),
-                                        //   child: Container(
-                                        //     height: 30,
-                                        //     color: ColorManager.red,
-                                        //     child: Text(
-                                        //         providerState.trimmedAddress,
-                                        //         textAlign: TextAlign.start,
-                                        //         style:
-                                        //         ThemeManagerAddressPB.customTextStyle(
-                                        //             context)),
-                                        //   ),
-                                        // ),
                                       ],
                                     ),
                                   ),
@@ -374,7 +361,7 @@ class ProfileBar extends StatelessWidget {
                               Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(bottom: 10.0,top: 10),
+                                    padding: const EdgeInsets.only(bottom: 10.0,top: 11),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -591,32 +578,24 @@ class ProfileBar extends StatelessWidget {
                                                             return ExpiredLicensePopup(
                                                                 title: 'Expired License',
                                                                 child: Padding(
-                                                                  padding:
-                                                                  const EdgeInsets.symmetric(
+                                                                  padding: const EdgeInsets.symmetric(
                                                                     vertical: AppPadding.p3,
                                                                     horizontal: AppPadding.p20,
                                                                   ),
                                                                   child: SingleChildScrollView(
                                                                     child: Column(
-                                                                      crossAxisAlignment:
-                                                                      CrossAxisAlignment.start,
-                                                                      mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceEvenly,
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                       children: [
                                                                         Container(
                                                                           height: 30,
                                                                           decoration: BoxDecoration(
                                                                             color: Colors.grey,
                                                                             borderRadius:
-                                                                            BorderRadius
-                                                                                .circular(12),
+                                                                            BorderRadius.circular(12),
                                                                           ),
                                                                           child: Padding(
-                                                                            padding:
-                                                                            const EdgeInsets
-                                                                                .symmetric(
-                                                                                horizontal: 15),
+                                                                            padding: const EdgeInsets.symmetric(horizontal: 18),
                                                                             child: Row(
                                                                               mainAxisAlignment:
                                                                               MainAxisAlignment
@@ -655,9 +634,7 @@ class ProfileBar extends StatelessWidget {
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                        const SizedBox(
-                                                                          height: 10,
-                                                                        ),
+                                                                        const SizedBox(height: 10,),
                                                                         FutureBuilder<Map<String, List<LicensesData>>>(
                                                                             future: getLicenseStatusWise(context, searchByEmployeeIdProfileData!.employeeId!),
                                                                             builder: (context, snapshot) {
@@ -700,7 +677,7 @@ class ProfileBar extends StatelessWidget {
                                                                                             children: [
                                                                                               // SizedBox(height: 5),
                                                                                               Padding(
-                                                                                                padding: const EdgeInsets.all(5),
+                                                                                                padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 3),
                                                                                                 child: Container(
                                                                                                     decoration: BoxDecoration(
                                                                                                       color: Colors.white,
@@ -788,28 +765,18 @@ class ProfileBar extends StatelessWidget {
                                                                     ),
                                                                     child: SingleChildScrollView(
                                                                       child: Column(
-                                                                        crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                        mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceEvenly,
+                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: [
                                                                           Container(
                                                                             height: 30,
                                                                             decoration:
-                                                                            BoxDecoration(
-                                                                              color: Colors.grey,
-                                                                              borderRadius:
-                                                                              BorderRadius
-                                                                                  .circular(12),
+                                                                            BoxDecoration(color: Colors.grey,
+                                                                              borderRadius: BorderRadius.circular(12),
                                                                             ),
                                                                             child: Padding(
                                                                               padding:
-                                                                              const EdgeInsets
-                                                                                  .symmetric(
-                                                                                  horizontal:
-                                                                                  15),
+                                                                              const EdgeInsets.symmetric(horizontal: 18),
                                                                               child: Row(
                                                                                 mainAxisAlignment:
                                                                                 MainAxisAlignment
@@ -933,7 +900,7 @@ class ProfileBar extends StatelessWidget {
                                                                                               children: [
                                                                                                 // SizedBox(height: 5),
                                                                                                 Padding(
-                                                                                                  padding: const EdgeInsets.all(5.0),
+                                                                                                  padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 3),
                                                                                                   child: Container(
                                                                                                       decoration: BoxDecoration(
                                                                                                         color: Colors.white,
@@ -1012,10 +979,8 @@ class ProfileBar extends StatelessWidget {
                                                               return ExpiredLicensePopup(
                                                                   title: 'Up To Date License',
                                                                   child: Padding(
-                                                                    padding:
-                                                                    const EdgeInsets.symmetric(
-                                                                      vertical: AppPadding.p3,
-                                                                      horizontal: AppPadding.p20,
+                                                                    padding: const EdgeInsets.symmetric(
+                                                                      vertical: AppPadding.p3, horizontal: AppPadding.p20,
                                                                     ),
                                                                     child: SingleChildScrollView(
                                                                       child: Column(
@@ -1037,10 +1002,7 @@ class ProfileBar extends StatelessWidget {
                                                                             ),
                                                                             child: Padding(
                                                                               padding:
-                                                                              const EdgeInsets
-                                                                                  .symmetric(
-                                                                                  horizontal:
-                                                                                  15),
+                                                                              const EdgeInsets.symmetric(horizontal: 18),
                                                                               child: Row(
                                                                                 mainAxisAlignment:
                                                                                 MainAxisAlignment
@@ -1082,27 +1044,16 @@ class ProfileBar extends StatelessWidget {
                                                                           const SizedBox(
                                                                             height: 10,
                                                                           ),
-                                                                          FutureBuilder<
-                                                                              Map<
-                                                                                  String,
-                                                                                  List<
-                                                                                      LicensesData>>>(
+                                                                          FutureBuilder<Map<String, List<LicensesData>>>(
                                                                               future: getLicenseStatusWise(
                                                                                   context,
                                                                                   searchByEmployeeIdProfileData!
                                                                                       .employeeId!),
-                                                                              builder: (context,
-                                                                                  snapshot) {
-                                                                                if (snapshot
-                                                                                    .connectionState ==
-                                                                                    ConnectionState
-                                                                                        .waiting) {
+                                                                              builder: (context, snapshot) {
+                                                                                if (snapshot.connectionState == ConnectionState.waiting) {
                                                                                   return Center(
                                                                                     child: Padding(
-                                                                                      padding: const EdgeInsets
-                                                                                          .symmetric(
-                                                                                          vertical:
-                                                                                          150),
+                                                                                      padding: const EdgeInsets.symmetric(vertical: 150),
                                                                                       child:
                                                                                       CircularProgressIndicator(
                                                                                         color: ColorManager
@@ -1112,9 +1063,7 @@ class ProfileBar extends StatelessWidget {
                                                                                   );
                                                                                 }
                                                                                 if (snapshot
-                                                                                    .data![
-                                                                                'Upto date']!
-                                                                                    .isEmpty) {
+                                                                                    .data!['Upto date']!.isEmpty) {
                                                                                   return Center(
                                                                                       child:
                                                                                       Padding(
@@ -1165,7 +1114,7 @@ class ProfileBar extends StatelessWidget {
                                                                                               children: [
                                                                                                 // SizedBox(height: 5),
                                                                                                 Padding(
-                                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                                  padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 3),
                                                                                                   child: Container(
                                                                                                       decoration: BoxDecoration(
                                                                                                         color: Colors.white,

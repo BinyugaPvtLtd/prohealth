@@ -17,7 +17,7 @@ class TopRowConstant extends StatelessWidget {
       height: AppSize.s60,
       width: double.infinity,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16), // Adjust padding as needed
+        padding: EdgeInsets.symmetric(horizontal: 30), // Adjust padding as needed
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust alignment as needed
           children: [
@@ -56,10 +56,8 @@ class TopRowConstant extends StatelessWidget {
                   color: ColorManager.calandercolour,
                 ),
                 children: [
-                  TextSpan(text: '(4088) '),
-                  TextSpan(text: '555'),
-                  TextSpan(text: '-'),
-                  TextSpan(text: '1234'),
+                  TextSpan(text: '(4088) 555-1234',style: TextStyle(decoration: TextDecoration.underline,color:
+                  ColorManager.calandercolour)),
                 ],
               ),
             ),

@@ -455,7 +455,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               return GestureDetector(
                                                 child: CircleAvatar(
                                                   backgroundColor: Colors.grey[100],
-                                                  radius: 14,
+                                                  radius: 13,
                                                   backgroundImage: AssetImage("images/profilepic.png"),
                                                 ),
                                                 onTap: () {
@@ -471,7 +471,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               return GestureDetector(
                                                 child: CircleAvatar(
                                                   backgroundColor: Colors.grey[100],
-                                                  radius: 14,
+                                                  radius: 12,
                                                   backgroundImage: AssetImage("images/profilepic.png"),
                                                 ),
                                                 onTap: () {
@@ -487,7 +487,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                             return GestureDetector(
                                             child: CircleAvatar(
                                             backgroundImage: NetworkImage(snapshot.data!.imgUrl),
-                                            radius: 14, // Adjust size as needed
+                                            radius: 13, // Adjust size as needed
                                             ),
                                             onTap: () {
                                             print("userid appbar : ${snapshot.data?.userId}");
@@ -502,7 +502,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               return GestureDetector(
                                                 child: CircleAvatar(
                                                   backgroundColor: Colors.grey[100],
-                                                  radius: 14,
+                                                  radius: 13,
                                                   backgroundImage: AssetImage("images/profilepic.png"),
                                                 ),
                                                 onTap: () {
@@ -518,12 +518,11 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           },
                                         ),
                                       ),
-                                      // const SizedBox(height: AppSize.s2),
+                                     const SizedBox(height: AppSize.s5),
                                       FutureBuilder(
                                         future: user(),
                                         builder: (context, snap) {
-                                          if (snap.connectionState ==
-                                              ConnectionState.waiting) {
+                                          if (snap.connectionState == ConnectionState.waiting) {
                                             return SizedBox();
                                           }
 
@@ -625,9 +624,8 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                    FontWeight.w400,
+                                                fontSize: 8,//FontSize.s10,
+                                                fontWeight: FontWeight.w400,
                                               ),
                                             ),
                                           );

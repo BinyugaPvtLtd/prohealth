@@ -129,7 +129,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         /// Render top row with buttons only if both manage and whitelabelling screens are not shown
         if (!showManageScreen && !showWhitelabellingScreen)
           Padding(
-            padding: const EdgeInsets.only(right: AppPadding.p50, bottom: AppPadding.p15),
+            padding: const EdgeInsets.only(right: AppPadding.p20, bottom: AppPadding.p15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -141,7 +141,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   onPressed: showWhitelabellingScreenFunction,
                 ),
                 SizedBox(
-                  width: AppSize.s25,
+                  width: AppSize.s35,
                 ),
                 CustomIconButtonConst(
                   width: AppSize.s150,
@@ -241,7 +241,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               .toList();
 
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20,vertical: 10),
                             child: Column(
                               children: [
                                 Expanded(
@@ -386,7 +386,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                             mapToolbarEnabled: false,
                                                           ),
                                                         ),
-                                                        SizedBox(height: AppSize.s8),
+                                                        SizedBox(height: AppSize.s12),
                                                         //SizedBox(height: 4,),
                                                         Center(
                                                           child: InkWell(onTap: () async {

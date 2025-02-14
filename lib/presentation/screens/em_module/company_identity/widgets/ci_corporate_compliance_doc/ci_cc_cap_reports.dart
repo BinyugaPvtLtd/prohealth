@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
@@ -131,7 +132,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
+                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -153,15 +154,23 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Container(
-                                                        width: 62,
-                                                        height: 45,
-                                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(4),
-                                                          border: Border.all(width: 2, color: ColorManager.faintGrey),
-                                                        ),
-                                                        child: Image.asset('images/Vector.png')),
+                                                    GestureDetector(
+                                                      onTap: (){
+                                                        print("FileExtension:${fileExtension}");
+                                                        downloadFile(fileUrl);
+                                                        //DowloadFile();
+                                                        //.downloadPdfFromBase64(fileExtension,"Acknowledgement");
+                                                      },
+                                                      child: Container(
+                                                          width: AppSize.s62,
+                                                          height: AppSize.s45,
+                                                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(4),
+                                                            border: Border.all(width: 2, color: ColorManager.faintGrey),
+                                                          ),
+                                                          child: SvgPicture.asset('images/doc_vector.svg')),
+                                                    ),
                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,6 +4,7 @@ import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
+import 'package:prohealth/app/resources/provider/version_provider.dart';
 import 'package:prohealth/app/routes_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/login_module/login/login_screen.dart';
@@ -57,6 +58,10 @@ class _App extends State<App> {
         .querySelector('meta[name="build-version"]')
         ?.getAttribute("content");
     if (currentVersion != initialVersion) {
+      final providerState = Provider.of<VersionProviderManager>(context);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        providerState.getVersionManager(context);
+      });
       _showUpdateDialog();
     }
   }

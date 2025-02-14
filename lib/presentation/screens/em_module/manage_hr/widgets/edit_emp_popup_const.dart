@@ -1,5 +1,7 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
@@ -14,7 +16,7 @@ class EditPopupWidget extends StatefulWidget {
   final TextEditingController typeController;
   final TextEditingController shorthandController;
   final TextEditingController? emailController;
-  final Future<void> Function() onSavePressed;
+  final Future<void> Function(String) onSavePressed;
   final Color containerColor;
   // final Widget child;
   final Function(Color)? onColorChanged;
@@ -49,7 +51,9 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
   @override
   void initState() {
     super.initState();
-    _selectedColors = [widget.containerColor];
+
+    // Ensure the selected color is properly initialized
+    _selectedColors = [widget.containerColor == Colors.white ? Colors.transparent : widget.containerColor];
   }
 
   void _openColorPicker() async {
@@ -98,10 +102,13 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
     if (pickedColor != null) {
       setState(() {
         _selectedColors[0] = pickedColor;
-        widget.onColorChanged!(pickedColor);
+        if (widget.onColorChanged != null) {
+          widget.onColorChanged!(pickedColor);
+        }
       });
     }
   }
+
 
   // Method to validate 'Type'
   void _validateType() {
@@ -239,7 +246,10 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
             setState(() {
               isLoading = true;
             });
-            await widget.onSavePressed();
+            Color selectedColor = _selectedColors[0] == Colors.transparent ? Colors.white : _selectedColors[0];
+            String selectedColorToSave = '#${selectedColor.value.toRadixString(16).substring(2).toUpperCase()}';
+
+            await widget.onSavePressed(selectedColorToSave);
             setState(() {
               isLoading = false;
             });

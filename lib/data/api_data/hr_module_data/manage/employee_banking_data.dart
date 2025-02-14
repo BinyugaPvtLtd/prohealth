@@ -45,8 +45,10 @@ class EmployeeBankingPrefillData {
   final bool? approve;
   final String percentage;
   final String documentName;
+  final String action;
 
   EmployeeBankingPrefillData({
+    required this.action,
     required this.percentage,
     required this.empBankingId,
     required this.employeeId,

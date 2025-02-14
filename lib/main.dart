@@ -3,6 +3,7 @@ import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/provider/hr_onboarding_provider.dart';
 import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
+import 'package:prohealth/app/resources/provider/hr_search_provider.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/provider/office_location.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
@@ -19,6 +20,7 @@ import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagina
 import 'package:provider/provider.dart';
 
 import 'app/app.dart';
+import 'app/resources/provider/version_provider.dart';
 import 'presentation/screens/hr_module/hr_home_screen/referesh_provider.dart';
 import 'presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_plan_care/planer_notifier.dart';
 
@@ -44,6 +46,10 @@ Future<void> main() async {
           ChangeNotifierProvider(
             create: (_) => LocationProvider(),
           ),
+          ChangeNotifierProvider(
+            create: (_) => VersionProviderManager(),
+          ),
+          ChangeNotifierProvider(create: (_) => HrSearchProviderManager()),
           // ChangeNotifierProvider(create: (_) => SeeAllPaginationProvider(itemsPerPage: 10),),
           // ChangeNotifierProvider(create: (_) => SeeAllProvider()),
           // ChangeNotifierProvider(create: (_) => UserCreationProvider()),

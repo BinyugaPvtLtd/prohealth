@@ -301,7 +301,7 @@ class OfferLetterScreen extends StatelessWidget {
                         color: ColorManager.mediumgrey),
                         ),
                         contentPadding:
-                        const EdgeInsets.only(left: 20, bottom: 5),
+                        const EdgeInsets.only(left: 10, bottom: 5),
                         ),
                         style: DocumentTypeDataStyle.customTextStyle(context),);
                         },
@@ -348,18 +348,22 @@ class OfferLetterScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 100.0),
                       child: Row(crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [ElevatedButton(
-                        onPressed:hrProviderState.addContainer,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff1696C8),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                      children: [Container(
+                        width:180,
+                        height: 30,
+                        child: ElevatedButton(
+                          onPressed:hrProviderState.addContainer,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff1696C8),
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          'Add New Coverage',
-                          style: BlueButtonTextConst.customTextStyle(context),
+                          child: Text(
+                            'Add New Coverage',
+                            style: BlueButtonTextConst.customTextStyle(context),
+                          ),
                         ),
                       ),],),
                     ),
@@ -396,157 +400,162 @@ class OfferLetterScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     hrProviderState.salary.isNotEmpty ? "\$ ${hrProviderState.salary}" : "Not Defined",
-                                    style: DropdownItemStyle.customTextStyle(context),
+                                    style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                      color: ColorManager.black, // Asterisk color
+                                    ),
                                   ),
                                   const SizedBox(width: 30),
                                   Row(
                                     children: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(12.0),
-                                                ),
-                                                titlePadding: EdgeInsets.zero,
-                                                title: Container(
-                                                  decoration: const BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius: BorderRadius.only(
-                                                      topLeft: Radius.circular(12),
-                                                      bottomLeft: Radius.circular(12),
-                                                      bottomRight: Radius.circular(12),
-                                                      topRight: Radius.circular(12),
-                                                    ),
+                                      Container(
+                                        width:100,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(12.0),
                                                   ),
-                                                  width: 302,
-                                                  height: 230,
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        height: 35,
-                                                        width: double.infinity,
-                                                        decoration: const BoxDecoration(
-                                                          color: Color(0xff1696C8),
-                                                          borderRadius: BorderRadius.only(
-                                                            topLeft: Radius.circular(12.0),
-                                                            topRight: Radius.circular(12.0),
+                                                  titlePadding: EdgeInsets.zero,
+                                                  title: Container(
+                                                    decoration: const BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.only(
+                                                        topLeft: Radius.circular(12),
+                                                        bottomLeft: Radius.circular(12),
+                                                        bottomRight: Radius.circular(12),
+                                                        topRight: Radius.circular(12),
+                                                      ),
+                                                    ),
+                                                    width: 302,
+                                                    height: 230,
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          height: 35,
+                                                          width: double.infinity,
+                                                          decoration: const BoxDecoration(
+                                                            color: Color(0xff1696C8),
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: Radius.circular(12.0),
+                                                              topRight: Radius.circular(12.0),
+                                                            ),
+                                                          ),
+                                                          padding: const EdgeInsets.only(right: 5, bottom: 5),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.end,
+                                                            children: [
+                                                              Center(
+                                                                child: IconButton(
+                                                                  icon: const Icon(Icons.close, color: Colors.white, size: IconSize.I18,),
+                                                                  onPressed: () {
+                                                                    Navigator.of(context).pop();
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
-                                                        padding: const EdgeInsets.only(right: 5, bottom: 5),
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.end,
-                                                          children: [
-                                                            Center(
-                                                              child: IconButton(
-                                                                icon: const Icon(Icons.close, color: Colors.white, size: IconSize.I18,),
-                                                                onPressed: () {
-                                                                  Navigator.of(context).pop();
-                                                                },
+                                                        Padding(
+                                                          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              // Display the appropriate text based on dropdown selection
+                                                              dropdownValue == 'Salaried'
+                                                                  ? Text(
+                                                                'Salary',
+                                                                style: DefineWorkWeekStyle.customTextStyle(context),
+                                                              )
+                                                                  : Text(
+                                                                'Per Visit',
+                                                                style: DefineWorkWeekStyle.customTextStyle(context),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              SizedBox(
+                                                                height: MediaQuery.of(context).size.height / 30,
+                                                              ),
+                                                              Container(
+                                                                height: 30,
+                                                                child: TextFormField(
+                                                                  cursorColor: Colors.black,
+                                                                  style: DocumentTypeDataStyle.customTextStyle(context),
+                                                                  decoration: InputDecoration(
+                                                                    prefix: const Text("\$ "),
+                                                                    hintText: '0.00',
+                                                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                                                    enabledBorder: OutlineInputBorder(
+                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                      borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                                    ),
+                                                                    focusedBorder: OutlineInputBorder(
+                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                      borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                                    ),
+                                                                    border: OutlineInputBorder(
+                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                      borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                                    ),
+                                                                    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                                                                  ),
+                                                                  keyboardType: TextInputType.number,
+                                                                  onChanged: (value) {
+                                                                    hrProviderState.addSalary(value);
+                                                                    print("Salary:: ${hrProviderState.salary}");
+                                                                  },
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: MediaQuery.of(context).size.height / 20,
+                                                              ),
+                                                              Center(
+                                                                child: ElevatedButton(
+                                                                  onPressed: () {
+                                                                    // Handle the submit action
+                                                                    Navigator.of(context).pop();
+                                                                  },
+                                                                  style: ElevatedButton.styleFrom(
+                                                                    backgroundColor: const Color(0xff1696C8),
+                                                                    shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(12),
+                                                                    ),
+                                                                  ),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                                                                    child: Text(
+                                                                      'Submit',
+                                                                      style: BlueButtonTextConst.customTextStyle(context),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            // Display the appropriate text based on dropdown selection
-                                                            dropdownValue == 'Salaried'
-                                                                ? Text(
-                                                              'Salary',
-                                                              style: DefineWorkWeekStyle.customTextStyle(context),
-                                                            )
-                                                                : Text(
-                                                              'Per Visit',
-                                                              style: DefineWorkWeekStyle.customTextStyle(context),
-                                                            ),
-                                                            SizedBox(
-                                                              height: MediaQuery.of(context).size.height / 30,
-                                                            ),
-                                                            Container(
-                                                              height: 30,
-                                                              child: TextFormField(
-                                                                cursorColor: Colors.black,
-                                                                style: DocumentTypeDataStyle.customTextStyle(context),
-                                                                decoration: InputDecoration(
-                                                                  prefix: const Text("\$ "),
-                                                                  hintText: '0.00',
-                                                                  hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                                                  enabledBorder: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.circular(8.0),
-                                                                    borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                                  ),
-                                                                  focusedBorder: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.circular(8.0),
-                                                                    borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                                  ),
-                                                                  border: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.circular(8.0),
-                                                                    borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                                  ),
-                                                                  contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                                                                ),
-                                                                keyboardType: TextInputType.number,
-                                                                onChanged: (value) {
-                                                                  hrProviderState.addSalary(value);
-                                                                  print("Salary:: ${hrProviderState.salary}");
-                                                                },
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              height: MediaQuery.of(context).size.height / 20,
-                                                            ),
-                                                            Center(
-                                                              child: ElevatedButton(
-                                                                onPressed: () {
-                                                                  // Handle the submit action
-                                                                  Navigator.of(context).pop();
-                                                                },
-                                                                style: ElevatedButton.styleFrom(
-                                                                  backgroundColor: const Color(0xff1696C8),
-                                                                  shape: RoundedRectangleBorder(
-                                                                    borderRadius: BorderRadius.circular(12),
-                                                                  ),
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-                                                                  child: Text(
-                                                                    'Submit',
-                                                                    style: BlueButtonTextConst.customTextStyle(context),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              );
-                                            },
-                                          );
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color(0xff1696C8),
-                                          foregroundColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(12),
+                                                );
+                                              },
+                                            );
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: const Color(0xff1696C8),
+                                            foregroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
                                           ),
-                                        ),
-                                        child: dropdownValue == 'Salaried'
-                                            ? Text(
-                                          'Add',
-                                          style: BlueButtonTextConst.customTextStyle(context),
-                                        )
-                                            : Text(
-                                          'Add Visit',
-                                          style: BlueButtonTextConst.customTextStyle(context),
+                                          child: dropdownValue == 'Salaried'
+                                              ? Text(
+                                            'Add',
+                                            style: BlueButtonTextConst.customTextStyle(context),
+                                          )
+                                              : Text(
+                                            'Add Visit',
+                                            style: BlueButtonTextConst.customTextStyle(context),
+                                          ),
                                         ),
                                       ),
                                       Text(
@@ -792,297 +801,303 @@ class OfferLetterScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            hrProviderState.clearAllFields();
-                            Navigator.of(context).pop();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: const Color(0xff1696C8),
-                            side: const BorderSide(color: Color(0xff1696C8)),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                        Container(
+                          width: 100,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              hrProviderState.clearAllFields();
+                              Navigator.of(context).pop();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: const Color(0xff1696C8),
+                              side: const BorderSide(color: Color(0xff1696C8)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            'Back',
-                            style: TransparentButtonTextConst.customTextStyle(context)
+                            child: Text(
+                              'Back',
+                              style: TransparentButtonTextConst.customTextStyle(context)
+                            ),
                           ),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 75),
-                        ElevatedButton(
-                          onPressed: ()  async{
-                            hrProviderState.validateFieldsUseController(
-                                issueDateController: issueDateController,
-                                startDateController: startDateController,
-                                lastDateController: lastDateController,
-                                verbalAcceptanceController: verbalAcceptanceController);
-                            // setState(() {
-                            //   // _collegeUniversityError = widget.effectiveDateController.text.isEmpty;
-                            //   //_phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
-                            //   issueDate = issueDateController.text.isEmpty;
-                            //   startDate = startDateController.text.isEmpty;
-                            //   lastDate = lastDateController.text.isEmpty;
-                            //   verbalAcceptanceDate = verbalAcceptanceController.text.isEmpty;
-                            //  // noOfPatientDate = patientsController.text.isEmpty;
-                            //   // _radioButtonError = !_isRadioButtonSelected;
-                            // });
-                            if(!hrProviderState.issueDate && !hrProviderState.startDate && !hrProviderState.lastDate && !hrProviderState.verbalAcceptanceDate ){
-                              for (var key in hrProviderState.containerKeys){
-                                final st = key.currentState!;
+                        Container(
+                          width: 100,
+                          child: ElevatedButton(
+                            onPressed: ()  async{
+                              hrProviderState.validateFieldsUseController(
+                                  issueDateController: issueDateController,
+                                  startDateController: startDateController,
+                                  lastDateController: lastDateController,
+                                  verbalAcceptanceController: verbalAcceptanceController);
+                              // setState(() {
+                              //   // _collegeUniversityError = widget.effectiveDateController.text.isEmpty;
+                              //   //_phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
+                              //   issueDate = issueDateController.text.isEmpty;
+                              //   startDate = startDateController.text.isEmpty;
+                              //   lastDate = lastDateController.text.isEmpty;
+                              //   verbalAcceptanceDate = verbalAcceptanceController.text.isEmpty;
+                              //  // noOfPatientDate = patientsController.text.isEmpty;
+                              //   // _radioButtonError = !_isRadioButtonSelected;
+                              // });
+                              if(!hrProviderState.issueDate && !hrProviderState.startDate && !hrProviderState.lastDate && !hrProviderState.verbalAcceptanceDate ){
+                                for (var key in hrProviderState.containerKeys){
+                                  final st = key.currentState!;
 
-                                print('County ID: ${st.selectedCountyId}');
-                                print('Zone ID:::::::::=>> ${st.docZoneId}');
-                                print('Zip Codes: ${st.selectedZipCodes}');
-                                //print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
-                                addCovrage.add( ApiAddCovrageData(
-                                    city: '',
-                                    countyId:st.selectedCountyId ,
-                                    zoneId: st.docZoneId,
-                                    zipCodes:st.selectedZipCodes
-                                ));
-                              }
-                              print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
-                              //await _generateUrlLink(widget.email, widget.userId.toString());
-                              // print("Widget employeeId ${widget.apiData!.employeeId!}");
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return ConfirmationPopup(
-                                    // loadingDuration: _isLoading,
-                                    onCancel: () {
-                                      Navigator.pop(context);
-                                    },
-                                    onConfirm: () async {
-                                      // Print selected values for debugging
-                                      // print('selected county id : ${selectedCountyId}');
-                                      print('selected city : ${selectedCityName}');
-                                      print('Salary: ${hrProviderState.salary}');
-                                      print('Salary Type: $dropdownValue');
-                                      print('Patient Count: ${patientsController.text}');
+                                  print('County ID: ${st.selectedCountyId}');
+                                  print('Zone ID:::::::::=>> ${st.docZoneId}');
+                                  print('Zip Codes: ${st.selectedZipCodes}');
+                                  //print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
+                                  addCovrage.add( ApiAddCovrageData(
+                                      city: '',
+                                      countyId:st.selectedCountyId ,
+                                      zoneId: st.docZoneId,
+                                      zipCodes:st.selectedZipCodes
+                                  ));
+                                }
+                                print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
+                                //await _generateUrlLink(widget.email, widget.userId.toString());
+                                // print("Widget employeeId ${widget.apiData!.employeeId!}");
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ConfirmationPopup(
+                                      // loadingDuration: _isLoading,
+                                      onCancel: () {
+                                        Navigator.pop(context);
+                                      },
+                                      onConfirm: () async {
+                                        // Print selected values for debugging
+                                        // print('selected county id : ${selectedCountyId}');
+                                        print('selected city : ${selectedCityName}');
+                                        print('Salary: ${hrProviderState.salary}');
+                                        print('Salary Type: $dropdownValue');
+                                        print('Patient Count: ${patientsController.text}');
 
-                                      try {
-                                        // Set patientsValue based on depId
-                                        int patientsValue;
-                                        if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId) {
-                                          patientsValue = 0;  // If depId is sales or administration, set to 0
-                                        } else {
-                                          patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
-                                        }
-                                        ApiData response = await addEmpEnroll(
-                                          context: context,
-                                          employeeId: employeeId,
-                                          code: "",
-                                          userId: userId,
-                                          firstName: firstName,
-                                          lastName: lastName,
-                                          phoneNbr: phone,
-                                          email: email,
-                                          link: link,
-                                          status: status,
-                                          departmentId:depId,
-                                          position: position,
-                                          speciality: soecalityName,
-                                          clinicianTypeId:clinicalId,
-                                          reportingOfficeId: reportingOffice,
-                                          cityId: cityId,
-                                          countryId: countryId,
-                                          countyId: countyId,
-                                          zoneId: zoneId,
-                                          // employment: "Full Time",
-                                          employment: employement,
-                                          // service: "Hospice",
-                                          service: services,
-                                        );
-                                        if(response.statusCode == 200 || response.statusCode == 201){
-                                          // Call the API with the correct patientsValue
-                                          onRefreshRegister();
-                                          var empEnrollOfferResponse = await addEmpEnrollOffers(
-                                            context,
-                                            response.employeeEnrollId!,
-                                            response.employeeId!,
-                                            patientsValue,  // Use patientsValue here
-                                            issueDateController.text,
-                                            lastDateController.text,
-                                            startDateController.text,
-                                            verbalAcceptanceController.text,
-                                          );
-
-                                          // print('County id : ${selectedCountyId}');
-                                          // print('Zone id : ${selectedZoneId}');
-
-                                          // Call other enrollment-related APIs
-                                          await addEmpEnrollAddCoverage(
-                                            context,
-                                            response.employeeEnrollId!,
-                                            response.employeeId!,
-                                            addCovrage,
-                                          );
-
-                                          await addEmpEnrollAddCompensation(
-                                            context,
-                                            response.employeeEnrollId!,
-                                            response.employeeId!,
-                                            dropdownValue.toString(),
-                                            int.parse(hrProviderState.salary!),
-                                          );
-
-                                          // Clear controllers
-                                          issueDateController.clear();
-                                          lastDateController.clear();
-                                          startDateController.clear();
-                                          verbalAcceptanceController.clear();
-
-                                          Navigator.pop(context);
-                                          if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                Future.delayed(const Duration(seconds: 2), () {
-                                                  if (Navigator.of(context).canPop()) {
-                                                    Navigator.pop(context);
-                                                    hrProviderState.clearAllFields();
-                                                    hrProviderState.popNavigation(context);
-                                                  }
-                                                });
-                                                return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
-                                              },
-                                            );
+                                        try {
+                                          // Set patientsValue based on depId
+                                          int patientsValue;
+                                          if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId) {
+                                            patientsValue = 0;  // If depId is sales or administration, set to 0
+                                          } else {
+                                            patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
                                           }
-                                          else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
-                                            // Navigator.pop(context);
+                                          ApiData response = await addEmpEnroll(
+                                            context: context,
+                                            employeeId: employeeId,
+                                            code: "",
+                                            userId: userId,
+                                            firstName: firstName,
+                                            lastName: lastName,
+                                            phoneNbr: phone,
+                                            email: email,
+                                            link: link,
+                                            status: status,
+                                            departmentId:depId,
+                                            position: position,
+                                            speciality: soecalityName,
+                                            clinicianTypeId:clinicalId,
+                                            reportingOfficeId: reportingOffice,
+                                            cityId: cityId,
+                                            countryId: countryId,
+                                            countyId: countyId,
+                                            zoneId: zoneId,
+                                            // employment: "Full Time",
+                                            employment: employement,
+                                            // service: "Hospice",
+                                            service: services,
+                                          );
+                                          if(response.statusCode == 200 || response.statusCode == 201){
+                                            // Call the API with the correct patientsValue
+                                            onRefreshRegister();
+                                            var empEnrollOfferResponse = await addEmpEnrollOffers(
+                                              context,
+                                              response.employeeEnrollId!,
+                                              response.employeeId!,
+                                              patientsValue,  // Use patientsValue here
+                                              issueDateController.text,
+                                              lastDateController.text,
+                                              startDateController.text,
+                                              verbalAcceptanceController.text,
+                                            );
+
+                                            // print('County id : ${selectedCountyId}');
+                                            // print('Zone id : ${selectedZoneId}');
+
+                                            // Call other enrollment-related APIs
+                                            await addEmpEnrollAddCoverage(
+                                              context,
+                                              response.employeeEnrollId!,
+                                              response.employeeId!,
+                                              addCovrage,
+                                            );
+
+                                            await addEmpEnrollAddCompensation(
+                                              context,
+                                              response.employeeEnrollId!,
+                                              response.employeeId!,
+                                              dropdownValue.toString(),
+                                              int.parse(hrProviderState.salary!),
+                                            );
+
+                                            // Clear controllers
+                                            issueDateController.clear();
+                                            lastDateController.clear();
+                                            startDateController.clear();
+                                            verbalAcceptanceController.clear();
+
+                                            Navigator.pop(context);
+                                            if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  Future.delayed(const Duration(seconds: 2), () {
+                                                    if (Navigator.of(context).canPop()) {
+                                                      Navigator.pop(context);
+                                                      hrProviderState.clearAllFields();
+                                                      hrProviderState.popNavigation(context);
+                                                    }
+                                                  });
+                                                  return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
+                                                },
+                                              );
+                                            }
+                                            else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
+                                              // Navigator.pop(context);
+                                               showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => const FourNotFourPopup(),
+                                              );
+                                            }
+                                            else {
+                                              // Navigator.pop(context);
+                                               showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
+                                              );
+                                            }
+                                          }else{
+                                            Navigator.pop(context);
                                              showDialog(
                                               context: context,
-                                              builder: (BuildContext context) => const FourNotFourPopup(),
+                                              builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
                                             );
                                           }
-                                          else {
-                                            // Navigator.pop(context);
-                                             showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
-                                            );
-                                          }
-                                        }else{
-                                          Navigator.pop(context);
-                                           showDialog(
+
+
+                                          // Check the response status
+
+                                        } catch (e) {
+                                          print("Error during enrollment: $e");
+                                          showDialog(
                                             context: context,
                                             builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
                                           );
+                                          // ScaffoldMessenger.of(context).showSnackBar(
+                                          //   SnackBar(content: Text('Enrollment failed: $e')),
+                                          // );
+                                        } finally {
+                                          // setState(() { _isLoading = false; });
                                         }
+                                      },
 
+                                      // onConfirm: ()  async{
+                                      //   //await Future.delayed(Duration(seconds: 2));
+                                      //   // setState(() {
+                                      //   //   _isLoading = true;
+                                      //   // });
+                                      //   print('selected county id : ${selectedCountyId}');
+                                      //   //  print('selected zone id : ${st.docZoneId}');
+                                      //   // print('selected zipCode : ${st.selectedZipCodes}');
+                                      //   print('selected city : ${selectedCityName}');
+                                      //   print('Salari ${_salary}');
+                                      //   print('Salari Type ${dropdownValue}');
+                                      //   print('PatianCount ${patientsController.text}');
+                                      //   try {
+                                      //
+                                      //
+                                      //     if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId) {
+                                      //       patientsValue = 0;  // If depId is sales or administration, set to 0
+                                      //     } else {
+                                      //       patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
+                                      //     }
+                                      //     var empEnrollOfferResponse = await addEmpEnrollOffers(
+                                      //       context,
+                                      //       widget.apiData!.employeeEnrollId!,
+                                      //       widget.apiData!.employeeId!,
+                                      //       int.parse(patientsController.text),
+                                      //       issueDateController.text,
+                                      //       lastDateController.text,
+                                      //       startDateController.text,
+                                      //       verbalAcceptanceController.text,
+                                      //     );
+                                      //     print('County id : ${selectedCountyId}');
+                                      //     print('Zone id : ${selectedZoneId}');
+                                      //     await addEmpEnrollAddCoverage(
+                                      //         context,
+                                      //         widget.apiData!.employeeEnrollId!,
+                                      //         widget.apiData!.employeeId!,
+                                      //         addCovrage
+                                      //     );
+                                      //     await addEmpEnrollAddCompensation(
+                                      //       context,
+                                      //       widget.apiData!.employeeEnrollId!,
+                                      //       widget.apiData!.employeeId!,
+                                      //       dropdownValue.toString(),
+                                      //       int.parse(_salary),
+                                      //     );
+                                      //     // Clear controllers
+                                      //     issueDateController.clear();
+                                      //     lastDateController.clear();
+                                      //     startDateController.clear();
+                                      //     verbalAcceptanceController.clear();
+                                      // Navigator.pop(context);
+                                      //     if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
+                                      //       showDialog(
+                                      //         context: context,
+                                      //         builder: (BuildContext context) {
+                                      //           Future.delayed(const Duration(seconds: 3),(){
+                                      //             if(Navigator.of(context).canPop()) {
+                                      //        Navigator.pop(context);
+                                      //        popNavigation();
+                                      //             }
+                                      //           });
+                                      //           return  const offerSuccessPopup(message: 'Employee Enrolled Successfully',);
+                                      //         },
+                                      //       );
+                                      //     }
+                                      //   } catch (e) {
+                                      //     print("Error during enrollment: $e");
+                                      //     ScaffoldMessenger.of(context).showSnackBar(
+                                      //       SnackBar(content: Text('Enrollment failed: $e')),
+                                      //     );
+                                      //   } finally {
+                                      //     // setState(() {
+                                      //     //   _isLoading = false;
+                                      //     // });
+                                      //   }
+                                      // },
+                                      title: 'Confirm Enrollment',
+                                      containerText: 'Do you really want to enroll?',
+                                    );
+                                  },
+                                );
+                              }
 
-                                        // Check the response status
-
-                                      } catch (e) {
-                                        print("Error during enrollment: $e");
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
-                                        );
-                                        // ScaffoldMessenger.of(context).showSnackBar(
-                                        //   SnackBar(content: Text('Enrollment failed: $e')),
-                                        // );
-                                      } finally {
-                                        // setState(() { _isLoading = false; });
-                                      }
-                                    },
-
-                                    // onConfirm: ()  async{
-                                    //   //await Future.delayed(Duration(seconds: 2));
-                                    //   // setState(() {
-                                    //   //   _isLoading = true;
-                                    //   // });
-                                    //   print('selected county id : ${selectedCountyId}');
-                                    //   //  print('selected zone id : ${st.docZoneId}');
-                                    //   // print('selected zipCode : ${st.selectedZipCodes}');
-                                    //   print('selected city : ${selectedCityName}');
-                                    //   print('Salari ${_salary}');
-                                    //   print('Salari Type ${dropdownValue}');
-                                    //   print('PatianCount ${patientsController.text}');
-                                    //   try {
-                                    //
-                                    //
-                                    //     if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId) {
-                                    //       patientsValue = 0;  // If depId is sales or administration, set to 0
-                                    //     } else {
-                                    //       patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
-                                    //     }
-                                    //     var empEnrollOfferResponse = await addEmpEnrollOffers(
-                                    //       context,
-                                    //       widget.apiData!.employeeEnrollId!,
-                                    //       widget.apiData!.employeeId!,
-                                    //       int.parse(patientsController.text),
-                                    //       issueDateController.text,
-                                    //       lastDateController.text,
-                                    //       startDateController.text,
-                                    //       verbalAcceptanceController.text,
-                                    //     );
-                                    //     print('County id : ${selectedCountyId}');
-                                    //     print('Zone id : ${selectedZoneId}');
-                                    //     await addEmpEnrollAddCoverage(
-                                    //         context,
-                                    //         widget.apiData!.employeeEnrollId!,
-                                    //         widget.apiData!.employeeId!,
-                                    //         addCovrage
-                                    //     );
-                                    //     await addEmpEnrollAddCompensation(
-                                    //       context,
-                                    //       widget.apiData!.employeeEnrollId!,
-                                    //       widget.apiData!.employeeId!,
-                                    //       dropdownValue.toString(),
-                                    //       int.parse(_salary),
-                                    //     );
-                                    //     // Clear controllers
-                                    //     issueDateController.clear();
-                                    //     lastDateController.clear();
-                                    //     startDateController.clear();
-                                    //     verbalAcceptanceController.clear();
-                                    // Navigator.pop(context);
-                                    //     if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
-                                    //       showDialog(
-                                    //         context: context,
-                                    //         builder: (BuildContext context) {
-                                    //           Future.delayed(const Duration(seconds: 3),(){
-                                    //             if(Navigator.of(context).canPop()) {
-                                    //        Navigator.pop(context);
-                                    //        popNavigation();
-                                    //             }
-                                    //           });
-                                    //           return  const offerSuccessPopup(message: 'Employee Enrolled Successfully',);
-                                    //         },
-                                    //       );
-                                    //     }
-                                    //   } catch (e) {
-                                    //     print("Error during enrollment: $e");
-                                    //     ScaffoldMessenger.of(context).showSnackBar(
-                                    //       SnackBar(content: Text('Enrollment failed: $e')),
-                                    //     );
-                                    //   } finally {
-                                    //     // setState(() {
-                                    //     //   _isLoading = false;
-                                    //     // });
-                                    //   }
-                                    // },
-                                    title: 'Confirm Enrollment',
-                                    containerText: 'Do you really want to enroll?',
-                                  );
-                                },
-                              );
-                            }
-
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff1696C8),
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff1696C8),
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            'Enroll',
-                            style: BlueButtonTextConst.customTextStyle(context)
+                            child: Text(
+                              'Enroll',
+                              style: BlueButtonTextConst.customTextStyle(context)
+                            ),
                           ),
                         ),
                       ],
@@ -1192,6 +1207,7 @@ class CheckBoxTileConst extends StatelessWidget {
       width: 40,
       height: 50,
       child: CheckboxListTile(
+        hoverColor: Colors.transparent,
         activeColor: ColorManager.bluebottom,
         title: Text(
           text,
@@ -1318,6 +1334,17 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                         color: Colors.white,
                                         border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
                                         borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      child: CustomDropdownTextFieldpadding(
+                                       items: [''],
+                                        hintText:'Select',
+                                        initialValue: 'Select',
+                                        onChanged: (newValue) {
+
+                                        },
+                                        // hintText: initialValue,
+                                        height: 32,
+
                                       ),
                                     ),
                                   );
@@ -1486,12 +1513,13 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                       child: Text(
                                         ErrorMessageString.noZoneAdded,
                                         //  AppString.dataNotFound,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: FontSize.s12,
-                                          color: ColorManager.mediumgrey,
-                                          decoration: TextDecoration.none,
-                                        ),
+                                        style: DocumentTypeDataStyle.customTextStyle(context)
+                                        // TextStyle(
+                                        //   fontWeight: FontWeight.w600,
+                                        //   fontSize: FontSize.s12,
+                                        //   color: ColorManager.mediumgrey,
+                                        //   decoration: TextDecoration.none,
+                                        // ),
                                       ),
                                     ),
                                   ),
@@ -1616,7 +1644,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                       const SizedBox(height: 10),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0, right: 100.0),
+                          padding: const EdgeInsets.only(left: 20.0, right: 300.0),
                           child: StreamBuilder<List<ZipcodeByCountyIdData>>(
                             stream: _ZipStreamController.stream,
                             builder: (BuildContext context, snapshot) {

@@ -168,9 +168,10 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                           children: [
                                             Padding(
                                               padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: AppPadding.p8,
-                                                      vertical: AppPadding.p8),
+                                                  const EdgeInsets.only(
+                                                      left: AppPadding.p8,
+                                                      right: AppPadding.p8,
+                                                      top: AppPadding.p12,bottom: 6),
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
@@ -226,7 +227,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                               thickness: 1,
                                             ),
                                             Container(
-                                              height: mediaQuery.height / 9,
+                                              height: mediaQuery.height / 8.7,
                                                 child: FutureBuilder<List<WorkWeekShiftScheduleData>>(
                                                     future: workWeekShiftScheduleGet(context,
                                                             //snapshot.data![index].companyId,

@@ -244,10 +244,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                         padding: const EdgeInsets.only(top: 1),
                         child: Text(
                           'Please Select Document',
-                          style: TextStyle(
-                            color: ColorManager.red,
-                            fontSize: FontSize.s10,
-                          ),
+                          style: CommonErrorMsg.customTextStyle(context),
                         ),
                       ):SizedBox(height: 13,)
                     ],
@@ -285,11 +282,14 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                         },
                       ),
                       errorStates["pickFile"]! ?
-                      Text(
-                        'Please Upload License',
-                        style: TextStyle(
-                          color: ColorManager.red,
-                          fontSize: FontSize.s10,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2.0),
+                        child: Text(
+                          'Please Upload License',
+                          style: TextStyle(
+                            color: ColorManager.red,
+                            fontSize: FontSize.s10,
+                          ),
                         ),
                       ):SizedBox(height:11)
                     ],
@@ -486,7 +486,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
           // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
           SizedBox(height: 4,),
           CustomTextFieldRegister(
-            capitalIsSelect: capitalIsSelect,
+            isDigitSelect: capitalIsSelect,
             height: AppSize.s30,
             width: MediaQuery.of(context).size.width / 6,
             controller: controller,
@@ -962,7 +962,7 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
         // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
-          capitalIsSelect: capitalIsSelect,
+          isDigitSelect: capitalIsSelect,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,

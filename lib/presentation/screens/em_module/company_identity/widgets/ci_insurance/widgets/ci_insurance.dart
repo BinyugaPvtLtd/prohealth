@@ -69,7 +69,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: AppPadding.p30),
+                horizontal: AppPadding.p65),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -281,7 +281,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 60),
+                  horizontal: AppPadding.p65),
               child: NonScrollablePageView(
                 controller: _tabPageController,
                 onPageChanged: (index) {
