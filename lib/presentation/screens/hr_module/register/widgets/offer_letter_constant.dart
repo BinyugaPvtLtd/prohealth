@@ -228,7 +228,7 @@ class _CustomDropdownTextFieldpaddingState extends State<CustomDropdownTextField
                   constraints: BoxConstraints(
                     maxHeight: 250, // Restrict height for scroll
                   ),
-                  child: Scrollbar(
+                  child: SingleChildScrollView(
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: widget.items?.length ?? widget.dropDownMenuList?.length ?? 0,

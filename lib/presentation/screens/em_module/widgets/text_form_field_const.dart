@@ -150,10 +150,12 @@ class SMTextfieldAsteric extends StatefulWidget {
   final Icon? suffixIcon;
   final Function(String)? onChanged;
   final bool? onlyAllowNumbers;
+  final String? hintText;
 
   SMTextfieldAsteric({
     Key? key,
     this.focusNode,
+    this.hintText = '',
     required this.controller,
     required this.keyboardType,
     required this.text,
@@ -236,6 +238,7 @@ class _SMTextfieldAstericState extends State<SMTextfieldAsteric> {
                     : widget.icon,
                 prefix: widget.prefixWidget,
                 prefixIcon: widget.suffixIcon,
+                hintText: widget.hintText,
                 prefixStyle: AllHRTableData.customTextStyle(context),
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.only(bottom: 18, left: AppPadding.p10),

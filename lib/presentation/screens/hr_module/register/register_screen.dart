@@ -228,7 +228,7 @@ class RegisterScreen extends StatelessWidget {
 
                       ],
                     ),
-                              SizedBox(width: 10),
+                              SizedBox(width: 20),
                               /// Enroll Button
                               Container(
                                 height: AppSize.s30,

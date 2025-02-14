@@ -1325,9 +1325,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                 _countyStreamController.add(data);
                               }).catchError((error) {});
                                 if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                                    child: Container(
+                                  return Container(
                                       height: 32,
                                       width: 250,
                                       decoration: BoxDecoration(
@@ -1346,8 +1344,8 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                         height: 32,
 
                                       ),
-                                    ),
-                                  );
+                                    );
+
                                 } else if (snapshot.hasError) {
                                   return  CustomDropdownTextField(
                                     hintText: 'Select County',
