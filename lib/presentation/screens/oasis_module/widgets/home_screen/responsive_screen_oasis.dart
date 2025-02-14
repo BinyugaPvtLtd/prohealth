@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/oasis_module/charts/charts_detail_screen/charts_detail_screen.dart';
 
 import '../../../../../app/resources/screen_route_name.dart';
 import '../../../../../app/resources/value_manager.dart';
-import 'oasis_desktop_screen.dart';
 
 class OasisScreenEMR extends StatelessWidget {
-  static  String routeName = RouteStrings.EMRDesktop;
+  static String routeName = RouteStrings.EMRDesktop;
   const OasisScreenEMR({super.key});
 
   @override
@@ -20,7 +20,9 @@ class OasisScreenEMR extends StatelessWidget {
             height: AppSize.s100,
             width: AppSize.s500,
             child: Center(
-              child: Text('Tablet Screen EMR',style: TextStyle(fontSize: AppSize.s20),
+              child: Text(
+                'Tablet Screen EMR',
+                style: TextStyle(fontSize: AppSize.s20),
               ),
             ),
           );
@@ -29,7 +31,6 @@ class OasisScreenEMR extends StatelessWidget {
     );
   }
 }
-
 
 class HomeScreenEMR extends StatefulWidget {
   const HomeScreenEMR({super.key});
@@ -41,6 +42,9 @@ class HomeScreenEMR extends StatefulWidget {
 class _HomeScreenEMRState extends State<HomeScreenEMR> {
   @override
   Widget build(BuildContext context) {
-    return EMRDesktopScreen();
+    return ChartsDetailScreen();
+
+    ///todo change this with original path
+    // return EMRDesktopScreen();
   }
 }

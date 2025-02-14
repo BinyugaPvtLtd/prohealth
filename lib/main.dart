@@ -5,19 +5,12 @@ import 'package:prohealth/app/resources/provider/hr_onboarding_provider.dart';
 import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_provider.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_delete_provider.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_create_provider.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_delete_provider.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_edit_provider.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_pagination.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_popup_const_provider.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
-import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'app/app.dart';
+import 'oasis_form_builder/services/provider/form_builder_provider.dart';
 import 'presentation/screens/hr_module/hr_home_screen/referesh_provider.dart';
 import 'presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_plan_care/planer_notifier.dart';
 
@@ -53,22 +46,16 @@ Future<void> main() async {
               create: (context) => AddressProvider(
                   controller: '' as TextEditingController,
                   onChange: '' as Function(String p1)?)),
+          ChangeNotifierProvider(create: (_) => HrManageProvider()),
+          ChangeNotifierProvider(create: (_) => HrRegisterProvider()),
+          ChangeNotifierProvider(create: (_) => HrEnrollEmployeeProvider()),
+          ChangeNotifierProvider(create: (_) => HrEnrollOfferLatterProvider()),
+          ChangeNotifierProvider(create: (_) => HrOnboardingProvider()),
+          ChangeNotifierProvider(create: (_) => FormBuilderProvider()),
           ChangeNotifierProvider(
-              create: (_)=>HrManageProvider()
-          ),
-          ChangeNotifierProvider(
-              create: (_)=>HrRegisterProvider()
-          ),
-          ChangeNotifierProvider(
-              create: (_)=>HrEnrollEmployeeProvider()
-          ),
-          ChangeNotifierProvider(
-              create: (_)=>HrEnrollOfferLatterProvider()
-          ),
-          ChangeNotifierProvider(
-              create: (_)=>HrOnboardingProvider()
-          ),
-          ChangeNotifierProvider(create: (context)=>AddressProvider(controller: '' as TextEditingController,onChange: '' as Function(String p1)?))
+              create: (context) => AddressProvider(
+                  controller: '' as TextEditingController,
+                  onChange: '' as Function(String p1)?))
         ],
 
         child: App(

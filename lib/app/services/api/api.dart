@@ -12,7 +12,6 @@ class Api {
     dio = Dio(BaseOptions(baseUrl: AppConfig.endpoint))
       ..interceptors.add(InterceptorsWrapper(onError: (error, handler) {
         if (error.response!.data["message"] == "Unauthorized") {
-
           print(error.response!.data);
           TokenManager.removeAccessToken();
           Navigator.pushNamedAndRemoveUntil(
@@ -40,12 +39,9 @@ class Api {
 
   Future<Response> get({
     required String path,
-
   }) async {
     var response = await dio.get(
-
       path,
-
     );
     // print(path);
     // print("Prachi:::::::::${response}"
@@ -63,7 +59,25 @@ class Api {
     return response;
   }
 
+  Future<Response> postList({required String path, required List data}) async {
+    var response = await dio.post(
+      path,
+      data: data,
+    );
+    //  print(path);
+    // print("Prachi POST:::::::::${response}");
+    return response;
+  }
+
   Future<Response> patch({required String path, required Map data}) async {
+    var response = await dio.patch(
+      path,
+      data: data,
+    );
+    return response;
+  }
+
+  Future<Response> patchList({required String path, required List data}) async {
     var response = await dio.patch(
       path,
       data: data,

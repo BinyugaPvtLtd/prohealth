@@ -58,9 +58,9 @@ dependencies:
   #http: ^0.13.3
   http: any
   aws_s3_upload: any
-  amplify_core: ^2.5.0
+
   crypto: ^3.0.0
-  amplify_auth_cognito: ^2.5.0
+
   permission_handler: ^11.3.1
   flutter_dotenv: ^5.0.2
   flutter_html: ^3.0.0-beta.2
