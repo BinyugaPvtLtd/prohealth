@@ -343,7 +343,7 @@ class OfferLetterScreen extends StatelessWidget {
                         );
                       }).toList(),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 40),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 100.0),
                       child: Row(crossAxisAlignment: CrossAxisAlignment.end,
@@ -367,7 +367,7 @@ class OfferLetterScreen extends StatelessWidget {
                         ),
                       ),],),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 40),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
                     ///salery
                     ///
                     Padding(
@@ -1325,32 +1325,28 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                 _countyStreamController.add(data);
                               }).catchError((error) {});
                                 if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return Container(
+                                  return Container( width: 250,
+                                    child: CustomDropdownTextFieldpadding(
+                                     items: [''],
+                                      hintText:'Select',
+                                      initialValue: 'Select',
+                                      onChanged: (newValue) {
+
+                                      },
+                                      // hintText: initialValue,
                                       height: 32,
-                                      width: 250,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      child: CustomDropdownTextFieldpadding(
-                                       items: [''],
-                                        hintText:'Select',
-                                        initialValue: 'Select',
-                                        onChanged: (newValue) {
 
-                                        },
-                                        // hintText: initialValue,
-                                        height: 32,
-
-                                      ),
-                                    );
+                                    ),
+                                  );
 
                                 } else if (snapshot.hasError) {
-                                  return  CustomDropdownTextField(
-                                    hintText: 'Select County',
-                                    headText: 'County',
-                                    items: ['Error'],
+                                  return  Container( width: 250,
+                                    child: CustomDropdownTextFieldpadding(
+                                      height: 32,
+                                      hintText: 'Select County',
+                                     // headText: 'County',
+                                      items: ['Error'],
+                                    ),
                                   );
                                 } else if (snapshot.hasData) {
                                   // Clear dropdown list to avoid duplicates
@@ -1383,7 +1379,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                   return StatefulBuilder(
                                     builder: (BuildContext context, StateSetter setState) {
                                       return Container(
-                                        // height: 31,
+                                      // height: 31,
                                         width: 250,
                                         //padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                                         // decoration: BoxDecoration(
