@@ -485,7 +485,6 @@ class _ManageScreenState extends State<ManageScreen> {
   }
 }
 
-
 class CustomTabIndicator extends Decoration {
   final Color color;
   final double height;
