@@ -241,12 +241,12 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                       ),
                       errorStates["document"]!?
                       Padding(
-                        padding: const EdgeInsets.only(top: 1),
+                        padding: const EdgeInsets.only(top: 4),
                         child: Text(
                           'Please Select Document',
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      ):SizedBox(height: 13,)
+                      ):SizedBox(height: 16,)
                     ],
                   ),
 
@@ -283,7 +283,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                       ),
                       errorStates["pickFile"]! ?
                       Padding(
-                        padding: const EdgeInsets.only(top: 2.0),
+                        padding: const EdgeInsets.only(top: 5.0,left: 5),
                         child: Text(
                           'Please Upload License',
                           style: TextStyle(
@@ -291,7 +291,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                             fontSize: FontSize.s10,
                           ),
                         ),
-                      ):SizedBox(height:11)
+                      ):SizedBox(height:15)
                     ],
                   ),
                 ],
@@ -816,11 +816,11 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
             ),
             SizedBox(height: 5),
             pickedFileName == null
-                ? const SizedBox(height:11)
+                ? const SizedBox(height:15)
                 : Align(
               alignment: Alignment.centerRight,
               child: Padding(
-                padding: const EdgeInsets.only(right: 30),
+                padding: const EdgeInsets.only(right: 30,top: 4),
                 child: Text(
                   pickedFileName!,
                   style: CustomTextStylesCommon.commonStyle(

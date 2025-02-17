@@ -28,7 +28,6 @@ class CustomIconButton extends StatefulWidget {
   State<CustomIconButton> createState() => _CustomIconButtonState();
 }
 
-
 class _CustomIconButtonState extends State<CustomIconButton> {
   bool isLoading = false;
 

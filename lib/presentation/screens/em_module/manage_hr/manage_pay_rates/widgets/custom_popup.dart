@@ -557,6 +557,7 @@ class PayRatesEditsPopup extends StatelessWidget {
                     SizedBox(height: AppSize.s20,),
                     SMTextfieldAsteric(
                       prefixWidget: Text("\$ "),
+                      onlyAllowNumbers: true,
                       controller: payRatesController,
                       keyboardType: TextInputType.number,
                       text: AppStringEM.payrates,
@@ -579,6 +580,7 @@ class PayRatesEditsPopup extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SMTextfieldAsteric(
+                              onlyAllowNumbers: true,
                               width: AppSize.s150,
                               prefixWidget: Text("\$ "),
                               controller: fixPayRatesController,
@@ -598,6 +600,7 @@ class PayRatesEditsPopup extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SMTextfieldAsteric(
+                              onlyAllowNumbers: true,
                               width: AppSize.s150,
                               prefixWidget: Text("\$ "),
                               controller: perMilesController,

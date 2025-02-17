@@ -276,7 +276,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.all(AppPadding.p6),
+                                        padding: const EdgeInsets.symmetric(vertical:AppPadding.p6,horizontal: AppPadding.p2),
                                         child: Container(
                                             padding: EdgeInsets.only(bottom: AppPadding.p5),
                                             decoration: BoxDecoration(

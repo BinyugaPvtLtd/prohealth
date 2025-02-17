@@ -27,6 +27,7 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../data/api_data/establishment_data/user/user_modal.dart';
 import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 import '../../em_module/see_all_screen/widgets/user_popup_const_provider.dart';
+import '../../em_module/widgets/button_constant.dart';
 import '../manage/widgets/custom_icon_button_constant.dart';
 import 'confirmation_constant.dart';
 
@@ -459,7 +460,7 @@ class RegisterScreen extends StatelessWidget {
                                                 width: AppSize.s110,
                                                 margin:
                                                 const EdgeInsets.only(right: AppMargin.m5),
-                                                child: CustomIconButton(
+                                                child: CustomTextButton(
                                                   text: AppString.enroll,
                                                   onPressed: () async {
                                                     List<AEClinicalDiscipline> passData =
@@ -535,7 +536,8 @@ class RegisterScreen extends StatelessWidget {
                                                 width: AppSize.s110,
                                                 margin:
                                                 const EdgeInsets.only(right: AppMargin.m5),
-                                                child: CustomIconButton(
+                                                child: CustomTextButton(
+                                                  color: ColorManager.blueprime,
                                                   text: 'Activate',
                                                   onPressed: () async {
                                                     showDialog(
@@ -584,7 +586,8 @@ class RegisterScreen extends StatelessWidget {
                                               Container(
                                                 width: AppSize.s110,
                                                 margin: const EdgeInsets.only(right: AppMargin.m5),
-                                                child: CustomIconButton(
+                                                child: CustomTextButton(
+                                                  color: ColorManager.blueprime,
                                                   text: 'Onboard',
                                                   onPressed: () async {
                                                     showDialog(

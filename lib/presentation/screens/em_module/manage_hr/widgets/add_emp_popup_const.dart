@@ -13,7 +13,7 @@ class CustomPopupWidget extends StatefulWidget {
   final TextEditingController typeController;
   final TextEditingController abbreviationController;
   final TextEditingController? emailController;
-  final Future<void> Function() onAddPressed;
+  final Future<void> Function(String) onAddPressed;
   final Color containerColor;
   //final Widget? child;
   final Function(Color)? onColorChanged;
@@ -46,7 +46,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
   @override
   void initState() {
     super.initState();
-    _selectedColors = [widget.containerColor];
+    _selectedColors = [Colors.white];
 
     // Add listeners to text controllers to clear errors when text changes
     widget.typeController.addListener(_onTypeChanged);
@@ -122,12 +122,12 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
       },
     );
 
-    if (pickedColor != null) {
+    //if (pickedColor != null) {
       setState(() {
-        _selectedColors[0] = pickedColor;
-        widget.onColorChanged?.call(pickedColor); // Notify parent widget
+        _selectedColors[0] = pickedColor ?? Colors.white;
+        widget.onColorChanged?.call(_selectedColors[0]); // Notify parent widget
       });
-    }
+   // }
   }
 
   void _validateFields() {
@@ -243,7 +243,10 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
             setState(() {
               isLoading = true;
             });
-            await widget.onAddPressed();
+            Color colorToPass = _selectedColors[0] ?? Colors.white;
+            String selectedColorToSave = '#${colorToPass.value.toRadixString(16).substring(2).toUpperCase()}';
+
+            await widget.onAddPressed(selectedColorToSave);
             setState(() {
               isLoading = false;
             });
