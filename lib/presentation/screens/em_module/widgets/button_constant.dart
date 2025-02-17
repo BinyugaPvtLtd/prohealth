@@ -4,6 +4,62 @@ import 'package:prohealth/app/resources/common_resources/common_theme_const.dart
 import 'package:prohealth/app/resources/theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
+///register screen button enroll,onboard ... etc
+class CustomTextButton extends StatefulWidget {
+  final String text;
+  final Color? color;
+  final Color? textColor;
+  final Future<void> Function() onPressed;
+
+  CustomTextButton({
+    required this.text,
+    required this.onPressed,
+    this.color,
+    this.textColor,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<CustomTextButton> createState() => _CustomTextButtonState();
+}
+
+class _CustomTextButtonState extends State<CustomTextButton> {
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? SizedBox(
+      height: 25,
+      width: 25,
+      child: CircularProgressIndicator(color: ColorManager.blueprime),
+    )
+        : ElevatedButton(
+      onPressed: () async {
+        setState(() => isLoading = true);
+        await widget.onPressed();
+        setState(() => isLoading = false);
+      },
+      child: Text(
+        widget.text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: FontSize.s14,
+          fontWeight: FontWeight.w600,
+          color: widget.textColor ?? ColorManager.white,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        backgroundColor: widget.color ?? Color(0xFF50B5E5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 5,
+      ),
+    );
+  }
+}
 
 ///button constant with transparent bg, colored text
 class CustomButtonTransparentSM extends StatelessWidget {
@@ -22,7 +78,7 @@ class CustomButtonTransparentSM extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       elevation: 4,
       child: Container(
-        height:AppSize.s25,
+        height:AppSize.s30,
         width: AppSize.s100,
         child: ElevatedButton(
           onPressed: onPressed,

@@ -42,7 +42,8 @@ class WorkSchedule extends StatelessWidget {
         children: [
           // Header Buttons
           Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p15,top: AppPadding.p20),
+            padding: const EdgeInsets.only(
+                left: AppPadding.p15, top: AppPadding.p20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -51,7 +52,7 @@ class WorkSchedule extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     height: AppSize.s30,
-                    width:AppSize.s315,
+                    width: AppSize.s315,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: ColorManager.blueprime,
@@ -69,7 +70,8 @@ class WorkSchedule extends StatelessWidget {
                             height: AppSize.s30,
                             width: AppSize.s160,
                             decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(Radius.circular(20)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
                               color: workScheduleProvider.selectedIndex == 0
                                   ? Colors.white
                                   : Colors.transparent,
@@ -77,11 +79,12 @@ class WorkSchedule extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 AppStringEM.shiftbatch,
-                                style:  BlueBgTabbar.customTextStyle(0, workScheduleProvider.selectedIndex),
-                              ),
+                                style: BlueBgTabbar.customTextStyle(
+                                    0, workScheduleProvider.selectedIndex),
                               ),
                             ),
                           ),
+                        ),
                         // Define Holiday Button
                         InkWell(
                           splashColor: Colors.transparent,
@@ -92,7 +95,8 @@ class WorkSchedule extends StatelessWidget {
                             height: AppSize.s30,
                             width: AppSize.s155,
                             decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(Radius.circular(20)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
                               color: workScheduleProvider.selectedIndex == 1
                                   ? Colors.white
                                   : Colors.transparent,
@@ -100,7 +104,8 @@ class WorkSchedule extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 AppStringEM.defineHoliday,
-                                style:  BlueBgTabbar.customTextStyle(1, workScheduleProvider.selectedIndex),
+                                style: BlueBgTabbar.customTextStyle(
+                                    1, workScheduleProvider.selectedIndex),
                               ),
                             ),
                           ),
@@ -121,22 +126,44 @@ class WorkSchedule extends StatelessWidget {
                 workScheduleProvider.selectedIndex == 1
                     ? const Offstage()
                     : Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF2F9FC),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: ColorManager.faintGrey,
-                        blurRadius: 2,
-                        spreadRadius: -2,
-                        offset: const Offset(0, -4),
+                        height: MediaQuery.of(context).size.height / 3.5,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF2F9FC),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
+                        child: Stack(
+                          children: [
+                            // Inner shadow effect at the top
+                            Positioned(
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              child: Container(
+                                height:
+                                    8, // Adjust the height of the shadow effect
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                  ),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Colors.black
+                                          .withOpacity(0.2), // Darker at top
+                                      Colors.transparent, // Fades out
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width / 45,

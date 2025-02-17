@@ -26,12 +26,15 @@ class DefineHolidaysProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   int get currentPage => _currentPage;
   int get itemsPerPage => _itemsPerPage;
+  final StreamController<List<DefineHolidayData>> holidayData = StreamController<List<DefineHolidayData>>();
 
   Future<void> fetchHolidays(BuildContext context) async {
     try {
       _isLoading = true;
       notifyListeners();
+
       _holidays = await holidaysListGet(context);
+
     } catch (e) {
       // Handle error
     } finally {
@@ -39,21 +42,29 @@ class DefineHolidaysProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-  Future<void> deleteHoliday(BuildContext context, int holidayId) async {
-    _isLoading = true;
-    notifyListeners();
 
+
+  void addHoliday(BuildContext context, DefineHolidayData newHoliday)async {
+    _holidays.add(newHoliday);
+    notifyListeners();
+    await fetchHolidays(context);
+  }
+
+  Future<void> deleteHoliday(BuildContext context, int holidayId) async {
     try {
       await deleteHolidays(context, holidayId);
       _holidays.removeWhere((holiday) => holiday.holidayId == holidayId);
-      Navigator.pop(context);
-      notifyListeners();
-      showDialog(context: context, builder: (_) => DeleteSuccessPopup());
+      notifyListeners(); // Update only the list
     } catch (e) {
-      // Handle error (e.g., show a failure dialog)
-    } finally {
-      _isLoading = false;
-      notifyListeners();
+      // Handle error
+    }
+  }
+
+  void updateHoliday(DefineHolidayData updatedHoliday) {
+    int index = _holidays.indexWhere((h) => h.holidayId == updatedHoliday.holidayId);
+    if (index != -1) {
+      _holidays[index] = updatedHoliday;
+      notifyListeners(); // Only updates the specific item
     }
   }
 
@@ -93,7 +104,7 @@ class DefineHolidays extends StatelessWidget {
 
           return Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 30),
+                horizontal: AppPadding.p50),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -114,9 +125,9 @@ class DefineHolidays extends StatelessWidget {
                             return ChangeNotifierProvider(
                                 create: (_) => AddHolidayProvider(),
                                 child: AddHolidayPopup(
-                                  onSave: (){
-                                    provider.fetchHolidays(context);
-                                  },
+                                    onSave: () async {
+                                      await provider.fetchHolidays(context);  // Refresh data after saving
+                                    }
                                 ));
                           });
                     },
@@ -126,238 +137,209 @@ class DefineHolidays extends StatelessWidget {
                 _buildTableHeader(context),
                 SizedBox(height: AppSize.s10),
                 Expanded(
-                  child: provider.isLoading
-                      ? Center(
-                    child: CircularProgressIndicator(
-                      color: ColorManager.blueprime,
-                    ),
-                  )
-                      : provider.holidays.isEmpty
-                      ? Center(
-                    child: Text(
-                      ErrorMessageString.noHoliday,
-                      style: AllNoDataAvailable.customTextStyle(
-                          context),
-                    ),
-                  )
-                      : Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: paginatedData.length,
-                          itemBuilder: (context, index) {
-                            int serialNumber = (provider.currentPage - 1) * provider.itemsPerPage + index + 1;
-                            String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            DefineHolidayData defineData = paginatedData[index];
+                  child: StreamBuilder<List<DefineHolidayData>>(
+                        stream: provider.holidayData.stream,
+                        builder: (context, snapshot) {
+                          holidaysListGet(context).then((data) {
+                            provider.holidayData.add(data);
+                          }).catchError((error) {});
 
-                            return Padding(
-                              padding: const EdgeInsets.all(AppSize.s8),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0xff000000).withOpacity(0.25),
-                                      spreadRadius: 0,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                height: AppSize.s50,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child: Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(right: AppPadding.p10),
-                                            child: Text(formattedSerialNumber,
-                                                style:
-                                                DocumentTypeDataStyle.customTextStyle(context)),
-                                          ),
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: ColorManager.blueprime,
+                              ),
+                            );
+                          }
+                          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                ErrorMessageString.noEmpType,
+                                style: AllNoDataAvailable.customTextStyle(context),
+                              ),
+                            );
+                          }
+
+                          return Column(
+                            children: [
+                              Expanded(
+                                child: ListView.builder(
+                                  itemCount: paginatedData.length,
+                                  itemBuilder: (context, index) {
+                                    int serialNumber =
+                                        (provider.currentPage - 1) * provider.itemsPerPage + index + 1;
+                                    String formattedSerialNumber =
+                                    serialNumber.toString().padLeft(2, '0');
+                                    DefineHolidayData defineData = paginatedData[index];
+
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(vertical:AppSize.s8,horizontal: AppPadding.p2),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(4),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0xff000000).withOpacity(0.25),
+                                              spreadRadius: 0,
+                                              blurRadius: 4,
+                                              offset: Offset(0, 2),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      Expanded(flex: 1, child: SizedBox()),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          defineData.holidayName,
-                                          textAlign: TextAlign.start,
-                                          style: TableSubHeading.customTextStyle(context),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Center(
-                                          child: Text(
-                                            defineData.date.toString(),
-                                            textAlign: TextAlign.center,
-                                            style: TableSubHeading.customTextStyle(context),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            IconButton(
-                                              splashColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (BuildContext context) {
-                                                    return FutureBuilder<DefinePrefillHolidayData>(
-                                                      future: holidaysPrefillGet(
-                                                          context, defineData.holidayId),
-                                                      builder: (context, snapshotPrefill) {
-                                                        if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                          return Center(
-                                                              child: CircularProgressIndicator(
-                                                                color: ColorManager.blueprime,
-                                                              ));
-                                                        }
-                                                       return ChangeNotifierProvider(
-                                                          create: (_) => EditHolidayProvider(
-                                                            onSave: (){
-                                                              provider.fetchHolidays(context);
-                                                            },
-                                                            holidayDate: snapshotPrefill.data!.date,
-                                                            holidayName: snapshotPrefill.data!.holidayName
-                                                          ),
-                                                          child: EditHolidayPopup(
-                                                            holidayId: defineData.holidayId,
-                                                            holidayName: snapshotPrefill.data!.holidayName,
-                                                            holidayDate: snapshotPrefill.data!.date,
-                                                            onSave: (){
-                                                              provider.fetchHolidays(context);
+                                        height: AppSize.s50,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Expanded(
+                                                flex: 2,
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(right: AppPadding.p10),
+                                                    child: Text(
+                                                      formattedSerialNumber,
+                                                      style: DocumentTypeDataStyle.customTextStyle(context),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(flex: 1, child: SizedBox()),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Text(
+                                                  defineData.holidayName,
+                                                  textAlign: TextAlign.start,
+                                                  style: TableSubHeading.customTextStyle(context),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Center(
+                                                  child: Text(
+                                                    defineData.date.toString(),
+                                                    textAlign: TextAlign.center,
+                                                    style: TableSubHeading.customTextStyle(context),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    IconButton(
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      onPressed: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) {
+                                                            return FutureBuilder<DefinePrefillHolidayData>(
+                                                              future: holidaysPrefillGet(context, defineData.holidayId),
+                                                              builder: (context, snapshotPrefill) {
+                                                                if (snapshotPrefill.connectionState ==
+                                                                    ConnectionState.waiting) {
+                                                                  return Center(
+                                                                    child: CircularProgressIndicator(
+                                                                      color: ColorManager.blueprime,
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                return ChangeNotifierProvider(
+                                                                  create: (_) => EditHolidayProvider(
+                                                                    onSave: () {
+                                                                      provider.fetchHolidays(context);
+                                                                    },
+                                                                    holidayDate: snapshotPrefill.data!.date,
+                                                                    holidayName: snapshotPrefill.data!.holidayName,
+                                                                  ),
+                                                                  child: EditHolidayPopup(
+                                                                    holidayId: defineData.holidayId,
+                                                                    holidayName: snapshotPrefill.data!.holidayName,
+                                                                    holidayDate: snapshotPrefill.data!.date,
+                                                                    onSave: () {
+                                                                      provider.fetchHolidays(context);
+                                                                    },
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.edit_outlined,
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager.bluebottom,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: AppSize.s10),
+                                                    IconButton(
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      onPressed: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) => DeletePopup(
+                                                            title: DeletePopupString.deleteholiday,
+                                                            loadingDuration: provider.isLoading,
+                                                            onCancel: () => Navigator.pop(context),
+                                                            onDelete: () async {
+                                                              await provider.deleteHoliday(context, defineData.holidayId);
+                                                              Navigator.pop(context);
+                                                              Future.delayed(Duration(milliseconds: 300), () {
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (_) => DeleteSuccessPopup(),
+                                                                );
+                                                              });
                                                             },
                                                           ),
                                                         );
                                                       },
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              icon: Icon(
-                                                Icons.edit_outlined,
-                                                size: IconSize.I18,
-                                                color: IconColorManager.bluebottom,
+                                                      icon: Icon(
+                                                        Icons.delete_outline,
+                                                        size: IconSize.I18,
+                                                        color: IconColorManager.red,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            // IconButton(
-                                            //   splashColor: Colors.transparent,
-                                            //   highlightColor: Colors.transparent,
-                                            //   hoverColor: Colors.transparent,
-                                            //   onPressed: () {
-                                            //     final provider = Provider.of<DefineHolidaysProvider>(context, listen: false);
-                                            //
-                                            //     showDialog(
-                                            //       context: context,
-                                            //       builder: (context) => DeletePopup(
-                                            //         title: DeletePopupString.deleteholiday,
-                                            //         loadingDuration: provider.isLoading,
-                                            //         onCancel: () {
-                                            //           Navigator.pop(context); // Close the DeletePopup on Cancel
-                                            //         },
-                                            //         onDelete: () async {
-                                            //           try {
-                                            //             await provider.deleteHoliday(context, defineData.holidayId);
-                                            //           } finally {
-                                            //             // Ensure the DeletePopup is closed
-                                            //             if (Navigator.canPop(context)) {
-                                            //               Navigator.pop(context); // Close DeletePopup
-                                            //             }
-                                            //
-                                            //             // Show the success popup after closing the delete dialog
-                                            //             showDialog(
-                                            //               context: context,
-                                            //               builder: (_) => DeleteSuccessPopup(),
-                                            //             );
-                                            //           }
-                                            //         },
-                                            //       ),
-                                            //     );
-                                            //   },
-                                            //   icon: Icon(
-                                            //     Icons.delete_outline,
-                                            //     size: IconSize.I18,
-                                            //     color: IconColorManager.red,
-                                            //   ),
-                                            // ),
-                                            SizedBox(width: AppSize.s10,),
-                                            IconButton(
-                                              splashColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              onPressed: () {
-                                                final provider = Provider.of<DefineHolidaysProvider>(context, listen: false);
-
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (context) => DeletePopup(
-                                                    title: DeletePopupString.deleteholiday,
-                                                    loadingDuration: provider.isLoading,
-                                                    onCancel: () => Navigator.pop(context),
-                                                    onDelete: () async {
-                                                      await provider.deleteHoliday(context, defineData.holidayId);
-                                                      //Navigator.pop(context);
-                                                      Future.delayed(Duration(milliseconds: 300), () {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (_) => DeleteSuccessPopup(),
-                                                        );
-                                                      });
-                                                    },
-                                                  ),
-                                                );
-                                              },
-                                              icon: Icon(
-                                                Icons.delete_outline,
-                                                size: IconSize.I18,
-                                                color: IconColorManager.red,
-                                              ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    );
+                                  },
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                      PaginationControlsWidget(
-                        currentPage: provider.currentPage,
-                        items: provider.holidays,
-                        itemsPerPage: provider.itemsPerPage,
-                        onPreviousPagePressed: () {
-                          if (provider.currentPage > 1) {
-                            provider.updatePageNumber(
-                                provider.currentPage - 1);
-                          }
-                        },
-                        onPageNumberPressed: (pageNumber) {
-                          provider.updatePageNumber(pageNumber);
-                        },
-                        onNextPagePressed: () {
-                          if (provider.currentPage < totalPages) {
-                            provider.updatePageNumber(
-                                provider.currentPage + 1);
-                          }
+                              PaginationControlsWidget(
+                                currentPage: provider.currentPage,
+                                items: provider.holidays,
+                                itemsPerPage: provider.itemsPerPage,
+                                onPreviousPagePressed: () {
+                                  if (provider.currentPage > 1) {
+                                    provider.updatePageNumber(provider.currentPage - 1);
+                                  }
+                                },
+                                onPageNumberPressed: (pageNumber) {
+                                  provider.updatePageNumber(pageNumber);
+                                },
+                                onNextPagePressed: () {
+                                  if (provider.currentPage < totalPages) {
+                                    provider.updatePageNumber(provider.currentPage + 1);
+                                  }
+                                },
+                              ),
+                            ],
+                          );
                         },
                       ),
-                    ],
-                  ),
                 ),
               ],
             ),

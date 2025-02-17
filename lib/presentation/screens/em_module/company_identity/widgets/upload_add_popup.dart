@@ -128,27 +128,33 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   }
   void _validateForm() {
     setState(() {
-      _isFormValid = true;
+      _isFormValid = true;  // Assume form is valid, and mark false only if errors are found.
+
       _idDocError = _validateTextField(idDocController.text, 'ID of the Document');
+      if (_idDocError != null) _isFormValid = false;
+
       _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
-      // _issueDateError = _validateTextField(expiryDateController.text, 'expiry date of the Document');
+      if (_nameDocError != null) _isFormValid = false;
+
       isFileErrorVisible = !isFileSelected;
+      if (!isFileSelected) _isFormValid = false;
+
       if (selectedDocType == null || selectedDocType!.isEmpty) {
         _dropdownError = "Please select a document type";
         _isFormValid = false;
       } else {
         _dropdownError = null;
-        //_isFormValid = true;
       }
+
       if (selectedExpiryType == AppConfig.issuer && expiryDateController.text.isEmpty) {
         _issueDateError = "Please select an expiry date";
         _isFormValid = false;
       } else {
         _issueDateError = null;
-        _isFormValid = true;
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return TerminationDialogueTemplate(
