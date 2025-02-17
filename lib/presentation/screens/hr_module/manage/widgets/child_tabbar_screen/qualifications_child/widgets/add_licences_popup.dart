@@ -317,7 +317,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildTextField(
-                  capitalIsSelect: true,
+                  capitalIsSelect: false,
                   controller:livensureController,
                   labelText: "Licensure / certification",
                   errorKey: 'Livensure', hintText: 'Enter certification',
@@ -341,19 +341,19 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildTextField(
-                  capitalIsSelect:true,
+                  capitalIsSelect:false,
                   controller: issuingOrganizationController,
                   labelText: "Issuing Organization",
                   errorKey: 'issuingOrganization', hintText: 'Enter Issuing Organization',
                 ),
                 _buildTextField(
-                  capitalIsSelect: true,
+                  capitalIsSelect: false,
                   controller: countryController,
                   labelText: "Country",
                   errorKey: 'country', hintText: 'Enter Country',
                 ),
                 _buildTextField(
-                  capitalIsSelect:false,
+                  capitalIsSelect:true,
                   controller: numberIDController,
                   labelText: "Number/ID",
                   errorKey: 'numberID', hintText: 'Enter Number',

@@ -62,93 +62,6 @@ class BankingHeadTabbar extends StatelessWidget {
                               banckId: 0,
                             ));
 
-                    //   EditBankingPopUp(
-                    //     title: "Add Banking",
-                    //     banckId: 0,
-                    //     effectiveDateController:
-                    //         effectiveDateController,
-                    //     bankNameController: bankNameController,
-                    //     accountNumberController:
-                    //         accountNumberController,
-                    //     verifyAccountController:
-                    //         verifyAccountController,
-                    //     routingNumberController:
-                    //         routingNumberController,
-                    //     specificAmountController:
-                    //         specificAmountController,
-                    //
-                    //     onPressed: () async {
-                    //       var response = await addNewEmployeeBanking(
-                    //           context: context,
-                    //           employeeId: widget.employeeID,
-                    //           accountNumber:
-                    //               accountNumberController.text,
-                    //           bankName: bankNameController.text,
-                    //           amountRequested: int.parse(
-                    //               specificAmountController.text),
-                    //           checkUrl: "",
-                    //           effectiveDate:
-                    //               effectiveDateController.text,
-                    //           routingNumber:
-                    //               routingNumberController.text,
-                    //           percentage: 'Na',
-                    //           //type: "Checking",
-                    //           type: expiryType.toString(),
-                    //           //type:selectedType.toString(),
-                    //       );
-
-                    //   Navigator.pop(context);
-                    //   if(response.statusCode == 200 || response.statusCode == 201){
-                    //     showDialog(
-                    //       context: context,
-                    //       builder: (BuildContext context) {
-                    //         return AddSuccessPopup(
-                    //           message: 'Banking Added Successfully',
-                    //         );
-                    //       },
-                    //     );
-                    //   }
-                    // },
-                    //
-                    // radioButton: StatefulBuilder(
-                    //   builder: (BuildContext context, void Function(void Function()) setState) {
-                    //     return Container(
-                    //       width: 280,
-                    //       child: Row(
-                    //         children: [
-                    //           Expanded(
-                    //             child: CustomRadioListTile(
-                    //               value: "Yes",
-                    //               groupValue:
-                    //               expiryType.toString(),
-                    //               onChanged: (value) {
-                    //                 setState(() {
-                    //                   expiryType = value!;
-                    //                 });
-                    //               },
-                    //               title: "Yes",
-                    //             ),
-                    //           ),
-                    //           Expanded(
-                    //             child: CustomRadioListTile(
-                    //               value: "No",
-                    //               groupValue:
-                    //               expiryType.toString(),
-                    //               onChanged: (value) {
-                    //                 setState(() {
-                    //                   expiryType = value!;
-                    //                 });
-                    //               },
-                    //               title: "No",
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
-                    //   ));
-
                   }),
               SizedBox(width: 60,)
             ],
@@ -393,11 +306,12 @@ class BankingHeadTabbar extends StatelessWidget {
                                                       print(
                                                           "::::;${accountNumber}");
 
-                                                      Navigator.pop(context);
+                                                      //Navigator.pop(context);
                                                       if (response.statusCode ==
                                                               200 ||
                                                           response.statusCode ==
                                                               201) {
+                                                        Navigator.pop(context);
                                                         showDialog(
                                                           context: context,
                                                           builder: (BuildContext
@@ -409,14 +323,14 @@ class BankingHeadTabbar extends StatelessWidget {
                                                           },
                                                         );
                                                       } else if(response.statusCode == 400 || response.statusCode == 404){
-                                                        Navigator.pop(context);
+                                                        // Navigator.pop(context);
                                                         showDialog(
                                                           context: context,
                                                           builder: (BuildContext context) => const FourNotFourPopup(),
                                                         );
                                                       }
                                                       else {
-                                                        Navigator.pop(context);
+                                                        // Navigator.pop(context);
                                                         showDialog(
                                                           context: context,
                                                           builder: (BuildContext context) => FailedPopup(text: response.message),

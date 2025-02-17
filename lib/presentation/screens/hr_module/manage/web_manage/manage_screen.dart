@@ -103,7 +103,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                   color: Color(0xFF50B5E5), // Blue color
                                   radius: 13, // Circular border
                                   height: 6, // Thickness
-                                  shadowBlurRadius: 6, // Shadow blur
+                                  shadowBlurRadius: 3, // Shadow blur
                                   shadowColor: Colors.black26, // Shadow color
                                 ),
                                 indicatorSize: TabBarIndicatorSize.tab,
@@ -487,39 +487,12 @@ class _ManageScreenState extends State<ManageScreen> {
 
 class CustomTabIndicator extends Decoration {
   final Color color;
-  final double radius;
   final double height;
+  final double radius;
   final double shadowBlurRadius;
   final Color shadowColor;
 
   CustomTabIndicator({
-    required this.color,
-    this.radius = 13,
-    this.height = 6,
-    this.shadowBlurRadius = 6,
-    this.shadowColor = Colors.black26,
-  });
-
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _CustomPainter(
-      color: color,
-      radius: radius,
-      height: height,
-      shadowBlurRadius: shadowBlurRadius,
-      shadowColor: shadowColor,
-    );
-  }
-}
-
-class _CustomPainter extends BoxPainter {
-  final Color color;
-  final double radius;
-  final double height;
-  final double shadowBlurRadius;
-  final Color shadowColor;
-
-  _CustomPainter({
     required this.color,
     required this.radius,
     required this.height,
@@ -528,24 +501,64 @@ class _CustomPainter extends BoxPainter {
   });
 
   @override
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
+    return _CustomTabIndicatorPainter(
+      color: color,
+      radius: radius,
+      height: height,
+      shadowBlurRadius: shadowBlurRadius,
+      shadowColor: shadowColor,
+      onChanged: onChanged,
+    );
+  }
+}
+
+class _CustomTabIndicatorPainter extends BoxPainter {
+  final Color color;
+  final double height;
+  final double radius;
+  final double shadowBlurRadius;
+  final Color shadowColor;
+
+  _CustomTabIndicatorPainter({
+    required this.color,
+    required this.height,
+    required this.radius,
+    required this.shadowBlurRadius,
+    required this.shadowColor,
+    VoidCallback? onChanged,
+  }) : super(onChanged);
+
+  @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final double width = configuration.size!.width;
-    final double xPos = offset.dx;
-    final double yPos = offset.dy + configuration.size!.height - height / 2;
-
-    final Paint shadowPaint = Paint()
-      ..color = shadowColor
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, shadowBlurRadius);
-
     final Paint paint = Paint()
       ..color = color
       ..style = PaintingStyle.fill;
 
-    final RRect indicatorRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(xPos, yPos, width, height),
-      Radius.circular(radius),
+    final shadowPaint = Paint()
+      ..color = shadowColor
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, shadowBlurRadius);
+
+    final tabWidth = configuration.size!.width;
+    final tabHeight = configuration.size!.height;
+
+    // Shadow
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(offset.dx, tabHeight - height + 2, tabWidth, height),
+        Radius.circular(radius),
+      ),
+      shadowPaint,
     );
-    canvas.drawRRect(indicatorRect.shift(Offset(0, 2)), shadowPaint);
-    canvas.drawRRect(indicatorRect, paint);
+
+    // Blue indicator
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(offset.dx, tabHeight - height, tabWidth, height),
+        Radius.circular(radius),
+      ),
+      paint,
+    );
   }
 }
+

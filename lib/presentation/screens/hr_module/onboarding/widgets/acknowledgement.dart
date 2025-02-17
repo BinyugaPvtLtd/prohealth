@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -255,16 +256,15 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                                         //.downloadPdfFromBase64(fileExtension,"Acknowledgement");
                                   },
                                   child: Container(
-                                    width: AppSize.s62,
-                                    height: AppSize.s45,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(
-                                          width: AppSize.s2,
-                                          color: ColorManager.faintGrey),
-                                    ),
-                                    child: fileWidget,
-                                  ),
+                                      width: 62,
+                                      height: 45,
+                                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        border: Border.all(width: 2,
+                                            color: ColorManager.faintGrey),
+                                      ),
+                                      child: SvgPicture.asset('images/doc_vector.svg')),
                                 ),
                                 SizedBox(width: AppSize.s10),
                                 Expanded(

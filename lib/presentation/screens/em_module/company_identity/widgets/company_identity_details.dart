@@ -513,7 +513,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             'Services',
                             style: HeadingFormStyle.customTextStyle(context),
                           ),
-                          const SizedBox(height: AppSize.s10),
+                          const SizedBox(height: AppSize.s25),
                           Container(
                             //color: Colors.purple,
                             child: Column(

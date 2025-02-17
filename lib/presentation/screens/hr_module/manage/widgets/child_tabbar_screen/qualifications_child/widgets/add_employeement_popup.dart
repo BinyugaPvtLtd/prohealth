@@ -121,13 +121,13 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _buildTextField(
-                          capitalIsSelect: true,
+                          capitalIsSelect: false,
                           controller: widget.positionTitleController,
                           labelText: "Final Position Title",
                           errorKey: 'positionTitle',
                           errorMessage: 'Please enter title', hintText: 'Enter Position Title'),
                       _buildTextField(
-                          capitalIsSelect: true,
+                          capitalIsSelect: false,
                           controller: widget.leavingResonController,
                           labelText: "Reason For Leaving",
                           errorKey: 'leavingReason',
@@ -164,7 +164,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                             widget.endDateController, _selectedEndDate), hintText: 'yyyy-mm-dd',
                       ),
                       _buildTextField(
-                          capitalIsSelect: true,
+                          capitalIsSelect: false,
                           controller: widget.lastSupervisorNameController,
                           labelText: "Last Supervisor's Name",
                           errorKey: 'lastSupervisorName',
@@ -197,13 +197,13 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _buildTextField(
-                          capitalIsSelect: true,
+                          capitalIsSelect: false,
                           controller: widget.cityNameController,
                           labelText: AppString.city,
                           errorKey: 'cityName',
                           errorMessage: 'Please enter city name', hintText: 'Enter City Name'),
                       _buildTextField(
-                          capitalIsSelect: true,
+                          capitalIsSelect: false,
                           controller: widget.employeerController,
                           labelText: "Employer",
                           errorKey: 'employer',
@@ -222,7 +222,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _buildTextField(
-                          capitalIsSelect: true,
+                          capitalIsSelect: false,
                           controller: widget.countryController,
                           labelText: "Country Name",
                           errorKey: 'countryname',
