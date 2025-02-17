@@ -303,7 +303,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                             ),
                             errorStates["pickFile"]! ?
                             Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
+                              padding: const EdgeInsets.only(top: 4.0),
                               child: Text(
                                 'Please Upload License',
                                 style: TextStyle(
@@ -311,7 +311,10 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                                   fontSize: FontSize.s10,
                                 ),
                               ),
-                            ):SizedBox(height:11)
+                            ):Padding(
+                              padding: const EdgeInsets.only(top: 4.0),
+                              child: SizedBox(height:13),
+                            )
                           ],
                         ),
                       ],
