@@ -127,6 +127,30 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
   FocusNode getOtpButtonFocusNode = FocusNode();
   FocusNode submitButtonFocusNode = FocusNode();
 
+
+  void _pressGetOtpButton() {
+    if (emailEntered) {
+      setState(() {
+        isLoading = true;
+        otpEnabled = true;
+        _remainingTime = 59; // Reset timer
+        _startTimer(); // Start timer
+      });
+      _formKey.currentState!.validate();
+      postverifyuser(context, emailController.text);
+      Future.delayed(
+        const Duration(seconds: 2),
+            () {
+          setState(() {
+            isLoading = false;
+            emailEntered = false;
+          });
+        },
+      );
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -237,7 +261,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                               },
                               onFieldSubmitted: (value) {
                                 FocusScope.of(context).requestFocus(getOtpButtonFocusNode);
+                                _pressGetOtpButton();  // Trigger the OTP button press
                               },
+
                             ),
                           ],
                         ),
@@ -266,24 +292,25 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                       ),
                       onPressed: emailEntered
                           ? () async {
-                        setState(() {
-                          isLoading = true;
-                          otpEnabled = true;
-                          _remainingTime = 59; // Reset timer
-                          _startTimer(); // Start timer
-                        });
-                        _formKey.currentState!.validate();
-                        await postverifyuser(
-                            context, emailController.text);
-                        Future.delayed(
-                          const Duration(seconds: 2),
-                              () {
-                            setState(() {
-                              isLoading = false;
-                              emailEntered = false;
-                            });
-                          },
-                        );
+                        _pressGetOtpButton();
+                        // setState(() {
+                        //   isLoading = true;
+                        //   otpEnabled = true;
+                        //   _remainingTime = 59; // Reset timer
+                        //   _startTimer(); // Start timer
+                        // });
+                        // _formKey.currentState!.validate();
+                        // await postverifyuser(
+                        //     context, emailController.text);
+                        // Future.delayed(
+                        //   const Duration(seconds: 2),
+                        //       () {
+                        //     setState(() {
+                        //       isLoading = false;
+                        //       emailEntered = false;
+                        //     });
+                        //   },
+                        // );
                       }
                           : null,
                       child: Text('Get OTP',

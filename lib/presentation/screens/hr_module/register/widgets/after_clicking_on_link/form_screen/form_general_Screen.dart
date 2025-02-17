@@ -266,7 +266,7 @@ class _generalFormState extends State<generalForm> {
              // width: MediaQuery.of(context).size.width / 2.5,
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               decoration: BoxDecoration(
-                color: const Color(0xFFE6F7FF),
+                color: const Color(0xFFD7EEF9),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -564,7 +564,7 @@ class _generalFormState extends State<generalForm> {
                     crossAxisAlignment: CrossAxisAlignment.start,
 
                     children: [
-                   SizedBox(height: 5,),
+            SizedBox(height: 3,),
                       Text(
                         "Gender",
                         style: AllPopupHeadings.customTextStyle(context),
@@ -616,7 +616,7 @@ class _generalFormState extends State<generalForm> {
                       ),
                       SizedBox(
                           height:
-                          MediaQuery.of(context).size.height / 23),
+                          MediaQuery.of(context).size.height / 22),
                       Text(
                         'DOB',
                         style: AllPopupHeadings.customTextStyle(context),
@@ -1092,6 +1092,7 @@ class _generalFormState extends State<generalForm> {
                     setState(() {
                       _addressDocError = 'Address cannot be empty';
                     });
+                    return; // Early return to prevent further execution
                   }else {
                     setState(() {
                       _addressDocError = null; // Clear any previous error
@@ -1241,9 +1242,9 @@ class _generalFormState extends State<generalForm> {
       setState(() {
         isLoading = false; // End loading
       });
-
+                 // _removeOverlay();
     // Clear fields after saving
-    // firstname.clear();
+ //firstname.clear();
     // lastname.clear();
     // ssecuritynumber.clear();
     // phonenumber.clear();

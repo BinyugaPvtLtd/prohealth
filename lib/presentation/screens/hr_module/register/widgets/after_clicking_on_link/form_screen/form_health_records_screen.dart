@@ -132,7 +132,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
              // width: 952,
               padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               decoration: BoxDecoration(
-                color: Color(0xFFE6F7FF),
+                color: const Color(0xFFD7EEF9),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
@@ -403,17 +403,20 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                   color: ColorManager.blueprime,
                 ),
               )
-                  :CustomButton(
+              :CustomButton(
                 width: 117,
                 height: 30,
-                text:'Save',
-                style:BlueButtonTextConst.customTextStyle(context),
+                text: 'Save',
+                style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-                  try{
+                  bool skipFinally = false; // Flag to skip the finally block
+
+                  try {
                     setState(() {
                       isLoading = true; // Start loading
                     });
+
                     if (finalPaths == null || finalPaths.isEmpty) {
                       await showDialog(
                         context: context,
@@ -423,13 +426,6 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                           );
                         },
                       );
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //   const SnackBar(
-                      //     content: Text(
-                      //         'No file selected. Please select a file to upload.'),
-                      //     backgroundColor: Colors.red,
-                      //   ),
-                      // );
                     } else {
                       if (fileAbove20Mb) {
                         try {
@@ -438,8 +434,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                             if (finalPaths[i] != null) {
                               var response = await uploadDocuments(
                                 context: context,
-                                employeeDocumentMetaId: AppConfig
-                                    .empdocumentTypeMetaDataId,
+                                employeeDocumentMetaId: AppConfig.empdocumentTypeMetaDataId,
                                 employeeDocumentTypeSetupId: docSetupId[i],
                                 employeeId: widget.employeeID,
                                 documentFile: finalPaths[i]!,
@@ -447,8 +442,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                               );
                               print("Document Uploaded response ${response}");
 
-                              if (response.statusCode == 200 || response
-                                  .statusCode == 201) {
+                              if (response.statusCode == 200 || response.statusCode == 201) {
                                 await showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -457,47 +451,24 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                     );
                                   },
                                 );
-
-                                // _loadLicensesData();
-                              }
-                              else {
-                                // Navigator.pop(context);
+                              } else {
                                 await showDialog(
                                   context: context,
                                   builder: (BuildContext context) =>
-                                      FailedPopup(
-                                          text: "Failed To Upload Document"),
+                                      FailedPopup(text: "Failed To Upload Document"),
                                 );
                               }
                             }
                           }
-
-
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(
-                          //     content: Text('Document uploaded successfully!'),
-                          //     backgroundColor: Colors.green,
-                          //   ),
-                          // );
-
                         } catch (e) {
                           await showDialog(
                             context: context,
-                            builder: (
-                                BuildContext context) => const FourNotFourPopup(),
+                            builder: (BuildContext context) => const FourNotFourPopup(),
                           );
-                          // await showDialog(
-                          //   context: context,
-                          //   builder: (BuildContext context) {
-                          //     return AddFailePopup(
-                          //       message: 'Failed To Upload Document',
-                          //     );
-                          //   },
-                          // );
                         }
-                      }
-                      else{
-                        showDialog(
+                      } else {
+                        // If file is too large, show error and set the flag to skip `finally`
+                        await showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AddErrorPopup(
@@ -505,13 +476,19 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                             );
                           },
                         );
+
+                        skipFinally = true; // Set the flag to skip the finally block
+                        return; // Exit early to prevent the finally block from executing
                       }
                     }
-                  }finally{
-                    setState(() {
-                      isLoading = false; // End loading
-                    });
-                    widget.onSave();
+                  } finally {
+                    if (!skipFinally) {
+                      // Only execute the finally block if the file is not too large
+                      setState(() {
+                        isLoading = false; // End loading
+                      });
+                      widget.onSave();
+                    }
                   }
                 },
                 child: Text(
@@ -519,6 +496,101 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                   style: BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
+
+              //     :CustomButton(
+              //   width: 117,
+              //   height: 30,
+              //   text:'Save',
+              //   style:BlueButtonTextConst.customTextStyle(context),
+              //   borderRadius: 12,
+              //   onPressed: () async {
+              //     try{
+              //       setState(() {
+              //         isLoading = true; // Start loading
+              //       });
+              //       if (finalPaths == null || finalPaths.isEmpty) {
+              //         await showDialog(
+              //           context: context,
+              //           builder: (BuildContext context) {
+              //             return VendorSelectNoti(
+              //               message: 'Please Select File',
+              //             );
+              //           },
+              //         );
+              //
+              //       } else {
+              //         if (fileAbove20Mb) {
+              //           try {
+              //             // Loop through each form and extract data to post
+              //             for (int i = 0; i < finalPaths.length; i++) {
+              //               if (finalPaths[i] != null) {
+              //                 var response = await uploadDocuments(
+              //                   context: context,
+              //                   employeeDocumentMetaId: AppConfig
+              //                       .empdocumentTypeMetaDataId,
+              //                   employeeDocumentTypeSetupId: docSetupId[i],
+              //                   employeeId: widget.employeeID,
+              //                   documentFile: finalPaths[i]!,
+              //                   documentName: _fileNames[i],
+              //                 );
+              //                 print("Document Uploaded response ${response}");
+              //
+              //                 if (response.statusCode == 200 || response
+              //                     .statusCode == 201) {
+              //                   await showDialog(
+              //                     context: context,
+              //                     builder: (BuildContext context) {
+              //                       return AddSuccessPopup(
+              //                         message: 'Document Uploaded Successfully',
+              //                       );
+              //                     },
+              //                   );
+              //
+              //
+              //                 }
+              //                 else {
+              //                   // Navigator.pop(context);
+              //                   await showDialog(
+              //                     context: context,
+              //                     builder: (BuildContext context) =>
+              //                         FailedPopup(
+              //                             text: "Failed To Upload Document"),
+              //                   );
+              //                 }
+              //               }
+              //             }
+              //
+              //           } catch (e) {
+              //             await showDialog(
+              //               context: context,
+              //               builder: (
+              //                   BuildContext context) => const FourNotFourPopup(),
+              //             );
+              //           }
+              //         }
+              //         else{
+              //           showDialog(
+              //             context: context,
+              //             builder: (BuildContext context) {
+              //               return AddErrorPopup(
+              //                 message: 'File is too large!',
+              //               );
+              //             },
+              //           );
+              //         }
+              //       }
+              //     }finally{
+              //       setState(() {
+              //         isLoading = false; // End loading
+              //       });
+              //       widget.onSave();
+              //     }
+              //   },
+              //   child: Text(
+              //     'Save',
+              //     style: BlueButtonTextConst.customTextStyle(context),
+              //   ),
+              // ),
               const SizedBox(
                 width: AppSize.s30,
               ),
