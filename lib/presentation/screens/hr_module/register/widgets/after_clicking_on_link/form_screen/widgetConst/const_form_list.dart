@@ -135,11 +135,13 @@ class DefineFormList extends StatelessWidget {
               width: 90,
                   child: ElevatedButton(
                                 onPressed: onSigned, // Button only shown if not signed
-                                child: const Text('Sign'),
+                                child: Text('Sign',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.white),
+                                ),),
                               ),
-                ),
-
-
           ],
         ),
       ],

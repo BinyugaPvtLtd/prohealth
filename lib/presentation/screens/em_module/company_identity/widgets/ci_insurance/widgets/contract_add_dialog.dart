@@ -46,8 +46,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
   bool loading = false;
   bool _isFormValid = true;
   String selectedExpiryType = AppConfig.scheduled;
-
-  // Error messages for each text field
+  bool _validateOnSave = false;
   String? _idDocError;
   String? _nameDocError;
   String? _expiryDateError;
@@ -66,6 +65,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
   DateTime? datePicked;
   void _validateForm() {
     setState(() {
+      if (!_validateOnSave) return;
       _isFormValid = true;
       _idDocError = _validateTextField(contractIdController.text, 'ID of the Contract');
       _nameDocError = _validateTextField(contractNmaeController.text, 'Name of the Contract');
@@ -104,7 +104,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                Text(
                  _nameDocError!,
                  style: CommonErrorMsg.customTextStyle(context),
-               ): SizedBox(height: AppSize.s13,),
+               ): SizedBox(height: AppSize.s12,),
 
              SizedBox(height: AppSize.s10),
              SMTextfieldAsteric(
@@ -149,14 +149,13 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                          },
                          title: AppConfig.scheduled,
                        ),
-
                        CustomRadioListTile(
                          value: AppConfig.issuer,
                          groupValue: selectedExpiryType,
                          onChanged: (value) {
                            setState(() {
                              selectedExpiryType = value!;
-                             _validateForm();
+                             if (_validateOnSave) _validateForm();
                            });
                          },
                          title: AppConfig.issuer,
@@ -214,8 +213,6 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                AppConfig.year,
                                AppConfig.month,
                              ],
-
-                             // labelStyle: SearchDropdownConst.customTextStyle(context),
                              onChanged: (value) {
                                //  setState(() {
                                selectedYear = value;
@@ -233,7 +230,6 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
              ),
              Visibility(
                visible: selectedExpiryType == AppConfig.issuer,
-
                /// Conditionally display expiry date field
                child: HeaderContentConst(
                  isAsterisk: true,
@@ -283,7 +279,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                  datePicked = pickedDate;
                                  expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                                  setState(() {
-                                   _expiryDateError == null;
+                                   _expiryDateError = null;
                                  });
                                }
                              },
@@ -320,6 +316,9 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
               height: AppSize.s30,
               text: AppStringEM.save,
               onPressed: () async {
+                setState(() {
+                  _validateOnSave = true; // Enable validation only when Save is clicked
+                });
                 _validateForm(); // Validate the form on button press
                 if (_isFormValid) {
                   setState(() {
@@ -385,8 +384,3 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
     );
   }
 }
-
-
-
-
-

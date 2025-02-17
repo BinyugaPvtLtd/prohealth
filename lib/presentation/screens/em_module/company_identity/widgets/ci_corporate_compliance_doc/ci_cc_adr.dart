@@ -136,6 +136,7 @@ class _CICCADRState extends State<CICCADR> {
                                     Padding(
                                       padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,),
                                       child: Container(
+                                          margin: EdgeInsets.symmetric(horizontal: AppSize.s5),
                                           decoration: BoxDecoration(
                                             color: ColorManager.white,
                                             borderRadius: BorderRadius.circular(4),

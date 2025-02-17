@@ -1051,13 +1051,27 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                       context: context,
                                                                       builder: (BuildContext context) {
                                                                         return FutureBuilder(
-                                                                          future: getCoveragePreFill(context: context, employeeId: widget.employeeId, employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId),
+                                                                          future: getCoveragePreFill(context: context, employeeId: widget.employeeId,
+                                                                              employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId),
                                                                           builder: (context,snapshotPreFill) {
                                                                             if(snapshotPreFill.connectionState == ConnectionState.waiting){
                                                                               return Center(
                                                                                   child: CircularProgressIndicator(color: ColorManager.blueprime,),
                                                                               );
                                                                             }
+
+                                                                            var coverageDetails = snapshotPreFill.data!.coverageDetails;
+                                                                            // Print the values being passed to the ProfileBarEditPopup
+                                                                            print(">>>>>Employee ID: ${profileData.employeeId}");
+                                                                            print(">>>>>Employee Enroll ID: ${profileData.employeeEnrollId}");
+                                                                            print(">>>>>Employee Enroll Coverage ID: ${snapshot.data!.coverageDetails[index].employeeEnrollCoverageId}");
+                                                                            print(">>>>>County Name: ${coverageDetails.countyName}");
+                                                                            print(">>>>>Zone Name: ${coverageDetails.zoneName}");
+                                                                            print(">>>>>Zone ID: ${coverageDetails.zoneId}");
+                                                                            print(">>>>>County ID: ${coverageDetails.countyId}");
+                                                                            print(">>>>>//Zip Codes: ${coverageDetails.zipCodes}");
+                                                                            print(">>>>>//:??????????????????????????????????????????????????");
+
 
                                                                             return ProfileBarEditPopup(employeeId: profileData.employeeId,
                                                                               employeeEnrollId: profileData.employeeEnrollId,
@@ -1185,46 +1199,47 @@ class CoverageRowWidget extends StatelessWidget {
       height: 60,
       width: MediaQuery.of(context).size.width/2.6,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(
-            color: ColorManager.blueprime,
-            width: 2,
-          ),
-         // color: ColorManager.red
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(
+          color: ColorManager.blueprime,
+          width: 2,
+        ),
+        // color: ColorManager.red
       ),
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.only( left: 17),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  "County :",
-                  style: AllPopupHeadings.customTextStyle(context),
-                ),
-              )),
+          Container(
+            child: Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(
+                    "County :",
+                    style: AllPopupHeadings.customTextStyle(context),
+                  ),
+                )),
+          ),
           SizedBox(width: 1,),
           Expanded(
               flex: 3,
               child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-            Text(
-              countyName,
-              style: EditTextFontStyle.customEditTextStyle(),
-            ),
-          ],)),
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    countyName,
+                    style: EditTextFontStyle.customEditTextStyle(),
+                  ),
+                ],)),
           SizedBox(width: 5,),
           Expanded(
-              flex: 2,
+              flex: 1,
               child: Text(
-                "Zone :",
+                "Zones :",
                 style: AllPopupHeadings.customTextStyle(context),
               )),
-          SizedBox(width: 1,),
           Expanded(
               flex: 3,
               child: Row(
@@ -1238,29 +1253,128 @@ class CoverageRowWidget extends StatelessWidget {
                 ],)),
           const SizedBox(width: 5),
           Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-          IconButton(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            icon: Icon(Icons.edit_outlined, color: ColorManager.bluebottom, size: 15),
-            onPressed: onEdit,
-          ),
-          const SizedBox(width: 3),
-          IconButton(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            icon: const Icon(Icons.delete, color: Colors.red, size: 15),
-            onPressed: onDelete,
-          ),
-                      ],),
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                icon: Icon(Icons.edit_outlined, color: ColorManager.bluebottom, size: IconSize.I16),
+                onPressed: onEdit,
+              ),
+              const SizedBox(width: 3),
+              IconButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                icon: const Icon(Icons.delete, color: Colors.red, size: IconSize.I16),
+                onPressed: onDelete,
+              ),
+            ],),
         ],
       ),
     );
   }
 }
+
+
+
+// class CoverageRowWidget extends StatelessWidget {
+//   final String countyName;
+//   final String zoneName;
+//   final VoidCallback onDelete;
+//   final VoidCallback onEdit;
+//
+//   const CoverageRowWidget({
+//     Key? key,
+//     required this.countyName,
+//     required this.zoneName,
+//     required this.onDelete,
+//     required this.onEdit,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 60,
+//       width: MediaQuery.of(context).size.width/2.6,
+//       decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(14),
+//           border: Border.all(
+//             color: ColorManager.blueprime,
+//             width: 2,
+//           ),
+//          // color: ColorManager.red
+//       ),
+//       padding: EdgeInsets.symmetric(horizontal: 5),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           Expanded(
+//               flex: 2,
+//               child: Padding(
+//                 padding: const EdgeInsets.only(left: 8.0),
+//                 child: Text(
+//                   "County :",
+//                   style: AllPopupHeadings.customTextStyle(context),
+//                 ),
+//               )),
+//           SizedBox(width: 1,),
+//           Expanded(
+//               flex: 3,
+//               child: Row(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//             Text(
+//               countyName,
+//               style: EditTextFontStyle.customEditTextStyle(),
+//             ),
+//           ],)),
+//           SizedBox(width: 5,),
+//           Expanded(
+//               flex: 2,
+//               child: Text(
+//                 "Zone :",
+//                 style: AllPopupHeadings.customTextStyle(context),
+//               )),
+//           SizedBox(width: 1,),
+//           Expanded(
+//               flex: 3,
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.start,
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     zoneName,
+//                     style: EditTextFontStyle.customEditTextStyle(),
+//                   ),
+//                 ],)),
+//           const SizedBox(width: 5),
+//           Row(
+//                       mainAxisAlignment: MainAxisAlignment.end,
+//                       children: [
+//           IconButton(
+//             splashColor: Colors.transparent,
+//             highlightColor: Colors.transparent,
+//             hoverColor: Colors.transparent,
+//             icon: Icon(Icons.edit_outlined, color: ColorManager.bluebottom, size: 15),
+//             onPressed: onEdit,
+//           ),
+//           const SizedBox(width: 3),
+//           IconButton(
+//             splashColor: Colors.transparent,
+//             highlightColor: Colors.transparent,
+//             hoverColor: Colors.transparent,
+//             icon: const Icon(Icons.delete, color: Colors.red, size: 15),
+//             onPressed: onDelete,
+//           ),
+//                       ],),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 
 class EditProfile {

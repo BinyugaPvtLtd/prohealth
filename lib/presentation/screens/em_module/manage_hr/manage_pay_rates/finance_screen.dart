@@ -214,7 +214,7 @@ class FinanceScreen extends StatelessWidget {
           return Material(
             color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 13),
               child: Column(
                 children: [
                   Row(
@@ -226,7 +226,7 @@ class FinanceScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: AppSize.s30),
+                  const SizedBox(height: AppSize.s32),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

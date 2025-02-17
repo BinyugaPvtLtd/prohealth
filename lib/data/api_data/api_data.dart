@@ -221,10 +221,10 @@ class ApiPatchCovrageData {
       'employeeEnrollCoverageId': employeeEnrollCoverageId, // Added to JSON
       'city': city,
       'countyId': countyId,
-      'countyName': countyName, // Added to JSON
+      //'countyName': countyName, // Added to JSON
       'zoneId': zoneId,
-      'zoneName': zoneName, // Added to JSON
-      'zipCodes': zipCodes, // Fixed to match the field name 'zipCodes'
+     // 'zoneName': zoneName, // Added to JSON
+      'zipCode': zipCodes, // Fixed to match the field name 'zipCodes'
     };
   }
 }

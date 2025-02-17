@@ -245,7 +245,7 @@ class CompensationChildTabbar extends StatelessWidget {
                                         Icons.print_outlined,
                                         color: Color(0xff1696C8),
                                       ),
-                                      iconSize: 20,
+                                      iconSize:IconSize.I22,
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
@@ -319,7 +319,7 @@ class CompensationChildTabbar extends StatelessWidget {
                                         Icons.edit_outlined,
                                         color: Color(0xff1696C8),
                                       ),
-                                      iconSize: 20,
+                                      iconSize: IconSize.I22,
                                     ),
                                     SizedBox(width: AppSize.s10,),
                                     IconButton(
@@ -374,7 +374,7 @@ class CompensationChildTabbar extends StatelessWidget {
                                         Icons.delete_outline,
                                         color: Color(0xffFF0000),
                                       ),
-                                      iconSize: 20,
+                                      iconSize:IconSize.I22,
                                     ),
                                   ],
                                 )

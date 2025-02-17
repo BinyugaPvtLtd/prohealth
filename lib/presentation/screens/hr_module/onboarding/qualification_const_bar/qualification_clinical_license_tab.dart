@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -78,13 +79,13 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                 Container(
                                     width: 62,
                                     height: 45,
+                                    padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(
-                                          width: 2,
+                                      border: Border.all(width: 2,
                                           color: ColorManager.faintGrey),
                                     ),
-                                    child: Image.asset('images/Vector.png')),
+                                    child: SvgPicture.asset('images/doc_vector.svg')),
                                 SizedBox(width: AppSize.s30),
                                 Text(
                                   "Driving License",
@@ -219,13 +220,13 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                 Container(
                                     width: 62,
                                     height: 45,
+                                    padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(
-                                          width: 2,
+                                      border: Border.all(width: 2,
                                           color: ColorManager.faintGrey),
                                     ),
-                                    child: Image.asset('images/Vector.png')),
+                                    child: SvgPicture.asset('images/doc_vector.svg')),
                                 SizedBox(width: AppSize.s30),
                                 Text(
                                   "Practitioner License",

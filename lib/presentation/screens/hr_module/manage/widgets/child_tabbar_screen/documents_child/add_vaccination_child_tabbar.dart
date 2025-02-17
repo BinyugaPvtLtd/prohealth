@@ -225,7 +225,7 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                                       downloadFile(fileUrl);
                                     },
                                     icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
-                                    iconSize: 20,),
+                                    iconSize: IconSize.I22,),
                                   SizedBox(width: AppSize.s10,),
                                   PdfDownloadButton(apiUrl: health.DocumentUrl, documentName: health.documentFileName,),
                                   ///
@@ -277,7 +277,7 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                                     Colors.transparent,
                                     hoverColor:
                                     Colors.transparent,
-                                    iconSize: 20,),
+                                    iconSize: IconSize.I22,),
                                   SizedBox(width: AppSize.s10,),
                                   IconButton(
                                     onPressed: () async{
@@ -318,7 +318,7 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                                     Colors.transparent,
                                     hoverColor:
                                     Colors.transparent,
-                                    iconSize: 20,),
+                                    iconSize: IconSize.I22,),
                                 ],)
                             ],
                           ),

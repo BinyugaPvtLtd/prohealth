@@ -1,7 +1,7 @@
 class AllRegisterRepository{
 
   static String empEnroll = "/employee-enroll";
-  static String patchempEnroll = "//employee-enroll/updateCoverage";
+  static String patchempEnroll = "/employee-enroll/updateCoverage";
   static String add = "/add";
   static String offers = "/addOffers";
   static String addZipCode = "/addZipCodes";
