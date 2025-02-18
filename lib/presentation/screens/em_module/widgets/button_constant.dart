@@ -34,30 +34,35 @@ class _CustomTextButtonState extends State<CustomTextButton> {
       width: 25,
       child: CircularProgressIndicator(color: ColorManager.blueprime),
     )
-        : ElevatedButton(
-      onPressed: () async {
-        setState(() => isLoading = true);
-        await widget.onPressed();
-        setState(() => isLoading = false);
-      },
-      child: Text(
-        widget.text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: FontSize.s14,
-          fontWeight: FontWeight.w600,
-          color: widget.textColor ?? ColorManager.white,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        backgroundColor: widget.color ?? Color(0xFF50B5E5),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        elevation: 5,
-      ),
-    );
+        : Container(
+      width: AppSize.s110,
+      margin:
+      const EdgeInsets.only(right: AppMargin.m5),
+          child: ElevatedButton(
+                onPressed: () async {
+          setState(() => isLoading = true);
+          await widget.onPressed();
+          setState(() => isLoading = false);
+                },
+                child: Text(
+          widget.text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: FontSize.s14,
+            fontWeight: FontWeight.w600,
+            color: widget.textColor ?? ColorManager.white,
+          ),
+                ),
+                style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          backgroundColor: widget.color ?? Color(0xFF50B5E5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 5,
+                ),
+              ),
+        );
   }
 }
 

@@ -455,74 +455,70 @@ class RegisterScreen extends StatelessWidget {
                                           data.status == 'Notopen'
                                               ? Row(
                                             mainAxisAlignment: MainAxisAlignment.end,
+                                            crossAxisAlignment: CrossAxisAlignment.end,
                                             children: [
-                                              Container(
-                                                width: AppSize.s110,
-                                                margin:
-                                                const EdgeInsets.only(right: AppMargin.m5),
-                                                child: CustomTextButton(
-                                                  text: AppString.enroll,
-                                                  onPressed: () async {
-                                                    List<AEClinicalDiscipline> passData =
-                                                    await HrAddEmplyClinicalDisciplinApi(
-                                                        context, data.deptId! );
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (_) => FutureBuilder<
-                                                          RegisterDataUserIDPrefill>(
-                                                        future: getRegisterEnrollPrefillUserId(
-                                                            context, data.userId),
-                                                        builder: (context, snapshotPrefill) {
-                                                          if (snapshotPrefill.connectionState ==
-                                                              ConnectionState.waiting) {
-                                                            return Center(
-                                                              child: CircularProgressIndicator(
-                                                                  color: ColorManager.blueprime),
-                                                            );
-                                                          }
-                                                          var firstName = snapshotPrefill
-                                                              .data!.firstName
-                                                              .toString();
-                                                          firstNameController =
-                                                              TextEditingController(
-                                                                  text: firstName);
-
-                                                          var lastName = snapshotPrefill
-                                                              .data!.lastName
-                                                              .toString();
-                                                          lastNameController =
-                                                              TextEditingController(
-                                                                  text: lastName);
-
-                                                          var email = snapshotPrefill.data!.email
-                                                              .toString();
-                                                          emailController =
-                                                              TextEditingController(text: email);
-
-                                                          return RegisterEnrollPopup(
-                                                            employeeId: data.employeeId,
-                                                            firstName: firstNameController,
-                                                            lastName: lastNameController,
-                                                            email: emailController,
-                                                            userId: snapshotPrefill.data!.userId,
-                                                            role: snapshotPrefill.data!.role,
-                                                            status: snapshotPrefill.data!.status,
-                                                            // depid :snapshotPrefill.data!.
-                                                            depId:snapshotPrefill.data!.departmentId,
-
-                                                            onPressed: () {
-                                                              Navigator.pop(context);
-                                                            },
-                                                            onReferesh: () {
-                                                              registerProvider.fetchData(context);
-                                                            },
-                                                            aEClinicalDiscipline: passData,
+                                              CustomTextButton(
+                                                text: AppString.enroll,
+                                                onPressed: () async {
+                                                  List<AEClinicalDiscipline> passData =
+                                                  await HrAddEmplyClinicalDisciplinApi(
+                                                      context, data.deptId! );
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (_) => FutureBuilder<
+                                                        RegisterDataUserIDPrefill>(
+                                                      future: getRegisterEnrollPrefillUserId(
+                                                          context, data.userId),
+                                                      builder: (context, snapshotPrefill) {
+                                                        if (snapshotPrefill.connectionState ==
+                                                            ConnectionState.waiting) {
+                                                          return Center(
+                                                            child: CircularProgressIndicator(
+                                                                color: ColorManager.blueprime),
                                                           );
-                                                        },
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
+                                                        }
+                                                        var firstName = snapshotPrefill
+                                                            .data!.firstName
+                                                            .toString();
+                                                        firstNameController =
+                                                            TextEditingController(
+                                                                text: firstName);
+
+                                                        var lastName = snapshotPrefill
+                                                            .data!.lastName
+                                                            .toString();
+                                                        lastNameController =
+                                                            TextEditingController(
+                                                                text: lastName);
+
+                                                        var email = snapshotPrefill.data!.email
+                                                            .toString();
+                                                        emailController =
+                                                            TextEditingController(text: email);
+
+                                                        return RegisterEnrollPopup(
+                                                          employeeId: data.employeeId,
+                                                          firstName: firstNameController,
+                                                          lastName: lastNameController,
+                                                          email: emailController,
+                                                          userId: snapshotPrefill.data!.userId,
+                                                          role: snapshotPrefill.data!.role,
+                                                          status: snapshotPrefill.data!.status,
+                                                          // depid :snapshotPrefill.data!.
+                                                          depId:snapshotPrefill.data!.departmentId,
+
+                                                          onPressed: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                          onReferesh: () {
+                                                            registerProvider.fetchData(context);
+                                                          },
+                                                          aEClinicalDiscipline: passData,
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                },
                                               ),
                                             ],
                                           )
