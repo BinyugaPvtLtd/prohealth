@@ -125,6 +125,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -775,6 +776,7 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -802,46 +804,56 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
                     width: 20,
                   ),
                   ///upload
-                  CustomIconButton(
-                    icon: Icons.file_upload_outlined,
-                    text: 'Upload License',
-                    onPressed: () async {
-                      FilePickerResult? result =
-                      await FilePicker.platform.pickFiles(
-                        type: FileType.custom,
-                        allowedExtensions: ['pdf'],
-                      );
-                      if (result != null) {
-                        setState(() {
-                          pickedFileName = result.files.first.name;
-                          pickedFile = result.files.first.bytes;
-                          isFilePicked = true;
-                        });
+                  Row(
+                    children: [
+                      pickedFileName == null
+                          ? const SizedBox(height:11)
+                          : Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 30),
+                          child: Text(
+                            pickedFileName!,
+                            style: CustomTextStylesCommon.commonStyle(
+                                fontSize: FontSize.s10,
+                                color: ColorManager.mediumgrey),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomIconButton(
+                            icon: Icons.file_upload_outlined,
+                            text: 'Upload License',
+                            onPressed: () async {
+                              FilePickerResult? result =
+                              await FilePicker.platform.pickFiles(
+                                type: FileType.custom,
+                                allowedExtensions: ['pdf'],
+                              );
+                              if (result != null) {
+                                setState(() {
+                                  pickedFileName = result.files.first.name;
+                                  pickedFile = result.files.first.bytes;
+                                  isFilePicked = true;
+                                });
 
-                        print('File picked: $pickedFileName');
-                      } else {
-                        // User canceled the picker
-                      }
-                    },
+                                print('File picked: $pickedFileName');
+                              } else {
+                                // User canceled the picker
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 5),
-            pickedFileName == null
-                ? const SizedBox(height:11)
-                : Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: Text(
-                  pickedFileName!,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: FontSize.s10,
-                      color: ColorManager.mediumgrey),
-                ),
-              ),
-            ),
+            //SizedBox(height: 5),
+
             SizedBox(height: MediaQuery.of(context).size.height / 22),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

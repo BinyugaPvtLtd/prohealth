@@ -827,6 +827,21 @@ class OfferLetterScreen extends StatelessWidget {
                           width: 100,
                           child: ElevatedButton(
                             onPressed: ()  async{
+
+                              // Validate the salary field
+                              if (hrProviderState.salary.isEmpty) {
+                                // You can either show a Snackbar, a dialog, or update the UI
+                                await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AddFailePopup(
+                                      message: 'Something is messing',
+                                    );
+                                  },
+                                );
+                                return; // Return early if salary is empty
+                              }
+
                               hrProviderState.validateFieldsUseController(
                                   issueDateController: issueDateController,
                                   startDateController: startDateController,

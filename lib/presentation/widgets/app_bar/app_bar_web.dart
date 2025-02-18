@@ -29,6 +29,7 @@ class _AppBarWebState extends State<AppBarWeb> {
   String? _selectedValue;
 
   String? loginName = '';
+  String? loginEmail = '';
  //int loginUserId = 0;
   bool isLoggedIn = true;
   Future<String> user() async {
@@ -36,6 +37,12 @@ class _AppBarWebState extends State<AppBarWeb> {
     //loginName = userName;
     print("UserName login ${loginName}");
     return loginName!;
+  }
+  Future<String> email() async {
+    loginEmail = await TokenManager.getEmail();
+    //loginName = userName;
+    print("loginEmail login ${loginEmail}");
+    return loginEmail!;
   }
   // Future<void> setUserId() async {
   //   loginUserId = await TokenManager.getuserId();
@@ -54,6 +61,8 @@ class _AppBarWebState extends State<AppBarWeb> {
   Widget build(BuildContext context) {
     //user();
     print('user ${loginName}');
+    print('email ${loginEmail}');
+    print('///////////////////////////////////////////////////////');
     print(MediaQuery.of(context).size.width);
     return Material(
       color: Colors.white,
@@ -330,8 +339,30 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                       SvgPicture.asset(
                                                         'images/message_app_bar.svg',
                                                       ),
-                                                      SvgPicture.asset(
-                                                        'images/email_app_bar.svg',
+                                                      InkWell(
+                                                        onTap: ()
+                                                          async {
+                                                            // Get the email address asynchronously
+                                                            String userEmail = await email();
+
+                                                            // Only open the email client if the email is not empty
+                                                            if (userEmail.isNotEmpty) {
+                                                              final Uri emailUri = Uri(scheme: 'mailto', path: userEmail);
+                                                              if (await canLaunch(emailUri.toString())) {
+                                                                await launch(emailUri.toString());
+                                                              } else {
+                                                                throw 'Could not launch email app';
+                                                              }
+                                                            } else {
+                                                              // Handle case if no email is found (you can show a message to the user, etc.)
+                                                              print("No email address found");
+                                                            }
+                                                          },
+
+
+                                                        child: SvgPicture.asset(
+                                                          'images/email_app_bar.svg',
+                                                        ),
                                                       ),
                                                     ])),
                                           ),
