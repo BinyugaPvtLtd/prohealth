@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/api.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/profile_repo.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
@@ -8,6 +9,7 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 
+import '../../../../../presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../repository/establishment_manager/all_from_hr_repository.dart';
 
 /// Search by Text
@@ -358,6 +360,9 @@ Future<ProfilePercentage> getPercentage(
 
 Future<ApiData> patchEmployeeEdit({
   required BuildContext context,
+  required bool filePicked,
+  required dynamic pickedFilepath,
+  required String pickedFileName,
   required int employeeId,
   required String code,
   required int userId,
@@ -477,8 +482,27 @@ Future<ApiData> patchEmployeeEdit({
     print(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employees updated successfully");
+      if (filePicked && pickedFilepath != null) {
+        print("Uploading file: $pickedFilepath for employeeId: ${employeeId}");
+        await UploadEmployeePhoto(
+          context: context,
+          documentFile: pickedFilepath,
+          employeeId: employeeId,
+        );
+        print("File upload completed.");
+      }
+    //  if(context.mounted){
+    //
+    //  await showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return const AddSuccessPopup(message: 'Employee updated successfully');
+    //     },
+    //   );
+    // }
       // Show success popup
       return ApiData(statusCode: response.statusCode!, success: true, message: response.statusMessage!);
+
 
     } else {
       print("Failed to update Employees: ${response.statusCode}");

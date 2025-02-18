@@ -149,6 +149,9 @@ class PoliciesProcedureList extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       IconButton(
+                                        hoverColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                         onPressed: () => onEdit(policiesdata),
                                         icon: Icon(
                                           Icons.edit_outlined,
@@ -157,6 +160,9 @@ class PoliciesProcedureList extends StatelessWidget {
                                         ),
                                       ),
                                       IconButton(
+                                        hoverColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                         onPressed: () => onDelete(policiesdata),
                                         icon: Icon(
                                           Icons.delete_outline,
