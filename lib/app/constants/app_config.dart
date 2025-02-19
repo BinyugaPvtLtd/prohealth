@@ -94,7 +94,7 @@ class AppConfig {
 
   ///health record form
   static const int empdocumentTypeMetaDataId = 1;
-  static const int employeeDocumentTypeMetaDataId = 10;
+  static const int employeeDocumentTypeMetaDataId = 5;
 
   ///Employee Document types
   static const int healthDocId = 1;

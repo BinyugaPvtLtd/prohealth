@@ -483,40 +483,58 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           future: getAppBarDetails(context),
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState == ConnectionState.waiting) {
-                                              return GestureDetector(
-                                                child: CircleAvatar(
-                                                  backgroundColor: Colors.grey[100],
-                                                  radius: 13,
-                                                  backgroundImage: AssetImage("images/profilepic.png"),
-                                                ),
-                                                onTap: () {
-                                                  print("userid appbar : ${snapshot.data?.userId}");
-                                                  print(snapshot.data?.employeeId);
-                                                  print(snapshot.data?.imgUrl);
-                                                  print(snapshot.data?.companyId);
-                                                  print(snapshot.data?.userId);
-                                                  // Optional: Handle tap on the profile image
-                                                },
-                                              );
+                                              return SizedBox(
+                                                    width: 15, // Adjust size according to your requirement
+                                                    height: 15,
+                                                    child: CircularProgressIndicator(
+                                                      strokeWidth: 2,
+                                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
+                                                    ),
+                                                  );
+                                                  // GestureDetector(
+                                                  //   child: CircleAvatar(
+                                                  //     backgroundColor: Colors.grey[100],
+                                                  //     radius: 13,
+                                                  //     backgroundImage: AssetImage("images/profilepic.png"),
+                                                  //   ),
+                                                  //   onTap: () {
+                                                  //     print("userid appbar : ${snapshot.data?.userId}");
+                                                  //     print(snapshot.data?.employeeId);
+                                                  //     print(snapshot.data?.imgUrl);
+                                                  //     print(snapshot.data?.companyId);
+                                                  //     print(snapshot.data?.userId);
+                                                  //     // Optional: Handle tap on the profile image
+                                                  //   },
+                                                  // ),
+
                                             } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty) {
-                                              return GestureDetector(
-                                                child: CircleAvatar(
-                                                  backgroundColor: Colors.grey[100],
-                                                  radius: 12,
-                                                  backgroundImage: AssetImage("images/profilepic.png"),
+                                              return  SizedBox(
+                                                width: 15, // Adjust size according to your requirement
+                                                height: 15,
+                                                child: CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
                                                 ),
-                                                onTap: () {
-                                                  print("userid appbar : ${snapshot.data?.userId}");
-                                                  print(snapshot.data?.employeeId);
-                                                  print(snapshot.data?.imgUrl);
-                                                  print(snapshot.data?.companyId);
-                                                  print(snapshot.data?.userId);
-                                                  // Optional: Handle tap on the profile image
-                                                },
                                               );
+                                              //   GestureDetector(
+                                              //   child: CircleAvatar(
+                                              //     backgroundColor: Colors.grey[100],
+                                              //     radius: 12,
+                                              //     backgroundImage: AssetImage("images/profilepic.png"),
+                                              //   ),
+                                              //   onTap: () {
+                                              //     print("userid appbar : ${snapshot.data?.userId}");
+                                              //     print(snapshot.data?.employeeId);
+                                              //     print(snapshot.data?.imgUrl);
+                                              //     print(snapshot.data?.companyId);
+                                              //     print(snapshot.data?.userId);
+                                              //     // Optional: Handle tap on the profile image
+                                              //   },
+                                              // );
                                             } else if(snapshot.hasData) {
                                             return GestureDetector(
                                             child: CircleAvatar(
+                                              backgroundColor: Colors.transparent,
                                             backgroundImage: NetworkImage(snapshot.data!.imgUrl),
                                             radius: 13, // Adjust size as needed
                                             ),
@@ -529,22 +547,31 @@ class _AppBarWebState extends State<AppBarWeb> {
                                             // Optional: Handle tap on the profile image
                                             },
                                             );
-                                            } else {
-                                              return GestureDetector(
-                                                child: CircleAvatar(
-                                                  backgroundColor: Colors.grey[100],
-                                                  radius: 13,
-                                                  backgroundImage: AssetImage("images/profilepic.png"),
+                                            }
+                                            else {
+                                              return  SizedBox(
+                                                width: 15, // Adjust size according to your requirement
+                                                height: 15,
+                                                child: CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
                                                 ),
-                                                onTap: () {
-                                                  print("userid appbar : ${snapshot.data?.userId}");
-                                                  print(snapshot.data?.employeeId);
-                                                  print(snapshot.data?.imgUrl);
-                                                  print(snapshot.data?.companyId);
-                                                  print(snapshot.data?.userId);
-                                                  // Optional: Handle tap on the profile image
-                                                },
                                               );
+                                              //   GestureDetector(
+                                              //   child: CircleAvatar(
+                                              //     backgroundColor: Colors.grey[100],
+                                              //     radius: 13,
+                                              //     backgroundImage: AssetImage("images/profilepic.png"),
+                                              //   ),
+                                              //   onTap: () {
+                                              //     print("userid appbar : ${snapshot.data?.userId}");
+                                              //     print(snapshot.data?.employeeId);
+                                              //     print(snapshot.data?.imgUrl);
+                                              //     print(snapshot.data?.companyId);
+                                              //     print(snapshot.data?.userId);
+                                              //     // Optional: Handle tap on the profile image
+                                              //   },
+                                              // );
                                             }
                                           },
                                         ),
