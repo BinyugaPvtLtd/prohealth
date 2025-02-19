@@ -29,11 +29,14 @@ class _CustomTextButtonState extends State<CustomTextButton> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? SizedBox(
-      height: 25,
-      width: 25,
-      child: CircularProgressIndicator(color: ColorManager.blueprime),
-    )
+        ? Padding(
+          padding: const EdgeInsets.only(right: 40),
+          child: SizedBox(
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(color: ColorManager.blueprime),
+              ),
+        )
         : Container(
       width: AppSize.s110,
       margin:

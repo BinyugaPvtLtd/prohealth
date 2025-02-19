@@ -259,66 +259,69 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   ),
                   ///upload
                   StatefulBuilder(
-                    builder: (BuildContext context, void Function(void Function()) setState) { return Row(
-                      children: [
-                        pickedFileName == ''
-                            ? const Offstage()
-                            : Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 30),
-                            child: Text(
-                              pickedFileName,
-                              style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s10,
-                                  color: ColorManager.mediumgrey),
+                    builder: (BuildContext context, void Function(void Function()) setState) { return Padding(
+                      padding: const EdgeInsets.only(top: 22),
+                      child: Row(
+                        children: [
+                          pickedFileName == ''
+                              ? const Offstage()
+                              : Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 30),
+                              child: Text(
+                                pickedFileName,
+                                style: CustomTextStylesCommon.commonStyle(
+                                    fontSize: FontSize.s10,
+                                    color: ColorManager.mediumgrey),
+                              ),
                             ),
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomIconButton(
-                              icon: Icons.file_upload_outlined,
-                              text: ' Upload License',
-                              onPressed: () async {
-                                FilePickerResult? result =
-                                await FilePicker.platform.pickFiles(
-                                  type: FileType.custom,
-                                  allowedExtensions: ['pdf'],
-                                );
-                                if (result != null) {
-                                  setState(() {
-                                    pickedFileName = result.files.first.name;
-                                    pickedFile = result.files.first.bytes;
-                                    isFilePicked = true;
-                                    errorStates["pickFile"] = pickedFileName.isEmpty;
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomIconButton(
+                                icon: Icons.file_upload_outlined,
+                                text: ' Upload License',
+                                onPressed: () async {
+                                  FilePickerResult? result =
+                                  await FilePicker.platform.pickFiles(
+                                    type: FileType.custom,
+                                    allowedExtensions: ['pdf'],
+                                  );
+                                  if (result != null) {
+                                    setState(() {
+                                      pickedFileName = result.files.first.name;
+                                      pickedFile = result.files.first.bytes;
+                                      isFilePicked = true;
+                                      errorStates["pickFile"] = pickedFileName.isEmpty;
 
-                                  });
+                                    });
 
-                                  print('File picked: $pickedFileName');
-                                } else {
-                                  // User canceled the picker
-                                }
-                              },
-                            ),
-                            errorStates["pickFile"]! ?
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4.0),
-                              child: Text(
-                                'Please Upload License',
-                                style: TextStyle(
-                                  color: ColorManager.red,
-                                  fontSize: FontSize.s10,
-                                ),
+                                    print('File picked: $pickedFileName');
+                                  } else {
+                                    // User canceled the picker
+                                  }
+                                },
                               ),
-                            ):Padding(
-                              padding: const EdgeInsets.only(top: 4.0),
-                              child: SizedBox(height:13),
-                            )
-                          ],
-                        ),
-                      ],
+                              errorStates["pickFile"]! ?
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4.0),
+                                child: Text(
+                                  'Please Upload License',
+                                  style: TextStyle(
+                                    color: ColorManager.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ):Padding(
+                                padding: const EdgeInsets.only(top: 4.0),
+                                child: SizedBox(height:13),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     );  },
 
                   ),
@@ -804,50 +807,53 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
                     width: 20,
                   ),
                   ///upload
-                  Row(
-                    children: [
-                      pickedFileName == null
-                          ? const SizedBox(height:11)
-                          : Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 30),
-                          child: Text(
-                            pickedFileName!,
-                            style: CustomTextStylesCommon.commonStyle(
-                                fontSize: FontSize.s10,
-                                color: ColorManager.mediumgrey),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 22),
+                    child: Row(
+                      children: [
+                        pickedFileName == null
+                            ? const SizedBox(height:11)
+                            : Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 30),
+                            child: Text(
+                              pickedFileName!,
+                              style: CustomTextStylesCommon.commonStyle(
+                                  fontSize: FontSize.s10,
+                                  color: ColorManager.mediumgrey),
+                            ),
                           ),
                         ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomIconButton(
-                            icon: Icons.file_upload_outlined,
-                            text: 'Upload License',
-                            onPressed: () async {
-                              FilePickerResult? result =
-                              await FilePicker.platform.pickFiles(
-                                type: FileType.custom,
-                                allowedExtensions: ['pdf'],
-                              );
-                              if (result != null) {
-                                setState(() {
-                                  pickedFileName = result.files.first.name;
-                                  pickedFile = result.files.first.bytes;
-                                  isFilePicked = true;
-                                });
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomIconButton(
+                              icon: Icons.file_upload_outlined,
+                              text: 'Upload License',
+                              onPressed: () async {
+                                FilePickerResult? result =
+                                await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['pdf'],
+                                );
+                                if (result != null) {
+                                  setState(() {
+                                    pickedFileName = result.files.first.name;
+                                    pickedFile = result.files.first.bytes;
+                                    isFilePicked = true;
+                                  });
 
-                                print('File picked: $pickedFileName');
-                              } else {
-                                // User canceled the picker
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
+                                  print('File picked: $pickedFileName');
+                                } else {
+                                  // User canceled the picker
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
