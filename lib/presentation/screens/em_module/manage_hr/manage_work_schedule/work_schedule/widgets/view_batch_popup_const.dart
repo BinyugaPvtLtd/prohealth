@@ -76,11 +76,14 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                             decoration: TextDecoration.none,
                           ),),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon:  Icon(Icons.close,color: ColorManager.white,),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10.0),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon:  Icon(Icons.close,color: ColorManager.white,),
+                          ),
                         ),
                       ],
                     ),
@@ -187,7 +190,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                               children: [
                                                 // SizedBox(height: 5),
                                                 Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                                  padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 3),
                                                   child: Container(
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,

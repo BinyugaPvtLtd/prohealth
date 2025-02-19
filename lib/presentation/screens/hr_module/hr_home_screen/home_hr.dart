@@ -364,12 +364,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('currentIndex', index);
   }
-  // void changeState(){
-  //   setState((){
-  //     searchSelect = false;
-  //   });
-  // }
-
 
   @override
   Widget build(BuildContext context) {
@@ -517,6 +511,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                ///search bar
                                 Container(
                                     padding: EdgeInsets.all(5),
                                     width: AppSize.s330,
@@ -800,8 +795,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   );
                                                 },
                                                 child: Center(
-                                                  child: SvgPicture.asset(
-                                                      'images/menuLines.svg'),
+                                                  child: SvgPicture.asset('images/menuLines.svg'),
                                                 ),
                                               ),
                                             ),
