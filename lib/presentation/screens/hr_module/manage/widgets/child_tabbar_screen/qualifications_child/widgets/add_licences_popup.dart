@@ -125,6 +125,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,25 +213,28 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                                     );
                                   }
                                   //docNameadd = snapshot.data![0].docName;
-                                  return CICCDropdown(
-                                    // width: 200,
-                                      width: MediaQuery.of(context).size.width / 6,
-                                      initialValue: docNameadd,
-                                      onChange: (val){
-                                        for(var a in snapshot.data!){
-                                          if(a.docName == val){
-                                            docType = a.docName;
-                                            docNameadd = docType;
-                                            setState(() {
-                                              errorStates["document"] = val.isEmpty;
-                                            });
-                                            //docMetaId = docType;
+                                  return StatefulBuilder(
+                                    builder: (BuildContext context, void Function(void Function()) setState) { return CICCDropdown(
+                                      // width: 200,
+                                        width: MediaQuery.of(context).size.width / 6,
+                                        initialValue: docNameadd,
+                                        onChange: (val){
+                                          for(var a in snapshot.data!){
+                                            if(a.docName == val){
+                                              docType = a.docName;
+                                              docNameadd = docType;
+                                              setState(() {
+                                                errorStates["document"] = val.isEmpty;
+                                              });
+                                              //docMetaId = docType;
+                                            }
                                           }
-                                        }
-                                        print(":::${docType}");
-                                        // print(":::<>${docMetaId}");
-                                      },
-                                      items:dropDownMenuItems
+                                          print(":::${docType}");
+                                          // print(":::<>${docMetaId}");
+                                        },
+                                        items:dropDownMenuItems
+                                    );  },
+
                                   );
                                 }else{
                                   return SizedBox();
@@ -254,64 +258,74 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                     width: 20,
                   ),
                   ///upload
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomIconButton(
-                        icon: Icons.file_upload_outlined,
-                        text: 'Upload License',
-                        onPressed: () async {
-                          FilePickerResult? result =
-                          await FilePicker.platform.pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: ['pdf'],
-                          );
-                          if (result != null) {
-                            setState(() {
-                              pickedFileName = result.files.first.name;
-                              pickedFile = result.files.first.bytes;
-                              isFilePicked = true;
-                              errorStates["pickFile"] = pickedFileName.isEmpty;
-
-                            });
-
-                            print('File picked: $pickedFileName');
-                          } else {
-                            // User canceled the picker
-                          }
-                        },
-                      ),
-                      errorStates["pickFile"]! ?
-                      Padding(
-                        padding: const EdgeInsets.only(top: 2.0),
-                        child: Text(
-                          'Please Upload License',
-                          style: TextStyle(
-                            color: ColorManager.red,
-                            fontSize: FontSize.s10,
+                  StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) { return Row(
+                      children: [
+                        pickedFileName == ''
+                            ? const Offstage()
+                            : Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 30),
+                            child: Text(
+                              pickedFileName,
+                              style: CustomTextStylesCommon.commonStyle(
+                                  fontSize: FontSize.s10,
+                                  color: ColorManager.mediumgrey),
+                            ),
                           ),
                         ),
-                      ):SizedBox(height:11)
-                    ],
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomIconButton(
+                              icon: Icons.file_upload_outlined,
+                              text: ' Upload License',
+                              onPressed: () async {
+                                FilePickerResult? result =
+                                await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['pdf'],
+                                );
+                                if (result != null) {
+                                  setState(() {
+                                    pickedFileName = result.files.first.name;
+                                    pickedFile = result.files.first.bytes;
+                                    isFilePicked = true;
+                                    errorStates["pickFile"] = pickedFileName.isEmpty;
+
+                                  });
+
+                                  print('File picked: $pickedFileName');
+                                } else {
+                                  // User canceled the picker
+                                }
+                              },
+                            ),
+                            errorStates["pickFile"]! ?
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4.0),
+                              child: Text(
+                                'Please Upload License',
+                                style: TextStyle(
+                                  color: ColorManager.red,
+                                  fontSize: FontSize.s10,
+                                ),
+                              ),
+                            ):Padding(
+                              padding: const EdgeInsets.only(top: 4.0),
+                              child: SizedBox(height:13),
+                            )
+                          ],
+                        ),
+                      ],
+                    );  },
+
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 2),
-            pickedFileName == ''
-                ? const SizedBox(height:11)
-                : Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: Text(
-                  pickedFileName,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: FontSize.s10,
-                      color: ColorManager.mediumgrey),
-                ),
-              ),
-            ),
+
             SizedBox(height: MediaQuery.of(context).size.height / 22),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -762,6 +776,7 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -789,46 +804,56 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
                     width: 20,
                   ),
                   ///upload
-                  CustomIconButton(
-                    icon: Icons.file_upload_outlined,
-                    text: 'Upload License',
-                    onPressed: () async {
-                      FilePickerResult? result =
-                      await FilePicker.platform.pickFiles(
-                        type: FileType.custom,
-                        allowedExtensions: ['pdf'],
-                      );
-                      if (result != null) {
-                        setState(() {
-                          pickedFileName = result.files.first.name;
-                          pickedFile = result.files.first.bytes;
-                          isFilePicked = true;
-                        });
+                  Row(
+                    children: [
+                      pickedFileName == null
+                          ? const SizedBox(height:11)
+                          : Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 30),
+                          child: Text(
+                            pickedFileName!,
+                            style: CustomTextStylesCommon.commonStyle(
+                                fontSize: FontSize.s10,
+                                color: ColorManager.mediumgrey),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomIconButton(
+                            icon: Icons.file_upload_outlined,
+                            text: 'Upload License',
+                            onPressed: () async {
+                              FilePickerResult? result =
+                              await FilePicker.platform.pickFiles(
+                                type: FileType.custom,
+                                allowedExtensions: ['pdf'],
+                              );
+                              if (result != null) {
+                                setState(() {
+                                  pickedFileName = result.files.first.name;
+                                  pickedFile = result.files.first.bytes;
+                                  isFilePicked = true;
+                                });
 
-                        print('File picked: $pickedFileName');
-                      } else {
-                        // User canceled the picker
-                      }
-                    },
+                                print('File picked: $pickedFileName');
+                              } else {
+                                // User canceled the picker
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 5),
-            pickedFileName == null
-                ? const SizedBox(height:11)
-                : Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: Text(
-                  pickedFileName!,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: FontSize.s10,
-                      color: ColorManager.mediumgrey),
-                ),
-              ),
-            ),
+            //SizedBox(height: 5),
+
             SizedBox(height: MediaQuery.of(context).size.height / 22),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

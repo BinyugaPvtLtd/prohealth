@@ -209,44 +209,60 @@ class ManageEmpDocWidget extends StatelessWidget {
               const SizedBox(height: AppSize.s30),
               Expanded(
                 flex: 10,
+                child: Container(
+                height: MediaQuery.of(context).size.height / 3.5,
+                decoration: BoxDecoration(
+                color: Color(0xFFF2F9FC),
+                borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                ),
+                ),
                 child: Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF2F9FC),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorManager.faintGrey,
-                            blurRadius: 2,
-                            spreadRadius: -2,
-                            offset: Offset(0, -4),
-                          ),
-                        ],
-                      ),
+                children: [
+                // Inner shadow effect at the top
+                Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                height: 8, // Adjust the height of the shadow effect
+                decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                ),
+                gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                Colors.black.withOpacity(0.2), // Darker at top
+                Colors.transparent, // Fades out
+                ],
+                ),
+                ),
+                ),
+                ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: AppPadding.p20,
+                        right: AppPadding.p20,
+                        top: AppPadding.p20),
+                    child: PageView(
+                      controller: managePageController,
+                      onPageChanged: (index) {
+                        provider.selectButton(index);
+                      },
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: List.generate(7, (index) {
+                        return ChangeNotifierProvider(
+                            create: (_) => HealthEmpDocProvider(metaDocID: _getDocIdForTab(index)),
+                            child: HealthEmpDoc(metaDocID: _getDocIdForTab(index)));
+                      }),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: AppPadding.p20,
-                          right: AppPadding.p20,
-                          top: AppPadding.p20),
-                      child: PageView(
-                        controller: managePageController,
-                        onPageChanged: (index) {
-                          provider.selectButton(index);
-                        },
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: List.generate(7, (index) {
-                          return ChangeNotifierProvider(
-                              create: (_) => HealthEmpDocProvider(metaDocID: _getDocIdForTab(index)),
-                              child: HealthEmpDoc(metaDocID: _getDocIdForTab(index)));
-                        }),
-                      ),
-                    ),
-                  ],
+                  ),
+                ],
+                ),
                 ),
               ),
             ],

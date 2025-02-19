@@ -537,27 +537,15 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                               fontWeight: FontWeight.w500,
                                               color: ColorManager.mediumgrey,
                                             ),
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(15))),
-                                            suffixIcon: Icon(
-                                              Icons.search,
-                                              size: 18,
+                                            border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                                            suffixIcon: Padding(
+                                              padding: const EdgeInsets.only(right:10.0),
+                                              child: Icon(
+                                                Icons.search,
+                                                size: IconSize.I18,
+                                              ),
                                             ),
-                                            // InkWell(
-                                            //   splashColor: Colors.transparent,
-                                            //   highlightColor: Colors.transparent,
-                                            //   hoverColor: Colors.transparent,
-                                            //   child: Center(
-                                            //     child: Icon(
-                                            //       Icons.search,
-                                            //       size: 18,
-                                            //     ),
-                                            //   ),
-                                            //   onTap: () {},
-                                            // ),
-                                            contentPadding: EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 6)),
+                                            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 6)),
                                       ),
                                     )),
                                 SizedBox(
@@ -711,29 +699,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 ),
                                                               ],
                                                             ),
-                                                            // Row(
-                                                            //   children: [
-                                                            //     Center(
-                                                            //       child:
-                                                            //           PatientCustomDropDown(
-                                                            //         items: [
-                                                            //           'Expired',
-                                                            //           'About to Expire',
-                                                            //           'Upto date'
-                                                            //         ],
-                                                            //         labelText: 'License Status',
-                                                            //         value: 'Expired',
-                                                            //         onChanged: (value) {
-                                                            //           setState(() {
-                                                            //             dropdownLicenseStatus = value!;
-                                                            //             isDropdownLicenseStatus = true;
-                                                            //             print("License Status :: ${dropdownLicenseStatus}");
-                                                            //           });
-                                                            //         },
-                                                            //       ),
-                                                            //     ),
-                                                            //   ],
-                                                            // ),
                                                             zoneDropDown: FutureBuilder<List<SortByZoneData>>(
                                                               future:
                                                               PayRateZoneDropdown(
@@ -787,48 +752,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                        }
                                                                      },
                                                                    ) ,
-                                                                    // child: DropdownButtonFormField<String>(
-                                                                    //     focusColor: Colors
-                                                                    //         .transparent,
-                                                                    //     icon:
-                                                                    //     const Icon(
-                                                                    //       Icons
-                                                                    //           .arrow_drop_down_sharp,
-                                                                    //       color: Color(
-                                                                    //           0xff686464),
-                                                                    //     ),
-                                                                    //     decoration: const InputDecoration
-                                                                    //         .collapsed(
-                                                                    //         hintText:
-                                                                    //         ''),
-                                                                    //     items:
-                                                                    //     dropDownList,
-                                                                    //     onChanged:
-                                                                    //         (newValue) {
-                                                                    //       for (var a
-                                                                    //       in snapshot
-                                                                    //           .data!) {
-                                                                    //         if (a.zoneName ==
-                                                                    //             newValue) {
-                                                                    //           zoneId =
-                                                                    //               a.zoneId;
-                                                                    //           selectedZoneId =
-                                                                    //               zoneId;
-                                                                    //           isZoneSelected =
-                                                                    //           true;
-                                                                    //           print(
-                                                                    //               "Zone id :: ${selectedZoneId}");
-                                                                    //           //empTypeId = docType;
-                                                                    //         }
-                                                                    //       }
-                                                                    //     },
-                                                                    //     value:
-                                                                    //     dropDownList[
-                                                                    //     0]
-                                                                    //         .value,
-                                                                    //     style: DropdownItemStyle
-                                                                    //         .customTextStyle(
-                                                                    //         context)),
                                                                   );
                                                                 } else {
                                                                   return CustomDropdownTextField(
@@ -841,7 +764,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 }
                                                               },
                                                             ),
-                                                              onSearch: () {
+                                                            onSearch: () {
                                                               setState(() {
                                                                 _searchByFilter(
                                                                     zoneId:
@@ -861,12 +784,15 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     availabilityName:
                                                                         dropdownAvailability);
                                                               });
-                                                            }, clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0) ? CustomButtonTransparentSM(text: 'Clear', onPressed: (){
+                                                            },
+                                                            clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
+                                                                ? CustomButtonTransparentSM(text: 'Clear', onPressed: (){
                                                             providerState.clearFilter();
                                                             setState((){
                                                               searchSelect = false;
                                                             });
-                                                          },): Offstage(),
+                                                          },)
+                                                                : SizedBox(height: AppSize.s30,),
                                                           );
                                                         }
                                                       );

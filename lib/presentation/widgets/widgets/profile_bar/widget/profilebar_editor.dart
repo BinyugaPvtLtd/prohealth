@@ -128,13 +128,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     bool allFilled = _areAllFieldsFilled();
 
     if (_isButtonEnabled.value != allFilled) {
-      print("🔄 Updating button state: $allFilled");
+    //  print("🔄 Updating button state: $allFilled");
       _isButtonEnabled.value = allFilled;
     }
   }
 
   bool _areAllFieldsFilled() {
-    print("Checking if all fields are filled...");
+   // print("Checking if all fields are filled...");
 
     bool allFilled = nameController.text.isNotEmpty &&
         addressController.text.isNotEmpty &&
@@ -145,21 +145,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         personalEmailController.text.isNotEmpty &&
         workEmailController.text.isNotEmpty &&
         summaryController.text.isNotEmpty;
-
-    if (!allFilled) {
-      print("Some fields are empty:");
-      if (nameController.text.isEmpty) print("nameController is empty");
-      if (addressController.text.isEmpty) print("addressController is empty");
-      if (ageController.text.isEmpty) print("ageController is empty");
-      if (ssNController.text.isEmpty) print("ssNController is empty");
-      if (workPhoneController.text.isEmpty) print("workphonecontroller is empty");
-      if (phoneNController.text.isEmpty) print("phoneNController is empty");
-      if (personalEmailController.text.isEmpty) print("personalEmailController is empty");
-      if (workEmailController.text.isEmpty) print("workEmailController is empty");
-      if (summaryController.text.isEmpty) print("summaryController is empty");
-    } else {
-      print("✅ All fields are filled!");
-    }
+    //
+    // if (!allFilled) {
+    //   print("Some fields are empty:");
+    //   if (nameController.text.isEmpty) print("nameController is empty");
+    //   if (addressController.text.isEmpty) print("addressController is empty");
+    //   if (ageController.text.isEmpty) print("ageController is empty");
+    //   if (ssNController.text.isEmpty) print("ssNController is empty");
+    //   if (workPhoneController.text.isEmpty) print("workphonecontroller is empty");
+    //   if (phoneNController.text.isEmpty) print("phoneNController is empty");
+    //   if (personalEmailController.text.isEmpty) print("personalEmailController is empty");
+    //   if (workEmailController.text.isEmpty) print("workEmailController is empty");
+    //   if (summaryController.text.isEmpty) print("summaryController is empty");
+    // } else {
+    //   print("✅ All fields are filled!");
+    // }
 
     return allFilled;
   }
@@ -291,6 +291,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   children: [Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
+                                      ///
+                                      ///
+                                      ///
+                                      ///
+                                      ///
                                       Padding(
                                         padding: const EdgeInsets.only(right: 23,top:10),
                                         child: Row(
@@ -381,12 +386,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                   print("Result::: ${result}");
 
                                                                   try {
-                                                                    print('File picked: ${fileName}');
                                                                     setState(() {
                                                                       pickedFilePath = true;
                                                                       fileName = result.files.first.name;
                                                                       finalPath = result.files.first.bytes; // Store the picked file bytes
                                                                     });
+                                                                    print('File picked: ${fileName}');
                                                                   } catch (e) {
                                                                     print(e);
                                                                   }
@@ -435,23 +440,26 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                             isLoading = true;
                                                           });
                                                           try {
-                                                            print("name ${nameController.text}" );
-                                                            print("empID ${selectedEmployeeTypeId}" );
-                                                            print("SSN ${ssNController.text}" );
-                                                            print("PhoneN ${phoneNController.text}" );
-                                                            print("workPhone ${workPhoneController.text}" );
-                                                            print("personal email ${personalEmailController.text}" );
-                                                            print("work email ${workEmailController.text}" );
-                                                            print("address ${addressController.text}" );
-                                                            print("summary ${summaryController.text}" );
-
-                                                            print("dept ${selectedDeptId}" );
-                                                            print("office id ${selectedOfficeId}" );
-                                                            print("service id ${selectedServiceId}" );
-                                                            print("gender id ${selectedGenderId}" );
-                                                            print("age ${ageController.text}" );
+                                                            // print("name ${nameController.text}" );
+                                                            // print("empID ${selectedEmployeeTypeId}" );
+                                                            // print("SSN ${ssNController.text}" );
+                                                            // print("PhoneN ${phoneNController.text}" );
+                                                            // print("workPhone ${workPhoneController.text}" );
+                                                            // print("personal email ${personalEmailController.text}" );
+                                                            // print("work email ${workEmailController.text}" );
+                                                            // print("address ${addressController.text}" );
+                                                            // print("summary ${summaryController.text}" );
+                                                            //
+                                                            // print("dept ${selectedDeptId}" );
+                                                            // print("office id ${selectedOfficeId}" );
+                                                            // print("service id ${selectedServiceId}" );
+                                                            // print("gender id ${selectedGenderId}" );
+                                                            // print("age ${ageController.text}" );
                                                             var response = await patchEmployeeEdit(
                                                                 context: dialogContext,
+                                                                filePicked: pickedFilePath,
+                                                                pickedFilepath: finalPath,
+                                                                pickedFileName: fileName,
                                                                 employeeId: widget.employeeId,
                                                                 code: profileData.code,
                                                                 userId: profileData.userId,
@@ -504,30 +512,60 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                 colorCode: selectedEmployeeColor!,
                                                                 departmentName: selectedDeptName!
                                                             );
-                                                            if(response.statusCode == 200 || response.statusCode == 201){
-                                                              // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
-                                                              widget.onCancel();
-                                                              showDialog(
-                                                                context: dialogContext,
-                                                                builder: (BuildContext context) {
-                                                                  return const AddSuccessPopup(
-                                                                    message: 'Employee updated successfully',
+                                                            if (response.statusCode == 200 || response.statusCode == 201) {
+                                                              print("File Value ::::::::::::: ${pickedFilePath}");
+                                                              // if (pickedFilePath && finalPath != null) {
+                                                              //   print("Uploading file: $finalPath for employeeId: ${widget.employeeId}");
+                                                              //   await UploadEmployeePhoto(
+                                                              //     context: dialogContext,
+                                                              //     documentFile: finalPath,
+                                                              //     employeeId: widget.employeeId,
+                                                              //   );
+                                                              //   print("File upload completed.");
+                                                              // }
+                                                                if(context.mounted){
+                                                                  showDialog(
+                                                                  context: context,
+                                                                  builder: (BuildContext context) {
+                                                                    return const AddSuccessPopup(message: 'Employee updated successfully');
+                                                                  },
                                                                   );
-                                                                },
-                                                              );
-                                                              ///
-                                                              //   if (patchCoverage.success) {
-                                                              //     print("Coverage added successfully");
-                                                              //   } else {
-                                                              //     print("Failed To Add Coverage........");
-                                                              //   }
-                                                              if(pickedFilePath){
-                                                                var uploadResponse = await UploadEmployeePhoto(context: dialogContext,documentFile: finalPath,employeeId: widget.employeeId);
-                                                              }
-                                                              else{
-                                                                print('Document Error');
-                                                              }
-                                                            }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                                }
+                                                                widget.onCancel();
+                                                              //}
+
+                                                            }
+                                                            //
+                                                            // if(response.statusCode == 200 || response.statusCode == 201){
+                                                            //   // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
+                                                            //   if(dialogContext.mounted) {
+                                                            //     widget
+                                                            //         .onCancel();
+                                                            //     showDialog(
+                                                            //       context: dialogContext,
+                                                            //       builder: (
+                                                            //           BuildContext context) {
+                                                            //         return const AddSuccessPopup(
+                                                            //           message: 'Employee updated successfully',
+                                                            //         );
+                                                            //       },
+                                                            //     );
+                                                            //     print(
+                                                            //        "File Value ::::::::::::: ${pickedFilePath}");
+                                                            //     if (pickedFilePath) {
+                                                            //       var uploadResponse = await UploadEmployeePhoto(
+                                                            //           context: dialogContext,
+                                                            //           documentFile: finalPath,
+                                                            //           employeeId: widget
+                                                            //               .employeeId);
+                                                            //     }
+                                                            //     else {
+                                                            //       print(
+                                                            //           'Document Error');
+                                                            //     }
+                                                            //   }
+                                                            // }
+                                                            else if(response.statusCode == 400 || response.statusCode == 404){
                                                               // Navigator.pop(context);
                                                               showDialog(
                                                                 context: dialogContext,

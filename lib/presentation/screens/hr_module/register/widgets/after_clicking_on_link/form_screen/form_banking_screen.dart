@@ -173,7 +173,7 @@ class _BankingScreenState extends State<BankingScreen> {
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              color: Color(0xFFE6F7FF),
+              color: const Color(0xFFD7EEF9),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Center(
@@ -266,6 +266,7 @@ class _BankingScreenState extends State<BankingScreen> {
               style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
+                bool shouldSkipFinally = false;
                 try {
                   setState(() {
                     isLoading = true; // Start loading
@@ -319,6 +320,11 @@ class _BankingScreenState extends State<BankingScreen> {
                                 );
                               },
                             );
+                            setState(() {
+                              isLoading = false; // Stop loading
+                            });
+                            shouldSkipFinally = true;  // Set the flag to skip the finally block
+                            return;
                             // Print values before calling the function
 
                           } else {
@@ -358,10 +364,12 @@ class _BankingScreenState extends State<BankingScreen> {
                     }
                   }
                 } finally {
+                  if (!shouldSkipFinally) {
                   setState(() {
                     isLoading = false; // Stop loading
                   });
-                  widget.onSave(); // Call the onSave callback
+                  widget.onSave();
+    }// Call the onSave callback
                 }
               },
               child: Text(

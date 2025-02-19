@@ -103,7 +103,7 @@ class AuthManager {
           path: AuthenticationRepository.getOtpMail, data: {"email": email});
       print("<<<>>>${response.statusCode}");
       if (response.statusCode == 201 || response.statusCode == 200) {
-        print(response.data);
+       // print("??????????????${response.data}");
         return ApiData(
             statusCode: response.statusCode!,
             success: true,

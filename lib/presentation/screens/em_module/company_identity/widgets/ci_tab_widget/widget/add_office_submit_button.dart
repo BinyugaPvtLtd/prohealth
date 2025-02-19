@@ -170,7 +170,9 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   @override
   Widget build(BuildContext context) {
     final locationProvider = Provider.of<LocationProvider>(context);
-
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+     locationProvider.clearAllData();
+    });
     return DialogueTemplate(
       width: AppSize.s800,
       height: AppSize.s650,

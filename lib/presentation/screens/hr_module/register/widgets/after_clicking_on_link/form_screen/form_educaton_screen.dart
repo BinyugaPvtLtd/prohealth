@@ -96,8 +96,9 @@ class _EducationScreenState extends State<EducationScreen> {
 
 
 
-
   Future<void> processEducationForms() async {
+    bool shouldSkipFinally = false;  // Flag to track if we should skip the finally block
+
     try {
       setState(() {
         isLoading = true;
@@ -113,7 +114,7 @@ class _EducationScreenState extends State<EducationScreen> {
 
             // Check if the file is too large
             if (st.finalPath != null && st.finalPath!.isNotEmpty && !st.fileAbove20Mb) {
-              // Show error message and do not save data if file is too large
+              // Show error message and stop the navigation/processing
               await showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -122,14 +123,17 @@ class _EducationScreenState extends State<EducationScreen> {
                   );
                 },
               );
-              // Stop further execution (no data saved)
+
+              // Stop further execution (no data saved) and return early
               setState(() {
                 isLoading = false;
               });
-              return; // Exit early to prevent saving data
+
+              shouldSkipFinally = true;  // Set flag to true to skip finally block
+              return;  // Exit early, preventing any further actions or navigation
             }
 
-            // Save form data
+            // Save form data only if file is within the size limit
             ApiDataRegister response = await FormEducationManager()
                 .posteducationscreen(
               context,
@@ -184,10 +188,13 @@ class _EducationScreenState extends State<EducationScreen> {
       // Wait for all tasks to complete
       await Future.wait(tasks);
     } finally {
-      setState(() {
-        isLoading = false;
-      });
-      widget.onSave();
+      // Only execute the finally block if the file size was not too large
+      if (!shouldSkipFinally) {
+        setState(() {
+          isLoading = false;
+        });
+        widget.onSave();
+      }
     }
   }
 
@@ -196,99 +203,77 @@ class _EducationScreenState extends State<EducationScreen> {
 
 
 
-
-  // Future<void> processEducationForms() async{
-  //   try{
+  // Future<void> processEducationForms() async {
+  //   try {
   //     setState(() {
   //       isLoading = true;
   //     });
+  //
   //     List<Future> tasks = [];
   //     for (var key in educationFormKeys) {
   //       final st = key.currentState!;
   //
   //       try {
-  //
-  //
   //         // Only execute the code if st.isPrefill is false
-  //         tasks.add(Future(()async {
-  //           if (st.isPrefill == false) {
+  //         if (st.isPrefill == false) {
   //
-  //           //  Check if the file is selected
-  //             if (st.finalPath == null || st.finalPath!.isEmpty) {
-  //               // Show a message asking the user to select a file
-  //               await showDialog(
-  //                 context: context,
-  //                 builder: (BuildContext context) {
-  //                   return const AddFailePopup(
-  //                     message: 'Please Select A File',
-  //                   );
-  //                 },
-  //               );
-  //               setState(() {
-  //                 isLoading = false;
-  //               });
-  //               return; // Stop further execution if no file is selected
-  //             }
-  //             if(st.fileAbove20Mb) {
-  //               // Call the posteducationscreen API regardless of whether the file is selected
-  //               ApiDataRegister response = await FormEducationManager()
-  //                   .posteducationscreen(
-  //                 context,
-  //                 st.widget.employeeID,
-  //                 st.graduatetype.toString(),
-  //                 st.selectedDegree.toString(),
-  //                 st.majorsubject.text,
-  //                 st.city.text,
-  //                 st.collegeuniversity.text,
-  //                 st.phone.text,
-  //                 st.state.text,
-  //                 "USA",
-  //                 "2024-08-09",
-  //               );
-  //
-  //               // If the file is selected, upload it
-  //               await uploadEducationDocument(
-  //                 context,
-  //                 response.educationId!,
-  //                 st.finalPath,
-  //                 st.fileName!,
-  //               );
-  //
-  //               // If the API call is successful
-  //               if (response.statusCode == 200 ||
-  //                   response.statusCode == 201) {
-  //                 await showDialog(
-  //                   context: context,
-  //                   builder: (BuildContext context) {
-  //                     return AddSuccessPopup(
-  //                       message: 'Education Data Saved',
-  //                     );
-  //                   },
+  //           // Check if the file is too large
+  //           if (st.finalPath != null && st.finalPath!.isNotEmpty && !st.fileAbove20Mb) {
+  //             // Show error message and do not save data if file is too large
+  //             await showDialog(
+  //               context: context,
+  //               builder: (BuildContext context) {
+  //                 return AddErrorPopup(
+  //                   message: 'File is too large!',
   //                 );
-  //
-  //                 await  _loadEducationData();
-  //
-  //               }
-  //             }
-  //             else{
-  //               await showDialog(
-  //                 context: context,
-  //                 builder: (BuildContext context) {
-  //                   return AddErrorPopup(
-  //                     message: 'File is too large!',
-  //                   );
-  //                 },
-  //               );
-  //             }
-  //
+  //               },
+  //             );
+  //             // Stop further execution (no data saved)
+  //             setState(() {
+  //               isLoading = false;
+  //             });
+  //             return; // Exit early to prevent saving data
   //           }
-  //         }));
-  //         // Wait for all tasks to complete
-  //         await Future.wait(tasks);
   //
-  //         // Call widget.save() after all tasks are completed
+  //           // Save form data
+  //           ApiDataRegister response = await FormEducationManager()
+  //               .posteducationscreen(
+  //             context,
+  //             st.widget.employeeID,
+  //             st.graduatetype.toString(),
+  //             st.selectedDegree.toString(),
+  //             st.majorsubject.text,
+  //             st.city.text,
+  //             st.collegeuniversity.text,
+  //             st.phone.text,
+  //             st.state.text,
+  //             "USA",
+  //             "2024-08-09",
+  //           );
   //
+  //           // If a file is selected and within the size limit, upload it
+  //           if (st.finalPath != null && st.finalPath!.isNotEmpty) {
+  //             await uploadEducationDocument(
+  //               context,
+  //               response.educationId!,
+  //               st.finalPath,
+  //               st.fileName!,
+  //             );
+  //           }
   //
+  //           // If the API call is successful, show success message
+  //           if (response.statusCode == 200 || response.statusCode == 201) {
+  //             await showDialog(
+  //               context: context,
+  //               builder: (BuildContext context) {
+  //                 return AddSuccessPopup(
+  //                   message: 'Education Data Saved',
+  //                 );
+  //               },
+  //             );
+  //             await _loadEducationData();
+  //           }
+  //         }
   //       } catch (e) {
   //         // If an error occurs, show failure dialog
   //         await showDialog(
@@ -299,27 +284,25 @@ class _EducationScreenState extends State<EducationScreen> {
   //             );
   //           },
   //         );
-  //         // await showDialog(
-  //         //   context: context,
-  //         //   builder: (BuildContext context) => const FourNotFourPopup(),
-  //         // );
   //       }
-  //
-  //       // Close the loading state and call onSave
-  //       // setState(() {
-  //       //   isLoading = false;
-  //       // });
-  //
   //     }
-  //   }finally{
+  //
+  //     // Wait for all tasks to complete
+  //     await Future.wait(tasks);
+  //   } finally {
   //     setState(() {
   //       isLoading = false;
   //     });
-  //      widget.onSave();
+  //     widget.onSave();
   //   }
-  //
-  //
   // }
+
+
+
+
+
+
+
 
   void addEducationForm() {
     setState(() {
@@ -348,7 +331,7 @@ class _EducationScreenState extends State<EducationScreen> {
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              color: Color(0xFFE6F7FF),
+              color: const Color(0xFFD7EEF9),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Center(

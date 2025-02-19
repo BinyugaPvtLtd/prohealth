@@ -14,6 +14,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 
 class ClinicalLicensesDoc extends StatelessWidget {
@@ -65,20 +66,21 @@ class ClinicalLicensesDoc extends StatelessWidget {
             SizedBox(height: 5),
             Container(
               padding: EdgeInsets.only(top: 5,bottom:5, left: 10,right: 100),
-              margin: EdgeInsets.symmetric(horizontal: 40),
+              margin: EdgeInsets.symmetric(horizontal: 60),
               decoration: BoxDecoration(
                 color:Colors.white,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(4),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.25),
-                    //spreadRadius: 1,
+                    color: Color(0xff000000)
+                        .withOpacity(0.25),
+                    spreadRadius: 0,
                     blurRadius: 4,
-                    offset: Offset(0, 5),
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
-              height: 65,
+              height:  AppSize.s65,
               child: StreamBuilder<List<ClinicalLicenseDataModel>>(
                 stream: drivingLicenseController.stream,
                 builder: (context,snapshot) {
@@ -133,26 +135,33 @@ class ClinicalLicensesDoc extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Container(
-                                width: 62,
-                                height: 45,
-                                padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(width: 2,
-                                      color: ColorManager.faintGrey),
-                                ),
-                                child: SvgPicture.asset('images/doc_vector.svg')),
+                            SizedBox(width: AppSize.s20,),
+                            GestureDetector(
+                              onTap:()async{
+                                print("FileExtension:${fileExtension}");
+                                await downloadFile(fileUrl);
+                              },
+                              child: Container(
+                                  width: 62,
+                                  height: 45,
+                                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(width: 2,
+                                        color: ColorManager.faintGrey),
+                                  ),
+                                  child: SvgPicture.asset('images/doc_vector.svg')),
+                            ),
                             SizedBox(width: 10),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Driving License',
-                                    style:AknowledgementStyleConst.customTextStyle(context)),
-                                SizedBox(height: 5,),
+                                    style:DocDefineTableDataID.customTextStyle(context)),
+                                SizedBox(height: AppSize.s8,),
                                 Text("Expiry Date: ${snapshot.data![0].expDate}",
-                                    style: AknowledgementStyleNormal.customTextStyle(context)),
+                                    style: DocDefineTableData.customTextStyle(context)),
                               ],
                             )
                           ],
@@ -173,9 +182,11 @@ class ClinicalLicensesDoc extends StatelessWidget {
                                 downloadFile(fileUrl);
                               },
                               icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
-                              iconSize: 20,),
+                              iconSize: IconSize.I22,),
+                            SizedBox(width: AppSize.s10,),
                             drivingLicense.url == "--"?Offstage() : PdfDownloadButton(apiUrl: drivingLicense.url, documentName: drivingLicense.fileName,),
                             ///
+                            SizedBox(width: AppSize.s10,),
                             IconButton(
                               onPressed: () {
                                 showDialog(
@@ -244,7 +255,8 @@ class ClinicalLicensesDoc extends StatelessWidget {
                               Colors.transparent,
                               hoverColor:
                               Colors.transparent,
-                              iconSize: 20,),
+                              iconSize: IconSize.I22,),
+                            SizedBox(width: AppSize.s10,),
                             IconButton(
                               onPressed: () async{
                                 await showDialog(context: context,
@@ -287,7 +299,7 @@ class ClinicalLicensesDoc extends StatelessWidget {
                               Colors.transparent,
                               hoverColor:
                               Colors.transparent,
-                              iconSize: 20,),
+                              iconSize: IconSize.I22,),
                           ],)
                       ],
                     );
@@ -307,20 +319,21 @@ class ClinicalLicensesDoc extends StatelessWidget {
             SizedBox(height: 5),
             Container(
               padding: EdgeInsets.only(top: 5,bottom:5, left: 10,right: 100),
-              margin: EdgeInsets.symmetric(horizontal: 40),
+              margin: EdgeInsets.symmetric(horizontal: 60),
               decoration: BoxDecoration(
                 color:Colors.white,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(4),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.25),
-                    //spreadRadius: 1,
+                    color: Color(0xff000000)
+                        .withOpacity(0.25),
+                    spreadRadius: 0,
                     blurRadius: 4,
-                    offset: Offset(0, 5),
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
-              height: 65,
+              height: AppSize.s65,
               child: StreamBuilder<List<PractitionerLicenseDataModel>>(
                 stream: practitionerLicenseController.stream,
                 builder: (context,snapshot) {
@@ -376,25 +389,33 @@ class ClinicalLicensesDoc extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Container(
-                                width: 62,
-                                height: 45,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(width: 2,color:ColorManager.faintGrey),
-                                ),
-                                child: Image.asset('images/Vector.png')),
+                            SizedBox(width: AppSize.s20,),
+                            GestureDetector(
+                              onTap:()async{
+                                print("FileExtension:${fileExtension}");
+                                await downloadFile(fileUrl);
+                              },
+                              child: Container(
+                                  width: 62,
+                                  height: 45,
+                                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(width: 2,
+                                        color: ColorManager.faintGrey),
+                                  ),
+                                  child: SvgPicture.asset('images/doc_vector.svg')),
+                            ),
                             SizedBox(width: 10),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Practitioner License',
-                                    style:AknowledgementStyleConst.customTextStyle(context)),
-                                SizedBox(height: 5,),
+                                    style:DocDefineTableDataID.customTextStyle(context)),
+                                SizedBox(height: AppSize.s8,),
                                 Text("Expiry Date: ${snapshot.data![0].expDate}",
-                                    style: AknowledgementStyleNormal.customTextStyle(context)),
+                                    style: DocDefineTableData.customTextStyle(context)),
                               ],
                             )
                           ],
@@ -415,9 +436,11 @@ class ClinicalLicensesDoc extends StatelessWidget {
                                 downloadFile(fileUrl);
                               },
                               icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
-                              iconSize: 20,),
+                              iconSize: IconSize.I22,),
+                            SizedBox(width: AppSize.s10,),
                             practionerlicense.url == "--"?Offstage() :  PdfDownloadButton(apiUrl: practionerlicense.url, documentName: practionerlicense.fileName,),
                             ///
+                            SizedBox(width: AppSize.s10,),
                             IconButton(
                               onPressed: () {
                                 showDialog(
@@ -484,7 +507,8 @@ class ClinicalLicensesDoc extends StatelessWidget {
                               Colors.transparent,
                               hoverColor:
                               Colors.transparent,
-                              iconSize: 20,),
+                              iconSize: IconSize.I22,),
+                            SizedBox(width: AppSize.s10,),
                             IconButton(
                               onPressed: () async{
                                 await showDialog(context: context,
@@ -528,7 +552,7 @@ class ClinicalLicensesDoc extends StatelessWidget {
                               Colors.transparent,
                               hoverColor:
                               Colors.transparent,
-                              iconSize: 20,),
+                              iconSize: IconSize.I22,),
                           ],)
                       ],
                     );

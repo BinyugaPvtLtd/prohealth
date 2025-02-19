@@ -208,6 +208,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                     SizedBox(height: AppSize.s20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
@@ -234,23 +235,20 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
+                                SizedBox(
                                   width: AppSize.s120,
+                                  height: 30,
                                   child: ElevatedButton.icon(
                                     onPressed: _handleFileUpload,
                                     icon: Icon(Icons.file_upload_outlined, color: Colors.white),
                                     label: Text(
-                                      'Upload',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w800,
-                                      ),
+                                      '  Upload',
+                                      style: BlueButtonTextConst.customTextStyle(context),
                                     ),
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: ColorManager.bluebottom,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12.0),
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
                                     ),
                                   ),
@@ -991,6 +989,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   Widget _buildHeaderWithUpload() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
@@ -1014,21 +1013,21 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                 ),),
               ),
             ),
-            ElevatedButton.icon(
-              onPressed: _handleFileUpload,
-              icon: Icon(Icons.file_upload_outlined, color: Colors.white),
-              label: Text(
-                'Upload',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
+            SizedBox(
+              width: AppSize.s120,
+              height: 30,
+              child: ElevatedButton.icon(
+                onPressed: _handleFileUpload,
+                icon: Icon(Icons.file_upload_outlined, color: Colors.white),
+                label: Text(
+                  '  Upload',
+                  style: BlueButtonTextConst.customTextStyle(context),
                 ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF27A3E0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF27A3E0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                 ),
               ),
             ),

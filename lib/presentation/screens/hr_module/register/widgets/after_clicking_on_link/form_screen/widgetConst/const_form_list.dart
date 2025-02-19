@@ -64,8 +64,8 @@ class DefineFormList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text('View',style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w600,
+                          fontSize: FontSize.s14,
                           color: Color(0xff1696C8),
                         ),),
                         SizedBox(width: 10,),
@@ -73,7 +73,7 @@ class DefineFormList extends StatelessWidget {
                           child: const Icon(
                             Icons.remove_red_eye_outlined,
                             color: Color(0xff1696C8),
-                            size: 20,
+                            size:IconSize.I20,
                           ),
                         ),]),
                 )),
@@ -103,8 +103,8 @@ class DefineFormList extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left:3),
                       child: Text('View',style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: FontSize.s12,
+                        fontWeight: FontWeight.w600,
+                        fontSize: FontSize.s14,
                         color: Color(0xff1696C8),
                       ),),
                     ),
@@ -113,7 +113,7 @@ class DefineFormList extends StatelessWidget {
                       child: const Icon(
                         Icons.remove_red_eye_outlined,
                         color: Color(0xff1696C8),
-                        size: 20,
+                        size: IconSize.I20,
                       ),
                     ),]),
               )),
@@ -136,10 +136,7 @@ class DefineFormList extends StatelessWidget {
                   child: ElevatedButton(
                                 onPressed: onSigned, // Button only shown if not signed
                                 child: Text('Sign',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: FontSize.s12,
-                                  color: ColorManager.white),
+                                style: BlueButtonTextConst.customTextStyle(context),
                                 ),),
                               ),
           ],
