@@ -803,6 +803,7 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
                     ],
                   ),
 
+
                   const SizedBox(
                     width: 20,
                   ),
