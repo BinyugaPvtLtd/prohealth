@@ -292,10 +292,6 @@ class _PopUpState extends State<ProfilePatientPopUp> {
   String? dropdownZone;
   String? dropdownLicenseStatus;
   String? dropdownAvailability;
-
-  // Example method to call the API
-
-
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
@@ -344,7 +340,6 @@ class _PopUpState extends State<ProfilePatientPopUp> {
               ),
               SizedBox(height: 5,),
               widget.licensesWidget,
-
               SizedBox(height: MediaQuery.of(context).size.height / 25),
               Row(
                 children: [
@@ -356,24 +351,27 @@ class _PopUpState extends State<ProfilePatientPopUp> {
               ),
               SizedBox(height: 5,),
               widget.avabilityWidget,
-
-              SizedBox(height: 5,),
-              widget.clearFilter
-
             ],
           ),
         )
 
 
     ],
-      bottomButtons:  CustomElevatedButton(
-        width: AppSize.s105,
-        height: AppSize.s30,
-        text: "Search",
-        onPressed: () async {
-          widget.onSearch();
-          Navigator.pop(context);
-        },
+      bottomButtons:  Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          widget.clearFilter,
+          SizedBox(width: 10,),
+          CustomElevatedButton(
+            width: AppSize.s105,
+            height: AppSize.s30,
+            text: "Search",
+            onPressed: () async {
+              widget.onSearch();
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
       title: 'Clinician Search Filter',
     );
