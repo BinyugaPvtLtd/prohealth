@@ -27,6 +27,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/manage/qualification_licenses.dart';
 import '../../custom_icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
@@ -59,7 +60,7 @@ class LicensesChildTabbar extends StatelessWidget {
     TextEditingController issuingOrganizationController = TextEditingController();
     TextEditingController countryController = TextEditingController();
     TextEditingController numberIDController = TextEditingController();
-    String docName ='Select';
+    String docName ='Select Document';
     String docNameadd ='Select';
     String docNameEdit ='';
     return Column(
@@ -289,9 +290,10 @@ class LicensesChildTabbar extends StatelessWidget {
                                                 if(snapshot.connectionState == ConnectionState.waiting){
                                                   return Container(
                                                     // width: 200,
-                                                    height: 30,
+                                                    height: AppSize.s30,
                                                     width: MediaQuery.of(context).size.width / 6,
-                                                    decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
+                                                    decoration: BoxDecoration(  border: Border.all(color: Colors.grey, width: 1),
+                                                        borderRadius: BorderRadius.circular(5)),
                                                   );
 
                                                 }
@@ -401,15 +403,15 @@ class LicensesChildTabbar extends StatelessWidget {
                         button: Align(
                           alignment:Alignment.centerRight,
                             child: snapshot.data![index].approved == null ? Text('Not Approved',style:TextStyle(
-                              fontSize: 12,
+                              fontSize: 13,
                               color: ColorManager.mediumgrey,
                               fontWeight: FontWeight.w600,
                             )):snapshot.data![index].approved == false ?Text('Rejected',style:TextStyle(
-                              fontSize: 12,
+                              fontSize: 13,
                               color: ColorManager.mediumgrey,
                               fontWeight: FontWeight.w600,
                             )) :Text('Approved',style:TextStyle(
-                              fontSize: 12,
+                              fontSize: 13,
                               color: ColorManager.blueprime,
                               fontWeight: FontWeight.w600,
                             ))

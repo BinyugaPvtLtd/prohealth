@@ -416,8 +416,8 @@ class EmploymentContainerConstant extends StatelessWidget {
                                 Align(
                                     alignment: Alignment.centerRight,
                                     child: snapshot.data![index].approved ==
-                                        null ? Text('', style: TextStyle(
-                                      fontSize: 12,
+                                        null ? Text('Not Approved', style: TextStyle(
+                                      fontSize: 13,
                                       color: ColorManager.mediumgrey,
                                       fontWeight: FontWeight.w600,
                                     )) : BorderIconButton(

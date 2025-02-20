@@ -255,7 +255,11 @@ class ReferencesChildTabbar extends StatelessWidget {
                             button: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                snapshot.data![index].approve == null ? SizedBox(height: 25,)
+                                snapshot.data![index].approve == null ?Text('Not Approved',style:TextStyle(
+                                  fontSize: 13,
+                                  color: ColorManager.mediumgrey,
+                                  fontWeight: FontWeight.w600,
+                                ))
                                     : BorderIconButton(
                                     iconData: Icons.edit_outlined,
                                     buttonText: 'Edit',
