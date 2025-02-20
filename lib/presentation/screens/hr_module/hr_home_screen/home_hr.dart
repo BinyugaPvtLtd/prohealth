@@ -583,16 +583,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                     builder:
                                                         (BuildContext context) {
                                                       return Consumer<HrSearchProviderManager>(
-                                                        builder: (context,providerState, child) {
+                                                        builder: (context,provider, child) {
                                                           return ProfilePatientPopUp(
                                                             officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
                                                               future: getCompanyOfficeList(context),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                if (snapshot
-                                                                        .connectionState ==
-                                                                    ConnectionState
-                                                                        .waiting) {
+                                                              builder: (context, snapshot) {
+                                                                if (snapshot.connectionState == ConnectionState.waiting) {
                                                                   return Container(
                                                                     //height: 31,
                                                                     width: 170,
@@ -600,7 +596,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     child:  CustomDropdownTextFieldwidh(
                                                                       //dropDownMenuList: dropDownList,
                                                                       items: ['Office'],
-                                                                      initialValue: providerState.officeText,
+                                                                      initialValue: provider.officeText,
                                                                       onChanged: (newValue) {
                                                                       },
                                                                     ),
@@ -617,19 +613,16 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                         value: i.name,
                                                                       ));
                                                                     }
-                                                                    // snapshot.data!
-                                                                    //     .map((zone) => zone.zoneName ?? '')
-                                                                    //     .toList();
                                                                     return Container(
                                                                       //height: 31,
                                                                       width: 170,
                                                                       child:  CustomDropdownTextFieldwidh(
                                                                         dropDownMenuList: dropDownList,
-                                                                        initialValue: providerState.officeText,
+                                                                        initialValue: provider.officeText,
                                                                         onChanged: (newValue) {for (var a
                                                                         in snapshot.data!) {
                                                                           if (a.name == newValue) {
-                                                                            providerState.officeTextChange(changeText: a.name);
+                                                                            provider.officeTextChange(changeText: a.name);
                                                                             reportingOfficeId = a.name;
                                                                             isReportingOfficeId = true;
                                                                             print(
@@ -650,7 +643,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                               children: [
                                                                 Container( width: 170,
                                                                   child: CustomDropdownTextFieldwidh(
-                                                                    initialValue: providerState.avalableStatus,
+                                                                    initialValue: provider.avalableStatus,
                                                                     items: [
                                                                       'Full Time',
                                                                       'Part Time'
@@ -659,7 +652,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     // labelStyle: SearchDropdownConst.customTextStyle(context),
                                                                     onChanged: (value) {
                                                                       setState(() {
-                                                                        providerState.avalableTextChange(changeText: value!);
+                                                                        provider.avalableTextChange(changeText: value!);
                                                                         dropdownAvailability = value!;
                                                                         isDropdownAvailability = true;
                                                                         print("Availability Status :: ${dropdownAvailability}");
@@ -676,14 +669,14 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                   width: 170,
                                                                   // margin: EdgeInsets.symmetric(horizontal: 20),
                                                                   child: CustomDropdownTextFieldwidh(
-                                                                    initialValue: providerState.expTypeValue,
+                                                                    initialValue: provider.expTypeValue,
                                                                     items:[
                                                                       'Expired',
                                                                               'About to Expire',
                                                                               'Upto date'],
                                                                     onChanged: (value) {
                                                                       setState(() {
-                                                                        providerState.expTypeTextChange(changeText: value!);
+                                                                        provider.expTypeTextChange(changeText: value!);
                                                                         dropdownLicenseStatus = value!;
                                                                         isDropdownLicenseStatus = true;
                                                                         print("License Status :: ${dropdownLicenseStatus}");
@@ -705,7 +698,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     width: 170,
                                                                     child: CustomDropdownTextFieldwidh(
                                                                       items: ['Zone'],
-                                                                      initialValue: providerState.zoneValue,
+                                                                      initialValue: provider.zoneValue,
                                                                       //dropDownMenuList: dropDownList,
                                                                       onChanged: (newValue) {
 
@@ -733,11 +726,11 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     // margin: EdgeInsets.symmetric(horizontal: 20),
                                                                    child: CustomDropdownTextFieldwidh(
                                                                      dropDownMenuList: dropDownList,
-                                                                     initialValue: providerState.zoneValue,
+                                                                     initialValue: provider.zoneValue,
                                                                      onChanged: (newValue) {
                                                                        for (var a in snapshot.data!) {
                                                                          if (a.zoneName == newValue) {
-                                                                           providerState.zoneTextChange(changeText: a.zoneName);
+                                                                           provider.zoneTextChange(changeText: a.zoneName);
                                                                            zoneId = a.zoneId;
                                                                            selectedZoneId = zoneId;
                                                                            isZoneSelected = true;
@@ -781,13 +774,48 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                               });
                                                             },
                                                             clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
-                                                                ? CustomButtonTransparentSM(text: 'Clear', onPressed: (){
-                                                            providerState.clearFilter();
-                                                            setState((){
-                                                              searchSelect = false;
-                                                            });
-                                                          },)
-                                                                : SizedBox(height: AppSize.s30,),
+                                                                ? CustomButtonTransparentSM(
+                                                              text: 'Clear',
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  // Reset all dropdown variables
+                                                                  dropdownLicenseStatus = '';
+                                                                  dropdownAvailability = '';
+                                                                  reportingOfficeId = '';
+                                                                  dropdownAbbrevation = '';
+                                                                  _selectedValue = null;
+                                                                  selectedZoneId = 0;
+
+                                                                  // Reset boolean visibility flags
+                                                                  isDropDownAbbreavation = false;
+                                                                  isDropdownLicenseStatus = false;
+                                                                  isDropdownAvailability = false;
+                                                                  isReportingOfficeId = false;
+                                                                  isZoneSelected = false;
+                                                                  isSelectedBox = false;
+
+                                                                  // Call provider method to reset the selections
+                                                                  provider.clearFilter();
+                                                                  // Force UI update for dropdowns to show 'Select'
+                                                                  provider.avalableTextChange(changeText: 'Select');
+                                                                  provider.expTypeTextChange(changeText: 'Select');
+                                                                  provider.officeTextChange(changeText: 'Select');
+                                                                  provider.zoneTextChange(changeText: 'Select');
+                                                                  // Hide the Clear button
+                                                                  searchSelect = false;
+                                                                });
+                                                              },
+                                                            )
+                                                                : SizedBox(height: AppSize.s30),
+
+                                                            //   clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
+                                                          //       ? CustomButtonTransparentSM(text: 'Clear', onPressed: (){
+                                                          //   providerState.clearFilter();
+                                                          //   setState((){
+                                                          //     searchSelect = false;
+                                                          //   });
+                                                          // },)
+                                                          //       : SizedBox(height: AppSize.s30,),
                                                           );
                                                         }
                                                       );
