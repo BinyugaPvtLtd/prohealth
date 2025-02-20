@@ -78,6 +78,8 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                             itemCount: filteredData.length,
                             itemBuilder: (context, index) {
                              FormModel formStatus = filteredData[index];
+                             var fileUrl = formStatus.url;
+                             final fileExtension = fileUrl.split('/').last;
                               return Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
                                 child: Column(
@@ -135,6 +137,12 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 children: [
                                                   GestureDetector(
+                                                    onTap: (){
+                                                      print("FileExtension:${fileExtension}");
+                                                      downloadFile(fileUrl);
+                                                      //DowloadFile();
+                                                      //.downloadPdfFromBase64(fileExtension,"Acknowledgement");
+                                                    },
                                                     child: Container(
                                                         width: 62,
                                                         height: 45,
