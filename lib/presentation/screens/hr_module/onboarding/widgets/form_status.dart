@@ -134,16 +134,18 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 children: [
-                                                  Container(
-                                                      width: 62,
-                                                      height: 45,
-                                                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(4),
-                                                        border: Border.all(width: 2,
-                                                            color: ColorManager.faintGrey),
-                                                      ),
-                                                      child: SvgPicture.asset('images/doc_vector.svg')),
+                                                  GestureDetector(
+                                                    child: Container(
+                                                        width: 62,
+                                                        height: 45,
+                                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(4),
+                                                          border: Border.all(width: 2,
+                                                              color: ColorManager.faintGrey),
+                                                        ),
+                                                        child: SvgPicture.asset('images/doc_vector.svg')),
+                                                  ),
                                                   SizedBox(width: AppSize.s30),
                                                   Expanded(
                                                     child: Text(
