@@ -124,10 +124,12 @@ class CustomElevatedButton extends StatefulWidget {
   final TextStyle style;
   final Widget? child;
   final int? loadingDuration;
+  bool? isSelectShow;
 
-  const CustomElevatedButton({
+   CustomElevatedButton({
     Key? key,
     this.text,
+    this.isSelectShow = true,
     required this.onPressed,
     this.color,
     this.textColor = Colors.white,
@@ -166,7 +168,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
       width: widget.width,
       height: widget.height,
       child: ElevatedButton(
-        onPressed: widget.onPressed,
+        onPressed: widget.isSelectShow! ? widget.onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: widget.color ?? ColorManager.bluebottom,
           foregroundColor: widget.textColor,
