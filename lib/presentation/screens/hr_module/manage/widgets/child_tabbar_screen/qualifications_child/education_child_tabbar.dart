@@ -306,9 +306,11 @@ class EducationChildTabbar extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             snapshot.data![index].approved == null ?
-                            SizedBox(
-                              height: 25,
-                            ):
+                            Text('Not Approved',style:TextStyle(
+                              fontSize: 13,
+                              color: ColorManager.mediumgrey,
+                              fontWeight: FontWeight.w600,
+                            )):
                           BorderIconButton(iconData: Icons.edit_outlined,
                               buttonText: 'Edit', onPressed: (){
                                 showDialog(context: context, builder: (BuildContext context){

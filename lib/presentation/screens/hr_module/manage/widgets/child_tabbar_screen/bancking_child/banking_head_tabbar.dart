@@ -63,11 +63,11 @@ class BankingHeadTabbar extends StatelessWidget {
                             ));
 
                   }),
-              SizedBox(width: 60,)
+              SizedBox(width: 100,)
             ],
           ),
           SizedBox(
-            height: 20,
+            height: 15,
           ),
           StreamBuilder<List<EmployeeBankingData>>(
               stream: bankingStreamController.stream,

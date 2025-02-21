@@ -32,6 +32,7 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
       currentPage = pageNumber;
     });
   }
+
   @override
   void initState() {
     super.initState();
@@ -78,6 +79,8 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                             itemCount: filteredData.length,
                             itemBuilder: (context, index) {
                              FormModel formStatus = filteredData[index];
+                             var fileUrl = formStatus.url;
+                             final fileExtension = fileUrl.split('/').last;
                               return Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
                                 child: Column(
@@ -134,16 +137,24 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 children: [
-                                                  Container(
-                                                      width: 62,
-                                                      height: 45,
-                                                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(4),
-                                                        border: Border.all(width: 2,
-                                                            color: ColorManager.faintGrey),
-                                                      ),
-                                                      child: SvgPicture.asset('images/doc_vector.svg')),
+                                                  GestureDetector(
+                                                    onTap: (){
+                                                      print("FileExtension:${fileExtension}");
+                                                      downloadFile(fileUrl);
+                                                      //DowloadFile();
+                                                      //.downloadPdfFromBase64(fileExtension,"Acknowledgement");
+                                                    },
+                                                    child: Container(
+                                                        width: 62,
+                                                        height: 45,
+                                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(4),
+                                                          border: Border.all(width: 2,
+                                                              color: ColorManager.faintGrey),
+                                                        ),
+                                                        child: SvgPicture.asset('images/doc_vector.svg')),
+                                                  ),
                                                   SizedBox(width: AppSize.s30),
                                                   Expanded(
                                                     child: Text(

@@ -40,6 +40,7 @@ class _CheckboxTileState extends State<CheckboxTile> {
       hoverColor: Colors.transparent
     ),
           child: Checkbox(
+            splashRadius: 0,
             activeColor: ColorManager.blueprime,
             value: _value,
             onChanged: (value) {

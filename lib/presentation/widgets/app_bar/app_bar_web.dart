@@ -484,97 +484,131 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState == ConnectionState.waiting) {
                                               return SizedBox(
-                                                    width: 15, // Adjust size according to your requirement
-                                                    height: 15,
-                                                    child: CircularProgressIndicator(
-                                                      strokeWidth: 2,
-                                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
-                                                    ),
-                                                  );
-                                                  // GestureDetector(
-                                                  //   child: CircleAvatar(
-                                                  //     backgroundColor: Colors.grey[100],
-                                                  //     radius: 13,
-                                                  //     backgroundImage: AssetImage("images/profilepic.png"),
-                                                  //   ),
-                                                  //   onTap: () {
-                                                  //     print("userid appbar : ${snapshot.data?.userId}");
-                                                  //     print(snapshot.data?.employeeId);
-                                                  //     print(snapshot.data?.imgUrl);
-                                                  //     print(snapshot.data?.companyId);
-                                                  //     print(snapshot.data?.userId);
-                                                  //     // Optional: Handle tap on the profile image
-                                                  //   },
-                                                  // ),
+                                                width: 15,
+                                                height: 15,
+                                                child: CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                                ),
+                                              );
+                                            }
+                                            String imageUrl = snapshot.hasData && snapshot.data?.imgUrl != null && snapshot.data!.imgUrl.isNotEmpty
+                                                ? snapshot.data!.imgUrl
+                                                : "images/profilepic.png"; // Local asset fallback
 
-                                            } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty) {
-                                              return  SizedBox(
-                                                width: 15, // Adjust size according to your requirement
-                                                height: 15,
-                                                child: CircularProgressIndicator(
-                                                  strokeWidth: 2,
-                                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
-                                                ),
-                                              );
-                                              //   GestureDetector(
-                                              //   child: CircleAvatar(
-                                              //     backgroundColor: Colors.grey[100],
-                                              //     radius: 12,
-                                              //     backgroundImage: AssetImage("images/profilepic.png"),
-                                              //   ),
-                                              //   onTap: () {
-                                              //     print("userid appbar : ${snapshot.data?.userId}");
-                                              //     print(snapshot.data?.employeeId);
-                                              //     print(snapshot.data?.imgUrl);
-                                              //     print(snapshot.data?.companyId);
-                                              //     print(snapshot.data?.userId);
-                                              //     // Optional: Handle tap on the profile image
-                                              //   },
-                                              // );
-                                            } else if(snapshot.hasData) {
                                             return GestureDetector(
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.transparent,
-                                            backgroundImage: NetworkImage(snapshot.data!.imgUrl),
-                                            radius: 13, // Adjust size as needed
-                                            ),
-                                            onTap: () {
-                                            print("userid appbar : ${snapshot.data?.userId}");
-                                            print(snapshot.data?.employeeId);
-                                            print(snapshot.data?.imgUrl);
-                                            print(snapshot.data?.companyId);
-                                            print(snapshot.data?.userId);
-                                            // Optional: Handle tap on the profile image
-                                            },
+                                              child: CircleAvatar(
+                                                backgroundColor: Colors.transparent, // Optional: Background color
+                                                radius: 13,
+                                                backgroundImage: imageUrl.startsWith("http")
+                                                    ? NetworkImage(imageUrl) as ImageProvider
+                                                    : AssetImage(imageUrl), // Fallback to asset image
+                                              ),
+                                              onTap: () {
+                                                print("User ID: ${snapshot.data?.userId}");
+                                                print("Employee ID: ${snapshot.data?.employeeId}");
+                                                print("Image URL: ${snapshot.data?.imgUrl}");
+                                                print("Company ID: ${snapshot.data?.companyId}");
+                                              },
                                             );
-                                            }
-                                            else {
-                                              return  SizedBox(
-                                                width: 15, // Adjust size according to your requirement
-                                                height: 15,
-                                                child: CircularProgressIndicator(
-                                                  strokeWidth: 2,
-                                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
-                                                ),
-                                              );
-                                              //   GestureDetector(
-                                              //   child: CircleAvatar(
-                                              //     backgroundColor: Colors.grey[100],
-                                              //     radius: 13,
-                                              //     backgroundImage: AssetImage("images/profilepic.png"),
-                                              //   ),
-                                              //   onTap: () {
-                                              //     print("userid appbar : ${snapshot.data?.userId}");
-                                              //     print(snapshot.data?.employeeId);
-                                              //     print(snapshot.data?.imgUrl);
-                                              //     print(snapshot.data?.companyId);
-                                              //     print(snapshot.data?.userId);
-                                              //     // Optional: Handle tap on the profile image
-                                              //   },
-                                              // );
-                                            }
                                           },
                                         ),
+                                        // child: FutureBuilder<UserAppBar>(
+                                        //   future: getAppBarDetails(context),
+                                        //   builder: (context, snapshot) {
+                                        //     if (snapshot.connectionState == ConnectionState.waiting) {
+                                        //       return SizedBox(
+                                        //             width: 15, // Adjust size according to your requirement
+                                        //             height: 15,
+                                        //             child: CircularProgressIndicator(
+                                        //               strokeWidth: 2,
+                                        //               valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
+                                        //             ),
+                                        //           );
+                                        //           // GestureDetector(
+                                        //           //   child: CircleAvatar(
+                                        //           //     backgroundColor: Colors.grey[100],
+                                        //           //     radius: 13,
+                                        //           //     backgroundImage: AssetImage("images/profilepic.png"),
+                                        //           //   ),
+                                        //           //   onTap: () {
+                                        //           //     print("userid appbar : ${snapshot.data?.userId}");
+                                        //           //     print(snapshot.data?.employeeId);
+                                        //           //     print(snapshot.data?.imgUrl);
+                                        //           //     print(snapshot.data?.companyId);
+                                        //           //     print(snapshot.data?.userId);
+                                        //           //     // Optional: Handle tap on the profile image
+                                        //           //   },
+                                        //           // ),
+                                        //
+                                        //     } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty) {
+                                        //       return  SizedBox(
+                                        //         width: 15, // Adjust size according to your requirement
+                                        //         height: 15,
+                                        //         child: CircularProgressIndicator(
+                                        //           strokeWidth: 2,
+                                        //           valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
+                                        //         ),
+                                        //       );
+                                        //       //   GestureDetector(
+                                        //       //   child: CircleAvatar(
+                                        //       //     backgroundColor: Colors.grey[100],
+                                        //       //     radius: 12,
+                                        //       //     backgroundImage: AssetImage("images/profilepic.png"),
+                                        //       //   ),
+                                        //       //   onTap: () {
+                                        //       //     print("userid appbar : ${snapshot.data?.userId}");
+                                        //       //     print(snapshot.data?.employeeId);
+                                        //       //     print(snapshot.data?.imgUrl);
+                                        //       //     print(snapshot.data?.companyId);
+                                        //       //     print(snapshot.data?.userId);
+                                        //       //     // Optional: Handle tap on the profile image
+                                        //       //   },
+                                        //       // );
+                                        //     } else if(snapshot.hasData) {
+                                        //     return GestureDetector(
+                                        //     child: CircleAvatar(
+                                        //       backgroundColor: Colors.transparent,
+                                        //     backgroundImage: NetworkImage(snapshot.data!.imgUrl),
+                                        //     radius: 13, // Adjust size as needed
+                                        //     ),
+                                        //     onTap: () {
+                                        //     print("userid appbar : ${snapshot.data?.userId}");
+                                        //     print(snapshot.data?.employeeId);
+                                        //     print(snapshot.data?.imgUrl);
+                                        //     print(snapshot.data?.companyId);
+                                        //     print(snapshot.data?.userId);
+                                        //     // Optional: Handle tap on the profile image
+                                        //     },
+                                        //     );
+                                        //     }
+                                        //     else {
+                                        //       return  SizedBox(
+                                        //         width: 15, // Adjust size according to your requirement
+                                        //         height: 15,
+                                        //         child: CircularProgressIndicator(
+                                        //           strokeWidth: 2,
+                                        //           valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
+                                        //         ),
+                                        //       );
+                                        //       //   GestureDetector(
+                                        //       //   child: CircleAvatar(
+                                        //       //     backgroundColor: Colors.grey[100],
+                                        //       //     radius: 13,
+                                        //       //     backgroundImage: AssetImage("images/profilepic.png"),
+                                        //       //   ),
+                                        //       //   onTap: () {
+                                        //       //     print("userid appbar : ${snapshot.data?.userId}");
+                                        //       //     print(snapshot.data?.employeeId);
+                                        //       //     print(snapshot.data?.imgUrl);
+                                        //       //     print(snapshot.data?.companyId);
+                                        //       //     print(snapshot.data?.userId);
+                                        //       //     // Optional: Handle tap on the profile image
+                                        //       //   },
+                                        //       // );
+                                        //     }
+                                        //   },
+                                        // ),
                                       ),
                                      const SizedBox(height: AppSize.s5),
                                       FutureBuilder(

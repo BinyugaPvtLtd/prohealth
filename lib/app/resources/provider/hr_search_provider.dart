@@ -27,15 +27,26 @@ class HrSearchProviderManager extends ChangeNotifier{
     _avalableStatus = changeText;
     notifyListeners();
   }
-  void clearFilter(){
-    avalableTextChange(changeText: 'Select');
-    expTypeTextChange(changeText: 'Select');
-    zoneTextChange(changeText: 'Select');
-    officeTextChange(changeText: 'Select');
-    // _officeText = 'Select';
-    // _avalableStatus = 'Select';
-    // _zoneValue = 'Select';
-    // _expTypeValue = 'Select';
-    notifyListeners();
+  // void clearFilter(){
+  //   avalableTextChange(changeText: 'Select');
+  //   expTypeTextChange(changeText: 'Select');
+  //   zoneTextChange(changeText: 'Select');
+  //   officeTextChange(changeText: 'Select');
+  //   // _officeText = 'Select';
+  //   // _avalableStatus = 'Select';
+  //   // _zoneValue = 'Select';
+  //   // _expTypeValue = 'Select';
+  //   notifyListeners();
+  // }
+  void clearFilter() {
+    _avalableStatus = 'Select';
+    _expTypeValue = 'Select';
+    _zoneValue = 'Select';
+    _officeText = 'Select';
+    notifyListeners(); // Ensure UI updates
   }
+
+
+
+
 }
