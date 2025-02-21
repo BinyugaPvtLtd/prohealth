@@ -32,6 +32,7 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
       currentPage = pageNumber;
     });
   }
+
   @override
   void initState() {
     super.initState();
