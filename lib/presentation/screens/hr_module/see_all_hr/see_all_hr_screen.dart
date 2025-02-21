@@ -274,7 +274,9 @@ class ProfilePatientPopUp extends StatefulWidget {
   final Widget licensesWidget;
   final Widget avabilityWidget;
   final Widget? abbrivationWidget;
+  bool? isShown;
   ProfilePatientPopUp({Key? key,
+    this.isShown = true,
     required this.clearFilter,
     required this.avabilityWidget,
     required this.licensesWidget,
@@ -366,10 +368,11 @@ class _PopUpState extends State<ProfilePatientPopUp> {
             width: AppSize.s105,
             height: AppSize.s30,
             text: "Search",
+            isSelectShow: widget.isShown,
             onPressed: () async {
               widget.onSearch();
               Navigator.pop(context);
-            },
+            } ,
           ),
         ],
       ),
