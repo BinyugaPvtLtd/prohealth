@@ -285,7 +285,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
           children: [  ///Zipcode
             Container(
               height: 200,
-              width: 300,
+              width: 350,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -351,9 +351,16 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                             StatefulBuilder(
                               builder: (BuildContext context, void Function(void Function()) setState) {
                                 return Container(
-                                  width: 200,
-                                  height: 300,
-                                  child: ListView.builder(
+                                  width: 350,
+                                  height: 350,
+                                 // color: Colors.red,
+                                  child: GridView.builder(
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, // Two items per row
+                                      childAspectRatio: 6,
+                                      crossAxisSpacing: 20,
+                                      mainAxisSpacing: 20,
+                                    ),
                                     itemCount: snapshot.data!.length,
                                     itemBuilder: (BuildContext context, int index) {
                                       String zipCode = snapshot.data![index].zipCode;

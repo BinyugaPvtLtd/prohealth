@@ -433,6 +433,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         child: Row(
                           children: [
                             Checkbox(
+                              splashRadius: 0,
                               activeColor: ColorManager.bluebottom,
                               value: fact1,
                               onChanged: (bool? value) {
@@ -459,6 +460,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         child: Row(
                           children: [
                             Checkbox(
+                              splashRadius: 0,
                               activeColor: ColorManager.bluebottom,
                               value: fact2,
                               onChanged: (bool? value) {
@@ -485,6 +487,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         child: Row(
                           children: [
                             Checkbox(
+                              splashRadius: 0,
                               activeColor: ColorManager.bluebottom,
                               value: fact3,
                               onChanged: (bool? value) {
@@ -511,6 +514,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         child: Row(
                           children: [
                             Checkbox(
+                              splashRadius: 0,
                               activeColor: ColorManager.bluebottom,
                               value: fact4,
                               onChanged: (bool? value) {
@@ -537,6 +541,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         child: Row(
                           children: [
                             Checkbox(
+                              splashRadius: 0,
                               activeColor: ColorManager.bluebottom,
                               value: fact5,
                               onChanged: (bool? value) {
@@ -563,6 +568,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         child: Row(
                           children: [
                             Checkbox(
+                              splashRadius: 0,
                               activeColor: ColorManager.bluebottom,
                               value: fact6,
                               onChanged: (bool? value) {
@@ -589,6 +595,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         child: Row(
                           children: [
                             Checkbox(
+                              splashRadius: 0,
                               activeColor: ColorManager.bluebottom,
                               value: fact7,
                               onChanged: (bool? value) {
@@ -629,6 +636,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            splashRadius: 0,
                             activeColor: ColorManager.bluebottom,
                             value: allergies1,
                             onChanged: (bool? value) {
@@ -647,6 +655,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            splashRadius: 0,
                             activeColor: ColorManager.bluebottom,
                             value: allergies2,
                             onChanged: (bool? value) {
@@ -665,6 +674,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            splashRadius: 0,
                             activeColor: ColorManager.bluebottom,
                             value: allergies3,
                             onChanged: (bool? value) {
