@@ -178,6 +178,7 @@ class ReferencesChildTabbar extends StatelessWidget {
                               const SizedBox(height: 10,),
                               Text('Email :', style: ThemeManagerDark.customTextStyle(context)),
                             ],
+
                             row1Child2: [
                               Text(snapshot.data![index].name,
                                 style: ThemeManagerDarkFont.customTextStyle(context),
