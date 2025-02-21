@@ -184,7 +184,6 @@ class ProfileBar extends StatelessWidget {
                                                   width: 67,
                                                 ),
                                               ),
-                                              // Circular progress indicator around the image
                                               SizedBox(
                                                 height: 70,
                                                 width: 70,
