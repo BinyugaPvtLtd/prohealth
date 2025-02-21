@@ -158,7 +158,6 @@ class ReferencesChildTabbar extends StatelessWidget {
                       ),
                     ));
               }
-
               if (snapshot.hasData) {
                 return WrapWidget(
                     children: List.generate(snapshot.data!.length, (index) {
