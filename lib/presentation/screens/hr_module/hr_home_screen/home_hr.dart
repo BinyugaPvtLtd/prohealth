@@ -514,7 +514,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 ///search bar
                                 Container(
                                     padding: EdgeInsets.all(5),
-                                    width: AppSize.s330,
+                                    width: AppSize.s340,
                                     height: 40,
                                     child: CompositedTransformTarget(
                                       link: _layerLink,

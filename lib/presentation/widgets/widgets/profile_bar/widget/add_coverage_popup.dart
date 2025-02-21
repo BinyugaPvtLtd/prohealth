@@ -285,7 +285,7 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  width: 300,
+                  width: 350,
                   height: 200,
                   child: StreamBuilder<List<ZipcodeByCountyIdAndZoneIdData>>(
                     stream: _countyStreamController.stream,
@@ -322,7 +322,13 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                         }
                       });
 
-                      return ListView.builder(
+                      return GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // Two items per row
+                          childAspectRatio: 6,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
+                        ),
                         itemCount: zipCodeList.length,
                         itemBuilder: (context, index) {
                           String zipCode = zipCodeList[index].zipCode;
