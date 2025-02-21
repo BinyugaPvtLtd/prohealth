@@ -40,7 +40,7 @@ class EducationChildTabbar extends StatelessWidget {
     TextEditingController stateController = TextEditingController();
     TextEditingController majorSubjectController = TextEditingController();
     TextEditingController countryNameController = TextEditingController();
-    String expiryType = "No";
+    String? expiryType = "No";
     return Column(
       children: [
         Row(
@@ -106,14 +106,14 @@ class EducationChildTabbar extends StatelessWidget {
                                 },
                               );
                             }else if(response.statusCode == 400 || response.statusCode == 404){
-                              Navigator.pop(context);
+                            //  Navigator.pop(context);
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) => const FourNotFourPopup(),
                               );
                             }
                             else {
-                              Navigator.pop(context);
+                             // Navigator.pop(context);
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) => FailedPopup(text: response.message),
@@ -122,7 +122,7 @@ class EducationChildTabbar extends StatelessWidget {
                           },
                           radioButton: StatefulBuilder(
                             builder: (BuildContext context, void Function(void Function()) setState) {
-                              return Container(
+                              return SizedBox(
                                 width: 280,
                                 child: Row(
                                   children: [
@@ -306,11 +306,14 @@ class EducationChildTabbar extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             snapshot.data![index].approved == null ?
-                            Text('Not Approved',style:TextStyle(
-                              fontSize: 13,
-                              color: ColorManager.mediumgrey,
-                              fontWeight: FontWeight.w600,
-                            )):
+                            SizedBox(
+                              height: AppSize.s25,
+                              child: Text('Not Approved',style:TextStyle(
+                                fontSize: 13,
+                                color: ColorManager.mediumgrey,
+                                fontWeight: FontWeight.w600,
+                              )),
+                            ):
                           BorderIconButton(iconData: Icons.edit_outlined,
                               buttonText: 'Edit', onPressed: (){
                                 showDialog(context: context, builder: (BuildContext context){

@@ -621,36 +621,19 @@ class BankingContainerConst extends StatelessWidget {
                     style: BoxHeadingStyle.customTextStyle(context)),
 
                 ///Edit
-                Container(
-                  // color: Colors.cyan,
-                  decoration: const BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0x40000040),
-                        blurRadius: 4,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  height: AppSize.s28,
-                  width: AppSize.s70,
-                  child: ElevatedButton(
-                    onPressed: onPressed,
-                    child: Text(AppStringHr.edit,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        )),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                      ),
-                      backgroundColor: const Color(0xFF50B5E5),
-                      shadowColor: Colors.grey,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                ElevatedButton(
+                  onPressed: onPressed,
+                  child: Text(AppStringHr.edit,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      )),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF50B5E5),
+                    //shadowColor: Colors.grey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),

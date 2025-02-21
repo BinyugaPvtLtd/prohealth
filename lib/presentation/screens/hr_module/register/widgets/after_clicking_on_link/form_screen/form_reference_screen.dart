@@ -326,7 +326,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
         setState(() {
           name.text = data.name ?? '';
           titleposition.text = data.title ?? '';
-          companyorganization.text = data.association ?? '';
+          companyorganization.text = data.company ?? '';
           mobilenumber.text = data.mob ?? '';
           email.text = data.email ?? '';
           knowthisperson.text = data.references ?? '';

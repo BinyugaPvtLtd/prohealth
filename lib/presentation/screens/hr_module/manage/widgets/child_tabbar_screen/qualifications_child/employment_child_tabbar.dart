@@ -342,8 +342,7 @@ class EmploymentContainerConstant extends StatelessWidget {
                                 child: CompositedTransformTarget(
                                   link: _layerLink,
                                   child: Text(
-                                    employeementProviderState
-                                        .trimmedEmployeeAddress,
+                                      snapshot.data![index].reason,
                                     style: ThemeManagerDarkFont.customTextStyle(
                                         context),
                                   ),),
@@ -367,7 +366,7 @@ class EmploymentContainerConstant extends StatelessWidget {
                                 child: CompositedTransformTarget(
                                   link: _layerLink,
                                   child: Text(
-                                    employeementProviderState.trimmedSupervisor,
+                                    snapshot.data![index].supervisor,
                                     style: ThemeManagerDarkFont.customTextStyle(
                                         context),
                                   ),),
