@@ -371,7 +371,7 @@ class LicensesChildTabbar extends StatelessWidget {
                             },
                             child: CompositedTransformTarget(link: _layerLink,
                               child: Text(
-                                licenseProviderState.trimmedOrg,
+                                snapshot.data![index].org ,
                                 style: ThemeManagerDarkFont.customTextStyle(context),
                               ),),
                           ),

@@ -273,26 +273,41 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 1.0,
+                          border: Border(
+                            top: BorderSide(color: ColorManager.bluebottom, width: 4.0), // Top blue border
                           ),
                           borderRadius: BorderRadius.circular(20.0),
                           boxShadow: [
                             BoxShadow(
-                              color: ColorManager.bluebottom,
-                              // color: Colors.blue.withOpacity(0.5),
-                              offset: const Offset(0, -4),
-                              // blurRadius: 8.0,
-                              spreadRadius: 1.0,
-                            ),
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Colors.grey.withOpacity(0.5), // Bottom shadow
                               offset: const Offset(0, 4),
                               spreadRadius: 1.0,
                             ),
                           ],
                         ),
+
+                        // decoration: BoxDecoration(
+                        //   color: Colors.white,
+                        //   border: Border.all(color: Colors.grey, width: 1.0),
+                        //   // border: Border.symmetric(vertical: BorderSide( color: Colors.grey,
+                        //   //   width: 1.0,),
+                        //   // ),
+                        //   borderRadius: BorderRadius.circular(20.0),
+                        //   boxShadow: [
+                        //     BoxShadow(
+                        //       color: ColorManager.bluebottom,
+                        //       // color: Colors.blue.withOpacity(0.5),
+                        //       offset: const Offset(0, -4),
+                        //       // blurRadius: 8.0,
+                        //       spreadRadius: 1.0,
+                        //     ),
+                        //     BoxShadow(
+                        //       color: Colors.grey.withOpacity(0.5),
+                        //       offset: const Offset(0, 4),
+                        //       spreadRadius: 1.0,
+                        //     ),
+                        //   ],
+                        // ),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: Container(

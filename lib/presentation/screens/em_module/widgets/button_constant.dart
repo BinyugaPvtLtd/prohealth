@@ -28,24 +28,25 @@ class _CustomTextButtonState extends State<CustomTextButton> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? Padding(
-          padding: const EdgeInsets.only(right: 40),
-          child: SizedBox(
-                height: 25,
-                width: 25,
-                child: CircularProgressIndicator(color: ColorManager.blueprime),
-              ),
-        )
-        : Container(
+    // return isLoading
+    //     ? Padding(
+    //       padding: const EdgeInsets.only(right: 40),
+    //       child: SizedBox(
+    //             height: 20,
+    //             width: 20,
+    //             child: CircularProgressIndicator(color: ColorManager.blueprime),
+    //           ),
+    //     )
+    //     :
+   return Container(
       width: AppSize.s110,
       margin:
       const EdgeInsets.only(right: AppMargin.m5),
           child: ElevatedButton(
                 onPressed: () async {
-          setState(() => isLoading = true);
+         // setState(() => isLoading = true);
           await widget.onPressed();
-          setState(() => isLoading = false);
+         // setState(() => isLoading = false);
                 },
                 child: Text(
           widget.text,
@@ -124,10 +125,12 @@ class CustomElevatedButton extends StatefulWidget {
   final TextStyle style;
   final Widget? child;
   final int? loadingDuration;
+  bool? isSelectShow;
 
-  const CustomElevatedButton({
+   CustomElevatedButton({
     Key? key,
     this.text,
+    this.isSelectShow = true,
     required this.onPressed,
     this.color,
     this.textColor = Colors.white,
@@ -166,7 +169,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
       width: widget.width,
       height: widget.height,
       child: ElevatedButton(
-        onPressed: widget.onPressed,
+        onPressed: widget.isSelectShow! ? widget.onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: widget.color ?? ColorManager.bluebottom,
           foregroundColor: widget.textColor,

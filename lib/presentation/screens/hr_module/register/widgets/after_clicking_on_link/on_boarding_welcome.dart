@@ -186,7 +186,7 @@ class OnBoardingCongratulation extends StatelessWidget {
         ),
       ),
       child: Container(
-        width: 800.0,
+        width: 700,
         constraints:
             BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.8),
         child: Column(

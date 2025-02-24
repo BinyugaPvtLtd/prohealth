@@ -514,7 +514,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 ///search bar
                                 Container(
                                     padding: EdgeInsets.all(5),
-                                    width: AppSize.s330,
+                                    width: AppSize.s340,
                                     height: 40,
                                     child: CompositedTransformTarget(
                                       link: _layerLink,
@@ -592,11 +592,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                   return Container(
                                                                     //height: 31,
                                                                     width: 170,
-
-                                                                    child:  CustomDropdownTextFieldwidh(
+                                                                    child:  ClinicalConstDropDown(
                                                                       //dropDownMenuList: dropDownList,
                                                                       items: ['Office'],
-                                                                      initialValue: provider.officeText,
+                                                                      initialValue: reportingOfficeId == '' ? 'Select':provider.officeText,
                                                                       onChanged: (newValue) {
                                                                       },
                                                                     ),
@@ -616,9 +615,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     return Container(
                                                                       //height: 31,
                                                                       width: 170,
-                                                                      child:  CustomDropdownTextFieldwidh(
+                                                                      child:  ClinicalConstDropDown(
                                                                         dropDownMenuList: dropDownList,
-                                                                        initialValue: provider.officeText,
+                                                                        initialValue: reportingOfficeId == '' ? 'Select':provider.officeText,
                                                                         onChanged: (newValue) {for (var a
                                                                         in snapshot.data!) {
                                                                           if (a.name == newValue) {
@@ -642,11 +641,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                             avabilityWidget: Row(
                                                               children: [
                                                                 Container( width: 170,
-                                                                  child: CustomDropdownTextFieldwidh(
+                                                                  child: ClinicalConstDropDown(
                                                                     initialValue: provider.avalableStatus,
                                                                     items: [
                                                                       'Full Time',
-                                                                      'Part Time'
+                                                                      'Part Time',
+                                                                      'Per Diem'
                                                                     ],
 
                                                                     // labelStyle: SearchDropdownConst.customTextStyle(context),
@@ -668,7 +668,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                   // height: 31,
                                                                   width: 170,
                                                                   // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                                  child: CustomDropdownTextFieldwidh(
+                                                                  child: ClinicalConstDropDown(
                                                                     initialValue: provider.expTypeValue,
                                                                     items:[
                                                                       'Expired',
@@ -696,7 +696,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 if (snapshot.connectionState == ConnectionState.waiting) {
                                                                   return Container(
                                                                     width: 170,
-                                                                    child: CustomDropdownTextFieldwidh(
+                                                                    child: ClinicalConstDropDown(
                                                                       items: ['Zone'],
                                                                       initialValue: provider.zoneValue,
                                                                       //dropDownMenuList: dropDownList,
@@ -724,7 +724,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                    // height: 31,
                                                                     width: 170,
                                                                     // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                                   child: CustomDropdownTextFieldwidh(
+                                                                   child: ClinicalConstDropDown(
                                                                      dropDownMenuList: dropDownList,
                                                                      initialValue: provider.zoneValue,
                                                                      onChanged: (newValue) {
@@ -752,6 +752,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 }
                                                               },
                                                             ),
+                                                            isShown: (reportingOfficeId == '' && dropdownLicenseStatus == '' && dropdownAvailability == '' && selectedZoneId == 0)
+                                                                ? false : true,
                                                             onSearch: () {
                                                               setState(() {
                                                                 _searchByFilter(
@@ -775,8 +777,15 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                             },
                                                             clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
                                                                 ? CustomButtonTransparentSM(
+
                                                               text: 'Clear',
                                                               onPressed: () {
+                                                                provider.clearFilter();
+                                                                // Force UI update for dropdowns to show 'Select'
+                                                                provider.avalableTextChange(changeText: 'Select');
+                                                                provider.expTypeTextChange(changeText: 'Select');
+                                                                provider.officeTextChange(changeText: 'Select');
+                                                                provider.zoneTextChange(changeText: 'Select');
                                                                 setState(() {
                                                                   // Reset all dropdown variables
                                                                   dropdownLicenseStatus = '';
@@ -795,12 +804,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                   isSelectedBox = false;
 
                                                                   // Call provider method to reset the selections
-                                                                  provider.clearFilter();
-                                                                  // Force UI update for dropdowns to show 'Select'
-                                                                  provider.avalableTextChange(changeText: 'Select');
-                                                                  provider.expTypeTextChange(changeText: 'Select');
-                                                                  provider.officeTextChange(changeText: 'Select');
-                                                                  provider.zoneTextChange(changeText: 'Select');
+
                                                                   // Hide the Clear button
                                                                   searchSelect = false;
                                                                 });

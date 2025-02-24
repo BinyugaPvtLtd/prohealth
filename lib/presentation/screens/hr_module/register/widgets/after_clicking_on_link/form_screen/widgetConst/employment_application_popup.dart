@@ -363,6 +363,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         Row(
                           children: [
                             Checkbox(
+                              splashRadius: 0,
                               activeColor: ColorManager.bluebottom,
                               value: Position1,
                               onChanged: (bool? value) {
@@ -382,6 +383,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         Row(
                           children: [
                             Checkbox(
+                              splashRadius: 0,
                               activeColor: ColorManager.bluebottom,
                               value: Position2,
                               onChanged: (bool? value) {
@@ -401,6 +403,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         Row(
                           children: [
                             Checkbox(
+                              splashRadius: 0,
                               activeColor : ColorManager.bluebottom,
                               value: Position3,
                               onChanged: (bool? value) {

@@ -649,6 +649,136 @@ class _CustomDropdownTextFieldwidhState extends State<CustomDropdownTextFieldwid
   }
 }
 
+/// Clinical popup dropdown
+class ClinicalConstDropDown extends StatefulWidget {
+  final String? value;
+  final List<String>? items;
+  final List<DropdownMenuItem<String>>? dropDownMenuList;
+  final String? hintText;
+
+  final void Function(String?)? onChanged;
+  final double? width;
+  final double? widthone;
+  final double? height;
+  String? initialValue;
+   ClinicalConstDropDown({
+     Key? key,
+     this.dropDownMenuList,
+
+     this.value,
+     this.items,
+     this.onChanged,
+     this.width,
+     this.widthone,
+     this.height,
+     this.initialValue,
+     this.hintText,
+   }) : super(key: key);
+
+  @override
+  State<ClinicalConstDropDown> createState() => _ClinicalConstDropDownState();
+}
+
+class _ClinicalConstDropDownState extends State<ClinicalConstDropDown> {
+  String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.value ?? widget.initialValue;
+  }
+
+  void _showDropdownDialog() async {
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+    final result = await showDialog<String>(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Positioned(
+              left: offset.dx,
+              top: offset.dy + size.height,
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  width: widget.width ?? size.width,
+                  constraints: BoxConstraints(
+                    maxHeight: 250, // Restrict height for scroll
+                  ),
+                  child: SingleChildScrollView(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: widget.items?.length ?? widget.dropDownMenuList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final item = widget.items != null
+                            ? widget.items![index]
+                            : widget.dropDownMenuList![index].value;
+                        return ListTile(
+                          title: Text(
+                            item!,
+                            style: DocumentTypeDataStyle.customTextStyle(context),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pop(item);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result != null) {
+      setState(() {
+        _selectedValue = result;
+        widget.onChanged?.call(result);
+      });
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          // width: widget.widthone,
+          height:widget.height ?? AppSize.s30,
+          child: GestureDetector(
+            onTap: _showDropdownDialog,
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    _selectedValue != widget.initialValue ? 'Select' :_selectedValue!,
+                    style: DocumentTypeDataStyle.customTextStyle(context),
+                  ),
+                  Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
 ///
 class CustomDropdownEMDashboard extends StatefulWidget {
   final String? value;

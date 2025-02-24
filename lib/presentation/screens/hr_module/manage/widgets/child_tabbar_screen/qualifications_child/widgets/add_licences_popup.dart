@@ -370,7 +370,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   errorKey: 'country', hintText: 'Enter Country',
                 ),
                 _buildTextField(
-                  capitalIsSelect:true,
+                  capitalIsSelect:false,
                   controller: numberIDController,
                   labelText: "Number/ID",
                   errorKey: 'numberID', hintText: 'Enter Number',
@@ -866,7 +866,7 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildTextField(
-                  capitalIsSelect: true,
+                  capitalIsSelect: false,
                   controller: widget.LivensureController,
                   labelText: "Licensure / certification",
                   errorKey: 'Livensure', hintText: 'Enter certification',
@@ -890,13 +890,13 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildTextField(
-                  capitalIsSelect:true,
+                  capitalIsSelect:false,
                   controller: widget.issuingOrganizationController,
                   labelText: "Issuing Organization",
                   errorKey: 'issuingOrganization', hintText: 'Enter Issuing Organization',
                 ),
                 _buildTextField(
-                  capitalIsSelect: true,
+                  capitalIsSelect: false,
                   controller: widget.countryController,
                   labelText: "Country",
                   errorKey: 'country', hintText: 'Enter Country',

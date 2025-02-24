@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 
 class MapScreen extends StatefulWidget {
   final LatLng initialLocation;
@@ -55,34 +57,71 @@ class _MapScreenState extends State<MapScreen> {
   //   }
   // }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorManager.blueprime,
-        title: Text('Pick Location',style: TableHeading.customTextStyle(context)),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.check,color: ColorManager.white),
-            onPressed: _confirmSelection,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: GoogleMap(
+              onMapCreated: _onMapCreated,
+              onTap: _onTap,
+              initialCameraPosition: CameraPosition(
+                target: _selectedLocation,
+                zoom: 14.0,
+              ),
+              markers: {
+                Marker(
+                  markerId: MarkerId('selectedLocation'),
+                  position: _selectedLocation,
+                ),
+              },
+            ),
+          ),
+          Positioned(
+            top: 40,
+            right: 16,
+            child: CustomElevatedButton(
+            width: AppSize.s120,
+            height: AppSize.s32,
+              text: "Confirm",
+              color: ColorManager.blueprime,
+              onPressed: _confirmSelection,
+            )
           ),
         ],
       ),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        onTap: _onTap,
-        initialCameraPosition: CameraPosition(
-          target: _selectedLocation,
-          zoom: 14.0,
-        ),
-        markers: {
-          Marker(
-            markerId: MarkerId('selectedLocation'),
-            position: _selectedLocation,
-          ),
-        },
-      ),
     );
   }
+
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     appBar: AppBar(
+  //       backgroundColor: ColorManager.blueprime,
+  //       title: Text('Pick Location',style: TableHeading.customTextStyle(context)),
+  //       actions: [
+  //         IconButton(
+  //           icon: Icon(Icons.check,color: ColorManager.white),
+  //           onPressed: _confirmSelection,
+  //         ),
+  //       ],
+  //     ),
+  //     body: GoogleMap(
+  //       onMapCreated: _onMapCreated,
+  //       onTap: _onTap,
+  //       initialCameraPosition: CameraPosition(
+  //         target: _selectedLocation,
+  //         zoom: 14.0,
+  //       ),
+  //       markers: {
+  //         Marker(
+  //           markerId: MarkerId('selectedLocation'),
+  //           position: _selectedLocation,
+  //         ),
+  //       },
+  //     ),
+  //   );
+  // }
 }

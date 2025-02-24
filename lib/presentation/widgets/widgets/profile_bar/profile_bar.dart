@@ -145,10 +145,9 @@ class ProfileBar extends StatelessWidget {
                                                 width: 70,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  border: Border.all(color: ColorManager.faintGrey, width: 2), // Grey border
+                                                  border: Border.all(color: ColorManager.greenF, width: 2), // Grey border
                                                 ),
                                               ),
-                                              // Circular avatar for the image or default profile picture
                                               ClipOval(
                                                 child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
                                                     searchByEmployeeIdProfileData!.imgurl == null
@@ -185,12 +184,11 @@ class ProfileBar extends StatelessWidget {
                                                   width: 67,
                                                 ),
                                               ),
-                                              // Circular progress indicator around the image
                                               SizedBox(
                                                 height: 70,
                                                 width: 70,
                                                 child: CircularProgressIndicator(
-                                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.grey),
+                                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenF),
                                                   strokeWidth: 3,
                                                   value: searchByEmployeeIdProfileData!.profileScorePercentage,
                                                 ),
