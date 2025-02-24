@@ -464,10 +464,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     ],
                                   ),
                                 ),
-                                // Text(
-                                //   'Routing/Transit Number',
-                                //   style:AllPopupHeadings.customTextStyle(context),
-                                // ),
+
                                 SizedBox(
                                   height: 4,
                                 ),
