@@ -91,8 +91,8 @@ class EducationChildTabbar extends StatelessWidget {
 
 
                             // Log the response status and body here
-                            print('Response status: ${response.statusCode}');
-                            print('Response body: ${response.data}');
+                            // print('Response status: ${response.statusCode}');
+                            // print('Response body: ${response.data}');
                          var educationResponse = await approveOnboardQualifyEducationPatch(context, response.educationId!);
 
                             if(educationResponse.statusCode == 200 || educationResponse.statusCode == 201){

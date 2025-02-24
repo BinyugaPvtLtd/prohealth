@@ -58,6 +58,20 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
   bool _isRadioButtonSelected = false;
  // bool _radioButtonError = false;
 
+
+
+  // Error states
+  Map<String, bool> errorStates = {
+    'College/University': false,
+    'phonenumber': false,
+    'StartDate': false,
+    'City': false,
+    'Degree': false,
+    'State': false,
+    'majorsubject': false,
+    'country': false,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -119,7 +133,8 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             capitalIsSelect:false,
                             controller: widget.collegeUniversityController,
                             labelText: "College/University",
-                            errorText: _collegeUniversityError ? 'Please enter College/University Name' : null, hintText: 'Enter College/University',
+                            errorKey:  'College/University',
+                            hintText: 'Enter College/University',
                           ),
                         ),
                         SizedBox(width: AppSize.s20),
@@ -128,7 +143,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             capitalIsSelect:false,
                             controller: widget.phoneController,
                             labelText: "Phone",
-                            errorText: _phoneError ? 'Please enter valid phone number' : null, hintText: 'Enter Phone Number',
+                            errorKey:  'phonenumber', hintText: 'Enter Phone Number',
                           ),
                         ),
                         SizedBox(width: AppSize.s20),
@@ -137,7 +152,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             capitalIsSelect: false,
                             controller: widget.calenderController,
                             labelText: "Start Date",
-                            errorText: _calendarError ? 'Please Enter Start Date' : null,
+                            errorKey: 'StartDate',
                             suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
                             onTap: () async {
                               DateTime? date = await showDatePicker(
@@ -178,7 +193,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             capitalIsSelect:false,
                             controller: widget.cityController,
                             labelText: AppString.city,
-                            errorText: _cityError ? 'Please Enter City' : null, hintText: 'Enter City',
+                            errorKey: 'City', hintText: 'Enter City',
                           ),
                         ),
                         SizedBox(width: AppSize.s20),
@@ -186,7 +201,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                           child: _buildTextField(
                             controller: widget.degreeController,
                             labelText: "Degree",
-                            errorText: _degreeError ? 'Please Enter Degree' : null, capitalIsSelect: false, hintText: 'Enter Degree',
+                            errorKey: 'Degree', capitalIsSelect: false, hintText: 'Enter Degree',
                           ),
                         ),
                       ],
@@ -199,7 +214,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             capitalIsSelect:false,
                             controller: widget.stateController,
                             labelText: AppString.state,
-                            errorText: _stateError ? 'Please Enter State' : null, hintText: 'Enter State',
+                            errorKey:  'State', hintText: 'Enter State',
                           ),
                         ),
                         SizedBox(width: AppSize.s20),
@@ -208,7 +223,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             capitalIsSelect:false,
                             controller: widget.majorSubjectController,
                             labelText: "Major Subject",
-                            errorText: _majorSubjectError ? 'Please Enter Major Subject' : null, hintText: 'Enter Major Subject',
+                            errorKey: 'majorsubject', hintText: 'Enter Major Subject',
                           ),
                         ),
                         SizedBox(width: AppSize.s20),
@@ -217,7 +232,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             capitalIsSelect:false,
                             controller: widget.countryNameController,
                             labelText: "Country Name",
-                            errorText: _countryNameError ? 'Please Enter Country Name' : null, hintText: 'Enter Country Name',
+                            errorKey: 'country', hintText: 'Enter Country Name',
                           ),
                         ),
                       ],
@@ -261,6 +276,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
     required TextEditingController controller,
     required String labelText,
     required String hintText,
+    required String errorKey,
     String? errorText,
     Widget? suffixIcon,
     required bool capitalIsSelect,
@@ -297,31 +313,62 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
           onTap: onTap,
           onChanged: (value) {
             setState(() {
-              // Update error state based on the field
-              if (labelText == "College/University") _collegeUniversityError = value.isEmpty;
-              if (labelText == "City") _cityError = value.isEmpty;
-              if (labelText == "Phone") _phoneError = !_isPhoneValid(value); // Use custom phone validation
-              if (labelText == "State") _stateError = value.isEmpty;
-              if (labelText == "Major Subject") _majorSubjectError = value.isEmpty;
-              if (labelText == "Country Name") _countryNameError = value.isEmpty;
-              if (labelText == "Degree") _degreeError = value.isEmpty;
+              if (value == null) {
+                errorStates[errorKey] = value.isEmpty;
+              } else {
+                errorStates[errorKey] = value.isEmpty;
+              }
+              if (errorKey == 'phonenumber') {
+                // Validate phone number fields
+                String numericValue = value.replaceAll(RegExp(r'^\(\d{4}\) \d{3}-\d{4}$'), '');
+                errorStates[errorKey] = numericValue.length != 14;
+              }
             });
           },
           validator: (value) {
-            if (value == null || value.isEmpty) {
-              return AppString.enterText;
+
+            if (errorKey == 'Phone') {
+              String numericValue = value!.replaceAll(RegExp(r'^\(\d{4}\) \d{3}-\d{4}$'), '');
+              if (numericValue.length != 14) {
+                return 'Please enter a valid number';
+              }
             }
             return null;
           },
+          // onChanged: (value) {
+          //   setState(() {
+          //     // Update error state based on the field
+          //     if (labelText == "College/University") _collegeUniversityError = value.isEmpty;
+          //     if (labelText == "City") _cityError = value.isEmpty;
+          //     if (labelText == "Phone") _phoneError = !_isPhoneValid(value); // Use custom phone validation
+          //     if (labelText == "State") _stateError = value.isEmpty;
+          //     if (labelText == "Major Subject") _majorSubjectError = value.isEmpty;
+          //     if (labelText == "Country Name") _countryNameError = value.isEmpty;
+          //     if (labelText == "Degree") _degreeError = value.isEmpty;
+          //   });
+          // },
+          // validator: (value) {
+          //   if (value == null || value.isEmpty) {
+          //     return AppString.enterText;
+          //   }
+          //   return null;
+          // },
         ),
-        errorText != null ?
-          Padding(
-            padding: EdgeInsets.only(top: 1),
-            child: Text(
-              errorText,
-              style: CommonErrorMsg.customTextStyle(context),
+        errorStates[errorKey]! ?
+        Padding(
+          padding: const EdgeInsets.only(top: 1),
+          child: Text(
+            // errorKey == 'mobileNumber'
+            //     ? 'Please Enter a valid mobile number'
+            //     :
+
+            'Please Enter $labelText',
+            style: TextStyle(
+              color: ColorManager.red,
+              fontSize: FontSize.s10,
             ),
-          ) : SizedBox(height: 13,)
+          ),
+        ): SizedBox(height: 13,)
       ],
     );
   }
@@ -335,29 +382,22 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
 
   void _handleSave() async {
     setState(() {
-      isLoading = true;
-      _collegeUniversityError = widget.collegeUniversityController.text.isEmpty;
-      _phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
-      _calendarError = widget.calenderController.text.isEmpty;
-      _cityError = widget.cityController.text.isEmpty;
-      _degreeError = widget.degreeController.text.isEmpty;
-      _stateError = widget.stateController.text.isEmpty;
-      _majorSubjectError = widget.majorSubjectController.text.isEmpty;
-      _countryNameError = widget.countryNameController.text.isEmpty;
+      errorStates['College/University']  = widget.collegeUniversityController.text.isEmpty;
+      errorStates['phonenumber']  = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
+      errorStates['StartDate']  = widget.calenderController.text.isEmpty;
+      errorStates['City']  = widget.cityController.text.isEmpty;
+      errorStates['Degree']  = widget.degreeController.text.isEmpty;
+      errorStates['State']  = widget.stateController.text.isEmpty;
+      errorStates['majorsubject']  = widget.majorSubjectController.text.isEmpty;
+      errorStates['country']  = widget.countryNameController.text.isEmpty;
      // _radioButtonError = !_isRadioButtonSelected;
     });
 
-    if (!_collegeUniversityError &&
-        !_phoneError && // Make sure phone error is included
-        !_calendarError &&
-        !_cityError &&
-        !_stateError &&
-        !_majorSubjectError &&
-        !_countryNameError
-       // !_radioButtonError
-    ) {
+    if (!errorStates.values.contains(true)) {
       try {
-        print("<<<<<<<<<<,,Start");
+        setState(() {
+          isLoading = true;
+        });
         await widget.onpressedSave();
       } finally {
         setState(() {
@@ -365,11 +405,31 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
         });
         _clearControllers();
       }
-    } else {
-      setState(() {
-        isLoading = false;
-      });
     }
+
+    // if (!_collegeUniversityError &&
+    //     !_phoneError && // Make sure phone error is included
+    //     !_calendarError &&
+    //     !_cityError &&
+    //     !_stateError &&
+    //     !_majorSubjectError &&
+    //     !_countryNameError
+    //    // !_radioButtonError
+    // ) {
+    //   try {
+    //     print("<<<<<<<<<<,,Start");
+    //     await widget.onpressedSave();
+    //   } finally {
+    //     setState(() {
+    //       isLoading = false;
+    //     });
+    //     _clearControllers();
+    //   }
+    // } else {
+    //   setState(() {
+    //     isLoading = false;
+    //   });
+    // }
   }
 
 

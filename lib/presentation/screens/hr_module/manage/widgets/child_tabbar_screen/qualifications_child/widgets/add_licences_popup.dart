@@ -127,131 +127,134 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          text:'Select Document', // Main text
-                          style: AllPopupHeadings.customTextStyle(context), // Main style
-                          children: [
-                            TextSpan(
-                              text: ' *', // Asterisk
-                              style: AllPopupHeadings.customTextStyle(context).copyWith(
-                                color: ColorManager.red, // Asterisk color
+                  StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) { return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text:'Select Document', // Main text
+                            style: AllPopupHeadings.customTextStyle(context), // Main style
+                            children: [
+                              TextSpan(
+                                text: ' *', // Asterisk
+                                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                  color: ColorManager.red, // Asterisk color
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 4,),
-                      StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) {
-                          return FutureBuilder<List<NewOrgDocument>>(
-                              future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
-                              builder: (context,snapshot) {
-                                if(snapshot.connectionState == ConnectionState.waiting){
-                                  return   Container(
-                                    height: AppSize.s30,
-                                    width: MediaQuery.of(context).size.width / 6,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ColorManager
-                                              .containerBorderGrey,
-                                          width: AppSize.s1),
-                                      borderRadius:
-                                      BorderRadius.circular(4),
-                                    ),
-                                    child:  Row(
-                                      children: [
-                                        SizedBox(width: AppSize.s10),
-                                        Expanded(
-                                          child: Text(
-                                            docName ?? '',
-                                            style:  DocumentTypeDataStyle.customTextStyle(context),
+                        SizedBox(height: 4,),
+                        StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
+                            return FutureBuilder<List<NewOrgDocument>>(
+                                future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+                                builder: (context,snapshot) {
+                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                    return   Container(
+                                      height: AppSize.s30,
+                                      width: MediaQuery.of(context).size.width / 6,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ColorManager
+                                                .containerBorderGrey,
+                                            width: AppSize.s1),
+                                        borderRadius:
+                                        BorderRadius.circular(4),
+                                      ),
+                                      child:  Row(
+                                        children: [
+                                          SizedBox(width: AppSize.s10),
+                                          Expanded(
+                                            child: Text(
+                                              docName ?? '',
+                                              style:  DocumentTypeDataStyle.customTextStyle(context),
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: AppPadding.p8),
-                                          child: Icon(Icons.arrow_drop_down),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                  //   Container(
-                                  //   width: 200,
-                                  //   height: 30,
-                                  //   decoration: BoxDecoration(
-                                  //     border: Border.all(color: Colors.grey, width: 1),
-                                  //     borderRadius: BorderRadius.circular(5),
-                                  //   ),
-                                  //   child: Center(child: Text(" ",style: DocumentTypeDataStyle.customTextStyle(context),)),
-                                  // );
-
-                                }
-                                if (snapshot.data!.isEmpty) {
-                                  return Container(
-                                    width: 200,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey, width: 1),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Center(child: Text("No licenses available",style: DocumentTypeDataStyle.customTextStyle(context),)),
-                                  );
-                                }
-                                if(snapshot.hasData){
-                                  List dropDown = [];
-                                  String docType = '';
-                                  List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                  for(var i in snapshot.data!){
-                                    dropDownMenuItems.add(
-                                      DropdownMenuItem<String>(
-                                        child: Text(i.docName),
-                                        value: i.docName,
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: AppPadding.p8),
+                                            child: Icon(Icons.arrow_drop_down),
+                                          ),
+                                        ],
                                       ),
                                     );
-                                  }
-                                  //docNameadd = snapshot.data![0].docName;
-                                  return StatefulBuilder(
-                                    builder: (BuildContext context, void Function(void Function()) setState) { return CICCDropdown(
-                                      // width: 200,
-                                        width: MediaQuery.of(context).size.width / 6,
-                                        initialValue: docNameadd,
-                                        onChange: (val){
-                                          for(var a in snapshot.data!){
-                                            if(a.docName == val){
-                                              docType = a.docName;
-                                              docNameadd = docType;
-                                              setState(() {
-                                                errorStates["document"] = val.isEmpty;
-                                              });
-                                              //docMetaId = docType;
-                                            }
-                                          }
-                                          print(":::${docType}");
-                                          // print(":::<>${docMetaId}");
-                                        },
-                                        items:dropDownMenuItems
-                                    );  },
+                                    //   Container(
+                                    //   width: 200,
+                                    //   height: 30,
+                                    //   decoration: BoxDecoration(
+                                    //     border: Border.all(color: Colors.grey, width: 1),
+                                    //     borderRadius: BorderRadius.circular(5),
+                                    //   ),
+                                    //   child: Center(child: Text(" ",style: DocumentTypeDataStyle.customTextStyle(context),)),
+                                    // );
 
-                                  );
-                                }else{
-                                  return SizedBox();
+                                  }
+                                  if (snapshot.data!.isEmpty) {
+                                    return Container(
+                                      width: 200,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.grey, width: 1),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Center(child: Text("No licenses available",style: DocumentTypeDataStyle.customTextStyle(context),)),
+                                    );
+                                  }
+                                  if(snapshot.hasData){
+                                    List dropDown = [];
+                                    String docType = '';
+                                    List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                    for(var i in snapshot.data!){
+                                      dropDownMenuItems.add(
+                                        DropdownMenuItem<String>(
+                                          child: Text(i.docName),
+                                          value: i.docName,
+                                        ),
+                                      );
+                                    }
+                                    //docNameadd = snapshot.data![0].docName;
+                                    return StatefulBuilder(
+                                      builder: (BuildContext context, void Function(void Function()) setState) { return CICCDropdown(
+                                        // width: 200,
+                                          width: MediaQuery.of(context).size.width / 6,
+                                          initialValue: docNameadd,
+                                          onChange: (val){
+                                            for(var a in snapshot.data!){
+                                              if(a.docName == val){
+                                                docType = a.docName;
+                                                docNameadd = docType;
+                                                setState(() {
+                                                  errorStates["document"] = val.isEmpty;
+                                                });
+                                                //docMetaId = docType;
+                                              }
+                                            }
+                                            print(":::${docType}");
+                                            // print(":::<>${docMetaId}");
+                                          },
+                                          items:dropDownMenuItems
+                                      );  },
+
+                                    );
+                                  }else{
+                                    return SizedBox();
+                                  }
                                 }
-                              }
-                          );
-                        },
-                      ),
-                      errorStates["document"]!?
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1),
-                        child: Text(
-                          'Please Select Document',
-                          style: CommonErrorMsg.customTextStyle(context),
+                            );
+                          },
                         ),
-                      ):SizedBox(height: 13,)
-                    ],
+                        errorStates["document"]!?
+                        Padding(
+                          padding: const EdgeInsets.only(top: 1),
+                          child: Text(
+                            'Please Select Document',
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                        ):SizedBox(height: 13,)
+                      ],
+                    ); },
+
                   ),
 
                   const SizedBox(

@@ -346,7 +346,7 @@ Future<ProfilePercentage> getPercentage(
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       itemsData = ProfilePercentage(percentage: response.data);
-      print('profile percentage');
+    //  print('profile percentage');
     } else {
       print("percentage Error 1");
     }

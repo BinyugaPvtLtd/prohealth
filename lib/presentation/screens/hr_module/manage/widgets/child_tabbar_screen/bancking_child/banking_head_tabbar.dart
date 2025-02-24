@@ -630,7 +630,7 @@ class BankingContainerConst extends StatelessWidget {
                         color: Colors.white,
                       )),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF50B5E5),
+                    backgroundColor:ColorManager.blueprime,
                     //shadowColor: Colors.grey,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
