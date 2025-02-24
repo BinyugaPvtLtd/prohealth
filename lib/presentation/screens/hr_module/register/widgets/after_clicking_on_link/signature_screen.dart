@@ -697,6 +697,7 @@ class _SignaturePageState extends State<SignaturePage> {
   // }
 
   ///
+///
 
 class SignaturePainter extends CustomPainter {
   final List<Offset?> points;
