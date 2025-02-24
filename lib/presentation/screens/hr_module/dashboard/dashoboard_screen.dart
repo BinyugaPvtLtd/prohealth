@@ -201,8 +201,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     ),
                   ),
                   Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 30, horizontal: 80),
+                      padding: const EdgeInsets.only(top:40, bottom: 30, left: 90, right: 90),
                       child: Row(
                         children: [
                           Expanded(
@@ -655,7 +654,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           )
                         ],
                       ),
-                      const SizedBox(height: AppSize.s15,),
+                      const SizedBox(height: AppSize.s25,),
 
                       ///row 2
                       Row(
@@ -911,7 +910,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(height: 10,),
+                                      const SizedBox(height: 20,),
                                       ///Employee Ratio
                                       HrDashboardSmallcontainer(
                                         child: Row(
@@ -963,7 +962,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(width: 15,),
+                                const SizedBox(width: 10,),
 
                                 Expanded(
                                   child: Column(
@@ -1031,7 +1030,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 10,),
+                                      SizedBox(height: 20,),
                                       ///hiring ratio
                                       HrDashboardSmallcontainer(
                                         child: Row(
@@ -1602,7 +1601,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                               // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                               // EmployeeDocumentModal employeedoc = paginatedData[index];
-                              return const Column(
+                              return const
+                              Column(
                                 children: [
                                   SizedBox(height: AppSize.s5),
                                   HRDashboardListViewData(),
