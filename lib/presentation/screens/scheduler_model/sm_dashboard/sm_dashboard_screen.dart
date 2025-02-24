@@ -156,7 +156,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 child: Text("Monthly"),
                                               ),
                                               Container(
-                                                child:  Switch(
+                                                child: Switch(
                                                   focusColor: Colors.transparent,
                                                   splashRadius: 5,
                                                   hoverColor: Colors.transparent,

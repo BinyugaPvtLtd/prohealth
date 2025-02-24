@@ -500,11 +500,39 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                     borderRadius:
                                     BorderRadius.circular(8),
                                   ),
-                                  child: const Text(
-                                    "",
-                                    //AppString.dataNotFound,
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets
+                                          .symmetric(
+                                          horizontal: AppPadding.p10),
+                                      child: Text(
+                                        ErrorMessageString
+                                            .noZoneAdded,
+                                        //  AppString.dataNotFound,
+                                        style:
+                                        AllNoDataAvailable.customTextStyle(context),
+                                      ),
+                                    ),
                                   ),
                                 ),
+                                // Container(
+                                //   height: AppSize.s30,
+                                //   width: AppSize.s354,
+                                //   decoration: BoxDecoration(
+                                //     border: Border.all(
+                                //         color: ColorManager
+                                //             .containerBorderGrey,
+                                //         width: AppSize.s1),
+                                //     borderRadius:
+                                //     BorderRadius.circular(8),
+                                //   ),
+                                //   child: const Text(
+                                //     ErrorMessageString
+                                //         .noZoneAdded,
+                                //     //AppString.dataNotFound,
+                                //   ),
+                                // ),
                                 SizedBox(height: 12),
                               ],
                             );

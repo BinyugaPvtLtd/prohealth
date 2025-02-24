@@ -40,6 +40,15 @@ class AddNewOrgDocButtonProviider extends ChangeNotifier{
   bool loading = false;
 
   TextEditingController daysController = TextEditingController(text: "1");
+  void updateExpiryTypeBasedOnDocSelection(int docTypeId, int subDocTypeId) {
+    if (docTypeId == AppConfig.vendorContracts && subDocTypeId == AppConfig.subDocId10MISC) {
+      selectedExpiryType = AppConfig.scheduled; // Default to Scheduled
+    } else {
+      selectedExpiryType = AppConfig.notApplicable; // Default to Not Applicable
+    }
+    notifyListeners();
+  }
+
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -47,15 +56,6 @@ class AddNewOrgDocButtonProviider extends ChangeNotifier{
     }
     return null;
   }
-  // void initialize({required int subDocTypeId}) {
-  //   if (subDocTypeId == AppConfig.subDocId10MISC) {
-  //     selectedExpiryType = AppConfig.scheduled; // Set it to scheduled when subDocTypeId == AppConfig.subDocId10MISC
-  //   } else {
-  //     selectedExpiryType = AppConfig.notApplicable; // Set to default value otherwise
-  //   }
-  //
-  //   notifyListeners();
-  // }
 
   void validateForm() {
     _isFormValid = true;
@@ -106,6 +106,10 @@ class AddNewOrgDocButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AddNewOrgDocButtonProviider>(builder: (context, provider, child){
       provider.setupTextFieldListeners();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        provider.updateExpiryTypeBasedOnDocSelection(docTypeId, subDocTypeId);
+      });
+      // provider.updateExpiryTypeBasedOnDocSelection(docTypeId, subDocTypeId);
       return DialogueTemplate(
         width: AppSize.s420,
         height: subDocTypeId == AppConfig.subDocId10MISC

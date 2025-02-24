@@ -87,12 +87,26 @@ class JointContainerConst extends StatelessWidget {
                 bottom: BorderSide(color: ColorManager.blueBorder.withOpacity(0.1),width: 1),
                 left: BorderSide(color: ColorManager.blueBorder.withOpacity(0.1),width: 1),
                 right: BorderSide(color: ColorManager.blueBorder.withOpacity(0.1),width: 1)),
+            boxShadow: [
+              BoxShadow(
+                color: ColorManager.black.withOpacity(0.1),
+                blurRadius: 0,
+                spreadRadius: 0,
+                offset: const Offset(-1.2, 0), // Left shadow
+              ),
+              BoxShadow(
+                color: ColorManager.black.withOpacity(0.1),
+                blurRadius: 0,
+                spreadRadius: 0,
+                offset: const Offset(1.2, 0), // Right shadow
+              ),
+            ],
             // boxShadow: [
             //   BoxShadow(
-            //     color: ColorManager.black.withOpacity(0.2),
-            //     blurRadius: 4,
+            //     color: ColorManager.black.withOpacity(0.1),
+            //     blurRadius: 2,
             //     spreadRadius: 0,
-            //     offset: const Offset(4, 0), // Downward shadow
+            //     offset: const Offset(1.2, 0),
             //   ),
             // ],
           ),

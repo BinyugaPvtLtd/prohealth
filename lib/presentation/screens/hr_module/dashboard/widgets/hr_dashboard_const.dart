@@ -99,7 +99,7 @@ class HrDashboadGraphContainer extends StatelessWidget {
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(12),
           border: Border(top: BorderSide(
             color: Color(0xFF579EBA),
             width: 3,
@@ -125,7 +125,7 @@ class HrDashboardSmallcontainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 135,
+        height: 130,
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,
