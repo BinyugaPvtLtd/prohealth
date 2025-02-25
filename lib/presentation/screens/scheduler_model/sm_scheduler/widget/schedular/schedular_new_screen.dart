@@ -40,7 +40,6 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         if (!_showAutoScreen)
         Padding(
           padding: const EdgeInsets.only(left: 200,right: 200, top: 25),
