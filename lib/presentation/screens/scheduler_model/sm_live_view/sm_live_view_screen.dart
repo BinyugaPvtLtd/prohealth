@@ -326,6 +326,83 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
   double? latitudeL;
   double? longitudeL;
   List<LatLng> _polygonCoordinates = [];
+  // Future<void> getPolygonCoordinates(String placeId) async {
+  //   final String apiKey = AppConfig.googleApiKey;
+  //   final String detailsUrl =
+  //       'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$apiKey';
+  //
+  //   try {
+  //     final response = await http.get(Uri.parse(detailsUrl));
+  //     if (response.statusCode == 200) {
+  //       final data = json.decode(response.body);
+  //
+  //       if (data['status'] == 'OK' && data['result'].containsKey('geometry')) {
+  //         final geometry = data['result']['geometry'];
+  //         if (geometry.containsKey('bounds')) {
+  //           final bounds = geometry['bounds'];
+  //
+  //           _polygonCoordinates = [
+  //             LatLng(bounds['northeast']['lat'], bounds['northeast']['lng']),
+  //             LatLng(bounds['northeast']['lat'], bounds['southwest']['lng']),
+  //             LatLng(bounds['southwest']['lat'], bounds['southwest']['lng']),
+  //             LatLng(bounds['southwest']['lat'], bounds['northeast']['lng']),
+  //           ];
+  //
+  //           print("Polygon Coordinates: $_polygonCoordinates");
+  //         } else {
+  //           print("No boundary data found for this place.");
+  //         }
+  //       } else {
+  //         print("Failed to fetch place details.");
+  //       }
+  //     } else {
+  //       print("HTTP request failed: ${response.statusCode}");
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching place details: $e");
+  //   }
+  // }
+
+  // Future<void> getLatLngFromAddress(String address) async {
+  //   final String apiKey = AppConfig.googleApiKey;
+  //   final String url =
+  //       'https://maps.googleapis.com/maps/api/geocode/json?address=${Uri.encodeComponent(address)}&key=$apiKey';
+  //
+  //   try {
+  //     final response = await http.get(Uri.parse(url));
+  //     if (response.statusCode == 200) {
+  //       final data = json.decode(response.body);
+  //
+  //       if (data['status'] == 'OK' && data['results'].isNotEmpty) {
+  //         final location = data['results'][0]['geometry']['location'];
+  //         final placeId = data['results'][0]['place_id'];
+  //
+  //         latitudeL = location['lat'];
+  //         longitudeL = location['lng'];
+  //
+  //         setState(() {
+  //           _initialPosition = LatLng(latitudeL!, longitudeL!);
+  //           getPolygonCoordinates(placeId);
+  //         });
+  //
+  //         // Fetch detailed polygon coordinates
+  //
+  //
+  //         mapController.animateCamera(
+  //           CameraUpdate.newLatLngZoom(_initialPosition, 14),
+  //         );
+  //
+  //         print("Latitude: $latitudeL, Longitude: $longitudeL");
+  //       } else {
+  //         print("No coordinates found for this address.");
+  //       }
+  //     } else {
+  //       print("Failed to fetch coordinates: ${response.statusCode}");
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching lat/lng: $e");
+  //   }
+  // }
   Future<void> getLatLngFromAddress(String address) async {
     final String apiKey = AppConfig.googleApiKey; // Replace with your API key.
     final String url =
@@ -339,6 +416,24 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
         if (data['status'] == 'OK' && data['results'].isNotEmpty) {
           final location = data['results'][0]['geometry']['location'];
           final viewport = data['results'][0]['geometry']['viewport'];
+          // final geometry = data['result']['geometry'];
+          // if (geometry.containsKey('bounds')){
+          //   final bounds = geometry['bounds'];
+          //   latitudeL = location['lat'];
+          //   longitudeL = location['lng'];
+          //   setState(() {
+          //     _initialPosition = LatLng(latitudeL!, longitudeL!);
+          //     _polygonCoordinates = [
+          //       LatLng(bounds['northeast']['lat'], bounds['northeast']['lng']),
+          //       LatLng(bounds['northeast']['lat'], bounds['southwest']['lng']),
+          //       LatLng(bounds['southwest']['lat'], bounds['southwest']['lng']),
+          //       LatLng(bounds['southwest']['lat'], bounds['northeast']['lng']),
+          //     ];
+          //   });
+
+
+
+
           latitudeL = location['lat'];
           longitudeL = location['lng'];
           setState(() {
@@ -409,8 +504,8 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                       Polygon(
                         polygonId: PolygonId('highlightedArea'),
                         points: _polygonCoordinates,
-                        fillColor: Colors.red.withOpacity(0.3),
-                        strokeColor: Colors.red,
+                        fillColor: Colors.red.withOpacity(0.2),
+                        strokeColor: Colors.red.withOpacity(0.3),
                         strokeWidth: 2,
                       ),
                   },
