@@ -2,37 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
-
-import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
-import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
-import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
-import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
-import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
-import '../../../widgets/error_popups/failed_popup.dart';
-import '../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
-import '../add_employee/widget/mcq_widget_add-employee.dart';
-import '../manage/widgets/custom_icon_button_constant.dart';
 
 class RegisterEnrollPopup extends StatelessWidget {
   final TextEditingController firstName;
@@ -611,7 +596,7 @@ class RegisterEnrollPopup extends StatelessWidget {
                                 height: AppSize.s10,
                               ),
                               SizedBox(
-                                height: AppSize.s60,
+                                height: AppSize.s68,
                               ),
                               // CustomTextField(
                               //   width: textFieldWidth,
@@ -802,7 +787,7 @@ class RegisterEnrollPopup extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(
-                                height: AppSize.s73,
+                                height: 78,
                               ),
                             ],
                           ),
@@ -1057,52 +1042,6 @@ class RegisterEnrollPopup extends StatelessWidget {
                     // ),
                   ),
 
-
-
-
-
-                  // Container(
-                  //   height: 100,
-                  //   child:   FutureBuilder<List<EnrollServices>>(
-                  //     future: EmpServiceRadioButtonApi(context,),
-                  //     builder: (context, snap) {
-                  //       if (snap.connectionState == ConnectionState.waiting) {
-                  //         return Center(
-                  //           child: SizedBox(
-                  //             height: 20,
-                  //             width: 20,
-                  //             child: CircularProgressIndicator(
-                  //               color: ColorManager.blueprime,
-                  //             ),
-                  //           ),
-                  //         );
-                  //       }
-                  //       if (snap.hasData) {
-                  //         List<String> serviceName = [];
-                  //         for (var i in snap.data!) {
-                  //           serviceName.add(i.servicename!);
-                  //         }
-                  //         return Padding(
-                  //           padding: EdgeInsets.only(left: 20.0),
-                  //           child: McqWidget(
-                  //             title: 'Service',
-                  //             items: serviceName,
-                  //             onChanged: (val) {
-                  //
-                  //               serviceVal = serviceName[val].toString();
-                  //               print('Service data:::::>> $serviceVal');
-                  //               print('Service data:::::>> $serviceName');
-                  //             },
-                  //           ),
-                  //         );
-                  //       }
-                  //       return SizedBox();
-                  //     },
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: AppSize.s6,
-                  // ),
                   StatefulBuilder(
                     builder: (BuildContext context, void Function(void Function()) setState) {
                       return Row(

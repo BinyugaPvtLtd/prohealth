@@ -42,7 +42,7 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
       children: [
         if (!_showAutoScreen)
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 200,),
+          padding: const EdgeInsets.only(left: 200,right: 200, top: 25),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,8 +73,7 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
 
         Expanded(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 60),
+            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 60),
             child:_showAutoScreen
                 ? Auto_Assign(
               onGoBackAuto: () {
@@ -83,8 +82,7 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
                 });
               },
             )
-                :
-             NonScrollablePageView(
+                : NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {
                 setState(() {

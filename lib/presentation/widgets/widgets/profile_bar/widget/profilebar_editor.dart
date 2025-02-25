@@ -274,7 +274,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border(
-                            top: BorderSide(color: ColorManager.bluebottom, width: 4.0), // Top blue border
+                            top: BorderSide(color: ColorManager.bluebottom, width: 8.0), // Top blue border
                           ),
                           borderRadius: BorderRadius.circular(20.0),
                           boxShadow: [

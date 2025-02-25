@@ -44,11 +44,10 @@ class _PendingPageViewState extends State<PendingPageView> {
       backgroundColor: Colors.white,
       body:Stack(
         children:[ Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 10
+          padding: const EdgeInsets.only(left: 100, right: 100, top: 10
           ),
           child: Column(
             children: [
-              SizedBox(height: 50,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -228,8 +227,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                   ),
                 ],
               ),
-
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               Expanded(
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),

@@ -362,8 +362,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                   width: AppSize.s354,
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: ColorManager
-                                            .containerBorderGrey,
+                                        color: ColorManager.containerBorderGrey,
                                         width: AppSize.s1),
                                     borderRadius:
                                     BorderRadius.circular(8),
@@ -907,10 +906,6 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                       ],
                     ),
                   ),
-                  // Text(
-                  //   'County Name',
-                  //   style: AllPopupHeadings.customTextStyle(context),
-                  // ),
                   SizedBox(height: AppSize.s5),
                   FutureBuilder<List<OfficeWiseCountyData>>(
                       future: getCountyListOfficeIdWise(context:context,OfficeId: widget.officeId),
@@ -926,7 +921,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             ),
                             child:  Row(
                               children: [
-                                SizedBox(width: AppSize.s8),
+                                SizedBox(width: AppSize.s10),
                                 Expanded(
                                   child: Text(
                                     countyNameText ?? '',
@@ -934,7 +929,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(right: AppPadding.p10),
+                                  padding: const EdgeInsets.only(right: AppPadding.p8),
                                   child: Icon(Icons.arrow_drop_down),
                                 ),
                               ],
@@ -953,7 +948,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                                 child: Text(
                                     ErrorMessageString.noCountyAdded,
                                     // AppString.dataNotFound,
@@ -1040,9 +1035,16 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                                   color: ColorManager.containerBorderGrey, width: AppSize.s1),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Text(
-                              "",
-                              //AppString.dataNotFound,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                    ErrorMessageString.noZoneAdded,
+                                    //  AppString.dataNotFound,
+                                    style: AllNoDataAvailable.customTextStyle(context)
+                                ),
+                              ),
                             ),
                           );
                         }
