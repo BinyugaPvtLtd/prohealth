@@ -148,8 +148,6 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
 
 
 
-
-
   void _generateSquareZones() {
     Set<Polygon> squareZones = {};
     Set<Marker> markers = {}; // Set to store markers
