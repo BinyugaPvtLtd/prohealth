@@ -1447,9 +1447,14 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                     border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
                                     borderRadius: BorderRadius.circular(6),
                                   ),
-                                  child: const Text(
-                                    "",
-                                    //AppString.dataNotFound,
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: Text(
+                                          ErrorMessageString.noZoneAdded,
+                                          style: DocumentTypeDataStyle.customTextStyle(context)
+                                      ),
+                                    ),
                                   ),
                                 );
                               }

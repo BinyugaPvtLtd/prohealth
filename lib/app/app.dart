@@ -58,9 +58,11 @@ class _App extends State<App> {
         .querySelector('meta[name="build-version"]')
         ?.getAttribute("content");
     if (currentVersion != initialVersion) {
+      print('Please Update version');
       final providerState = Provider.of<VersionProviderManager>(context);
       WidgetsBinding.instance.addPostFrameCallback((_) {
         providerState.getVersionManager(context);
+        providerState.refreshText();
       });
       _showUpdateDialog();
     }

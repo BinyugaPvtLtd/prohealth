@@ -323,9 +323,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
       _markers = markers;
     });
   }
-  double? latitudeL;
-  double? longitudeL;
-  List<LatLng> _polygonCoordinates = [];
+
   Future<void> getLatLngFromAddress(String address) async {
     final String apiKey = AppConfig.googleApiKey; // Replace with your API key.
     final String url =
@@ -338,32 +336,29 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
 
         if (data['status'] == 'OK' && data['results'].isNotEmpty) {
           final location = data['results'][0]['geometry']['location'];
-          final viewport = data['results'][0]['geometry']['viewport'];
           latitudeL = location['lat'];
           longitudeL = location['lng'];
           setState(() {
             _initialPosition = LatLng(latitudeL!, longitudeL!);
+            // Update this with actual boundary coordinates or a polygon
             _polygonCoordinates = [
-              LatLng(viewport['northeast']['lat'], viewport['northeast']['lng']),
-              LatLng(viewport['northeast']['lat'], viewport['southwest']['lng']),
-              LatLng(viewport['southwest']['lat'], viewport['southwest']['lng']),
-              LatLng(viewport['southwest']['lat'], viewport['northeast']['lng']),
+              // Example custom polygon (this is just an example and should be replaced with real boundary data)
+              LatLng(latitudeL! + 0.01, longitudeL! - 0.01), // Point 1
+              LatLng(latitudeL! + 0.02, longitudeL! + 0.01), // Point 2
+              LatLng(latitudeL! + 0.01, longitudeL! + 0.02), // Point 3
+              LatLng(latitudeL! - 0.01, longitudeL! + 0.01), // Point 4
+              LatLng(latitudeL! - 0.01, longitudeL! - 0.01), // Point 5 (close the polygon)
             ];
+            ///
+            ///
+
           });
 
-          // setState(() {
-          //  _initialPosition = LatLng(latitudeL!, longitudeL!);
-          // });
           mapController.animateCamera(
             CameraUpdate.newLatLngZoom(_initialPosition, 14),
           );
-          // Notify parent widget with the latitude and longitude
-          // if (onLatLngFetched != null) {
-          //   onLatLngFetched!(latitudeL!, longitudeL!);
-          // }
 
           print("Latitude: $latitudeL, Longitude: $longitudeL");
-          print('Get location lat: $latitudeL and long: $longitudeL');
         } else {
           print("No coordinates found for this address.");
         }
@@ -374,6 +369,59 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
       print("Error fetching lat/lng: $e");
     }
   }
+
+
+  double? latitudeL;
+  double? longitudeL;
+  List<LatLng> _polygonCoordinates = [];
+  // Future<void> getLatLngFromAddress(String address) async {
+  //   final String apiKey = AppConfig.googleApiKey; // Replace with your API key.
+  //   final String url =
+  //       'https://maps.googleapis.com/maps/api/geocode/json?address=${Uri.encodeComponent(address)}&key=$apiKey';
+  //
+  //   try {
+  //     final response = await http.get(Uri.parse(url));
+  //     if (response.statusCode == 200) {
+  //       final data = json.decode(response.body);
+  //
+  //       if (data['status'] == 'OK' && data['results'].isNotEmpty) {
+  //         final location = data['results'][0]['geometry']['location'];
+  //         final viewport = data['results'][0]['geometry']['viewport'];
+  //         latitudeL = location['lat'];
+  //         longitudeL = location['lng'];
+  //         setState(() {
+  //           _initialPosition = LatLng(latitudeL!, longitudeL!);
+  //           _polygonCoordinates = [
+  //             LatLng(viewport['northeast']['lat'], viewport['northeast']['lng']),
+  //             LatLng(viewport['northeast']['lat'], viewport['southwest']['lng']),
+  //             LatLng(viewport['southwest']['lat'], viewport['southwest']['lng']),
+  //             LatLng(viewport['southwest']['lat'], viewport['northeast']['lng']),
+  //           ];
+  //         });
+  //
+  //         // setState(() {
+  //         //  _initialPosition = LatLng(latitudeL!, longitudeL!);
+  //         // });
+  //         mapController.animateCamera(
+  //           CameraUpdate.newLatLngZoom(_initialPosition, 14),
+  //         );
+  //         // Notify parent widget with the latitude and longitude
+  //         // if (onLatLngFetched != null) {
+  //         //   onLatLngFetched!(latitudeL!, longitudeL!);
+  //         // }
+  //
+  //         print("Latitude: $latitudeL, Longitude: $longitudeL");
+  //         print('Get location lat: $latitudeL and long: $longitudeL');
+  //       } else {
+  //         print("No coordinates found for this address.");
+  //       }
+  //     } else {
+  //       print("Failed to fetch coordinates: ${response.statusCode}");
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching lat/lng: $e");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -411,7 +459,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                         points: _polygonCoordinates,
                         fillColor: Colors.red.withOpacity(0.3),
                         strokeColor: Colors.red,
-                        strokeWidth: 2,
+                        strokeWidth: 3,
                       ),
                   },
                   // polygons: _selectedView == 'Heat Map' ? _heatMapCircles : {if (_polygonCoordinates.isNotEmpty)
