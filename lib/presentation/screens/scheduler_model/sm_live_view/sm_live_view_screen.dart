@@ -323,7 +323,6 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
       _markers = markers;
     });
   }
-
   Future<void> getLatLngFromAddress(String address) async {
     final String apiKey = AppConfig.googleApiKey; // Replace with your API key.
     final String url =
@@ -452,7 +451,8 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                       ? _heatMapCircles  // Use heatmap squares
                       : _selectedView == 'Zones'
                       ? _heatMapCircles  // Add zone squares
-                      : {
+                      :
+                  {
                     if (_polygonCoordinates.isNotEmpty)
                       Polygon(
                         polygonId: PolygonId('highlightedArea'),
