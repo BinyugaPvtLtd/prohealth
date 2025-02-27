@@ -322,6 +322,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
     });
   }
 
+
   Future<void> getLatLngFromAddress(String address) async {
     final String apiKey = AppConfig.googleApiKey; // Replace with your API key.
     final String url =
@@ -336,20 +337,21 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
           final location = data['results'][0]['geometry']['location'];
           latitudeL = location['lat'];
           longitudeL = location['lng'];
+
+          // You can also fetch the viewport (bounding box) for the address if needed
+         // final viewport = data['results'][0]['geometry']['viewport'];
+          List<LatLng> boundaryPoints = _generateCircularShape(latitudeL!, longitudeL!);
+
+          // List<LatLng> boundaryPoints = [
+          //   LatLng(viewport['northeast']['lat'], viewport['northeast']['lng']),
+          //   LatLng(viewport['northeast']['lat'], viewport['southwest']['lng']),
+          //   LatLng(viewport['southwest']['lat'], viewport['southwest']['lng']),
+          //   LatLng(viewport['southwest']['lat'], viewport['northeast']['lng']),
+          // ];
+
           setState(() {
             _initialPosition = LatLng(latitudeL!, longitudeL!);
-            // Update this with actual boundary coordinates or a polygon
-            _polygonCoordinates = [
-              // Example custom polygon (this is just an example and should be replaced with real boundary data)
-              LatLng(latitudeL! + 0.01, longitudeL! - 0.01), // Point 1
-              LatLng(latitudeL! + 0.02, longitudeL! + 0.01), // Point 2
-              LatLng(latitudeL! + 0.01, longitudeL! + 0.02), // Point 3
-              LatLng(latitudeL! - 0.01, longitudeL! + 0.01), // Point 4
-              LatLng(latitudeL! - 0.01, longitudeL! - 0.01), // Point 5 (close the polygon)
-            ];
-            ///
-            ///
-
+            _polygonCoordinates = boundaryPoints; // Use bounding box points for polygon
           });
 
           mapController.animateCamera(
@@ -367,6 +369,85 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
       print("Error fetching lat/lng: $e");
     }
   }
+
+
+
+  // Function to generate a more organic (amoeba-like) shape
+  List<LatLng> _generateCircularShape(double centerLat, double centerLng) {
+    List<LatLng> points = [];
+    double radius = 0.03; // Adjust the radius based on how large you want the shape
+    int numberOfPoints = 15; // Number of points in the circle (higher number = smoother circle)
+
+    // Loop to create points in a circular pattern using trigonometric functions
+    for (int i = 0; i < numberOfPoints; i++) {
+      double angle = (i * 2 * pi) / numberOfPoints; // Divide the circle into equal segments
+      double offsetLat = radius * sin(angle); // Sine for latitude variation
+      double offsetLng = radius * cos(angle); // Cosine for longitude variation
+
+      // Create points around the center point
+      double lat = centerLat + offsetLat;
+      double lng = centerLng + offsetLng;
+
+      points.add(LatLng(lat, lng));
+    }
+
+    // Ensure the first point connects back to the last point to close the shape
+    points.add(points[0]);
+
+    return points;
+  }
+
+
+
+
+
+
+
+  // Future<void> getLatLngFromAddress(String address) async {
+  //   final String apiKey = AppConfig.googleApiKey; // Replace with your API key.
+  //   final String url =
+  //       'https://maps.googleapis.com/maps/api/geocode/json?address=${Uri.encodeComponent(address)}&key=$apiKey';
+  //
+  //   try {
+  //     final response = await http.get(Uri.parse(url));
+  //     if (response.statusCode == 200) {
+  //       final data = json.decode(response.body);
+  //
+  //       if (data['status'] == 'OK' && data['results'].isNotEmpty) {
+  //         final location = data['results'][0]['geometry']['location'];
+  //         latitudeL = location['lat'];
+  //         longitudeL = location['lng'];
+  //         setState(() {
+  //           _initialPosition = LatLng(latitudeL!, longitudeL!);
+  //           // Update this with actual boundary coordinates or a polygon
+  //           _polygonCoordinates = [
+  //             // Example custom polygon (this is just an example and should be replaced with real boundary data)
+  //             LatLng(latitudeL! + 0.01, longitudeL! - 0.01), // Point 1
+  //             LatLng(latitudeL! + 0.02, longitudeL! + 0.01), // Point 2
+  //             LatLng(latitudeL! + 0.01, longitudeL! + 0.02), // Point 3
+  //             LatLng(latitudeL! - 0.01, longitudeL! + 0.01), // Point 4
+  //             LatLng(latitudeL! - 0.01, longitudeL! - 0.01), // Point 5 (close the polygon)
+  //           ];
+  //           ///
+  //           ///
+  //
+  //         });
+  //
+  //         mapController.animateCamera(
+  //           CameraUpdate.newLatLngZoom(_initialPosition, 14),
+  //         );
+  //
+  //         print("Latitude: $latitudeL, Longitude: $longitudeL");
+  //       } else {
+  //         print("No coordinates found for this address.");
+  //       }
+  //     } else {
+  //       print("Failed to fetch coordinates: ${response.statusCode}");
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching lat/lng: $e");
+  //   }
+  // }
 
 
   double? latitudeL;
