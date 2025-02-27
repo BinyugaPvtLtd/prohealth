@@ -51,45 +51,70 @@ class _App extends State<App> {
     initialVersion = html.document
         .querySelector('meta[name="build-version"]')
         ?.getAttribute("content");
+    print('Inside initialize method version');
+    _checkForUpdate();
   }
 
   void _checkForUpdate() {
     final currentVersion = html.document
         .querySelector('meta[name="build-version"]')
         ?.getAttribute("content");
+    print('Inside CheckUpdate method version');
     if (currentVersion != initialVersion) {
       print('Please Update version');
-      final providerState = Provider.of<VersionProviderManager>(context);
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        providerState.getVersionManager(context);
-        providerState.refreshText();
-      });
-      _showUpdateDialog();
+      if(mounted){
+        final providerState = Provider.of<VersionProviderManager>(context,listen: false);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          providerState.getVersionManager(context);
+          providerState.refreshText();
+        });
+        //_reloadPage();
+        _showUpdateDialog();
+      }
+
+    }else{
+      print('Stable Version!');
     }
+      //  if(mounted){
+      // final providerState = Provider.of<VersionProviderManager>(context,listen: false);
+      //    WidgetsBinding.instance.addPostFrameCallback((_) {
+      //
+      //     providerState.getVersionManager(context);
+      //     providerState.refreshText();
+      //    });
+      //   //_reloadPage();
+      //   _showUpdateDialog();
+      //  }
+    // }
   }
 
   void _showUpdateDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text("New Update Available"),
-        content: Text(
-            "A new version of the app is available. Please refresh to update."),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text("Later"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              _reloadPage();
-            },
-            child: Text("Refresh"),
-          ),
-        ],
-      ),
-    );
+    if (!mounted) return;
+    Future.delayed(Duration.zero, ()
+    {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(
+              title: Text("New Update Available"),
+              content: Text(
+                  "A new version of the app is available. Please refresh to update."),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text("Later"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _reloadPage();
+                  },
+                  child: Text("Refresh"),
+                ),
+              ],
+            ),
+      );
+    });
   }
 
   void _reloadPage() {
