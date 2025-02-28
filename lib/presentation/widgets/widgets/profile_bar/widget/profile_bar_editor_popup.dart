@@ -136,9 +136,9 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                       future: getCountyZoneList(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
-                          return CICCDropdown(
+                          return CICCDropDownedit(
                             width: AppSize.s354,
-                            hintText: 'Select County',
+                            hintText: '',
                             items: [],
                           );
                         } else if (snapshot.hasError) {
@@ -159,7 +159,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // County Dropdown
-                                  CICCDropdown(
+                                  CICCDropDownedit(
                                     items: countyDropDownList,
                                     initialValue: selectedCounty,
                                     width: AppSize.s354,

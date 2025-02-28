@@ -172,7 +172,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                  horizontal: 15,
+                                  horizontal: 16,
                                         vertical: 5),
                                     child: Container(
                                         decoration: BoxDecoration(

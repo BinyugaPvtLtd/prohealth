@@ -289,7 +289,7 @@ class OfferLetterScreen extends StatelessWidget {
                         horizontal: 12.0),
                         child: Text(
                         value,
-                        style: const TextStyle(fontSize: 12.0),
+                        style: DocumentTypeDataStyle.customTextStyle(context),
                         ),
                         ),
                         );
