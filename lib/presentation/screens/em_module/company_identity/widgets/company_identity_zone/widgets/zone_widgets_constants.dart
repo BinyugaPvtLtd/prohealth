@@ -801,6 +801,8 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
   int countyId =0;
   String zoneNameText = '';
   String countyNameText= '';
+  late Future<List<SortByZoneData>> _zoneFuture;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -811,6 +813,8 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
     zoneNameText = widget.zoneName;
     countyNameText = widget.countyName;
     super.initState();
+    _zoneFuture = PayRateZoneDropdown(context); // Initialize Future once
+
   }
   void _pickLocation() async {
     final pickedLocation = await Navigator.of(context).push<LatLng>(
@@ -856,7 +860,6 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
       print("Updated Location: $_location"); // Check this log to see if the value updates
     });
   }
-
   String? zipcodeError;
   bool validateFields() {
     bool isValid = true;
@@ -1024,7 +1027,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                   ),
                   SizedBox(height: AppSize.s5),
                   FutureBuilder<List<SortByZoneData>>(
-                      future: PayRateZoneDropdown(context),
+                      future: _zoneFuture,// PayRateZoneDropdown(context),
                       builder: (context,snapshotZone) {
                         if(snapshotZone.connectionState == ConnectionState.waiting){
                           return Container(

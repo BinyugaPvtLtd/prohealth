@@ -77,7 +77,7 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
 
         Expanded(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 60),
+            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 70),
             child:_showAutoScreen
                 ? Auto_Assign(
               onGoBackAuto: () {

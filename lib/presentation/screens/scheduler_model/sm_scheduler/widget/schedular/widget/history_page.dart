@@ -131,9 +131,7 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                                   SizedBox(width: AppSize.s7),
                                   Text(
                                     'John Smith',
-                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.mediumgrey,),
+                                    style: DocDefineTableData.customTextStyle(context),
                                   ),
                                 ],
                               ),
@@ -149,7 +147,7 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                                 Container(
                                   child:Text("132 My Street,Kingston, New York 12401",
                                     textAlign: TextAlign.start,
-                                    style:AllHRTableData.customTextStyle(context),
+                                    style:DocDefineTableDataID.customTextStyle(context),
                                   ) ,
                                 )
                               ],
@@ -185,9 +183,9 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                             flex: 2,
                             child: Row(
                               children: [
-                                Text("Referral Date : ",style: AllHRTableData.customTextStyle(context),),
+                                Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
                                 // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
 
                               ],
                             ),
@@ -211,7 +209,7 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                                   // mainAxisAlignment: MainAxisAlignment.start, // Aligns items in the row to the start (left)
                                   // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Auto assigned on 2024/12/08 |",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                    Text("Auto assigned on 2024/12/08 |",style: DocDefineTableData.customTextStyle(context),),
                                    // Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
                                   ],
                                 ),
@@ -219,7 +217,7 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                                   // mainAxisAlignment: MainAxisAlignment.start, // Aligns items in the row to the start (left)
                                   // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("10:00 AM ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                    Text("10:00 AM ",style: DocDefineTableData.customTextStyle(context),),
 
                                   ],
                                 ),

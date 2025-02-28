@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/sm_scheduler_screen_const.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -34,7 +35,6 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
         ),
         child: Column(
           children: [
-            SizedBox(height: 50,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -125,36 +125,33 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                     ),
 
 
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Container(
+                    Container(
 
-                        decoration: BoxDecoration(
-                            border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(8))
-                        ),
-                        // child:buildDropdownButton(context),
-                        child: CustomDropdownTextField(
-                          width:100,
-                          height: 32,
-                          isAstric:false,
-                          // Adjust headText based on depId
-                          initialValue: 'Filter by',
-                          headText: "", // Default fallback if depId doesn't match any of the expected values
-                          items: ['Weekly','Monthly',],
-                          onChanged: (newValue) {
-                            // for (var a in snapshot.data!) {
-                            //   if (a.empType == newValue) {
-                            //     clinicialName = a.empType!;
-                            //     clinicalId = a.employeeTypesId!;
-                            //     print("Dept ID'''''' ${clinicalId}");
-                            //     print("';';';''''''''Dept ID ${clinicialName}");
-                            //     // Do something with docType
-                            //   }
-                            // }
-                          },
-                        ),
+                      decoration: BoxDecoration(
+                          border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(8))
+                      ),
+                      // child:buildDropdownButton(context),
+                      child: CustomDropdownTextField(
+                        width:100,
+                        height: 32,
+                        isAstric:false,
+                        // Adjust headText based on depId
+                        initialValue: 'Filter by',
+                        headText: "", // Default fallback if depId doesn't match any of the expected values
+                        items: ['Weekly','Monthly',],
+                        onChanged: (newValue) {
+                          // for (var a in snapshot.data!) {
+                          //   if (a.empType == newValue) {
+                          //     clinicialName = a.empType!;
+                          //     clinicalId = a.employeeTypesId!;
+                          //     print("Dept ID'''''' ${clinicalId}");
+                          //     print("';';';''''''''Dept ID ${clinicialName}");
+                          //     // Do something with docType
+                          //   }
+                          // }
+                        },
                       ),
                     ),
 
@@ -170,132 +167,138 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                 child: ListView.builder(
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) { return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 1,
-                      vertical: 5,),
-                    child: Container(
-                      // color: Colors.red,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey
-                                .withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-
+                    padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
+                    child: SchedularContainerConst(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Row(
-                              children: [
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 5),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(60),
-                                        child: SizedBox(
-                                          width: AppSize.s60,
-                                          height: AppSize.s60,
-                                          child: Image.asset(
-                                            'images/hr_dashboard/man.png', // Replace with your image path
-                                            fit: BoxFit.cover,
+                          Expanded(
+                            flex:2,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 5),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(60),
+                                          child: SizedBox(
+                                            width: AppSize.s41,
+                                            height: AppSize.s45,
+                                            child: Image.asset(
+                                              'images/hr_dashboard/man.png', // Replace with your image path
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: AppSize.s7),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 18),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Jeh Tiwari',
-                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w700,
-                                          color: ColorManager.mediumgrey,),
-                                      ),
-                                      SizedBox(height: AppSize.s3),
-                                      Text(
-                                        'Anxiety',
-                                        style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.mediumgrey,),
-                                      ),
                                     ],
                                   ),
-                                ),
+                                  SizedBox(width: AppSize.s7),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Jeh Tiwari',
+                                          style: DocDefineTableData.customTextStyle(context),
+                                        ),
+                                        SizedBox(height: AppSize.s3),
+                                        Text(
+                                          'Anxiety',
+                                          style:DocDefineTableDataID.customTextStyle(context),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              children: [
+                                Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
+                                SizedBox(width: 8,),
+                                Container(
+                                  child:Text("132 My Street,Kingston,\nNew York 12401",
+                                    textAlign: TextAlign.start,
+                                    style: DocDefineTableDataID.customTextStyle(context),
+                                  ) ,
+                                )
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 25,
+                                  height: 15,
+                                  decoration: BoxDecoration(
+                                      color: Colors.yellow.shade200,
+                                      borderRadius: BorderRadius.circular(3)
+                                  ),
+                                  child: Center(
+                                    child: Text("PB",style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12,
+                                      color: ColorManager.greenDark,
+                                      decoration: TextDecoration.none,
+                                    ),),
+                                  ),
+                                )
                               ],
                             ),
                           ),
 
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
-                              ),
-                              Container(
-                                width: 200,
 
-                                child:Text("132 My Street,Kingston, New York 12401",
-                                  textAlign: TextAlign.start,
-                                  style:AllHRTableData.customTextStyle(context),
-                                ) ,
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Image.asset("images/sm/pb.png", //width: 22,
-                                height: 20,)
-                            ],
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              children: [
+                                Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
+                                // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
+
+                              ],
+                            ),
                           ),
 
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              children: [
+                                Text("Intake Date : ",style: DocDefineTableDataID.customTextStyle(context),),
+                                Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
 
-                          Row(
-                            children: [
-                              Text("Referral Date : ",style: AllHRTableData.customTextStyle(context),),
-                              // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                              Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
-
-                            ],
+                              ],
+                            ),
                           ),
 
-                          Row(
-                            children: [
-                              Text("Intake Date : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                              Text("2023/25/05",style: AllHRTableData.customTextStyle(context),),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              children: [
+                                Text("SOC",style: DocDefineTableDataID.customTextStyle(context),),
 
-                            ],
+                              ],
+                            ),
                           ),
 
-                          Row(
-                            children: [
-                              Text("SOC",style: AllHRTableData.customTextStyle(context),),
-
-                            ],
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                          Expanded(
+                            flex: 1,
                             child: Row(
                               children: [
                                 Text("Overdue",style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: FontSize.s13,
+                                  fontSize: FontSize.s12,
                                   color: ColorManager.tangerine,
                                   decoration: TextDecoration.none,
                                 ),)
@@ -393,42 +396,37 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                           //     )
                           //   ],
                           // ),
-                          Row(
-                            //mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(right: 3),
-                                  child: SvgPicture.asset("images/sm/contact_sv.svg",  height: 30,width: 20,)
-                              ),
-
-                              // Container(
-                              //   width: 120,
-                              //  // height: 32,
-                              //   child: ElevatedButton.icon(onPressed: (){}, label: Text("Manual", style: BlueButtonTextConst.customTextStyle(context),),
-                              //    // icon: Icon( FontAwesomeIcons.userCheck,color:ColorManager.white ,size: 16,),
-                              //     icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
-                              //     style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
-                              //       elevation: 5,
-                              //       shape: RoundedRectangleBorder(
-                              //         borderRadius: BorderRadius.circular(12),
-                              //
-                              //       ),),
-                              //   ),
-                              // ),
-
-                              Padding(
-                                padding: const EdgeInsets.only(right: 30,left: 10),
-                                child: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
-                              ),
-                              Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 0),
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              //mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset("images/sm/contact_sv.svg",  height: 28,width: 18,),
+                                SizedBox(width: 8,),
+                                // Container(
+                                //   width: 120,
+                                //  // height: 32,
+                                //   child: ElevatedButton.icon(onPressed: (){}, label: Text("Manual", style: BlueButtonTextConst.customTextStyle(context),),
+                                //    // icon: Icon( FontAwesomeIcons.userCheck,color:ColorManager.white ,size: 16,),
+                                //     icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
+                                //     style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
+                                //       elevation: 5,
+                                //       shape: RoundedRectangleBorder(
+                                //         borderRadius: BorderRadius.circular(12),
+                                //
+                                //       ),),
+                                //   ),
+                                // ),
+                                Icon(Icons.edit_outlined,color: ColorManager.bluebottom,size: IconSize.I18,),
+                                SizedBox(width: 10,),
+                                Container(
                                   child: Row(
                                     children: [
                                       Stack(
 
                                         children: [SizedBox(
-                                          height:50,
+                                          width: AppSize.s41,
+                                          height: AppSize.s45,
                                           child: CircleAvatar(
                                             child:
                                             Image.asset('images/1.png'),
@@ -440,11 +438,11 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                                             child: Container(
                                               color: Color(0xFF527FB9),
                                               width: 19,
-                                              height: 19,
+                                              height: 15,
                                               child: Center(
                                                 child: Text("ST",style: TextStyle(
-                                                  // fontWeight: FontWeight.w600,
-                                                  // fontSize: FontSize.s13,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 8,
                                                   color: ColorManager.white,
                                                   decoration: TextDecoration.none,
                                                 ),),
@@ -455,34 +453,21 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                                       SizedBox(width: AppSize.s7),
                                       Text(
                                         'John Smith',
-                                        style:DocumentTypeDataStyle.customTextStyle(context),
+                                        style:DocDefineTableData.customTextStyle(context),
                                       ),
                                     ],
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-
-                          Row(
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(right: 15),
-                                  child: SizedBox()
-                              ),
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ); },
-
                 ),
               ),
             ),
-
-
-
           ],
         ),
       ),
