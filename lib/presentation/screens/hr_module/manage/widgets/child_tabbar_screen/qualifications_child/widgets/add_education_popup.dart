@@ -576,6 +576,7 @@ class _EditEducationPopupState extends State<EditEducationPopup> {
 
 
 
+
   // Error states
   Map<String, bool> errorStates = {
     'College/University': false,
