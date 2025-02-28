@@ -398,9 +398,6 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
   }
 
 
-
-
-
   // Future<void> getLatLngFromAddress(String address) async {
   //   final String apiKey = AppConfig.googleApiKey; // Replace with your API key.
   //   final String url =
