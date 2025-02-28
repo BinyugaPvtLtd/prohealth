@@ -1236,6 +1236,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           Row(
                                             children: [
                                               Radio<String>(
+                                                splashRadius: 0,
                                                 activeColor: ColorManager.mediumgrey,
                                                 value: 'Age Wise',
                                                 groupValue: emptype, // Matches default value for pre-selection
@@ -1255,6 +1256,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           Row(
                                             children: [
                                               Radio<String>(
+                                                splashRadius: 0,
                                                 activeColor: ColorManager.mediumgrey,
                                                 value: 'Service Wise',
                                                 groupValue: emptype, // Different from default initially
@@ -1299,7 +1301,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       //   ],
                                       // ),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 33),
+                                        padding: const EdgeInsets.only(left:8.0),
                                         child: Row(children: [
                                           Text(
                                             "Oldest",

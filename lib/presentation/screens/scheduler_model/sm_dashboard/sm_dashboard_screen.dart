@@ -74,7 +74,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 80.0),
+                                  padding: const EdgeInsets.only(left: 70.0),
                                   child: Text("Scheduled Patients",
                                     style: TextStyle(fontSize: FontSize.s14,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                                 ),
