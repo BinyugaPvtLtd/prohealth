@@ -137,6 +137,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return CICCDropDownedit(
+
                             width: AppSize.s354,
                             hintText: '',
                             items: [],
