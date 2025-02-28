@@ -41,10 +41,9 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                 Row(
                   children: [
                     Container(
-                      width: 300,
-                      height: 32,
-                      child: TextField(
-                        // controller: _controller,
+                      width: 220,
+                      height: 36,
+                      child:TextField(
                         textCapitalization:
                         TextCapitalization.words,
                         style: DocumentTypeDataStyle.customTextStyle(context),
@@ -56,18 +55,13 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                             alignLabelWithHint: true,
                             hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color:Color(0xFFC9C9C9)),
-                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color:Color(0xFFC9C9C9),width: 1),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color:ColorManager.greylight ),
-                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color:Colors.grey.shade200,width: 1),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            // border: OutlineInputBorder(
-                            //
-                            //     borderRadius: BorderRadius.all(
-                            //
-                            //         Radius.circular(20))),
                             prefixIcon: IconButton(
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
@@ -75,14 +69,13 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                               icon: Center(
                                 child: Icon(
                                   Icons.search,
-                                  size: 18,
+                                  size: IconSize.I18,
                                   color:  ColorManager.greylight,
                                 ),
                               ),
                               onPressed: () {},
                             ),
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5)),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
                       ),
 
                     ),

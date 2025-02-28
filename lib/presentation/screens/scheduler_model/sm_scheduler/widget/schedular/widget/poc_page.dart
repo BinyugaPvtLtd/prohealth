@@ -11,14 +11,14 @@ import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 
-class PocPageView extends StatefulWidget {
-  const PocPageView({super.key});
+class DisciplinePageView extends StatefulWidget {
+  const DisciplinePageView({super.key});
 
   @override
-  State<PocPageView> createState() => _PocPageViewState();
+  State<DisciplinePageView> createState() => _DisciplinePageViewState();
 }
 
-class _PocPageViewState extends State<PocPageView> {
+class _DisciplinePageViewState extends State<DisciplinePageView> {
 
 
   String _selectedValue = 'Sort';

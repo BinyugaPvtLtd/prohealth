@@ -11,7 +11,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../app/resources/color.dart';
-import '../schedular/sm_scheduler_screen.dart';
+import '../schedular/sm_scheduler_screen_const.dart';
 
 class SmProfileBar extends StatefulWidget {
   final VoidCallback onBack;
