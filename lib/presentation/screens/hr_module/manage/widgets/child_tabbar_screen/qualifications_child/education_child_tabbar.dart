@@ -30,7 +30,8 @@ class EducationChildTabbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final educationProviderState = Provider.of<HrManageProvider>(context, listen: false);
-    final LayerLink _layerLink = LayerLink();
+    final LayerLink _layerLinkDegree = LayerLink();
+    final LayerLink _layerLinkCollege = LayerLink();
     final StreamController<List<EducationData>> educationStreamController = StreamController<List<EducationData>>();
     TextEditingController collegeUniversityController = TextEditingController();
     TextEditingController phoneController = TextEditingController();
@@ -72,89 +73,48 @@ class EducationChildTabbar extends StatelessWidget {
                           stateController: stateController,
                           majorSubjectController: majorSubjectController,
                           countryNameController: countryNameController,
+                          employeeId: employeeId,
                           onpressedClose: () {
 
                           },
-                          onpressedSave: () async {
-                            var response = await addEmployeeEducation(
-                                context,
-                                employeeId,
-                                expiryType.toString(),
-                                degreeController.text,
-                                majorSubjectController.text,
-                                cityController.text,
-                                collegeUniversityController.text,
-                                phoneController.text,
-                                stateController.text,
-                                countryNameController.text,
-                                calenderController.text);
-
-
-                            // Log the response status and body here
-                            // print('Response status: ${response.statusCode}');
-                            // print('Response body: ${response.data}');
-                         var educationResponse = await approveOnboardQualifyEducationPatch(context, response.educationId!);
-
-                            if(educationResponse.statusCode == 200 || educationResponse.statusCode == 201){
-                              Navigator.pop(context);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const AddSuccessPopup(
-                                    message: 'Education Added Successfully',
-                                  );
-                                },
-                              );
-                            }else if(response.statusCode == 400 || response.statusCode == 404){
-                            //  Navigator.pop(context);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => const FourNotFourPopup(),
-                              );
-                            }
-                            else {
-                             // Navigator.pop(context);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => FailedPopup(text: response.message),
-                              );
-                            }
-                          },
-                          radioButton: StatefulBuilder(
-                            builder: (BuildContext context, void Function(void Function()) setState) {
-                              return SizedBox(
-                                width: 280,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: CustomRadioListTile(
-                                        value: "Yes",
-                                        groupValue: expiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            expiryType = value!;
-                                          });
-                                        },
-                                        title: "Yes",
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: CustomRadioListTile(
-                                        value: "No",
-                                        groupValue: expiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            expiryType = value!;
-                                          });
-                                        },
-                                        title: "No",
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                          // onpressedSave: () async {
+                          //
+                          // },
+                          // radioButton: StatefulBuilder(
+                          //   builder: (BuildContext context, void Function(void Function()) setState) {
+                          //     return SizedBox(
+                          //       width: 280,
+                          //       child: Row(
+                          //         children: [
+                          //           Expanded(
+                          //             child: CustomRadioListTile(
+                          //               value: "Yes",
+                          //               groupValue: expiryType,
+                          //               onChanged: (value) {
+                          //                 setState(() {
+                          //                   expiryType = value!;
+                          //                 });
+                          //               },
+                          //               title: "Yes",
+                          //             ),
+                          //           ),
+                          //           Expanded(
+                          //             child: CustomRadioListTile(
+                          //               value: "No",
+                          //               groupValue: expiryType,
+                          //               onChanged: (value) {
+                          //                 setState(() {
+                          //                   expiryType = value!;
+                          //                 });
+                          //               },
+                          //               title: "No",
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                           title: 'Add Education',
                         );
                       });
@@ -225,7 +185,7 @@ class EducationChildTabbar extends StatelessWidget {
                               // Remove overlay when the cursor exits the widget
                               educationProviderState.removeOverlay();
                             },
-                            child: CompositedTransformTarget(link: _layerLink,
+                            child: CompositedTransformTarget(link: _layerLinkDegree,
                               child: Text(
                                   snapshot.data![index].degree,
                                 //providerState.trimmedDegree,
@@ -246,7 +206,7 @@ class EducationChildTabbar extends StatelessWidget {
                             // Remove overlay when the cursor exits the widget
                             educationProviderState.removeOverlay();
                           },
-                          child: CompositedTransformTarget(link: _layerLink,
+                          child: CompositedTransformTarget(link: _layerLinkCollege,
                           child: Text(
                            // providerState.trimmedCollege,
                         snapshot.data![index].college,
@@ -357,13 +317,14 @@ class EducationChildTabbar extends StatelessWidget {
 
                                         return StatefulBuilder(
                                           builder: (BuildContext context, void Function(void Function()) setState) {
-                                            return  AddEducationPopup(collegeUniversityController: collegeUniversityController,
+                                            return  EditEducationPopup(collegeUniversityController: collegeUniversityController,
                                               phoneController: phoneController,
                                               calenderController: calenderController, cityController: cityController,
                                               degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
                                               countryNameController: countryNameController, onpressedClose: (){
                                                 Navigator.pop(context);
-                                              }, onpressedSave: () async{
+                                              },
+                                              onpressedSave: () async{
                                                 var response = await updateEmployeeEducation(context,
                                                   snapshot.data![index].educationId,
                                                   employeeId,
