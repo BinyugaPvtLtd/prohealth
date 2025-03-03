@@ -71,7 +71,6 @@ class _App extends State<App> {
         //_reloadPage();
         _showUpdateDialog();
       }
-
     }else{
       print('Stable Version!');
     }

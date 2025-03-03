@@ -345,7 +345,7 @@ Future<ProfilePercentage> getPercentage(
       employeeId: employeeId,
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
-      itemsData = ProfilePercentage(percentage: response.data);
+      itemsData = ProfilePercentage(percentage: response.data ?? "0");
     //  print('profile percentage');
     } else {
       print("percentage Error 1");
