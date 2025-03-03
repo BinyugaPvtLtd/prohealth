@@ -626,7 +626,7 @@ class _CustomDropdownTextFieldwidhState extends State<CustomDropdownTextFieldwid
           child: GestureDetector(
             onTap: _showDropdownDialog,
             child: Container(
-             padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
+             padding: const EdgeInsets.only(bottom: 3, top: 5, left: 12 ),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(4),

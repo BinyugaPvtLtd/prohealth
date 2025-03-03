@@ -453,7 +453,9 @@ class OfferLetterScreen extends StatelessWidget {
                                                             mainAxisAlignment: MainAxisAlignment.end,
                                                             children: [
                                                               Center(
-                                                                child: IconButton(
+                                                                child: IconButton(splashColor: Colors.transparent,
+                                                                  highlightColor: Colors.transparent,
+                                                                  hoverColor: Colors.transparent,
                                                                   icon: const Icon(Icons.close, color: Colors.white, size: IconSize.I18,),
                                                                   onPressed: () {
                                                                     Navigator.of(context).pop();

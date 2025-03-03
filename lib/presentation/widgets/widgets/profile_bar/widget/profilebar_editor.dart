@@ -370,7 +370,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                   shape: BoxShape.circle,
                                                                 ),
                                                                 child: CircleAvatar(
-                                                                  radius: 20, // Adjust the size of the avatar
+                                                                  radius: 30, // Adjust the size of the avatar
                                                                   backgroundColor: ColorManager.faintGrey,
                                                                   child: ClipOval(
                                                                     child: Image.network(
@@ -387,6 +387,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                       },
                                                                       errorBuilder: (context, error, stackTrace) {
                                                                         return CircleAvatar(
+                                                                          radius: 30,
                                                                           child: Image.asset("images/profilepic.png", fit: BoxFit.cover),
                                                                         );
                                                                       },

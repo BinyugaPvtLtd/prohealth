@@ -694,7 +694,8 @@ class _BankingFormState extends State<BankingForm> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              bankingId == null ? 'Bank Details #${widget.index}' :  'Bank Details #${bankingId}',
+                             // bankingId == null ? 'Bank Details #${widget.index}' :  'Bank Details #${bankingId}',
+                             'Bank Details #${widget.index}',
                               style:  HeadingFormStyle.customTextStyle(context),
                             ),
                             if (widget.index > 1)

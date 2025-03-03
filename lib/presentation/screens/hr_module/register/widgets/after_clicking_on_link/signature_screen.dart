@@ -478,7 +478,7 @@ class _SignaturePageState extends State<SignaturePage> {
                                     await Future.delayed(Duration(seconds: 1));
                                     // Proceed with saving
                                     _saveSignature();
-
+                                    await Future.delayed(Duration(seconds: 1));
                                     // Now show the save confirmation dialog after a 2-second delay
                                     _showSaveConfirmationDialog();
                                     await Future.delayed(Duration(seconds: 3));

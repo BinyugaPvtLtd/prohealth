@@ -60,7 +60,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                       context: context,
                       builder: (_) => EquipmentAddPopup(employeeId: widget.employeeId));
                 }),
-            SizedBox(width: 30,)
+            SizedBox(width: 60,)
           ],
         ),
         SizedBox(
@@ -92,165 +92,168 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                         )));
               }
               if(snapshot.hasData){
-                return Container(
-                  height: MediaQuery.of(context).size.height/1,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 35),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height/1,
 
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding:EdgeInsets.symmetric(
-                          horizontal: 15),
-                        child: Container(
-                          height: 35,
-                          margin: EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding:EdgeInsets.symmetric(
+                            horizontal: 15),
+                          child: Container(
+                            height: 35,
+                            margin: EdgeInsets.symmetric(horizontal: 10),
 
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                // Text(''),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                        AppString.srNo,
-                                        style: EquipmentStyleHeading.customTextStyle(context)
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  // Text(''),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                          AppString.srNo,
+                                          style: EquipmentStyleHeading.customTextStyle(context)
+                                      ),
                                     ),
                                   ),
-                                ),
-                                //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                        AppStringHr.inventoryid,
-                                        style: EquipmentStyleHeading.customTextStyle(context)),
+                                  //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                          AppStringHr.inventoryid,
+                                          style: EquipmentStyleHeading.customTextStyle(context)),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(AppStringHr.docName,
-                                        style: EquipmentStyleHeading.customTextStyle(context)),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(AppStringHr.docName,
+                                          style: EquipmentStyleHeading.customTextStyle(context)),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text('Device Description',
-                                        style: EquipmentStyleHeading.customTextStyle(context)),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text('Device Description',
+                                          style: EquipmentStyleHeading.customTextStyle(context)),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text('Assign Date   ',
-                                        style: EquipmentStyleHeading.customTextStyle(context)),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text('Assign Date   ',
+                                          style: EquipmentStyleHeading.customTextStyle(context)),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              var equipmentData = snapshot.data![index];
-                              int serialNumber =
-                                  index + 1 + (currentPage - 1) * itemsPerPage;
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                var equipmentData = snapshot.data![index];
+                                int serialNumber =
+                                    index + 1 + (currentPage - 1) * itemsPerPage;
 
-                              String formattedSerialNumber =
-                              serialNumber.toString().padLeft(2, '0');
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                        vertical: 5),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(4),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0xff000000)
-                                                  .withOpacity(0.25),
-                                              spreadRadius: 0,
-                                              blurRadius: 2,
-                                              offset: Offset(0, 2),
-                                            ),
-                                          ],
-                                        ),
-                                        height:AppSize.s65,
-                                        margin: EdgeInsets.symmetric(horizontal: 10),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 15),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-                                                      formattedSerialNumber,
-                                                      style: EquipmentStyleRegular.customTextStyle(context)
-                                                  ),
-                                                ),
+                                String formattedSerialNumber =
+                                serialNumber.toString().padLeft(2, '0');
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                          vertical: 5),
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(4),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0xff000000)
+                                                    .withOpacity(0.25),
+                                                spreadRadius: 0,
+                                                blurRadius: 2,
+                                                offset: Offset(0, 2),
                                               ),
-                                              // Text(''),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-
-                                                      "${equipmentData.inventoryTypeId}",
-                                                      style: EquipmentStyleRegular.customTextStyle(context)
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-                                                      equipmentData.name,
-                                                      // "${equipmentData.inventoryId}",
-                                                      style: EquipmentStyleRegular.customTextStyle(context)
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-                                                      equipmentData.givenId,
-                                                      style: EquipmentStyleRegular.customTextStyle(context)
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Text(
-                                                      equipmentData.assignedDate.toString(),
-                                                      style: EquipmentStyleRegular.customTextStyle(context)
-                                                  ),
-                                                ),
-                                              ),
-                                              //  Text(''),
                                             ],
                                           ),
-                                        )),
-                                  ),
-                                ],
-                              );
-                            }),
+                                          height:AppSize.s65,
+                                          margin: EdgeInsets.symmetric(horizontal: 10),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                        formattedSerialNumber,
+                                                        style: EquipmentStyleRegular.customTextStyle(context)
+                                                    ),
+                                                  ),
+                                                ),
+                                                // Text(''),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
 
-                      ),
-                    ],
+                                                        "${equipmentData.inventoryTypeId}",
+                                                        style: EquipmentStyleRegular.customTextStyle(context)
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                        equipmentData.name,
+                                                        // "${equipmentData.inventoryId}",
+                                                        style: EquipmentStyleRegular.customTextStyle(context)
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                        equipmentData.givenId,
+                                                        style: EquipmentStyleRegular.customTextStyle(context)
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                        equipmentData.assignedDate.toString(),
+                                                        style: EquipmentStyleRegular.customTextStyle(context)
+                                                    ),
+                                                  ),
+                                                ),
+                                                //  Text(''),
+                                              ],
+                                            ),
+                                          )),
+                                    ),
+                                  ],
+                                );
+                              }),
+
+                        ),
+                      ],
+                    ),
                   ),
                 );
               }

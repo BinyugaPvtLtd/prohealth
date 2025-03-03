@@ -647,7 +647,8 @@ class _EducationFormState extends State<EducationForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                educationIndex == null ? 'Education #${widget.index}' :  'Education #${educationIndex}',
+               // educationIndex == null ? 'Education #${widget.index}' :  'Education #${educationIndex}',
+                'Education #${widget.index}',
                 style: HeadingFormStyle.customTextStyle(context),
               ),
               if (widget.index > 1)
@@ -896,7 +897,7 @@ class _EducationFormState extends State<EducationForm> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
             height: 30,
-            padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
+            padding: const EdgeInsets.only(bottom: 3, top: 5, left: 12),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(4),
@@ -904,9 +905,12 @@ class _EducationFormState extends State<EducationForm> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  selectedDegree!,
-                  style: DocumentTypeDataStyle.customTextStyle(context),
+                Padding(
+                  padding: const EdgeInsets.only(),
+                  child: Text(
+                    selectedDegree!,
+                    style: DocumentTypeDataStyle.customTextStyle(context),
+                  ),
                 ),
                 Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
               ],

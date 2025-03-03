@@ -136,12 +136,41 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                       future: getCountyZoneList(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
-                          return CICCDropDownedit(
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CICCDropDownedit(
 
-                            width: AppSize.s354,
-                            hintText: '',
-                            items: [],
+                                width: AppSize.s354,
+                                hintText: '',
+                                items: [],
+                              ),
+                              const SizedBox(height: 15),
+                              RichText(
+                                text: TextSpan(
+                                  text: "Zone", // Main text
+                                  style: AllPopupHeadings.customTextStyle(context), // Main style
+                                  children: [
+                                    TextSpan(
+                                      text: ' *', // Asterisk
+                                      style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                        color: ColorManager.red, // Asterisk color
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              CICCDropDownedit(
+
+                                width: AppSize.s354,
+                                hintText: '',
+                                items: [],
+                              ),
+                            ],
                           );
+
+
                         } else if (snapshot.hasError) {
                           return const Text("Error fetching counties");
                         } else if (snapshot.hasData) {

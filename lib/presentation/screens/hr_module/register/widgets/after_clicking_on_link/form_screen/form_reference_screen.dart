@@ -394,7 +394,8 @@ class _ReferencesFormState extends State<ReferencesForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                referenseIndex == null ? 'References #${widget.index}' :  'References #${referenseIndex}',
+               'References #${widget.index}' ,
+              //  referenseIndex == null ? 'References #${widget.index}' :  'References #${referenseIndex}',
                 style:  HeadingFormStyle.customTextStyle(context),
               ),
               if (widget.index > 1)
