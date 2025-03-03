@@ -417,7 +417,7 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                                 //       ),),
                                 //   ),
                                 // ),
-                                Icon(Icons.edit_outlined,color: ColorManager.bluebottom,size: IconSize.I18,),
+                                Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
                                 SizedBox(width: 10,),
                                 Container(
                                   child: Row(

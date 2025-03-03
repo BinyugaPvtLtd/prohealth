@@ -486,7 +486,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                     bottomLeft: Radius.circular(12), // Round only the bottom-left corner
                                                   ),
                                                   side: BorderSide(
-                                                    color: Color(0xFF0A74DA), // Border color
+                                                    color: ColorManager.bluebottom, // Border color
                                                     width: 1,
                                                   ),
                                                 ),
@@ -510,17 +510,16 @@ class _PendingPageViewState extends State<PendingPageView> {
                                               color: ColorManager.bluebottom,
                                               decoration: TextDecoration.none,
                                             )),
-                                              //icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
                                               icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.only(
-                                                    topRight: Radius.circular(12), // Round only the top-left corner
-                                                    bottomRight: Radius.circular(12), // Round only the bottom-left corner
+                                                    topRight: Radius.circular(12),
+                                                    bottomRight: Radius.circular(12),
                                                   ),
                                                   side: BorderSide(
-                                                    color: Color(0xFF0A74DA), // Border color
+                                                    color: ColorManager.bluebottom, // Border color
                                                     width: 1,
                                                   ),
                                                 ),

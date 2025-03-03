@@ -65,11 +65,11 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   //   super.initState();
   //   widget.addressController.addListener(_onCountyNameChanged);
   // }
-  bool _isDisposed = false; // Flag to track if the widget is disposed
+  bool _isDisposed = false;
 
   @override
   void dispose() {
-    _isDisposed = true; // Mark the widget as disposed
+    _isDisposed = true;
     super.dispose();
   }
   void _onCountyNameChanged() async {
@@ -215,7 +215,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
                      DemailSMTextFConst(
-                     // SMTextfieldAsteric(
                         controller: widget.emailController,
                         keyboardType: TextInputType.emailAddress,
                         text: AppString.email,
