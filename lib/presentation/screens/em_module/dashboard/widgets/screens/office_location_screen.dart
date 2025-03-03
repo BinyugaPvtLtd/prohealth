@@ -16,7 +16,7 @@ class OfficeLocationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(padding: EdgeInsets.symmetric(
-          horizontal: AppPadding.p14
+          horizontal: AppPadding.p25
       ),
         child: Column(children: [
           ///first row
@@ -52,7 +52,7 @@ class OfficeLocationScreen extends StatelessWidget {
           ///2nd row
           Row(children: [
             Expanded(
-                flex: 3,
+                flex: 4,
                 child: EMDashboardContainerConst(
                     height: AppSize.s600,
                     child: Padding(
@@ -98,7 +98,7 @@ class OfficeLocationScreen extends StatelessWidget {
                     ),)),
             SizedBox(width: AppSize.s15,),
             Expanded(
-              flex: 3,
+              flex: 6,
               child: Column(children: [
                 ///listview
                 EMDashboardContainerBBorderConst(

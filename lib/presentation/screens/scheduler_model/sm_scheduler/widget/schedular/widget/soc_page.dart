@@ -30,7 +30,6 @@ class _SocPageViewState extends State<SocPageView> {
         padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 10),
         child: Column(
           children: [
-            SizedBox(height: 50,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

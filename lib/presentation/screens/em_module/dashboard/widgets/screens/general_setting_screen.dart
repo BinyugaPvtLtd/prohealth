@@ -16,7 +16,7 @@ class GeneralSettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
         child: Column(
           children: [
             Row(children: [
