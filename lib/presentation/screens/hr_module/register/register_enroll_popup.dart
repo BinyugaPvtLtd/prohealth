@@ -191,6 +191,7 @@ class RegisterEnrollPopup extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+
                         ///botton
                         Text(
                           'Enroll',
