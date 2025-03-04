@@ -231,10 +231,23 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                           _zoneController.add(data);
                                         }).catchError((error) {});
                                         if (snapshotZone.connectionState == ConnectionState.waiting) {
-                                          return CICCDropdown(
+                                          return Container(
                                             width: AppSize.s354,
-                                            hintText: 'Select Zone',
-                                            items: [],
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                child: Text(
+                                                  zoneName!,
+                                                  style: AllNoDataAvailable.customTextStyle(context),
+                                                ),
+                                              ),
+                                            ),
                                           );
                                         }
                                         if (snapshotZone.data!.isEmpty) {

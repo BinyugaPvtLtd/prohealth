@@ -400,14 +400,16 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      _selectedValue ?? widget.hintText ?? 'Select',
-                      style: TextStyle(
-                        fontWeight:widget.fontwight ?? FontWeight.w600,
-                        fontSize: widget.fontsize ?? FontSize.s13,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ) //DocumentTypeDataStyle.customTextStyle(context),
+                    Flexible(
+                      child: Text(
+                        _selectedValue ?? widget.hintText ?? 'Select',
+                        style: TextStyle(
+                          fontWeight:widget.fontwight ?? FontWeight.w600,
+                          fontSize: widget.fontsize ?? FontSize.s13,
+                          color: ColorManager.mediumgrey,
+                          decoration: TextDecoration.none,
+                        ) //DocumentTypeDataStyle.customTextStyle(context),
+                      ),
                     ),
                     Icon(widget.icon ?? Icons.arrow_drop_down_sharp, color: widget.iconColor ?? Colors.grey),
                   ],
@@ -763,9 +765,11 @@ class _ClinicalConstDropDownState extends State<ClinicalConstDropDown> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    _selectedValue != widget.initialValue ? 'Select' :_selectedValue!,
-                    style: DocumentTypeDataStyle.customTextStyle(context),
+                  Flexible(
+                    child: Text(
+                      _selectedValue != widget.initialValue ? 'Select' :_selectedValue!,
+                      style: DocumentTypeDataStyle.customTextStyle(context),
+                    ),
                   ),
                   Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
                 ],
