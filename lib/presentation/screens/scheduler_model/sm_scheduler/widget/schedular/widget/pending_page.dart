@@ -292,7 +292,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom, size: 20,),
+                                    child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom, size: IconSize.I20,),
                                   ),
                                   Container(
                                     width: 200,

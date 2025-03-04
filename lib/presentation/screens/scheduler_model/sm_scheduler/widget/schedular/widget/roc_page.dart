@@ -183,8 +183,8 @@ class _RocPageViewState extends State<RocPageView> {
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(60),
                                           child: SizedBox(
-                                            width: AppSize.s41,
-                                            height: AppSize.s45,
+                                            width: AppSize.s45,
+                                            height: AppSize.s50,
                                             child: Image.asset(
                                               'images/hr_dashboard/man.png', // Replace with your image path
                                               fit: BoxFit.cover,
@@ -222,8 +222,8 @@ class _RocPageViewState extends State<RocPageView> {
                             flex: 3,
                             child: Row(
                               children: [
-                                Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
-                                SizedBox(width: 8,),
+                                Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I20,),
+                                SizedBox(width: 15,),
                                 Container(
                                   child:Text("132 My Street,Kingston, New York 12401",
                                     textAlign: TextAlign.start,
@@ -319,7 +319,7 @@ class _RocPageViewState extends State<RocPageView> {
                               //mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SvgPicture.asset("images/sm/contact_sv.svg",  height: 28,width: 18,),
-                                SizedBox(width: 8,),
+                                SizedBox(width: 15,),
                                 // Container(
                                 //   width: 120,
                                 //  // height: 32,
@@ -335,18 +335,21 @@ class _RocPageViewState extends State<RocPageView> {
                                 //   ),
                                 // ),
                                 Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
-                                SizedBox(width: 10,),
+                                SizedBox(width: 15,),
                                 Container(
                                   child: Row(
                                     children: [
                                       Stack(
-
-                                        children: [SizedBox(
-                                          width: AppSize.s41,
-                                          height: AppSize.s45,
-                                          child: CircleAvatar(
-                                            child:
-                                            Image.asset('images/1.png'),
+                                        children: [
+                                          ClipRRect(
+                                          borderRadius: BorderRadius.circular(60),
+                                          child: SizedBox(
+                                            width: AppSize.s45,
+                                            height: AppSize.s50,
+                                            child: Image.asset(
+                                              'images/1.png', // Replace with your image path
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
                                           Positioned(

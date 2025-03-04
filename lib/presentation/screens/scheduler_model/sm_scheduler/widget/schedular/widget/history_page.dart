@@ -96,21 +96,26 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                           Expanded(
                             flex: 2,
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
+                              padding: const EdgeInsets.only(left: 25.0),
                               child: Row(
                                 children: [
                                   Stack(
-                                    children: [SizedBox(
-                                      height:45,
-                                      child: CircleAvatar(
-                                        child: Image.asset('images/1.png'),
+                                    children: [
+                                      ClipRRect(
+                                      borderRadius: BorderRadius.circular(60),
+                                      child: SizedBox(
+                                        width: AppSize.s45,
+                                        height: AppSize.s50,
+                                        child: Image.asset(
+                                          'images/1.png', // Replace with your image path
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                       Positioned(
                                         left:22,
                                         bottom :0,
                                         child: Container(
-
                                           width: 19,
                                           height: 15,
                                           decoration: BoxDecoration(
@@ -142,8 +147,8 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                             flex: 3,
                             child: Row(
                               children: [
-                                Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
-                                SizedBox(width: 8,),
+                                Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I20,),
+                                SizedBox(width: AppSize.s15,),
                                 Container(
                                   child:Text("132 My Street,Kingston, New York 12401",
                                     textAlign: TextAlign.start,
