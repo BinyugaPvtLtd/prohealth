@@ -85,7 +85,6 @@ class AcknowledgementAddPopup extends StatelessWidget {
       ackProviderState.loadDropDown(dataList);
       ackProviderState.clearAddedValue();
     });
-
     return
       Consumer<HrManageProvider>(
         builder: (context,loaderProvider,child) {
