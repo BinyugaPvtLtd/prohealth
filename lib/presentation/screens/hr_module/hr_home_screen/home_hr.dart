@@ -594,7 +594,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     width: 170,
                                                                     child:  ClinicalConstDropDown(
                                                                       //dropDownMenuList: dropDownList,
-                                                                      items: ['Office'],
+                                                                      items: [],
                                                                       initialValue: reportingOfficeId == '' ? 'Select':provider.officeText,
                                                                       onChanged: (newValue) {
                                                                       },
@@ -697,7 +697,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                   return Container(
                                                                     width: 170,
                                                                     child: ClinicalConstDropDown(
-                                                                      items: ['Zone'],
+                                                                      items: [],
                                                                       initialValue: provider.zoneValue,
                                                                       //dropDownMenuList: dropDownList,
                                                                       onChanged: (newValue) {
