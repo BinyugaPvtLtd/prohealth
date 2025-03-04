@@ -316,7 +316,6 @@ class _SocPageViewState extends State<SocPageView> {
                                   ],
                                 ),
                               ),
-
                               Expanded(
                                 flex: 2,
                                 child: Row(
