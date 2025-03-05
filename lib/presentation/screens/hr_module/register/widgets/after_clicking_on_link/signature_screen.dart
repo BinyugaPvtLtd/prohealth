@@ -486,9 +486,7 @@ class _SignaturePageState extends State<SignaturePage> {
                                     setState(() {
                                       isLoading = true; // Start loading
                                     });
-
                                     // Simulate a delay while the image loads
-
                                     // await Future.delayed(Duration(seconds: 1));
                                     // Proceed with saving
                                     _saveSignature();
