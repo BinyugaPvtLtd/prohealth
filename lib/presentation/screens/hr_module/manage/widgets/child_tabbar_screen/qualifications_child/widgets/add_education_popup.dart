@@ -173,7 +173,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                                 String formattedDate = DateFormat('yyyy-MM-dd').format(date);
                                 widget.calenderController.text = formattedDate;
                                 setState(() {
-                                  _calendarError = formattedDate.isEmpty;
+                                  errorStates['StartDate'] = formattedDate.isEmpty;
                                 });
                               }
                             }, hintText: 'yyyy-mm-dd',

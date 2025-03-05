@@ -34,6 +34,20 @@ class SignaturePage extends StatefulWidget {
 }
 
 class _SignaturePageState extends State<SignaturePage> {
+  // Preload the SVG before the dialog is shown
+  late SvgPicture _preloadedSvg;
+
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    // Load the SVG here and store it in the _preloadedSvg variable
+    _preloadedSvg = SvgPicture.asset('images/sign_saving.svg');
+  }
+
+
   bool _isDrawing = true;
   List<Offset?> _points = [];
   dynamic? _selectedImageBytes;
@@ -475,13 +489,13 @@ class _SignaturePageState extends State<SignaturePage> {
 
                                     // Simulate a delay while the image loads
 
-                                    await Future.delayed(Duration(seconds: 1));
+                                    // await Future.delayed(Duration(seconds: 1));
                                     // Proceed with saving
                                     _saveSignature();
-                                    await Future.delayed(Duration(seconds: 1));
+                                    await Future.delayed(Duration(seconds: 2));
                                     // Now show the save confirmation dialog after a 2-second delay
                                     _showSaveConfirmationDialog();
-                                    await Future.delayed(Duration(seconds: 3));
+                                     await Future.delayed(Duration(seconds: 1));
                                     setState(() {
                                       isLoading = false; // Stop loading
                                     });
@@ -565,6 +579,9 @@ class _SignaturePageState extends State<SignaturePage> {
     final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
     return byteData?.buffer.asUint8List();
   }
+
+
+
   void _showSaveConfirmationDialog() {
     showDialog(
       context: context,
@@ -579,7 +596,8 @@ class _SignaturePageState extends State<SignaturePage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SvgPicture.asset('images/sign_saving.svg'),
+                  _preloadedSvg,
+                  // SvgPicture.asset('images/sign_saving.svg'),
                   SizedBox(height: MediaQuery.of(context).size.height / 20),
                   Text(
                     'Successfully saved!',
@@ -656,6 +674,7 @@ class _SignaturePageState extends State<SignaturePage> {
     );
   }
 }
+
 ///
   // void _pickFile() async {
   //   FilePickerResult? result = await FilePicker.platform.pickFiles(
