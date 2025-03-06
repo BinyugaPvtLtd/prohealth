@@ -766,9 +766,12 @@ class _ClinicalConstDropDownState extends State<ClinicalConstDropDown> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
-                    child: Text(
-                      _selectedValue != widget.initialValue ? 'Select' :_selectedValue!,
-                      style: DocumentTypeDataStyle.customTextStyle(context),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 3),
+                      child: Text(
+                        _selectedValue != widget.initialValue ? 'Select' :_selectedValue!,
+                        style: DocumentTypeDataStyle.customTextStyle(context),
+                      ),
                     ),
                   ),
                   Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),

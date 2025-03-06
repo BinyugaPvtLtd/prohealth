@@ -250,9 +250,9 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-              child: Flexible(
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                 child: Text(
                   _selectedValue ?? 'Select',
                   style: DocumentTypeDataStyle.customTextStyle(context),
