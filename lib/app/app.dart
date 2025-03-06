@@ -6,10 +6,12 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/provider/version_provider.dart';
 import 'package:prohealth/app/routes_manager.dart';
+import 'package:prohealth/app/services/api/managers/version_manager/version_api_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/login_module/login/login_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../data/api_data/version/version_model_data.dart';
 import '../presentation/screens/home_module/home_screen.dart';
 import '../presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'constants/app_config.dart';
@@ -37,6 +39,7 @@ class _App extends State<App> {
     //     _navigateToSplashScreen();
     //   });
     // }
+    _checkAndCompareVersion();
     _initializeVersion();
     _timer = Timer.periodic(Duration(minutes: 1), (timer) => _checkForUpdate());
   }
@@ -55,13 +58,23 @@ class _App extends State<App> {
     _checkForUpdate();
   }
 
+  void _checkAndCompareVersion() async{
+    print('Inside version compare method');
+    VersionData versionData = await getApplicationVersion(context);
+    if(AppConfig.version == versionData.versionName){
+      print('Version Stable');
+    }else{
+      _reloadPage();
+    }
+  }
+
   void _checkForUpdate() {
     final currentVersion = html.document
         .querySelector('meta[name="build-version"]')
         ?.getAttribute("content");
-    print('Inside CheckUpdate method version');
+    //print('Inside CheckUpdate method version');
     if (currentVersion != initialVersion) {
-      print('Please Update version');
+      //print('Please Update version');
       if(mounted){
         final providerState = Provider.of<VersionProviderManager>(context,listen: false);
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -72,7 +85,7 @@ class _App extends State<App> {
         _showUpdateDialog();
       }
     }else{
-      print('Stable Version!');
+      //print('Stable Version!');
     }
       //  if(mounted){
       // final providerState = Provider.of<VersionProviderManager>(context,listen: false);
