@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'dart:html' as html;
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/resources/provider/version_provider.dart';
@@ -79,6 +80,10 @@ class _LoginWebState extends State<LoginWeb> {
     }
   }
 
+  void _reloadPage() {
+    html.window.location.reload();
+  }
+
   @override
   Widget build(BuildContext context) {
     final providerState = Provider.of<VersionProviderManager>(context);
@@ -108,12 +113,12 @@ class _LoginWebState extends State<LoginWeb> {
                       children: [
                          Text(
                            // "Version 1.0.3 (4) demo",
-                  providerState.versionText,
+                           providerState.versionText,
                           //AppConfig.version,
                           style: TextStyle(
                             fontSize: 10,
                           ),
-                        ),
+                                                 ),
                         ///textfield Email
                         Padding(
                           padding: EdgeInsets.symmetric(

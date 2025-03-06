@@ -196,7 +196,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
            // width: 952,
             padding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
             decoration: BoxDecoration(
-              color: Color(0xFFE6F7FF),
+              color: const Color(0xFFD7EEF9),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Padding(
@@ -332,6 +332,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 color: ColorManager.blueprime,
               ),
             )
+
             :CustomButton(
               width: 117,
               height: 30,
@@ -339,6 +340,8 @@ class _LicensesScreenState extends State<LicensesScreen> {
               style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
+                bool shouldSkipFinally = false;  // Flag to control the finally block
+
                 try {
                   setState(() {
                     isLoading = true; // Start loading
@@ -369,8 +372,8 @@ class _LicensesScreenState extends State<LicensesScreen> {
                         } else {
                           // If file is selected, check its size
                           if (!st.fileAbove20Mb) {
-                            // File is too large (above 20 MB), show an error popup
-                            showDialog(
+                            // File is too large (above 20 MB), show an error popup and exit early
+                            await showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AddErrorPopup(
@@ -378,6 +381,13 @@ class _LicensesScreenState extends State<LicensesScreen> {
                                 );
                               },
                             );
+
+                            // Set flag to skip the finally block and stop loading
+                            setState(() {
+                              isLoading = false; // Stop loading
+                            });
+                            shouldSkipFinally = true;  // Set the flag to skip the finally block
+                            return; // Exit early to prevent further actions or navigation
                           } else {
                             // File is under 20 MB, proceed to save and upload
                             await perfFormLinsence(
@@ -402,10 +412,13 @@ class _LicensesScreenState extends State<LicensesScreen> {
                     }
                   }
                 } finally {
-                  setState(() {
-                    isLoading = false; // Stop loading
-                  });
-                  widget.onSave();  // Call the onSave callback
+                  // Only execute the finally block if the file size was not too large
+                  if (!shouldSkipFinally) {
+                    setState(() {
+                      isLoading = false; // Stop loading
+                    });
+                    widget.onSave();  // Call the onSave callback
+                  }
                 }
               },
               child: Text(
@@ -415,45 +428,28 @@ class _LicensesScreenState extends State<LicensesScreen> {
             ),
 
 
-            //     :CustomButton(
+
+
+            // :CustomButton(
             //   width: 117,
             //   height: 30,
             //   text: 'Save',
             //   style: BlueButtonTextConst.customTextStyle(context),
             //   borderRadius: 12,
             //   onPressed: () async {
-            //
-            //
-            //     // Flag to check if a document is selected
-            //     try{
+            //     try {
             //       setState(() {
             //         isLoading = true; // Start loading
             //       });
+            //
             //       for (var key in licenseFormKeys) {
             //         try {
             //           final st = key.currentState!;
             //
             //           if (st.isPrefill == false) {
-            //             // Check if documentFile is selected
-            //             if (st.finalPath == null || st.finalPath.isEmpty) {
-            //               // If no document is selected, show a message and stop further execution
-            //               await showDialog(
-            //                 context: context,
-            //                 builder: (BuildContext context) {
-            //                   return VendorSelectNoti(
-            //                     message: 'Please Select A File',
-            //                   );
-            //                 },
-            //               );
-            //               // ScaffoldMessenger.of(context).showSnackBar(
-            //               //   SnackBar(content: Text('Please select a file.')),
-            //               // );
-            //
-            //               return; // Exit the loop and method early
-            //             }
-            //             if (st.fileAbove20Mb) {
-            //
-            //
+            //             // Check if a document file is selected
+            //             if (st.finalPath == null || st.finalPath!.isEmpty) {
+            //               // If no document is selected, just save the data
             //               await perfFormLinsence(
             //                 context: context,
             //                 licenseNumber: st.licensurenumber.text,
@@ -461,47 +457,63 @@ class _LicensesScreenState extends State<LicensesScreen> {
             //                 employeeId: widget.employeeID,
             //                 expDate: st.controllerExpirationDate.text,
             //                 issueDate: st.controllerIssueDate.text,
-            //                 licenseUrl: 'NA',
+            //                 licenseUrl: 'NA',  // You can adjust this URL if needed
             //                 licensure: st.licensure.text,
             //                 org: st.org.text,
             //                 documentType: st.documentTypeName!,
-            //                 documentFile: st.finalPath,
-            //                 documentName: st.fileName,
+            //                 documentFile: 'NA',  // No file selected, send 'NA'
+            //                 documentName: 'NA',  // No file selected, send 'NA'
             //               );
-            //
-            //
-            //             }
-            //             else{
-            //               showDialog(
-            //                 context: context,
-            //                 builder: (BuildContext context) {
-            //                   return AddErrorPopup(
-            //                     message: 'File is too large!',
-            //                   );
-            //                 },
-            //               );
+            //             } else {
+            //               // If file is selected, check its size
+            //               if (!st.fileAbove20Mb) {
+            //                 // File is too large (above 20 MB), show an error popup
+            //                 showDialog(
+            //                   context: context,
+            //                   builder: (BuildContext context) {
+            //                     return AddErrorPopup(
+            //                       message: 'File is too large!',
+            //                     );
+            //                   },
+            //                 );
+            //               } else {
+            //                 // File is under 20 MB, proceed to save and upload
+            //                 await perfFormLinsence(
+            //                   context: context,
+            //                   licenseNumber: st.licensurenumber.text,
+            //                   country: st.selectedCountry.toString(),
+            //                   employeeId: widget.employeeID,
+            //                   expDate: st.controllerExpirationDate.text,
+            //                   issueDate: st.controllerIssueDate.text,
+            //                   licenseUrl: 'NA',
+            //                   licensure: st.licensure.text,
+            //                   org: st.org.text,
+            //                   documentType: st.documentTypeName!,
+            //                   documentFile: st.finalPath,
+            //                   documentName: st.fileName!,
+            //                 );
+            //               }
             //             }
             //           }
             //         } catch (e) {
             //           print(e);
             //         }
             //       }
-            //     }finally{
+            //     } finally {
             //       setState(() {
             //         isLoading = false; // Stop loading
             //       });
-            //       widget.onSave();
+            //       widget.onSave();  // Call the onSave callback
             //     }
-            //
-            //
-            //     // If a document is selected and everything goes fine, complete the process
-            //
             //   },
             //   child: Text(
             //     'Save',
             //     style: BlueButtonTextConst.customTextStyle(context),
             //   ),
             // ),
+
+
+
             const SizedBox(
               width: AppSize.s30,
             ),
@@ -677,7 +689,8 @@ class _licensesFormState extends State<licensesForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                licenseIdIndex == null ? 'Licensure / Certification #${widget.index}' : 'Licensure / Certification #${licenseIdIndex}',
+               // licenseIdIndex == null ? 'Licensure / Certification #${widget.index}' : 'Licensure / Certification #${licenseIdIndex}',
+                 'Licensure / Certification #${widget.index}',
                 style: HeadingFormStyle.customTextStyle(context),
               ),
               if (widget.index > 1)
@@ -770,7 +783,7 @@ class _licensesFormState extends State<licensesForm> {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return Container(
                               height: 30,
-                              padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
+                              padding: const EdgeInsets.only(bottom: 3, top: 5, left: 12),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(4),
@@ -1054,7 +1067,7 @@ class _licensesFormState extends State<licensesForm> {
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return Container(
                                   height: 30,
-                                  padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
+                                  padding: const EdgeInsets.only(bottom: 3, top: 5, left: 12),
                                   decoration: BoxDecoration(
                                     border: Border.all(color: Colors.grey),
                                     borderRadius: BorderRadius.circular(4),

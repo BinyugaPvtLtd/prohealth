@@ -59,6 +59,9 @@ class _DeletePopupState extends State<DeletePopup> {
                     ),
                   ),
                   IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
                     onPressed: () {
                       Navigator.pop(context);
                     },

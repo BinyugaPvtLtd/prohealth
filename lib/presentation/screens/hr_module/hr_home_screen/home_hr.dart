@@ -364,12 +364,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('currentIndex', index);
   }
-  // void changeState(){
-  //   setState((){
-  //     searchSelect = false;
-  //   });
-  // }
-
 
   @override
   Widget build(BuildContext context) {
@@ -517,9 +511,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                ///search bar
                                 Container(
                                     padding: EdgeInsets.all(5),
-                                    width: AppSize.s330,
+                                    width: AppSize.s340,
                                     height: 40,
                                     child: CompositedTransformTarget(
                                       link: _layerLink,
@@ -537,27 +532,15 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                               fontWeight: FontWeight.w500,
                                               color: ColorManager.mediumgrey,
                                             ),
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(15))),
-                                            suffixIcon: Icon(
-                                              Icons.search,
-                                              size: 18,
+                                            border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                                            suffixIcon: Padding(
+                                              padding: const EdgeInsets.only(right:10.0),
+                                              child: Icon(
+                                                Icons.search,
+                                                size: IconSize.I18,
+                                              ),
                                             ),
-                                            // InkWell(
-                                            //   splashColor: Colors.transparent,
-                                            //   highlightColor: Colors.transparent,
-                                            //   hoverColor: Colors.transparent,
-                                            //   child: Center(
-                                            //     child: Icon(
-                                            //       Icons.search,
-                                            //       size: 18,
-                                            //     ),
-                                            //   ),
-                                            //   onTap: () {},
-                                            // ),
-                                            contentPadding: EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 6)),
+                                            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 6)),
                                       ),
                                     )),
                                 SizedBox(
@@ -600,24 +583,19 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                     builder:
                                                         (BuildContext context) {
                                                       return Consumer<HrSearchProviderManager>(
-                                                        builder: (context,providerState, child) {
+                                                        builder: (context,provider, child) {
                                                           return ProfilePatientPopUp(
                                                             officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
                                                               future: getCompanyOfficeList(context),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                if (snapshot
-                                                                        .connectionState ==
-                                                                    ConnectionState
-                                                                        .waiting) {
+                                                              builder: (context, snapshot) {
+                                                                if (snapshot.connectionState == ConnectionState.waiting) {
                                                                   return Container(
                                                                     //height: 31,
                                                                     width: 170,
-
-                                                                    child:  CustomDropdownTextFieldwidh(
+                                                                    child:  ClinicalConstDropDown(
                                                                       //dropDownMenuList: dropDownList,
-                                                                      items: ['Office'],
-                                                                      initialValue: providerState.officeText,
+                                                                      items: [],
+                                                                      initialValue: reportingOfficeId == '' ? 'Select':provider.officeText,
                                                                       onChanged: (newValue) {
                                                                       },
                                                                     ),
@@ -634,19 +612,16 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                         value: i.name,
                                                                       ));
                                                                     }
-                                                                    // snapshot.data!
-                                                                    //     .map((zone) => zone.zoneName ?? '')
-                                                                    //     .toList();
                                                                     return Container(
                                                                       //height: 31,
                                                                       width: 170,
-                                                                      child:  CustomDropdownTextFieldwidh(
+                                                                      child:  ClinicalConstDropDown(
                                                                         dropDownMenuList: dropDownList,
-                                                                        initialValue: providerState.officeText,
+                                                                        initialValue: reportingOfficeId == '' ? 'Select':provider.officeText,
                                                                         onChanged: (newValue) {for (var a
                                                                         in snapshot.data!) {
                                                                           if (a.name == newValue) {
-                                                                            providerState.officeTextChange(changeText: a.name);
+                                                                            provider.officeTextChange(changeText: a.name);
                                                                             reportingOfficeId = a.name;
                                                                             isReportingOfficeId = true;
                                                                             print(
@@ -666,17 +641,18 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                             avabilityWidget: Row(
                                                               children: [
                                                                 Container( width: 170,
-                                                                  child: CustomDropdownTextFieldwidh(
-                                                                    initialValue: providerState.avalableStatus,
+                                                                  child: ClinicalConstDropDown(
+                                                                    initialValue: provider.avalableStatus,
                                                                     items: [
                                                                       'Full Time',
-                                                                      'Part Time'
+                                                                      'Part Time',
+                                                                      'Per Diem'
                                                                     ],
 
                                                                     // labelStyle: SearchDropdownConst.customTextStyle(context),
                                                                     onChanged: (value) {
                                                                       setState(() {
-                                                                        providerState.avalableTextChange(changeText: value!);
+                                                                        provider.avalableTextChange(changeText: value!);
                                                                         dropdownAvailability = value!;
                                                                         isDropdownAvailability = true;
                                                                         print("Availability Status :: ${dropdownAvailability}");
@@ -692,15 +668,15 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                   // height: 31,
                                                                   width: 170,
                                                                   // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                                  child: CustomDropdownTextFieldwidh(
-                                                                    initialValue: providerState.expTypeValue,
+                                                                  child: ClinicalConstDropDown(
+                                                                    initialValue: provider.expTypeValue,
                                                                     items:[
                                                                       'Expired',
                                                                               'About to Expire',
                                                                               'Upto date'],
                                                                     onChanged: (value) {
                                                                       setState(() {
-                                                                        providerState.expTypeTextChange(changeText: value!);
+                                                                        provider.expTypeTextChange(changeText: value!);
                                                                         dropdownLicenseStatus = value!;
                                                                         isDropdownLicenseStatus = true;
                                                                         print("License Status :: ${dropdownLicenseStatus}");
@@ -711,29 +687,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 ),
                                                               ],
                                                             ),
-                                                            // Row(
-                                                            //   children: [
-                                                            //     Center(
-                                                            //       child:
-                                                            //           PatientCustomDropDown(
-                                                            //         items: [
-                                                            //           'Expired',
-                                                            //           'About to Expire',
-                                                            //           'Upto date'
-                                                            //         ],
-                                                            //         labelText: 'License Status',
-                                                            //         value: 'Expired',
-                                                            //         onChanged: (value) {
-                                                            //           setState(() {
-                                                            //             dropdownLicenseStatus = value!;
-                                                            //             isDropdownLicenseStatus = true;
-                                                            //             print("License Status :: ${dropdownLicenseStatus}");
-                                                            //           });
-                                                            //         },
-                                                            //       ),
-                                                            //     ),
-                                                            //   ],
-                                                            // ),
                                                             zoneDropDown: FutureBuilder<List<SortByZoneData>>(
                                                               future:
                                                               PayRateZoneDropdown(
@@ -743,9 +696,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 if (snapshot.connectionState == ConnectionState.waiting) {
                                                                   return Container(
                                                                     width: 170,
-                                                                    child: CustomDropdownTextFieldwidh(
-                                                                      items: ['Zone'],
-                                                                      initialValue: providerState.zoneValue,
+                                                                    child: ClinicalConstDropDown(
+                                                                      items: [],
+                                                                      initialValue: provider.zoneValue,
                                                                       //dropDownMenuList: dropDownList,
                                                                       onChanged: (newValue) {
 
@@ -771,13 +724,13 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                    // height: 31,
                                                                     width: 170,
                                                                     // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                                   child: CustomDropdownTextFieldwidh(
+                                                                   child: ClinicalConstDropDown(
                                                                      dropDownMenuList: dropDownList,
-                                                                     initialValue: providerState.zoneValue,
+                                                                     initialValue: provider.zoneValue,
                                                                      onChanged: (newValue) {
                                                                        for (var a in snapshot.data!) {
                                                                          if (a.zoneName == newValue) {
-                                                                           providerState.zoneTextChange(changeText: a.zoneName);
+                                                                           provider.zoneTextChange(changeText: a.zoneName);
                                                                            zoneId = a.zoneId;
                                                                            selectedZoneId = zoneId;
                                                                            isZoneSelected = true;
@@ -787,48 +740,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                        }
                                                                      },
                                                                    ) ,
-                                                                    // child: DropdownButtonFormField<String>(
-                                                                    //     focusColor: Colors
-                                                                    //         .transparent,
-                                                                    //     icon:
-                                                                    //     const Icon(
-                                                                    //       Icons
-                                                                    //           .arrow_drop_down_sharp,
-                                                                    //       color: Color(
-                                                                    //           0xff686464),
-                                                                    //     ),
-                                                                    //     decoration: const InputDecoration
-                                                                    //         .collapsed(
-                                                                    //         hintText:
-                                                                    //         ''),
-                                                                    //     items:
-                                                                    //     dropDownList,
-                                                                    //     onChanged:
-                                                                    //         (newValue) {
-                                                                    //       for (var a
-                                                                    //       in snapshot
-                                                                    //           .data!) {
-                                                                    //         if (a.zoneName ==
-                                                                    //             newValue) {
-                                                                    //           zoneId =
-                                                                    //               a.zoneId;
-                                                                    //           selectedZoneId =
-                                                                    //               zoneId;
-                                                                    //           isZoneSelected =
-                                                                    //           true;
-                                                                    //           print(
-                                                                    //               "Zone id :: ${selectedZoneId}");
-                                                                    //           //empTypeId = docType;
-                                                                    //         }
-                                                                    //       }
-                                                                    //     },
-                                                                    //     value:
-                                                                    //     dropDownList[
-                                                                    //     0]
-                                                                    //         .value,
-                                                                    //     style: DropdownItemStyle
-                                                                    //         .customTextStyle(
-                                                                    //         context)),
                                                                   );
                                                                 } else {
                                                                   return CustomDropdownTextField(
@@ -841,7 +752,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 }
                                                               },
                                                             ),
-                                                              onSearch: () {
+                                                            isShown: (reportingOfficeId == '' && dropdownLicenseStatus == '' && dropdownAvailability == '' && selectedZoneId == 0)
+                                                                ? false : true,
+                                                            onSearch: () {
                                                               setState(() {
                                                                 _searchByFilter(
                                                                     zoneId:
@@ -861,12 +774,52 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     availabilityName:
                                                                         dropdownAvailability);
                                                               });
-                                                            }, clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0) ? CustomButtonTransparentSM(text: 'Clear', onPressed: (){
-                                                            providerState.clearFilter();
-                                                            setState((){
-                                                              searchSelect = false;
-                                                            });
-                                                          },): Offstage(),
+                                                            },
+                                                            clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
+                                                                ? CustomButtonTransparentSM(
+
+                                                              text: 'Clear',
+                                                              onPressed: () {
+                                                                provider.clearFilter();
+                                                                // Force UI update for dropdowns to show 'Select'
+                                                                provider.avalableTextChange(changeText: 'Select');
+                                                                provider.expTypeTextChange(changeText: 'Select');
+                                                                provider.officeTextChange(changeText: 'Select');
+                                                                provider.zoneTextChange(changeText: 'Select');
+                                                                setState(() {
+                                                                  // Reset all dropdown variables
+                                                                  dropdownLicenseStatus = '';
+                                                                  dropdownAvailability = '';
+                                                                  reportingOfficeId = '';
+                                                                  dropdownAbbrevation = '';
+                                                                  _selectedValue = null;
+                                                                  selectedZoneId = 0;
+
+                                                                  // Reset boolean visibility flags
+                                                                  isDropDownAbbreavation = false;
+                                                                  isDropdownLicenseStatus = false;
+                                                                  isDropdownAvailability = false;
+                                                                  isReportingOfficeId = false;
+                                                                  isZoneSelected = false;
+                                                                  isSelectedBox = false;
+
+                                                                  // Call provider method to reset the selections
+
+                                                                  // Hide the Clear button
+                                                                  searchSelect = false;
+                                                                });
+                                                              },
+                                                            )
+                                                                : SizedBox(height: AppSize.s30),
+
+                                                            //   clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
+                                                          //       ? CustomButtonTransparentSM(text: 'Clear', onPressed: (){
+                                                          //   providerState.clearFilter();
+                                                          //   setState((){
+                                                          //     searchSelect = false;
+                                                          //   });
+                                                          // },)
+                                                          //       : SizedBox(height: AppSize.s30,),
                                                           );
                                                         }
                                                       );
@@ -874,8 +827,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   );
                                                 },
                                                 child: Center(
-                                                  child: SvgPicture.asset(
-                                                      'images/menuLines.svg'),
+                                                  child: SvgPicture.asset('images/menuLines.svg'),
                                                 ),
                                               ),
                                             ),

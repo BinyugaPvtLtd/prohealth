@@ -136,11 +136,41 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                       future: getCountyZoneList(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
-                          return CICCDropdown(
-                            width: AppSize.s354,
-                            hintText: 'Select County',
-                            items: [],
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CICCDropDownedit(
+
+                                width: AppSize.s354,
+                                hintText: '',
+                                items: [],
+                              ),
+                              const SizedBox(height: 15),
+                              RichText(
+                                text: TextSpan(
+                                  text: "Zone", // Main text
+                                  style: AllPopupHeadings.customTextStyle(context), // Main style
+                                  children: [
+                                    TextSpan(
+                                      text: ' *', // Asterisk
+                                      style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                        color: ColorManager.red, // Asterisk color
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              CICCDropDownedit(
+
+                                width: AppSize.s354,
+                                hintText: '',
+                                items: [],
+                              ),
+                            ],
                           );
+
+
                         } else if (snapshot.hasError) {
                           return const Text("Error fetching counties");
                         } else if (snapshot.hasData) {
@@ -159,7 +189,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // County Dropdown
-                                  CICCDropdown(
+                                  CICCDropDownedit(
                                     items: countyDropDownList,
                                     initialValue: selectedCounty,
                                     width: AppSize.s354,
@@ -201,10 +231,23 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                           _zoneController.add(data);
                                         }).catchError((error) {});
                                         if (snapshotZone.connectionState == ConnectionState.waiting) {
-                                          return CICCDropdown(
+                                          return Container(
                                             width: AppSize.s354,
-                                            hintText: 'Select Zone',
-                                            items: [],
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                child: Text(
+                                                  zoneName!,
+                                                  style: AllNoDataAvailable.customTextStyle(context),
+                                                ),
+                                              ),
+                                            ),
                                           );
                                         }
                                         if (snapshotZone.data!.isEmpty) {
@@ -285,7 +328,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
           children: [  ///Zipcode
             Container(
               height: 200,
-              width: 300,
+              width: 350,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -351,9 +394,16 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                             StatefulBuilder(
                               builder: (BuildContext context, void Function(void Function()) setState) {
                                 return Container(
-                                  width: 200,
-                                  height: 300,
-                                  child: ListView.builder(
+                                  width: 350,
+                                  height: 350,
+                                 // color: Colors.red,
+                                  child: GridView.builder(
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, // Two items per row
+                                      childAspectRatio: 6,
+                                      crossAxisSpacing: 20,
+                                      mainAxisSpacing: 20,
+                                    ),
                                     itemCount: snapshot.data!.length,
                                     itemBuilder: (BuildContext context, int index) {
                                       String zipCode = snapshot.data![index].zipCode;

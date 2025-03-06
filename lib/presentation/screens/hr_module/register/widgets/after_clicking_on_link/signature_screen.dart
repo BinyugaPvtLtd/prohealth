@@ -34,10 +34,25 @@ class SignaturePage extends StatefulWidget {
 }
 
 class _SignaturePageState extends State<SignaturePage> {
+  // Preload the SVG before the dialog is shown
+  late SvgPicture _preloadedSvg;
+
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    // Load the SVG here and store it in the _preloadedSvg variable
+    _preloadedSvg = SvgPicture.asset('images/sign_saving.svg');
+  }
+
+
   bool _isDrawing = true;
   List<Offset?> _points = [];
   dynamic? _selectedImageBytes;
   bool _showValidationMessage = false;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +112,9 @@ class _SignaturePageState extends State<SignaturePage> {
                                     Row(
                                       children: [
                                         Radio<bool>(
+                                          splashRadius: 0,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
                                           value: true,
                                           groupValue: _isDrawing,
                                           onChanged: (bool? value) {
@@ -107,6 +125,7 @@ class _SignaturePageState extends State<SignaturePage> {
                                           },
                                         ),
                                         InkWell(
+
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
@@ -150,6 +169,9 @@ class _SignaturePageState extends State<SignaturePage> {
                                     Row(
                                       children: [
                                         Radio<bool>(
+                                          splashRadius: 0,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
                                           value: false,
                                           groupValue: _isDrawing,
                                           onChanged: (bool? value) {
@@ -362,7 +384,7 @@ class _SignaturePageState extends State<SignaturePage> {
                             child: Text(
                               'Please draw or upload a signature before saving.',
                               style: TextStyle(
-                                color: Colors.red,
+                                color: Colors.white,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -438,7 +460,13 @@ class _SignaturePageState extends State<SignaturePage> {
                               ],
                             ),
                             SizedBox(width: MediaQuery.of(context).size.width / 80),
-                            Container(
+                         isLoading
+                            ? SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: CircularProgressIndicator(color: ColorManager.blueprime),
+                                )
+                            :Container(
                               width: 100,
                               child: ElevatedButton(
                                 child: Text(
@@ -447,17 +475,35 @@ class _SignaturePageState extends State<SignaturePage> {
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                onPressed: () {
+                                onPressed: () async {
                                   // Check if user has drawn or uploaded a signature
                                   if (_points.isEmpty && _selectedImageBytes == null) {
                                     setState(() {
                                       _showValidationMessage = true;
                                     });
-                                  } else {
-                                    // Proceed with save
-                                    _saveSignature();
-                                    _showSaveConfirmationDialog();
                                   }
+                                  else {
+                                    setState(() {
+                                      isLoading = true; // Start loading
+                                    });
+                                    // Simulate a delay while the image loads
+                                    // await Future.delayed(Duration(seconds: 1));
+                                    // Proceed with saving
+                                    _saveSignature();
+                                    await Future.delayed(Duration(seconds: 2));
+                                    // Now show the save confirmation dialog after a 2-second delay
+                                    _showSaveConfirmationDialog();
+                                     await Future.delayed(Duration(seconds: 1));
+                                    setState(() {
+                                      isLoading = false; // Stop loading
+                                    });
+                                  }
+
+                                  // else {
+                                  //   // Proceed with save
+                                  //   _saveSignature();
+                                  //   _showSaveConfirmationDialog();
+                                  // }
                                 },
 
                                 // onPressed: () {
@@ -482,7 +528,8 @@ class _SignaturePageState extends State<SignaturePage> {
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 6),
-            BottomBarRow()
+            StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) { return BottomBarRow();  },
+             )
           ],
         ),
       ),
@@ -530,6 +577,9 @@ class _SignaturePageState extends State<SignaturePage> {
     final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
     return byteData?.buffer.asUint8List();
   }
+
+
+
   void _showSaveConfirmationDialog() {
     showDialog(
       context: context,
@@ -544,7 +594,8 @@ class _SignaturePageState extends State<SignaturePage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SvgPicture.asset('images/sign_saving.svg'),
+                  _preloadedSvg,
+                  // SvgPicture.asset('images/sign_saving.svg'),
                   SizedBox(height: MediaQuery.of(context).size.height / 20),
                   Text(
                     'Successfully saved!',
@@ -621,6 +672,7 @@ class _SignaturePageState extends State<SignaturePage> {
     );
   }
 }
+
 ///
   // void _pickFile() async {
   //   FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -662,6 +714,7 @@ class _SignaturePageState extends State<SignaturePage> {
   // }
 
   ///
+///
 
 class SignaturePainter extends CustomPainter {
   final List<Offset?> points;

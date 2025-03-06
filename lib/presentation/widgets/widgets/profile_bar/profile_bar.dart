@@ -86,7 +86,7 @@ class ProfileBar extends StatelessWidget {
                           if (percentage <= 30) {
                             containerColor = Colors.red;
                           } else if (percentage <= 60) {
-                            containerColor = Colors.yellow;
+                            containerColor = Color(0xffFEBD4D);
                           } else {
                             containerColor = ColorManager.greenF;
                           }
@@ -139,26 +139,21 @@ class ProfileBar extends StatelessWidget {
                                           child: Stack(
                                             alignment: Alignment.center,
                                             children: [
-                                              // Circular avatar for the image or icon
-                                              // ClipOval(
-                                              //   child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
-                                              //       searchByEmployeeIdProfileData!.imgurl == null
-                                              //       ? CircleAvatar(radius: 60,backgroundColor: ColorManager.faintGrey,child: Image.asset("images/profilepic.png"),)
-                                              //       : CachedNetworkImage(
-                                              //     imageUrl: searchByEmployeeIdProfileData!.imgurl,
-                                              //     placeholder: (context, url) => CircularProgressIndicator(),
-                                              //     errorWidget: (context, url, error) =>    CircleAvatar(child: Image.asset("images/profilepic.png"),),
-                                              //     fit: BoxFit.cover, // Ensure the image fits inside the circle
-                                              //     height: 67, // Adjust image height for proper fit
-                                              //     width: 67, // Adjust image width for proper fit
-                                              //   ),
-                                              // ),
+                                              // Outer grey circle
+                                              Container(
+                                                height: 70,
+                                                width: 70,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(color: ColorManager.greenF, width: 2), // Grey border
+                                                ),
+                                              ),
                                               ClipOval(
                                                 child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
                                                     searchByEmployeeIdProfileData!.imgurl == null
                                                     ? CircleAvatar(
-                                                  radius: 60,
-                                                  backgroundColor: ColorManager.faintGrey,
+                                                  radius: 32,
+                                                  backgroundColor: Colors.transparent,
                                                   child: Image.asset("images/profilepic.png"),
                                                 )
                                                     : Image.network(
@@ -169,27 +164,31 @@ class ProfileBar extends StatelessWidget {
                                                     } else {
                                                       return Center(
                                                         child: CircularProgressIndicator(
-                                                            value: loadingProgress.expectedTotalBytes != null
-                                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                                (loadingProgress.expectedTotalBytes ?? 1)
-                                                                : null),
+                                                          value: loadingProgress.expectedTotalBytes != null
+                                                              ? loadingProgress.cumulativeBytesLoaded /
+                                                              (loadingProgress.expectedTotalBytes ?? 1)
+                                                              : null,
+                                                        ),
                                                       );
                                                     }
                                                   },
                                                   errorBuilder: (context, error, stackTrace) {
-                                                    return CircleAvatar(child: Image.asset("images/profilepic.png"));
+                                                    return CircleAvatar(
+                                                      radius: 32,
+                                                      backgroundColor: Colors.transparent,
+                                                      child: Image.asset("images/profilepic.png"),
+                                                    );
                                                   },
                                                   fit: BoxFit.cover,
                                                   height: 67,
                                                   width: 67,
                                                 ),
                                               ),
-                                              // Circular progress indicator around the image
                                               SizedBox(
-                                                height: AppSize.s70,
-                                                width: AppSize.s70,
+                                                height: 70,
+                                                width: 70,
                                                 child: CircularProgressIndicator(
-                                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.grey),
+                                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenF),
                                                   strokeWidth: 3,
                                                   value: searchByEmployeeIdProfileData!.profileScorePercentage,
                                                 ),
@@ -197,6 +196,71 @@ class ProfileBar extends StatelessWidget {
                                             ],
                                           ),
                                         ),
+
+                                        // SizedBox(
+                                        //   height: 70,
+                                        //   width: 70,
+                                        //   child: Stack(
+                                        //     alignment: Alignment.center,
+                                        //     children: [
+                                        //       // Circular avatar for the image or icon
+                                        //       // ClipOval(
+                                        //       //   child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                        //       //       searchByEmployeeIdProfileData!.imgurl == null
+                                        //       //       ? CircleAvatar(radius: 60,backgroundColor: ColorManager.faintGrey,child: Image.asset("images/profilepic.png"),)
+                                        //       //       : CachedNetworkImage(
+                                        //       //     imageUrl: searchByEmployeeIdProfileData!.imgurl,
+                                        //       //     placeholder: (context, url) => CircularProgressIndicator(),
+                                        //       //     errorWidget: (context, url, error) =>    CircleAvatar(child: Image.asset("images/profilepic.png"),),
+                                        //       //     fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                        //       //     height: 67, // Adjust image height for proper fit
+                                        //       //     width: 67, // Adjust image width for proper fit
+                                        //       //   ),
+                                        //       // ),
+                                        //       ClipOval(
+                                        //         child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                        //             searchByEmployeeIdProfileData!.imgurl == null
+                                        //             ? CircleAvatar(
+                                        //           radius: 60,
+                                        //           backgroundColor: ColorManager.faintGrey,
+                                        //           child: Image.asset("images/profilepic.png"),
+                                        //         )
+                                        //             : Image.network(
+                                        //           searchByEmployeeIdProfileData!.imgurl!,
+                                        //           loadingBuilder: (context, child, loadingProgress) {
+                                        //             if (loadingProgress == null) {
+                                        //               return child;
+                                        //             } else {
+                                        //               return Center(
+                                        //                 child: CircularProgressIndicator(
+                                        //                     value: loadingProgress.expectedTotalBytes != null
+                                        //                         ? loadingProgress.cumulativeBytesLoaded /
+                                        //                         (loadingProgress.expectedTotalBytes ?? 1)
+                                        //                         : null),
+                                        //               );
+                                        //             }
+                                        //           },
+                                        //           errorBuilder: (context, error, stackTrace) {
+                                        //             return CircleAvatar(child: Image.asset("images/profilepic.png"));
+                                        //           },
+                                        //           fit: BoxFit.cover,
+                                        //           height: 67,
+                                        //           width: 67,
+                                        //         ),
+                                        //       ),
+                                        //       // Circular progress indicator around the image
+                                        //       SizedBox(
+                                        //         height: AppSize.s70,
+                                        //         width: AppSize.s70,
+                                        //         child: CircularProgressIndicator(
+                                        //           valueColor: AlwaysStoppedAnimation<Color>(ColorManager.grey),
+                                        //           strokeWidth: 3,
+                                        //           value: searchByEmployeeIdProfileData!.profileScorePercentage,
+                                        //         ),
+                                        //       ),
+                                        //     ],
+                                        //   ),
+                                        // ),
 
                                         searchByEmployeeIdProfileData!.active
                                             ? Text(

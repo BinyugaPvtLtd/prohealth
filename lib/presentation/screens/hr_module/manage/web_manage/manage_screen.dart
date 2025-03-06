@@ -140,19 +140,15 @@ class _ManageScreenState extends State<ManageScreen> {
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 322.0,
-                                                  right: 305,
-                                                  top: 5),
+                                                  left: 322.0, right: 305, top: 5),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(24),
+                                                  borderRadius: BorderRadius.circular(24),
                                                   color: Color(0xFF50B5E5),
                                                   boxShadow: [
                                                     BoxShadow(
                                                       // color: Colors.black.withOpacity(0.2),
-                                                      color: Colors.black
-                                                          .withOpacity(0.25),
+                                                      color: Colors.black.withOpacity(0.25),
                                                       spreadRadius: 1,
                                                       blurRadius: 4,
                                                       offset: Offset(0, 3),

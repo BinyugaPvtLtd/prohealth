@@ -6,6 +6,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widg
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/common_resources/em_dashboard_theme.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
@@ -21,7 +22,7 @@ class AllVisitsUpdate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 4,
+      flex: 5,
       child: Row(
         children: [
           Expanded(
@@ -157,7 +158,7 @@ class ScheduledPatientsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        flex: 6,
+        flex: 7,
         child: JointContainerConst(
           height: 225,
           childHeading: Padding(
@@ -179,7 +180,7 @@ class ScheduledPatientsList extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
+                  padding: const EdgeInsets.only(left: 25.0),
                   child: Text(
                     'Visit Frequency',
                     textAlign: TextAlign.end,
@@ -264,23 +265,26 @@ class ScheduledPatientsList extends StatelessWidget {
                                   ),
                                   Expanded(
                                     flex:2,
-                                    child:  Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I18,),
-                                        SizedBox(width: 10,),
-                                        Expanded(
-                                          child: Text(
-                                            "Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
-                                            textAlign: TextAlign.start,
-                                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w500,
-                                              color: ColorManager.mediumgrey,),
+                                    child:  Padding(
+                                      padding: const EdgeInsets.only(right: 8.0),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I18,),
+                                          SizedBox(width: 10,),
+                                          Expanded(
+                                            child: Text(
+                                              "Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
+                                              textAlign: TextAlign.start,
+                                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorManager.mediumgrey,),
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(width: 10,),
-                                      ],
+                                          SizedBox(width: 10,),
+                                        ],
+                                      ),
                                     ),),
                                   Expanded(
                                     flex:1,
@@ -391,7 +395,7 @@ class PatientsToBeScheduledList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        flex: 3,
+        flex: 4,
         child: JointContainerConst(
           height: 245,
           childHeading: Padding(
@@ -892,16 +896,16 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
           _currentPageIndex == 0
               ?  Text(
               "Clinician Name",
-              style: NumberTExtFieldLegalDoc.customTextStyle(context),
+              style: DocDefineTableData.customTextStyle(context),
             )
             : _currentPageIndex == 1
             ? Text(
             "Clinician Type",
-            style: NumberTExtFieldLegalDoc.customTextStyle(context),
+            style: DocDefineTableData.customTextStyle(context),
           )
             : Text(
             "Employee Type",
-            style: NumberTExtFieldLegalDoc.customTextStyle(context),
+            style: DocDefineTableData.customTextStyle(context),
           ),
             IconButton(
               onPressed: () {
@@ -1274,16 +1278,16 @@ class _MostMissedVisitsListviewState extends State<MostMissedVisitsListview> {
             _currentPageIndex == 0
                 ?  Text(
               "Clinician Name",
-              style: NumberTExtFieldLegalDoc.customTextStyle(context),
+              style: DocDefineTableData.customTextStyle(context),
             )
                 : _currentPageIndex == 1
                 ? Text(
               "Clinician Type",
-              style: NumberTExtFieldLegalDoc.customTextStyle(context),
+              style: DocDefineTableData.customTextStyle(context),
             )
                 : Text(
               "Employee Type",
-              style: NumberTExtFieldLegalDoc.customTextStyle(context),
+              style: DocDefineTableData.customTextStyle(context),
             ),
             IconButton(
               onPressed: () {

@@ -159,9 +159,9 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return StatefulBuilder(
-                          builder: (BuildContext context,
-                              void Function(void Function()) setState) {
+                        // return StatefulBuilder(
+                        //   builder: (BuildContext context,
+                        //       void Function(void Function()) setState) {
                             return FutureBuilder<List<ServicesMetaData>>(
                                 future: getServicesMetaData(context),
                                 builder: (context, snapshot) {
@@ -189,8 +189,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                         text: snapshot.error.toString());
                                   }
                                 });
-                          },
-                        );
+                          // },
+                        // );
                       },
                     );
                   },
@@ -352,6 +352,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                             Container(
                                                               height: AppSize.s181,
                                                               child: GoogleMap(
+
                                                                 initialCameraPosition:
                                                                 CameraPosition(
                                                                   target: LatLng(
@@ -377,6 +378,12 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                                 },
                                                                 zoomControlsEnabled: false,
                                                                 mapToolbarEnabled: false,
+                                                                scrollGesturesEnabled: false,
+                                                                tiltGesturesEnabled: false,
+                                                                // scrollGesturesEnabled: !_isPopupOpen, // Disable gestures when popup is open
+                                                                // tiltGesturesEnabled: !_isPopupOpen,
+                                                                rotateGesturesEnabled: false,
+                                                                myLocationButtonEnabled: false,
                                                               ),
                                                             ),
                                                             SizedBox(height: AppSize.s12),
@@ -393,7 +400,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                               },
                                                                 child: Text(
                                                                     "View in map", textAlign: TextAlign.center,
-
                                                                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: FontSize.s12, color: ColorManager.bluebottom, decoration: TextDecoration.underline,
                                                                     )),
                                                               ),

@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../icon_button_constant.dart';
 
 ///done by saloni
@@ -177,6 +178,7 @@ class ReferencesChildTabbar extends StatelessWidget {
                               const SizedBox(height: 10,),
                               Text('Email :', style: ThemeManagerDark.customTextStyle(context)),
                             ],
+
                             row1Child2: [
                               Text(snapshot.data![index].name,
                                 style: ThemeManagerDarkFont.customTextStyle(context),
@@ -190,7 +192,7 @@ class ReferencesChildTabbar extends StatelessWidget {
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
-                                    referenceProviderState.trimmedTitle,
+                                      snapshot.data![index].title,
                                     style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
@@ -227,7 +229,7 @@ class ReferencesChildTabbar extends StatelessWidget {
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
-                                    referenceProviderState.trimmedCompanyName,
+                                    snapshot.data![index].company,
                                     style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
@@ -240,7 +242,7 @@ class ReferencesChildTabbar extends StatelessWidget {
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
-                                    referenceProviderState.trimmedReference,
+                                    snapshot.data![index].references,
                                     style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
@@ -255,7 +257,14 @@ class ReferencesChildTabbar extends StatelessWidget {
                             button: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                snapshot.data![index].approve == null ? SizedBox(height: 25,)
+                                snapshot.data![index].approve == null ? SizedBox(
+                                  height: AppSize.s25,
+                                  child: Text('Not Approved',style:TextStyle(
+                                    fontSize: 13,
+                                    color: ColorManager.mediumgrey,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                                )
                                     : BorderIconButton(
                                     iconData: Icons.edit_outlined,
                                     buttonText: 'Edit',

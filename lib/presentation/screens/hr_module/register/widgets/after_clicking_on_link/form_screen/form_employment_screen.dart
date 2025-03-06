@@ -129,7 +129,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              color: Color(0xFFE6F7FF),
+              color: const Color(0xFFD7EEF9),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Center(
@@ -845,7 +845,8 @@ class _EmploymentFormState extends State<EmploymentForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                employementIndex == null ? 'Employment #${widget.index}' :'Employment #${employementIndex}',
+               // employementIndex == null ? 'Employment #${widget.index}' :'Employment #${employementIndex}',
+               'Employment #${widget.index}',
                 style:  HeadingFormStyle.customTextStyle(context),
               ),
               if (widget.index > 1)

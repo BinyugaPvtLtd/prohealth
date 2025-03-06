@@ -100,7 +100,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
             // width: 952,
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              color: Color(0xFFE6F7FF),
+              color: const Color(0xFFD7EEF9),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Center(
@@ -326,7 +326,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
         setState(() {
           name.text = data.name ?? '';
           titleposition.text = data.title ?? '';
-          companyorganization.text = data.association ?? '';
+          companyorganization.text = data.company ?? '';
           mobilenumber.text = data.mob ?? '';
           email.text = data.email ?? '';
           knowthisperson.text = data.references ?? '';
@@ -394,7 +394,8 @@ class _ReferencesFormState extends State<ReferencesForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                referenseIndex == null ? 'References #${widget.index}' :  'References #${referenseIndex}',
+               'References #${widget.index}' ,
+              //  referenseIndex == null ? 'References #${widget.index}' :  'References #${referenseIndex}',
                 style:  HeadingFormStyle.customTextStyle(context),
               ),
               if (widget.index > 1)

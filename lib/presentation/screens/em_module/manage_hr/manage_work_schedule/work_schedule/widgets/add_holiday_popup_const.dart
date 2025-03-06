@@ -188,8 +188,7 @@ class AddHolidayPopup extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                         borderSide: const BorderSide(width: 1),
                       ),
-                      contentPadding:
-                      const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
                       suffixIcon: Icon(
                         Icons.calendar_month_outlined,
                         color: ColorManager.blueprime,
@@ -458,7 +457,7 @@ class EditHolidayPopup extends StatelessWidget {
                             borderSide: BorderSide(width: 1),
                           ),
                           contentPadding:
-                          EdgeInsets.symmetric(horizontal: 16),
+                          EdgeInsets.symmetric(horizontal: 12),
                           suffixIcon: Icon(Icons.calendar_month_outlined,
                               color: ColorManager.blueprime),
                         ),

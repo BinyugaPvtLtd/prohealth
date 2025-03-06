@@ -125,193 +125,301 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          text:'Select Document', // Main text
-                          style: AllPopupHeadings.customTextStyle(context), // Main style
-                          children: [
-                            TextSpan(
-                              text: ' *', // Asterisk
-                              style: AllPopupHeadings.customTextStyle(context).copyWith(
-                                color: ColorManager.red, // Asterisk color
+                  StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) { return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text:'Select Document', // Main text
+                            style: AllPopupHeadings.customTextStyle(context), // Main style
+                            children: [
+                              TextSpan(
+                                text: ' *', // Asterisk
+                                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                  color: ColorManager.red, // Asterisk color
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 4,),
-                      StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) {
-                          return FutureBuilder<List<NewOrgDocument>>(
-                              future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
-                              builder: (context,snapshot) {
-                                if(snapshot.connectionState == ConnectionState.waiting){
-                                  return   Container(
-                                    height: AppSize.s30,
-                                    width: MediaQuery.of(context).size.width / 6,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ColorManager
-                                              .containerBorderGrey,
-                                          width: AppSize.s1),
-                                      borderRadius:
-                                      BorderRadius.circular(4),
-                                    ),
-                                    child:  Row(
-                                      children: [
-                                        SizedBox(width: AppSize.s10),
-                                        Expanded(
-                                          child: Text(
-                                            docName ?? '',
-                                            style:  DocumentTypeDataStyle.customTextStyle(context),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: AppPadding.p8),
-                                          child: Icon(Icons.arrow_drop_down),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                  //   Container(
-                                  //   width: 200,
-                                  //   height: 30,
-                                  //   decoration: BoxDecoration(
-                                  //     border: Border.all(color: Colors.grey, width: 1),
-                                  //     borderRadius: BorderRadius.circular(5),
-                                  //   ),
-                                  //   child: Center(child: Text(" ",style: DocumentTypeDataStyle.customTextStyle(context),)),
-                                  // );
-
-                                }
-                                if (snapshot.data!.isEmpty) {
-                                  return Container(
-                                    width: 200,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey, width: 1),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Center(child: Text("No licenses available",style: DocumentTypeDataStyle.customTextStyle(context),)),
-                                  );
-                                }
-                                if(snapshot.hasData){
-                                  List dropDown = [];
-                                  String docType = '';
-                                  List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                  for(var i in snapshot.data!){
-                                    dropDownMenuItems.add(
-                                      DropdownMenuItem<String>(
-                                        child: Text(i.docName),
-                                        value: i.docName,
+                        SizedBox(height: 4,),
+                        FutureBuilder<List<NewOrgDocument>>(
+                          future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Container(
+                                height: AppSize.s30,
+                                width: MediaQuery.of(context).size.width / 6,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(width: AppSize.s10),
+                                    Expanded(
+                                      child: Text(
+                                        docNameadd ?? '',
+                                        style: DocumentTypeDataStyle.customTextStyle(context),
                                       ),
-                                    );
-                                  }
-                                  //docNameadd = snapshot.data![0].docName;
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: AppPadding.p8),
+                                      child: Icon(Icons.arrow_drop_down),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+
+                            if (snapshot.hasData && snapshot.data!.isEmpty) {
+                              return Container(
+                                width: 200,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child: Text("No licenses available", style: DocumentTypeDataStyle.customTextStyle(context)),
+                                ),
+                              );
+                            }
+
+                            if (snapshot.hasData) {
+                              List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
+                                  .map((doc) => DropdownMenuItem<String>(
+                                value: doc.docName,
+                                child: Text(doc.docName),
+                              ))
+                                  .toList();
+
+                              return StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
                                   return CICCDropdown(
-                                    // width: 200,
-                                      width: MediaQuery.of(context).size.width / 6,
-                                      initialValue: docNameadd,
-                                      onChange: (val){
-                                        for(var a in snapshot.data!){
-                                          if(a.docName == val){
-                                            docType = a.docName;
-                                            docNameadd = docType;
-                                            setState(() {
-                                              errorStates["document"] = val.isEmpty;
-                                            });
-                                            //docMetaId = docType;
-                                          }
-                                        }
-                                        print(":::${docType}");
-                                        // print(":::<>${docMetaId}");
-                                      },
-                                      items:dropDownMenuItems
+                                    width: MediaQuery.of(context).size.width / 6,
+                                    initialValue: docNameadd ?? snapshot.data!.first.docName, // Set default value
+                                    onChange: (val) {
+                                      setState(() {
+                                        docNameadd = val;
+                                      });
+
+                                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                                        this.setState(() {
+                                          errorStates["document"] = false;
+                                        });
+                                      });
+                                    },
+                                    items: dropDownMenuItems,
                                   );
-                                }else{
-                                  return SizedBox();
-                                }
-                              }
-                          );
-                        },
-                      ),
-                      errorStates["document"]!?
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1),
-                        child: Text(
-                          'Please Select Document',
-                          style: CommonErrorMsg.customTextStyle(context),
+                                },
+                              );
+                            }
+
+                            return SizedBox();
+                          },
                         ),
-                      ):SizedBox(height: 13,)
-                    ],
+
+                        if (errorStates["document"]!)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: Text(
+                              'Please Select Document',
+                              style: CommonErrorMsg.customTextStyle(context),
+                            ),
+                          )
+                        else
+                          SizedBox(height: 13),
+
+                        // StatefulBuilder(
+                        //   builder: (BuildContext context, void Function(void Function()) setState) {
+                        //     return FutureBuilder<List<NewOrgDocument>>(
+                        //         future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+                        //         builder: (context,snapshot) {
+                        //           if(snapshot.connectionState == ConnectionState.waiting){
+                        //             return   Container(
+                        //               height: AppSize.s30,
+                        //               width: MediaQuery.of(context).size.width / 6,
+                        //               decoration: BoxDecoration(
+                        //                 border: Border.all(
+                        //                     color: ColorManager
+                        //                         .containerBorderGrey,
+                        //                     width: AppSize.s1),
+                        //                 borderRadius:
+                        //                 BorderRadius.circular(4),
+                        //               ),
+                        //               child:  Row(
+                        //                 children: [
+                        //                   SizedBox(width: AppSize.s10),
+                        //                   Expanded(
+                        //                     child: Text(
+                        //                       docName ?? '',
+                        //                       style:  DocumentTypeDataStyle.customTextStyle(context),
+                        //                     ),
+                        //                   ),
+                        //                   Padding(
+                        //                     padding: const EdgeInsets.only(right: AppPadding.p8),
+                        //                     child: Icon(Icons.arrow_drop_down),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             );
+                        //             //   Container(
+                        //             //   width: 200,
+                        //             //   height: 30,
+                        //             //   decoration: BoxDecoration(
+                        //             //     border: Border.all(color: Colors.grey, width: 1),
+                        //             //     borderRadius: BorderRadius.circular(5),
+                        //             //   ),
+                        //             //   child: Center(child: Text(" ",style: DocumentTypeDataStyle.customTextStyle(context),)),
+                        //             // );
+                        //
+                        //           }
+                        //           if (snapshot.data!.isEmpty) {
+                        //             return Container(
+                        //               width: 200,
+                        //               height: 30,
+                        //               decoration: BoxDecoration(
+                        //                 border: Border.all(color: Colors.grey, width: 1),
+                        //                 borderRadius: BorderRadius.circular(5),
+                        //               ),
+                        //               child: Center(child: Text("No licenses available",style: DocumentTypeDataStyle.customTextStyle(context),)),
+                        //             );
+                        //           }
+                        //           if(snapshot.hasData){
+                        //             List dropDown = [];
+                        //             String docType = '';
+                        //             List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                        //             for(var i in snapshot.data!){
+                        //               dropDownMenuItems.add(
+                        //                 DropdownMenuItem<String>(
+                        //                   child: Text(i.docName),
+                        //                   value: i.docName,
+                        //                 ),
+                        //               );
+                        //             }
+                        //             //docNameadd = snapshot.data![0].docName;
+                        //             return StatefulBuilder(
+                        //               builder: (BuildContext context, void Function(void Function()) setState) { return CICCDropdown(
+                        //                 // width: 200,
+                        //                   width: MediaQuery.of(context).size.width / 6,
+                        //                   initialValue: docNameadd,
+                        //                   onChange: (val){
+                        //                     for(var a in snapshot.data!){
+                        //                       if(a.docName == val){
+                        //                         docType = a.docName;
+                        //                         docNameadd = docType;
+                        //                         setState(() {
+                        //                           errorStates["document"] = val.isEmpty;
+                        //                         });
+                        //                         //docMetaId = docType;
+                        //                       }
+                        //                     }
+                        //                     print(":::${docType}");
+                        //                     // print(":::<>${docMetaId}");
+                        //                   },
+                        //                   items:dropDownMenuItems
+                        //               );  },
+                        //
+                        //             );
+                        //           }else{
+                        //             return SizedBox();
+                        //           }
+                        //         }
+                        //     );
+                        //   },
+                        // ),
+                        // errorStates["document"]!?
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 1),
+                        //   child: Text(
+                        //     'Please Select Document',
+                        //     style: CommonErrorMsg.customTextStyle(context),
+                        //   ),
+                        // ):SizedBox(height: 13,)
+                      ],
+                    ); },
+
                   ),
 
                   const SizedBox(
                     width: 20,
                   ),
                   ///upload
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomIconButton(
-                        icon: Icons.file_upload_outlined,
-                        text: 'Upload License',
-                        onPressed: () async {
-                          FilePickerResult? result =
-                          await FilePicker.platform.pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: ['pdf'],
-                          );
-                          if (result != null) {
-                            setState(() {
-                              pickedFileName = result.files.first.name;
-                              pickedFile = result.files.first.bytes;
-                              isFilePicked = true;
-                              errorStates["pickFile"] = pickedFileName.isEmpty;
-
-                            });
-
-                            print('File picked: $pickedFileName');
-                          } else {
-                            // User canceled the picker
-                          }
-                        },
-                      ),
-                      errorStates["pickFile"]! ?
-                      Padding(
-                        padding: const EdgeInsets.only(top: 2.0),
-                        child: Text(
-                          'Please Upload License',
-                          style: TextStyle(
-                            color: ColorManager.red,
-                            fontSize: FontSize.s10,
+                  StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) { return Padding(
+                      padding: const EdgeInsets.only(top: 22),
+                      child: Row(
+                        children: [
+                          pickedFileName == ''
+                              ? const Offstage()
+                              : Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 30),
+                              child: Text(
+                                pickedFileName,
+                                style: CustomTextStylesCommon.commonStyle(
+                                    fontSize: FontSize.s10,
+                                    color: ColorManager.mediumgrey),
+                              ),
+                            ),
                           ),
-                        ),
-                      ):SizedBox(height:11)
-                    ],
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomIconButton(
+                                icon: Icons.file_upload_outlined,
+                                text: ' Upload License',
+                                onPressed: () async {
+                                  FilePickerResult? result =
+                                  await FilePicker.platform.pickFiles(
+                                    type: FileType.custom,
+                                    allowedExtensions: ['pdf'],
+                                  );
+                                  if (result != null) {
+                                    setState(() {
+                                      pickedFileName = result.files.first.name;
+                                      pickedFile = result.files.first.bytes;
+                                      isFilePicked = true;
+                                      errorStates["pickFile"] = pickedFileName.isEmpty;
+
+                                    });
+
+                                    print('File picked: $pickedFileName');
+                                  } else {
+                                    // User canceled the picker
+                                  }
+                                },
+                              ),
+                              errorStates["pickFile"]! ?
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4.0),
+                                child: Text(
+                                  'Please Upload License',
+                                  style: TextStyle(
+                                    color: ColorManager.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              ):Padding(
+                                padding: const EdgeInsets.only(top: 4.0),
+                                child: SizedBox(height:13),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    );  },
+
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 2),
-            pickedFileName == ''
-                ? const SizedBox(height:11)
-                : Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: Text(
-                  pickedFileName,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: FontSize.s10,
-                      color: ColorManager.mediumgrey),
-                ),
-              ),
-            ),
+
             SizedBox(height: MediaQuery.of(context).size.height / 22),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -353,7 +461,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   errorKey: 'country', hintText: 'Enter Country',
                 ),
                 _buildTextField(
-                  capitalIsSelect:true,
+                  capitalIsSelect:false,
                   controller: numberIDController,
                   labelText: "Number/ID",
                   errorKey: 'numberID', hintText: 'Enter Number',
@@ -762,6 +870,7 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -785,56 +894,70 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
                     ],
                   ),
 
+
                   const SizedBox(
                     width: 20,
                   ),
                   ///upload
-                  CustomIconButton(
-                    icon: Icons.file_upload_outlined,
-                    text: 'Upload License',
-                    onPressed: () async {
-                      FilePickerResult? result =
-                      await FilePicker.platform.pickFiles(
-                        type: FileType.custom,
-                        allowedExtensions: ['pdf'],
-                      );
-                      if (result != null) {
-                        setState(() {
-                          pickedFileName = result.files.first.name;
-                          pickedFile = result.files.first.bytes;
-                          isFilePicked = true;
-                        });
+                  Padding(
+                    padding: const EdgeInsets.only(top: 22),
+                    child: Row(
+                      children: [
+                        pickedFileName == null
+                            ? const SizedBox(height:11)
+                            : Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 30),
+                            child: Text(
+                              pickedFileName!,
+                              style: CustomTextStylesCommon.commonStyle(
+                                  fontSize: FontSize.s10,
+                                  color: ColorManager.mediumgrey),
+                            ),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomIconButton(
+                              icon: Icons.file_upload_outlined,
+                              text: 'Upload License',
+                              onPressed: () async {
+                                FilePickerResult? result =
+                                await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['pdf'],
+                                );
+                                if (result != null) {
+                                  setState(() {
+                                    pickedFileName = result.files.first.name;
+                                    pickedFile = result.files.first.bytes;
+                                    isFilePicked = true;
+                                  });
 
-                        print('File picked: $pickedFileName');
-                      } else {
-                        // User canceled the picker
-                      }
-                    },
+                                  print('File picked: $pickedFileName');
+                                } else {
+                                  // User canceled the picker
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 5),
-            pickedFileName == null
-                ? const SizedBox(height:11)
-                : Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: Text(
-                  pickedFileName!,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: FontSize.s10,
-                      color: ColorManager.mediumgrey),
-                ),
-              ),
-            ),
+            //SizedBox(height: 5),
+
             SizedBox(height: MediaQuery.of(context).size.height / 22),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildTextField(
-                  capitalIsSelect: true,
+                  capitalIsSelect: false,
                   controller: widget.LivensureController,
                   labelText: "Licensure / certification",
                   errorKey: 'Livensure', hintText: 'Enter certification',
@@ -858,13 +981,13 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildTextField(
-                  capitalIsSelect:true,
+                  capitalIsSelect:false,
                   controller: widget.issuingOrganizationController,
                   labelText: "Issuing Organization",
                   errorKey: 'issuingOrganization', hintText: 'Enter Issuing Organization',
                 ),
                 _buildTextField(
-                  capitalIsSelect: true,
+                  capitalIsSelect: false,
                   controller: widget.countryController,
                   labelText: "Country",
                   errorKey: 'country', hintText: 'Enter Country',

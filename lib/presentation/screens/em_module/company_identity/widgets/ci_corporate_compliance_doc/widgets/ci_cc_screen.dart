@@ -194,6 +194,12 @@ class _CiCorporateComplianceScreenState
                                       child: CircularProgressIndicator());
                                 }
                                 if (snapshot.hasData) {
+                                  print("docTypeMetaIdCC @@@@@@@@@@@ ${docTypeMetaIdCC}");
+                                  print("selectedSubDocId @@@@@@@@@@@ ${selectedSubDocId}");
+                                  print("CC @@@@@@@@@@@ ${AppStringEM.corporateAndComplianceDocuments}");
+                                  print("docTypeMetaIdCC @@@@@@@@@@@ ${getSubDocTypeText(selectedSubDocId)}");
+                                  // print("docTypeMetaIdCC @@@@@@@@@@@ ${}");
+                                  // print("docTypeMetaIdCC @@@@@@@@@@@ ${}");
                                   return UploadDocumentAddPopup(
                                     loadingDuration: _isLoading,
                                     title: 'Upload Document',

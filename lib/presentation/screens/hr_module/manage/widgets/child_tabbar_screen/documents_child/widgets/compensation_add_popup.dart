@@ -845,19 +845,19 @@ class ClinicalLicensesAddPopup extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 2),
-                  if (providerState.isSubmitted && providerState.editClinicalLicenseFilePath == null) // Show error only if filePath is null and form is submitted
-                    Text(
-                      'Please select document',
-                      style: TextStyle(fontSize: 10, color: ColorManager.red),
-                    ),
+                  // if (providerState.isSubmitted && providerState.editClinicalLicenseFilePath == null) // Show error only if filePath is null and form is submitted
+                  //   Text(
+                  //     'Please upload document',
+                  //     style: TextStyle(fontSize: 10, color: ColorManager.red),
+                  //   ),
                 ],
               ),
             )
           ],
           bottomButtons: providerState.load
               ? SizedBox(
-            height: AppSize.s25,
-            width: AppSize.s25,
+            height: AppSize.s30,
+            width: AppSize.s30,
             child: CircularProgressIndicator(
               color: ColorManager.blueprime,
             ),
@@ -865,7 +865,7 @@ class ClinicalLicensesAddPopup extends StatelessWidget {
               : CustomElevatedButton(
             width: AppSize.s105,
             height: AppSize.s30,
-            text: AppStringEM.add,
+            text: AppStringEM.submit,
             onPressed: () async {
               providerState.isSumitted();
 
@@ -912,11 +912,14 @@ class ClinicalLicensesAddPopup extends StatelessWidget {
                     );
                     if(providerState.clinicalFileIsPicked){
                       if(providerState.editFileAbove20Mb){
-                        var docResponse =  licenseName == 'Driving License'? await patchDocumentsDL(
+                        var docResponse =  licenseName == 'Driving License'?
+                        await patchDocumentsDL(
                             context: context,
                             drivingLicenceId: int.parse(docId),
                             documentFile: providerState.editClinicalLicenseFilePath,
-                            documentName: providerState.editClinicalLicenseFileName) : await patchDocumentsPL(
+                            documentName: providerState.editClinicalLicenseFileName)
+
+                            : await patchDocumentsPL(
                             context: context,
                             practitionerLicenceId: int.parse(docId),
                             documentFile: providerState.editClinicalLicenseFilePath,

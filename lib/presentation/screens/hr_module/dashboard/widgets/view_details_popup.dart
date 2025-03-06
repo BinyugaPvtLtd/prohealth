@@ -283,26 +283,41 @@ class ViewDetailsLicenseConst extends StatelessWidget {
               ),
             ),
             SizedBox(width: 5),
-            ClipOval(
-              child: Container(
-                height: 20,
-                width: 21,
-                decoration: BoxDecoration(
-                  color: containerColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 0,
-                      blurRadius: 4,
-                      offset: const Offset(0, 4),
+            Container(
+              height: 22,
+              width: 22,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular( 20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade400,
+                    spreadRadius: 0,
+                    blurRadius: 4,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: ClipOval(
+                child: Container(
+                  height: 20,
+                  width: 21,
+                  decoration: BoxDecoration(
+                    color: containerColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 0,
+                        blurRadius: 4,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      textOval,
+                      textAlign: TextAlign.center,
+                      style: ProfileBarClipText.profileTextStyle(context),
                     ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    textOval,
-                    textAlign: TextAlign.center,
-                    style: ProfileBarClipText.profileTextStyle(context),
                   ),
                 ),
               ),

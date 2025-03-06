@@ -3,7 +3,8 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widg
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/history_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/overdue_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/pending_page.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/poc_page.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/discipline_page.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/roc_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/soc_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';
 
@@ -42,7 +43,7 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
       children: [
         if (!_showAutoScreen)
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 200,),
+          padding: const EdgeInsets.only(left: 200,right: 200, top: 25),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,16 +56,19 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
               }, index: 1, grpIndex: _selectedIndex, heading: "SOC"),
               SMTabbar(onTap: (int index){
                 _selectButton(2);
-              }, index: 2, grpIndex: _selectedIndex, heading: "POC"),
+              }, index: 2, grpIndex: _selectedIndex, heading: "Discipline"),
               SMTabbar(onTap: (int index){
                 _selectButton(3);
-              }, index: 3, grpIndex: _selectedIndex, heading: "Overdue",badgeNumber: 55),
+              }, index: 3, grpIndex: _selectedIndex, heading: "ROC",),
               SMTabbar(onTap: (int index){
                 _selectButton(4);
-              }, index: 4, grpIndex: _selectedIndex, heading: "Completed"),
+              }, index: 4, grpIndex: _selectedIndex, heading: "Overdue",badgeNumber: 55),
               SMTabbar(onTap: (int index){
                 _selectButton(5);
-              }, index: 5, grpIndex: _selectedIndex, heading: "History"),
+              }, index: 5, grpIndex: _selectedIndex, heading: "Completed"),
+              SMTabbar(onTap: (int index){
+                _selectButton(6);
+              }, index: 6, grpIndex: _selectedIndex, heading: "History"),
 
             ],
           ),
@@ -73,8 +77,7 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
 
         Expanded(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 60),
+            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 70),
             child:_showAutoScreen
                 ? Auto_Assign(
               onGoBackAuto: () {
@@ -83,8 +86,7 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
                 });
               },
             )
-                :
-             NonScrollablePageView(
+                : NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {
                 setState(() {
@@ -108,11 +110,12 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
                   // subDocId: AppConfig.subDocId2Adr,
                   // officeId: widget.officeId,
                 ),
-                PocPageView(
+                DisciplinePageView(
                   // docId: widget.docId,
                   // subDocId: AppConfig.subDocId3CICCMedicalCR,
                   // officeId: widget.officeId,
                 ),
+                RocPageView(),
                 OverdeuPageView(
                   // docId: widget.docId,
                   // subDocId: AppConfig.subDocId4CapReport,
@@ -195,10 +198,10 @@ class SMTabbar extends StatelessWidget {
                  // top: -5, // Adjust position of the badge
                   right: -5, // Adjust position of the badge
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: EdgeInsets.all(2),
                     decoration: BoxDecoration(
                       color: ColorManager.blueprime, // Badge color
-                      borderRadius: BorderRadius.circular(12), // Rounded badge
+                      borderRadius: BorderRadius.circular(7), // Rounded badge
                     ),
                     child: Text(
                       badgeNumber!.toString(),

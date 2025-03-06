@@ -85,7 +85,6 @@ class AcknowledgementAddPopup extends StatelessWidget {
       ackProviderState.loadDropDown(dataList);
       ackProviderState.clearAddedValue();
     });
-
     return
       Consumer<HrManageProvider>(
         builder: (context,loaderProvider,child) {
@@ -122,7 +121,6 @@ class AcknowledgementAddPopup extends StatelessWidget {
                       width: 354,
                       initialValue: "Select Document",
                       onChange: (val) {
-                        // setState(() {
                         //showExpiryDateField = false;
                         for (var a in dataList!) {
                           if (a.documentName == val) {
@@ -137,7 +135,6 @@ class AcknowledgementAddPopup extends StatelessWidget {
                             }
                           }
                         }
-                        // });
                       },
                       items: ackProviderState.dropDownMenuItems,
                     ),

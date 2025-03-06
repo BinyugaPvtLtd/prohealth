@@ -342,8 +342,7 @@ class EmploymentContainerConstant extends StatelessWidget {
                                 child: CompositedTransformTarget(
                                   link: _layerLink,
                                   child: Text(
-                                    employeementProviderState
-                                        .trimmedEmployeeAddress,
+                                      snapshot.data![index].reason,
                                     style: ThemeManagerDarkFont.customTextStyle(
                                         context),
                                   ),),
@@ -367,7 +366,7 @@ class EmploymentContainerConstant extends StatelessWidget {
                                 child: CompositedTransformTarget(
                                   link: _layerLink,
                                   child: Text(
-                                    employeementProviderState.trimmedSupervisor,
+                                    snapshot.data![index].supervisor,
                                     style: ThemeManagerDarkFont.customTextStyle(
                                         context),
                                   ),),
@@ -416,8 +415,8 @@ class EmploymentContainerConstant extends StatelessWidget {
                                 Align(
                                     alignment: Alignment.centerRight,
                                     child: snapshot.data![index].approved ==
-                                        null ? Text('', style: TextStyle(
-                                      fontSize: 12,
+                                        null ? Text('Not Approved', style: TextStyle(
+                                      fontSize: 13,
                                       color: ColorManager.mediumgrey,
                                       fontWeight: FontWeight.w600,
                                     )) : BorderIconButton(

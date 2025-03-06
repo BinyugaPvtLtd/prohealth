@@ -4,6 +4,71 @@ import 'package:prohealth/app/resources/common_resources/common_theme_const.dart
 import 'package:prohealth/app/resources/theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
+///register screen button enroll,onboard ... etc
+class CustomTextButton extends StatefulWidget {
+  final String text;
+  final Color? color;
+  final Color? textColor;
+  final Future<void> Function() onPressed;
+
+  CustomTextButton({
+    required this.text,
+    required this.onPressed,
+    this.color,
+    this.textColor,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<CustomTextButton> createState() => _CustomTextButtonState();
+}
+
+class _CustomTextButtonState extends State<CustomTextButton> {
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    // return isLoading
+    //     ? Padding(
+    //       padding: const EdgeInsets.only(right: 40),
+    //       child: SizedBox(
+    //             height: 20,
+    //             width: 20,
+    //             child: CircularProgressIndicator(color: ColorManager.blueprime),
+    //           ),
+    //     )
+    //     :
+   return Container(
+      width: AppSize.s110,
+      margin:
+      const EdgeInsets.only(right: AppMargin.m5),
+          child: ElevatedButton(
+                onPressed: () async {
+         // setState(() => isLoading = true);
+          await widget.onPressed();
+         // setState(() => isLoading = false);
+                },
+                child: Text(
+          widget.text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: FontSize.s14,
+            fontWeight: FontWeight.w600,
+            color: widget.textColor ?? ColorManager.white,
+          ),
+                ),
+                style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          backgroundColor: widget.color ?? Color(0xFF50B5E5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 5,
+                ),
+              ),
+        );
+  }
+}
 
 ///button constant with transparent bg, colored text
 class CustomButtonTransparentSM extends StatelessWidget {
@@ -22,7 +87,7 @@ class CustomButtonTransparentSM extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       elevation: 4,
       child: Container(
-        height:AppSize.s25,
+        height:AppSize.s30,
         width: AppSize.s100,
         child: ElevatedButton(
           onPressed: onPressed,
@@ -60,10 +125,12 @@ class CustomElevatedButton extends StatefulWidget {
   final TextStyle style;
   final Widget? child;
   final int? loadingDuration;
+  bool? isSelectShow;
 
-  const CustomElevatedButton({
+   CustomElevatedButton({
     Key? key,
     this.text,
+    this.isSelectShow = true,
     required this.onPressed,
     this.color,
     this.textColor = Colors.white,
@@ -102,7 +169,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
       width: widget.width,
       height: widget.height,
       child: ElevatedButton(
-        onPressed: widget.onPressed,
+        onPressed: widget.isSelectShow! ? widget.onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: widget.color ?? ColorManager.bluebottom,
           foregroundColor: widget.textColor,

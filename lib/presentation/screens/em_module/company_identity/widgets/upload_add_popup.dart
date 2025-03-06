@@ -128,27 +128,39 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   }
   void _validateForm() {
     setState(() {
-      _isFormValid = true;
+      _isFormValid = true;  // Assume form is valid, and mark false only if errors are found.
+
       _idDocError = _validateTextField(idDocController.text, 'ID of the Document');
+      if (_idDocError != null) _isFormValid = false;
+
       _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
-      // _issueDateError = _validateTextField(expiryDateController.text, 'expiry date of the Document');
+      if (_nameDocError != null) _isFormValid = false;
+
       isFileErrorVisible = !isFileSelected;
-      if (selectedDocType == null || selectedDocType!.isEmpty) {
-        _dropdownError = "Please select a document type";
-        _isFormValid = false;
+      if (!isFileSelected) _isFormValid = false;
+
+      // Check if a document type is selected
+      if (selectedRadio == "Pre-defined" && (selectedDocType == null || selectedDocType == "Select" || selectedDocType == "No available documents")) {
+        setState(() {
+          _dropdownError = "Please select a document type";  // Show error
+        });
+        return;
       } else {
-        _dropdownError = null;
-        //_isFormValid = true;
+        setState(() {
+          _dropdownError = null;  // Clear error if valid
+        });
       }
+
+
       if (selectedExpiryType == AppConfig.issuer && expiryDateController.text.isEmpty) {
         _issueDateError = "Please select an expiry date";
         _isFormValid = false;
       } else {
         _issueDateError = null;
-        _isFormValid = true;
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return TerminationDialogueTemplate(
@@ -991,6 +1003,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         onPressed: () async {
           _validateForm();
           if (!_isFormValid) {
+            print("Form is invalid, submission blocked.");
             return;
           }
 
@@ -1011,8 +1024,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             }
 
             int threshold = 0;
-            if (selectedExpiryType == AppConfig.scheduled &&
-                daysController.text.isNotEmpty) {
+            if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
               int enteredValue = int.parse(daysController.text);
               if (selectedYear == AppConfig.year) {
                 threshold = enteredValue * 365;
@@ -1021,6 +1033,13 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
               }
             }
             if (fileAbove20Mb) {
+              print("docTypeMetaIdCC @@@@@@@@@@@ ${widget.docTypeMetaIdCC}");
+              print("subdocTypeMetaIdCC @@@@@@@@@@@ ${widget.selectedSubDocId}");
+              print("documentname @@@@@@@@@@@ ${nameDocController.text}");
+              print("idDocController @@@@@@@@@@@ ${idDocController.text}");
+              print("selectedExpiryType @@@@@@@@@@@ ${selectedExpiryType.toString()}");
+              print("threshold @@@@@@@@@@@ ${threshold}");
+              print("exp date @@@@@@@@@@@ ${expiryDate}");
               ApiData newResponse = await addOtherOfficeDocPost(
                 context: context,
                 docTypeid: widget.docTypeMetaIdCC,
@@ -1039,8 +1058,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 officeId: widget.officeId,
               );
 
-              if (newResponse.statusCode == 200 ||
-                  newResponse.statusCode == 201) {
+              if (newResponse.statusCode == 200 || newResponse.statusCode == 201) {
                 try {
                   var uploadDocNew = await uploadDocumentsoffice(
                     context: context,
@@ -1059,7 +1077,8 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         );
                       },
                     );
-                  } else if (uploadDocNew.statusCode == 200 ||
+                  }
+                  else if (uploadDocNew.statusCode == 200 ||
                       uploadDocNew.statusCode == 201) {
                     Navigator.pop(context);
                     showDialog(
