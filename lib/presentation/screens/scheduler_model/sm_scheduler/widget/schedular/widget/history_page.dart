@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/sm_scheduler_screen_const.dart';
-import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
-
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-import '../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
-import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HistoryPageView extends StatefulWidget {
   const HistoryPageView({super.key});
@@ -21,6 +17,16 @@ class _HistoryPageViewState extends State<HistoryPageView> {
   int currentPage = 1;
   int itemsPerPage = 10;
   final int totalPages = 5;
+
+  void _makeCall(String phoneNumber) async {
+    final Uri callUri = Uri.parse('tel:$phoneNumber');
+    if (await canLaunchUrl(callUri)) {
+      await launchUrl(callUri);
+    } else {
+      debugPrint("Could not launch $callUri");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,6 +92,7 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                 child: ListView.builder(
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
+                    String phoneNumber = "7743968124";//"9657058623";
                     return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
                     child: SchedularContainerConst(
@@ -196,6 +203,22 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                             ),
                           ),
 
+                          ///dont delete
+                          // Expanded(
+                          //   flex: 1,
+                          //   child: Row(
+                          //     children: [
+                          //       GestureDetector(
+                          //         onTap: () => _makeCall(phoneNumber),
+                          //         child: SvgPicture.asset(
+                          //           "images/sm/contact_s.svg",
+                          //           height: 30,
+                          //           width: 20,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           Expanded(
                             flex: 1,
                             child: Row(
