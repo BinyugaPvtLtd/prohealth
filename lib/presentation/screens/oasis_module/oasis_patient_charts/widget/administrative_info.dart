@@ -5,12 +5,14 @@ import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../app/resources/value_manager.dart';
 import '../../them_manager/oasis_them_mnager.dart';
+import '../../widgets/constant/details_popup/a_details_popup.dart';
 import '../../widgets/constant/details_popup/mfourteen_popup.dart';
 import '../../widgets/constant/details_popup/msixteen_popup.dart';
 import '../../widgets/constant/details_popup/mten_popup.dart';
 import '../../widgets/constant/getx_oasis.dart';
 import '../../widgets/constant/green_container_constant.dart';
 import '../../widgets/constant/popup_const.dart';
+import '../../widgets/constant/row_button_const.dart';
 
 class AdministrativeInfo extends StatefulWidget {
   const AdministrativeInfo({super.key});
@@ -910,7 +912,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                       Text("(M0066)", style: Redfontstyle.customTextStyle(context)),
                                       Text(" Birth Date: ", style: BoldfontStyle.customTextStyle(context))
                                     ],),),
-                                  SizedBox(width:  MediaQuery.of(context).size.width /17,),
+                                  SizedBox(width:  MediaQuery.of(context).size.width /15,),
                                   EMRTextFConst(
                                     width: AppSize.s150,
                                     controller: bdaycontroller,
@@ -927,7 +929,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                       Text("(M0069)", style: Redfontstyle.customTextStyle(context)),
                                       Text(" Gender:  ", style: BoldfontStyle.customTextStyle(context))
                                     ],),),
-                                  SizedBox(width:  MediaQuery.of(context).size.width /15,),
+                                  SizedBox(width:  MediaQuery.of(context).size.width /13,),
                                   Row(
                                     children: [
                                       EMRCustomRadioListTile(
@@ -980,7 +982,11 @@ SizedBox(width: AppSize.s10,),
                             child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Ontabtext(ontab: () async{  },
+                              Ontabtext(ontab: () async{ showDialog(
+    context: context,
+    builder: (BuildContext context) {
+    return AZeroFive();
+    },); },
                                 child: Row(children: [
                                   Text("(A1005)", style: Redfontstyle.customTextStyle(context)),
                                   Text(" Ethnicity", style: BoldfontStyle.customTextStyle(context))
@@ -1213,7 +1219,11 @@ SizedBox(width: AppSize.s10,),
                             height: AppSize.s100,
                               child: Column(
                             children: [
-                              Ontabtext(ontab: () async{  },
+                              Ontabtext(ontab: () async{ showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return MEighty();
+                                },); },
                                 child: Row(children: [
                                   Text(" (M0080)", style: Redfontstyle.customTextStyle(context)),
                                   Text(" Discipline of Person Completing Assessment:", style: BoldfontStyle.customTextStyle(context))
@@ -1262,7 +1272,7 @@ SizedBox(width: AppSize.s10,),
                           SizedBox(height: AppSize.s20,),
 
                           WhiteContrainerConst(
-                              height: AppSize.s200,
+                              height: AppSize.s230,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -1272,21 +1282,28 @@ SizedBox(width: AppSize.s10,),
 
                                       Wrap(
                                         children: [
-                                          Container(
-                                            constraints: BoxConstraints(maxWidth: AppSize.s330),
-                                            child: Text.rich(
-                                              textAlign: TextAlign.start,
-                                              TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: "(M0100) ",
-                                                    style: Redfontstyle.customTextStyle(context),
-                                                  ),
-                                                  TextSpan(
-                                                    text: "This Assessment is Currently Being Completed for the Following Reason:",
-                                                    style: BoldfontStyle.customTextStyle(context),
-                                                  ),
-                                                ],
+                                          InkWell(
+                                            onTap:() async{  showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                          return MHundred();
+                          },); },
+                                            child: Container(
+                                              constraints: BoxConstraints(maxWidth: AppSize.s330),
+                                              child: Text.rich(
+                                                textAlign: TextAlign.start,
+                                                TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text: "(M0100) ",
+                                                      style: Redfontstyle.customTextStyle(context),
+                                                    ),
+                                                    TextSpan(
+                                                      text: "This Assessment is Currently Being Completed for the Following Reason:",
+                                                      style: BoldfontStyle.customTextStyle(context),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -1315,7 +1332,7 @@ SizedBox(width: AppSize.s10,),
                                   ),
 
                                   SizedBox(height: AppSize.s20,),
-                                  Text("Start/Resumption of Care:  ", style: BoldfontStyle.customTextStyle(context)),
+                                  Text("Start/Resumption of Care:", style: BoldfontStyle.customTextStyle(context)),
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 15),
                                     child: WhiteContrainerConstpadding(
@@ -1337,7 +1354,11 @@ SizedBox(width: AppSize.s10,),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Ontabtext(ontab: () async{  },
+                                Ontabtext(ontab: ()  async{  showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return MOneFifty();
+                                  },); },
                                   child: Row(children: [
                                     Text("(M0150)", style: Redfontstyle.customTextStyle(context)),
                                     Text(" Current Payment Sources for Home Care: ( Mark all that apply. )", style: BoldfontStyle.customTextStyle(context))
@@ -1465,69 +1486,21 @@ SizedBox(width: AppSize.s10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    //color: Colors.white,
-                    width: AppSize.s137,
-                    height: AppSize.s30,
-                    child: ElevatedButton(
-                      onPressed: (){
+                  CustomButtonRow(
+                    onSaveClosePressed: () {
+                      // Action for Save and Close button
+                      print('Save and Close pressed');
+                    },
+                    onSubmitPressed: () {
+                      // Action for Submit button
+                      print('Submit pressed');
+                    },
+                    onNextPressed: () {
+                      // Action for Next button
+                      print('Next pressed');
+                    },
+                  )
 
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.white,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          // side: BorderSide(
-                          //   color: ColorManager.bluebottom,
-                          //   width: 1,
-                          // ),
-                        ),),
-                      child: Text('save and close',
-                        style: BoldfontStyle.customTextStyle(context),
-                      ),),
-                  ), SizedBox(width: AppSize.s20,),
-                  Container(
-                    //color: Colors.white,
-                    width: 117,
-                    height: 30,
-                    child: ElevatedButton(
-                      onPressed: (){
-
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.white,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          // side: BorderSide(
-                          //   color: ColorManager.bluebottom,
-                          //   width: 1,
-                          // ),
-                        ),),
-                      child: Text('Submit',
-                        style: BoldfontStyle.customTextStyle(context),
-                      ),),
-                  ), SizedBox(width: AppSize.s20,),
-                  Container(
-                    //color: Colors.white,
-                    width: 117,
-                    height: 30,
-                    child: ElevatedButton(
-                      onPressed: (){
-
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.bluebottom,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          // side: BorderSide(
-                          //   color: ColorManager.bluebottom,
-                          //   width: 1,
-                          // ),
-                        ),),
-                      child: Text('Next',
-                          style:BluebuttonStyle.customTextStyle(context)
-                      ),),
-                  ),
 
 
                 ],

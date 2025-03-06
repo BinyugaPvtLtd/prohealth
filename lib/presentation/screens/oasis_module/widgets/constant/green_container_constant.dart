@@ -196,6 +196,7 @@ class CustomCheckBoxListTile extends StatelessWidget {
         // Checkbox part
         Obx(() {
           return Checkbox(
+            splashRadius: 0,
             value: isChecked.value,
             onChanged: (bool? value) {
               if (value != null) {
@@ -244,6 +245,7 @@ class SemiBoldCheckBoxListTile extends StatelessWidget {
         // Checkbox part
         Obx(() {
           return Checkbox(
+            splashRadius: 0,
             value: isChecked.value,
             onChanged: (bool? value) {
               if (value != null) {

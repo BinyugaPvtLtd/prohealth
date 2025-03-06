@@ -661,7 +661,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
       },
       child: Container(
         width: AppSize.s40,
-        height: AppSize.s200,
+        height: AppSize.s300,
         decoration: BoxDecoration(
             color: ColorManager.drawerbutton,
             borderRadius:

@@ -475,7 +475,7 @@ class MOneFifty extends StatelessWidget {
   Widget build(BuildContext context) {
     return OnclickPopup(
       width: 700,
-      height:350,
+      height:400,
 
       title: 'M0150', itembody: [
       Column(
@@ -491,17 +491,15 @@ class MOneFifty extends StatelessWidget {
     ], responsebody: [
       Padding(
         padding: const EdgeInsets.only(left: 10),
-        child: Column(
-          children: [
-            Text(
-              "• Review referral information and health insurance identification cards\n"
-              "• Exclude" "pending" "payment sources.\n"
-              "• If the patient's care is being reimbursed by multiple payers (for example, Medicare and Medicaid; private insurance and self-pay; etc.), include all sources.\n"
-              "• If one or more payment sources are known but additional sources are uncertain, mark only those that are known.\n"
-              "• Do not consider any equipment, medications, or supplies being paid for by the patient in part or in full.\n"
-              , style: Normalfontstyle.customTextStyle(context),
-            ),
-          ],
+        child: BulletList([
+              "Review referral information and health insurance identification cards.",
+              "Exclude" "pending" "payment sources.",
+              "If the patient's care is being reimbursed by multiple payers (for example, Medicare and Medicaid; private insurance and self-pay; etc.), include all sources.",
+              "If one or more payment sources are known but additional sources are uncertain, mark only those that are known.",
+              "Do not consider any equipment, medications, or supplies being paid for by the patient in part or in full.",
+
+
+          ]
         ),
       )
     ],
@@ -536,16 +534,14 @@ class MEighty extends StatelessWidget {
     ], responsebody: [
       Padding(
         padding: const EdgeInsets.only(left: 10),
-        child: Column(
-          children: [
-            Text(
-              "• Data sources/resources for this item are agency policies.\n"
-                  "• Enter the response associated with the discipline of the individual completing the assessment (referred to as the assessing clinician).\n"
+        child:BulletList([
+                  "Data sources/resources for this item are agency policies.",
+                  "Enter the response associated with the discipline of the individual completing the assessment (referred to as the assessing clinician)."
                   // "• If the patient's care is being reimbursed by multiple payers (for example, Medicare and Medicaid; private insurance and self-pay; etc.), include all sources.\n"
                   // "• If one or more payment sources are known but additional sources are uncertain, mark only those that are known.\n"
                   // "• Do not consider any equipment, medications, or supplies being paid for by the patient in part or in full.\n"
-              , style: Normalfontstyle.customTextStyle(context),
-            ),
+
+
           ],
         ),
       )
@@ -582,20 +578,75 @@ class MHundred extends StatelessWidget {
     ], responsebody: [
       Padding(
         padding: const EdgeInsets.only(left: 10),
-        child: Column(
-          children: [
-            Text(
-              "• Consult with the agency case manager or other care team provider and/or the clinical record. Hospital or other health care provider information may identify transfer to inpatient facility or death at home.\n"
+        child: BulletList([
+              "Consult with the agency case manager or other care team provider and/or the clinical record. Hospital or other health care provider information may identify transfer to inpatient facility or death at home."
                  // "• Enter the response associated with the discipline of the individual completing the assessment (referred to as the assessing clinician).\n"
               // "• If the patient's care is being reimbursed by multiple payers (for example, Medicare and Medicaid; private insurance and self-pay; etc.), include all sources.\n"
               // "• If one or more payment sources are known but additional sources are uncertain, mark only those that are known.\n"
               // "• Do not consider any equipment, medications, or supplies being paid for by the patient in part or in full.\n"
-              , style: Normalfontstyle.customTextStyle(context),
-            ),
+
           ],
         ),
       )
     ],
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+class BulletList extends StatelessWidget {
+  final List<String> strings;
+
+  BulletList(this.strings);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.fromLTRB(16, 15, 16, 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: strings.map((str) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                '\u2022',
+                style: TextStyle(
+                  fontSize: 16,
+                 // height: 1.55,
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(
+                    str,
+                    textAlign: TextAlign.left,
+                    softWrap: true,
+                 style: Normalfontstyle.customTextStyle(context),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }).toList(),
+      ),
     );
   }
 }

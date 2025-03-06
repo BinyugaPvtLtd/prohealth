@@ -183,7 +183,7 @@ class Aten extends StatelessWidget {
                                   text: " Code Z, None of the above,", style: BoldfontStyle.customTextStyle(context)
                               ),
                               TextSpan(
-                                  text: " , if the patient reports or it is determined from proxy or medical record documentation that none of the listed races apply to the patient. ", style: Normalfontstyle.customTextStyle(context)
+                                  text: " ,if the patient reports or it is determined from proxy or medical record documentation that none of the listed races apply to the patient. ", style: Normalfontstyle.customTextStyle(context)
                               ),
 
 
@@ -217,12 +217,13 @@ class AZeroFive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OnclickPopup(
+    return OnclickPopupsroll(
       width: 700,
-      height:  MediaQuery.of(context).size.height /1,
+      //height:  MediaQuery.of(context).size.height /1,
 
-      title: 'A1010', itembody: [
+      title: 'A1005', itembody: [
       Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
               "The intent of this item is to identify the patient’s self-reported ethnicity data.",
@@ -239,6 +240,7 @@ class AZeroFive extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "• The ability to improve understanding of and address racial and ethnic disparities in health care outcomes requires the availability of better data related to social determinants of health, including race.\n"
@@ -246,8 +248,8 @@ class AZeroFive extends StatelessWidget {
                             "• Collection of the race data is an important step in improving quality of care and health outcomes.\n"
                             "• Standardizing self-reported data collection for race allows for the equal comparison of data across multiple post-acute care settings.\n"
                             "• These categories are NOT used to determine eligibility for participation in any Federal program.\n"
-                            "• \n"
-                            "• \n"
+                            // "• \n"
+                            // "• \n"
                         , style: Normalfontstyle.customTextStyle(context),
                       ),
 
@@ -265,6 +267,7 @@ class AZeroFive extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(left: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "• Ask the patient to select the category or categories that most closely corresponds to the patient’s ethnicity from the list in A1005, Ethnicity.\n"
@@ -322,8 +325,8 @@ class AZeroFive extends StatelessWidget {
                   "• Check the box(es) indicating the ethnic category or categories identified by the patient\n"
 
                   "• Complete as close to the time of SOC as possible\n"
-                  "• \n"
-                  "• \n"
+                  // "• \n"
+                  // "• \n"
               // "• Preprinting this number on clinical documentation is allowed and recommended.",
               ,style: Normalfontstyle.customTextStyle(context),
             ),
@@ -337,6 +340,7 @@ class AZeroFive extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text.rich(
                           TextSpan(
