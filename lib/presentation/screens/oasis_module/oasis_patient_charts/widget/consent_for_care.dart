@@ -806,13 +806,13 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           //   width: 1,
                           // ),
                         ),),
-                      child: Text('save and close',
+                      child: Text('Save and Close',
                         style: BoldfontStyle.customTextStyle(context),
                       ),),
                   ), SizedBox(width: 20,),
                   Container(
                     //color: Colors.white,
-                    width:117,
+                    width: AppSize.s137,
                     height: AppSize.s30,
                     child: ElevatedButton(
                       onPressed: (){
@@ -833,7 +833,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   ), SizedBox(width: AppSize.s20,),
                   Container(
                     //color: Colors.white,
-                    width: 117,
+                    width: AppSize.s137,
                     height: AppSize.s30,
                     child: ElevatedButton(
                       onPressed: (){
