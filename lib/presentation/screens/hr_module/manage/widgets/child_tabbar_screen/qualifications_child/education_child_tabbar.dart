@@ -29,7 +29,7 @@ class EducationChildTabbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final educationProviderState = Provider.of<HrManageProvider>(context, listen: false);
+    final providerState = Provider.of<HrManageProvider>(context, listen: false);
     final LayerLink _layerLinkDegree = LayerLink();
     final LayerLink _layerLinkCollege = LayerLink();
     final StreamController<List<EducationData>> educationStreamController = StreamController<List<EducationData>>();
@@ -151,8 +151,7 @@ class EducationChildTabbar extends StatelessWidget {
                   ));
             }
             if(snapshot.hasData){
-              return Consumer<HrManageProvider>(
-                builder: (context,providerState,child) {
+
                   return WrapWidget(
                       children: List.generate(snapshot.data!.length, (index){
                         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -179,19 +178,21 @@ class EducationChildTabbar extends StatelessWidget {
                         row1Child2: [
                           MouseRegion(
                             onHover: (event){
-                              educationProviderState.showOverlay(context, event.position, snapshot.data![index].degree ?? '--');
+                              providerState.showOverlay(context, event.position, snapshot.data![index].degree ?? '--');
                             },
                             onExit: (_) {
                               // Remove overlay when the cursor exits the widget
-                              educationProviderState.removeOverlay();
+                              providerState.removeOverlay();
                             },
                             child: CompositedTransformTarget(link: _layerLinkDegree,
-                              child: Text(
+                              child:
+                              Text(
                                   snapshot.data![index].degree,
                                 //providerState.trimmedDegree,
                                 style: ThemeManagerDarkFont.customTextStyle(context),
-                              ),),
-                          ),
+                             ),
+                             ),
+                        ),
                           // Text(snapshot.data![index].degree,
                           //   style: ThemeManagerDarkFont.customTextStyle(context),),
                           const SizedBox(height: AppSize.s10,),
@@ -200,18 +201,20 @@ class EducationChildTabbar extends StatelessWidget {
                           const SizedBox(height: AppSize.s10,),
                          MouseRegion(
                           onHover: (event){
-                            educationProviderState.showOverlay(context, event.position, snapshot.data![index].college ?? '--');
+                            providerState.showOverlay(context, event.position, snapshot.data![index].college ?? '--');
                           },
                           onExit: (_) {
                             // Remove overlay when the cursor exits the widget
-                            educationProviderState.removeOverlay();
+                            providerState.removeOverlay();
                           },
                           child: CompositedTransformTarget(link: _layerLinkCollege,
-                          child: Text(
+                          child:
+                          Text(
                            // providerState.trimmedCollege,
                         snapshot.data![index].college,
                                 style: ThemeManagerDarkFont.customTextStyle(context),
-                              ),),
+                              ),
+                          ),
                         ),
                         // MouseRegion(
                         //   onEnter: (event) {
@@ -404,8 +407,7 @@ class EducationChildTabbar extends StatelessWidget {
                           ],
                         )),);
                   }));
-                }
-              );
+
             }else{
               return SizedBox();
             }

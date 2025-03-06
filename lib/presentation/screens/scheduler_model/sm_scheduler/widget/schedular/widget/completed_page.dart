@@ -78,8 +78,7 @@ class _CompletedPageViewState extends State<CompletedPageView> {
 
                   decoration: BoxDecoration(
                       border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(8))
+                      borderRadius: BorderRadius.all(Radius.circular(8))
                   ),
                   // child:buildDropdownButton(context),
                   child: CustomDropdownTextField(
@@ -128,18 +127,18 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                             Expanded(
                             flex: 2,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 20),
+                                padding: const EdgeInsets.only(left: 25),
                                 child: Row(
                                   children: [
                                     Column(
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.symmetric(vertical: 5),
-                                          child: ClipRRect(
+                                          child:  ClipRRect(
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
-                                              width: AppSize.s41,
-                                              height: AppSize.s45,
+                                              width: AppSize.s45,
+                                              height: AppSize.s50,
                                               child: Image.asset(
                                                 'images/hr_dashboard/man.png', // Replace with your image path
                                                 fit: BoxFit.cover,
@@ -177,8 +176,8 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                               flex: 3,
                               child: Row(
                                 children: [
-                                  Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
-                                  SizedBox(width: 8,),
+                                  Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I20,),
+                                  SizedBox(width: AppSize.s15,),
                                   Container(
                                     child:Text("132 My Street,Kingston, New York 12401",
                                       textAlign: TextAlign.start,
@@ -274,6 +273,7 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                             Expanded(
                               flex: 1,
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SvgPicture.asset("images/sm/contact_sv.svg",  height: 30,width: 20,),
                                 ],
@@ -281,13 +281,17 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                             ),
                             Expanded(
                               flex: 2,
-                              child: Row(
-                                children: [
-                                  Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                 // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                  Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 25.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
+                                   // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                    Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
 
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],

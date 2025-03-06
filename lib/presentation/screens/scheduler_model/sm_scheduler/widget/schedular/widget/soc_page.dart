@@ -118,38 +118,32 @@ class _SocPageViewState extends State<SocPageView> {
                         // }
                       },
                     ),
-
-
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Container(
-
-                        decoration: BoxDecoration(
-                            border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(8))
-                        ),
-                        // child:buildDropdownButton(context),
-                        child: CustomDropdownTextField(
-                          width:100,
-                          height: 32,
-                          isAstric:false,
-                          // Adjust headText based on depId
-                          initialValue: 'Filter by',
-                          headText: "", // Default fallback if depId doesn't match any of the expected values
-                          items: ['Weekly','Monthly',],
-                          onChanged: (newValue) {
-                            // for (var a in snapshot.data!) {
-                            //   if (a.empType == newValue) {
-                            //     clinicialName = a.empType!;
-                            //     clinicalId = a.employeeTypesId!;
-                            //     print("Dept ID'''''' ${clinicalId}");
-                            //     print("';';';''''''''Dept ID ${clinicialName}");
-                            //     // Do something with docType
-                            //   }
-                            // }
-                          },
-                        ),
+                    Container(
+                      decoration: BoxDecoration(
+                          border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(8))
+                      ),
+                      // child:buildDropdownButton(context),
+                      child: CustomDropdownTextField(
+                        width:100,
+                        height: 32,
+                        isAstric:false,
+                        // Adjust headText based on depId
+                        initialValue: 'Filter by',
+                        headText: "", // Default fallback if depId doesn't match any of the expected values
+                        items: ['Weekly','Monthly',],
+                        onChanged: (newValue) {
+                          // for (var a in snapshot.data!) {
+                          //   if (a.empType == newValue) {
+                          //     clinicialName = a.empType!;
+                          //     clinicalId = a.employeeTypesId!;
+                          //     print("Dept ID'''''' ${clinicalId}");
+                          //     print("';';';''''''''Dept ID ${clinicialName}");
+                          //     // Do something with docType
+                          //   }
+                          // }
+                        },
                       ),
                     ),
                   ],
@@ -211,8 +205,8 @@ class _SocPageViewState extends State<SocPageView> {
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.circular(60),
                                               child: SizedBox(
-                                                width: AppSize.s40,
-                                                height: AppSize.s45,
+                                                width: AppSize.s45,
+                                                height: AppSize.s50,
                                                 child: Image.asset(
                                                   'images/hr_dashboard/man.png', // Replace with your image path
                                                   fit: BoxFit.cover,
@@ -223,26 +217,23 @@ class _SocPageViewState extends State<SocPageView> {
                                         ],
                                       ),
                                       SizedBox(width: AppSize.s7),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 15),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Jeh Tiwari',
-                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w700,
-                                                color: ColorManager.mediumgrey,),
-                                            ),
-                                            SizedBox(height: AppSize.s5),
-                                            Text(
-                                              'Anxiety',
-                                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorManager.mediumgrey,),
-                                            ),
-                                          ],
-                                        ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Jeh Tiwari',
+                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,),
+                                          ),
+                                          SizedBox(height: AppSize.s5),
+                                          Text(
+                                            'Anxiety',
+                                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.mediumgrey,),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -253,16 +244,13 @@ class _SocPageViewState extends State<SocPageView> {
                                 flex: 3,
                                 child: Row(
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: 20,),
-                                    ),
+                                    Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I20,),
+                                    SizedBox(width: 15,),
                                     Container(
                                       width: 230,
-
                                       child:Text("Tufts International Center, 20 Sawyer Ave, Medford MA 02155",
                                         textAlign: TextAlign.start,
-                                        style:AllHRTableData.customTextStyle(context),
+                                        style:DocDefineTableDataID.customTextStyle(context),
                                       ) ,
                                     )
                                   ],
@@ -273,7 +261,6 @@ class _SocPageViewState extends State<SocPageView> {
                                 flex: 1,
                                 child: Row(
                                   children: [
-
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
@@ -329,14 +316,13 @@ class _SocPageViewState extends State<SocPageView> {
                                   ],
                                 ),
                               ),
-
                               Expanded(
                                 flex: 2,
                                 child: Row(
                                   children: [
-                                    Text("Referral Date : ",style: AllHRTableData.customTextStyle(context),),
+                                    Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
                                     // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                    Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                    Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
 
                                   ],
                                 ),
@@ -371,14 +357,9 @@ class _SocPageViewState extends State<SocPageView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
 
-                                    Padding(
-                                        padding: const EdgeInsets.only(right: 0),
-                                        child: SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,)
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 30,left: 50),
-                                      child: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
-                                    ),
+                                    SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,),
+                                    SizedBox(width: 15,),
+                                    Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
                                     // Container(
                                     //     width: 200,
                                     //     height: 55,
@@ -457,7 +438,7 @@ class _SocPageViewState extends State<SocPageView> {
                                     //       ],
                                     //     )
                                     // )
-
+                                    SizedBox(width: 15,),
                                     Container(
                                       child: Padding(
                                         padding: const EdgeInsets.only(top: 0),
@@ -465,11 +446,15 @@ class _SocPageViewState extends State<SocPageView> {
                                           children: [
                                             Stack(
 
-                                              children: [SizedBox(
-                                                height:50,
-                                                child: CircleAvatar(
-                                                  child:
-                                                  Image.asset('images/1.png'),
+                                              children: [ClipRRect(
+                                                borderRadius: BorderRadius.circular(60),
+                                                child: SizedBox(
+                                                  width: AppSize.s45,
+                                                  height: AppSize.s50,
+                                                  child: Image.asset(
+                                                    'images/1.png', // Replace with your image path
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
                                                 Positioned(
@@ -501,16 +486,6 @@ class _SocPageViewState extends State<SocPageView> {
                                     )
                                   ],
                                 ),
-                              ),
-
-
-                              Row(
-                                children: [
-                                  Padding(
-                                      padding: const EdgeInsets.only(right:0),
-                                      child: SizedBox()
-                                  ),
-                                ],
                               ),
                             ],
                           ),

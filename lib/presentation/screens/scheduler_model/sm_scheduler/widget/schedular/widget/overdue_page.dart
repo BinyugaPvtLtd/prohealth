@@ -169,13 +169,13 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                   itemBuilder: (BuildContext context, int index) { return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
                     child: SchedularContainerConst(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex:2,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex:2,
                               child: Row(
                                 children: [
                                   Column(
@@ -185,8 +185,8 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(60),
                                           child: SizedBox(
-                                            width: AppSize.s41,
-                                            height: AppSize.s45,
+                                            width: AppSize.s45,
+                                            height: AppSize.s50,
                                             child: Image.asset(
                                               'images/hr_dashboard/man.png', // Replace with your image path
                                               fit: BoxFit.cover,
@@ -217,251 +217,261 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                                 ],
                               ),
                             ),
-                          ),
 
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              children: [
-                                Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
-                                SizedBox(width: 8,),
-                                Container(
-                                  child:Text("132 My Street,Kingston,\nNew York 12401",
-                                    textAlign: TextAlign.start,
-                                    style: DocDefineTableDataID.customTextStyle(context),
-                                  ) ,
-                                )
-                              ],
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                children: [
+                                  Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I20,),
+                                  SizedBox(width: 15,),
+                                  Container(
+                                    child:Text("132 My Street,Kingston,\nNew York 12401",
+                                      textAlign: TextAlign.start,
+                                      style: DocDefineTableDataID.customTextStyle(context),
+                                    ) ,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 25,
-                                  height: 15,
-                                  decoration: BoxDecoration(
-                                      color: Colors.yellow.shade200,
-                                      borderRadius: BorderRadius.circular(3)
-                                  ),
-                                  child: Center(
-                                    child: Text("PB",style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 12,
-                                      color: ColorManager.greenDark,
-                                      decoration: TextDecoration.none,
-                                    ),),
-                                  ),
-                                )
-                              ],
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 10,),
+                                  Container(
+                                    width: 25,
+                                    height: 15,
+                                    decoration: BoxDecoration(
+                                        color: Colors.yellow.shade200,
+                                        borderRadius: BorderRadius.circular(3)
+                                    ),
+                                    child: Center(
+                                      child: Text("PB",style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 12,
+                                        color: ColorManager.greenDark,
+                                        decoration: TextDecoration.none,
+                                      ),),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                children: [
+                                  Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
+                                  // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                  Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
 
-
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              children: [
-                                Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                children: [
+                                  Text("Intake Date : ",style: DocDefineTableDataID.customTextStyle(context),),
+                                  Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
 
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              children: [
-                                Text("Intake Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  Text("SOC",style: DocDefineTableDataID.customTextStyle(context),),
 
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                Text("SOC",style: DocDefineTableDataID.customTextStyle(context),),
-
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
 
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                Text("Overdue",style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: FontSize.s12,
-                                  color: ColorManager.tangerine,
-                                  decoration: TextDecoration.none,
-                                ),)
-                              ],
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  Text("Overdue",style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: FontSize.s12,
+                                    color: ColorManager.tangerine,
+                                    decoration: TextDecoration.none,
+                                  ),)
+                                ],
+                              ),
                             ),
-                          ),
 
-                          // Row(
-                          //   children: [
-                          //     Padding(
-                          //         padding: const EdgeInsets.only(right: 0),
-                          //         child: Image.asset("images/sm/contact.png",height: 50,width: 60,)
-                          //     ),
-                          //   ],
-                          // ),
-                          //
-                          // Column(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Container(
-                          //         width: 200,
-                          //         height: 55,
-                          //         child:Row(
-                          //           children: [
-                          //             Container(
-                          //               width: 100,
-                          //               child:  ElevatedButton.icon(onPressed: ()async{
-                          //                 await  showDialog(
-                          //                   context: context,
-                          //                   builder: (BuildContext context) {
-                          //                     return VendorSelectNoti(
-                          //                       message: 'Please Select A File',
-                          //                     );
-                          //                   },
-                          //                 );
-                          //               },label: Text("Auto", style: TextStyle(
-                          //                 fontSize: FontSize.s13,
-                          //                 fontWeight: FontWeight.w600,
-                          //                 color: ColorManager.white,
-                          //                 decoration: TextDecoration.none,
-                          //               )),
-                          //                 icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
-                          //                 style: ElevatedButton.styleFrom(
-                          //                   backgroundColor:  ColorManager.bluebottom,
-                          //                   shape: RoundedRectangleBorder(
-                          //                     borderRadius: BorderRadius.only(
-                          //                       topLeft: Radius.circular(12), // Round only the top-left corner
-                          //                       bottomLeft: Radius.circular(12), // Round only the bottom-left corner
-                          //                     ),
-                          //                     side: BorderSide(
-                          //                       color: Color(0xFF0A74DA), // Border color
-                          //                       width: 1,
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //             Container(
-                          //               width: 100,
-                          //               child:  ElevatedButton.icon(onPressed: (){
-                          //                 showDialog(
-                          //                   context: context,
-                          //                   builder: (BuildContext context) {
-                          //                     return AddErrorPopup(
-                          //                       message: 'File is too large!',
-                          //                     );
-                          //                   },
-                          //                 );
-                          //               },label: Text("Manual", style: TextStyle(
-                          //                 fontSize: FontSize.s13,
-                          //                 fontWeight: FontWeight.w600,
-                          //                 color: ColorManager.bluebottom,
-                          //                 decoration: TextDecoration.none,
-                          //               )),
-                          //                 icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
-                          //                 style: ElevatedButton.styleFrom(
-                          //                   backgroundColor: Colors.white,
-                          //                   shape: RoundedRectangleBorder(
-                          //                     borderRadius: BorderRadius.only(
-                          //                       topRight: Radius.circular(12), // Round only the top-left corner
-                          //                       bottomRight: Radius.circular(12), // Round only the bottom-left corner
-                          //                     ),
-                          //                     side: BorderSide(
-                          //                       color: Color(0xFF0A74DA), // Border color
-                          //                       width: 1,
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //
-                          //
-                          //           ],
-                          //         )
-                          //     )
-                          //   ],
-                          // ),
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset("images/sm/contact_sv.svg",  height: 28,width: 18,),
-                                SizedBox(width: 8,),
-                                // Container(
-                                //   width: 120,
-                                //  // height: 32,
-                                //   child: ElevatedButton.icon(onPressed: (){}, label: Text("Manual", style: BlueButtonTextConst.customTextStyle(context),),
-                                //    // icon: Icon( FontAwesomeIcons.userCheck,color:ColorManager.white ,size: 16,),
-                                //     icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
-                                //     style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
-                                //       elevation: 5,
-                                //       shape: RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.circular(12),
-                                //
-                                //       ),),
-                                //   ),
-                                // ),
-                                Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
-                                SizedBox(width: 10,),
-                                Container(
-                                  child: Row(
-                                    children: [
-                                      Stack(
+                            // Row(
+                            //   children: [
+                            //     Padding(
+                            //         padding: const EdgeInsets.only(right: 0),
+                            //         child: Image.asset("images/sm/contact.png",height: 50,width: 60,)
+                            //     ),
+                            //   ],
+                            // ),
+                            //
+                            // Column(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     Container(
+                            //         width: 200,
+                            //         height: 55,
+                            //         child:Row(
+                            //           children: [
+                            //             Container(
+                            //               width: 100,
+                            //               child:  ElevatedButton.icon(onPressed: ()async{
+                            //                 await  showDialog(
+                            //                   context: context,
+                            //                   builder: (BuildContext context) {
+                            //                     return VendorSelectNoti(
+                            //                       message: 'Please Select A File',
+                            //                     );
+                            //                   },
+                            //                 );
+                            //               },label: Text("Auto", style: TextStyle(
+                            //                 fontSize: FontSize.s13,
+                            //                 fontWeight: FontWeight.w600,
+                            //                 color: ColorManager.white,
+                            //                 decoration: TextDecoration.none,
+                            //               )),
+                            //                 icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
+                            //                 style: ElevatedButton.styleFrom(
+                            //                   backgroundColor:  ColorManager.bluebottom,
+                            //                   shape: RoundedRectangleBorder(
+                            //                     borderRadius: BorderRadius.only(
+                            //                       topLeft: Radius.circular(12), // Round only the top-left corner
+                            //                       bottomLeft: Radius.circular(12), // Round only the bottom-left corner
+                            //                     ),
+                            //                     side: BorderSide(
+                            //                       color: Color(0xFF0A74DA), // Border color
+                            //                       width: 1,
+                            //                     ),
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //             Container(
+                            //               width: 100,
+                            //               child:  ElevatedButton.icon(onPressed: (){
+                            //                 showDialog(
+                            //                   context: context,
+                            //                   builder: (BuildContext context) {
+                            //                     return AddErrorPopup(
+                            //                       message: 'File is too large!',
+                            //                     );
+                            //                   },
+                            //                 );
+                            //               },label: Text("Manual", style: TextStyle(
+                            //                 fontSize: FontSize.s13,
+                            //                 fontWeight: FontWeight.w600,
+                            //                 color: ColorManager.bluebottom,
+                            //                 decoration: TextDecoration.none,
+                            //               )),
+                            //                 icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
+                            //                 style: ElevatedButton.styleFrom(
+                            //                   backgroundColor: Colors.white,
+                            //                   shape: RoundedRectangleBorder(
+                            //                     borderRadius: BorderRadius.only(
+                            //                       topRight: Radius.circular(12), // Round only the top-left corner
+                            //                       bottomRight: Radius.circular(12), // Round only the bottom-left corner
+                            //                     ),
+                            //                     side: BorderSide(
+                            //                       color: Color(0xFF0A74DA), // Border color
+                            //                       width: 1,
+                            //                     ),
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //
+                            //
+                            //           ],
+                            //         )
+                            //     )
+                            //   ],
+                            // ),
+                            Expanded(
+                              flex: 3,
+                              child: Row(
+                                //mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset("images/sm/contact_sv.svg",  height: 28,width: 20,),
+                                  SizedBox(width: 18,),
+                                  // Container(
+                                  //   width: 120,
+                                  //  // height: 32,
+                                  //   child: ElevatedButton.icon(onPressed: (){}, label: Text("Manual", style: BlueButtonTextConst.customTextStyle(context),),
+                                  //    // icon: Icon( FontAwesomeIcons.userCheck,color:ColorManager.white ,size: 16,),
+                                  //     icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
+                                  //     style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
+                                  //       elevation: 5,
+                                  //       shape: RoundedRectangleBorder(
+                                  //         borderRadius: BorderRadius.circular(12),
+                                  //
+                                  //       ),),
+                                  //   ),
+                                  // ),
+                                  Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
+                                  SizedBox(width: 20,),
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        Stack(
 
-                                        children: [SizedBox(
-                                          width: AppSize.s41,
-                                          height: AppSize.s45,
-                                          child: CircleAvatar(
-                                            child:
-                                            Image.asset('images/1.png'),
-                                          ),
-                                        ),
-                                          Positioned(
-                                            left:22,
-                                            bottom :0,
-                                            child: Container(
-                                              color: Color(0xFF527FB9),
-                                              width: 19,
-                                              height: 15,
-                                              child: Center(
-                                                child: Text("ST",style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 8,
-                                                  color: ColorManager.white,
-                                                  decoration: TextDecoration.none,
-                                                ),),
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.circular(60),
+                                              child: SizedBox(
+                                                width: AppSize.s45,
+                                                height: AppSize.s50,
+                                                child: Image.asset(
+                                                  'images/1.png', // Replace with your image path
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
-                                            ),)
-                                        ],
-                                      ),
-                                      SizedBox(width: AppSize.s7),
-                                      Text(
-                                        'John Smith',
-                                        style:DocDefineTableData.customTextStyle(context),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
+                                            ),
+                                          //   Container(
+                                          //   color: Colors.red,
+                                          //   width: AppSize.s45,
+                                          //   height: AppSize.s50,
+                                          //   child: CircleAvatar(
+                                          //     child: Image.asset('images/1.png', width: AppSize.s45,
+                                          //       height: AppSize.s50,),
+                                          //   ),
+                                          // ),
+                                            Positioned(
+                                              left:20,
+                                              bottom :0,
+                                              child: Container(
+                                                color: Color(0xFF527FB9),
+                                                width: 19,
+                                                height: 14,
+                                                child: Center(
+                                                  child: Text("ST",style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 8,
+                                                    color: ColorManager.white,
+                                                    decoration: TextDecoration.none,
+                                                  ),),
+                                                ),
+                                              ),)
+                                          ],
+                                        ),
+                                        SizedBox(width: AppSize.s15),
+                                        Text(
+                                          'John Smith',
+                                          style:DocDefineTableData.customTextStyle(context),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ); },

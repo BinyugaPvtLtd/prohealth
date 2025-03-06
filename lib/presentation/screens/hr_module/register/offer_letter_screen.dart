@@ -161,954 +161,222 @@ class OfferLetterScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.white,
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 20),
-            child: SingleChildScrollView(
-              child: Form(
-                key:_formKey,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Offer Letter',
-                          style: FormHeading.customTextStyle(context)
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0,bottom: 20,left: 105),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+            padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 50),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                // border: Border(
+                //   top: BorderSide(color: ColorManager.bluebottom, width: 8.0), // Top blue border
+                // ),
+                borderRadius: BorderRadius.circular(20.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5), // Bottom shadow
+                    offset: const Offset(0, 4),
+                    spreadRadius: 1.0,
+                  ),
+                ],
+              ),
+              child: SingleChildScrollView(
+                child: Form(
+                  key:_formKey,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text( AppStringLegalDocument.popupMsgHead,
-                            style:  LegalDocumentPopupMessage.customTextStyle(context),),
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              'Offer Letter',
+                              style: FormHeading.customTextStyle(context)
+                            ),
+                          ),
                         ],
                       ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 22,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ConstTextField(text: 'Issue Date',validationLabel: 'Issue Date', hintText: 'yyyy-mm-dd',
-                          controller: issueDateController,errorText: hrProviderState.issueDate ? "Please enter issue date":null),
-                        //SizedBox(width: MediaQuery.of(context).size.width / 80),
-                        ConstTextField(text: 'Last Date',validationLabel: 'Last Date',  hintText: 'yyyy-mm-dd',
-                            controller: lastDateController,errorText: hrProviderState.lastDate ? "Please enter last date":null),
-                        // SizedBox(width: MediaQuery.of(context).size.width / 80),
-                        ConstTextField(text: 'Anticipated Start Date',
-                        validationLabel: 'Anticipated Start Date',
-                            hintText: 'yyyy-mm-dd',
-                        controller: startDateController,
-                        errorText: hrProviderState.startDate ? "Please enter anticipated start date":null),
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            SizedBox(height: 11,),
-                            ConstTextField(
-                                hintText: 'yyyy-mm-dd',
-                                text: 'Verbal Acceptance',
-                                validationLabel: 'Verbal Acceptance',
-                                controller: verbalAcceptanceController,
-                                errorText: hrProviderState.verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null),
-                          ],
-                        ),
-                        if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId)
-                          SizedBox(
-                            height: 30,
-                            width: MediaQuery.of(context).size.width / 5,// Set the height of the SizedBox here as needed
-                          )
-                        else Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              text: "No. of Patients", // Main text
-                              style: DocumentTypeDataStyle.customTextStyle(context), // Main style
-                              children: [
-                                TextSpan(
-                                  text: ' *', // Asterisk
-                                  style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
-                                    color: ColorManager.red, // Asterisk color
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        //Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
-                        SizedBox(height: 5,),
-                        Container(
-                        height: 30,
-                        // color: ColorManager.red,
-                        width: MediaQuery.of(context).size.width / 5,
-                        child: StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) {
-                        return TextField(
-                        cursorColor: Colors.black,
-                        controller: patientsController,
-                        // onChanged: (value){
-                        // setState(() {
-                        // if ("No. of Patients" == "No. of Patients") noOfPatientDate = value.isEmpty;});
-                        // },
-                        decoration: InputDecoration(
-                        border: const OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Enter No. of Patients',
-                        hintStyle:  onlyFormDataStyle.customTextStyle(context),
-                        suffixIcon: DropdownButton<String>(
-                        value: selectedDropdownValue,
-                        items: ['Per day', 'Per week', 'Per month']
-                            .map((String value) {
-                        return DropdownMenuItem<String>(
-                        value: value,
-                        child: Container(
-                        padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0),
-                        child: Text(
-                        value,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
-                        ),
-                        ),
-                        );
-                        }).toList(),
-                        onChanged: (String? value) {
-                        if (value != null) {
-                        setState(() {
-                        selectedDropdownValue = value;
-                        });
-                        }
-                        },
-                        underline: const SizedBox(),
-                        icon:  Icon(Icons.arrow_drop_down,
-                        color: ColorManager.mediumgrey),
-                        ),
-                        contentPadding:
-                        const EdgeInsets.only(left: 10, bottom: 5),
-                        ),
-                        style: DocumentTypeDataStyle.customTextStyle(context),);
-                        },
-                        ),
-                        ),
-                        if (hrProviderState.noOfPatientDate == true)
-                          Padding(
-                          padding: const EdgeInsets.only(top: 1),
-                          child: Text(
-                          "Please enter no. of Patients",
-                          style: CommonErrorMsg.customTextStyle(context),
-                          ),
-                          ),
-                          ],
-                          ),
-                        //SizedBox(width: MediaQuery.of(context).size.width / 10),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 5,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 50),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 100),
-                      child: Divider(
-                        color: ColorManager.cream,
-                        thickness: 4,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 20,
                       ),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 40),
-                    Column(
-                      children: hrProviderState.containerKeys.asMap().entries.map((entry) {
-                        int index = entry.key;
-                        GlobalKey<_DynamciContainerState> key =entry.value;
-                        return DynamciContainer(
-                          key: key,
-                          index: index + 1,
-                          onRemove: () => hrProviderState.removecontainer(key),
-                        );
-                      }).toList(),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 100.0),
-                      child: Row(crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [Container(
-                        width:180,
-                        height: 30,
-                        child: ElevatedButton(
-                          onPressed:hrProviderState.addContainer,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff1696C8),
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Text(
-                            'Add New Coverage',
-                            style: BlueButtonTextConst.customTextStyle(context),
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0,bottom: 20,left: 105),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text( AppStringLegalDocument.popupMsgHead,
+                              style:  LegalDocumentPopupMessage.customTextStyle(context),),
+                          ],
                         ),
-                      ),],),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    ///salery
-                    ///
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 100),
-                      child: StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 22,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ConstTextField(text: 'Issue Date',validationLabel: 'Issue Date', hintText: 'yyyy-mm-dd',
+                            controller: issueDateController,errorText: hrProviderState.issueDate ? "Please enter issue date":null),
+                          //SizedBox(width: MediaQuery.of(context).size.width / 80),
+                          ConstTextField(text: 'Last Date',validationLabel: 'Last Date',  hintText: 'yyyy-mm-dd',
+                              controller: lastDateController,errorText: hrProviderState.lastDate ? "Please enter last date":null),
+                          // SizedBox(width: MediaQuery.of(context).size.width / 80),
+                          ConstTextField(text: 'Anticipated Start Date',
+                          validationLabel: 'Anticipated Start Date',
+                              hintText: 'yyyy-mm-dd',
+                          controller: startDateController,
+                          errorText: hrProviderState.startDate ? "Please enter anticipated start date":null),
+                        ],
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
                             children: [
-                              SizedBox(
-                                height: 30,
-                                width: 300,
-                                child: CustomDropdownTextFieldpadding(
-                                  hintText: 'Salaried',
-                                  // Conditionally show "Per Visit" in the dropdown if depId is not salesId or AdministrationId
-                                  items: depId == AppConfig.salesId || depId == AppConfig.AdministrationId
-                                      ? ['Salaried'] // Only show 'Salaried' option
-                                      : ['Salaried', 'Per Visit'], // Show both 'Salaried' and 'Per Visit'
-                                  value: dropdownValue,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      dropdownValue = newValue! ?? 'Salaried';
-                                      print('dropDownValue ${dropdownValue}');
-                                    });
-                                  },
-                                ),
-                              ),
-                              const SizedBox(width: 30),
-                              Row(
+                              SizedBox(height: 11,),
+                              ConstTextField(
+                                  hintText: 'yyyy-mm-dd',
+                                  text: 'Verbal Acceptance',
+                                  validationLabel: 'Verbal Acceptance',
+                                  controller: verbalAcceptanceController,
+                                  errorText: hrProviderState.verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null),
+                            ],
+                          ),
+                          if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId)
+                            SizedBox(
+                              height: 30,
+                              width: MediaQuery.of(context).size.width / 5,// Set the height of the SizedBox here as needed
+                            )
+                          else Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                text: "No. of Patients", // Main text
+                                style: DocumentTypeDataStyle.customTextStyle(context), // Main style
                                 children: [
-                                  Text(
-                                    hrProviderState.salary.isNotEmpty ? "\$ ${hrProviderState.salary}" : "Not Defined",
+                                  TextSpan(
+                                    text: ' *', // Asterisk
                                     style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
-                                      color: ColorManager.black, // Asterisk color
+                                      color: ColorManager.red, // Asterisk color
                                     ),
                                   ),
-                                  const SizedBox(width: 30),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width:100,
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(12.0),
-                                                  ),
-                                                  titlePadding: EdgeInsets.zero,
-                                                  title: Container(
-                                                    decoration: const BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius: BorderRadius.only(
-                                                        topLeft: Radius.circular(12),
-                                                        bottomLeft: Radius.circular(12),
-                                                        bottomRight: Radius.circular(12),
-                                                        topRight: Radius.circular(12),
-                                                      ),
-                                                    ),
-                                                    width: 302,
-                                                    height: 230,
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          height: 35,
-                                                          width: double.infinity,
-                                                          decoration: const BoxDecoration(
-                                                            color: Color(0xff1696C8),
-                                                            borderRadius: BorderRadius.only(
-                                                              topLeft: Radius.circular(12.0),
-                                                              topRight: Radius.circular(12.0),
-                                                            ),
-                                                          ),
-                                                          padding: const EdgeInsets.only(right: 5, bottom: 5),
-                                                          child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.end,
-                                                            children: [
-                                                              Center(
-                                                                child: IconButton(splashColor: Colors.transparent,
-                                                                  highlightColor: Colors.transparent,
-                                                                  hoverColor: Colors.transparent,
-                                                                  icon: const Icon(Icons.close, color: Colors.white, size: IconSize.I18,),
-                                                                  onPressed: () {
-                                                                    Navigator.of(context).pop();
-                                                                  },
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              // Display the appropriate text based on dropdown selection
-                                                              dropdownValue == 'Salaried'
-                                                                  ? Text(
-                                                                'Salary',
-                                                                style: DefineWorkWeekStyle.customTextStyle(context),
-                                                              )
-                                                                  : Text(
-                                                                'Per Visit',
-                                                                style: DefineWorkWeekStyle.customTextStyle(context),
-                                                              ),
-                                                              SizedBox(
-                                                                height: MediaQuery.of(context).size.height / 30,
-                                                              ),
-                                                              Container(
-                                                                height: 30,
-                                                                child: TextFormField(
-                                                                  cursorColor: Colors.black,
-                                                                  style: DocumentTypeDataStyle.customTextStyle(context),
-                                                                  decoration: InputDecoration(
-                                                                    prefix: const Text("\$ "),
-                                                                    hintText: '0.00',
-                                                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                                                    enabledBorder: OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.circular(8.0),
-                                                                      borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                                    ),
-                                                                    focusedBorder: OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.circular(8.0),
-                                                                      borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                                    ),
-                                                                    border: OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.circular(8.0),
-                                                                      borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                                    ),
-                                                                    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                                                                  ),
-                                                                  keyboardType: TextInputType.number,
-                                                                  onChanged: (value) {
-                                                                    hrProviderState.addSalary(value);
-                                                                    print("Salary:: ${hrProviderState.salary}");
-                                                                  },
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: MediaQuery.of(context).size.height / 20,
-                                                              ),
-                                                              Center(
-                                                                child: ElevatedButton(
-                                                                  onPressed: () {
-                                                                    // Handle the submit action
-                                                                    Navigator.of(context).pop();
-                                                                  },
-                                                                  style: ElevatedButton.styleFrom(
-                                                                    backgroundColor: const Color(0xff1696C8),
-                                                                    shape: RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadius.circular(12),
-                                                                    ),
-                                                                  ),
-                                                                  child: Padding(
-                                                                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-                                                                    child: Text(
-                                                                      'Submit',
-                                                                      style: BlueButtonTextConst.customTextStyle(context),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: const Color(0xff1696C8),
-                                            foregroundColor: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(10),
-                                            ),
-                                          ),
-                                          child: dropdownValue == 'Salaried'
-                                              ? Text(
-                                            'Add',
-                                            style: BlueButtonTextConst.customTextStyle(context),
-                                          )
-                                              : Text(
-                                            'Add Visit',
-                                            style: BlueButtonTextConst.customTextStyle(context),
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        ' *', // Asterisk
-                                        style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
-                                          color: ColorManager.red, // Asterisk color
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(width: 15),
                                 ],
                               ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-
-                    ///
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 100),
-                    //   child: StatefulBuilder(
-                    //     builder: (BuildContext context, void Function(void Function()) setState) {
-                    //       return  Row(
-                    //         mainAxisAlignment: MainAxisAlignment.start,
-                    //         children: [
-                    //           SizedBox(
-                    //             height: 30,
-                    //             width: 300,
-                    //             child: CustomDropdownFormField(
-                    //                 hintText: 'Salaried',
-                    //                 items: ['Salaried', 'Per Visit'],
-                    //                 value: dropdownValue,
-                    //                 onChanged: (newValue){
-                    //                   setState(() {
-                    //                     dropdownValue = newValue! ?? 'Salaried';
-                    //                     print('dropDownValue ${dropdownValue}');
-                    //                   });
-                    //                 }),
-                    //           ),
-                    //           const SizedBox(width: 30,),
-                    //           Row(
-                    //             children: [
-                    //               Text(
-                    //                 _salary.isNotEmpty
-                    //                     ? "\$ ${_salary}"
-                    //                     : "Not Defined",
-                    //                 style: DropdownItemStyle.customTextStyle(context),
-                    //               ),
-                    //               const SizedBox(width: 30,),
-                    //               ElevatedButton(
-                    //                   onPressed: () {
-                    //                     showDialog(
-                    //                       context: context,
-                    //                       builder: (BuildContext context) {
-                    //                         return AlertDialog(
-                    //                           shape: RoundedRectangleBorder(
-                    //                             borderRadius: BorderRadius.circular(12.0),
-                    //                           ),
-                    //                           titlePadding: EdgeInsets.zero,
-                    //                           title: Container(
-                    //                             decoration: const BoxDecoration(
-                    //                               color: Colors.white,
-                    //                               borderRadius: BorderRadius.only(
-                    //                                 topLeft: Radius.circular(12),
-                    //                                 bottomLeft: Radius.circular(12),
-                    //                                 bottomRight: Radius.circular(12),
-                    //                                 topRight: Radius.circular(12),
-                    //                               ),
-                    //                             ),
-                    //                             width: 302,
-                    //                             height: 230,
-                    //                             child: Column(
-                    //                               children: [
-                    //                                 Container(
-                    //                                   height: 35,
-                    //                                   width: double.infinity,
-                    //                                   decoration: const BoxDecoration(
-                    //                                     color: Color(0xff1696C8),
-                    //                                     borderRadius: BorderRadius.only(
-                    //                                       topLeft: Radius.circular(12.0),
-                    //                                       topRight: Radius.circular(12.0),
-                    //                                     ),
-                    //                                   ),
-                    //                                   padding: const EdgeInsets.only(right: 5,bottom: 5),
-                    //                                   child: Row(
-                    //                                     mainAxisAlignment: MainAxisAlignment.end,
-                    //                                     children: [
-                    //                                       IconButton(
-                    //                                         icon: const Icon(Icons.close,
-                    //                                             color: Colors.white),
-                    //                                         onPressed: () {
-                    //                                           Navigator.of(context).pop();
-                    //                                         },
-                    //                                       ),
-                    //                                     ],
-                    //                                   ),
-                    //                                 ),
-                    //                                 Padding(
-                    //                                   padding: const EdgeInsets.symmetric(
-                    //                                       vertical: 15.0, horizontal: 16.0),
-                    //                                   child: Column(
-                    //                                     crossAxisAlignment:
-                    //                                     CrossAxisAlignment.start,
-                    //                                     children: [
-                    //                                       dropdownValue == 'Salaried' ?  Text(
-                    //                                         'Salary',
-                    //                                         style:DefineWorkWeekStyle.customTextStyle(context),
-                    //                                       ) : Text(
-                    //                                         'Per Visit',
-                    //                                         style: DefineWorkWeekStyle.customTextStyle(context),
-                    //                                       ),
-                    //                                       SizedBox(
-                    //                                         height: MediaQuery.of(context)
-                    //                                             .size
-                    //                                             .height /
-                    //                                             30,
-                    //                                       ),
-                    //                                       Container(
-                    //                                         height: 30,
-                    //                                         child: TextFormField(
-                    //                                           cursorColor: Colors.black,
-                    //                                           style: DocumentTypeDataStyle.customTextStyle(context),
-                    //                                           decoration: InputDecoration(
-                    //                                             prefix:const Text("\$ "),
-                    //                                             hintText: '0.00',
-                    //                                             hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
-                    //                                             enabledBorder:
-                    //                                             OutlineInputBorder(
-                    //                                               borderRadius:
-                    //                                               BorderRadius.circular(
-                    //                                                   8.0),
-                    //                                               borderSide: const BorderSide(
-                    //                                                 color: Color(0xff51B5E6),
-                    //                                                 width: 1.0,
-                    //                                               ),
-                    //                                             ),
-                    //                                             focusedBorder:
-                    //                                             OutlineInputBorder(
-                    //                                               borderRadius:
-                    //                                               BorderRadius.circular(
-                    //                                                   8.0),
-                    //                                               borderSide: const BorderSide(
-                    //                                                 color: Color(0xff51B5E6),
-                    //                                                 width: 1.0,
-                    //                                               ),
-                    //                                             ),
-                    //                                             border: OutlineInputBorder(
-                    //                                               borderRadius:
-                    //                                               BorderRadius.circular(
-                    //                                                   8.0),
-                    //                                               borderSide: const BorderSide(
-                    //                                                 color: Color(0xff51B5E6),
-                    //                                                 width: 1.0,
-                    //                                               ),
-                    //                                             ),
-                    //                                             contentPadding:
-                    //                                             const EdgeInsets.symmetric(
-                    //                                                 horizontal: 16.0,
-                    //                                                 vertical: 12.0),
-                    //                                           ),
-                    //                                           keyboardType:
-                    //                                           TextInputType.number,
-                    //                                           onChanged: (value) {
-                    //                                             setState((){
-                    //                                               _salary = value;
-                    //                                             });
-                    //                                             print("Salary:: ${_salary}");
-                    //                                           },
-                    //                                         ),
-                    //                                       ),
-                    //                                       SizedBox(
-                    //                                           height: MediaQuery.of(context)
-                    //                                               .size
-                    //                                               .height /
-                    //                                               20),
-                    //                                       Center(
-                    //                                         child: ElevatedButton(
-                    //                                           onPressed: () {
-                    //                                             // Handle the submit action
-                    //                                             Navigator.of(context).pop();
-                    //                                           },
-                    //                                           style: ElevatedButton.styleFrom(
-                    //                                             backgroundColor:
-                    //                                             const Color(0xff1696C8),
-                    //                                             shape: RoundedRectangleBorder(
-                    //                                               borderRadius:
-                    //                                               BorderRadius.circular(
-                    //                                                   12),
-                    //                                             ),
-                    //                                           ),
-                    //                                           child: Padding(
-                    //                                             padding: const EdgeInsets
-                    //                                                 .symmetric(
-                    //                                                 horizontal: 24.0,
-                    //                                                 vertical: 8.0),
-                    //                                             child: Text(
-                    //                                               'Submit',
-                    //                                               style: BlueButtonTextConst.customTextStyle(context),
-                    //                                             ),
-                    //                                           ),
-                    //                                         ),
-                    //                                       ),
-                    //                                     ],
-                    //                                   ),
-                    //                                 ),
-                    //                               ],
-                    //                             ),
-                    //                           ),
-                    //                         );
-                    //                       },
-                    //                     );
-                    //                   },
-                    //                   style: ElevatedButton.styleFrom(
-                    //                     backgroundColor: const Color(0xff1696C8),
-                    //                     foregroundColor: Colors.white,
-                    //                     shape: RoundedRectangleBorder(
-                    //                       borderRadius: BorderRadius.circular(12),
-                    //                     ),
-                    //                   ),
-                    //                   child: dropdownValue == 'Salaried' ? Text(
-                    //                     'Add',
-                    //                     style: BlueButtonTextConst.customTextStyle(context),
-                    //                   ) : Text(
-                    //                     'Add Visit',
-                    //                     style: BlueButtonTextConst.customTextStyle(context),
-                    //                   )
-                    //               ),
-                    //               const SizedBox(width: 15),
-                    //
-                    //             ],
-                    //           ),
-                    //
-                    //         ],
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 9),
-                    ///bottom button
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 100,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              hrProviderState.clearAllFields();
-                              Navigator.of(context).pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: const Color(0xff1696C8),
-                              side: const BorderSide(color: Color(0xff1696C8)),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
                             ),
-                            child: Text(
-                              'Back',
-                              style: TransparentButtonTextConst.customTextStyle(context)
-                            ),
+                          //Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
+                          SizedBox(height: 5,),
+                          Container(
+                          height: 30,
+                          // color: ColorManager.red,
+                          width: MediaQuery.of(context).size.width / 5,
+                          child: StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
+                          return TextField(
+                          cursorColor: Colors.black,
+                          controller: patientsController,
+                          // onChanged: (value){
+                          // setState(() {
+                          // if ("No. of Patients" == "No. of Patients") noOfPatientDate = value.isEmpty;});
+                          // },
+                          decoration: InputDecoration(
+                          border: const OutlineInputBorder(
+                          borderSide:
+                          BorderSide(color: Color(0xffB1B1B1), width: 1.0),
                           ),
+                          enabledBorder: const OutlineInputBorder(
+                          borderSide:
+                          BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                          borderSide:
+                          BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: 'Enter No. of Patients',
+                          hintStyle:  onlyFormDataStyle.customTextStyle(context),
+                          suffixIcon: DropdownButton<String>(
+                          value: selectedDropdownValue,
+                          items: ['Per day', 'Per week', 'Per month']
+                              .map((String value) {
+                          return DropdownMenuItem<String>(
+                          value: value,
+                          child: Container(
+                          padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0),
+                          child: Text(
+                          value,
+                          style: DocumentTypeDataStyle.customTextStyle(context),
+                          ),
+                          ),
+                          );
+                          }).toList(),
+                          onChanged: (String? value) {
+                          if (value != null) {
+                          setState(() {
+                          selectedDropdownValue = value;
+                          });
+                          }
+                          },
+                          underline: const SizedBox(),
+                          icon:  Icon(Icons.arrow_drop_down,
+                          color: ColorManager.mediumgrey),
+                          ),
+                          contentPadding:
+                          const EdgeInsets.only(left: 10, bottom: 5),
+                          ),
+                          style: DocumentTypeDataStyle.customTextStyle(context),);
+                          },
+                          ),
+                          ),
+                          if (hrProviderState.noOfPatientDate == true)
+                            Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: Text(
+                            "Please enter no. of Patients",
+                            style: CommonErrorMsg.customTextStyle(context),
+                            ),
+                            ),
+                            ],
+                            ),
+                          //SizedBox(width: MediaQuery.of(context).size.width / 10),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 5,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 100),
+                        child: Divider(
+                          color: ColorManager.cream,
+                          thickness: 4,
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width / 75),
-                        Container(
-                          width: 100,
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 40),
+                      Column(
+                        children: hrProviderState.containerKeys.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          GlobalKey<_DynamciContainerState> key =entry.value;
+                          return DynamciContainer(
+                            key: key,
+                            index: index + 1,
+                            onRemove: () => hrProviderState.removecontainer(key),
+                          );
+                        }).toList(),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                        child: Row(crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [Container(
+                          width:180,
+                          height: 30,
                           child: ElevatedButton(
-                            onPressed: ()  async{
-
-                              // Validate the salary field
-                              if (hrProviderState.salary.isEmpty) {
-                                // You can either show a Snackbar, a dialog, or update the UI
-                                await showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AddFailePopup(
-                                      message: 'Something is messing',
-                                    );
-                                  },
-                                );
-                                return; // Return early if salary is empty
-                              }
-
-                              hrProviderState.validateFieldsUseController(
-                                  issueDateController: issueDateController,
-                                  startDateController: startDateController,
-                                  lastDateController: lastDateController,
-                                  verbalAcceptanceController: verbalAcceptanceController);
-                              // setState(() {
-                              //   // _collegeUniversityError = widget.effectiveDateController.text.isEmpty;
-                              //   //_phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
-                              //   issueDate = issueDateController.text.isEmpty;
-                              //   startDate = startDateController.text.isEmpty;
-                              //   lastDate = lastDateController.text.isEmpty;
-                              //   verbalAcceptanceDate = verbalAcceptanceController.text.isEmpty;
-                              //  // noOfPatientDate = patientsController.text.isEmpty;
-                              //   // _radioButtonError = !_isRadioButtonSelected;
-                              // });
-                              if(!hrProviderState.issueDate && !hrProviderState.startDate && !hrProviderState.lastDate && !hrProviderState.verbalAcceptanceDate ){
-                                for (var key in hrProviderState.containerKeys){
-                                  final st = key.currentState!;
-
-                                  print('County ID: ${st.selectedCountyId}');
-                                  print('Zone ID:::::::::=>> ${st.docZoneId}');
-                                  print('Zip Codes: ${st.selectedZipCodes}');
-                                  //print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
-                                  addCovrage.add( ApiAddCovrageData(
-                                      city: '',
-                                      countyId:st.selectedCountyId ,
-                                      zoneId: st.docZoneId,
-                                      zipCodes:st.selectedZipCodes
-                                  ));
-                                }
-                                print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
-                                //await _generateUrlLink(widget.email, widget.userId.toString());
-                                // print("Widget employeeId ${widget.apiData!.employeeId!}");
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return ConfirmationPopup(
-                                      // loadingDuration: _isLoading,
-                                      onCancel: () {
-                                        Navigator.pop(context);
-                                      },
-                                      onConfirm: () async {
-                                        // Print selected values for debugging
-                                        // print('selected county id : ${selectedCountyId}');
-                                        print('selected city : ${selectedCityName}');
-                                        print('Salary: ${hrProviderState.salary}');
-                                        print('Salary Type: $dropdownValue');
-                                        print('Patient Count: ${patientsController.text}');
-
-                                        try {
-                                          // Set patientsValue based on depId
-                                          int patientsValue;
-                                          if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId) {
-                                            patientsValue = 0;  // If depId is sales or administration, set to 0
-                                          } else {
-                                            patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
-                                          }
-                                          ApiData response = await addEmpEnroll(
-                                            context: context,
-                                            employeeId: employeeId,
-                                            code: "",
-                                            userId: userId,
-                                            firstName: firstName,
-                                            lastName: lastName,
-                                            phoneNbr: phone,
-                                            email: email,
-                                            link: link,
-                                            status: status,
-                                            departmentId:depId,
-                                            position: position,
-                                            speciality: soecalityName,
-                                            clinicianTypeId:clinicalId,
-                                            reportingOfficeId: reportingOffice,
-                                            cityId: cityId,
-                                            countryId: countryId,
-                                            countyId: countyId,
-                                            zoneId: zoneId,
-                                            // employment: "Full Time",
-                                            employment: employement,
-                                            // service: "Hospice",
-                                            service: services,
-                                          );
-                                          if(response.statusCode == 200 || response.statusCode == 201){
-                                            // Call the API with the correct patientsValue
-                                            onRefreshRegister();
-                                            var empEnrollOfferResponse = await addEmpEnrollOffers(
-                                              context,
-                                              response.employeeEnrollId!,
-                                              response.employeeId!,
-                                              patientsValue,  // Use patientsValue here
-                                              issueDateController.text,
-                                              lastDateController.text,
-                                              startDateController.text,
-                                              verbalAcceptanceController.text,
-                                            );
-
-                                            // print('County id : ${selectedCountyId}');
-                                            // print('Zone id : ${selectedZoneId}');
-
-                                            // Call other enrollment-related APIs
-                                            await addEmpEnrollAddCoverage(
-                                              context,
-                                              response.employeeEnrollId!,
-                                              response.employeeId!,
-                                              addCovrage,
-                                            );
-
-                                            await addEmpEnrollAddCompensation(
-                                              context,
-                                              response.employeeEnrollId!,
-                                              response.employeeId!,
-                                              dropdownValue.toString(),
-                                              int.parse(hrProviderState.salary!),
-                                            );
-
-                                            // Clear controllers
-                                            issueDateController.clear();
-                                            lastDateController.clear();
-                                            startDateController.clear();
-                                            verbalAcceptanceController.clear();
-
-                                            Navigator.pop(context);
-                                            if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  Future.delayed(const Duration(seconds: 2), () {
-                                                    if (Navigator.of(context).canPop()) {
-                                                      Navigator.pop(context);
-                                                      hrProviderState.clearAllFields();
-                                                      hrProviderState.popNavigation(context);
-                                                    }
-                                                  });
-                                                  return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
-                                                },
-                                              );
-                                            }
-                                            else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
-                                              // Navigator.pop(context);
-                                               showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) => const FourNotFourPopup(),
-                                              );
-                                            }
-                                            else {
-                                              // Navigator.pop(context);
-                                               showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
-                                              );
-                                            }
-                                          }else{
-                                            Navigator.pop(context);
-                                             showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
-                                            );
-                                          }
-
-
-                                          // Check the response status
-
-                                        } catch (e) {
-                                          print("Error during enrollment: $e");
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
-                                          );
-                                          // ScaffoldMessenger.of(context).showSnackBar(
-                                          //   SnackBar(content: Text('Enrollment failed: $e')),
-                                          // );
-                                        } finally {
-                                          // setState(() { _isLoading = false; });
-                                        }
-                                      },
-
-                                      // onConfirm: ()  async{
-                                      //   //await Future.delayed(Duration(seconds: 2));
-                                      //   // setState(() {
-                                      //   //   _isLoading = true;
-                                      //   // });
-                                      //   print('selected county id : ${selectedCountyId}');
-                                      //   //  print('selected zone id : ${st.docZoneId}');
-                                      //   // print('selected zipCode : ${st.selectedZipCodes}');
-                                      //   print('selected city : ${selectedCityName}');
-                                      //   print('Salari ${_salary}');
-                                      //   print('Salari Type ${dropdownValue}');
-                                      //   print('PatianCount ${patientsController.text}');
-                                      //   try {
-                                      //
-                                      //
-                                      //     if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId) {
-                                      //       patientsValue = 0;  // If depId is sales or administration, set to 0
-                                      //     } else {
-                                      //       patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
-                                      //     }
-                                      //     var empEnrollOfferResponse = await addEmpEnrollOffers(
-                                      //       context,
-                                      //       widget.apiData!.employeeEnrollId!,
-                                      //       widget.apiData!.employeeId!,
-                                      //       int.parse(patientsController.text),
-                                      //       issueDateController.text,
-                                      //       lastDateController.text,
-                                      //       startDateController.text,
-                                      //       verbalAcceptanceController.text,
-                                      //     );
-                                      //     print('County id : ${selectedCountyId}');
-                                      //     print('Zone id : ${selectedZoneId}');
-                                      //     await addEmpEnrollAddCoverage(
-                                      //         context,
-                                      //         widget.apiData!.employeeEnrollId!,
-                                      //         widget.apiData!.employeeId!,
-                                      //         addCovrage
-                                      //     );
-                                      //     await addEmpEnrollAddCompensation(
-                                      //       context,
-                                      //       widget.apiData!.employeeEnrollId!,
-                                      //       widget.apiData!.employeeId!,
-                                      //       dropdownValue.toString(),
-                                      //       int.parse(_salary),
-                                      //     );
-                                      //     // Clear controllers
-                                      //     issueDateController.clear();
-                                      //     lastDateController.clear();
-                                      //     startDateController.clear();
-                                      //     verbalAcceptanceController.clear();
-                                      // Navigator.pop(context);
-                                      //     if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
-                                      //       showDialog(
-                                      //         context: context,
-                                      //         builder: (BuildContext context) {
-                                      //           Future.delayed(const Duration(seconds: 3),(){
-                                      //             if(Navigator.of(context).canPop()) {
-                                      //        Navigator.pop(context);
-                                      //        popNavigation();
-                                      //             }
-                                      //           });
-                                      //           return  const offerSuccessPopup(message: 'Employee Enrolled Successfully',);
-                                      //         },
-                                      //       );
-                                      //     }
-                                      //   } catch (e) {
-                                      //     print("Error during enrollment: $e");
-                                      //     ScaffoldMessenger.of(context).showSnackBar(
-                                      //       SnackBar(content: Text('Enrollment failed: $e')),
-                                      //     );
-                                      //   } finally {
-                                      //     // setState(() {
-                                      //     //   _isLoading = false;
-                                      //     // });
-                                      //   }
-                                      // },
-                                      title: 'Confirm Enrollment',
-                                      containerText: 'Do you really want to enroll?',
-                                    );
-                                  },
-                                );
-                              }
-
-                            },
+                            onPressed:hrProviderState.addContainer,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xff1696C8),
                               foregroundColor: Colors.white,
@@ -1117,15 +385,767 @@ class OfferLetterScreen extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              'Enroll',
-                              style: BlueButtonTextConst.customTextStyle(context)
+                              'Add New Coverage',
+                              style: BlueButtonTextConst.customTextStyle(context),
                             ),
                           ),
+                        ),],),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
+                      ///salery
+                      ///
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 100),
+                        child: StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 30,
+                                  width: 300,
+                                  child: CustomDropdownTextFieldpadding(
+                                    hintText: 'Salaried',
+                                    // Conditionally show "Per Visit" in the dropdown if depId is not salesId or AdministrationId
+                                    items: depId == AppConfig.salesId || depId == AppConfig.AdministrationId
+                                        ? ['Salaried'] // Only show 'Salaried' option
+                                        : ['Salaried', 'Per Visit'], // Show both 'Salaried' and 'Per Visit'
+                                    value: dropdownValue,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        dropdownValue = newValue! ?? 'Salaried';
+                                        print('dropDownValue ${dropdownValue}');
+                                      });
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 30),
+                                Row(
+                                  children: [
+                                    Text(
+                                      hrProviderState.salary.isNotEmpty ? "\$ ${hrProviderState.salary}" : "Not Defined",
+                                      style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                        color: ColorManager.black, // Asterisk color
+                                      ),
+                                    ),
+                                    const SizedBox(width: 30),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width:100,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(12.0),
+                                                    ),
+                                                    titlePadding: EdgeInsets.zero,
+                                                    title: Container(
+                                                      decoration: const BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius: BorderRadius.only(
+                                                          topLeft: Radius.circular(12),
+                                                          bottomLeft: Radius.circular(12),
+                                                          bottomRight: Radius.circular(12),
+                                                          topRight: Radius.circular(12),
+                                                        ),
+                                                      ),
+                                                      width: 302,
+                                                      height: 230,
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            height: 35,
+                                                            width: double.infinity,
+                                                            decoration: const BoxDecoration(
+                                                              color: Color(0xff1696C8),
+                                                              borderRadius: BorderRadius.only(
+                                                                topLeft: Radius.circular(12.0),
+                                                                topRight: Radius.circular(12.0),
+                                                              ),
+                                                            ),
+                                                            padding: const EdgeInsets.only(right: 5, bottom: 5),
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                              children: [
+                                                                Center(
+                                                                  child: IconButton(splashColor: Colors.transparent,
+                                                                    highlightColor: Colors.transparent,
+                                                                    hoverColor: Colors.transparent,
+                                                                    icon: const Icon(Icons.close, color: Colors.white, size: IconSize.I18,),
+                                                                    onPressed: () {
+                                                                      Navigator.of(context).pop();
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                // Display the appropriate text based on dropdown selection
+                                                                dropdownValue == 'Salaried'
+                                                                    ? Text(
+                                                                  'Salary',
+                                                                  style: DefineWorkWeekStyle.customTextStyle(context),
+                                                                )
+                                                                    : Text(
+                                                                  'Per Visit',
+                                                                  style: DefineWorkWeekStyle.customTextStyle(context),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: MediaQuery.of(context).size.height / 30,
+                                                                ),
+                                                                Container(
+                                                                  height: 30,
+                                                                  child: TextFormField(
+                                                                    cursorColor: Colors.black,
+                                                                    style: DocumentTypeDataStyle.customTextStyle(context),
+                                                                    decoration: InputDecoration(
+                                                                      prefix: const Text("\$ "),
+                                                                      hintText: '0.00',
+                                                                      hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                                                      enabledBorder: OutlineInputBorder(
+                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                        borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                                      ),
+                                                                      focusedBorder: OutlineInputBorder(
+                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                        borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                                      ),
+                                                                      border: OutlineInputBorder(
+                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                        borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                                      ),
+                                                                      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                                                                    ),
+                                                                    keyboardType: TextInputType.number,
+                                                                    onChanged: (value) {
+                                                                      hrProviderState.addSalary(value);
+                                                                      print("Salary:: ${hrProviderState.salary}");
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: MediaQuery.of(context).size.height / 20,
+                                                                ),
+                                                                Center(
+                                                                  child: ElevatedButton(
+                                                                    onPressed: () {
+                                                                      // Handle the submit action
+                                                                      Navigator.of(context).pop();
+                                                                    },
+                                                                    style: ElevatedButton.styleFrom(
+                                                                      backgroundColor: const Color(0xff1696C8),
+                                                                      shape: RoundedRectangleBorder(
+                                                                        borderRadius: BorderRadius.circular(12),
+                                                                      ),
+                                                                    ),
+                                                                    child: Padding(
+                                                                      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                                                                      child: Text(
+                                                                        'Submit',
+                                                                        style: BlueButtonTextConst.customTextStyle(context),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: const Color(0xff1696C8),
+                                              foregroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                            child: dropdownValue == 'Salaried'
+                                                ? Text(
+                                              'Add',
+                                              style: BlueButtonTextConst.customTextStyle(context),
+                                            )
+                                                : Text(
+                                              'Add Visit',
+                                              style: BlueButtonTextConst.customTextStyle(context),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          ' *', // Asterisk
+                                          style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                            color: ColorManager.red, // Asterisk color
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(width: 15),
+                                  ],
+                                ),
+                              ],
+                            );
+                          },
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 10,)
-                  ],
+                      ),
+
+                      ///
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 100),
+                      //   child: StatefulBuilder(
+                      //     builder: (BuildContext context, void Function(void Function()) setState) {
+                      //       return  Row(
+                      //         mainAxisAlignment: MainAxisAlignment.start,
+                      //         children: [
+                      //           SizedBox(
+                      //             height: 30,
+                      //             width: 300,
+                      //             child: CustomDropdownFormField(
+                      //                 hintText: 'Salaried',
+                      //                 items: ['Salaried', 'Per Visit'],
+                      //                 value: dropdownValue,
+                      //                 onChanged: (newValue){
+                      //                   setState(() {
+                      //                     dropdownValue = newValue! ?? 'Salaried';
+                      //                     print('dropDownValue ${dropdownValue}');
+                      //                   });
+                      //                 }),
+                      //           ),
+                      //           const SizedBox(width: 30,),
+                      //           Row(
+                      //             children: [
+                      //               Text(
+                      //                 _salary.isNotEmpty
+                      //                     ? "\$ ${_salary}"
+                      //                     : "Not Defined",
+                      //                 style: DropdownItemStyle.customTextStyle(context),
+                      //               ),
+                      //               const SizedBox(width: 30,),
+                      //               ElevatedButton(
+                      //                   onPressed: () {
+                      //                     showDialog(
+                      //                       context: context,
+                      //                       builder: (BuildContext context) {
+                      //                         return AlertDialog(
+                      //                           shape: RoundedRectangleBorder(
+                      //                             borderRadius: BorderRadius.circular(12.0),
+                      //                           ),
+                      //                           titlePadding: EdgeInsets.zero,
+                      //                           title: Container(
+                      //                             decoration: const BoxDecoration(
+                      //                               color: Colors.white,
+                      //                               borderRadius: BorderRadius.only(
+                      //                                 topLeft: Radius.circular(12),
+                      //                                 bottomLeft: Radius.circular(12),
+                      //                                 bottomRight: Radius.circular(12),
+                      //                                 topRight: Radius.circular(12),
+                      //                               ),
+                      //                             ),
+                      //                             width: 302,
+                      //                             height: 230,
+                      //                             child: Column(
+                      //                               children: [
+                      //                                 Container(
+                      //                                   height: 35,
+                      //                                   width: double.infinity,
+                      //                                   decoration: const BoxDecoration(
+                      //                                     color: Color(0xff1696C8),
+                      //                                     borderRadius: BorderRadius.only(
+                      //                                       topLeft: Radius.circular(12.0),
+                      //                                       topRight: Radius.circular(12.0),
+                      //                                     ),
+                      //                                   ),
+                      //                                   padding: const EdgeInsets.only(right: 5,bottom: 5),
+                      //                                   child: Row(
+                      //                                     mainAxisAlignment: MainAxisAlignment.end,
+                      //                                     children: [
+                      //                                       IconButton(
+                      //                                         icon: const Icon(Icons.close,
+                      //                                             color: Colors.white),
+                      //                                         onPressed: () {
+                      //                                           Navigator.of(context).pop();
+                      //                                         },
+                      //                                       ),
+                      //                                     ],
+                      //                                   ),
+                      //                                 ),
+                      //                                 Padding(
+                      //                                   padding: const EdgeInsets.symmetric(
+                      //                                       vertical: 15.0, horizontal: 16.0),
+                      //                                   child: Column(
+                      //                                     crossAxisAlignment:
+                      //                                     CrossAxisAlignment.start,
+                      //                                     children: [
+                      //                                       dropdownValue == 'Salaried' ?  Text(
+                      //                                         'Salary',
+                      //                                         style:DefineWorkWeekStyle.customTextStyle(context),
+                      //                                       ) : Text(
+                      //                                         'Per Visit',
+                      //                                         style: DefineWorkWeekStyle.customTextStyle(context),
+                      //                                       ),
+                      //                                       SizedBox(
+                      //                                         height: MediaQuery.of(context)
+                      //                                             .size
+                      //                                             .height /
+                      //                                             30,
+                      //                                       ),
+                      //                                       Container(
+                      //                                         height: 30,
+                      //                                         child: TextFormField(
+                      //                                           cursorColor: Colors.black,
+                      //                                           style: DocumentTypeDataStyle.customTextStyle(context),
+                      //                                           decoration: InputDecoration(
+                      //                                             prefix:const Text("\$ "),
+                      //                                             hintText: '0.00',
+                      //                                             hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                      //                                             enabledBorder:
+                      //                                             OutlineInputBorder(
+                      //                                               borderRadius:
+                      //                                               BorderRadius.circular(
+                      //                                                   8.0),
+                      //                                               borderSide: const BorderSide(
+                      //                                                 color: Color(0xff51B5E6),
+                      //                                                 width: 1.0,
+                      //                                               ),
+                      //                                             ),
+                      //                                             focusedBorder:
+                      //                                             OutlineInputBorder(
+                      //                                               borderRadius:
+                      //                                               BorderRadius.circular(
+                      //                                                   8.0),
+                      //                                               borderSide: const BorderSide(
+                      //                                                 color: Color(0xff51B5E6),
+                      //                                                 width: 1.0,
+                      //                                               ),
+                      //                                             ),
+                      //                                             border: OutlineInputBorder(
+                      //                                               borderRadius:
+                      //                                               BorderRadius.circular(
+                      //                                                   8.0),
+                      //                                               borderSide: const BorderSide(
+                      //                                                 color: Color(0xff51B5E6),
+                      //                                                 width: 1.0,
+                      //                                               ),
+                      //                                             ),
+                      //                                             contentPadding:
+                      //                                             const EdgeInsets.symmetric(
+                      //                                                 horizontal: 16.0,
+                      //                                                 vertical: 12.0),
+                      //                                           ),
+                      //                                           keyboardType:
+                      //                                           TextInputType.number,
+                      //                                           onChanged: (value) {
+                      //                                             setState((){
+                      //                                               _salary = value;
+                      //                                             });
+                      //                                             print("Salary:: ${_salary}");
+                      //                                           },
+                      //                                         ),
+                      //                                       ),
+                      //                                       SizedBox(
+                      //                                           height: MediaQuery.of(context)
+                      //                                               .size
+                      //                                               .height /
+                      //                                               20),
+                      //                                       Center(
+                      //                                         child: ElevatedButton(
+                      //                                           onPressed: () {
+                      //                                             // Handle the submit action
+                      //                                             Navigator.of(context).pop();
+                      //                                           },
+                      //                                           style: ElevatedButton.styleFrom(
+                      //                                             backgroundColor:
+                      //                                             const Color(0xff1696C8),
+                      //                                             shape: RoundedRectangleBorder(
+                      //                                               borderRadius:
+                      //                                               BorderRadius.circular(
+                      //                                                   12),
+                      //                                             ),
+                      //                                           ),
+                      //                                           child: Padding(
+                      //                                             padding: const EdgeInsets
+                      //                                                 .symmetric(
+                      //                                                 horizontal: 24.0,
+                      //                                                 vertical: 8.0),
+                      //                                             child: Text(
+                      //                                               'Submit',
+                      //                                               style: BlueButtonTextConst.customTextStyle(context),
+                      //                                             ),
+                      //                                           ),
+                      //                                         ),
+                      //                                       ),
+                      //                                     ],
+                      //                                   ),
+                      //                                 ),
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                         );
+                      //                       },
+                      //                     );
+                      //                   },
+                      //                   style: ElevatedButton.styleFrom(
+                      //                     backgroundColor: const Color(0xff1696C8),
+                      //                     foregroundColor: Colors.white,
+                      //                     shape: RoundedRectangleBorder(
+                      //                       borderRadius: BorderRadius.circular(12),
+                      //                     ),
+                      //                   ),
+                      //                   child: dropdownValue == 'Salaried' ? Text(
+                      //                     'Add',
+                      //                     style: BlueButtonTextConst.customTextStyle(context),
+                      //                   ) : Text(
+                      //                     'Add Visit',
+                      //                     style: BlueButtonTextConst.customTextStyle(context),
+                      //                   )
+                      //               ),
+                      //               const SizedBox(width: 15),
+                      //
+                      //             ],
+                      //           ),
+                      //
+                      //         ],
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 9),
+                      ///bottom button
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 100,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                hrProviderState.clearAllFields();
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: const Color(0xff1696C8),
+                                side: const BorderSide(color: Color(0xff1696C8)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: Text(
+                                'Back',
+                                style: TransparentButtonTextConst.customTextStyle(context)
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: MediaQuery.of(context).size.width / 75),
+                          Container(
+                            width: 100,
+                            child: ElevatedButton(
+                              onPressed: ()  async{
+
+                                // Validate the salary field
+                                if (hrProviderState.salary.isEmpty) {
+                                  // You can either show a Snackbar, a dialog, or update the UI
+                                  await showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AddFailePopup(
+                                        message: 'Something is messing',
+                                      );
+                                    },
+                                  );
+                                  return; // Return early if salary is empty
+                                }
+
+                                hrProviderState.validateFieldsUseController(
+                                    issueDateController: issueDateController,
+                                    startDateController: startDateController,
+                                    lastDateController: lastDateController,
+                                    verbalAcceptanceController: verbalAcceptanceController);
+                                // setState(() {
+                                //   // _collegeUniversityError = widget.effectiveDateController.text.isEmpty;
+                                //   //_phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
+                                //   issueDate = issueDateController.text.isEmpty;
+                                //   startDate = startDateController.text.isEmpty;
+                                //   lastDate = lastDateController.text.isEmpty;
+                                //   verbalAcceptanceDate = verbalAcceptanceController.text.isEmpty;
+                                //  // noOfPatientDate = patientsController.text.isEmpty;
+                                //   // _radioButtonError = !_isRadioButtonSelected;
+                                // });
+                                if(!hrProviderState.issueDate && !hrProviderState.startDate && !hrProviderState.lastDate && !hrProviderState.verbalAcceptanceDate ){
+                                  for (var key in hrProviderState.containerKeys){
+                                    final st = key.currentState!;
+
+                                    print('County ID: ${st.selectedCountyId}');
+                                    print('Zone ID:::::::::=>> ${st.docZoneId}');
+                                    print('Zip Codes: ${st.selectedZipCodes}');
+                                    //print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
+                                    addCovrage.add( ApiAddCovrageData(
+                                        city: '',
+                                        countyId:st.selectedCountyId ,
+                                        zoneId: st.docZoneId,
+                                        zipCodes:st.selectedZipCodes
+                                    ));
+                                  }
+                                  print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
+                                  //await _generateUrlLink(widget.email, widget.userId.toString());
+                                  // print("Widget employeeId ${widget.apiData!.employeeId!}");
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return ConfirmationPopup(
+                                        // loadingDuration: _isLoading,
+                                        onCancel: () {
+                                          Navigator.pop(context);
+                                        },
+                                        onConfirm: () async {
+                                          // Print selected values for debugging
+                                          // print('selected county id : ${selectedCountyId}');
+                                          print('selected city : ${selectedCityName}');
+                                          print('Salary: ${hrProviderState.salary}');
+                                          print('Salary Type: $dropdownValue');
+                                          print('Patient Count: ${patientsController.text}');
+
+                                          try {
+                                            // Set patientsValue based on depId
+                                            int patientsValue;
+                                            if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId) {
+                                              patientsValue = 0;  // If depId is sales or administration, set to 0
+                                            } else {
+                                              patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
+                                            }
+                                            ApiData response = await addEmpEnroll(
+                                              context: context,
+                                              employeeId: employeeId,
+                                              code: "",
+                                              userId: userId,
+                                              firstName: firstName,
+                                              lastName: lastName,
+                                              phoneNbr: phone,
+                                              email: email,
+                                              link: link,
+                                              status: status,
+                                              departmentId:depId,
+                                              position: position,
+                                              speciality: soecalityName,
+                                              clinicianTypeId:clinicalId,
+                                              reportingOfficeId: reportingOffice,
+                                              cityId: cityId,
+                                              countryId: countryId,
+                                              countyId: countyId,
+                                              zoneId: zoneId,
+                                              // employment: "Full Time",
+                                              employment: employement,
+                                              // service: "Hospice",
+                                              service: services,
+                                            );
+                                            if(response.statusCode == 200 || response.statusCode == 201){
+                                              // Call the API with the correct patientsValue
+                                              onRefreshRegister();
+                                              var empEnrollOfferResponse = await addEmpEnrollOffers(
+                                                context,
+                                                response.employeeEnrollId!,
+                                                response.employeeId!,
+                                                patientsValue,  // Use patientsValue here
+                                                issueDateController.text,
+                                                lastDateController.text,
+                                                startDateController.text,
+                                                verbalAcceptanceController.text,
+                                              );
+
+                                              // print('County id : ${selectedCountyId}');
+                                              // print('Zone id : ${selectedZoneId}');
+
+                                              // Call other enrollment-related APIs
+                                              await addEmpEnrollAddCoverage(
+                                                context,
+                                                response.employeeEnrollId!,
+                                                response.employeeId!,
+                                                addCovrage,
+                                              );
+
+                                              await addEmpEnrollAddCompensation(
+                                                context,
+                                                response.employeeEnrollId!,
+                                                response.employeeId!,
+                                                dropdownValue.toString(),
+                                                int.parse(hrProviderState.salary!),
+                                              );
+
+                                              // Clear controllers
+                                              issueDateController.clear();
+                                              lastDateController.clear();
+                                              startDateController.clear();
+                                              verbalAcceptanceController.clear();
+
+                                              Navigator.pop(context);
+                                              if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    Future.delayed(const Duration(seconds: 2), () {
+                                                      if (Navigator.of(context).canPop()) {
+                                                        Navigator.pop(context);
+                                                        hrProviderState.clearAllFields();
+                                                        hrProviderState.popNavigation(context);
+                                                      }
+                                                    });
+                                                    return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
+                                                  },
+                                                );
+                                              }
+                                              else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
+                                                // Navigator.pop(context);
+                                                 showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) => const FourNotFourPopup(),
+                                                );
+                                              }
+                                              else {
+                                                // Navigator.pop(context);
+                                                 showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
+                                                );
+                                              }
+                                            }else{
+                                              Navigator.pop(context);
+                                               showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+                                              );
+                                            }
+
+
+                                            // Check the response status
+
+                                          } catch (e) {
+                                            print("Error during enrollment: $e");
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+                                            );
+                                            // ScaffoldMessenger.of(context).showSnackBar(
+                                            //   SnackBar(content: Text('Enrollment failed: $e')),
+                                            // );
+                                          } finally {
+                                            // setState(() { _isLoading = false; });
+                                          }
+                                        },
+
+                                        // onConfirm: ()  async{
+                                        //   //await Future.delayed(Duration(seconds: 2));
+                                        //   // setState(() {
+                                        //   //   _isLoading = true;
+                                        //   // });
+                                        //   print('selected county id : ${selectedCountyId}');
+                                        //   //  print('selected zone id : ${st.docZoneId}');
+                                        //   // print('selected zipCode : ${st.selectedZipCodes}');
+                                        //   print('selected city : ${selectedCityName}');
+                                        //   print('Salari ${_salary}');
+                                        //   print('Salari Type ${dropdownValue}');
+                                        //   print('PatianCount ${patientsController.text}');
+                                        //   try {
+                                        //
+                                        //
+                                        //     if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId) {
+                                        //       patientsValue = 0;  // If depId is sales or administration, set to 0
+                                        //     } else {
+                                        //       patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
+                                        //     }
+                                        //     var empEnrollOfferResponse = await addEmpEnrollOffers(
+                                        //       context,
+                                        //       widget.apiData!.employeeEnrollId!,
+                                        //       widget.apiData!.employeeId!,
+                                        //       int.parse(patientsController.text),
+                                        //       issueDateController.text,
+                                        //       lastDateController.text,
+                                        //       startDateController.text,
+                                        //       verbalAcceptanceController.text,
+                                        //     );
+                                        //     print('County id : ${selectedCountyId}');
+                                        //     print('Zone id : ${selectedZoneId}');
+                                        //     await addEmpEnrollAddCoverage(
+                                        //         context,
+                                        //         widget.apiData!.employeeEnrollId!,
+                                        //         widget.apiData!.employeeId!,
+                                        //         addCovrage
+                                        //     );
+                                        //     await addEmpEnrollAddCompensation(
+                                        //       context,
+                                        //       widget.apiData!.employeeEnrollId!,
+                                        //       widget.apiData!.employeeId!,
+                                        //       dropdownValue.toString(),
+                                        //       int.parse(_salary),
+                                        //     );
+                                        //     // Clear controllers
+                                        //     issueDateController.clear();
+                                        //     lastDateController.clear();
+                                        //     startDateController.clear();
+                                        //     verbalAcceptanceController.clear();
+                                        // Navigator.pop(context);
+                                        //     if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
+                                        //       showDialog(
+                                        //         context: context,
+                                        //         builder: (BuildContext context) {
+                                        //           Future.delayed(const Duration(seconds: 3),(){
+                                        //             if(Navigator.of(context).canPop()) {
+                                        //        Navigator.pop(context);
+                                        //        popNavigation();
+                                        //             }
+                                        //           });
+                                        //           return  const offerSuccessPopup(message: 'Employee Enrolled Successfully',);
+                                        //         },
+                                        //       );
+                                        //     }
+                                        //   } catch (e) {
+                                        //     print("Error during enrollment: $e");
+                                        //     ScaffoldMessenger.of(context).showSnackBar(
+                                        //       SnackBar(content: Text('Enrollment failed: $e')),
+                                        //     );
+                                        //   } finally {
+                                        //     // setState(() {
+                                        //     //   _isLoading = false;
+                                        //     // });
+                                        //   }
+                                        // },
+                                        title: 'Confirm Enrollment',
+                                        containerText: 'Do you really want to enroll?',
+                                      );
+                                    },
+                                  );
+                                }
+
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xff1696C8),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: Text(
+                                'Enroll',
+                                style: BlueButtonTextConst.customTextStyle(context)
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10,)
+                    ],
+                  ),
                 ),
               ),
             ),
