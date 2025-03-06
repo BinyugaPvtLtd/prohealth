@@ -226,7 +226,6 @@ class AddHolidayPopup extends StatelessWidget {
           if (provider.isFormValid) {
             provider.isLoading = true;
             provider.notifyListeners();
-
             try {
               String selectedDate = provider.calenderController.text;
               int year = int.parse(selectedDate.split('-')[0]);
