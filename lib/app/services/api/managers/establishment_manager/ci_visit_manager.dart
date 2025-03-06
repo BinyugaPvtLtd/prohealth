@@ -1,4 +1,3 @@
-import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
@@ -93,11 +92,13 @@ Future<List<VisitListData>> getVisitList(BuildContext context) async {
 }
 
 /// visits get by serviceID
-Future<List<VisitListDataByServiceId>> getVisitListByServiceId({required BuildContext context,required String serviceId}) async {
+Future<List<VisitListDataByServiceId>> getVisitListByServiceId(
+    {required BuildContext context, required String serviceId}) async {
   List<VisitListDataByServiceId> itemsList = [];
   try {
-    final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.getCiVisitListByServiceId(serviceId: serviceId));
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.getCiVisitListByServiceId(
+            serviceId: serviceId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
       for (var item in response.data) {
@@ -105,7 +106,8 @@ Future<List<VisitListDataByServiceId>> getVisitListByServiceId({required BuildCo
             sucess: true,
             message: response.statusMessage!,
             visitId: item['visitId'],
-            visitType: item['typeOfVisit'], serviceId:item['serviceId']));
+            visitType: item['typeOfVisit'],
+            serviceId: item['serviceId']));
       }
       print("1");
     } else {
@@ -133,14 +135,15 @@ Future<VisitListDataPrefill> getVisitListPrefill(
         sucess: true,
         message: response.statusMessage!,
         visitId: response.data['visitId'] ?? 0,
-        visitType: response.data['typeOfVisit']??"",
-        serviceId: response.data['serviceId']??"--",
+        visitType: response.data['typeOfVisit'] ?? "",
+        serviceId: response.data['serviceId'] ?? "--",
         eligibleClinicia:
             (response.data['eligibleClinician'] as List<dynamic>?)?.map((item) {
                   return EligibleClinician(
-                      employeeTypeId: item['employeeTypeId'],
-                      eligibleClinician: item['eligibleClinician']?? "--",
-                      color: item['color']?? "#FFFFFF",);
+                    employeeTypeId: item['employeeTypeId'],
+                    eligibleClinician: item['eligibleClinician'] ?? "--",
+                    color: item['color'] ?? "#FFFFFF",
+                  );
                 }).toList() ??
                 [],
       );
@@ -155,13 +158,11 @@ Future<VisitListDataPrefill> getVisitListPrefill(
 }
 
 /// post
-Future<ApiData> addVisitPost({
-  required BuildContext context,
-  required String typeOfVisit,
-  required List<int> eligibleClinician,
-  required String serviceId
-}
-) async {
+Future<ApiData> addVisitPost(
+    {required BuildContext context,
+    required String typeOfVisit,
+    required List<int> eligibleClinician,
+    required String serviceId}) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context)
@@ -193,15 +194,19 @@ Future<ApiData> addVisitPost({
 }
 
 /// patch
-Future<ApiData> updateVisitPatch({required BuildContext context, required int typeVisist,
-  required String visitType, required List<int> eligibleClinical,required String serviceId}) async {
+Future<ApiData> updateVisitPatch(
+    {required BuildContext context,
+    required int typeVisist,
+    required String visitType,
+    required List<int> eligibleClinical,
+    required String serviceId}) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var dymmyData = {
       'typeOfVisit': visitType,
       'companyId': companyId,
       'employeeTypeId': eligibleClinical,
-      'serviceId':serviceId
+      'serviceId': serviceId
     };
     print("Updated pre data ${dymmyData}");
     var response = await Api(context).patch(
@@ -210,7 +215,7 @@ Future<ApiData> updateVisitPatch({required BuildContext context, required int ty
         'typeOfVisit': visitType,
         'companyId': companyId,
         'employeeTypeId': eligibleClinical,
-        'serviceId':serviceId
+        'serviceId': serviceId
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

@@ -145,10 +145,10 @@ class OasisFormBuilder extends StatelessWidget {
   }
 
   Future<int> getForm(BuildContext context, {required int patientId}) async {
-    List<ChartQuestionDataModel> response = await FormBuilderManager()
-        .getPatientFormByID(context, patientId: patientId);
     // List<ChartQuestionDataModel> response = await FormBuilderManager()
-    //     .getDummyDataPatientFormByID(context, patientId: patientId);
+    //     .getPatientFormByID(context, patientId: patientId);
+    List<ChartQuestionDataModel> response = await FormBuilderManager()
+        .getDummyDataPatientFormByID(context, patientId: patientId);
 
     for (var element in response) {
       try {

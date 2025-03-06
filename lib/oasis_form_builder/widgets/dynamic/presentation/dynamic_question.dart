@@ -6,6 +6,7 @@ import 'package:prohealth/oasis_form_builder/widgets/dynamic/data/chart_option_d
 import 'package:prohealth/oasis_form_builder/widgets/dynamic/presentation/widgets/dynamic_checkbox_section.dart';
 import 'package:prohealth/oasis_form_builder/widgets/dynamic/presentation/widgets/dynamic_option_section.dart';
 import 'package:prohealth/oasis_form_builder/widgets/dynamic/presentation/widgets/dynamic_textFiled_section.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:provider/provider.dart';
 
 class DynamicQuestion extends StatelessWidget {
@@ -58,9 +59,12 @@ class DynamicQuestion extends StatelessWidget {
                           onTap: () {
                             showDialog(
                                 context: context,
-                                builder: (context) => Dialog(
-                                      child:
-                                          Html(data: "<p>Hello <b>aa</b></p>"),
+                                builder: (context) => DialogueTemplate(
+                                      width: 300,
+                                      height: 200,
+                                      body: [Text("Dummy Description")],
+                                      bottomButtons: SizedBox(),
+                                      title: 'Description',
                                     ));
                           },
                           child: Text(

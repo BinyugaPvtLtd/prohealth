@@ -310,6 +310,35 @@ class OasisDummyData {
         ]
       },
       {
+        "question_type_id": 8,
+        "question_type": "NON-COMPREHENSIVE",
+        "title": "Country Section",
+        "description": "Please enter your County Name",
+        "code": "A1005",
+        "type": "OPTION",
+        "options_alignment": "VERTICAL",
+        "dynamic_type": true,
+        "group_options": true,
+        "created_at": "2025-02-14T05:28:24.527Z",
+        "updated_at": "2025-02-14T05:28:24.527Z",
+        "form_template_Id": 9,
+        "answer_id": 5,
+        "values": [
+          {
+            "index": 0,
+            "label": "<b>Residence</b>",
+            "value": "India",
+            "selected": false
+          },
+          {
+            "index": 1,
+            "label": "<b>Corresopndance</b>",
+            "value": "USA",
+            "selected": false
+          },
+        ]
+      },
+      {
         "question_type_id": 9,
         "question_type": "COMPREHENSIVE",
         "title": "What is your race?",
@@ -398,6 +427,22 @@ class OasisDummyData {
           },
           {"index": 2, "label": "E. Chinese", "value": "2", "selected": false}
         ]
+      },
+      {
+        "question_type_id": 154,
+        "question_type": "COMPREHENSIVE",
+        "title": "What is your race?",
+        "description": "",
+        "code": "A1003",
+        "type": "CHECKBOX",
+        "options_alignment": "VERTICAL",
+        "dynamic_type": false,
+        "group_options": true,
+        "created_at": "2025-02-14T05:28:24.527Z",
+        "updated_at": "2025-02-14T05:28:24.527Z",
+        "form_template_Id": 9,
+        "answer_id": 8,
+        "values": []
       },
       {
         "question_type_id": 9,
