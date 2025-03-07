@@ -11,6 +11,7 @@ import '../../them_manager/oasis_them_mnager.dart';
 import '../../widgets/constant/getx_oasis.dart';
 import '../../widgets/constant/green_container_constant.dart';
 import '../../widgets/constant/other_popup.dart';
+import '../../widgets/constant/row_button_const.dart';
 import '../../widgets/constant/upload_file_popup.dart';
 
 class ConsentForCare extends StatefulWidget {
@@ -789,75 +790,26 @@ class _ConsentForCareState extends State<ConsentForCare> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    //color: Colors.white,
-                    width: AppSize.s137,
-                    height: AppSize.s30,
-                    child: ElevatedButton(
-                      onPressed: (){
+                  CustomButtonRow(
+                    onSaveClosePressed: () {
+                      // Action for Save and Close button
+                      print('Save and Close pressed');
+                    },
+                    onSubmitPressed: () {
+                      // Action for Submit button
+                      print('Submit pressed');
+                    },
+                    onNextPressed: () {
+                      // Action for Next button
+                      print('Next pressed');
+                    },
+                  )
 
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.white,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          // side: BorderSide(
-                          //   color: ColorManager.bluebottom,
-                          //   width: 1,
-                          // ),
-                        ),),
-                      child: Text('Save and Close',
-                        style: BoldfontStyle.customTextStyle(context),
-                      ),),
-                  ), SizedBox(width: 20,),
-                  Container(
-                    //color: Colors.white,
-                    width: AppSize.s137,
-                    height: AppSize.s30,
-                    child: ElevatedButton(
-                      onPressed: (){
-
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.white,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          // side: BorderSide(
-                          //   color: ColorManager.bluebottom,
-                          //   width: 1,
-                          // ),
-                        ),),
-                      child: Text('Submit',
-                        style: BoldfontStyle.customTextStyle(context),
-                      ),),
-                  ), SizedBox(width: AppSize.s20,),
-                  Container(
-                    //color: Colors.white,
-                    width: AppSize.s137,
-                    height: AppSize.s30,
-                    child: ElevatedButton(
-                      onPressed: (){
-
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.bluebottom,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          // side: BorderSide(
-                          //   color: ColorManager.bluebottom,
-                          //   width: 1,
-                          // ),
-                        ),),
-                      child: Text('Next',
-
-                        style:BluebuttonStyle.customTextStyle(context)
-                      ),),
-                  ),
 
 
                 ],
               ),
-              SizedBox(height: 20),
+              SizedBox(height: AppSize.s20),
 
             ],
           ),

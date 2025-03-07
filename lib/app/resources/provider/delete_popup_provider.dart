@@ -58,6 +58,9 @@ class DeletePopupProvider extends StatelessWidget {
                       style: PopupBlueBarText.customTextStyle(context),
                     ),
                     IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
                       onPressed: onCancel,
                       icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
                     ),

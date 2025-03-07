@@ -487,9 +487,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                   style: ElevatedButton.styleFrom(
                                                     backgroundColor:  ColorManager.bluebottom,
                                                     shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.only(
-                                                        topLeft: Radius.circular(12), // Round only the top-left corner
-                                                        bottomLeft: Radius.circular(12), // Round only the bottom-left corner
+                                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(12), bottomLeft: Radius.circular(12), // Round only the bottom-left corner
                                                       ),
                                                       side: BorderSide(
                                                         color: ColorManager.bluebottom, // Border color
