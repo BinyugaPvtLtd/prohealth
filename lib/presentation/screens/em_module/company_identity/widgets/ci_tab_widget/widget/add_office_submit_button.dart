@@ -178,7 +178,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       height: AppSize.s650,
       title: AppStringEM.addNewOffice,
       onClear: (){
-       // final locationProvider = Provider.of<LocationProvider>(context);
+        // final locationProvider = Provider.of<LocationProvider>(context);
         WidgetsBinding.instance.addPostFrameCallback((_) {
           locationProvider.clearAllData();
         });
@@ -209,26 +209,26 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         },
                       ),
                       _nameDocError != null ?// Display error if any
-                        Text(
-                          _nameDocError!,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        ):SizedBox(height: AppSize.s12,),
+                      Text(
+                        _nameDocError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
-                     DemailSMTextFConst(
+                      DemailSMTextFConst(
                         controller: widget.emailController,
                         keyboardType: TextInputType.emailAddress,
                         text: AppString.email,
-                       onChanged: (value){
-                         setState(() {
-                           _isFormValid = true;
-                           _emailDocError = _validateTextField(widget.emailController.text, 'Email ID');                         });
-                       },
+                        onChanged: (value){
+                          setState(() {
+                            _isFormValid = true;
+                            _emailDocError = _validateTextField(widget.emailController.text, 'Email ID');                         });
+                        },
                       ),
-                     _emailDocError != null ? // Display error if any
-                        Text(
-                          _emailDocError!,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        ):SizedBox(height: AppSize.s12,),
+                      _emailDocError != null ? // Display error if any
+                      Text(
+                        _emailDocError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
                       SMTextfieldAsteric(
                         controller: widget.countryController,
@@ -240,11 +240,11 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             _countryDocError = _validateTextField(widget.countryController.text, 'Country');                          });
                         },
                       ),
-                     _countryDocError != null ?// Display error if any
-                        Text(
-                          _countryDocError!,
-                          style:CommonErrorMsg.customTextStyle(context),
-                        ):SizedBox(height: AppSize.s12,),
+                      _countryDocError != null ?// Display error if any
+                      Text(
+                        _countryDocError!,
+                        style:CommonErrorMsg.customTextStyle(context),
+                      ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
                       SMTextFConstPhone(
                         controller: widget.secNumController,
@@ -257,10 +257,10 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         },
                       ),
                       _sphoneDocError != null ? // Display error if any
-                        Text(
-                          _sphoneDocError!,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        ):SizedBox(height: AppSize.s12,),
+                      Text(
+                        _sphoneDocError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s14),
                       RichText(
                         text: TextSpan(
@@ -284,11 +284,11 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             width: AppSize.s300,
                             height: AppSize.s100,
                             child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Wrap(children: [
-                                      ...List.generate(widget.servicesList.length,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Wrap(children: [
+                                  ...List.generate(widget.servicesList.length,
                                           (index) {
                                         String serviceID = widget.servicesList[index].serviceId;
                                         bool isSelected = locationProvider.isSelected(serviceID);
@@ -306,17 +306,17 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                                               ),
                                             ));
                                       })
-                                    ]),
-                                    if (_checkboxError != null)
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 2),
-                                        child: Text(
-                                          _checkboxError!,
-                                          style: CommonErrorMsg.customTextStyle(context)
-                                        ),
-                                      ),
-                                  ],
-                                ),
+                                ]),
+                                if (_checkboxError != null)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 2),
+                                    child: Text(
+                                        _checkboxError!,
+                                        style: CommonErrorMsg.customTextStyle(context)
+                                    ),
+                                  ),
+                              ],
+                            ),
                           );
                         },
                       )
@@ -347,10 +347,10 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         },
                       ),
                       _addressDocError != null ?// Display error if any
-                        Text(
+                      Text(
                           _addressDocError!,
                           style: CommonErrorMsg.customTextStyle(context)
-                        )
+                      )
                           :SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
                       FirstSMTextFConst(
@@ -365,10 +365,10 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         },
                       ),
                       _stateDocError != null ?
-                        Text(
-                          _stateDocError!,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        )
+                      Text(
+                        _stateDocError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      )
                           :SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
                       SMTextFConstPhone(
@@ -382,12 +382,12 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           });
                         },
                       ),
-                     _pPhoneDocError != null ?
-                        Text(
-                          _pPhoneDocError!,
-                          style:CommonErrorMsg.customTextStyle(context),
-                        )
-                         :SizedBox(height: AppSize.s12,),
+                      _pPhoneDocError != null ?
+                      Text(
+                        _pPhoneDocError!,
+                        style:CommonErrorMsg.customTextStyle(context),
+                      )
+                          :SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s10),
                       SMTextFConstPhone(
                         controller: widget.OptionalController,
@@ -395,16 +395,16 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         text: AppStringEM.alternativePhone,
                         onChanged: (value){
                           setState(() {
-                          _isFormValid = true;
-                          _aphoneDocError = _validateTextField(widget.OptionalController.text, ' Alternate Number');
+                            _isFormValid = true;
+                            _aphoneDocError = _validateTextField(widget.OptionalController.text, ' Alternate Number');
                           });
-                          },
+                        },
                       ),
                       _aphoneDocError != null ?
-                        Text(
-                          _aphoneDocError!,
-                          style:CommonErrorMsg.customTextStyle(context),
-                        )
+                      Text(
+                        _aphoneDocError!,
+                        style:CommonErrorMsg.customTextStyle(context),
+                      )
                           :SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s10),
                       Row(
@@ -451,8 +451,8 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         Padding(
                           padding: const EdgeInsets.only(top: 2),
                           child: Text(
-                            _locationError!,
-                            style: CommonErrorMsg.customTextStyle(context)
+                              _locationError!,
+                              style: CommonErrorMsg.customTextStyle(context)
                           ),
                         ),
                     ],
@@ -464,100 +464,100 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       ],
       bottomButtons: isLoading
           ? SizedBox(
-              height: AppSize.s30,
-              width: AppSize.s30,
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime,
-              ),
-            )
+        height: AppSize.s30,
+        width: AppSize.s30,
+        child: CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        ),
+      )
           : CustomElevatedButton(
-              width: AppSize.s105,
-              height: AppSize.s30,
-              text: AppStringEM.add,
-              onPressed: () async {
-                _validateForm(); // Validate the form on button press
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: AppStringEM.add,
+        onPressed: () async {
+          _validateForm(); // Validate the form on button press
 
-                if (_isFormValid) {
-                  setState(() {
-                    isLoading = true;
-                  });
+          if (_isFormValid) {
+            setState(() {
+              isLoading = true;
+            });
 
-                  try {
-                    print(
-                        "Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
-                    ApiData response = await addNewOffice(
-                      context: context,
-                      name: widget.nameController.text,
-                      address: widget.addressController.text,
-                      email: widget.emailController.text,
-                      primaryPhone: widget.mobNumController.text,
-                      secondaryPhone: widget.secNumController.text,
-                      officeId: "",
-                      lat: locationProvider.latitude.toString(),
-                      long: locationProvider.longitude.toString(),
-                      cityName: "",
-                      stateName: widget.stateController.text,
-                      country: widget.countryController.text,
-                      isHeadOffice: false,
-                    );
+            try {
+              print(
+                  "Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
+              ApiData response = await addNewOffice(
+                context: context,
+                name: widget.nameController.text,
+                address: widget.addressController.text,
+                email: widget.emailController.text,
+                primaryPhone: widget.mobNumController.text,
+                secondaryPhone: widget.secNumController.text,
+                officeId: "",
+                lat: locationProvider.latitude.toString(),
+                long: locationProvider.longitude.toString(),
+                cityName: "",
+                stateName: widget.stateController.text,
+                country: widget.countryController.text,
+                isHeadOffice: false,
+              );
 
-                    if (response.statusCode == 200 ||
-                        response.statusCode == 201) {
-                      print('Services List ${locationProvider.selectedServices}');
-                      await addNewOfficeServices(
-                        context: context,
-                        officeId: response.officeId!,
-                        serviceList: locationProvider.selectedServices,
-                      );
+              if (response.statusCode == 200 ||
+                  response.statusCode == 201) {
+                print('Services List ${locationProvider.selectedServices}');
+                await addNewOfficeServices(
+                  context: context,
+                  officeId: response.officeId!,
+                  serviceList: locationProvider.selectedServices,
+                );
 //
-                      // Navigate back first
-                      Navigator.pop(context);
+                // Navigate back first
+                Navigator.pop(context);
 
-                      // Then show the success dialog
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddSuccessPopup(
-                            message: 'Added Successfully',
-                          );
-                        },
-                      );
-                    }else if(response.statusCode == 400 || response.statusCode == 404){
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => const FourNotFourPopup(),
-                      );
-                    }
-                    else {
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => FailedPopup(text: response.message),
-                      );
-                    }
+                // Then show the success dialog
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddSuccessPopup(
+                      message: 'Added Successfully',
+                    );
+                  },
+                );
+              }else if(response.statusCode == 400 || response.statusCode == 404){
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const FourNotFourPopup(),
+                );
+              }
+              else {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => FailedPopup(text: response.message),
+                );
+              }
 
-                    widget.stateController.clear();
-                    widget.countryController.clear();
-                    widget.nameController.clear();
-                    widget.mobNumController.clear();
-                    widget.addressController.clear();
-                    widget.emailController.clear();
-                    widget.secNumController.clear();
-                    widget.OptionalController.clear();
-                    widget.servicesList.clear();
-                  } finally {
-                    locationProvider.clearAllData();
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }
-                } else {
-                  print(
-                      'Validation error: Please fill in all required fields.');
-                }
-              },
-            ),
+              widget.stateController.clear();
+              widget.countryController.clear();
+              widget.nameController.clear();
+              widget.mobNumController.clear();
+              widget.addressController.clear();
+              widget.emailController.clear();
+              widget.secNumController.clear();
+              widget.OptionalController.clear();
+              widget.servicesList.clear();
+            } finally {
+              locationProvider.clearAllData();
+              setState(() {
+                isLoading = false;
+              });
+            }
+          } else {
+            print(
+                'Validation error: Please fill in all required fields.');
+          }
+        },
+      ),
     );
   }
 }

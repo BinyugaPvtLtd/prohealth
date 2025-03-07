@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -51,7 +51,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   bool showSelectOption = true;
   bool isSelected = false;
   final ButtonSelectionController myController =
-      Get.put(ButtonSelectionController());
+  Get.put(ButtonSelectionController());
   String selectedOption = 'Select';
   TextEditingController searchController = TextEditingController();
   Future<List<SearchEmployeeProfileData>>? _searchFuture;
@@ -88,80 +88,80 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                 elevation: 4.0,
                 child: _searchResults.isEmpty
                     ? Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 150),
-                          child: Text(
-                            'No User Found!',
-                            style:
-                                AllNoDataAvailable.customTextStyle(context),
-                          ),
-                        ),
-                      )
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 150),
+                    child: Text(
+                      'No User Found!',
+                      style:
+                      AllNoDataAvailable.customTextStyle(context),
+                    ),
+                  ),
+                )
                     : ConstrainedBox(
                   constraints: BoxConstraints(
                     maxHeight: _searchResults.length > 10 ? 400.0 : double.infinity,
                   ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                            children: [
-                              ..._searchResults.map((result) => ListTile(
-                                    title: Text(
-                                      result,
-                                      style: TextStyle(
-                                        fontSize: FontSize.s14,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.mediumgrey,
-                                      ),
-                                    ),
-                                    onTap: data.isEmpty
-                                        ? () {
-                                            _controller.text = result;
-                                            int id = 0;
-                                            for (var e in data1) {
-                                              if (result ==
-                                                  e.firstName +
-                                                      " " +
-                                                      e.lastName) {
-                                                id = e.employeeId;
-                                              }
-                                            }
-                                            _removeOverlay();
-                                            setState(() {
-                                              employeeId = id;
-                                              getSearchByEmployeeIdProfileByText(
-                                                  context, employeeId);
-                                              myController.selectButton(1);
-                                              _pageController =
-                                                  PageController(initialPage: 1);
-                                            });
-                                          }
-                                        : () {
-                                            _controller.text = result;
-                                            int id = 0;
-                                            for (var e in data) {
-                                              if (result ==
-                                                  e.firstName +
-                                                      " " +
-                                                      e.lastName) {
-                                                id = e.employeeId;
-                                              }
-                                            }
-                                            _removeOverlay();
-                                            setState(() {
-                                              employeeId = id;
-                                              getSearchByEmployeeIdProfileByText(
-                                                  context, employeeId);
-                                              myController.selectButton(1);
-                                              _pageController =
-                                                  PageController(initialPage: 1);
-                                            });
-                                          },
-                                  )),
-                            ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ..._searchResults.map((result) => ListTile(
+                          title: Text(
+                            result,
+                            style: TextStyle(
+                              fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,
+                            ),
                           ),
-                      ),
+                          onTap: data.isEmpty
+                              ? () {
+                            _controller.text = result;
+                            int id = 0;
+                            for (var e in data1) {
+                              if (result ==
+                                  e.firstName +
+                                      " " +
+                                      e.lastName) {
+                                id = e.employeeId;
+                              }
+                            }
+                            _removeOverlay();
+                            setState(() {
+                              employeeId = id;
+                              getSearchByEmployeeIdProfileByText(
+                                  context, employeeId);
+                              myController.selectButton(1);
+                              _pageController =
+                                  PageController(initialPage: 1);
+                            });
+                          }
+                              : () {
+                            _controller.text = result;
+                            int id = 0;
+                            for (var e in data) {
+                              if (result ==
+                                  e.firstName +
+                                      " " +
+                                      e.lastName) {
+                                id = e.employeeId;
+                              }
+                            }
+                            _removeOverlay();
+                            setState(() {
+                              employeeId = id;
+                              getSearchByEmployeeIdProfileByText(
+                                  context, employeeId);
+                              myController.selectButton(1);
+                              _pageController =
+                                  PageController(initialPage: 1);
+                            });
+                          },
+                        )),
+                      ],
                     ),
-                
+                  ),
+                ),
+
               ),
             ),
           ),
@@ -173,9 +173,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   void _search(String query) async {
     if (query.isEmpty) {
       //setState(() {
-        _searchResults = [];
-        _removeOverlay();
-     // });
+      _searchResults = [];
+      _removeOverlay();
+      // });
       return;
     }
 
@@ -218,13 +218,13 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
 
   Future<void> _searchByFilter(
       {required int zoneId,
-      required bool isZoneSelectedBool,
-      required bool isReportingOffice,
-      required String officeName,
-      required bool isLicensesSelected,
-      required String licenseStatusName,
-      required bool isSelectAvailability,
-      required String availabilityName}) async {
+        required bool isZoneSelectedBool,
+        required bool isReportingOffice,
+        required String officeName,
+        required bool isLicensesSelected,
+        required String licenseStatusName,
+        required bool isSelectAvailability,
+        required String availabilityName}) async {
     final usrId = await TokenManager.getuserId();
     print('UserID:: ${usrId}');
     List<ApiDataFilter> result = await postSearchByFilter(
@@ -241,8 +241,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
         availabilityName,
         isSelected,
         usrId
-        // availability
-        ) as List<ApiDataFilter>;
+      // availability
+    ) as List<ApiDataFilter>;
     print("Search : ${isSelected}");
     print('Search successful');
     //print("result ${result.data}");
@@ -291,7 +291,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   Future<bool> _onWillPop() async {
     if (pgeControllerId == 0) {
       _pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
-     // return false; // Prevent the default back navigation
+      // return false; // Prevent the default back navigation
     }else if(pgeControllerId == 1){
       myController.selectButton(0);
       _pageController.animateToPage(0,
@@ -350,7 +350,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
       print('pageIndex ${pgeControllerId}');
       myController.selectButton(pgeControllerId);
       pageChanges(pgeControllerId);
-         // Default to 0 if not found
+      // Default to 0 if not found
       //  _pageController.jumpToPage(pgeControllerId); // Jump to the saved index
     });
   }
@@ -383,7 +383,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           children: [
             ///log appbar
             ApplicationAppBar(headingText: "Human Resource Manager"),
-      
+
             ///appbar titles
             Container(
               margin: const EdgeInsets.only(
@@ -399,7 +399,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Obx(
-                            () => CustomTitleButton(
+                                () => CustomTitleButton(
                               height: 30,
                               width: 100,
                               onPressed: () {
@@ -421,7 +421,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                             width: MediaQuery.of(context).size.width / 50,
                           ),
                           Obx(
-                            () => CustomTitleButton(
+                                () => CustomTitleButton(
                               height: 30,
                               width: 140,
                               onPressed: () {
@@ -458,7 +458,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           //   width: MediaQuery.of(context).size.width / 55,
                           // ),
                           Obx(
-                            () => CustomTitleButton(
+                                () => CustomTitleButton(
                               height: 30,
                               width: 140,
                               onPressed: () {
@@ -480,7 +480,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                             width: MediaQuery.of(context).size.width / 50,
                           ),
                           Obx(
-                            () => CustomTitleButton(
+                                () => CustomTitleButton(
                               height: 30,
                               width: 140,
                               onPressed: () {
@@ -503,387 +503,387 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 20,
                       ),
-      
+
                       /// search text
                       pgeControllerId == 2 || pgeControllerId == 3
                           ? SizedBox()
                           : Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ///search bar
-                                Container(
-                                    padding: EdgeInsets.all(5),
-                                    width: AppSize.s340,
-                                    height: 40,
-                                    child: CompositedTransformTarget(
-                                      link: _layerLink,
-                                      child: TextField(
-                                        controller: _controller,
-                                        textCapitalization:
-                                            TextCapitalization.words,
-                                        style: TextStyle(fontSize: 12),
-                                        onChanged: _search,
-                                        decoration: InputDecoration(
-                                            hintText: 'Search User',
-                                            alignLabelWithHint: true,
-                                            hintStyle: TextStyle(
-                                              fontSize: FontSize.s14,
-                                              fontWeight: FontWeight.w500,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                            border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                                            suffixIcon: Padding(
-                                              padding: const EdgeInsets.only(right:10.0),
-                                              child: Icon(
-                                                Icons.search,
-                                                size: IconSize.I18,
-                                              ),
-                                            ),
-                                            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 6)),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ///search bar
+                          Container(
+                              padding: EdgeInsets.all(5),
+                              width: AppSize.s340,
+                              height: 40,
+                              child: CompositedTransformTarget(
+                                link: _layerLink,
+                                child: TextField(
+                                  controller: _controller,
+                                  textCapitalization:
+                                  TextCapitalization.words,
+                                  style: TextStyle(fontSize: 12),
+                                  onChanged: _search,
+                                  decoration: InputDecoration(
+                                      hintText: 'Search User',
+                                      alignLabelWithHint: true,
+                                      hintStyle: TextStyle(
+                                        fontSize: FontSize.s14,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.mediumgrey,
                                       ),
-                                    )),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 70,
+                                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                                      suffixIcon: Padding(
+                                        padding: const EdgeInsets.only(right:10.0),
+                                        child: Icon(
+                                          Icons.search,
+                                          size: IconSize.I18,
+                                        ),
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 6)),
                                 ),
-                                MediaQuery.of(context).size.width >= 1100
-                                    ? Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 5),
-                                            child: Container(
-                                              width: 37,
-                                              height: 25,
-                                              decoration: BoxDecoration(
-                                                color: ColorManager.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(9),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Color(0x40000000),
-                                                    offset: Offset(0, 4),
-                                                    blurRadius: 4,
-                                                  ),
-                                                ],
-                                              ),
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor: Colors.transparent,
-                                                onTap: () {
-                                                  // isReportingOfficeId = false;
-                                                  // isDropdownAvailability = false;
-                                                  // isDropdownLicenseStatus = false;
-                                                  // isZoneSelected = false;
-                                                  showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return Consumer<HrSearchProviderManager>(
-                                                        builder: (context,provider, child) {
-                                                          return ProfilePatientPopUp(
-                                                            officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
-                                                              future: getCompanyOfficeList(context),
-                                                              builder: (context, snapshot) {
-                                                                if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                  return Container(
-                                                                    //height: 31,
-                                                                    width: 170,
-                                                                    child:  ClinicalConstDropDown(
-                                                                      //dropDownMenuList: dropDownList,
-                                                                      items: [],
-                                                                      initialValue: reportingOfficeId == '' ? 'Select':provider.officeText,
-                                                                      onChanged: (newValue) {
-                                                                      },
-                                                                    ),
-                                                                  );
-                                                                }
-                                                                if (snapshot.hasData) {
-                                                                  {
-                                                                    List<DropdownMenuItem<String>>dropDownList = [];
-                                                                    for (var i in snapshot.data!) {
-                                                                      dropDownList.add(DropdownMenuItem<String>(
-                                                                        child: Text(i.name,
-                                                                          style: SearchDropdownConst.customTextStyle(context),
-                                                                        ),
-                                                                        value: i.name,
-                                                                      ));
-                                                                    }
-                                                                    return Container(
-                                                                      //height: 31,
-                                                                      width: 170,
-                                                                      child:  ClinicalConstDropDown(
-                                                                        dropDownMenuList: dropDownList,
-                                                                        initialValue: reportingOfficeId == '' ? 'Select':provider.officeText,
-                                                                        onChanged: (newValue) {for (var a
-                                                                        in snapshot.data!) {
-                                                                          if (a.name == newValue) {
-                                                                            provider.officeTextChange(changeText: a.name);
-                                                                            reportingOfficeId = a.name;
-                                                                            isReportingOfficeId = true;
-                                                                            print(
-                                                                                'Office Name : ${reportingOfficeId}');
-                                                                              //empTypeId = docType;
-                                                                          }
-                                                                        }
-                                                                        },
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                } else {
-                                                                  return const Offstage();
-                                                                }
-                                                              },
-                                                            ),
-                                                            avabilityWidget: Row(
-                                                              children: [
-                                                                Container( width: 170,
-                                                                  child: ClinicalConstDropDown(
-                                                                    initialValue: provider.avalableStatus,
-                                                                    items: [
-                                                                      'Full Time',
-                                                                      'Part Time',
-                                                                      'Per Diem'
-                                                                    ],
-
-                                                                    // labelStyle: SearchDropdownConst.customTextStyle(context),
-                                                                    onChanged: (value) {
-                                                                      setState(() {
-                                                                        provider.avalableTextChange(changeText: value!);
-                                                                        dropdownAvailability = value!;
-                                                                        isDropdownAvailability = true;
-                                                                        print("Availability Status :: ${dropdownAvailability}");
-                                                                      });
-                                                                    },
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            licensesWidget: Row(
-                                                              children: [
-                                                                Container(
-                                                                  // height: 31,
-                                                                  width: 170,
-                                                                  // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                                  child: ClinicalConstDropDown(
-                                                                    initialValue: provider.expTypeValue,
-                                                                    items:[
-                                                                      'Expired',
-                                                                              'About to Expire',
-                                                                              'Upto date'],
-                                                                    onChanged: (value) {
-                                                                      setState(() {
-                                                                        provider.expTypeTextChange(changeText: value!);
-                                                                        dropdownLicenseStatus = value!;
-                                                                        isDropdownLicenseStatus = true;
-                                                                        print("License Status :: ${dropdownLicenseStatus}");
-                                                                      });
-                                                                    },
-                                                                  ) ,
-
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            zoneDropDown: FutureBuilder<List<SortByZoneData>>(
-                                                              future:
-                                                              PayRateZoneDropdown(
-                                                                context,
-                                                              ),
-                                                              builder: (context, snapshot) {
-                                                                if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                  return Container(
-                                                                    width: 170,
-                                                                    child: ClinicalConstDropDown(
-                                                                      items: [],
-                                                                      initialValue: provider.zoneValue,
-                                                                      //dropDownMenuList: dropDownList,
-                                                                      onChanged: (newValue) {
-
-                                                                      },
-                                                                    ),
-                                                                  );
-                                                                } else if (snapshot.hasData) {
-                                                                  List<DropdownMenuItem<String>>dropDownList = [];
-                                                                  int zoneId = 0;
-                                                                  for (var i
-                                                                  in snapshot.data!) {
-                                                                    dropDownList.add(DropdownMenuItem<String>(
-                                                                          child: Text(
-                                                                            i.zoneName,
-                                                                            style: SearchDropdownConst.customTextStyle(context),
-                                                                          ),
-                                                                          value: i.zoneName,
-                                                                        ));
-                                                                  }
-
-                                                                  print("Zone: ");
-                                                                  return Container(
-                                                                   // height: 31,
-                                                                    width: 170,
-                                                                    // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                                   child: ClinicalConstDropDown(
-                                                                     dropDownMenuList: dropDownList,
-                                                                     initialValue: provider.zoneValue,
-                                                                     onChanged: (newValue) {
-                                                                       for (var a in snapshot.data!) {
-                                                                         if (a.zoneName == newValue) {
-                                                                           provider.zoneTextChange(changeText: a.zoneName);
-                                                                           zoneId = a.zoneId;
-                                                                           selectedZoneId = zoneId;
-                                                                           isZoneSelected = true;
-                                                                           print("Zone id :: ${selectedZoneId}");
-                                                                           //empTypeId = docType;
-                                                                         }
-                                                                       }
-                                                                     },
-                                                                   ) ,
-                                                                  );
-                                                                } else {
-                                                                  return CustomDropdownTextField(
-                                                                    // width: MediaQuery.of(context).size.width / 5,
-                                                                    headText: 'Zone',
-                                                                    items: [
-                                                                      'No Data'
-                                                                    ],
-                                                                  );
-                                                                }
-                                                              },
-                                                            ),
-                                                            isShown: (reportingOfficeId == '' && dropdownLicenseStatus == '' && dropdownAvailability == '' && selectedZoneId == 0)
-                                                                ? false : true,
-                                                            onSearch: () {
-                                                              setState(() {
-                                                                _searchByFilter(
-                                                                    zoneId:
-                                                                        selectedZoneId,
-                                                                    isZoneSelectedBool:
-                                                                        isZoneSelected,
-                                                                    isReportingOffice:
-                                                                        isReportingOfficeId,
-                                                                    officeName:
-                                                                        reportingOfficeId,
-                                                                    isLicensesSelected:
-                                                                        isDropdownLicenseStatus,
-                                                                    licenseStatusName:
-                                                                        dropdownLicenseStatus,
-                                                                    isSelectAvailability:
-                                                                        isDropdownAvailability,
-                                                                    availabilityName:
-                                                                        dropdownAvailability);
-                                                              });
+                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 70,
+                          ),
+                          MediaQuery.of(context).size.width >= 1100
+                              ? Row(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding:
+                                const EdgeInsets.only(top: 5),
+                                child: Container(
+                                  width: 37,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: ColorManager.white,
+                                    borderRadius:
+                                    BorderRadius.circular(9),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0x40000000),
+                                        offset: Offset(0, 4),
+                                        blurRadius: 4,
+                                      ),
+                                    ],
+                                  ),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () {
+                                      // isReportingOfficeId = false;
+                                      // isDropdownAvailability = false;
+                                      // isDropdownLicenseStatus = false;
+                                      // isZoneSelected = false;
+                                      showDialog(
+                                        context: context,
+                                        builder:
+                                            (BuildContext context) {
+                                          return Consumer<HrSearchProviderManager>(
+                                              builder: (context,provider, child) {
+                                                return ProfilePatientPopUp(
+                                                  officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
+                                                    future: getCompanyOfficeList(context),
+                                                    builder: (context, snapshot) {
+                                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                                        return Container(
+                                                          //height: 31,
+                                                          width: 170,
+                                                          child:  ClinicalConstDropDown(
+                                                            //dropDownMenuList: dropDownList,
+                                                            items: [],
+                                                            initialValue: reportingOfficeId == '' ? 'Select':provider.officeText,
+                                                            onChanged: (newValue) {
                                                             },
-                                                            clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
-                                                                ? CustomButtonTransparentSM(
-
-                                                              text: 'Clear',
-                                                              onPressed: () {
-                                                                provider.clearFilter();
-                                                                // Force UI update for dropdowns to show 'Select'
-                                                                provider.avalableTextChange(changeText: 'Select');
-                                                                provider.expTypeTextChange(changeText: 'Select');
-                                                                provider.officeTextChange(changeText: 'Select');
-                                                                provider.zoneTextChange(changeText: 'Select');
-                                                                setState(() {
-                                                                  // Reset all dropdown variables
-                                                                  dropdownLicenseStatus = '';
-                                                                  dropdownAvailability = '';
-                                                                  reportingOfficeId = '';
-                                                                  dropdownAbbrevation = '';
-                                                                  _selectedValue = null;
-                                                                  selectedZoneId = 0;
-
-                                                                  // Reset boolean visibility flags
-                                                                  isDropDownAbbreavation = false;
-                                                                  isDropdownLicenseStatus = false;
-                                                                  isDropdownAvailability = false;
-                                                                  isReportingOfficeId = false;
-                                                                  isZoneSelected = false;
-                                                                  isSelectedBox = false;
-
-                                                                  // Call provider method to reset the selections
-
-                                                                  // Hide the Clear button
-                                                                  searchSelect = false;
-                                                                });
+                                                          ),
+                                                        );
+                                                      }
+                                                      if (snapshot.hasData) {
+                                                        {
+                                                          List<DropdownMenuItem<String>>dropDownList = [];
+                                                          for (var i in snapshot.data!) {
+                                                            dropDownList.add(DropdownMenuItem<String>(
+                                                              child: Text(i.name,
+                                                                style: SearchDropdownConst.customTextStyle(context),
+                                                              ),
+                                                              value: i.name,
+                                                            ));
+                                                          }
+                                                          return Container(
+                                                            //height: 31,
+                                                            width: 170,
+                                                            child:  ClinicalConstDropDown(
+                                                              dropDownMenuList: dropDownList,
+                                                              initialValue: reportingOfficeId == '' ? 'Select':provider.officeText,
+                                                              onChanged: (newValue) {for (var a
+                                                              in snapshot.data!) {
+                                                                if (a.name == newValue) {
+                                                                  provider.officeTextChange(changeText: a.name);
+                                                                  reportingOfficeId = a.name;
+                                                                  isReportingOfficeId = true;
+                                                                  print(
+                                                                      'Office Name : ${reportingOfficeId}');
+                                                                  //empTypeId = docType;
+                                                                }
+                                                              }
                                                               },
-                                                            )
-                                                                : SizedBox(height: AppSize.s30),
-
-                                                            //   clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
-                                                          //       ? CustomButtonTransparentSM(text: 'Clear', onPressed: (){
-                                                          //   providerState.clearFilter();
-                                                          //   setState((){
-                                                          //     searchSelect = false;
-                                                          //   });
-                                                          // },)
-                                                          //       : SizedBox(height: AppSize.s30,),
+                                                            ),
                                                           );
                                                         }
-                                                      );
+                                                      } else {
+                                                        return const Offstage();
+                                                      }
                                                     },
-                                                  );
-                                                },
-                                                child: Center(
-                                                  child: SvgPicture.asset('images/menuLines.svg'),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                90,
-                                          ),
-                                          Obx(
-                                            () => Padding(
-                                              padding:
-                                                  const EdgeInsets.only(top: 5),
-                                              child: DZoneButton(
-                                                isSelected: myController
-                                                        .selectedIndex.value ==
-                                                    4,
-                                                onTap: () {
-                                                  myController.selectButton(4);
-                                                  setState(() {
-                                                    isSelected = true;
-                                                    print(
-                                                        "IsDZone : ${isSelected}");
-                                                    _searchByFilter(
-                                                        zoneId: selectedZoneId,
-                                                        isZoneSelectedBool:
-                                                            isZoneSelected,
-                                                        isReportingOffice:
-                                                            isReportingOfficeId,
-                                                        officeName:
-                                                            reportingOfficeId,
-                                                        isLicensesSelected:
-                                                            isDropdownLicenseStatus,
-                                                        licenseStatusName:
-                                                            dropdownLicenseStatus,
-                                                        isSelectAvailability:
-                                                            isDropdownAvailability,
-                                                        availabilityName:
-                                                            dropdownAvailability);
-                                                  });
-                                                },
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    : SizedBox(width: 1),
-                              ],
-                            ),
+                                                  ),
+                                                  avabilityWidget: Row(
+                                                    children: [
+                                                      Container( width: 170,
+                                                        child: ClinicalConstDropDown(
+                                                          initialValue: provider.avalableStatus,
+                                                          items: [
+                                                            'Full Time',
+                                                            'Part Time',
+                                                            'Per Diem'
+                                                          ],
+
+                                                          // labelStyle: SearchDropdownConst.customTextStyle(context),
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              provider.avalableTextChange(changeText: value!);
+                                                              dropdownAvailability = value!;
+                                                              isDropdownAvailability = true;
+                                                              print("Availability Status :: ${dropdownAvailability}");
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  licensesWidget: Row(
+                                                    children: [
+                                                      Container(
+                                                        // height: 31,
+                                                        width: 170,
+                                                        // margin: EdgeInsets.symmetric(horizontal: 20),
+                                                        child: ClinicalConstDropDown(
+                                                          initialValue: provider.expTypeValue,
+                                                          items:[
+                                                            'Expired',
+                                                            'About to Expire',
+                                                            'Upto date'],
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              provider.expTypeTextChange(changeText: value!);
+                                                              dropdownLicenseStatus = value!;
+                                                              isDropdownLicenseStatus = true;
+                                                              print("License Status :: ${dropdownLicenseStatus}");
+                                                            });
+                                                          },
+                                                        ) ,
+
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  zoneDropDown: FutureBuilder<List<SortByZoneData>>(
+                                                    future:
+                                                    PayRateZoneDropdown(
+                                                      context,
+                                                    ),
+                                                    builder: (context, snapshot) {
+                                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                                        return Container(
+                                                          width: 170,
+                                                          child: ClinicalConstDropDown(
+                                                            items: [],
+                                                            initialValue: provider.zoneValue,
+                                                            //dropDownMenuList: dropDownList,
+                                                            onChanged: (newValue) {
+
+                                                            },
+                                                          ),
+                                                        );
+                                                      } else if (snapshot.hasData) {
+                                                        List<DropdownMenuItem<String>>dropDownList = [];
+                                                        int zoneId = 0;
+                                                        for (var i
+                                                        in snapshot.data!) {
+                                                          dropDownList.add(DropdownMenuItem<String>(
+                                                            child: Text(
+                                                              i.zoneName,
+                                                              style: SearchDropdownConst.customTextStyle(context),
+                                                            ),
+                                                            value: i.zoneName,
+                                                          ));
+                                                        }
+
+                                                        print("Zone: ");
+                                                        return Container(
+                                                          // height: 31,
+                                                          width: 170,
+                                                          // margin: EdgeInsets.symmetric(horizontal: 20),
+                                                          child: ClinicalConstDropDown(
+                                                            dropDownMenuList: dropDownList,
+                                                            initialValue: provider.zoneValue,
+                                                            onChanged: (newValue) {
+                                                              for (var a in snapshot.data!) {
+                                                                if (a.zoneName == newValue) {
+                                                                  provider.zoneTextChange(changeText: a.zoneName);
+                                                                  zoneId = a.zoneId;
+                                                                  selectedZoneId = zoneId;
+                                                                  isZoneSelected = true;
+                                                                  print("Zone id :: ${selectedZoneId}");
+                                                                  //empTypeId = docType;
+                                                                }
+                                                              }
+                                                            },
+                                                          ) ,
+                                                        );
+                                                      } else {
+                                                        return CustomDropdownTextField(
+                                                          // width: MediaQuery.of(context).size.width / 5,
+                                                          headText: 'Zone',
+                                                          items: [
+                                                            'No Data'
+                                                          ],
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
+                                                  isShown: (reportingOfficeId == '' && dropdownLicenseStatus == '' && dropdownAvailability == '' && selectedZoneId == 0)
+                                                      ? false : true,
+                                                  onSearch: () {
+                                                    setState(() {
+                                                      _searchByFilter(
+                                                          zoneId:
+                                                          selectedZoneId,
+                                                          isZoneSelectedBool:
+                                                          isZoneSelected,
+                                                          isReportingOffice:
+                                                          isReportingOfficeId,
+                                                          officeName:
+                                                          reportingOfficeId,
+                                                          isLicensesSelected:
+                                                          isDropdownLicenseStatus,
+                                                          licenseStatusName:
+                                                          dropdownLicenseStatus,
+                                                          isSelectAvailability:
+                                                          isDropdownAvailability,
+                                                          availabilityName:
+                                                          dropdownAvailability);
+                                                    });
+                                                  },
+                                                  clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
+                                                      ? CustomButtonTransparentSM(
+
+                                                    text: 'Clear',
+                                                    onPressed: () {
+                                                      provider.clearFilter();
+                                                      // Force UI update for dropdowns to show 'Select'
+                                                      provider.avalableTextChange(changeText: 'Select');
+                                                      provider.expTypeTextChange(changeText: 'Select');
+                                                      provider.officeTextChange(changeText: 'Select');
+                                                      provider.zoneTextChange(changeText: 'Select');
+                                                      setState(() {
+                                                        // Reset all dropdown variables
+                                                        dropdownLicenseStatus = '';
+                                                        dropdownAvailability = '';
+                                                        reportingOfficeId = '';
+                                                        dropdownAbbrevation = '';
+                                                        _selectedValue = null;
+                                                        selectedZoneId = 0;
+
+                                                        // Reset boolean visibility flags
+                                                        isDropDownAbbreavation = false;
+                                                        isDropdownLicenseStatus = false;
+                                                        isDropdownAvailability = false;
+                                                        isReportingOfficeId = false;
+                                                        isZoneSelected = false;
+                                                        isSelectedBox = false;
+
+                                                        // Call provider method to reset the selections
+
+                                                        // Hide the Clear button
+                                                        searchSelect = false;
+                                                      });
+                                                    },
+                                                  )
+                                                      : SizedBox(height: AppSize.s30),
+
+                                                  //   clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
+                                                  //       ? CustomButtonTransparentSM(text: 'Clear', onPressed: (){
+                                                  //   providerState.clearFilter();
+                                                  //   setState((){
+                                                  //     searchSelect = false;
+                                                  //   });
+                                                  // },)
+                                                  //       : SizedBox(height: AppSize.s30,),
+                                                );
+                                              }
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Center(
+                                      child: SvgPicture.asset('images/menuLines.svg'),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context)
+                                    .size
+                                    .width /
+                                    90,
+                              ),
+                              Obx(
+                                    () => Padding(
+                                  padding:
+                                  const EdgeInsets.only(top: 5),
+                                  child: DZoneButton(
+                                    isSelected: myController
+                                        .selectedIndex.value ==
+                                        4,
+                                    onTap: () {
+                                      myController.selectButton(4);
+                                      setState(() {
+                                        isSelected = true;
+                                        print(
+                                            "IsDZone : ${isSelected}");
+                                        _searchByFilter(
+                                            zoneId: selectedZoneId,
+                                            isZoneSelectedBool:
+                                            isZoneSelected,
+                                            isReportingOffice:
+                                            isReportingOfficeId,
+                                            officeName:
+                                            reportingOfficeId,
+                                            isLicensesSelected:
+                                            isDropdownLicenseStatus,
+                                            licenseStatusName:
+                                            dropdownLicenseStatus,
+                                            isSelectAvailability:
+                                            isDropdownAvailability,
+                                            availabilityName:
+                                            dropdownAvailability);
+                                      });
+                                    },
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                              : SizedBox(width: 1),
+                        ],
+                      ),
                     ],
                   );
                 },
               ),
             ),
-      
+
             ///page view
             Expanded(
               flex: 8,
@@ -905,12 +905,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           DashBoardScreen(),
                           Center(
                               child: Text(
-                            "Select a User by Searching for One!",
-                            style: CustomTextStylesCommon.commonStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: FontSize.s14,
-                                color: ColorManager.mediumgrey),
-                          )),
+                                "Select a User by Searching for One!",
+                                style: CustomTextStylesCommon.commonStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: FontSize.s14,
+                                    color: ColorManager.mediumgrey),
+                              )),
                           //AddEmployeeHomeScreen(),
                           RegisterScreen(
                             onRefresh: () {
@@ -924,7 +924,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   curve: Curves.ease,
                                 );
                               }
-                          },
+                            },
                           ),
                           NewOnboardScreen(
                             onBackPressed: () {
@@ -935,7 +935,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   curve: Curves.ease,
                                 );
                               }
-      
+
                             },
                           ),
                           //SeeAllHrScreen()
@@ -944,11 +944,11 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     }
                     if (snapshot.hasData) {
                       SearchByEmployeeIdProfileData
-                          searchByEmployeeIdProfileData = snapshot.data!;
+                      searchByEmployeeIdProfileData = snapshot.data!;
                       print(
                           "Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
                       int empID = searchByEmployeeIdProfileData.employeeId!;
-      
+
                       return PageView(
                         controller: _pageController,
                         physics: NeverScrollableScrollPhysics(),
@@ -956,7 +956,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           DashBoardScreen(),
                           ManageScreen(
                             searchByEmployeeIdProfileData:
-                                searchByEmployeeIdProfileData,
+                            searchByEmployeeIdProfileData,
                             employeeId: empID,
                             pageManageController: _pageManageController,
                             onRefresh: () {
@@ -978,7 +978,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 curve: Curves.ease,
                               );
                             }
-      
+
                           },
                           ),
                           NewOnboardScreen(
@@ -990,9 +990,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   curve: Curves.ease,
                                 );
                               }
-      
+
                             },
-      
+
                           ),
                         ],
                       );

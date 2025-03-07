@@ -3,7 +3,10 @@ import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/provider/hr_onboarding_provider.dart';
 import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
+import 'package:prohealth/app/resources/provider/hr_search_provider.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
+import 'package:prohealth/app/resources/provider/office_location.dart';
+import 'package:prohealth/app/resources/provider/office_location.dart';
 import 'package:prohealth/app/resources/provider/version_provider.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
@@ -58,6 +61,8 @@ Future<void> main() async {
           //   create: (_) => EditUserProvider(),
           // ),
           ChangeNotifierProvider(create: (context) => VersionProviderManager()),
+          ChangeNotifierProvider(create: (_) => HrSearchProviderManager()),
+          ChangeNotifierProvider(create: (_) => LocationProvider()),
           ChangeNotifierProvider(create: (_) => HrManageProvider()),
           ChangeNotifierProvider(create: (_) => HrRegisterProvider()),
           ChangeNotifierProvider(create: (_) => HrEnrollEmployeeProvider()),
