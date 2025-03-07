@@ -17,7 +17,7 @@ class _HistoryPageViewState extends State<HistoryPageView> {
   int currentPage = 1;
   int itemsPerPage = 10;
   final int totalPages = 5;
-
+  ///call code
   void _makeCall(String phoneNumber) async {
     final Uri callUri = Uri.parse('tel:$phoneNumber');
     if (await canLaunchUrl(callUri)) {
@@ -202,6 +202,14 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                               ],
                             ),
                           ),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              children: [
+                                SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,),
+                              ],
+                            ),
+                          ),
 
                           ///dont delete
                           // Expanded(
@@ -219,14 +227,7 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                           //     ],
                           //   ),
                           // ),
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,),
-                              ],
-                            ),
-                          ),
+
                           Expanded(
                             flex: 2,
                             child: Column(
