@@ -53,6 +53,7 @@ dependencies:
   js: ^0.6.4
   open_file: any
 
+
   #http: ^0.13.3
   http: any
 
@@ -101,6 +102,8 @@ dependencies:
   dotted_border: any
   mapbox_maps_flutter: any
   open_file_macos: ^0.0.1
+  amplify_secure_storage: ^0.5.8
+  device_info_plus: ^11.3.0
 
 
 

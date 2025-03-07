@@ -1,21 +1,24 @@
+
+
 import 'dart:async';
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:open_file/open_file.dart';
-import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/whitelabelling_manager.dart';
-import 'package:prohealth/data/api_data/establishment_data/whitelabelling_modal/whitelabelling_modal_.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../../../../app/resources/color.dart';
-import '../../../../../../app/resources/common_resources/common_theme_const.dart';
-import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../app/resources/value_manager.dart';
-import '../../../widgets/text_form_field_const.dart';
+
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../data/api_data/establishment_data/whitelabelling_modal/whitelabelling_modal_.dart';
 
 class WhitelabellingScreen extends StatefulWidget {
   final String officeId;
