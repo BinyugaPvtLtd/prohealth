@@ -18,17 +18,17 @@ import 'presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_d
 Future<void> main() async {
   bool token = await checkToken();
 
-
-  // Check if the page has been reloaded recently
-  if (html.window.localStorage['isRefreshed'] != 'true') {
-    html.window.localStorage['isRefreshed'] = 'true'; // Mark as refreshed
-    html.window.location.reload(); // Reload the page
-    return; // Stop execution to prevent duplicate app initialization
-  }
-
-  // Reset flag after reload
-  html.window.localStorage.remove('isRefreshed');
-
+  //
+  // // Check if the page has been reloaded recently
+  // if (html.window.localStorage['isRefreshed'] != 'true') {
+  //   html.window.localStorage['isRefreshed'] = 'true'; // Mark as refreshed
+  //   html.window.location.reload(); // Reload the page
+  //   return; // Stop execution to prevent duplicate app initialization
+  // }
+  //
+  // // Reset flag after reload
+  // html.window.localStorage.remove('isRefreshed');
+  //
 
 
 
