@@ -69,7 +69,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
     'document':false,
     'pickFile':false,
   };
-
+  bool fileAbove20Mb = false;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -375,25 +375,22 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                                 icon: Icons.file_upload_outlined,
                                 text: ' Upload License',
                                 onPressed: () async {
-                                  FilePickerResult? result =
-                                  await FilePicker.platform.pickFiles(
-                                    type: FileType.custom,
-                                    allowedExtensions: ['pdf'],
+                                  FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                      type: FileType.custom,
+                                      allowedExtensions: ['pdf']
                                   );
+                                  final fileSize = result?.files.first.size; // File size in bytes
+                                  final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                   if (result != null) {
+                                    final file = result.files.first;
                                     setState(() {
-                                      pickedFileName = result.files.first.name;
-                                      pickedFile = result.files.first.bytes;
-                                      isFilePicked = true;
-                                      errorStates["pickFile"] = pickedFileName.isEmpty;
-
+                                      pickedFileName = file.name;
+                                      pickedFile = file.bytes;
+                                      fileAbove20Mb = !isAbove20MB;
                                     });
-
-                                    print('File picked: $pickedFileName');
-                                  } else {
-                                    // User canceled the picker
                                   }
-                                },
+                                }
+
                               ),
                               errorStates["pickFile"]! ?
                               Padding(
@@ -489,39 +486,73 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                       child: CircularProgressIndicator(
                         color: ColorManager.blueprime,
                       ))
-                      : CustomElevatedButton(
+
+
+
+                      :CustomElevatedButton(
                     width: AppSize.s100,
                     text: AppString.save,
                     onPressed: () async {
-                      setState(() {
-                        _validateFields();
-                      });
+                      // Validate file size first
+                      if (!fileAbove20Mb) {
+                        // Show validation message if the file is too large
+                        await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddErrorPopup(
+                              message: 'File is too large!',
+                            );
+                          },
+                        );
+                        return; // Stop further execution if the file is too large
+                      }
 
+                      // Validate form fields
+                      _validateFields();
+
+                      // Proceed if no validation errors
                       if (!_hasErrors()) {
                         setState(() {
                           isLoading = true;
                         });
-                        try {
-                          var response = await addLicensePost(context,
-                              countryController.text,
-                              widget.employeeId,
-                              expiryDateController.text,
-                              issueDateController.text,
-                              'url',
-                              livensureController.text,
-                              numberIDController.text,
-                              issuingOrganizationController.text,
-                              docNameadd.toString());
-                          var licenseResponse =  await approveOnboardQualifyLicensePatch(
-                              context,
-                              response.licenseId!);
 
-                          if(licenseResponse.statusCode == 200 || licenseResponse.statusCode == 201){
-                            if(isFilePicked){
-                              var docResponse = await attachLicenseDocument(context, response.licenseId!,pickedFile,pickedFileName!);
-                              if(docResponse.statusCode == 200 || docResponse.statusCode == 201){
+                        try {
+                          // Make the API call to add the license
+                          var response = await addLicensePost(
+                            context,
+                            countryController.text,
+                            widget.employeeId,
+                            expiryDateController.text,
+                            issueDateController.text,
+                            'url',
+                            livensureController.text,
+                            numberIDController.text,
+                            issuingOrganizationController.text,
+                            docNameadd.toString(),
+                          );
+
+                          // Make the API call to approve the license
+                          var licenseResponse = await approveOnboardQualifyLicensePatch(
+                            context,
+                            response.licenseId!,
+                          );
+
+                          // Handle successful license approval
+                          if (licenseResponse.statusCode == 200 || licenseResponse.statusCode == 201) {
+
+                              // If a file is picked, upload it
+                           await attachLicenseDocument(
+                                context,
+                                response.licenseId!,
+                                pickedFile,
+                                pickedFileName!,
+                              );
+                              if (licenseResponse.statusCode == 200 || licenseResponse.statusCode == 201) {
+                                // If document upload is successful, navigate back
                                 Navigator.pop(context);
-                                showDialog(
+
+                                // Show success dialog
+                                await showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AddSuccessPopup(
@@ -529,34 +560,119 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                                     );
                                   },
                                 );
-                              }
+
                             }
-                          }else if(response.statusCode == 400 || response.statusCode == 404){
+                          } else if (response.statusCode == 400 || response.statusCode == 404) {
+                            // Handle 400 or 404 errors
                             Navigator.pop(context);
-                            showDialog(
+                            await showDialog(
                               context: context,
                               builder: (BuildContext context) => const FourNotFourPopup(),
                             );
-                          }
-                          else {
+                          } else {
+                            // Handle general failure
                             Navigator.pop(context);
-                            showDialog(
+                            await showDialog(
                               context: context,
                               builder: (BuildContext context) => FailedPopup(text: response.message),
                             );
                           }
 
-                         // await widget.onpressedSave();
+                          // Clear form controllers after the process completes
                           _clearControllers();
                         } finally {
+                          // Ensure the loading state is turned off after the process
                           setState(() {
                             isLoading = false;
                           });
-
                         }
                       }
                     },
                   ),
+
+                  //     : CustomElevatedButton(
+                  //   width: AppSize.s100,
+                  //   text: AppString.save,
+                  //   onPressed: () async {
+                  //
+                  //
+                  //     if (!fileAbove20Mb) {
+                  //       // Show validation message if the file is too large
+                  //       await showDialog(
+                  //         context: context,
+                  //         builder: (BuildContext context) {
+                  //           return AddErrorPopup(
+                  //             message: 'File is too large!',
+                  //           );
+                  //         },
+                  //       );
+                  //       return; // Stop further execution
+                  //     }
+                  //    // setState(() {
+                  //       _validateFields();
+                  //    // });
+                  //
+                  //     if (!_hasErrors()) {
+                  //       setState(() {
+                  //         isLoading = true;
+                  //       });
+                  //       try {
+                  //         var response = await addLicensePost(context,
+                  //             countryController.text,
+                  //             widget.employeeId,
+                  //             expiryDateController.text,
+                  //             issueDateController.text,
+                  //             'url',
+                  //             livensureController.text,
+                  //             numberIDController.text,
+                  //             issuingOrganizationController.text,
+                  //             docNameadd.toString());
+                  //         var licenseResponse =  await approveOnboardQualifyLicensePatch(
+                  //             context,
+                  //             response.licenseId!);
+                  //
+                  //         if(licenseResponse.statusCode == 200 || licenseResponse.statusCode == 201){
+                  //           if(isFilePicked){
+                  //             var docResponse = await attachLicenseDocument(context, response.licenseId!,pickedFile,pickedFileName!);
+                  //             if(docResponse.statusCode == 200 || docResponse.statusCode == 201){
+                  //               Navigator.pop(context);
+                  //               showDialog(
+                  //                 context: context,
+                  //                 builder: (BuildContext context) {
+                  //                   return AddSuccessPopup(
+                  //                     message: 'Licenses Added Successfully',
+                  //                   );
+                  //                 },
+                  //               );
+                  //             }
+                  //           }
+                  //         }else if(response.statusCode == 400 || response.statusCode == 404){
+                  //           Navigator.pop(context);
+                  //           showDialog(
+                  //             context: context,
+                  //             builder: (BuildContext context) => const FourNotFourPopup(),
+                  //           );
+                  //         }
+                  //         else {
+                  //           Navigator.pop(context);
+                  //           showDialog(
+                  //             context: context,
+                  //             builder: (BuildContext context) => FailedPopup(text: response.message),
+                  //           );
+                  //         }
+                  //
+                  //        // await widget.onpressedSave();
+                  //         _clearControllers();
+                  //       } finally {
+                  //         setState(() {
+                  //           isLoading = false;
+                  //         });
+                  //
+                  //       }
+                  //     }
+                  //   },
+                  // ),
+
                 ],
               ),
             )
@@ -809,6 +925,8 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
     'numberID': false,
   };
 
+  bool fileAbove20Mb = false;
+
   @override
   void initState() {
     super.initState();
@@ -924,23 +1042,22 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
                               icon: Icons.file_upload_outlined,
                               text: 'Upload License',
                               onPressed: () async {
-                                FilePickerResult? result =
-                                await FilePicker.platform.pickFiles(
-                                  type: FileType.custom,
-                                  allowedExtensions: ['pdf'],
+                                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                    type: FileType.custom,
+                                    allowedExtensions: ['pdf']
                                 );
+                                final fileSize = result?.files.first.size; // File size in bytes
+                                final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                 if (result != null) {
+                                  final file = result.files.first;
                                   setState(() {
-                                    pickedFileName = result.files.first.name;
-                                    pickedFile = result.files.first.bytes;
-                                    isFilePicked = true;
+                                    pickedFileName = file.name;
+                                    pickedFile = file.bytes;
+                                    fileAbove20Mb = !isAbove20MB;
                                   });
-
-                                  print('File picked: $pickedFileName');
-                                } else {
-                                  // User canceled the picker
                                 }
-                              },
+                              }
+
                             ),
                           ],
                         ),
@@ -1021,34 +1138,88 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
                       child: CircularProgressIndicator(
                         color: ColorManager.blueprime,
                       ))
-                      : CustomElevatedButton(
+
+                      :CustomElevatedButton(
                     width: AppSize.s100,
                     text: AppString.save,
                     onPressed: () async {
+                      // Validate file size before proceeding
+                      if (!fileAbove20Mb) {
+                        // If the file is greater than 20MB, show an error dialog
+                        await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddErrorPopup(
+                              message: 'File is too large!',
+                            );
+                          },
+                        );
+                        return; // Stop further execution if the file is too large
+                      }
+
                       setState(() {
                         _validateFields();
                       });
 
+                      // If no validation errors, proceed with the API calls
                       if (!_hasErrors()) {
                         setState(() {
                           isLoading = true;
                         });
-                        try {
 
-                          if(isFilePicked){
-                            var docResponse = await attachLicenseDocument(context,widget.licenseId,pickedFile,pickedFileName!);
+                        try {
+                          // If a file is picked, upload the document
+                          if (isFilePicked) {
+                            var docResponse = await attachLicenseDocument(
+                              context,
+                              widget.licenseId,
+                              pickedFile,
+                              pickedFileName!,
+                            );
                           }
+
+                          // Proceed with saving
                           await widget.onpressedSave();
                           _clearControllers();
                         } finally {
                           setState(() {
                             isLoading = false;
                           });
-
                         }
                       }
                     },
                   ),
+
+
+
+                  //     : CustomElevatedButton(
+                  //   width: AppSize.s100,
+                  //   text: AppString.save,
+                  //   onPressed: () async {
+                  //     setState(() {
+                  //       _validateFields();
+                  //     });
+                  //
+                  //     if (!_hasErrors()) {
+                  //       setState(() {
+                  //         isLoading = true;
+                  //       });
+                  //       try {
+                  //
+                  //         if(isFilePicked){
+                  //           var docResponse = await attachLicenseDocument(context,widget.licenseId,pickedFile,pickedFileName!);
+                  //         }
+                  //         await widget.onpressedSave();
+                  //         _clearControllers();
+                  //       } finally {
+                  //         setState(() {
+                  //           isLoading = false;
+                  //         });
+                  //
+                  //       }
+                  //     }
+                  //   },
+                  // ),
                 ],
               ),
             )

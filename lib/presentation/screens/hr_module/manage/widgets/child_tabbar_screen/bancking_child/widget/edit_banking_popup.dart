@@ -36,7 +36,7 @@ class AddBankingPopup extends StatefulWidget {
 
 class _AddBankingPopupState extends State<AddBankingPopup> {
 
-
+  bool fileAbove20Mb = false;
   String pickedFileName = '';
   String selectedtype = 'Checking';
   dynamic pickedFile;
@@ -48,25 +48,42 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
   TextEditingController bankname = TextEditingController();
   TextEditingController verifyaccountnumber = TextEditingController();
 
+  // Future<void> _handleFileUpload() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //     type: FileType.custom,
+  //     allowedExtensions: ['pdf'],
+  //   );
+  //   if (result != null) {
+  //     setState(() {
+  //       pickedFileName = result.files.first.name;
+  //       pickedFile = result.files.first.bytes;
+  //       _isFormValid = true;
+  //       _pickFileError = _validateTextField(pickedFileName!, 'Please Upload Document');
+  //
+  //     });
+  //     // PlatformFile file = result.files.first;
+  //     print('File picked: ${pickedFileName}');
+  //   } else {
+  //     // User canceled the picker
+  //   }
+  // }
   Future<void> _handleFileUpload() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
+        type: FileType.custom,
+        allowedExtensions: ['pdf']
     );
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024);
     if (result != null) {
+      final file = result.files.first;
       setState(() {
-        pickedFileName = result.files.first.name;
-        pickedFile = result.files.first.bytes;
-        _isFormValid = true;
-        _pickFileError = _validateTextField(pickedFileName!, 'Please Upload Document');
-
+        pickedFileName = file.name;
+        pickedFile = file.bytes;
+        fileAbove20Mb = !isAbove20MB;
       });
-      // PlatformFile file = result.files.first;
-      print('File picked: ${pickedFileName}');
-    } else {
-      // User canceled the picker
     }
   }
+
 
   String? errorMessage;
   void validateAccounts() {
@@ -695,59 +712,130 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                             child: CircularProgressIndicator(
                               color: ColorManager.blueprime,
                             ))
-                            : CustomElevatedButton(
-                            width: 100,
-                            text: "Save",
-                            onPressed: ()async {
-                              _validateFields();
-                              if (_isFormValid) {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                var response = await addNewEmployeeBanking(
-                                    context: context,
-                                    employeeId: widget.employeeID,
-                                    accountNumber: accountnumber.text,
-                                    bankName: bankname.text,
-                                    amountRequested: int.parse(requestammount.text),
-                                    checkUrl: '--',
-                                    effectiveDate: effectivecontroller.text,
-                                    routingNumber: routingnumber.text,
-                                    percentage: '',
-                                    type: selectedtype.toString()
-                                );
-                                // var responseBank = await approveBankPatch(context,response.banckingId!);
-                                await uploadBanckingDocument(
-                                    context, response.banckingId!, pickedFile,pickedFileName!);
-                                // Navigator.pop(context);
-                                if (response.statusCode == 200 || response.statusCode == 201) {
-                                  Navigator.pop(context);
-                                  await showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AddSuccessPopup(message: 'Banking Added Successfully',
-                                      );
-                                    },
+                        //     : CustomElevatedButton(
+                        //     width: 100,
+                        //     text: "Save",
+                        //     onPressed: ()async {
+                        //       _validateFields();
+                        //       if (_isFormValid) {
+                        //         setState(() {
+                        //           isLoading = true;
+                        //         });
+                        //         var response = await addNewEmployeeBanking(
+                        //             context: context,
+                        //             employeeId: widget.employeeID,
+                        //             accountNumber: accountnumber.text,
+                        //             bankName: bankname.text,
+                        //             amountRequested: int.parse(requestammount.text),
+                        //             checkUrl: '--',
+                        //             effectiveDate: effectivecontroller.text,
+                        //             routingNumber: routingnumber.text,
+                        //             percentage: '',
+                        //             type: selectedtype.toString()
+                        //         );
+                        //         // var responseBank = await approveBankPatch(context,response.banckingId!);
+                        //         await uploadBanckingDocument(
+                        //             context, response.banckingId!, pickedFile,pickedFileName!);
+                        //         // Navigator.pop(context);
+                        //         if (response.statusCode == 200 || response.statusCode == 201) {
+                        //           Navigator.pop(context);
+                        //           await showDialog(
+                        //             context: context,
+                        //             builder: (BuildContext context) {
+                        //               return AddSuccessPopup(message: 'Banking Added Successfully',
+                        //               );
+                        //             },
+                        //           );
+                        //         }else if(response.statusCode == 400 || response.statusCode == 404){
+                        //           //  await  Navigator.pop(context);
+                        //           await  showDialog(
+                        //             context: context,
+                        //             builder: (BuildContext context) => const FourNotFourPopup(),
+                        //           );
+                        //         }
+                        //         else {
+                        //           await  showDialog(
+                        //             context: context,
+                        //             builder: (BuildContext context) => FailedPopup(text: response.message),
+                        //           );
+                        //         }
+                        //         setState(() {
+                        //           isLoading = false;
+                        //         });
+                        //       }
+                        //     }
+                        // ),
+                        :CustomElevatedButton(
+                          width: 100,
+                          text: "Save",
+                          onPressed: () async {
+                            // First, check if the file is too large
+                            if (!fileAbove20Mb) {
+                              // Show validation message if the file is too large
+                              await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddErrorPopup(
+                                    message: 'File is too large!',
                                   );
-                                }else if(response.statusCode == 400 || response.statusCode == 404){
-                                  //  await  Navigator.pop(context);
-                                  await  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) => const FourNotFourPopup(),
-                                  );
-                                }
-                                else {
-                                  await  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) => FailedPopup(text: response.message),
-                                  );
-                                }
-                                setState(() {
-                                  isLoading = false;
-                                });
-                              }
+                                },
+                              );
+                              return; // Stop further execution
                             }
-                        ),
+
+                            // Proceed with form validation if the file is not too large
+                            _validateFields();
+
+                            if (_isFormValid) {  // Check if the form is valid
+                              setState(() {
+                                isLoading = true;
+                              });
+
+                              var response = await addNewEmployeeBanking(
+                                context: context,
+                                employeeId: widget.employeeID,
+                                accountNumber: accountnumber.text,
+                                bankName: bankname.text,
+                                amountRequested: int.parse(requestammount.text),
+                                checkUrl: '--',
+                                effectiveDate: effectivecontroller.text,
+                                routingNumber: routingnumber.text,
+                                percentage: '',
+                                type: selectedtype.toString(),
+                              );
+
+                              // Upload the banking document only if the response is successful
+                              if (response.statusCode == 200 || response.statusCode == 201) {
+                                await uploadBanckingDocument(
+                                  context, response.banckingId!, pickedFile, pickedFileName!,
+                                );
+                                Navigator.pop(context);
+                                await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AddSuccessPopup(message: 'Banking Added Successfully');
+                                  },
+                                );
+                              } else if (response.statusCode == 400 || response.statusCode == 404) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => const FourNotFourPopup(),
+                                );
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => FailedPopup(text: response.message),
+                                );
+                              }
+
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                          },
+                        )
+
+
 
                       ],
                     )
@@ -826,6 +914,9 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     pickedFileName = widget.documentName;
     super.initState();
   }
+
+  bool fileAbove20Mb = false;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -1038,20 +1129,18 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
 
   Future<void> _handleFileUpload() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
+        type: FileType.custom,
+        allowedExtensions: ['pdf']
     );
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024);
     if (result != null) {
+      final file = result.files.first;
       setState(() {
-        pickedFileName = result.files.first.name;
-        pickedFile = result.files.first.bytes;
+        pickedFileName = file.name;
+        pickedFile = file.bytes;
+        fileAbove20Mb = !isAbove20MB;
       });
-      // PlatformFile file = result.files.first;
-      print('File picked: ${pickedFileName}');
-    } else {
-
-
-      // User canceled the picker
     }
   }
 
@@ -1315,6 +1404,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   }
 
   String? errorVerifyAccountMessage = "Account Number does not match";
+
   void _handleSave() async {
     setState(() {
       isLoading = true;
@@ -1326,31 +1416,47 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       ac = widget.accountNumberController.text.isEmpty;
 
       // Add this check to see if the account numbers match
-      if (widget.accountNumberController.text != widget.verifyAccountController.text ) {
+      if (widget.accountNumberController.text != widget.verifyAccountController.text) {
         vac = true; // Set error for Verify Account Number
         errorVerifyAccountMessage;
       } else {
         errorVerifyAccountMessage = null;
       }
-
     });
 
+    // First, check if the file is too large
+    if (!fileAbove20Mb) {  // Check if the file is above 20MB
+      setState(() {
+        isLoading = false;
+      });
+
+      // Show validation message if the file is too large
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AddErrorPopup(
+            message: 'File is too large!',
+          );
+        },
+      );
+      return; // Stop further execution if the file is too large
+    }
+
+    // Proceed with form validation if the file is not too large
     if (!rnumber &&
         !eDate &&
         !bankname &&
         !sac &&
         !ac &&
         !vac && // Ensure this is only true when both account numbers match
-        errorVerifyAccountMessage == null && _typeFieldKey.currentState!.validate()) {
+        errorVerifyAccountMessage == null &&
+        _typeFieldKey.currentState!.validate()) {
       try {
         await widget.onPressed(gropvalue);
-        if(pickedFile != null){
-          await uploadBanckingDocument(context, widget.banckId, pickedFile,pickedFileName!);
+        if (pickedFile != null) {
+          await uploadBanckingDocument(context, widget.banckId, pickedFile, pickedFileName!);
         }
-
-
       } finally {
-
         _clearControllers();
       }
     } else {
@@ -1359,6 +1465,53 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       });
     }
   }
+
+
+
+  // void _handleSave() async {
+  //   setState(() {
+  //     isLoading = true;
+  //     eDate = widget.effectiveDateController.text.isEmpty;
+  //     bankname = widget.bankNameController.text.isEmpty;
+  //     vac = widget.verifyAccountController.text.isEmpty;
+  //     rnumber = widget.routingNumberController.text.isEmpty;
+  //     sac = widget.specificAmountController.text.isEmpty;
+  //     ac = widget.accountNumberController.text.isEmpty;
+  //
+  //     // Add this check to see if the account numbers match
+  //     if (widget.accountNumberController.text != widget.verifyAccountController.text ) {
+  //       vac = true; // Set error for Verify Account Number
+  //       errorVerifyAccountMessage;
+  //     } else {
+  //       errorVerifyAccountMessage = null;
+  //     }
+  //
+  //   });
+  //
+  //   if (!rnumber &&
+  //       !eDate &&
+  //       !bankname &&
+  //       !sac &&
+  //       !ac &&
+  //       !vac && // Ensure this is only true when both account numbers match
+  //       errorVerifyAccountMessage == null && _typeFieldKey.currentState!.validate()) {
+  //     try {
+  //       await widget.onPressed(gropvalue);
+  //       if(pickedFile != null){
+  //         await uploadBanckingDocument(context, widget.banckId, pickedFile,pickedFileName!);
+  //       }
+  //
+  //
+  //     } finally {
+  //
+  //       _clearControllers();
+  //     }
+  //   } else {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   }
+  // }
 
   Widget _buildThirdColumn() {
     return Row(
