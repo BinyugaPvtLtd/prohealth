@@ -377,7 +377,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                   flex: 3,
                                   child: Container(
                                //margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
-                                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
+                                 padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 2),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(18),
                                       border: Border.all(color: Colors.white, width: 2),
@@ -390,7 +390,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                         hint: Text(
                                           'Super User',
                                           style: TextStyle(
-                                            fontSize: 11,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.white,
                                           ),

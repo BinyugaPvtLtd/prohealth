@@ -103,7 +103,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
       height: AppSize.s260,
       body: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p13),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1295,7 +1295,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
       body: [
 
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 13.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,

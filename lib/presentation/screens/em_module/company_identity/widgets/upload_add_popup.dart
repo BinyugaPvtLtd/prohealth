@@ -539,12 +539,12 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                       ),
                       isFileErrorVisible ?
                       Padding(
-                        padding: const EdgeInsets.only(top: AppPadding.p5),
+                        padding: const EdgeInsets.only(top: AppPadding.p1),
                         child: Text(
                           'Please upload a document',
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      ) : SizedBox(height: AppSize.s16,),
+                      ) : SizedBox(height: AppSize.s12,),
                     ],
                   )),
 
@@ -825,6 +825,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 //   ],
                 // ),
               ),
+              SizedBox(height: 20,)
             ],
           ),
         )

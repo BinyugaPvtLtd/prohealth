@@ -133,9 +133,13 @@ class _LoginPasswordWebState extends State<LoginPasswordWeb> {
 
                 ///button
                 _isLoading
-                    ? CircularProgressIndicator(
-                  color: ColorManager.blueprime,
-                )
+                    ? SizedBox(
+                      height: MediaQuery.of(context).size.height / 18,
+                      width: AppSize.s40,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ),
+                    )
                     : CustomButton(
                   borderRadius: 24,
                   height: MediaQuery.of(context).size.height / 18,
