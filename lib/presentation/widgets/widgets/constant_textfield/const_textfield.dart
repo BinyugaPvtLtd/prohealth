@@ -401,14 +401,17 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
-                      child: Text(
-                        _selectedValue ?? widget.hintText ?? 'Select',
-                        style: TextStyle(
-                          fontWeight:widget.fontwight ?? FontWeight.w600,
-                          fontSize: widget.fontsize ?? FontSize.s13,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ) //DocumentTypeDataStyle.customTextStyle(context),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 3),
+                        child: Text(
+                          _selectedValue ?? widget.hintText ?? 'Select',
+                          style: TextStyle(
+                            fontWeight:widget.fontwight ?? FontWeight.w600,
+                            fontSize: widget.fontsize ?? FontSize.s13,
+                            color: ColorManager.mediumgrey,
+                            decoration: TextDecoration.none,
+                          ) //DocumentTypeDataStyle.customTextStyle(context),
+                        ),
                       ),
                     ),
                     Icon(widget.icon ?? Icons.arrow_drop_down_sharp, color: widget.iconColor ?? Colors.grey),
@@ -1007,6 +1010,577 @@ class _CustomDropDownState extends State<CustomDropDown> {
   }
 }
 
+class HRUManageDropdown extends StatefulWidget {
+  final TextEditingController controller;
+  final String? labelText;
+  final String? hintText;
+  final Color textColor;
+ // final TextStyle? labelStyle;
+  final double labelFontSize;
+  final List<String> items;
+  final String? errorText;
+  final ValueChanged<String>? onChanged;
+
+  HRUManageDropdown({
+    Key? key,
+    required this.controller,
+    this.labelText,
+    //this.labelStyle,
+    required this.labelFontSize,
+    required this.items,
+    this.errorText,
+    this.onChanged,
+    this.hintText,
+    this.textColor = const Color(0xff686464),
+  }) : super(key: key);
+
+  @override
+  State<HRUManageDropdown> createState() => _HRUManageDropdownState();
+}
+
+class _HRUManageDropdownState extends State<HRUManageDropdown> {
+  final GlobalKey _dropdownKey = GlobalKey();
+  OverlayEntry? _overlayEntry;
+  bool _isDropdownOpen = false;
+
+  void _toggleDropdown() {
+    if (_isDropdownOpen) {
+      _closeDropdown();
+    } else {
+      _openDropdown();
+    }
+  }
+
+  void _openDropdown() {
+    final RenderBox renderBox = _dropdownKey.currentContext!.findRenderObject() as RenderBox;
+    final Offset offset = renderBox.localToGlobal(Offset.zero);
+    final Size size = renderBox.size;
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) {
+        return GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: _closeDropdown,
+          child: Stack(
+            children: [
+              Positioned(
+                left: offset.dx,
+                top: offset.dy + size.height,
+                width: size.width,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    //color: Colors.white,
+                    constraints: BoxConstraints(
+                      maxHeight: 200, // Show scroll for more than 5 items
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: widget.items.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            widget.items[index],
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: FontSize.s13,
+                              color: ColorManager.mediumgrey,
+                              decoration: TextDecoration.none,
+                            ),
+                            //style:TableSubHeading.customTextStyle(context),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              widget.controller.text = widget.items[index];
+                              _closeDropdown();
+                            });
+                            if (widget.onChanged != null) {
+                              widget.onChanged!(widget.items[index]);
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    Overlay.of(context)?.insert(_overlayEntry!);
+    setState(() {
+      _isDropdownOpen = true;
+    });
+  }
+
+  void _closeDropdown() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+    setState(() {
+      _isDropdownOpen = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    _closeDropdown();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _toggleDropdown,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (widget.labelText != null)
+            Text(
+              widget.labelText!,
+            //  style: widget.labelStyle ?? TextStyle(fontSize: widget.labelFontSize),
+               style:TableSubHeading.customTextStyle(context),
+            ),
+          Container(
+            key: _dropdownKey,
+            width: 354,
+            height: 30,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.controller.text.isEmpty ? widget.hintText ?? '' : widget.controller.text,
+                  style: TableSubHeading.customTextStyle(context),
+                ),
+                Icon(Icons.arrow_drop_down, color: Colors.grey),
+              ],
+            ),
+          ),
+          if (widget.errorText != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Text(
+                widget.errorText!,
+                style: TextStyle(color: Colors.red, fontSize: 12),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+///clinical ropdown
+class PatientCustomDropDown extends StatefulWidget {
+  final String? value;
+  final List<String> items;
+  final String labelText;
+  final String? hintText;
+  final TextStyle? labelStyle;
+  final double? labelFontSize;
+  final void Function(String?)? onChanged;
+  final double? width;
+  final double? height;
+  final String? initialValue;
+  PatientCustomDropDown({
+    super.key,
+    this.value,
+    required this.items,
+    required this.labelText,
+    this.labelStyle,
+    this.labelFontSize,
+    this.onChanged,
+    this.width,
+    this.height,
+    this.initialValue,
+    this.hintText,
+  });
+
+  @override
+  State<PatientCustomDropDown> createState() => _PatientCustomDropDownState();
+}
+
+class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
+  late String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.value;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 170,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+            color: const Color(0xff686464).withOpacity(0.5),
+            width: 1), // Black border
+        borderRadius: BorderRadius.circular(6), // Rounded corners
+      ),
+      height: 31,
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
+      child: DropdownButtonFormField<String>(
+          icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey,),
+          value: _selectedValue,
+          items: widget.items.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(
+                value,
+                style: SearchDropdownConst.customTextStyle(context),
+              ),
+            );
+          }).toList(),
+          onChanged: (newValue) {
+            setState(() {
+              _selectedValue = newValue;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged!(newValue);
+            }
+          },
+          style: SearchDropdownConst.customTextStyle(context),
+          isExpanded: true,
+          decoration: const InputDecoration.collapsed(hintText: '')),
+    );
+  }
+}
+
+
+/////////////
+
+///dont delete it is perfectly fine working dropdown code
+// class PatientCustomDropDown extends StatefulWidget {
+//   final String? value;
+//   final List<String> items;
+//   final String labelText;
+//   final String? hintText;
+//  // final TextStyle? labelStyle;
+//   final double? labelFontSize;
+//   final void Function(String?)? onChanged;
+//   final double? width;
+//   final double? height;
+//   final String? initialValue;
+//
+//   const PatientCustomDropDown({
+//     super.key,
+//     this.value,
+//     required this.items,
+//     required this.labelText,
+//    // this.labelStyle,
+//     this.labelFontSize,
+//     this.onChanged,
+//     this.width,
+//     this.height,
+//     this.initialValue,
+//     this.hintText,
+//   });
+//
+//   @override
+//   State<PatientCustomDropDown> createState() => _PatientCustomDropDownState();
+// }
+//
+// class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
+//   late String? _selectedValue;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _selectedValue = widget.value;
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return DropdownButtonHideUnderline(
+//       child: DropdownButton2<String>(
+//         value: _selectedValue,
+//         hint: Text(
+//           widget.hintText ?? '',
+//           style: SearchDropdownConst.customTextStyle(context),
+//         ),
+//         items: widget.items.map((String value) {
+//           return DropdownMenuItem<String>(
+//             value: value,
+//             child: Text(
+//               value,
+//               style: SearchDropdownConst.customTextStyle(context),
+//             ),
+//           );
+//         }).toList(),
+//         onChanged: (newValue) {
+//           setState(() {
+//             _selectedValue = newValue;
+//           });
+//           if (widget.onChanged != null) {
+//             widget.onChanged!(newValue);
+//           }
+//         },
+//         buttonStyleData: ButtonStyleData(
+//           height: widget.height ?? 30,
+//           width: widget.width ?? 170,
+//           padding: const EdgeInsets.symmetric(horizontal: 12),
+//           decoration: BoxDecoration(
+//             color: Colors.white,
+//             border: Border.all(
+//               color: const Color(0xff686464).withOpacity(0.5),
+//               width: 1,
+//             ),
+//             borderRadius: BorderRadius.circular(6),
+//           )
+//         ),
+//         iconStyleData: IconStyleData(
+//           icon: Icon(
+//             Icons.arrow_drop_down_sharp,
+//             color: ColorManager.mediumgrey,
+//           ),
+//           iconSize: 24,
+//         ),
+//         dropdownStyleData: DropdownStyleData(
+//           maxHeight: 200,
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(6),
+//             color: Colors.white,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+
+
+
+
+///
+class CustomDropdownTextFieldpp<T> extends StatefulWidget {
+  final T? value; // Changed to generic type
+  final List<T>? items; // Changed to generic type
+  final String Function(T)? itemLabel; // Function to get the label from the item
+  final String headText;
+  final void Function(T?)? onChanged;
+  final double? width;
+  final double? height;
+  final T? initialValue;
+
+  const CustomDropdownTextFieldpp({
+    Key? key,
+    required this.headText,
+    this.value,
+    this.items,
+    required this.itemLabel,
+    this.onChanged,
+    this.width,
+    this.height,
+    this.initialValue,
+  }) : super(key: key);
+
+  @override
+  _CustomDropdownTextFieldppState<T> createState() =>
+      _CustomDropdownTextFieldppState<T>();
+}
+
+class _CustomDropdownTextFieldppState<T> extends State<CustomDropdownTextFieldpp<T>> {
+  late T? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.initialValue ?? widget.value;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: Text(
+            widget.headText,
+            style: AllPopupHeadings.customTextStyle(context),
+          ),
+        ),
+        SizedBox(
+          width: widget.width ?? AppSize.s250,
+          height: widget.height ?? AppSize.s40,
+          child: Padding(
+            padding: const EdgeInsets.all(AppPadding.p5),
+            child: DropdownButtonFormField<T>(
+              icon: Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey),
+              ),
+              value: _selectedValue,
+              items: _buildDropdownMenuItems(),
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedValue = newValue;
+                });
+                if (widget.onChanged != null) {
+                  widget.onChanged!(newValue);
+                }
+              },
+              isExpanded: true,
+              decoration: InputDecoration(
+                hoverColor: ColorManager.white,
+                contentPadding: EdgeInsets.only(
+                  bottom: AppPadding.p3,
+                  top: AppPadding.p5,
+                  left: 4,
+                ),
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: ColorManager.black),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Build dropdown items based on the items provided
+  List<DropdownMenuItem<T>> _buildDropdownMenuItems() {
+    if (widget.items == null || widget.items!.isEmpty) return [];
+
+    return widget.items!.map((T item) {
+      return DropdownMenuItem<T>(
+        value: item,
+        child: Text(
+          widget.itemLabel!(item), // Use the itemLabel function to get the display text
+          style: DocumentTypeDataStyle.customTextStyle(context),
+        ),
+      );
+    }).toList();
+  }
+}
+
+///offer letter screen
+class SuffixDropDown extends StatefulWidget {
+  final String? value;
+  final List<String> items;
+  final void Function(String?)? onChanged;
+  final String? hintText;
+  final double? width;
+  final double? height;
+
+  const SuffixDropDown({
+    Key? key,
+    required this.items,
+    this.value,
+    this.onChanged,
+    this.hintText,
+    this.width,
+    this.height,
+  }) : super(key: key);
+
+  @override
+  State<SuffixDropDown> createState() => _SuffixDropDownState();
+}
+
+class _SuffixDropDownState extends State<SuffixDropDown> {
+  String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.value ?? widget.items.first;
+  }
+
+  void _showDropdownDialog() async {
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+
+    final result = await showDialog<String>(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Positioned(
+              left: offset.dx,
+              top: offset.dy + size.height,
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  width: widget.width ?? size.width,
+                  constraints: const BoxConstraints(
+                    maxHeight: 250, // Restrict height for scroll
+                  ),
+                  child: Scrollbar(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: widget.items.length,
+                      itemBuilder: (context, index) {
+                        final item = widget.items[index];
+                        return ListTile(
+                          title: Text(
+                            item,
+                            style: DocumentTypeDataStyle.customTextStyle(context),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pop(item);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result != null) {
+      setState(() {
+        _selectedValue = result;
+        widget.onChanged?.call(result);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _showDropdownDialog,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+         // border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              _selectedValue ?? widget.hintText ?? 'Select',
+              style: DocumentTypeDataStyle.customTextStyle(context),
+            ),
+            const Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 ///todo prachi
 ///Human Resource screen textField email only
 // class HRManageTextFieldEmail extends StatefulWidget {
@@ -1422,557 +1996,3 @@ class _CustomDropDownState extends State<CustomDropDown> {
 //     );
 //   }
 // }
-
-class HRUManageDropdown extends StatefulWidget {
-  final TextEditingController controller;
-  final String? labelText;
-  final String? hintText;
-  final Color textColor;
- // final TextStyle? labelStyle;
-  final double labelFontSize;
-  final List<String> items;
-  final String? errorText;
-  final ValueChanged<String>? onChanged;
-
-  HRUManageDropdown({
-    Key? key,
-    required this.controller,
-    this.labelText,
-    //this.labelStyle,
-    required this.labelFontSize,
-    required this.items,
-    this.errorText,
-    this.onChanged,
-    this.hintText,
-    this.textColor = const Color(0xff686464),
-  }) : super(key: key);
-
-  @override
-  State<HRUManageDropdown> createState() => _HRUManageDropdownState();
-}
-
-class _HRUManageDropdownState extends State<HRUManageDropdown> {
-  final GlobalKey _dropdownKey = GlobalKey();
-  OverlayEntry? _overlayEntry;
-  bool _isDropdownOpen = false;
-
-  void _toggleDropdown() {
-    if (_isDropdownOpen) {
-      _closeDropdown();
-    } else {
-      _openDropdown();
-    }
-  }
-
-  void _openDropdown() {
-    final RenderBox renderBox = _dropdownKey.currentContext!.findRenderObject() as RenderBox;
-    final Offset offset = renderBox.localToGlobal(Offset.zero);
-    final Size size = renderBox.size;
-
-    _overlayEntry = OverlayEntry(
-      builder: (context) {
-        return GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: _closeDropdown,
-          child: Stack(
-            children: [
-              Positioned(
-                left: offset.dx,
-                top: offset.dy + size.height,
-                width: size.width,
-                child: Material(
-                  elevation: 4,
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    //color: Colors.white,
-                    constraints: BoxConstraints(
-                      maxHeight: 200, // Show scroll for more than 5 items
-                    ),
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      itemCount: widget.items.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                            widget.items[index],
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: FontSize.s13,
-                              color: ColorManager.mediumgrey,
-                              decoration: TextDecoration.none,
-                            ),
-                            //style:TableSubHeading.customTextStyle(context),
-                          ),
-                          onTap: () {
-                            setState(() {
-                              widget.controller.text = widget.items[index];
-                              _closeDropdown();
-                            });
-                            if (widget.onChanged != null) {
-                              widget.onChanged!(widget.items[index]);
-                            }
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-
-    Overlay.of(context)?.insert(_overlayEntry!);
-    setState(() {
-      _isDropdownOpen = true;
-    });
-  }
-
-  void _closeDropdown() {
-    _overlayEntry?.remove();
-    _overlayEntry = null;
-    setState(() {
-      _isDropdownOpen = false;
-    });
-  }
-
-  @override
-  void dispose() {
-    _closeDropdown();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _toggleDropdown,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (widget.labelText != null)
-            Text(
-              widget.labelText!,
-            //  style: widget.labelStyle ?? TextStyle(fontSize: widget.labelFontSize),
-               style:TableSubHeading.customTextStyle(context),
-            ),
-          Container(
-            key: _dropdownKey,
-            width: 354,
-            height: 30,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  widget.controller.text.isEmpty ? widget.hintText ?? '' : widget.controller.text,
-                  style: TableSubHeading.customTextStyle(context),
-                ),
-                Icon(Icons.arrow_drop_down, color: Colors.grey),
-              ],
-            ),
-          ),
-          if (widget.errorText != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 4.0),
-              child: Text(
-                widget.errorText!,
-                style: TextStyle(color: Colors.red, fontSize: 12),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-///dropdown user saloni
-// class HRUManageDropdown extends StatefulWidget {
-//   final TextEditingController controller;
-//    final String? labelText;
-//   final String? hintText;
-//   final Color textColor;
-//   final TextStyle? labelStyle;
-//   final double labelFontSize;
-//   final List<String> items;
-//   final String? errorText;
-//   final ValueChanged<String>? onChanged;
-//
-//   HRUManageDropdown({
-//     Key? key,
-//     required this.controller,
-//       this.labelText,
-//      this.labelStyle,
-//     required this.labelFontSize,
-//     required this.items,
-//     this.errorText,
-//     this.onChanged,  this.hintText,   this.textColor = const  Color(0xff686464),
-//   }) : super(key: key);
-//
-//   @override
-//   State<HRUManageDropdown> createState() => _HRUManageDropdownState();
-// }
-//
-// class _HRUManageDropdownState extends State<HRUManageDropdown> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width:354,
-//       height:30,
-//       padding: EdgeInsets.symmetric(horizontal: 10,),
-//       decoration: BoxDecoration(
-//         border: Border.all(
-//             color: ColorManager.containerBorderGrey, width: AppSize.s1),
-//         borderRadius: BorderRadius.circular(8),
-//       ),
-//       child: DropdownButtonFormField<String>(
-//
-//         padding: EdgeInsets.symmetric(horizontal: 10,),
-//         value: widget.controller.text.isEmpty ? null : widget.controller.text,
-//         items: widget.items.map((item) {
-//           return DropdownMenuItem(
-//
-//             value: item,
-//             child: Text(
-//               item,
-//               style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: 10),
-//             ),
-//           );
-//         }).toList(),
-//         onChanged: (value) {
-//           setState(() {
-//             widget.controller.text = value!;
-//           });
-//           if (widget.onChanged != null) {
-//             widget.onChanged!(value!);
-//           }
-//         },
-//         decoration: InputDecoration(
-//           border: InputBorder.none,
-//           contentPadding: EdgeInsets.only(bottom: 20.0),
-//           // border: OutlineInputBorder(
-//           //   borderSide: BorderSide(color: Colors.black),
-//           // ),
-//           // focusedBorder: OutlineInputBorder(
-//           //   borderSide: BorderSide(color: Colors.black),
-//           // ),
-//           hintStyle: TextStyle(
-//             fontSize: 10,
-//             fontWeight: FontWeight.w500,
-//             color: ColorManager.mediumgrey
-//           ),
-//           // labelText: widget.labelText,
-//           hintText: widget.hintText,
-//           // labelStyle: TextStyle(
-//           //     fontSize: widget.labelFontSize,
-//           //     fontWeight: FontWeight.w700,
-//           //     color: ColorManager.mediumgrey),
-//
-//           // errorText: widget.errorText,
-//           // validator: validator,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-///clinical ropdown
-class PatientCustomDropDown extends StatefulWidget {
-  final String? value;
-  final List<String> items;
-  final String labelText;
-  final String? hintText;
-  final TextStyle? labelStyle;
-  final double? labelFontSize;
-  final void Function(String?)? onChanged;
-  final double? width;
-  final double? height;
-  final String? initialValue;
-  PatientCustomDropDown({
-    super.key,
-    this.value,
-    required this.items,
-    required this.labelText,
-    this.labelStyle,
-    this.labelFontSize,
-    this.onChanged,
-    this.width,
-    this.height,
-    this.initialValue,
-    this.hintText,
-  });
-
-  @override
-  State<PatientCustomDropDown> createState() => _PatientCustomDropDownState();
-}
-
-class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
-  late String? _selectedValue;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedValue = widget.value;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 170,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-            color: const Color(0xff686464).withOpacity(0.5),
-            width: 1), // Black border
-        borderRadius: BorderRadius.circular(6), // Rounded corners
-      ),
-      height: 31,
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
-      child: DropdownButtonFormField<String>(
-          icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey,),
-          value: _selectedValue,
-          items: widget.items.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(
-                value,
-                style: SearchDropdownConst.customTextStyle(context),
-              ),
-            );
-          }).toList(),
-          onChanged: (newValue) {
-            setState(() {
-              _selectedValue = newValue;
-            });
-            if (widget.onChanged != null) {
-              widget.onChanged!(newValue);
-            }
-          },
-          style: SearchDropdownConst.customTextStyle(context),
-          isExpanded: true,
-          decoration: const InputDecoration.collapsed(hintText: '')),
-    );
-  }
-}
-
-
-
-
-
-
-
-/////////////
-
-///dont delete it is perfectly fine working dropdown code
-// class PatientCustomDropDown extends StatefulWidget {
-//   final String? value;
-//   final List<String> items;
-//   final String labelText;
-//   final String? hintText;
-//  // final TextStyle? labelStyle;
-//   final double? labelFontSize;
-//   final void Function(String?)? onChanged;
-//   final double? width;
-//   final double? height;
-//   final String? initialValue;
-//
-//   const PatientCustomDropDown({
-//     super.key,
-//     this.value,
-//     required this.items,
-//     required this.labelText,
-//    // this.labelStyle,
-//     this.labelFontSize,
-//     this.onChanged,
-//     this.width,
-//     this.height,
-//     this.initialValue,
-//     this.hintText,
-//   });
-//
-//   @override
-//   State<PatientCustomDropDown> createState() => _PatientCustomDropDownState();
-// }
-//
-// class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
-//   late String? _selectedValue;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _selectedValue = widget.value;
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return DropdownButtonHideUnderline(
-//       child: DropdownButton2<String>(
-//         value: _selectedValue,
-//         hint: Text(
-//           widget.hintText ?? '',
-//           style: SearchDropdownConst.customTextStyle(context),
-//         ),
-//         items: widget.items.map((String value) {
-//           return DropdownMenuItem<String>(
-//             value: value,
-//             child: Text(
-//               value,
-//               style: SearchDropdownConst.customTextStyle(context),
-//             ),
-//           );
-//         }).toList(),
-//         onChanged: (newValue) {
-//           setState(() {
-//             _selectedValue = newValue;
-//           });
-//           if (widget.onChanged != null) {
-//             widget.onChanged!(newValue);
-//           }
-//         },
-//         buttonStyleData: ButtonStyleData(
-//           height: widget.height ?? 30,
-//           width: widget.width ?? 170,
-//           padding: const EdgeInsets.symmetric(horizontal: 12),
-//           decoration: BoxDecoration(
-//             color: Colors.white,
-//             border: Border.all(
-//               color: const Color(0xff686464).withOpacity(0.5),
-//               width: 1,
-//             ),
-//             borderRadius: BorderRadius.circular(6),
-//           )
-//         ),
-//         iconStyleData: IconStyleData(
-//           icon: Icon(
-//             Icons.arrow_drop_down_sharp,
-//             color: ColorManager.mediumgrey,
-//           ),
-//           iconSize: 24,
-//         ),
-//         dropdownStyleData: DropdownStyleData(
-//           maxHeight: 200,
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(6),
-//             color: Colors.white,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-//
-
-
-
-
-///
-class CustomDropdownTextFieldpp<T> extends StatefulWidget {
-  final T? value; // Changed to generic type
-  final List<T>? items; // Changed to generic type
-  final String Function(T)? itemLabel; // Function to get the label from the item
-  final String headText;
-  final void Function(T?)? onChanged;
-  final double? width;
-  final double? height;
-  final T? initialValue;
-
-  const CustomDropdownTextFieldpp({
-    Key? key,
-    required this.headText,
-    this.value,
-    this.items,
-    required this.itemLabel,
-    this.onChanged,
-    this.width,
-    this.height,
-    this.initialValue,
-  }) : super(key: key);
-
-  @override
-  _CustomDropdownTextFieldppState<T> createState() =>
-      _CustomDropdownTextFieldppState<T>();
-}
-
-class _CustomDropdownTextFieldppState<T>
-    extends State<CustomDropdownTextFieldpp<T>> {
-  late T? _selectedValue;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedValue = widget.initialValue ?? widget.value;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 5.0),
-          child: Text(
-            widget.headText,
-            style: AllPopupHeadings.customTextStyle(context),
-          ),
-        ),
-        SizedBox(
-          width: widget.width ?? AppSize.s250,
-          height: widget.height ?? AppSize.s40,
-          child: Padding(
-            padding: const EdgeInsets.all(AppPadding.p5),
-            child: DropdownButtonFormField<T>(
-              icon: Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey),
-              ),
-              value: _selectedValue,
-              items: _buildDropdownMenuItems(),
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedValue = newValue;
-                });
-                if (widget.onChanged != null) {
-                  widget.onChanged!(newValue);
-                }
-              },
-              isExpanded: true,
-              decoration: InputDecoration(
-                hoverColor: ColorManager.white,
-                contentPadding: EdgeInsets.only(
-                  bottom: AppPadding.p3,
-                  top: AppPadding.p5,
-                  left: 4,
-                ),
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: ColorManager.black),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // Build dropdown items based on the items provided
-  List<DropdownMenuItem<T>> _buildDropdownMenuItems() {
-    if (widget.items == null || widget.items!.isEmpty) return [];
-
-    return widget.items!.map((T item) {
-      return DropdownMenuItem<T>(
-        value: item,
-        child: Text(
-          widget.itemLabel!(item), // Use the itemLabel function to get the display text
-          style: DocumentTypeDataStyle.customTextStyle(context),
-        ),
-      );
-    }).toList();
-  }
-}
