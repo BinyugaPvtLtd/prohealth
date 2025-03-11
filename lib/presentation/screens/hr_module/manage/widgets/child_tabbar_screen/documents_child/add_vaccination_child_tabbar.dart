@@ -229,7 +229,6 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                                     iconSize: IconSize.I22,),
                                   SizedBox(width: AppSize.s10,),
                                   PdfDownloadButton(apiUrl: health.DocumentUrl, documentName: health.documentFileName,),
-                                  ///
                                   SizedBox(width: AppSize.s10,),
                                   IconButton(
                                     onPressed: () {
