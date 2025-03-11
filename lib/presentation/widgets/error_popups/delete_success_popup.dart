@@ -59,6 +59,9 @@ class _DeleteSuccessPopupState extends State<DeleteSuccessPopup> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {},
                     icon: Icon(Icons.close, color: ColorManager.white),
                   ),

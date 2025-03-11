@@ -31,6 +31,7 @@ import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 
 class CompensationChildTabbar extends StatelessWidget {
@@ -326,15 +327,14 @@ class CompensationChildTabbar extends StatelessWidget {
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
-                                      onPressed: () async {
-                                        await showDialog(
+                                      onPressed: ()  {
+                                         showDialog(
                                             context: context,
                                             builder: (context) =>
                                                 StatefulBuilder(
                                                   builder: (BuildContext
                                                           context,
-                                                      void Function(
-                                                              void Function())
+                                                      void Function(void Function())
                                                           setState) {
                                                     return DeletePopup(
                                                       loadingDuration:
@@ -347,17 +347,24 @@ class CompensationChildTabbar extends StatelessWidget {
                                                           _isLoading = true;
                                                         });
                                                         try {
-                                                          await deleteEmployeeDocuments(
+                                                       var response = await deleteEmployeeDocuments(
                                                               context: context,
                                                               empDocumentId:
                                                                   compaensation
                                                                       .employeeDocumentId);
+                                                          if(response.statusCode == 200  || response.statusCode == 201) {
+                                                            Navigator.pop(context);
+                                                            // await Future.delayed(Duration(milliseconds: 300));
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => DeleteSuccessPopup(),
+                                                            );
+                                                          }
                                                         } finally {
                                                           setState(() {
                                                             _isLoading = false;
                                                           });
-                                                          Navigator.pop(
-                                                              context);
+                                                        //  Navigator.pop(context);
                                                         }
                                                         // setState(() async{
                                                         //

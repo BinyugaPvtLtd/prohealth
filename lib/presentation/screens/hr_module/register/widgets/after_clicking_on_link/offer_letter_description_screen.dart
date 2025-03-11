@@ -447,6 +447,9 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                   ),
                   Center(
                     child: IconButton(
+                      hoverColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                       onPressed: () {
                         Navigator.pop(context);
                       },

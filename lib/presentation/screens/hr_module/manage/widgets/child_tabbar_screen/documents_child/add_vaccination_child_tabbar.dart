@@ -21,6 +21,7 @@ import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import 'dart:typed_data';
 class AdditionalVaccinationsChildBar extends StatelessWidget {
@@ -228,7 +229,6 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                                     iconSize: IconSize.I22,),
                                   SizedBox(width: AppSize.s10,),
                                   PdfDownloadButton(apiUrl: health.DocumentUrl, documentName: health.documentFileName,),
-                                  ///
                                   SizedBox(width: AppSize.s10,),
                                   IconButton(
                                     onPressed: () {
@@ -280,8 +280,8 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                                     iconSize: IconSize.I22,),
                                   SizedBox(width: AppSize.s10,),
                                   IconButton(
-                                    onPressed: () async{
-                                      await showDialog(context: context,
+                                    onPressed: () {
+                                       showDialog(context: context,
                                           builder: (context) => StatefulBuilder(
                                             builder: (BuildContext context, void Function(void Function()) setState) {
                                               return DeletePopup(
@@ -294,12 +294,20 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                                                   _isLoading = true;
                                                 });
                                                 try{
-                                                  await deleteEmployeeDocuments(context: context, empDocumentId: health.employeeDocumentId);
+                                                 var response = await deleteEmployeeDocuments(context: context, empDocumentId: health.employeeDocumentId);
+                                                 if(response.statusCode == 200  || response.statusCode == 201) {
+                                                   Navigator.pop(context);
+                                                   // await Future.delayed(Duration(milliseconds: 300));
+                                                   showDialog(
+                                                     context: context,
+                                                     builder: (BuildContext context) => DeleteSuccessPopup(),
+                                                   );
+                                                 }
                                                 }finally{
                                                   setState(() {
                                                     _isLoading = false;
                                                   });
-                                                  Navigator.pop(context);
+                                                 // Navigator.pop(context);
                                                 }
                                                 // setState(() async{
                                                 //

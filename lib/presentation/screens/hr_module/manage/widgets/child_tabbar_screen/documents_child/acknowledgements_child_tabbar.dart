@@ -22,6 +22,7 @@ import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import '../../../../onboarding/download_doc_const.dart';
 
@@ -475,21 +476,15 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                     SizedBox(width: AppSize.s10,),
                                     ///delete
                                     IconButton(
-                                      onPressed: () async {
-                                        await showDialog(
+                                      onPressed: () {
+                                         showDialog(
                                             context: context,
                                             builder: (context) =>
                                                 StatefulBuilder(
-                                                  builder: (BuildContext
-                                                          context,
-                                                      void Function(
-                                                              void Function())
-                                                          setState) {
+                                                  builder: (BuildContext context, void Function(void Function())setState) {
                                                     return DeletePopup(
-                                                      loadingDuration:
-                                                          _isLoading,
-                                                      title:
-                                                          'Delete Acknowledgement',
+                                                      loadingDuration: _isLoading,
+                                                      title: 'Delete Acknowledgement',
                                                       onCancel: () {
                                                         Navigator.pop(context);
                                                       },
@@ -498,15 +493,19 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                                           _isLoading = true;
                                                         });
                                                         try {
-                                                          await deleteEmployeeDocuments(
+                                                         var response =  await deleteEmployeeDocuments(context: context, empDocumentId: ackData.employeeDocumentId);
+                                                          if(response.statusCode == 200  || response.statusCode == 201) {
+                                                            Navigator.pop(context);
+                                                           // await Future.delayed(Duration(milliseconds: 300));
+                                                            showDialog(
                                                               context: context,
-                                                              empDocumentId: ackData
-                                                                  .employeeDocumentId);
+                                                              builder: (BuildContext context) => DeleteSuccessPopup(),
+                                                            );
+                                                          }
                                                         } finally {
-                                                          setState(() {
+                                                         setState(() {
                                                             _isLoading = false;
-                                                            Navigator.pop(
-                                                                context);
+                                                            //Navigator.pop(context);
                                                           });
                                                         }
                                                         // setState(() async{
