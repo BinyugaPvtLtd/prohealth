@@ -49,6 +49,9 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -170,6 +173,9 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                       Navigator.pop(context);
                     },

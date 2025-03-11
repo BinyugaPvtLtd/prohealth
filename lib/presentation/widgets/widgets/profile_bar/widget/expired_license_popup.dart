@@ -48,6 +48,9 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: IconButton(
+                      hoverColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                       onPressed: () {
                         Navigator.pop(context);
                       },

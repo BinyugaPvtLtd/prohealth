@@ -440,7 +440,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                         loadingDuration: _isLoading,
                                                                         onCancel: (){
                                                                           Navigator.pop(context);
-                                                                        }, onDelete: () async{
+                                                                        },
+                                                                        onDelete: () async{
                                                                       setState(() {
                                                                         _isLoading = true;
                                                                       });
