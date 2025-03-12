@@ -43,7 +43,7 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 20),
                     child: Text(AppString.reject,
                       style:PopupBlueBarText.customTextStyle(context)
                     ),
@@ -166,7 +166,7 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 20),
                     child: Text(
                       'Approve',
                       style: PopupBlueBarText.customTextStyle(context)

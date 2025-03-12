@@ -227,6 +227,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                                       ),
                                     ))
                                     : Checkbox(
+                                  splashRadius: 0,
                                   value: _checked[index],
                                   onChanged: data.approved == null
                                       ? (value) {
