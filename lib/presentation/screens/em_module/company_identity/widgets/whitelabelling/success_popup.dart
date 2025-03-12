@@ -62,6 +62,9 @@ class _CCSuccessPopupState extends State<CCSuccessPopup> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                       // Navigator.push(context, MaterialPageRoute(builder: (context)=> WhitelabellingScreen()));
                       Navigator.of(context).pop();
@@ -149,6 +152,9 @@ class _EditSuccessPopupState extends State<EditSuccessPopup> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -228,6 +234,9 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -312,6 +321,9 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                     },
                     icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
@@ -395,6 +407,9 @@ class _CountySuccessPopupState extends State<CountySuccessPopup> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -477,6 +492,9 @@ class _AddErrorPopupState extends State<AddErrorPopup> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                       //Navigator.of(context).pop();
                     },
@@ -563,6 +581,9 @@ class _AddFailePopupState extends State<AddFailePopup> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                       //Navigator.of(context).pop();
                     },
@@ -639,6 +660,9 @@ class _offerSuccessPopupState extends State<offerSuccessPopup> {
                       ),
                     ),
                     IconButton(
+                      hoverColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                       onPressed: () {
                         //Navigator.of(context).pop();
                       },

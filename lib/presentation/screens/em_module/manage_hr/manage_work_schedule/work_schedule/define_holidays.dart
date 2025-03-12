@@ -291,12 +291,12 @@ class DefineHolidays extends StatelessWidget {
                                                             onDelete: () async {
                                                               await provider.deleteHoliday(context, defineData.holidayId);
                                                               Navigator.pop(context);
-                                                              Future.delayed(Duration(milliseconds: 300), () {
+                                                              //Future.delayed(Duration(milliseconds: 300), () {
                                                                 showDialog(
                                                                   context: context,
                                                                   builder: (_) => DeleteSuccessPopup(),
                                                                 );
-                                                              });
+                                                             // });
                                                             },
                                                           ),
                                                         );

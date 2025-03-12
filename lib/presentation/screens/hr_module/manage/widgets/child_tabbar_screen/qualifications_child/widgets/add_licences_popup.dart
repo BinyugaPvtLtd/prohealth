@@ -900,7 +900,8 @@ class EditLicencesPopup extends StatefulWidget {
     required this.onpressedClose,
     required this.onpressedSave,
     required this.title,
-    required this.child, required this.licenseId, required this.documentName,
+    required this.child, required this.licenseId,
+    required this.documentName,
   });
 
   @override
@@ -1139,22 +1140,24 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
                         color: ColorManager.blueprime,
                       ))
 
-                      :CustomElevatedButton(
+   :CustomElevatedButton(
                     width: AppSize.s100,
                     text: AppString.save,
                     onPressed: () async {
-                      // Validate file size before proceeding
-                      if (!fileAbove20Mb) {
+                      // Validate file size only if a file is picked
+                      if (pickedFile != null) {
                         // If the file is greater than 20MB, show an error dialog
-                        await showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddErrorPopup(
-                              message: 'File is too large!',
-                            );
-                          },
-                        );
-                        return; // Stop further execution if the file is too large
+                        if (!fileAbove20Mb) {
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddErrorPopup(
+                                message: 'File is too large!',
+                              );
+                            },
+                          );
+                          return; // Stop further execution if the file is too large
+                        }
                       }
 
                       setState(() {
@@ -1168,18 +1171,38 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
                         });
 
                         try {
+                          print(">>>>>>...");
+                          print(">>>>>>...");
+                          print(">>>>>>...");
+                          print(">>>>>>...");
+                          print(">>>>>>...");
+                          print(">>>>>>...");
+                          print(">>>>>>...");
+                          // Log the license ID
+                          print(">>>>License ID: ${widget.licenseId}");
+
                           // If a file is picked, upload the document
-                          if (isFilePicked) {
-                            var docResponse = await attachLicenseDocument(
+
+                            // Log the document file upload process
+                            print("Uploading document...");
+                            await attachLicenseDocument(
                               context,
                               widget.licenseId,
                               pickedFile,
                               pickedFileName!,
                             );
-                          }
+                            print("<<<<<<<<<<License ID: ${widget.licenseId}");
+                            print(">>>>>>Upload...");
+                            print(">>>>>>Upload...");
+                            print(">>>>>>Upload...");
 
                           // Proceed with saving
                           await widget.onpressedSave();
+                          print(">>>>>>U...");
+                          print(">>>>>>U...");
+                          print(">>>>>>U...");
+                          print(">>>>>>U...");
+                          print(">>>>>>U...");
                           _clearControllers();
                         } finally {
                           setState(() {
@@ -1189,6 +1212,7 @@ class _EditLicencesPopupState extends State<EditLicencesPopup> {
                       }
                     },
                   ),
+
 
 
 

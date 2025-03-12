@@ -22,30 +22,176 @@ import '../../../../whitelabelling/success_popup.dart';
 
 ///Add new popup
 
-class AddNewOrgDocButtonProviider extends ChangeNotifier{
-  bool _isFormValid = true;
-  String selectedExpiryType = AppConfig.notApplicable;
+// class AddNewOrgDocButtonProviider extends ChangeNotifier{
+//   bool _isFormValid = true;
+//   String selectedExpiryType = AppConfig.notApplicable;
+//   TextEditingController idDocController = TextEditingController();
+//   TextEditingController nameDocController = TextEditingController();
+//
+//   String? _idDocError;
+//   String? _nameDocError;
+//   String? _expiryTypeError;
+//   String? get idDocError => _idDocError;
+//   String? get nameDocError => _nameDocError;
+//   String? get expiryTypeError => _expiryTypeError;
+//   bool get isFormValid => _isFormValid;
+//   String? selectedYear = AppConfig.year;
+//   bool isDropdownAvailability = false;
+//   bool loading = false;
+//
+//   TextEditingController daysController = TextEditingController(text: "1");
+//   void updateExpiryTypeBasedOnDocSelection(int docTypeId, int subDocTypeId) {
+//     if (docTypeId == AppConfig.vendorContracts && subDocTypeId == AppConfig.subDocId10MISC) {
+//       selectedExpiryType = AppConfig.scheduled; // Default to Scheduled
+//     } else {
+//       selectedExpiryType = AppConfig.notApplicable; // Default to Not Applicable
+//     }
+//     notifyListeners();
+//   }
+//
+//   String? _validateTextField(String value, String fieldName) {
+//     if (value.isEmpty) {
+//       _isFormValid = false;
+//       return "Please Enter $fieldName";
+//     }
+//     return null;
+//   }
+//
+//   void validateForm() {
+//     _isFormValid = true;
+//
+//     _idDocError = _validateTextField(idDocController.text, 'ID of the Document');
+//     _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
+//
+//     if (selectedExpiryType == null || selectedExpiryType!.isEmpty) {
+//       _expiryTypeError = "Please select an expiry type";
+//       _isFormValid = false;
+//     } else {
+//       _expiryTypeError = null;
+//     }
+//
+//     notifyListeners();
+//   }
+//
+//   void setupTextFieldListeners() {
+//     idDocController.addListener(() {
+//       if (idDocController.text.isNotEmpty) {
+//         _idDocError = null; // Hide error when user types
+//         notifyListeners();
+//       }
+//     });
+//
+//     nameDocController.addListener(() {
+//       if (nameDocController.text.isNotEmpty) {
+//         _nameDocError = null; // Hide error when user types
+//         notifyListeners();
+//       }
+//     });
+//   }
+//
+//
+// }
+///
+///
+///
+///
+// class AddNewOrgDocButtonProvider extends ChangeNotifier {
+//   String _selectedExpiryType = AppConfig.notApplicable;
+//   TextEditingController idDocController = TextEditingController();
+//   TextEditingController nameDocController = TextEditingController();
+//   TextEditingController daysController = TextEditingController(text: "1");
+//   bool loading = false;
+//   bool _isFormValid = true;
+//   String? _idDocError;
+//   String? _nameDocError;
+//   String? selectedYear = AppConfig.year;
+//   bool isDropdownAvailability = false;
+//   String get selectedExpiryType => _selectedExpiryType;
+//
+//
+//   void setSelectedExpiryType(String value) {
+//     if (_selectedExpiryType != value) {
+//       _selectedExpiryType = value;
+//       notifyListeners(); // Ensure UI updates
+//     }
+//   }
+//
+//   String? _validateTextField(String value, String fieldName) {
+//     if (value.isEmpty) {
+//       _isFormValid = false;
+//       return "Please Enter $fieldName";
+//     }
+//     return null;
+//   }
+//
+//   void validateForm() {
+//     _isFormValid = true;
+//     _idDocError = _validateTextField(idDocController.text, 'ID of the Document');
+//     _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
+//
+//     // if (selectedExpiryType == null || selectedExpiryType!.isEmpty) {
+//     //   _expiryTypeError = "Please select an expiry type";
+//     //   _isFormValid = false;
+//     // } else {
+//     //   _expiryTypeError = null;
+//     // }
+//     notifyListeners();
+//   }
+//
+//   void setupTextFieldListeners() {
+//     idDocController.addListener(() {
+//       if (idDocController.text.isNotEmpty) {
+//         _idDocError = null; // Hide error when user types
+//         notifyListeners();
+//       }
+//     });
+//
+//     nameDocController.addListener(() {
+//       if (nameDocController.text.isNotEmpty) {
+//         _nameDocError = null; // Hide error when user types
+//         notifyListeners();
+//       }
+//     });
+//   }
+// }
+class AddNewOrgDocButtonProvider extends ChangeNotifier {
+  String _selectedExpiryType = AppConfig.notApplicable;
   TextEditingController idDocController = TextEditingController();
   TextEditingController nameDocController = TextEditingController();
-
+  TextEditingController daysController = TextEditingController(text: "1");
+  bool loading = false;
+  bool _isFormValid = true;
   String? _idDocError;
   String? _nameDocError;
-  String? _expiryTypeError;
-  String? get idDocError => _idDocError;
-  String? get nameDocError => _nameDocError;
-  String? get expiryTypeError => _expiryTypeError;
-  bool get isFormValid => _isFormValid;
   String? selectedYear = AppConfig.year;
   bool isDropdownAvailability = false;
-  bool loading = false;
+  String get selectedExpiryType => _selectedExpiryType;
 
-  TextEditingController daysController = TextEditingController(text: "1");
-  void updateExpiryTypeBasedOnDocSelection(int docTypeId, int subDocTypeId) {
+  AddNewOrgDocButtonProvider({required int docTypeId, required int subDocTypeId}) {
+    debugPrint("Initializing Provider with docTypeId: $docTypeId, subDocTypeId: $subDocTypeId");
+
+    // Set selectedExpiryType based on conditions
     if (docTypeId == AppConfig.vendorContracts && subDocTypeId == AppConfig.subDocId10MISC) {
-      selectedExpiryType = AppConfig.scheduled; // Default to Scheduled
+      _selectedExpiryType = AppConfig.scheduled;
+      debugPrint("Setting expiry type to: Scheduled");
     } else {
-      selectedExpiryType = AppConfig.notApplicable; // Default to Not Applicable
+      _selectedExpiryType = AppConfig.notApplicable;
+      debugPrint("Setting expiry type to: Not Applicable");
     }
+    notifyListeners();
+  }
+
+  void setSelectedExpiryType(String value) {
+    if (_selectedExpiryType != value) {
+      _selectedExpiryType = value;
+      notifyListeners(); // Ensure UI updates
+    }
+  }
+
+  void validateForm() {
+    _isFormValid = true;
+    _idDocError = _validateTextField(idDocController.text, 'ID of the Document');
+    _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
     notifyListeners();
   }
 
@@ -57,39 +203,21 @@ class AddNewOrgDocButtonProviider extends ChangeNotifier{
     return null;
   }
 
-  void validateForm() {
-    _isFormValid = true;
-
-    _idDocError = _validateTextField(idDocController.text, 'ID of the Document');
-    _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
-
-    if (selectedExpiryType == null || selectedExpiryType!.isEmpty) {
-      _expiryTypeError = "Please select an expiry type";
-      _isFormValid = false;
-    } else {
-      _expiryTypeError = null;
-    }
-
-    notifyListeners();
-  }
-
   void setupTextFieldListeners() {
     idDocController.addListener(() {
       if (idDocController.text.isNotEmpty) {
-        _idDocError = null; // Hide error when user types
+        _idDocError = null;
         notifyListeners();
       }
     });
 
     nameDocController.addListener(() {
       if (nameDocController.text.isNotEmpty) {
-        _nameDocError = null; // Hide error when user types
+        _nameDocError = null;
         notifyListeners();
       }
     });
   }
-
-
 }
 
 class AddNewOrgDocButton extends StatelessWidget {
@@ -104,24 +232,17 @@ class AddNewOrgDocButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AddNewOrgDocButtonProviider>(builder: (context, provider, child){
-      provider.setupTextFieldListeners();
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        provider.updateExpiryTypeBasedOnDocSelection(docTypeId, subDocTypeId);
-      });
-      // provider.updateExpiryTypeBasedOnDocSelection(docTypeId, subDocTypeId);
-      return DialogueTemplate(
-        width: AppSize.s420,
-        height: subDocTypeId == AppConfig.subDocId10MISC
-            ? height ?? AppSize.s530
-            : docTypeId == AppConfig.policiesAndProcedure
-            ? height ??AppSize.s540
-            : height ??AppSize.s610,
-        body: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppPadding.p10,
-            ),
+    return Consumer<AddNewOrgDocButtonProvider>(
+      builder: (context, provider, child) {
+        return DialogueTemplate(
+          width: AppSize.s420,
+          height: subDocTypeId == AppConfig.subDocId10MISC
+              ? height ?? AppSize.s530
+              : docTypeId == AppConfig.policiesAndProcedure
+              ? height ??AppSize.s540
+              : height ??AppSize.s610,
+          body: [ Padding(
+            padding: const EdgeInsets.only(left: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -130,24 +251,26 @@ class AddNewOrgDocButton extends StatelessWidget {
                   controller: provider.idDocController,
                   keyboardType: TextInputType.text,
                   text: AppString.id_of_the_document,
+                  onChange: (){provider.setupTextFieldListeners();},
                 ),
                 provider._idDocError != null ? // Display error if any
-                  Text(
-                    provider._idDocError!,
-                    style:CommonErrorMsg.customTextStyle(context),
-                  ) : SizedBox(height: AppSize.s12,),
+                Text(
+                  provider._idDocError!,
+                  style:CommonErrorMsg.customTextStyle(context),
+                ) : SizedBox(height: AppSize.s12,),
                 SizedBox(height: AppSize.s3,),
                 /// Name of the Document
                 SMTextfieldAsteric(
                   controller: provider.nameDocController,
                   keyboardType: TextInputType.text,
                   text: AppString.name_of_the_document,
+                  onChange: (){provider.setupTextFieldListeners();},
                 ),
                 provider._nameDocError != null ? // Display error if any
-                  Text(
-                    provider. _nameDocError!,
-                    style:CommonErrorMsg.customTextStyle(context),
-                  ) :SizedBox(height: AppSize.s12,),
+                Text(
+                  provider. _nameDocError!,
+                  style:CommonErrorMsg.customTextStyle(context),
+                ) :SizedBox(height: AppSize.s12,),
                 SizedBox(height: AppSize.s3,),
                 /// Type of the Document
                 HeaderContentConst(
@@ -180,10 +303,10 @@ class AddNewOrgDocButton extends StatelessWidget {
                   height: 1,
                 )
                     : Column(
-                      children: [
-                        HeaderContentConst(
-                          heading: AppString.sub_type_of_the_document,
-                          content: Container(
+                  children: [
+                    HeaderContentConst(
+                      heading: AppString.sub_type_of_the_document,
+                      content: Container(
                         width: AppSize.s354,
                         height: AppSize.s30,
                         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -202,63 +325,81 @@ class AddNewOrgDocButton extends StatelessWidget {
                             ),
                           ],
                         ),
-                          ),
-                        ),
-                        SizedBox(height: AppSize.s8,),
-                      ],
+                      ),
                     ),
-                /// Radio Button Section
+                    SizedBox(height: AppSize.s8,),
+                  ],
+                ),
+
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  padding: const EdgeInsets.only(left: 4.0),
                   child: Row(
                     children: [
                       HeaderContentConst(
-                        isAsterisk: true,
-                        heading: AppString.expiry_type,
-                        content: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Offstage if subDocTypeId matches
-                            subDocTypeId == AppConfig.subDocId10MISC
-                                ? Offstage()
-                                : CustomRadioListTile(
-                              value: AppConfig.notApplicable,
-                              groupValue: provider.selectedExpiryType,
-                              onChanged: (value) {
-                                provider.selectedExpiryType = value!;
-                                provider.notifyListeners(); // Notify listeners to rebuild UI
-                              },
-                              title: AppConfig.notApplicable,
-                            ),
-                            CustomRadioListTile(
-                              value: AppConfig.scheduled,
-                              groupValue: provider.selectedExpiryType,
-                              onChanged: (value) {
-                                provider.selectedExpiryType = value!;
-                                provider.notifyListeners(); // Notify listeners to rebuild UI
-                              },
-                              title: AppConfig.scheduled,
-                            ),
-                            subDocTypeId == AppConfig.subDocId10MISC
-                                ? Offstage()
-                                : CustomRadioListTile(
-                              value: AppConfig.issuer,
-                              groupValue: provider.selectedExpiryType,
-                              onChanged: (value) {
-                                provider.selectedExpiryType = value!;
-                                provider.notifyListeners(); // Notify listeners to rebuild UI
-                              },
-                              title: AppConfig.issuer,
-                            ),
-                            // provider.expiryTypeError != null ?
-                            //   Text(
-                            //     provider.expiryTypeError!,
-                            //     style: CommonErrorMsg.customTextStyle(context),
-                            //   ) : SizedBox(height: 10,),
-                          ],
-                        ),
-                      ),
+                          isAsterisk: true,
+                          heading: AppString.expiry_type,
+                          content: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+                              subDocTypeId == AppConfig.subDocId10MISC
+                                  ? Offstage()
+                                  : Row(
+                                children: [
+                                  Radio<String>(
+                                    splashRadius: 0,
+                                    activeColor: ColorManager.bluebottom,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    value: AppConfig.notApplicable,
+                                    groupValue: provider.selectedExpiryType,
+                                    onChanged: (String? value) {
+                                      provider.setSelectedExpiryType(value!);
+                                    },
+                                  ),
+                                  Text("Not Applicable"),
+                                ],
+                              ),
+
+                              // Scheduled
+                              Row(
+                                children: [
+                                  Radio<String>(
+                                    splashRadius: 0,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    activeColor: ColorManager.bluebottom,
+                                    value: AppConfig.scheduled,
+                                    groupValue: provider.selectedExpiryType,
+                                    onChanged: (String? value) {
+                                      provider.setSelectedExpiryType(value!);
+                                    },
+                                  ),
+                                  Text("Scheduled"),
+                                ],
+                              ),
+
+                              subDocTypeId == AppConfig.subDocId10MISC
+                                  ? Offstage()
+                                  : Row(
+                                children: [
+                                  Radio<String>(
+                                    splashRadius: 0,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    activeColor: ColorManager.bluebottom,
+                                    value: AppConfig.issuer,
+                                    groupValue: provider.selectedExpiryType,
+                                    onChanged: (String? value) {
+                                      provider.setSelectedExpiryType(value!);
+                                    },
+                                  ),
+                                  Text("Issuer"),
+                                ],
+                              ),
+                            ],
+                          )),
                       Padding(
                         padding: const EdgeInsets.only(
                           left: AppPadding.p20,
@@ -380,12 +521,12 @@ class AddNewOrgDocButton extends StatelessWidget {
                     ],
                   ),
                 ),
+
               ],
             ),
-          )
+          ),
         ],
-        bottomButtons:
-        provider.loading == true
+          bottomButtons: provider.loading == true
             ? SizedBox(
           height: AppSize.s30,
           width: AppSize.s30,
@@ -398,11 +539,9 @@ class AddNewOrgDocButton extends StatelessWidget {
           height: AppSize.s30,
           text: AppStringEM.add,
           onPressed: () async {
-            provider.validateForm(); // Validate the form on button press
+           provider.validateForm();
             if (provider._isFormValid) {
-                provider.loading = true;
-                provider.notifyListeners();
-
+              provider.loading = true;
               int threshold = 0;
               if (provider.selectedExpiryType == AppConfig.scheduled &&
                   provider.daysController.text.isNotEmpty) {
@@ -451,16 +590,377 @@ class AddNewOrgDocButton extends StatelessWidget {
                   );
                 }
               } finally {
-                  provider.loading = false;
-                  provider.notifyListeners();
+                provider.loading = false;
+                provider.notifyListeners();
               }
             }
           },
         ),
-        title: title,
-      );
-    });
+          title: title,
+        );
+      },
+    );
   }
+
+// @override
+//   Widget build(BuildContext context) {
+//     return Consumer<AddNewOrgDocButtonProviider>(builder: (context, provider, child){
+//       provider.setupTextFieldListeners();
+//       WidgetsBinding.instance.addPostFrameCallback((_) {
+//         provider.updateExpiryTypeBasedOnDocSelection(docTypeId, subDocTypeId);
+//       });
+//       // provider.updateExpiryTypeBasedOnDocSelection(docTypeId, subDocTypeId);
+//       return DialogueTemplate(
+//         width: AppSize.s420,
+//         height: subDocTypeId == AppConfig.subDocId10MISC
+//             ? height ?? AppSize.s530
+//             : docTypeId == AppConfig.policiesAndProcedure
+//             ? height ??AppSize.s540
+//             : height ??AppSize.s610,
+//         body: [
+//           Padding(
+//             padding: const EdgeInsets.symmetric(
+//               horizontal: AppPadding.p10,
+//             ),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 /// ID of the Document
+//                 SMTextfieldAsteric(
+//                   controller: provider.idDocController,
+//                   keyboardType: TextInputType.text,
+//                   text: AppString.id_of_the_document,
+//                 ),
+//                 provider._idDocError != null ? // Display error if any
+//                   Text(
+//                     provider._idDocError!,
+//                     style:CommonErrorMsg.customTextStyle(context),
+//                   ) : SizedBox(height: AppSize.s12,),
+//                 SizedBox(height: AppSize.s3,),
+//                 /// Name of the Document
+//                 SMTextfieldAsteric(
+//                   controller: provider.nameDocController,
+//                   keyboardType: TextInputType.text,
+//                   text: AppString.name_of_the_document,
+//                 ),
+//                 provider._nameDocError != null ? // Display error if any
+//                   Text(
+//                     provider. _nameDocError!,
+//                     style:CommonErrorMsg.customTextStyle(context),
+//                   ) :SizedBox(height: AppSize.s12,),
+//                 SizedBox(height: AppSize.s3,),
+//                 /// Type of the Document
+//                 HeaderContentConst(
+//                   // isAsterisk: true,
+//                   heading: AppString.type_of_the_document,
+//                   content: Container(
+//                     width: AppSize.s354,
+//                     height: AppSize.s30,
+//                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+//                     decoration: BoxDecoration(
+//                       color: ColorManager.white,
+//                       borderRadius: BorderRadius.circular(8),
+//                       border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+//                     ),
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: [
+//                         Text(
+//                           docTypeText,
+//                           style: TableSubHeading.customTextStyle(context),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//                 SizedBox(height: AppSize.s8,),
+//                 /// Sub Type of the Document
+//                 docTypeId == AppConfig.policiesAndProcedure
+//                     ? SizedBox(
+//                   height: 1,
+//                 )
+//                     : Column(
+//                       children: [
+//                         HeaderContentConst(
+//                           heading: AppString.sub_type_of_the_document,
+//                           content: Container(
+//                         width: AppSize.s354,
+//                         height: AppSize.s30,
+//                         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+//                         decoration: BoxDecoration(
+//                           color: ColorManager.white,
+//                           borderRadius: BorderRadius.circular(8),
+//                           border:
+//                           Border.all(color: ColorManager.fmediumgrey, width: 1),
+//                         ),
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               subDocTypeText,
+//                               style: TableSubHeading.customTextStyle(context),
+//                             ),
+//                           ],
+//                         ),
+//                           ),
+//                         ),
+//                         SizedBox(height: AppSize.s8,),
+//                       ],
+//                     ),
+//                 /// Radio Button Section
+//                 Padding(
+//                   padding: const EdgeInsets.symmetric(horizontal: 2),
+//                   child: Row(
+//                     children: [
+//                       HeaderContentConst(
+//                         isAsterisk: true,
+//                         heading: AppString.expiry_type,
+//                         content: Column(
+//                           mainAxisAlignment: MainAxisAlignment.start,
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             // Offstage if subDocTypeId matches
+//                             subDocTypeId == AppConfig.subDocId10MISC
+//                                 ? Offstage()
+//                                 : CustomRadioListTile(
+//                               value: AppConfig.notApplicable,
+//                               groupValue: provider.selectedExpiryType,
+//                               onChanged: (value) {
+//                                 provider.selectedExpiryType = value!;
+//                                 provider.notifyListeners(); // Notify listeners to rebuild UI
+//                               },
+//                               title: AppConfig.notApplicable,
+//                             ),
+//                             CustomRadioListTile(
+//                               value: AppConfig.scheduled,
+//                               groupValue: provider.selectedExpiryType,
+//                               onChanged: (value) {
+//                                 provider.selectedExpiryType = value!;
+//                                 provider.notifyListeners(); // Notify listeners to rebuild UI
+//                               },
+//                               title: AppConfig.scheduled,
+//                             ),
+//                             subDocTypeId == AppConfig.subDocId10MISC
+//                                 ? Offstage()
+//                                 : CustomRadioListTile(
+//                               value: AppConfig.issuer,
+//                               groupValue: provider.selectedExpiryType,
+//                               onChanged: (value) {
+//                                 provider.selectedExpiryType = value!;
+//                                 provider.notifyListeners(); // Notify listeners to rebuild UI
+//                               },
+//                               title: AppConfig.issuer,
+//                             ),
+//                             // provider.expiryTypeError != null ?
+//                             //   Text(
+//                             //     provider.expiryTypeError!,
+//                             //     style: CommonErrorMsg.customTextStyle(context),
+//                             //   ) : SizedBox(height: 10,),
+//                           ],
+//                         ),
+//                       ),
+//                       Padding(
+//                         padding: const EdgeInsets.only(
+//                           left: AppPadding.p20,
+//                           right: AppPadding.p20,
+//                         ),
+//                         child: Visibility(
+//                           visible: provider.selectedExpiryType == AppConfig.scheduled,
+//                           child: Column(
+//                             children: [
+//                               SizedBox(height: AppSize.s20,),
+//                               Row(
+//                                 children: [
+//                                   Container(
+//                                     width: AppSize.s50,
+//                                     height: AppSize.s30,
+//                                     //color: ColorManager.red,
+//                                     child: TextFormField(
+//                                       textAlign: TextAlign.center,
+//                                       controller: provider.daysController, // Use the controller initialized with "1"
+//                                       cursorColor: ColorManager.black,
+//                                       cursorWidth: 1,
+//                                       style: DocumentTypeDataStyle.customTextStyle(context),
+//                                       decoration: InputDecoration(
+//                                         enabledBorder: OutlineInputBorder(
+//                                           borderSide: BorderSide(
+//                                               color: Colors.grey,
+//                                               width: 1),
+//                                           borderRadius: BorderRadius.circular(4),
+//                                         ),
+//                                         focusedBorder: OutlineInputBorder(
+//                                           borderSide: BorderSide(
+//                                               color: Colors.grey,
+//                                               width: 1),
+//                                           borderRadius: BorderRadius.circular(4),
+//                                         ),
+//                                         contentPadding: EdgeInsets.symmetric(horizontal: 10),
+//                                       ),
+//                                       keyboardType: TextInputType.number,
+//                                       inputFormatters: [
+//                                         FilteringTextInputFormatter
+//                                             .digitsOnly, // This ensures only digits are accepted
+//                                       ],
+//                                     ),
+//                                   ),
+//                                   SizedBox(width: AppSize.s10,),
+//                                   Container(
+//                                     width: AppSize.s80,
+//                                     height: AppSize.s30,
+//                                     child:CustomDropdownTextFieldwidh(
+//                                       items: [
+//                                         AppConfig.year,
+//                                         AppConfig.month,
+//                                       ],
+//
+//                                       // labelStyle: SearchDropdownConst.customTextStyle(context),
+//                                       onChanged: (value) {
+//                                         //  setState(() {
+//                                         provider.selectedYear = value;
+//                                         provider.isDropdownAvailability = true;
+//                                         provider.notifyListeners();
+//                                         print("Year,month Status :: ${provider.selectedYear}");
+//                                         //  });
+//                                       },
+//                                     ),
+//                                   )
+//                                   // Container(
+//                                   //   width: AppSize.s80,
+//                                   //   height: AppSize.s30,
+//                                   //   padding: EdgeInsets.symmetric(horizontal: 5),
+//                                   //   decoration: BoxDecoration(
+//                                   //     border:
+//                                   //     Border.all(color: ColorManager.fmediumgrey),
+//                                   //     borderRadius: BorderRadius.circular(8),
+//                                   //   ),
+//                                   //   child: DropdownButtonFormField<String>(
+//                                   //     value:
+//                                   //     provider.selectedYear, // Initial value (you should define this variable)
+//                                   //     items: [
+//                                   //       DropdownMenuItem(
+//                                   //         value: AppConfig.year,
+//                                   //         child: Text(
+//                                   //           AppConfig.year,
+//                                   //           style: DocumentTypeDataStyle.customTextStyle(context),
+//                                   //         ),
+//                                   //       ),
+//                                   //       DropdownMenuItem(
+//                                   //         value: AppConfig.month,
+//                                   //         child: Text(
+//                                   //           AppConfig.month,
+//                                   //           style:DocumentTypeDataStyle.customTextStyle(context),
+//                                   //         ),
+//                                   //       ),
+//                                   //     ],
+//                                   //     onChanged: (value) {
+//                                   //         provider.selectedYear = value;
+//                                   //         provider.notifyListeners();
+//                                   //
+//                                   //     },
+//                                   //     decoration: InputDecoration(
+//                                   //       enabledBorder: InputBorder.none,
+//                                   //       focusedBorder: InputBorder.none,
+//                                   //       hintText: AppConfig.year,
+//                                   //       hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+//                                   //       contentPadding: EdgeInsets.only(bottom: 20),
+//                                   //     ),
+//                                   //     icon: Icon(
+//                                   //       Icons.arrow_drop_down,
+//                                   //       color: ColorManager.black,
+//                                   //       size: 16,
+//                                   //     ),
+//                                   //   ),
+//                                   // ),
+//                                 ],
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           )
+//         ],
+//         bottomButtons:
+//         provider.loading == true
+//             ? SizedBox(
+//           height: AppSize.s30,
+//           width: AppSize.s30,
+//           child: CircularProgressIndicator(
+//             color: ColorManager.blueprime,
+//           ),
+//         )
+//             : CustomElevatedButton(
+//           width: AppSize.s105,
+//           height: AppSize.s30,
+//           text: AppStringEM.add,
+//           onPressed: () async {
+//             provider.validateForm(); // Validate the form on button press
+//             if (provider._isFormValid) {
+//                 provider.loading = true;
+//                 provider.notifyListeners();
+//
+//               int threshold = 0;
+//               if (provider.selectedExpiryType == AppConfig.scheduled &&
+//                   provider.daysController.text.isNotEmpty) {
+//                 int enteredValue = int.parse(provider.daysController.text);
+//                 if (provider.selectedYear == AppConfig.year) {
+//                   threshold = enteredValue * 365;
+//                 } else if (provider.selectedYear == AppConfig.month) {
+//                   threshold = enteredValue * 30;
+//                 }
+//               }
+//               try {
+//                 var response =  await addNewOrgDocumentPost(
+//                     context: context,
+//                     docName: provider.nameDocController.text,
+//                     docTypeID: docTypeId,
+//                     docSubTypeID: subDocTypeId,
+//                     threshold: threshold,
+//                     expiryType: provider.selectedExpiryType.toString(),
+//                     expiryDate: null, //expiryTypeToSend,
+//                     expiryReminder: provider.selectedExpiryType.toString(),
+//                     idOfDoc: provider.idDocController.text);
+//                 // await getNewOrgDocument(context);
+//                 if(response.statusCode == 200 || response.statusCode == 201) {
+//                   Navigator.pop(context);
+//                   showDialog(
+//                     context: context,
+//                     builder: (BuildContext context) {
+//                       return AddSuccessPopup(
+//                         message: 'Added Successfully',
+//                       );
+//                     },
+//                   );
+//                 }
+//                 else if(response.statusCode == 400 || response.statusCode == 404){
+//                   Navigator.pop(context);
+//                   showDialog(
+//                     context: context,
+//                     builder: (BuildContext context) => const FourNotFourPopup(),
+//                   );
+//                 }
+//                 else {
+//                   Navigator.pop(context);
+//                   showDialog(
+//                     context: context,
+//                     builder: (BuildContext context) => FailedPopup(text: response.message),
+//                   );
+//                 }
+//               } finally {
+//                   provider.loading = false;
+//                   provider.notifyListeners();
+//               }
+//             }
+//           },
+//         ),
+//         title: title,
+//       );
+//     });
+//   }
 }
 
 ///edit

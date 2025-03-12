@@ -157,9 +157,7 @@ class BankingHeadTabbar extends StatelessWidget {
                                                     EmployeeBankingPrefillData>(
                                                 future:
                                                     getPrefillEmployeeBancking(
-                                                        context,
-                                                        snapshot.data![index]
-                                                            .empBankingId),
+                                                        context, snapshot.data![index].empBankingId),
                                                 builder:
                                                     (context, snapshotPrefill) {
                                                   if (snapshotPrefill
@@ -173,6 +171,7 @@ class BankingHeadTabbar extends StatelessWidget {
                                                       ),
                                                     );
                                                   }
+                                                  var bankid = snapshotPrefill.data!.empBankingId;
                                                   var bankName = snapshotPrefill
                                                       .data!.
                                                   bankName;
@@ -228,7 +227,7 @@ class BankingHeadTabbar extends StatelessWidget {
 
                                                   return EditBankingPopUp(
                                                     title: 'Edit Banking',
-                                                    banckId: index,
+                                                    banckId: bankid,
                                                     effectiveDateController:
                                                         effectiveDateController,
                                                     bankNameController:
@@ -244,57 +243,28 @@ class BankingHeadTabbar extends StatelessWidget {
                                                     selectedType: selectedType,
                                                     onPressed:
                                                         (gropvalue) async {
-                                                      var response =
-                                                          await PatchEmployeeBanking(
-                                                              context,
-                                                              snapshot
-                                                                  .data![index]
-                                                                  .empBankingId,
-                                                              snapshotPrefill
-                                                                  .data!
-                                                                  .employeeId,
-                                                              accountNumber ==
-                                                                      accountNumberController
-                                                                          .text
-                                                                  ? accountNumber
-                                                                      .toString()
-                                                                  : accountNumberController
-                                                                      .text,
-                                                              bankName ==
-                                                                      bankNameController
-                                                                          .text
-                                                                  ? bankName
-                                                                      .toString()
-                                                                  : bankNameController
-                                                                      .text,
+                                                      var response = await PatchEmployeeBanking(context,
+                                                              snapshot.data![index].empBankingId,
+                                                              snapshotPrefill.data!.employeeId,
+                                                              accountNumber == accountNumberController.text
+                                                                  ? accountNumber.toString()
+                                                                  : accountNumberController.text,
+                                                              bankName == bankNameController.text
+                                                                  ? bankName.toString()
+                                                                  : bankNameController.text,
                                                               amount == int.parse(specificAmountController.text)
                                                                   ? amount
-                                                                  : int.parse(
-                                                                      specificAmountController
-                                                                          .text),
-                                                              snapshotPrefill
-                                                                  .data!
-                                                                  .checkUrl,
-                                                              effectiveDate ==
-                                                                      effectiveDateController
-                                                                          .text
-                                                                  ? effectiveDate
-                                                                      .toString()
-                                                                  : effectiveDateController
-                                                                      .text,
-                                                              routingNumber ==
-                                                                      routingNumberController
-                                                                          .text
-                                                                  ? routingNumber
-                                                                      .toString()
-                                                                  : routingNumberController
-                                                                      .text,
-                                                              snapshotPrefill
-                                                                  .data!
-                                                                  .percentage,
+                                                                  : int.parse(specificAmountController.text),
+                                                              snapshotPrefill.data!.checkUrl,
+                                                              effectiveDate == effectiveDateController.text
+                                                                  ? effectiveDate.toString()
+                                                                  : effectiveDateController.text,
+                                                              routingNumber == routingNumberController.text
+                                                                  ? routingNumber.toString()
+                                                                  : routingNumberController.text,
+                                                              snapshotPrefill.data!.percentage,
                                                               // snapshotPrefill.data!.type.toString()
-                                                              selectedType =
-                                                                  gropvalue
+                                                              selectedType = gropvalue
 
                                                               //"Checking",
                                                               );
@@ -307,18 +277,13 @@ class BankingHeadTabbar extends StatelessWidget {
                                                           "::::;${accountNumber}");
 
                                                       //Navigator.pop(context);
-                                                      if (response.statusCode ==
-                                                              200 ||
-                                                          response.statusCode ==
-                                                              201) {
+                                                      if (response.statusCode == 200 || response.statusCode == 201) {
                                                         Navigator.pop(context);
                                                         showDialog(
                                                           context: context,
-                                                          builder: (BuildContext
-                                                              context) {
+                                                          builder: (BuildContextcontext) {
                                                             return AddSuccessPopup(
-                                                              message:
-                                                                  'Banking Edit Successfully',
+                                                              message: 'Banking Edit Successfully',
                                                             );
                                                           },
                                                         );
@@ -336,9 +301,7 @@ class BankingHeadTabbar extends StatelessWidget {
                                                           builder: (BuildContext context) => FailedPopup(text: response.message),
                                                         );
                                                       }
-                                                    }, documentName:  snapshotPrefill
-                                                      .data!
-                                                      .documentName,
+                                                    }, documentName:  snapshotPrefill.data!.documentName,
                                                   );
                                                 }));
                                   },

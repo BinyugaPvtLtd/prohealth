@@ -725,6 +725,7 @@ class _BankingFormState extends State<BankingForm> {
                                           MediaQuery.of(context).size.height /
                                               60),
                                   CustomTextFieldRegister(
+                                    isDigitSelect: true,
                                     controller: effectivecontroller,
                                     hintText: 'yyyy-mm-dd',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
@@ -938,7 +939,7 @@ class _BankingFormState extends State<BankingForm> {
                                     isDigitSelect: true,
                                     hintText: 'Enter Requested amount',
                                     controller: requestammount,
-                                    prefixText: '\$',
+                                    prefixText: '\$ ',
                                     prefixStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                     onChanged: (value){

@@ -6,6 +6,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/compan
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:provider/provider.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';

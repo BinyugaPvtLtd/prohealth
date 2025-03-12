@@ -309,7 +309,12 @@ class CiOrgDocument extends StatelessWidget {
             context: context,
             builder: (context) {
               return ChangeNotifierProvider(
-                create: (_) => AddNewOrgDocButtonProviider(),
+                create: (_) => AddNewOrgDocButtonProvider(
+                    docTypeId: provider.selectedIndex == 0
+                        ? AppConfig.corporateAndCompliance : provider.selectedIndex == 1
+                        ? AppConfig.vendorContracts : AppConfig.policiesAndProcedure,
+                  subDocTypeId: provider.selectedIndex == 2
+                      ? AppConfig.subDocId0 : provider.selectedSubDocId,),
                 child: AddNewOrgDocButton(
                   title: provider.selectedIndex == 0 ? AddPopupString.addCorporate : provider.selectedIndex == 1 ? AddPopupString.addVendor : AddPopupString.addPolicy,
                   docTypeText:  provider.selectedIndex == 0
