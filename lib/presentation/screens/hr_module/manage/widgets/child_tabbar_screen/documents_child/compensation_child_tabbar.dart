@@ -354,7 +354,7 @@ class CompensationChildTabbar extends StatelessWidget {
                                                                       .employeeDocumentId);
                                                           if(response.statusCode == 200  || response.statusCode == 201) {
                                                             Navigator.pop(context);
-                                                            // await Future.delayed(Duration(milliseconds: 300));
+                                                            Future.delayed(Duration(seconds: 1));
                                                             showDialog(
                                                               context: context,
                                                               builder: (BuildContext context) => DeleteSuccessPopup(),

@@ -48,6 +48,9 @@ class _ManageHistoryPopupState extends State<ManageHistoryPopup> {
                     ),
                   ),
                   IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onPressed: () {
                       Navigator.pop(context);
                     },
