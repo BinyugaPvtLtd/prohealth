@@ -19,7 +19,7 @@ class _DeleteSuccessPopupState extends State<DeleteSuccessPopup> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 1), () {
       if (Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
       }

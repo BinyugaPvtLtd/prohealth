@@ -813,7 +813,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
     zoneNameText = widget.zoneName;
     countyNameText = widget.countyName;
     super.initState();
-    _zoneFuture = PayRateZoneDropdown(context); // Initialize Future once
+    _zoneFuture = ZoneZipcodeDropdown(widget.officeId, context); // Initialize Future once
 
   }
   void _pickLocation() async {
@@ -1073,18 +1073,12 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             ),
                           );
                         }
-                        if(snapshotZone.hasData){
-                          List dropDown = [];
+                        if (snapshotZone.hasData) {
                           int docType = 0;
                           List<DropdownMenuItem<String>> dropDownTypesList = [];
-                          if(widget.zoneName == zoneNameText){
-                            dropDownTypesList.add(
-                                DropdownMenuItem<String>(
-                                  child: Text(zoneNameText),
-                                  value: zoneNameText,
-                                ));
-                          }
-                          for(var i in snapshotZone.data!){
+
+                          // Populate dropdown list from API response
+                          for (var i in snapshotZone.data!) {
                             dropDownTypesList.add(
                               DropdownMenuItem<String>(
                                 value: i.zoneName,
@@ -1092,24 +1086,63 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                               ),
                             );
                           }
+
                           return CICCDropdown(
                             borderRadius: 8,
-                              initialValue: dropDownTypesList[0].value,
-                              onChange: (val){
-                                for(var a in snapshotZone.data!){
-                                  if(a.zoneName == val){
-                                    zoneNameText = val;
-                                    docType = a.zoneId;
-                                    print("ZONE id :: ${a.zoneId}");
-                                    docZoneId = docType;
-                                  }
+                            initialValue: dropDownTypesList.isNotEmpty ? dropDownTypesList[0].value : null,
+                            onChange: (val) {
+                              for (var a in snapshotZone.data!) {
+                                if (a.zoneName == val) {
+                                  zoneNameText = val;
+                                  docType = a.zoneId;
+                                  docZoneId = docType;
+                                  print("ZONE id :: ${a.zoneId}");
                                 }
-                                print(":::${docType}");
-                                print(":::<>${docZoneId}");
-                              },
-                              items:dropDownTypesList
+                              }
+                              print(":::${docType}");
+                              print(":::<>${docZoneId}");
+                            },
+                            items: dropDownTypesList,
                           );
                         }
+
+                        // if(snapshotZone.hasData){
+                        //   List dropDown = [];
+                        //   int docType = 0;
+                        //   List<DropdownMenuItem<String>> dropDownTypesList = [];
+                        //   if(widget.zoneName == zoneNameText){
+                        //     dropDownTypesList.add(
+                        //         DropdownMenuItem<String>(
+                        //           child: Text(zoneNameText),
+                        //           value: zoneNameText,
+                        //         ));
+                        //   }
+                        //   for(var i in snapshotZone.data!){
+                        //     dropDownTypesList.add(
+                        //       DropdownMenuItem<String>(
+                        //         value: i.zoneName,
+                        //         child: Text(i.zoneName),
+                        //       ),
+                        //     );
+                        //   }
+                        //   return CICCDropdown(
+                        //     borderRadius: 8,
+                        //       initialValue: dropDownTypesList[0].value,
+                        //       onChange: (val){
+                        //         for(var a in snapshotZone.data!){
+                        //           if(a.zoneName == val){
+                        //             zoneNameText = val;
+                        //             docType = a.zoneId;
+                        //             print("ZONE id :: ${a.zoneId}");
+                        //             docZoneId = docType;
+                        //           }
+                        //         }
+                        //         print(":::${docType}");
+                        //         print(":::<>${docZoneId}");
+                        //       },
+                        //       items:dropDownTypesList
+                        //   );
+                        // }
                         return const SizedBox();
                       }
                   ),

@@ -8,6 +8,9 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/register_m
 import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:prohealth/data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 
+import '../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
+import '../../services/api/managers/establishment_manager/company_identrity_manager.dart';
+
 class HrRegisterProvider extends ChangeNotifier {
   String _selectedValue = 'Sort';
   bool _load = false;
@@ -21,6 +24,32 @@ class HrRegisterProvider extends ChangeNotifier {
   final StreamController<List<RegisterDataCompID>> _registerController = StreamController.broadcast();
   Stream<List<RegisterDataCompID>> get registerStream  => _registerController.stream;
 
+  List<AEClinicalDiscipline>? _clinicalDisciplines;
+  List<AEClinicalCity>? _clinicalCities;
+  List<CompanyOfficeListData>? _companyOffices;
+  List<AEClinicalZone>?  _zone;
+
+  List<AEClinicalDiscipline> get clinicalDisciplines => _clinicalDisciplines!;
+  List<AEClinicalCity> get clinicalCities => _clinicalCities!;
+  List<CompanyOfficeListData> get companyOffices => _companyOffices!;
+  List<AEClinicalZone> get zone => _zone!;
+
+  Future<void> fetchDropdownData(BuildContext context) async {
+    _load = true;
+    notifyListeners();
+
+    try {
+      _clinicalDisciplines = await HrAddEmplyClinicalDisciplinApi(context, 1);
+      _clinicalCities = await HrAddEmplyClinicalCityApi(context);
+      _companyOffices = await getCompanyOfficeList(context);
+      _zone = await HrAddEmplyClinicalZoneApi(context);
+    } catch (e) {
+      debugPrint("Error fetching dropdown data: $e");
+    }
+
+    _load = false;
+    notifyListeners();
+  }
 
   void loaderTrue(){
     _load = true;
@@ -89,6 +118,8 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
   String? _expiryTypeError;
   String _generatedURL = '';
   bool _load = false;
+
+  bool isLoading = true;
   List<EnrollServices> _enrollService = [];
 
 
@@ -107,8 +138,32 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
   String? get expiryTypeError => _expiryTypeError;
   bool get isFormValid => _isFormValid;
   List<EnrollServices> get enrollService => _enrollService;
+  // List<AEClinicalDiscipline>? _clinicalDisciplines;
+  // List<AEClinicalCity>? _clinicalCities;
+  // List<CompanyOfficeListData>? _companyOffices;
+  //
+  // List get clinicalDisciplines => _clinicalDisciplines!;
+  // List get clinicalCities => _clinicalCities!;
+  // List get companyOffices => _companyOffices!;
+  //
+  // Future<void> fetchDropdownData(BuildContext context) async {
+  //   isLoading = true;
+  //   notifyListeners();
+  //
+  //   try {
+  //     _clinicalDisciplines = await HrAddEmplyClinicalDisciplinApi(context, 1);
+  //     _clinicalCities = await HrAddEmplyClinicalCityApi(context);
+  //     _companyOffices = await getCompanyOfficeList(context);
+  //   } catch (e) {
+  //     debugPrint("Error fetching dropdown data: $e");
+  //   }
+  //
+  //   isLoading = false;
+  //   notifyListeners();
+  // }
 
-  void loaderTrue(){
+
+void loaderTrue(){
     _load = true;
     notifyListeners();
   }

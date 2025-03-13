@@ -49,6 +49,7 @@ class EstablishmentManagerRepository {
   static String insuranceVendorsContractPatch = "/insurance-vendor-contract";
   static String insurancevendorsContract = "/insurance-vendor-contract";
   static String zonedropdown = "/zoneDropdownByCompany";
+  static String zonezipcodedropdown = "/zoneDropdown";
   static String addPayrates = "/payrates/add";
   static String companyOfficeGetList = "/company-office";
   static String companyContactPatch = "/company-contact";
@@ -499,6 +500,12 @@ class EstablishmentManagerRepository {
   ///zone dropdown
   static String getzonedropdown({required int companyID,}) {
     return "$zone/$zonedropdown/$companyID";
+  }
+
+  ///zone dropdown zipcode prefill
+  ///zone/zoneDropdown/{companyId}/{officeId}
+  static String getzonezipcodedropdown({required int companyID,required String officeId,}) {
+    return "$zone/$zonezipcodedropdown/$companyID/$officeId";
   }
 
   /// service dropdown

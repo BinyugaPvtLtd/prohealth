@@ -22,138 +22,6 @@ import '../../../../whitelabelling/success_popup.dart';
 
 ///Add new popup
 
-// class AddNewOrgDocButtonProviider extends ChangeNotifier{
-//   bool _isFormValid = true;
-//   String selectedExpiryType = AppConfig.notApplicable;
-//   TextEditingController idDocController = TextEditingController();
-//   TextEditingController nameDocController = TextEditingController();
-//
-//   String? _idDocError;
-//   String? _nameDocError;
-//   String? _expiryTypeError;
-//   String? get idDocError => _idDocError;
-//   String? get nameDocError => _nameDocError;
-//   String? get expiryTypeError => _expiryTypeError;
-//   bool get isFormValid => _isFormValid;
-//   String? selectedYear = AppConfig.year;
-//   bool isDropdownAvailability = false;
-//   bool loading = false;
-//
-//   TextEditingController daysController = TextEditingController(text: "1");
-//   void updateExpiryTypeBasedOnDocSelection(int docTypeId, int subDocTypeId) {
-//     if (docTypeId == AppConfig.vendorContracts && subDocTypeId == AppConfig.subDocId10MISC) {
-//       selectedExpiryType = AppConfig.scheduled; // Default to Scheduled
-//     } else {
-//       selectedExpiryType = AppConfig.notApplicable; // Default to Not Applicable
-//     }
-//     notifyListeners();
-//   }
-//
-//   String? _validateTextField(String value, String fieldName) {
-//     if (value.isEmpty) {
-//       _isFormValid = false;
-//       return "Please Enter $fieldName";
-//     }
-//     return null;
-//   }
-//
-//   void validateForm() {
-//     _isFormValid = true;
-//
-//     _idDocError = _validateTextField(idDocController.text, 'ID of the Document');
-//     _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
-//
-//     if (selectedExpiryType == null || selectedExpiryType!.isEmpty) {
-//       _expiryTypeError = "Please select an expiry type";
-//       _isFormValid = false;
-//     } else {
-//       _expiryTypeError = null;
-//     }
-//
-//     notifyListeners();
-//   }
-//
-//   void setupTextFieldListeners() {
-//     idDocController.addListener(() {
-//       if (idDocController.text.isNotEmpty) {
-//         _idDocError = null; // Hide error when user types
-//         notifyListeners();
-//       }
-//     });
-//
-//     nameDocController.addListener(() {
-//       if (nameDocController.text.isNotEmpty) {
-//         _nameDocError = null; // Hide error when user types
-//         notifyListeners();
-//       }
-//     });
-//   }
-//
-//
-// }
-///
-///
-///
-///
-// class AddNewOrgDocButtonProvider extends ChangeNotifier {
-//   String _selectedExpiryType = AppConfig.notApplicable;
-//   TextEditingController idDocController = TextEditingController();
-//   TextEditingController nameDocController = TextEditingController();
-//   TextEditingController daysController = TextEditingController(text: "1");
-//   bool loading = false;
-//   bool _isFormValid = true;
-//   String? _idDocError;
-//   String? _nameDocError;
-//   String? selectedYear = AppConfig.year;
-//   bool isDropdownAvailability = false;
-//   String get selectedExpiryType => _selectedExpiryType;
-//
-//
-//   void setSelectedExpiryType(String value) {
-//     if (_selectedExpiryType != value) {
-//       _selectedExpiryType = value;
-//       notifyListeners(); // Ensure UI updates
-//     }
-//   }
-//
-//   String? _validateTextField(String value, String fieldName) {
-//     if (value.isEmpty) {
-//       _isFormValid = false;
-//       return "Please Enter $fieldName";
-//     }
-//     return null;
-//   }
-//
-//   void validateForm() {
-//     _isFormValid = true;
-//     _idDocError = _validateTextField(idDocController.text, 'ID of the Document');
-//     _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
-//
-//     // if (selectedExpiryType == null || selectedExpiryType!.isEmpty) {
-//     //   _expiryTypeError = "Please select an expiry type";
-//     //   _isFormValid = false;
-//     // } else {
-//     //   _expiryTypeError = null;
-//     // }
-//     notifyListeners();
-//   }
-//
-//   void setupTextFieldListeners() {
-//     idDocController.addListener(() {
-//       if (idDocController.text.isNotEmpty) {
-//         _idDocError = null; // Hide error when user types
-//         notifyListeners();
-//       }
-//     });
-//
-//     nameDocController.addListener(() {
-//       if (nameDocController.text.isNotEmpty) {
-//         _nameDocError = null; // Hide error when user types
-//         notifyListeners();
-//       }
-//     });
-//   }
-// }
 class AddNewOrgDocButtonProvider extends ChangeNotifier {
   String _selectedExpiryType = AppConfig.notApplicable;
   TextEditingController idDocController = TextEditingController();
@@ -358,7 +226,8 @@ class AddNewOrgDocButton extends StatelessWidget {
                                       provider.setSelectedExpiryType(value!);
                                     },
                                   ),
-                                  Text("Not Applicable"),
+                                  Text("Not Applicable",
+                                      style: DocumentTypeDataStyle.customTextStyle(context)),
                                 ],
                               ),
 
@@ -376,7 +245,8 @@ class AddNewOrgDocButton extends StatelessWidget {
                                       provider.setSelectedExpiryType(value!);
                                     },
                                   ),
-                                  Text("Scheduled"),
+                                  Text("Scheduled",
+                                      style: DocumentTypeDataStyle.customTextStyle(context)),
                                 ],
                               ),
 
@@ -395,7 +265,8 @@ class AddNewOrgDocButton extends StatelessWidget {
                                       provider.setSelectedExpiryType(value!);
                                     },
                                   ),
-                                  Text("Issuer"),
+                                  Text("Issuer",
+                                      style: DocumentTypeDataStyle.customTextStyle(context)),
                                 ],
                               ),
                             ],
@@ -449,6 +320,7 @@ class AddNewOrgDocButton extends StatelessWidget {
                                     width: AppSize.s80,
                                     height: AppSize.s30,
                                     child:CustomDropdownTextFieldwidh(
+                                      value: AppConfig.year,
                                       items: [
                                         AppConfig.year,
                                         AppConfig.month,

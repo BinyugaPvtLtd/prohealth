@@ -255,6 +255,7 @@ class EmpDocADDPopup extends StatelessWidget {
                                   width: AppSize.s80,
                                   height: AppSize.s30,
                                   child:CustomDropdownTextFieldwidh(
+                                    value: AppConfig.year,
                                     items: [
                                       AppConfig.year,
                                       AppConfig.month,
