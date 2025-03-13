@@ -237,6 +237,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                                       ),
                                     ))
                                     :Checkbox(
+                                    splashRadius: 0,
                                   value: _checked[index],
                                   onChanged: data.approved == null ?
                                       (value) {

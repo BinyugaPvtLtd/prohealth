@@ -15,6 +15,7 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
@@ -940,7 +941,12 @@ class _BankingFormState extends State<BankingForm> {
                                     hintText: 'Enter Requested amount',
                                     controller: requestammount,
                                     prefixText: '\$ ',
-                                    prefixStyle: onlyFormDataStyle.customTextStyle(context),
+                                    // prefixStyle: TextStyle(
+                                    //   fontWeight: FontWeight.w600,
+                                    //   fontSize: FontSize.s13,
+                                    //   color: ColorManager.mediumgrey,
+                                    //   decoration: TextDecoration.none,
+                                    // ),
                                     height: 32,
                                     onChanged: (value){
                                       if(value.isNotEmpty){
