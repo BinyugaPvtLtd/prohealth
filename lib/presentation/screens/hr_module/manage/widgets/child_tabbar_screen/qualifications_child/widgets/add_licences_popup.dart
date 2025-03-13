@@ -493,22 +493,32 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                     width: AppSize.s100,
                     text: AppString.save,
                     onPressed: () async {
-                      // Validate file size first
-                      if (!fileAbove20Mb) {
-                        // Show validation message if the file is too large
-                        await showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddErrorPopup(
-                              message: 'File is too large!',
-                            );
-                          },
-                        );
-                        return; // Stop further execution if the file is too large
-                      }
 
                       // Validate form fields
                       _validateFields();
+
+                      // Validate file size first
+                      if (pickedFile != null) {
+                        // Check if the file is too large
+                        if (!fileAbove20Mb) { // 20MB in bytes
+                          setState(() {
+                            isLoading = false;
+                          });
+
+                          // Show validation message if the file is too large
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddErrorPopup(
+                                message: 'File is too large!',
+                              );
+                            },
+                          );
+                          return; // Stop further execution if the file is too large
+                        }
+                      }
+
+
 
                       // Proceed if no validation errors
                       if (!_hasErrors()) {

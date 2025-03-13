@@ -287,7 +287,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   color: ColorManager.fmediumgrey),
                             ),
                             contentPadding:
-                            EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                            EdgeInsets.symmetric(horizontal: AppPadding.p12),
                             suffixIcon: Icon(Icons.calendar_month_outlined,
                                 color: ColorManager.blueprime),
                             errorText: field.errorText,
@@ -644,6 +644,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                 width: AppSize.s80,
                                 height: AppSize.s30,
                                 child:CustomDropdownTextFieldwidh(
+                                  hintText: selectedYear,
                                   items: [
                                     AppConfig.year,
                                     AppConfig.month,
@@ -709,7 +710,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                       color: ColorManager.fmediumgrey),
                                 ),
                                 contentPadding:
-                                EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                                EdgeInsets.symmetric(horizontal: AppPadding.p10),
                                 suffixIcon: Icon(
                                     Icons.calendar_month_outlined,
                                     color: ColorManager.blueprime),
@@ -891,7 +892,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 officeId: widget.officeId,
                 fileName: fileName,
               );
-              expiryDateController.clear();
+
               if (response.statusCode == 200 || response.statusCode == 201) {
                 try {
                   var uploadDocNew = await uploadDocumentsoffice(

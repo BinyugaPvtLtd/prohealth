@@ -577,6 +577,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                 width: AppSize.s80,
                                 height: AppSize.s30,
                                 child:CustomDropdownTextFieldwidh(
+                                  hintText:selectedYear ,
                                   items: [
                                     AppConfig.year,
                                     AppConfig.month,
@@ -650,7 +651,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                         color: ColorManager.fmediumgrey),
                                   ),
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                                  EdgeInsets.symmetric(horizontal: AppPadding.p12),
                                   suffixIcon: Icon(
                                       Icons.calendar_month_outlined,
                                       color: ColorManager.blueprime),

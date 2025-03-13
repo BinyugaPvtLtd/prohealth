@@ -769,22 +769,31 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                           width: 100,
                           text: "Save",
                           onPressed: () async {
+                            _validateFields();
                             // First, check if the file is too large
-                            if (!fileAbove20Mb) {
-                              // Show validation message if the file is too large
-                              await showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AddErrorPopup(
-                                    message: 'File is too large!',
-                                  );
-                                },
-                              );
-                              return; // Stop further execution
+                            // Only check the file size if a file has been picked
+                            if (pickedFile != null) {
+                              // Check if the file is too large
+                              if (!fileAbove20Mb) { // 20MB in bytes
+                                setState(() {
+                                  isLoading = false;
+                                });
+
+                                // Show validation message if the file is too large
+                                await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AddErrorPopup(
+                                      message: 'File is too large!',
+                                    );
+                                  },
+                                );
+                                return; // Stop further execution if the file is too large
+                              }
                             }
 
                             // Proceed with form validation if the file is not too large
-                            _validateFields();
+
 
                             if (_isFormValid) {  // Check if the form is valid
                               setState(() {
