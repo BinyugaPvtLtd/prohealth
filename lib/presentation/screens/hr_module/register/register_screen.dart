@@ -155,6 +155,7 @@ class RegisterScreen extends StatelessWidget {
                       ],
                     ),
 
+
                     Column(
                       children: [
                         Container(
