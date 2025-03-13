@@ -25,7 +25,10 @@ class RegisterEnrollPopup extends StatelessWidget {
   final TextEditingController lastName;
   //final TextEditingController phone;
   final TextEditingController email;
-  final List<AEClinicalDiscipline> aEClinicalDiscipline;
+  List<AEClinicalDiscipline> aEClinicalDiscipline;
+  final List<AEClinicalCity> cities;  // New parameter
+  final List<CompanyOfficeListData> companyOffices;  // New parameter
+  final List<AEClinicalZone> zones;
   final int userId;
   final String role;
   final String status;
@@ -45,89 +48,12 @@ class RegisterEnrollPopup extends StatelessWidget {
     required this.status, required this.employeeId,
     required this.aEClinicalDiscipline,
     required this.onReferesh,
-    required this.depId,
+    required this.depId, required this.cities, required this.companyOffices, required this.zones,
     //required this.empId,
   });
 
 
 
-  // Future<String> _generateUrlLink(String email, String Id) async {
-  //   final String user = email;
-  //   final String id = Id;
-  //   final String url = '${AppConfig.deployment}/#/onBordingWelcome';
-  //   generatedURL = url;
-  //   print('Generated URL: $generatedURL');
-  //   return url;
-  // }
-  // bool _isButtonEnabled = false;
-  // bool _isLoad = false;
-
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Add listeners to the text controllers
-  //   widget.firstName.addListener(_validateFields);
-  //   widget.lastName.addListener(_validateFields);
-  //   widget.email.addListener(_validateFields);
-  //   // speciality.addListener(_validateFields);
-  //  // position.addListener(_validateFields);
-  //  //  phone.addListener(_validateFields);
-  //   // Add other controllers if necessary
-  // }
-  // void _validateFields() {
-  //   setState(() {
-  //     // Check if any of the required fields are empty
-  //     _isButtonEnabled = widget.firstName.text.isNotEmpty &&
-  //         widget.lastName.text.isNotEmpty &&
-  //         widget.email.text.isNotEmpty;
-  //         // speciality.text.isNotEmpty &&
-  //         //position.text.isNotEmpty &&
-  //         // phone.text.isNotEmpty;
-  //     // Add other conditions if necessary
-  //   });
-  // }
-  // @override
-  // void dispose() {
-  //   // Dispose of the listeners when the widget is removed
-  //   widget.firstName.removeListener(_validateFields);
-  //   widget.lastName.removeListener(_validateFields);
-  //   widget.email.removeListener(_validateFields);
-  //   // speciality.removeListener(_validateFields);
-  //   //position.removeListener(_validateFields);
-  //   // phone.removeListener(_validateFields);
-  //   super.dispose();
-  // }
-  // String? _PositionError;
-  // String? _ZoneError;
-  // String? _PhoneError;
-  // String? _firstnameError;
-  // String? _lastnameError;
-  // String? _emailError;
-  // String? _SpecialityError;
-  // bool _isFormValid = true;
-  // String? _expiryTypeError;
-  //
-  // String? _validateTextField(String value, String fieldName) {
-  //   if (value.isEmpty) {
-  //     _isFormValid = false;
-  //     return "$fieldName";
-  //   }
-  //   return null;
-  // }
-
-  // void _validateFields() {
-  //   setState(() {
-  //     _isFormValid = true;
-  //     _PositionError = _validateTextField(position.text, 'Please Enter Position');
-  //     _PhoneError = _validateTextField(phone.text, 'Please Enter Phone Number');
-  //     _SpecialityError = _validateTextField(speciality.text, 'Please Enter Speciality');
-  //     _firstnameError = _validateTextField(widget.firstName.text, 'Please Enter First Name');
-  //     _lastnameError = _validateTextField(widget.lastName.text, 'Please Enter Last Name');
-  //     _emailError = _validateTextField(widget.email.text, 'Please Enter Email');
-  //     //_ZoneError = _validateTextField(selectedZone!, 'Please Select Zone');
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -196,12 +122,6 @@ class RegisterEnrollPopup extends StatelessWidget {
                         Text(
                           'Enroll',
                           style: PopupBlueBarText.customTextStyle(context),
-                          // style: GoogleFonts.firaSans(
-                          //   fontSize: FontSize.s12,
-                          //   fontWeight: FontWeightManager.semiBold,
-                          //   color: ColorManager.white,
-                          //   decoration: TextDecoration.none,
-                          // ),
                         ),
                         IconButton(
                           onPressed: () {
@@ -448,149 +368,76 @@ class RegisterEnrollPopup extends StatelessWidget {
                                 height: AppSize.s8,
                               ),
                               ///clinician
-                              //widget.role == AppConfig.clinicalId
                               Column(
-                                crossAxisAlignment:CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  FutureBuilder<List<AEClinicalDiscipline>>(
-                                    future: HrAddEmplyClinicalDisciplinApi(context, depId),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
-                                        return CustomDropdownTextField(
-                                          // Adjust headText based on depId
-                                          headText: depId == AppConfig.clinicalId
-                                              ?'Select Clinical Type '
-                                              : depId == AppConfig.salesId
-                                              ? 'Select Sales Type'
-                                              : depId == AppConfig.AdministrationId
-                                              ? 'Select Admin Type'
-                                              : 'Unknown', // Default fallback if depId doesn't match any of the expected values
-                                          items: [],
-                                        );
-                                      }
-                                      if (snapshot.hasData) {
-                                        List<String> dropDownList = [];
-                                        for (var i in aEClinicalDiscipline) {
-                                          dropDownList.add(i.empType!);
+                                  CustomDropdownTextField(
+                                    headText: depId == AppConfig.clinicalId
+                                        ? 'Select Clinical Type'
+                                        : depId == AppConfig.salesId
+                                        ? 'Select Sales Type'
+                                        : depId == AppConfig.AdministrationId
+                                        ? 'Select Admin Type'
+                                        : 'Unknown',
+                                    items: aEClinicalDiscipline.map((e) => e.empType!).toList(),
+                                    onChanged: (newValue) {
+                                      for (var a in aEClinicalDiscipline) {
+                                        if (a.empType == newValue) {
+                                          providerState.validateField(
+                                            a.empType!,
+                                            'Please Select Clinical Type',
+                                            providerState.setClinicalTypeError,
+                                          );
+                                          clinicialName = a.empType!;
+                                          clinicalId = a.employeeTypesId;
                                         }
-                                        return CustomDropdownTextField(
-                                          // Adjust headText based on depId
-                                          headText: depId == AppConfig.clinicalId
-                                              ?'Select Clinical Type '
-                                              : depId == AppConfig.salesId
-                                              ? 'Select Sales Type'
-                                              : depId == AppConfig.AdministrationId
-                                              ? 'Select Admin Type'
-                                              : 'Unknown', // Default fallback if depId doesn't match any of the expected values
-                                          items: dropDownList,
-                                          onChanged: (newValue) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.empType == newValue) {
-                                                providerState.validateField(
-                                                  a.empType!,
-                                                  'Please Select Clinical Type',
-                                                  providerState.setClinicalTypeError,
-                                                );
-                                                clinicialName = a.empType!;
-                                                clinicalId = a.employeeTypesId;
-                                                print("Dept ID'''''' ${clinicalId}");
-                                                print("';';';''''''''Dept ID ${clinicialName}");
-                                                // Do something with docType
-                                              }
-                                            }
-                                          },
-                                        );
-                                      } else {
-                                        return const Offstage();
                                       }
                                     },
                                   ),
-                                 providerState.clinicalType != null?
-                                    Padding(
-                                      padding: const EdgeInsets.only(left:5),
-                                      child: Text(
-                                        providerState.clinicalType!,
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: FontSize.s10,
-                                        ),
-                                      ),
-                                    ):SizedBox(height:11),
+                                  providerState.clinicalType != null
+                                      ? Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text(
+                                      providerState.clinicalType!,
+                                      style: TextStyle(color: Colors.red, fontSize: FontSize.s10),
+                                    ),
+                                  )
+                                      : SizedBox(height: 11),
                                 ],
                               ),
-
                               SizedBox(
                                 height: AppSize.s8,
                               ),
+                              ///city
                               Column(
-                                crossAxisAlignment:CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  FutureBuilder<List<AEClinicalCity>>(
-                                    future: HrAddEmplyClinicalCityApi(context),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return CustomDropdownTextField(
-                                          headText: 'City',
-                                          width: textFieldWidth,
-                                          height: textFieldHeight,
-                                          items: [],
-                                        );
-
-                                      } else if (snapshot.hasError) {
-                                        return  CustomDropdownTextField(
-                                          headText: 'City',
-                                          //width: MediaQuery.of(context).size.width / 5,
-                                          items: ['Error'],
-                                        );
-                                      } else if (snapshot.hasData) {
-                                        List<DropdownMenuItem<String>> dropDownList = [];
-                                        int degreeID = 0;
-                                        for(var i in snapshot.data!){
-                                          dropDownList.add(DropdownMenuItem<String>(
-                                            child: Text(i.cityName!, style:DocumentTypeDataStyle.customTextStyle(context),),
-                                            value: i.cityName!,
-                                          ));
+                                  CustomDropdownTextField(
+                                    headText: 'City',
+                                    items: cities.map((e) => e.cityName!).toList(),
+                                    onChanged: (newValue) {
+                                      for (var city in cities) {
+                                        if (city.cityName == newValue) {
+                                          providerState.validateField(
+                                            city.cityName!,
+                                            'Please Select City',
+                                            providerState.setCityError,
+                                          );
+                                          selectedCity = city.cityName!;
+                                          cityId = city.cityID!;
                                         }
-                                        return CustomDropdownTextField(
-                                          headText: 'City',
-                                          dropDownMenuList: dropDownList,
-                                          onChanged: (newValue) {
-                                            for(var a in snapshot.data!){
-                                              if(a.cityName == newValue){
-                                                providerState.validateField(
-                                                  a.cityName!,
-                                                  'Please Select City',
-                                                  providerState.setCityError,
-                                                );
-                                                selectedCity= a.cityName!;
-                                                cityId = a.cityID!;
-                                                print("City :: ${selectedCity}");
-                                                //empTypeId = docType;
-                                              }
-                                            }
-                                          },
-                                        );
-                                      } else {
-                                        return CustomDropdownTextField(
-                                          headText: 'City',
-                                          // width: MediaQuery.of(context).size.width / 5,
-                                          items: ['No Data'],
-                                        );
                                       }
                                     },
                                   ),
-                                  providerState.cityError != null ?
-                                    Padding(
-                                      padding: const EdgeInsets.only(left:5),
-                                      child: Text(
-                                        providerState.cityError!,
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: FontSize.s10,
-                                        ),
-                                      ),
-                                    ):SizedBox(height: 11,)
+                                  providerState.cityError != null
+                                      ? Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text(
+                                      providerState.cityError!,
+                                      style: TextStyle(color: Colors.red, fontSize: FontSize.s10),
+                                    ),
+                                  )
+                                      : SizedBox(height: 11),
                                 ],
                               ),
                               SizedBox(
@@ -599,24 +446,6 @@ class RegisterEnrollPopup extends StatelessWidget {
                               SizedBox(
                                 height: AppSize.s68,
                               ),
-                              // CustomTextField(
-                              //   width: textFieldWidth,
-                              //   height: textFieldHeight,
-                              //   cursorHeight: 15,
-                              //   text: 'Position',
-                              //   controller: position,
-                              // ),
-                              // if (_PositionError != null) // Display error if any
-                              //   Padding(
-                              //     padding: const EdgeInsets.only(right:140),
-                              //     child: Text(
-                              //       _PositionError!,
-                              //       style: TextStyle(
-                              //         color: Colors.red,
-                              //         fontSize: FontSize.s10,
-                              //       ),
-                              //     ),
-                              //   ),
                             ],
                           ),
                         ),
@@ -653,140 +482,139 @@ class RegisterEnrollPopup extends StatelessWidget {
                                 height: AppSize.s8,
                               ),
                               ///reporting office
-
-                              ///
-                              ////
-                             Column(
-                               crossAxisAlignment:CrossAxisAlignment.start,
-                               children: [
-                                 FutureBuilder<List<CompanyOfficeListData>>(
-                                        future: getCompanyOfficeList(context),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return CustomDropdownTextField(
-                                              headText: 'Reporting Office',
-                                              width: textFieldWidth,
-                                              height: textFieldHeight,
-                                              items: [],
-                                             );
-                                          }
-                                          if (snapshot.hasData) {
-                                            List<String> dropDownList = [];
-                                            for (var i in snapshot.data!) {
-                                              dropDownList.add(i.name);
-                                            }
-                                            return CustomDropdownTextField(
-                                              headText: 'Reporting Office',
-                                              items: dropDownList,
-                                              onChanged: (newValue) {
-                                                for (var a in snapshot.data!) {
-                                                  if (a.name == newValue) {
-                                                    providerState.validateField(
-                                                      a.name,
-                                                      'Please Select Reporting Office',
-                                                      providerState.setReportingOfficeError,
-                                                    );
-                                                    reportingOfficeId = a.name;
-                                                    print('Office Name ::::>>>> ${reportingOfficeId}');
-                                                    // int docType = a.employeeTypesId;
-                                                    // Do something with docType
-                                                  }
-                                                }
-                                              },
-                                            );
-                                          } else {
-                                            return const Offstage();
-                                          }
-                                        },
-                                      ),
-                                 providerState.reportingOfficeError != null ?
-                                 Padding(
-                                   padding: const EdgeInsets.only(left:5),
-                                   child: Text(
-                                     providerState.reportingOfficeError!,
-                                     style: TextStyle(
-                                       color: Colors.red,
-                                       fontSize: FontSize.s10,
-                                     ),
-                                   ),
-                                 ):SizedBox(height: 11,)
-                               ],
-                             ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomDropdownTextField(
+                                    headText: 'Reporting Office',
+                                    items: companyOffices.map((e) => e.name).toList(),
+                                    onChanged: (newValue) {
+                                      for (var office in companyOffices) {
+                                        if (office.name == newValue) {
+                                          providerState.validateField(
+                                            office.name,
+                                            'Please Select Reporting Office',
+                                            providerState.setReportingOfficeError,
+                                          );
+                                          reportingOfficeId = office.name;
+                                        }
+                                      }
+                                    },
+                                  ),
+                                  providerState.reportingOfficeError != null
+                                      ? Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text(
+                                      providerState.reportingOfficeError!,
+                                      style: TextStyle(color: Colors.red, fontSize: FontSize.s10),
+                                    ),
+                                  )
+                                      : SizedBox(height: 11),
+                                ],
+                              ),
 
                               SizedBox(
                                 height: AppSize.s8,
                               ),
                               ///country
-                             // buildDropdownButton(context),
                               Column(
-                                crossAxisAlignment:CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  FutureBuilder<List<AEClinicalZone>>(
-                                    future: HrAddEmplyClinicalZoneApi(context),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return  CustomDropdownTextField(
-                                          headText: 'Zone',
-                                          width: textFieldWidth,
-                                          height: textFieldHeight,
-                                          items: [],
-                                        );
-
-                                      }  if (snapshot.hasData) {
-                                        List<DropdownMenuItem<String>> dropDownList = [];
-                                        int degreeID = 0;
-                                        for(var i in snapshot.data!){
-                                          dropDownList.add(DropdownMenuItem<String>(
-                                            child: Text(i.zoneName!,style: DocumentTypeDataStyle.customTextStyle(context),),
-                                            value: i.zoneName!,
-                                          ));
+                                  CustomDropdownTextField(
+                                    headText: 'Zone',
+                                    items: zones.map((e) => e.zoneName!).toList(),
+                                    onChanged: (newValue) {
+                                      for (var zone in zones) {
+                                        if (zone.zoneName! == newValue) {
+                                          providerState.validateField(
+                                            zone.zoneName!,
+                                            'Please Select Zone',
+                                            providerState.setZoneError,
+                                          );
+                                          selectedZone = zone.zoneName!;
                                         }
-                                        return CustomDropdownTextField(
-                                          headText: 'Zone',
-                                          dropDownMenuList: dropDownList,
-                                          onChanged: (newValue) {
-                                            //  setState(() {
-                                            for(var a in snapshot.data!){
-                                              if(a.zoneName == newValue){
-                                                providerState.validateField(
-                                                  a.zoneName!,
-                                                  'Please Select Zone',
-                                                  providerState.setZoneError,
-                                                );
-                                                selectedZone= a.zoneName!;
-                                                zoneId = a.zoneID!;
-                                                countyId = a.countyID!;
-                                                print("Selected zoin id :: ${zoneId}");
-                                                print("Zone :: ${selectedZone}");
-                                                print("county Id :: ${countyId}");
-                                                //empTypeId = docType;
-                                              }
-                                            }
-                                            //  });
-
-                                          },
-                                        );
-
-                                      } else {
-                                        return const Offstage();
                                       }
                                     },
                                   ),
-                                  providerState.zoneError != null ?
-                                  Padding(
-                                    padding: const EdgeInsets.only(left:5),
+                                  providerState.zoneError != null
+                                      ? Padding(
+                                    padding: const EdgeInsets.only(left: 5),
                                     child: Text(
                                       providerState.zoneError!,
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: FontSize.s10,
-                                      ),
+                                      style: TextStyle(color: Colors.red, fontSize: FontSize.s10),
                                     ),
-                                  ):SizedBox(height: 11,)
+                                  )
+                                      : SizedBox(height: 11),
                                 ],
                               ),
+                              // Column(
+                              //   crossAxisAlignment:CrossAxisAlignment.start,
+                              //   children: [
+                              //     FutureBuilder<List<AEClinicalZone>>(
+                              //       future: HrAddEmplyClinicalZoneApi(context),
+                              //       builder: (context, snapshot) {
+                              //         if (snapshot.connectionState == ConnectionState.waiting) {
+                              //           return  CustomDropdownTextField(
+                              //             hintText: "Loading",
+                              //             headText: 'Zone',
+                              //             width: textFieldWidth,
+                              //             height: textFieldHeight,
+                              //             items: [],
+                              //           );
+                              //
+                              //         }  if (snapshot.hasData) {
+                              //           List<DropdownMenuItem<String>> dropDownList = [];
+                              //           int degreeID = 0;
+                              //           for(var i in snapshot.data!){
+                              //             dropDownList.add(DropdownMenuItem<String>(
+                              //               child: Text(i.zoneName!,style: DocumentTypeDataStyle.customTextStyle(context),),
+                              //               value: i.zoneName!,
+                              //             ));
+                              //           }
+                              //           return CustomDropdownTextField(
+                              //             headText: 'Zone',
+                              //             dropDownMenuList: dropDownList,
+                              //             onChanged: (newValue) {
+                              //               //  setState(() {
+                              //               for(var a in snapshot.data!){
+                              //                 if(a.zoneName == newValue){
+                              //                   providerState.validateField(
+                              //                     a.zoneName!,
+                              //                     'Please Select Zone',
+                              //                     providerState.setZoneError,
+                              //                   );
+                              //                   selectedZone= a.zoneName!;
+                              //                   zoneId = a.zoneID!;
+                              //                   countyId = a.countyID!;
+                              //                   print("Selected zoin id :: ${zoneId}");
+                              //                   print("Zone :: ${selectedZone}");
+                              //                   print("county Id :: ${countyId}");
+                              //                   //empTypeId = docType;
+                              //                 }
+                              //               }
+                              //               //  });
+                              //
+                              //             },
+                              //           );
+                              //
+                              //         } else {
+                              //           return const Offstage();
+                              //         }
+                              //       },
+                              //     ),
+                              //     providerState.zoneError != null ?
+                              //     Padding(
+                              //       padding: const EdgeInsets.only(left:5),
+                              //       child: Text(
+                              //         providerState.zoneError!,
+                              //         style: TextStyle(
+                              //           color: Colors.red,
+                              //           fontSize: FontSize.s10,
+                              //         ),
+                              //       ),
+                              //     ):SizedBox(height: 11,)
+                              //   ],
+                              // ),
                               SizedBox(
                                 height: 78,
                               ),
@@ -836,7 +664,6 @@ class RegisterEnrollPopup extends StatelessWidget {
                             ),
                             SizedBox(height: 5,),
                             Row(
-                           //   mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 CustomRadioListTile(
                                   title: 'Full Time',
@@ -878,32 +705,10 @@ class RegisterEnrollPopup extends StatelessWidget {
                                     });
                                   },
                                 ),
-
                               ],
                             ),
-
                           ],
                         ),
-
-                        //                 child: Padding(
-                        //                   padding: EdgeInsets.only(left: 20),
-                        //                   child: McqWidget(
-                        //                     title: 'Employment',
-                        //                     items: [
-                        //                       'Full Time',
-                        //                       'Contract',
-                        //                       'Part Time',
-                        //                       'Per Diem'
-                        //                     ],
-                        //                     onChanged: (selectedIndex) {
-                        // setState(() {
-                        //   _selectedItemIndex = selectedIndex;
-                        // });
-                        //                       print('Selected index: ::::$_selectedItemIndex');
-                        //
-                        //                     },
-                        //                   ),
-                        //                 ),
                       ); },
 
                     ),
@@ -967,80 +772,6 @@ class RegisterEnrollPopup extends StatelessWidget {
                         ],
                       ),
                     ),
-                    // FutureBuilder<List<EnrollServices>>(
-                    //   future: EmpServiceRadioButtonApi(context),
-                    //   builder: (context, snap) {
-                    //     if (snap.connectionState == ConnectionState.waiting) {
-                    //       return Center(
-                    //         child: SizedBox(
-                    //           height: 20,
-                    //           width: 20,
-                    //           child: CircularProgressIndicator(),
-                    //         ),
-                    //       );
-                    //     }
-                    //     if (snap.hasData) {
-                    //       return Padding(
-                    //         padding: EdgeInsets.only(left: 20.0),
-                    //         child: Column(
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             RichText(
-                    //               text: TextSpan(
-                    //                 text: "Service", // Main text
-                    //                 style: AllPopupHeadings.customTextStyle(context), // Main style
-                    //                 children: [
-                    //                   TextSpan(
-                    //                     text: ' *', // Asterisk
-                    //                     style: AllPopupHeadings.customTextStyle(context).copyWith(
-                    //                       color: ColorManager.red, // Asterisk color
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //             ),
-                    //             SizedBox(height: 5,),
-                    //             StatefulBuilder(
-                    //               builder: (BuildContext context, void Function(void Function()) setState) {return Container(
-                    //                 child: Row(
-                    //                   mainAxisAlignment: MainAxisAlignment.start,
-                    //                   children: providerState.enrollService.map((service) {
-                    //                     return Row(
-                    //                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //                       children: [
-                    //                         Radio<String>(
-                    //                           splashRadius: 0,
-                    //                           focusColor: Colors.transparent,
-                    //                           hoverColor: Colors.transparent,// Change to String if servicename is a String
-                    //                           value: service.servicename,  // Use servicename as the value
-                    //                           groupValue: selectedServiceName, // Group value to determine the selected button
-                    //                           onChanged: (String? value) {
-                    //                             setState(() {
-                    //                               selectedServiceName = value; // Update the selected value
-                    //                             });
-                    //                             print('Selected Service: >>>>>$value');
-                    //                             // Print selected value
-                    //                           },
-                    //                         ),
-                    //                         Text(
-                    //                           service.servicename,
-                    //                           style: DocumentTypeDataStyle.customTextStyle(context),
-                    //                         ),
-                    //                         SizedBox(width: 18,)
-                    //                       ],
-                    //                     );
-                    //                   }).toList(),
-                    //                 ),
-                    //               );  },
-                    //
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       );
-                    //     }
-                    //     return Center(child: Text('No data available')); // Handle no data case
-                    //   },
-                    // ),
                   ),
 
                   StatefulBuilder(
@@ -1230,179 +961,6 @@ class RegisterEnrollPopup extends StatelessWidget {
       }
     );
   }
-  // /// Country dropdown
-  // Widget buildDropdownButton(BuildContext context) {
-  //   double textFieldWidth = MediaQuery.of(context).size.width/10;
-  //   double textFieldHeight = 38;
-  //   return
-  //       FutureBuilder<List<CountryGetData>>(
-  //         future: getCountry(context: context),
-  //         builder: (context, snapshot) {
-  //           if (snapshot.connectionState ==
-  //               ConnectionState.waiting) {
-  //             return CustomDropdownTextField(
-  //               headText: 'Country',
-  //               width: textFieldWidth,
-  //               height: textFieldHeight,
-  //               items: [],
-  //              );
-  //
-  //           } else if (snapshot.hasError) {
-  //             return  CustomDropdownTextField(
-  //               headText: 'Country',
-  //               //width: MediaQuery.of(context).size.width / 5,
-  //               items: ['Error'],
-  //             );
-  //           } else if (snapshot.hasData) {
-  //             List<DropdownMenuItem<String>> dropDownList = [];
-  //             int degreeID = 0;
-  //             for(var i in snapshot.data!){
-  //               dropDownList.add(DropdownMenuItem<String>(
-  //                 value: i.name,
-  //                 child: Text(i.name, style:DocumentTypeDataStyle.customTextStyle(context),),
-  //               ));
-  //             }
-  //             return CustomDropdownTextField(
-  //               headText: 'Country',
-  //               dropDownMenuList: dropDownList,
-  //               onChanged: (newValue) {
-  //                 for(var a in snapshot.data!){
-  //                   if(a.name == newValue){
-  //                     selectedCountry = a.name;
-  //                     countryId = a.countryId;
-  //                     print("country :: ${selectedCountry}");
-  //                     print("country :: ${countryId}");
-  //                     //empTypeId = docType;
-  //                   }
-  //                 }
-  //               },
-  //             );
-  //           } else {
-  //             return CustomDropdownTextField(
-  //               headText: 'Country',
-  //               // width: MediaQuery.of(context).size.width / 5,
-  //              items: ['No Data'],
-  //             );
-  //           }
-  //         },
-  //       );
-  //
-  // }
-  //
-  // /// City dropDown
-  // Widget buildCityDropdownButton(BuildContext context) {
-  //   double textFieldWidth = MediaQuery.of(context).size.width/10;
-  //   double textFieldHeight = 38;
-  //   return
-  //       FutureBuilder<List<AEClinicalCity>>(
-  //         future: HrAddEmplyClinicalCityApi(context),
-  //         builder: (context, snapshot) {
-  //           if (snapshot.connectionState ==
-  //               ConnectionState.waiting) {
-  //             return CustomDropdownTextField(
-  //               headText: 'City',
-  //               width: textFieldWidth,
-  //               height: textFieldHeight,
-  //               items: [],
-  //              );
-  //
-  //           } else if (snapshot.hasError) {
-  //             return  CustomDropdownTextField(
-  //               headText: 'City',
-  //               //width: MediaQuery.of(context).size.width / 5,
-  //              items: ['Error'],
-  //             );
-  //           } else if (snapshot.hasData) {
-  //             List<DropdownMenuItem<String>> dropDownList = [];
-  //             int degreeID = 0;
-  //             for(var i in snapshot.data!){
-  //               dropDownList.add(DropdownMenuItem<String>(
-  //                 child: Text(i.cityName!, style:DocumentTypeDataStyle.customTextStyle(context),),
-  //                 value: i.cityName!,
-  //               ));
-  //             }
-  //             return CustomDropdownTextField(
-  //               headText: 'City',
-  //               dropDownMenuList: dropDownList,
-  //               onChanged: (newValue) {
-  //                 for(var a in snapshot.data!){
-  //                   if(a.cityName == newValue){
-  //                     selectedCity= a.cityName;
-  //                     cityId = a.cityID!;
-  //                     print("City :: ${selectedCity}");
-  //                     //empTypeId = docType;
-  //                   }
-  //                 }
-  //               },
-  //             );
-  //           } else {
-  //             return CustomDropdownTextField(
-  //               headText: 'City',
-  //               // width: MediaQuery.of(context).size.width / 5,
-  //               items: ['No Data'],
-  //             );
-  //           }
-  //         },
-  //       );
-  // }
-  //
-  // /// Zone dropDown
-  // Widget buildZoneDropdownButton(BuildContext context) {
-  //   double textFieldWidth = MediaQuery.of(context).size.width/10;
-  //   double textFieldHeight = 38;
-  //   return
-  //       FutureBuilder<List<AEClinicalZone>>(
-  //         future: HrAddEmplyClinicalZoneApi(context),
-  //         builder: (context, snapshot) {
-  //           if (snapshot.connectionState ==
-  //               ConnectionState.waiting) {
-  //             return  CustomDropdownTextField(
-  //               headText: 'Zone',
-  //               width: textFieldWidth,
-  //               height: textFieldHeight,
-  //               items: [],
-  //              );
-  //           } else if (snapshot.hasError) {
-  //             return  CustomDropdownTextField(
-  //               headText: 'Zone',
-  //               //width: MediaQuery.of(context).size.width / 5,
-  //               items: ['Error'],
-  //             );
-  //           } else if (snapshot.hasData) {
-  //             List<DropdownMenuItem<String>> dropDownList = [];
-  //             int degreeID = 0;
-  //             for(var i in snapshot.data!){
-  //               dropDownList.add(DropdownMenuItem<String>(
-  //                 child: Text(i.zoneName!,style: DocumentTypeDataStyle.customTextStyle(context),),
-  //                 value: i.zoneName!,
-  //               ));
-  //             }
-  //             return CustomDropdownTextField(
-  //               headText: 'Zone',
-  //               dropDownMenuList: dropDownList,
-  //               onChanged: (newValue) {
-  //                 for(var a in snapshot.data!){
-  //                   if(a.zoneName == newValue){
-  //                     selectedZone= a.zoneName;
-  //                     zoneId = a.zoneID!;
-  //                     countyId = a.countyID!;
-  //                     print("Zone :: ${selectedZone}");
-  //                     print("county Id :: ${countyId}");
-  //                     //empTypeId = docType;
-  //                   }
-  //                 }
-  //               },
-  //             );
-  //           } else {
-  //             return CustomDropdownTextField(
-  //               headText: 'Zone',
-  //               // width: MediaQuery.of(context).size.width / 5,
-  //               items: ['No Data'],
-  //             );
-  //           }
-  //         },
-  //       );
-  // }
 }
 
 ///
@@ -1652,5 +1210,333 @@ class RegisterEnrollAlertDialog {
 //     } else {
 //       return const Offstage();
 //     }
+//   },
+// ),
+
+///generate link code
+// Future<String> _generateUrlLink(String email, String Id) async {
+//   final String user = email;
+//   final String id = Id;
+//   final String url = '${AppConfig.deployment}/#/onBordingWelcome';
+//   generatedURL = url;
+//   print('Generated URL: $generatedURL');
+//   return url;
+// }
+// bool _isButtonEnabled = false;
+// bool _isLoad = false;
+
+//
+// @override
+// void initState() {
+//   super.initState();
+//   // Add listeners to the text controllers
+//   widget.firstName.addListener(_validateFields);
+//   widget.lastName.addListener(_validateFields);
+//   widget.email.addListener(_validateFields);
+//   // speciality.addListener(_validateFields);
+//  // position.addListener(_validateFields);
+//  //  phone.addListener(_validateFields);
+//   // Add other controllers if necessary
+// }
+// void _validateFields() {
+//   setState(() {
+//     // Check if any of the required fields are empty
+//     _isButtonEnabled = widget.firstName.text.isNotEmpty &&
+//         widget.lastName.text.isNotEmpty &&
+//         widget.email.text.isNotEmpty;
+//         // speciality.text.isNotEmpty &&
+//         //position.text.isNotEmpty &&
+//         // phone.text.isNotEmpty;
+//     // Add other conditions if necessary
+//   });
+// }
+// @override
+// void dispose() {
+//   // Dispose of the listeners when the widget is removed
+//   widget.firstName.removeListener(_validateFields);
+//   widget.lastName.removeListener(_validateFields);
+//   widget.email.removeListener(_validateFields);
+//   // speciality.removeListener(_validateFields);
+//   //position.removeListener(_validateFields);
+//   // phone.removeListener(_validateFields);
+//   super.dispose();
+// }
+// String? _PositionError;
+// String? _ZoneError;
+// String? _PhoneError;
+// String? _firstnameError;
+// String? _lastnameError;
+// String? _emailError;
+// String? _SpecialityError;
+// bool _isFormValid = true;
+// String? _expiryTypeError;
+//
+// String? _validateTextField(String value, String fieldName) {
+//   if (value.isEmpty) {
+//     _isFormValid = false;
+//     return "$fieldName";
+//   }
+//   return null;
+// }
+
+// void _validateFields() {
+//   setState(() {
+//     _isFormValid = true;
+//     _PositionError = _validateTextField(position.text, 'Please Enter Position');
+//     _PhoneError = _validateTextField(phone.text, 'Please Enter Phone Number');
+//     _SpecialityError = _validateTextField(speciality.text, 'Please Enter Speciality');
+//     _firstnameError = _validateTextField(widget.firstName.text, 'Please Enter First Name');
+//     _lastnameError = _validateTextField(widget.lastName.text, 'Please Enter Last Name');
+//     _emailError = _validateTextField(widget.email.text, 'Please Enter Email');
+//     //_ZoneError = _validateTextField(selectedZone!, 'Please Select Zone');
+//   });
+// }
+///county dropdown code
+// /// Country dropdown
+// Widget buildDropdownButton(BuildContext context) {
+//   double textFieldWidth = MediaQuery.of(context).size.width/10;
+//   double textFieldHeight = 38;
+//   return
+//       FutureBuilder<List<CountryGetData>>(
+//         future: getCountry(context: context),
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState ==
+//               ConnectionState.waiting) {
+//             return CustomDropdownTextField(
+//               headText: 'Country',
+//               width: textFieldWidth,
+//               height: textFieldHeight,
+//               items: [],
+//              );
+//
+//           } else if (snapshot.hasError) {
+//             return  CustomDropdownTextField(
+//               headText: 'Country',
+//               //width: MediaQuery.of(context).size.width / 5,
+//               items: ['Error'],
+//             );
+//           } else if (snapshot.hasData) {
+//             List<DropdownMenuItem<String>> dropDownList = [];
+//             int degreeID = 0;
+//             for(var i in snapshot.data!){
+//               dropDownList.add(DropdownMenuItem<String>(
+//                 value: i.name,
+//                 child: Text(i.name, style:DocumentTypeDataStyle.customTextStyle(context),),
+//               ));
+//             }
+//             return CustomDropdownTextField(
+//               headText: 'Country',
+//               dropDownMenuList: dropDownList,
+//               onChanged: (newValue) {
+//                 for(var a in snapshot.data!){
+//                   if(a.name == newValue){
+//                     selectedCountry = a.name;
+//                     countryId = a.countryId;
+//                     print("country :: ${selectedCountry}");
+//                     print("country :: ${countryId}");
+//                     //empTypeId = docType;
+//                   }
+//                 }
+//               },
+//             );
+//           } else {
+//             return CustomDropdownTextField(
+//               headText: 'Country',
+//               // width: MediaQuery.of(context).size.width / 5,
+//              items: ['No Data'],
+//             );
+//           }
+//         },
+//       );
+//
+// }
+//
+// /// City dropDown
+// Widget buildCityDropdownButton(BuildContext context) {
+//   double textFieldWidth = MediaQuery.of(context).size.width/10;
+//   double textFieldHeight = 38;
+//   return
+//       FutureBuilder<List<AEClinicalCity>>(
+//         future: HrAddEmplyClinicalCityApi(context),
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState ==
+//               ConnectionState.waiting) {
+//             return CustomDropdownTextField(
+//               headText: 'City',
+//               width: textFieldWidth,
+//               height: textFieldHeight,
+//               items: [],
+//              );
+//
+//           } else if (snapshot.hasError) {
+//             return  CustomDropdownTextField(
+//               headText: 'City',
+//               //width: MediaQuery.of(context).size.width / 5,
+//              items: ['Error'],
+//             );
+//           } else if (snapshot.hasData) {
+//             List<DropdownMenuItem<String>> dropDownList = [];
+//             int degreeID = 0;
+//             for(var i in snapshot.data!){
+//               dropDownList.add(DropdownMenuItem<String>(
+//                 child: Text(i.cityName!, style:DocumentTypeDataStyle.customTextStyle(context),),
+//                 value: i.cityName!,
+//               ));
+//             }
+//             return CustomDropdownTextField(
+//               headText: 'City',
+//               dropDownMenuList: dropDownList,
+//               onChanged: (newValue) {
+//                 for(var a in snapshot.data!){
+//                   if(a.cityName == newValue){
+//                     selectedCity= a.cityName;
+//                     cityId = a.cityID!;
+//                     print("City :: ${selectedCity}");
+//                     //empTypeId = docType;
+//                   }
+//                 }
+//               },
+//             );
+//           } else {
+//             return CustomDropdownTextField(
+//               headText: 'City',
+//               // width: MediaQuery.of(context).size.width / 5,
+//               items: ['No Data'],
+//             );
+//           }
+//         },
+//       );
+// }
+//
+// /// Zone dropDown
+// Widget buildZoneDropdownButton(BuildContext context) {
+//   double textFieldWidth = MediaQuery.of(context).size.width/10;
+//   double textFieldHeight = 38;
+//   return
+//       FutureBuilder<List<AEClinicalZone>>(
+//         future: HrAddEmplyClinicalZoneApi(context),
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState ==
+//               ConnectionState.waiting) {
+//             return  CustomDropdownTextField(
+//               headText: 'Zone',
+//               width: textFieldWidth,
+//               height: textFieldHeight,
+//               items: [],
+//              );
+//           } else if (snapshot.hasError) {
+//             return  CustomDropdownTextField(
+//               headText: 'Zone',
+//               //width: MediaQuery.of(context).size.width / 5,
+//               items: ['Error'],
+//             );
+//           } else if (snapshot.hasData) {
+//             List<DropdownMenuItem<String>> dropDownList = [];
+//             int degreeID = 0;
+//             for(var i in snapshot.data!){
+//               dropDownList.add(DropdownMenuItem<String>(
+//                 child: Text(i.zoneName!,style: DocumentTypeDataStyle.customTextStyle(context),),
+//                 value: i.zoneName!,
+//               ));
+//             }
+//             return CustomDropdownTextField(
+//               headText: 'Zone',
+//               dropDownMenuList: dropDownList,
+//               onChanged: (newValue) {
+//                 for(var a in snapshot.data!){
+//                   if(a.zoneName == newValue){
+//                     selectedZone= a.zoneName;
+//                     zoneId = a.zoneID!;
+//                     countyId = a.countyID!;
+//                     print("Zone :: ${selectedZone}");
+//                     print("county Id :: ${countyId}");
+//                     //empTypeId = docType;
+//                   }
+//                 }
+//               },
+//             );
+//           } else {
+//             return CustomDropdownTextField(
+//               headText: 'Zone',
+//               // width: MediaQuery.of(context).size.width / 5,
+//               items: ['No Data'],
+//             );
+//           }
+//         },
+//       );
+// }
+///service code
+// FutureBuilder<List<EnrollServices>>(
+//   future: EmpServiceRadioButtonApi(context),
+//   builder: (context, snap) {
+//     if (snap.connectionState == ConnectionState.waiting) {
+//       return Center(
+//         child: SizedBox(
+//           height: 20,
+//           width: 20,
+//           child: CircularProgressIndicator(),
+//         ),
+//       );
+//     }
+//     if (snap.hasData) {
+//       return Padding(
+//         padding: EdgeInsets.only(left: 20.0),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             RichText(
+//               text: TextSpan(
+//                 text: "Service", // Main text
+//                 style: AllPopupHeadings.customTextStyle(context), // Main style
+//                 children: [
+//                   TextSpan(
+//                     text: ' *', // Asterisk
+//                     style: AllPopupHeadings.customTextStyle(context).copyWith(
+//                       color: ColorManager.red, // Asterisk color
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: 5,),
+//             StatefulBuilder(
+//               builder: (BuildContext context, void Function(void Function()) setState) {return Container(
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   children: providerState.enrollService.map((service) {
+//                     return Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                       children: [
+//                         Radio<String>(
+//                           splashRadius: 0,
+//                           focusColor: Colors.transparent,
+//                           hoverColor: Colors.transparent,// Change to String if servicename is a String
+//                           value: service.servicename,  // Use servicename as the value
+//                           groupValue: selectedServiceName, // Group value to determine the selected button
+//                           onChanged: (String? value) {
+//                             setState(() {
+//                               selectedServiceName = value; // Update the selected value
+//                             });
+//                             print('Selected Service: >>>>>$value');
+//                             // Print selected value
+//                           },
+//                         ),
+//                         Text(
+//                           service.servicename,
+//                           style: DocumentTypeDataStyle.customTextStyle(context),
+//                         ),
+//                         SizedBox(width: 18,)
+//                       ],
+//                     );
+//                   }).toList(),
+//                 ),
+//               );  },
+//
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//     return Center(child: Text('No data available')); // Handle no data case
 //   },
 // ),

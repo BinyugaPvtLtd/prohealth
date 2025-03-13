@@ -496,7 +496,7 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                                          var response =  await deleteEmployeeDocuments(context: context, empDocumentId: ackData.employeeDocumentId);
                                                           if(response.statusCode == 200  || response.statusCode == 201) {
                                                             Navigator.pop(context);
-                                                            Future.delayed(Duration(seconds: 1));
+                                                           // Future.delayed(Duration(seconds: 1));
                                                             showDialog(
                                                               context: context,
                                                               builder: (BuildContext context) => DeleteSuccessPopup(),
