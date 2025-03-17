@@ -332,3 +332,14 @@ void loaderTrue(){
   }
 }
 
+
+class HrProgressMultiStape extends ChangeNotifier{
+  bool _isEducationSaved = false;
+  bool get isEducationSaved => _isEducationSaved;
+
+  void isEducationChnaged(){
+    _isEducationSaved = true;
+    notifyListeners();
+  }
+}
+
