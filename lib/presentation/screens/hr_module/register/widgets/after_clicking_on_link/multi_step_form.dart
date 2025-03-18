@@ -304,7 +304,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
     List<Step> stepsList = [
       // General step
       Step(
-        state: _currentStep <= 0 ? StepState.editing : StepState.complete,
+        state: providerState.isGneralSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 0,
         title: Theme(
           data: ThemeData(
@@ -322,6 +322,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
+              providerState.isGeneralChnaged();
             });
           },
           onNext: () {
@@ -333,7 +334,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // Employment step
       Step(
-        state:  _isEmployeementSaved ? StepState.complete : StepState.editing,
+        state: providerState.isEmployeementSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 1,
         title: Theme(
           data: ThemeData(
@@ -351,7 +352,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
             _currentStep = _currentStep + 1;
-              _isEmployeementSaved = true;
+            providerState.isEmployeementChnaged();
             });
           },
           onBack: () {
@@ -403,7 +404,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // References step
       Step(
-        state:  _isReferenceSaved ? StepState.complete : StepState.editing,
+        state:  providerState.isReferenceSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 3,
         title: Theme(
           data: ThemeData(
@@ -421,7 +422,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
-              _isReferenceSaved = true;
+              providerState.isReferenceChnaged();
             });
           },
           onBack: () {
@@ -438,7 +439,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // Licenses step
       Step(
-        state: _isLicenseSaved ? StepState.complete : StepState.editing,
+        state: providerState.isLicenseSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 4,
         title: Theme(
           data: ThemeData(
@@ -456,7 +457,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
-              _isLicenseSaved = true;
+              providerState.isLicenseChnaged();
             });
           },
           onBack: () {
@@ -473,7 +474,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // Conditionally add Clinical License if depID matches clinicalId
         Step(
-          state: _isClicalLicenseSaved ? StepState.complete : StepState.editing,
+          state: providerState.isClicalLicenseSaved ? StepState.complete : StepState.editing,
           isActive: _currentStep >= 5,
           title: Theme(
             data: ThemeData(
@@ -491,7 +492,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             onSave: () {
               setState(() {
                 _currentStep = _currentStep + 1;
-                _isClicalLicenseSaved = true;
+                providerState.isClinicalLicenseChnaged();
               });
             },
             onBack: () {
@@ -510,7 +511,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
 
       Step(
 
-        state:  _isBankingSaved ? StepState.complete : StepState.editing,
+        state:  providerState.isBankingSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 6,
         title: Theme(
           data: ThemeData(
@@ -529,7 +530,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             //print(">>>>>>>${_currentStep}");
             setState(() {
               _currentStep = _currentStep + 1;
-              _isBankingSaved = true; // Mark education data as saved
+              providerState.isBankingChnaged(); // Mark education data as saved
             });
           },
           onBack: () {
@@ -547,7 +548,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // Health Records step
       Step(
-        state: _isHealthRecordSaved ? StepState.complete : StepState.editing,
+        state: providerState.isHealthRecordSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 7,
         title: Theme(
           data: ThemeData(
@@ -565,7 +566,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
-              _isHealthRecordSaved = true;
+              providerState.isHealthRecordChnaged();
             });
           },
           onBack: () {
@@ -582,7 +583,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // Acknowledgements step
       Step(
-        state: _isAckRecordSaved ? StepState.complete : StepState.editing,
+        state: providerState.isAckRecordSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 8,
         title: Theme(
           data: ThemeData(
@@ -600,7 +601,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
-              _isAckRecordSaved = true;
+              providerState.isAckRecordChnaged();
             });
           },
           onBack: () {
@@ -651,7 +652,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
     List<Step> stepsLista = [
       // General step
       Step(
-        state: _currentStep <= 0 ? StepState.editing : StepState.complete,
+        state:  providerState.isGneralSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 0,
         title: Theme(
           data: ThemeData(
@@ -669,6 +670,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
+              providerState.isGeneralChnaged();
             });
           },
           onNext: () {
@@ -680,7 +682,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // Employment step
       Step(
-        state: _isEmployeementSaved ? StepState.complete : StepState.editing,
+        state:  providerState.isEducationSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 1,
         title: Theme(
           data: ThemeData(
@@ -698,7 +700,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
-              _isEmployeementSaved = true;
+             providerState.isEmployeementChnaged();
             });
           },
           onBack: () {
@@ -715,7 +717,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // Education step
       Step(
-        state: _isEducationSaved ? StepState.complete : StepState.editing,
+        state: providerState.isEducationSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 2,
         title: Theme(
           data: ThemeData(
@@ -733,7 +735,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
-              _isEducationSaved = true;
+              providerState.isEducationChnaged();
             });
           },
           onBack: () {
@@ -750,7 +752,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // References step
       Step(
-        state: _isReferenceSaved ? StepState.complete : StepState.editing,
+        state: providerState.isReferenceSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 3,
         title: Theme(
           data: ThemeData(
@@ -768,7 +770,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
-              _isReferenceSaved = true;
+              providerState.isReferenceChnaged();
             });
           },
           onBack: () {
@@ -785,7 +787,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // Licenses step
       Step(
-        state: _isLicenseSaved ? StepState.complete : StepState.editing,
+        state: providerState.isLicenseSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 4,
         title: Theme(
           data: ThemeData(
@@ -803,7 +805,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
-              _isLicenseSaved = true;
+              providerState.isLicenseChnaged();
             });
           },
           onBack: () {
@@ -857,7 +859,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
 
       Step(
 
-        state: _isBankingSaved ? StepState.complete : StepState.editing,
+        state: providerState.isBankingSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 5,
         title: Theme(
           data: ThemeData(
@@ -882,7 +884,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             print(">>>>>>>${_currentStep}");
             setState(() {
               _currentStep = _currentStep - 1;
-              _isBankingSaved = true;
+              providerState.isBankingChnaged();
             });
           },
           onNext: () {
@@ -894,7 +896,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // Health Records step
       Step(
-        state:  _isHealthRecordSaved ? StepState.complete : StepState.editing,
+        state:  providerState.isHealthRecordSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 6,
         title: Theme(
           data: ThemeData(
@@ -912,7 +914,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
-              _isHealthRecordSaved = true;
+              providerState.isHealthRecordChnaged();
             });
           },
           onBack: () {
@@ -929,7 +931,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
       ),
       // Acknowledgements step
       Step(
-        state: _isAckRecordSaved ? StepState.complete : StepState.editing,
+        state: providerState.isAckRecordSaved ? StepState.complete : StepState.editing,
         isActive: _currentStep >= 7,
         title: Theme(
           data: ThemeData(
@@ -947,7 +949,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           onSave: () {
             setState(() {
               _currentStep = _currentStep + 1;
-              _isAckRecordSaved = true;
+              providerState.isAckRecordChnaged();
             });
           },
           onBack: () {

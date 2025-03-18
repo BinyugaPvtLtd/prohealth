@@ -9,12 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_licenses_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -156,6 +158,10 @@ class _LicensesScreenState extends State<LicensesScreen> {
             prefilledData.length,
                 (index) => GlobalKey<_licensesFormState>(),
           );
+          final providerState = Provider.of<HrProgressMultiStape>(context,listen: false);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            providerState.isLicenseChnaged();
+          });
         });
 
       }
