@@ -9,9 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/onlink_general_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onlink_general/onlink_general_data.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -111,6 +113,10 @@ class _generalFormState extends State<generalForm> {
       var data = onlinkGeneralData; // Assuming index matches the data list
       setState(() {
         print("Inside function");
+        final providerState = Provider.of<HrProgressMultiStape>(context,listen: false);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          providerState.isGeneralChnaged();
+        });
 
         // If isDobSelected is false and the dateOfBirth is today's date, leave it empty
         if (!isDobSelected && data.dateOfBirth != null) {
