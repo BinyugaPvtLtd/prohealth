@@ -156,8 +156,7 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                         return const Text('No Data available');
                       }
 
-                      List<DropdownMenuItem<
-                          String>> countyDropDownList = snapshot.data!
+                      List<DropdownMenuItem<String>> countyDropDownList = snapshot.data!
                           .map((county) =>
                           DropdownMenuItem<String>(
                             value: county.countyName,

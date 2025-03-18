@@ -30,7 +30,7 @@ class _Auto_AssignState extends State<Auto_Assign> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        color: Colors.red,
+       // color: Colors.red,
         child: Padding(
           padding: const EdgeInsets.only(left: 40,right: 20),
           child: Column(
