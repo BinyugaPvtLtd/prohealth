@@ -73,7 +73,6 @@ class _MultiStepFormState extends State<MultiStepForm> {
 // Navigator.push(context, MaterialPageRoute(builder: (context)=>MultiStepForm()));
   @override
   Widget build(BuildContext context) {
-
     return
       isCompleted
           ? OnBoardingThankYou()
