@@ -256,7 +256,7 @@ void loaderTrue(){
     required String email,
     required String clinicalType,
     required String repoartingOffice,
-    required String zone,
+   // required String zone,
     required String city
   }) {
     _isFormValid = true;
@@ -289,10 +289,10 @@ void loaderTrue(){
       _clinicalType = error;
       if (error != null) _isFormValid = false;
     });
-    validateField(zone, 'Please Select Zone', (error) {
-      _zoneError = error;
-      if (error != null) _isFormValid = false;
-    });
+    // validateField(zone, 'Please Select Zone', (error) {
+    //   _zoneError = error;
+    //   if (error != null) _isFormValid = false;
+    // });
     validateField(repoartingOffice, 'Please Select Reporting Office', (error) {
       _reportingOfficeError = error;
       if (error != null) _isFormValid = false;

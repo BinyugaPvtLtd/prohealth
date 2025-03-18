@@ -532,7 +532,12 @@ class RegisterEnrollPopup extends StatelessWidget {
                                             providerState.setZoneError,
                                           );
                                           selectedZone = zone.zoneName!;
+                                          countyId =zone.countyID!;
+                                          zoneId =zone.zoneID!;
                                         }
+                                        print("Selected zoin id :: ${zoneId}");
+                                                          print("Zone :: ${selectedZone}");
+                                                          print("county Id :: ${countyId}");
                                       }
                                     },
                                   ),
@@ -547,6 +552,9 @@ class RegisterEnrollPopup extends StatelessWidget {
                                       : SizedBox(height: 11),
                                 ],
                               ),
+                              ///
+                              ///
+                              ///
                               // Column(
                               //   crossAxisAlignment:CrossAxisAlignment.start,
                               //   children: [
@@ -555,7 +563,7 @@ class RegisterEnrollPopup extends StatelessWidget {
                               //       builder: (context, snapshot) {
                               //         if (snapshot.connectionState == ConnectionState.waiting) {
                               //           return  CustomDropdownTextField(
-                              //             hintText: "Loading",
+                              //           //  hintText: "Loading",
                               //             headText: 'Zone',
                               //             width: textFieldWidth,
                               //             height: textFieldHeight,
@@ -797,7 +805,7 @@ class RegisterEnrollPopup extends StatelessWidget {
                               lastName: lastName.text,
                               email: email.text, clinicalType: clinicialName,
                               repoartingOffice: reportingOfficeId,
-                              zone: selectedZone,
+                             // zone: selectedZone,
                               city:selectedCity);
                                                     if (providerState.isFormValid) {
                             providerState.loaderTrue();

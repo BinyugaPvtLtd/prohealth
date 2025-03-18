@@ -1158,15 +1158,10 @@ class OfferLetterScreen extends StatelessWidget {
                                         try {
                                           // Set patientsValue based on depId
                                           int patientsValue;
-                                          if (depId == AppConfig.salesId ||
-                                              depId ==
-                                                  AppConfig.AdministrationId) {
-                                            patientsValue =
-                                                0; // If depId is sales or administration, set to 0
+                                          if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId) {
+                                            patientsValue = 0; // If depId is sales or administration, set to 0
                                           } else {
-                                            patientsValue = int.parse(
-                                                patientsController
-                                                    .text); // Otherwise, parse the text from the controller
+                                            patientsValue = int.parse(patientsController.text); // Otherwise, parse the text from the controller
                                           }
                                           ApiData response = await addEmpEnroll(
                                             context: context,
@@ -1193,12 +1188,10 @@ class OfferLetterScreen extends StatelessWidget {
                                             // service: "Hospice",
                                             service: services,
                                           );
-                                          if (response.statusCode == 200 ||
-                                              response.statusCode == 201) {
+                                          if (response.statusCode == 200 || response.statusCode == 201) {
                                             // Call the API with the correct patientsValue
                                             onRefreshRegister();
-                                            var empEnrollOfferResponse =
-                                                await addEmpEnrollOffers(
+                                            var empEnrollOfferResponse = await addEmpEnrollOffers(
                                               context,
                                               response.employeeEnrollId!,
                                               response.employeeId!,
@@ -1236,9 +1229,7 @@ class OfferLetterScreen extends StatelessWidget {
                                             verbalAcceptanceController.clear();
 
                                             Navigator.pop(context);
-                                            if (empEnrollOfferResponse
-                                                        .statusCode ==
-                                                    200 ||
+                                            if (empEnrollOfferResponse.statusCode == 200||
                                                 empEnrollOfferResponse
                                                         .statusCode ==
                                                     201) {
@@ -1296,7 +1287,7 @@ class OfferLetterScreen extends StatelessWidget {
                                               builder: (BuildContext context) =>
                                                   FailedPopup(
                                                       text:
-                                                          "Something Went Wrong"),
+                                                          "Something Went Wrong!!"),
                                             );
                                           }
 
@@ -1306,9 +1297,7 @@ class OfferLetterScreen extends StatelessWidget {
                                           showDialog(
                                             context: context,
                                             builder: (BuildContext context) =>
-                                                FailedPopup(
-                                                    text:
-                                                        "Something Went Wrong"),
+                                                FailedPopup(text: "Error during enrollment: $e"),
                                           );
                                           // ScaffoldMessenger.of(context).showSnackBar(
                                           //   SnackBar(content: Text('Enrollment failed: $e')),
