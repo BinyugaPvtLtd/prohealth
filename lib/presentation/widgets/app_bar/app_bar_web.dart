@@ -8,6 +8,7 @@ import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../app/resources/color.dart';
+import '../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/value_manager.dart';
 import '../../../app/services/api/managers/user_appbar_manager.dart';
@@ -375,59 +376,60 @@ class _AppBarWebState extends State<AppBarWeb> {
                                 MediaQuery.of(context).size.width >= 1024
                                     ? Expanded(
                                   flex: 3,
-                                  child: Container(
-                               //margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
-                                 padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 2),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18),
-                                      border: Border.all(color: Colors.white, width: 2),
-                                      color: Colors.transparent,
-                                    ),
-                                    child: Center(
-                                      child: DropdownButton<String>(
-                                        underline: Container(),
-                                        value: _selectedValue,
-                                        hint: Text(
-                                          'Super User',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        icon: Padding(
-                                          padding: const EdgeInsets.only(left: 8),
-                                          child: Icon(
-                                            Icons.arrow_drop_down,
-                                            color: Colors.white,
-                                            size: 20,
-                                          ),
-                                        ),
-                                        items: <String>['Super User', 'Admin', 'Staff', 'Patient']
-                                            .map((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.w500,
-                                                color: _selectedValue == value
-                                                    ? Colors.white
-                                                    : ColorManager.white,
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            _selectedValue = newValue;
-                                          });
-                                        },
-                                        dropdownColor: ColorManager.blueprime,
-                                      ),
-                                    ),
-                                  ),
+                                  child: AppBarDropdown()
+                               //    Container(
+                               // //margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
+                               //   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+                               //      decoration: BoxDecoration(
+                               //        borderRadius: BorderRadius.circular(18),
+                               //        border: Border.all(color: Colors.white, width: 2),
+                               //        color: Colors.transparent,
+                               //      ),
+                               //      child: Center(
+                               //        child: DropdownButton<String>(
+                               //          underline: Container(),
+                               //          value: _selectedValue,
+                               //          hint: Text(
+                               //            'Super User',
+                               //            style: TextStyle(
+                               //              fontSize: 12,
+                               //              fontWeight: FontWeight.w500,
+                               //              color: Colors.white,
+                               //            ),
+                               //          ),
+                               //          icon: Padding(
+                               //            padding: const EdgeInsets.only(left: 8),
+                               //            child: Icon(
+                               //              Icons.arrow_drop_down,
+                               //              color: Colors.white,
+                               //              size: 20,
+                               //            ),
+                               //          ),
+                               //          items: <String>['Super User', 'Admin', 'Staff', 'Patient']
+                               //              .map((String value) {
+                               //            return DropdownMenuItem<String>(
+                               //              value: value,
+                               //              child: Text(
+                               //                value,
+                               //                style: TextStyle(
+                               //                  fontSize: 11,
+                               //                  fontWeight: FontWeight.w500,
+                               //                  color: _selectedValue == value
+                               //                      ? Colors.white
+                               //                      : ColorManager.white,
+                               //                ),
+                               //              ),
+                               //            );
+                               //          }).toList(),
+                               //          onChanged: (String? newValue) {
+                               //            setState(() {
+                               //              _selectedValue = newValue;
+                               //            });
+                               //          },
+                               //          dropdownColor: ColorManager.blueprime,
+                               //        ),
+                               //      ),
+                               //    ),
                                 )
                                     : SizedBox(
                                         width: AppSize.s1,
@@ -730,6 +732,128 @@ class _AppBarWebState extends State<AppBarWeb> {
                     ),
                   ),
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class AppBarDropdown extends StatefulWidget {
+  final String? initialValue;
+  final Function(String)? onChange;
+  final bool? isEnabled;
+  const AppBarDropdown({super.key, this.initialValue, this.onChange, this.isEnabled});
+
+  @override
+  State<AppBarDropdown> createState() => _AppBarDropdownState();
+}
+
+class _AppBarDropdownState extends State<AppBarDropdown> {
+  String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.initialValue;
+  }
+
+  void _showCustomDropdown() {
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+
+    showDialog(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Positioned(
+              left: offset.dx,
+              top: offset.dy + size.height,
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(5),
+                child: Container(
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: ColorManager.blueprime,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  constraints: BoxConstraints(
+                    maxHeight: 200, // Limit height for scrolling
+                  ),
+                  child: SingleChildScrollView(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        // Define a hardcoded list of values
+                        'Super User', 'Admin', 'Staff', 'Patient'
+                      ].map((String item) {
+                        return ListTile(
+                          title: Text(
+                            item,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              _selectedValue = item;
+                              widget.onChange?.call(item);
+                            });
+                            Navigator.pop(context);
+                          },
+                        );
+                      }).toList(),
+                    ),
+                  ),
+
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _showCustomDropdown,
+      child: Container(
+        //margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: Colors.white, width: 2),
+          color: Colors.transparent,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                child: Text(
+                  _selectedValue ?? 'Super User',
+                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color:  ColorManager.white,),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+              child: Icon(
+                Icons.arrow_drop_down,
+                color: Colors.white,
+                size: 20,
               ),
             ),
           ],
