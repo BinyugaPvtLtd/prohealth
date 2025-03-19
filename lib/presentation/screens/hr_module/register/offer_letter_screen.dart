@@ -1130,7 +1130,7 @@ class OfferLetterScreen extends StatelessWidget {
                                       city: '',
                                       countyId: st.selectedCountyId,
                                       zoneId: st.docZoneId,
-                                      zipCodes: st.selectedZipCodes));
+                                      zipCodes: st.zipCodes));
                                 }
                                 print(
                                     "Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
@@ -1934,7 +1934,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                     if (!checkedZipCodes.containsKey(singleZip)) {
                                       setState(() {
                                         checkedZipCodes[singleZip] = true;
-                                        // selectedZipCodes.add(singleZip);
+                                       // selectedZipCodes.add(singleZip);
                                         zipCodes.add(int.parse(singleZip));
                                         selectedZipCodesString = selectedZipCodes.join(', ');
                                        // _updateButtonState();
@@ -1962,7 +1962,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                         setState(() {
                                           checkedZipCodes[zipCode] = val ?? false;
                                           if (val == true) {
-                                            // selectedZipCodes.add(zipCode);
+                                         // selectedZipCodes.add(zipCode);
                                             zipCodes.add(int.parse(zipCode));
                                           } else {
                                             selectedZipCodes.remove(zipCode);
