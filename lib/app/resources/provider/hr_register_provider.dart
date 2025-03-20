@@ -8,6 +8,9 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/register_m
 import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:prohealth/data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 
+import '../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
+import '../../services/api/managers/establishment_manager/company_identrity_manager.dart';
+
 class HrRegisterProvider extends ChangeNotifier {
   String _selectedValue = 'Sort';
   bool _load = false;
@@ -21,6 +24,32 @@ class HrRegisterProvider extends ChangeNotifier {
   final StreamController<List<RegisterDataCompID>> _registerController = StreamController.broadcast();
   Stream<List<RegisterDataCompID>> get registerStream  => _registerController.stream;
 
+  List<AEClinicalDiscipline>? _clinicalDisciplines;
+  List<AEClinicalCity>? _clinicalCities;
+  List<CompanyOfficeListData>? _companyOffices;
+  List<AEClinicalZone>?  _zone;
+
+  List<AEClinicalDiscipline> get clinicalDisciplines => _clinicalDisciplines!;
+  List<AEClinicalCity> get clinicalCities => _clinicalCities!;
+  List<CompanyOfficeListData> get companyOffices => _companyOffices!;
+  List<AEClinicalZone> get zone => _zone!;
+
+  Future<void> fetchDropdownData(BuildContext context) async {
+    _load = true;
+    notifyListeners();
+
+    try {
+      _clinicalDisciplines = await HrAddEmplyClinicalDisciplinApi(context, 1);
+      _clinicalCities = await HrAddEmplyClinicalCityApi(context);
+      _companyOffices = await getCompanyOfficeList(context);
+      _zone = await HrAddEmplyClinicalZoneApi(context);
+    } catch (e) {
+      debugPrint("Error fetching dropdown data: $e");
+    }
+
+    _load = false;
+    notifyListeners();
+  }
 
   void loaderTrue(){
     _load = true;
@@ -89,6 +118,8 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
   String? _expiryTypeError;
   String _generatedURL = '';
   bool _load = false;
+
+  bool isLoading = true;
   List<EnrollServices> _enrollService = [];
 
 
@@ -107,8 +138,32 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
   String? get expiryTypeError => _expiryTypeError;
   bool get isFormValid => _isFormValid;
   List<EnrollServices> get enrollService => _enrollService;
+  // List<AEClinicalDiscipline>? _clinicalDisciplines;
+  // List<AEClinicalCity>? _clinicalCities;
+  // List<CompanyOfficeListData>? _companyOffices;
+  //
+  // List get clinicalDisciplines => _clinicalDisciplines!;
+  // List get clinicalCities => _clinicalCities!;
+  // List get companyOffices => _companyOffices!;
+  //
+  // Future<void> fetchDropdownData(BuildContext context) async {
+  //   isLoading = true;
+  //   notifyListeners();
+  //
+  //   try {
+  //     _clinicalDisciplines = await HrAddEmplyClinicalDisciplinApi(context, 1);
+  //     _clinicalCities = await HrAddEmplyClinicalCityApi(context);
+  //     _companyOffices = await getCompanyOfficeList(context);
+  //   } catch (e) {
+  //     debugPrint("Error fetching dropdown data: $e");
+  //   }
+  //
+  //   isLoading = false;
+  //   notifyListeners();
+  // }
 
-  void loaderTrue(){
+
+void loaderTrue(){
     _load = true;
     notifyListeners();
   }
@@ -201,7 +256,7 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
     required String email,
     required String clinicalType,
     required String repoartingOffice,
-    required String zone,
+   // required String zone,
     required String city
   }) {
     _isFormValid = true;
@@ -234,10 +289,10 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
       _clinicalType = error;
       if (error != null) _isFormValid = false;
     });
-    validateField(zone, 'Please Select Zone', (error) {
-      _zoneError = error;
-      if (error != null) _isFormValid = false;
-    });
+    // validateField(zone, 'Please Select Zone', (error) {
+    //   _zoneError = error;
+    //   if (error != null) _isFormValid = false;
+    // });
     validateField(repoartingOffice, 'Please Select Reporting Office', (error) {
       _reportingOfficeError = error;
       if (error != null) _isFormValid = false;
@@ -273,6 +328,76 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
     _reportingOfficeError = null;
     _zoneError = null;
     _cityError = null;
+    notifyListeners();
+  }
+}
+
+
+class HrProgressMultiStape extends ChangeNotifier{
+  bool _isGneralSaved = false;
+  bool _isEducationSaved = false;
+  bool _isEmployeementSaved = false;
+  bool _isLicenseSaved = false;
+  bool _isBankingSaved = false;
+  bool _isReferenceSaved = false;
+  bool _isClicalLicenseSaved = false;
+  bool _isHealthRecordSaved = false;
+  bool _isAckRecordSaved = false;
+
+
+  bool get isGneralSaved => _isGneralSaved;
+  bool get isEducationSaved => _isEducationSaved;
+  bool get isEmployeementSaved => _isEmployeementSaved;
+  bool get isLicenseSaved => _isLicenseSaved;
+  bool get isBankingSaved => _isBankingSaved;
+  bool get isReferenceSaved => _isReferenceSaved;
+  bool get isClicalLicenseSaved => _isClicalLicenseSaved;
+  bool get isHealthRecordSaved => _isHealthRecordSaved;
+  bool get isAckRecordSaved => _isAckRecordSaved;
+
+
+  void isGeneralChnaged(){
+    _isGneralSaved = true;
+    notifyListeners();
+  }
+
+  void isEducationChnaged(){
+    _isEducationSaved = true;
+    notifyListeners();
+  }
+
+  void isEmployeementChnaged(){
+    _isEmployeementSaved = true;
+    notifyListeners();
+  }
+
+  void isLicenseChnaged(){
+    _isLicenseSaved = true;
+    notifyListeners();
+  }
+
+  void isReferenceChnaged(){
+    _isReferenceSaved = true;
+    notifyListeners();
+  }
+
+  void isBankingChnaged(){
+    _isBankingSaved = true;
+    notifyListeners();
+  }
+
+  void isClinicalLicenseChnaged(){
+    _isClicalLicenseSaved = true;
+    notifyListeners();
+  }
+
+  void isHealthRecordChnaged(){
+    _isHealthRecordSaved = true;
+    notifyListeners();
+  }
+
+  void isAckRecordChnaged(){
+    _isAckRecordSaved = true;
     notifyListeners();
   }
 }

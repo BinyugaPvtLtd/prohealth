@@ -92,11 +92,11 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         ),
                         child: Row(
                           children: [
-                            SizedBox(width: AppSize.s8),
+                            SizedBox(width: AppSize.s10),
                             Expanded(
                               child: Text(
                                 "Select",
-                                style: TableSubHeading.customTextStyle(context),
+                                style: DocumentTypeDataStyle.customTextStyle(context),
                               ),
                             ),
                             Padding(
@@ -119,15 +119,15 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         ),
                         child: Row(
                           children: [
-                            SizedBox(width: AppSize.s8),
+                            SizedBox(width: AppSize.s10),
                             Expanded(
                               child: Text(
                                 "Select",
-                                style: TableSubHeading.customTextStyle(context),
+                                style: DocumentTypeDataStyle.customTextStyle(context),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(right: AppPadding.p10),
+                              padding: const EdgeInsets.only(right: AppPadding.p8),
                               child: Icon(Icons.arrow_drop_down),
                             ),
                           ],

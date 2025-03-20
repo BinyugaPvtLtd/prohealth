@@ -7,6 +7,8 @@ import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 
+import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
+
 ///zone GET
 Future<List<AllZoneData>> getAllZone(
   BuildContext context,
@@ -637,6 +639,37 @@ Future<ApiData> addZipCodeSetup(
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///zone sort by dropdown22-8
+Future<List<SortByZoneData>> ZoneZipcodeDropdown(
+    String officeId,
+    BuildContext context,) async {
+  List<SortByZoneData> itemsList = [];
+  try {
+    final companyID = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.getzonezipcodedropdown(
+            companyID: companyID, officeId: officeId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(
+          SortByZoneData(
+            zoneId: item['zone_id'] ?? 0,
+            zoneName: item['zoneName'] ?? "--",
+          ),
+        );
+        print(" zipcode zone dropdown$response");
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
   }
 }
 

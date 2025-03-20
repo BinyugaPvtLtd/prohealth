@@ -1130,7 +1130,7 @@ class OfferLetterScreen extends StatelessWidget {
                                       city: '',
                                       countyId: st.selectedCountyId,
                                       zoneId: st.docZoneId,
-                                      zipCodes: st.selectedZipCodes));
+                                      zipCodes: st.zipCodes));
                                 }
                                 print(
                                     "Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
@@ -1158,15 +1158,10 @@ class OfferLetterScreen extends StatelessWidget {
                                         try {
                                           // Set patientsValue based on depId
                                           int patientsValue;
-                                          if (depId == AppConfig.salesId ||
-                                              depId ==
-                                                  AppConfig.AdministrationId) {
-                                            patientsValue =
-                                                0; // If depId is sales or administration, set to 0
+                                          if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId) {
+                                            patientsValue = 0; // If depId is sales or administration, set to 0
                                           } else {
-                                            patientsValue = int.parse(
-                                                patientsController
-                                                    .text); // Otherwise, parse the text from the controller
+                                            patientsValue = int.parse(patientsController.text); // Otherwise, parse the text from the controller
                                           }
                                           ApiData response = await addEmpEnroll(
                                             context: context,
@@ -1193,12 +1188,10 @@ class OfferLetterScreen extends StatelessWidget {
                                             // service: "Hospice",
                                             service: services,
                                           );
-                                          if (response.statusCode == 200 ||
-                                              response.statusCode == 201) {
+                                          if (response.statusCode == 200 || response.statusCode == 201) {
                                             // Call the API with the correct patientsValue
                                             onRefreshRegister();
-                                            var empEnrollOfferResponse =
-                                                await addEmpEnrollOffers(
+                                            var empEnrollOfferResponse = await addEmpEnrollOffers(
                                               context,
                                               response.employeeEnrollId!,
                                               response.employeeId!,
@@ -1236,9 +1229,7 @@ class OfferLetterScreen extends StatelessWidget {
                                             verbalAcceptanceController.clear();
 
                                             Navigator.pop(context);
-                                            if (empEnrollOfferResponse
-                                                        .statusCode ==
-                                                    200 ||
+                                            if (empEnrollOfferResponse.statusCode == 200||
                                                 empEnrollOfferResponse
                                                         .statusCode ==
                                                     201) {
@@ -1296,7 +1287,7 @@ class OfferLetterScreen extends StatelessWidget {
                                               builder: (BuildContext context) =>
                                                   FailedPopup(
                                                       text:
-                                                          "Something Went Wrong"),
+                                                          "Something Went Wrong!!"),
                                             );
                                           }
 
@@ -1306,9 +1297,7 @@ class OfferLetterScreen extends StatelessWidget {
                                           showDialog(
                                             context: context,
                                             builder: (BuildContext context) =>
-                                                FailedPopup(
-                                                    text:
-                                                        "Something Went Wrong"),
+                                                FailedPopup(text: "Error during enrollment: $e"),
                                           );
                                           // ScaffoldMessenger.of(context).showSnackBar(
                                           //   SnackBar(content: Text('Enrollment failed: $e')),
@@ -1571,27 +1560,129 @@ class _DynamciContainerState extends State<DynamciContainer> {
   String selectedCityString = '';
   List<DropdownMenuItem<String>> dropDownList = [];
   int countyId = 0;
-  final StreamController<List<ZipcodeByCountyIdData>> _ZipStreamController =
-      StreamController<List<ZipcodeByCountyIdData>>.broadcast();
-  final StreamController<List<AllCountyGetList>> _countyStreamController =
-      StreamController<List<AllCountyGetList>>.broadcast();
+ // final StreamController<List<ZipcodeByCountyIdData>> _ZipStreamController = StreamController<List<ZipcodeByCountyIdData>>.broadcast();
+  // final StreamController<List<AllCountyGetList>> _countyStreamController = StreamController<List<AllCountyGetList>>.broadcast();
   List<int> zipCodes = [];
   int? employementIndex;
-  final StreamController<List<CountyWiseZoneModal>> _zoneController =
-      StreamController<List<CountyWiseZoneModal>>.broadcast();
+  final StreamController<List<CountyWiseZoneModal>> _zoneController = StreamController<List<CountyWiseZoneModal>>.broadcast();
+  final StreamController<List<ZipcodeByCountyIdAndZoneIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
+
   String? selectedZipCodeZone;
   int docZoneId = 0;
   List<ApiAddCovrageData> addCovrage = [];
+  bool isButtonEnabled = false;
+  Widget _buildPlaceholder({String text = ""}) {
+    return Container(
+      width: 250,
+      height: 30,
+      decoration: BoxDecoration(
+        border: Border.all(color: ColorManager.containerBorderGrey, width: 1),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Center(child: Text(text, style: AllNoDataAvailable.customTextStyle(context))),
+    );
+  }
 
-  void fetchZipCodes(int countyId) {
-    if (countyId != 0) {
-      getZipcodeByCountyId(context: context, countyId: countyId).then((data) {
-        _ZipStreamController.add(data);
-      }).catchError((error) {
-        print("Error fetching zip codes: $error");
-      });
+  // void _fetchCountyWiseZone() async {
+  //   if (selectedCountyId > 0) {
+  //     try {
+  //       List<CountyWiseZoneModal> data = await fetchCountyWiseZone(context, selectedCountyId);
+  //       _zoneController.add(data);
+  //       selectedZipCodeZone = null;
+  //       if (data.isNotEmpty) {
+  //         setState(() {
+  //           print("zone offer letter ::::::::::::::::::::::::::::::: ${selectedZipCodeZone}");
+  //           selectedZipCodeZone = data.first.zoneName;
+  //           docZoneId = data.first.zone_id;
+  //           print("zone offer letter after ::::::::::::::::::::::::::::::: ${selectedZipCodeZone}");
+  //         });
+  //
+  //         // Fetch updated zip codes for the first zone
+  //         _fetchZipCodes();
+  //       } else {
+  //         // Reset values if no zones are available
+  //         setState(() {
+  //           selectedZipCodeZone = null;
+  //           docZoneId = 0;
+  //         });
+  //         _countyStreamController.add([]); // Clear zip code list
+  //       }
+  //     } catch (e) {
+  //       _zoneController.addError("Error fetching zones");
+  //     }
+  //   }
+  // }
+  ///
+  // void _fetchCountyWiseZone() async {
+  //   if (selectedCountyId > 0) {
+  //     try {
+  //       List<CountyWiseZoneModal> data = await fetchCountyWiseZone(context, selectedCountyId);
+  //       _zoneController.add(data);
+  //
+  //       setState(() {
+  //         selectedZipCodeZone = data.isNotEmpty ? data.first.zoneName : null;
+  //         docZoneId = data.isNotEmpty ? data.first.zone_id : 0;
+  //         print("zone offer letter ::::::::::::::::::::::::::::::: ${selectedZipCodeZone}");
+  //       });
+  //
+  //       _fetchZipCodes(); // Fetch updated zip codes
+  //     } catch (e) {
+  //       _zoneController.addError("Error fetching zones");
+  //     }
+  //   }
+  // }
+  void _fetchCountyWiseZone() async {
+    if (selectedCountyId > 0) {
+      try {
+        List<CountyWiseZoneModal> data = await fetchCountyWiseZone(context, selectedCountyId);
+        _zoneController.add(data);
+
+        if (data.isNotEmpty) {
+          setState(() {
+            selectedZipCodeZone = data.first.zoneName;
+            docZoneId = data.first.zone_id;
+          });
+
+          _fetchZipCodes(); // Fetch updated zip codes for the selected zone
+        } else {
+          // Reset values if no zones are available
+          setState(() {
+            selectedZipCodeZone = null;
+            docZoneId = 0;
+          });
+          _countyStreamController.add([]); // Clear zip code list
+        }
+      } catch (e) {
+        _zoneController.addError("Error fetching zones");
+      }
     }
   }
+
+
+  void _fetchZipCodes() async {
+    if (selectedCountyId > 0 && docZoneId > 0) {
+      try {
+        List<
+            ZipcodeByCountyIdAndZoneIdData> data = await getZipcodeByCountyIdAndZoneId(
+          context: context,
+          countyId: selectedCountyId,
+          zoneId: docZoneId,
+        );
+        _countyStreamController.add(data);
+      } catch (e) {
+        _countyStreamController.addError("Error fetching zip codes");
+      }
+    }
+  }
+  // void _updateButtonState() {
+  //   setState(() {
+  //     isButtonEnabled = selectedCounty != null &&
+  //         selectedCounty!.isNotEmpty &&
+  //         (zipCodes.isEmpty || selectedZipCodes.isNotEmpty) &&
+  //         selectedZipCodeZone != null &&
+  //         selectedZipCodeZone!.isNotEmpty;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -1609,7 +1700,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
             ),
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
+              const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
               child: Column(
                 children: [
                   Row(
@@ -1649,7 +1740,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                 TextSpan(
                                   text: ' *', // Asterisk
                                   style: DocumentTypeDataStyle.customTextStyle(
-                                          context)
+                                      context)
                                       .copyWith(
                                     color: ColorManager.red, // Asterisk color
                                   ),
@@ -1658,80 +1749,62 @@ class _DynamciContainerState extends State<DynamciContainer> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          StatefulBuilder(
-                            builder: (BuildContext context,
-                                void Function(void Function()) setState) {
-                              return StreamBuilder<List<AllCountyGetList>>(
-                                stream: _countyStreamController.stream,
-                                builder: (context, snapshot) {
-                                  getCountyZoneList(context).then((data) {
-                                    _countyStreamController.add(data);
-                                  }).catchError((error) {});
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Container(
-                                      width: 250,
-                                      child: CustomDropdownTextFieldpadding(
-                                        items: [''],
-                                        hintText: 'Select',
-                                        initialValue: 'Select',
-                                        onChanged: (newValue) {},
-                                        height: 32,
-                                      ),
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    return Container(
-                                      width: 250,
-                                      child: CustomDropdownTextFieldpadding(
-                                        height: 32,
-                                        hintText: 'Select County',
-                                        // headText: 'County',
-                                        items: ['Error'],
-                                      ),
-                                    );
-                                  } else if (snapshot.hasData) {
-                                    dropDownList.clear();
-                                    for (var i in snapshot.data!) {
-                                      dropDownList.add(DropdownMenuItem<String>(
-                                        child: Text(i.countyName),
-                                        value: i.countyName,
-                                      ));
-                                    }
-                                    return StatefulBuilder(
-                                      builder: (BuildContext context,
-                                          StateSetter setState) {
-                                        return Container(
-                                          width: 250,
-                                          child: CustomDropdownTextFieldpadding(
-                                            dropDownMenuList: dropDownList,
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                selectedCounty = newValue;
-                                                for (var a in snapshot.data!) {
-                                                  if (a.countyName ==
-                                                      newValue) {
-                                                    selectedCountyId =
-                                                        a.countyId;
-                                                    print(
-                                                        "County Id :: ${selectedCountyId}");
-                                                    fetchZipCodes(
-                                                        selectedCountyId);
-                                                  }
-                                                }
-                                              });
-                                            },
-                                            height: 32,
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  } else {
-                                    return CustomDropdownTextField(
-                                      headText: 'County',
-                                      items: ['No County'],
-                                    );
-                                  }
+                          FutureBuilder<List<AllCountyGetList>>(
+                            future: getCountyZoneList(context),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return CICCDropdown(
+                                    width: 250, hintText: 'Select County', items: []);
+                              }
+                              if (snapshot.hasError) {
+                                return const Text("Error fetching counties");
+                              }
+                              if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                return const Text('No Data available');
+                              }
+
+                              List<DropdownMenuItem<String>> countyDropDownList = snapshot.data!
+                                  .map((county) =>
+                                  DropdownMenuItem<String>(
+                                    value: county.countyName,
+                                    child: Text(county.countyName),
+                                  ))
+                                  .toList();
+
+                              return CICCDropdown(
+                                items: countyDropDownList,
+                                initialValue: selectedCounty,
+                                width: 250,
+                                onChange: (newValue) {
+                                  setState(() {
+                                    selectedCounty = newValue;
+                                    selectedCountyId = snapshot.data!
+                                        .firstWhere((county) => county.countyName == newValue)
+                                        .countyId;
+
+                                    // Reset previous selections
+                                    selectedZipCodeZone = null;
+                                    docZoneId = 0;
+
+                                    _fetchCountyWiseZone(); // Fetch zones for the selected county
+                                   // _updateButtonState();
+                                  });
                                 },
+
+                                // onChange: (newValue) {
+                                //   setState(() {
+                                //     selectedCounty = newValue;
+                                //     selectedCountyId = snapshot.data!.firstWhere((county) => county.countyName == newValue).countyId;
+                                //
+                                //     // Reset previous selections
+                                //     selectedZipCodeZone = null;
+                                //     docZoneId = 0;
+                                //
+                                //     _fetchCountyWiseZone(); // Fetch zones for the selected county
+                                //     _updateButtonState();
+                                //   });
+                                // },
+
                               );
                             },
                           ),
@@ -1752,7 +1825,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                 TextSpan(
                                   text: ' *', // Asterisk
                                   style: DocumentTypeDataStyle.customTextStyle(
-                                          context)
+                                      context)
                                       .copyWith(
                                     color: ColorManager.red, // Asterisk color
                                   ),
@@ -1762,112 +1835,42 @@ class _DynamciContainerState extends State<DynamciContainer> {
                           ),
                           const SizedBox(height: 5),
                           StreamBuilder<List<CountyWiseZoneModal>>(
-                              stream: _zoneController.stream,
-                              builder: (context, snapshotZone) {
-                                fetchCountyWiseZone(context, selectedCountyId)
-                                    .then((data) {
-                                  _zoneController.add(data);
-                                }).catchError((error) {});
-                                if (snapshotZone.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Container(
-                                    width: 250,
-                                    height: 32,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                          color: const Color(0xff686464)
-                                              .withOpacity(0.5),
-                                          width: 1),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: Text(
-                                            ErrorMessageString.noZoneAdded,
-                                            style: DocumentTypeDataStyle
-                                                .customTextStyle(context)),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                if (snapshotZone.data!.isEmpty) {
-                                  return Container(
-                                    width: 250,
-                                    height: 32,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                          color: const Color(0xff686464)
-                                              .withOpacity(0.5),
-                                          width: 1),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: Text(
-                                            ErrorMessageString.noZoneAdded,
-                                            style: DocumentTypeDataStyle
-                                                .customTextStyle(context)),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                if (snapshotZone.hasData) {
-                                  List dropDown = [];
-                                  int docType = 0;
-                                  List<DropdownMenuItem<String>>
-                                      dropDownTypesList = [];
-                                  for (var i in snapshotZone.data!) {
-                                    dropDownTypesList.add(
-                                      DropdownMenuItem<String>(
-                                        value: i.zoneName,
-                                        child: Text(i.zoneName),
-                                      ),
-                                    );
-                                  }
-                                  docZoneId = snapshotZone.data![0].zone_id;
-                                  return StatefulBuilder(
-                                    builder: (BuildContext context,
-                                        StateSetter setState) {
-                                      return Container(
-                                        width: 250,
-                                        child: CustomDropdownTextFieldpadding(
-                                          dropDownMenuList: dropDownTypesList,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              for (var a
-                                                  in snapshotZone.data!) {
-                                                if (a.zoneName == newValue) {
-                                                  docType = a.zone_id;
-                                                  print(
-                                                      "ZONE id :: ${a.zone_id}");
-                                                  docZoneId = docType;
-                                                }
-                                              }
-                                            });
-                                          },
-                                          height: 32,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }
-                                return const SizedBox();
-                              }),
+                            stream: _zoneController.stream,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return _buildPlaceholder();
+                              }
+                              if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                return _buildPlaceholder(text: "No zones available");
+                              }
+
+                              List<DropdownMenuItem<String>> zoneDropDownList = snapshot.data!.map((zone) => DropdownMenuItem<String>(
+                                value: zone.zoneName,
+                                child: Text(zone.zoneName),
+                              ))
+                                  .toList();
+
+                              return CICCDropdown(
+                                width: 250,
+                                initialValue: selectedZipCodeZone, // Auto-select first zone
+                                onChange: (val) {
+                                  setState(() {
+                                    selectedZipCodeZone = val;
+                                    docZoneId = snapshot.data!.firstWhere((zone) => zone.zoneName == val).zone_id;
+                                  });
+
+                                  _fetchZipCodes(); // Fetch updated zip codes
+                                //  _updateButtonState();
+                                },
+                                items: zoneDropDownList,
+                              );
+                            },
+                          ),
                         ],
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20,),
 
                   ///old code tabbar
                   Expanded(
@@ -1886,9 +1889,9 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                   TextSpan(
                                     text: ' *', // Asterisk
                                     style:
-                                        DocumentTypeDataStyle.customTextStyle(
-                                                context)
-                                            .copyWith(
+                                    DocumentTypeDataStyle.customTextStyle(
+                                        context)
+                                        .copyWith(
                                       color: ColorManager.red, // Asterisk color
                                     ),
                                   ),
@@ -1901,75 +1904,72 @@ class _DynamciContainerState extends State<DynamciContainer> {
                         Expanded(
                           child: Padding(
                             padding:
-                                const EdgeInsets.only(left: 20.0, right: 300.0),
-                            child: StreamBuilder<List<ZipcodeByCountyIdData>>(
-                              stream: _ZipStreamController.stream,
-                              builder: (BuildContext context, snapshot) {
-                                // getZipcodeByCountyId(context: context, countyId: selectedCountyId)
-                                //     .then((data) {
-                                //   _ZipStreamController.add(data);
-                                // }).catchError((error) {
-                                //   // Handle error
-                                // });
-
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
+                            const EdgeInsets.only(left: 20.0, right: 300.0),
+                            child: StreamBuilder<List<ZipcodeByCountyIdAndZoneIdData>>(
+                              stream: _countyStreamController.stream,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
                                   return const SizedBox();
                                 }
-
-                                if (selectedCountyId == 0) {
-                                  return Text(
-                                    'Select county',
-                                    style:
-                                        DocumentTypeDataStyle.customTextStyle(
-                                            context),
+                                if (selectedCountyId == 0 || !snapshot.hasData || snapshot.data!.isEmpty) {
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: AppPadding.p180,bottom: AppPadding.p20 ),
+                                      child: Text(
+                                        selectedCountyId == 0
+                                            ? 'Select County'
+                                            : 'No Zipcode Available!',
+                                        style: NumberTExtFieldLegalDoc.customTextStyle(context),
+                                      ),
+                                    ),
                                   );
                                 }
 
-                                if (snapshot.data!.isEmpty) {
-                                  return Text(
-                                    'No ZipCode Found!',
-                                    style:
-                                        DocumentTypeDataStyle.customTextStyle(
-                                            context),
-                                  );
-                                }
-                                if (snapshot.data!.length == 1) {
-                                  final singleZipCode =
-                                      snapshot.data!.first.zipCode;
-                                  checkedZipCodes[singleZipCode] = true;
-                                  if (!selectedZipCodes
-                                      .contains(int.parse(singleZipCode))) {
-                                    selectedZipCodes
-                                        .add(int.parse(singleZipCode));
+                                List<ZipcodeByCountyIdAndZoneIdData> zipCodeList = snapshot.data!;
+
+                                // If only one zip code is available, set it as checked
+                                WidgetsBinding.instance.addPostFrameCallback((_) {
+                                  if (zipCodeList.length == 1) {
+                                    String singleZip = zipCodeList.first.zipCode;
+                                    if (!checkedZipCodes.containsKey(singleZip)) {
+                                      setState(() {
+                                        checkedZipCodes[singleZip] = true;
+                                       // selectedZipCodes.add(singleZip);
+                                        zipCodes.add(int.parse(singleZip));
+                                        selectedZipCodesString = selectedZipCodes.join(', ');
+                                       // _updateButtonState();
+                                      });
+                                    }
                                   }
-                                }
+                                });
+
                                 return GridView.builder(
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2, // Two items per row
                                     childAspectRatio: 10,
                                     crossAxisSpacing: 5,
                                     mainAxisSpacing: 5,
                                   ),
-                                  itemCount: snapshot.data!.length,
+                                  itemCount: zipCodeList.length,
                                   itemBuilder: (context, index) {
-                                    final zipData = snapshot.data![index];
-                                    final zipCode = zipData.zipCode;
+                                    String zipCode = zipCodeList[index].zipCode;
+                                    bool isChecked = checkedZipCodes[zipCode] ?? false;
 
                                     return CheckBoxTileConst(
                                       text: zipCode,
-                                      value: checkedZipCodes[zipCode] ?? false,
-                                      onChanged: (bool? value) {
+                                      value: isChecked,
+                                      onChanged: (bool? val) {
                                         setState(() {
-                                          checkedZipCodes[zipCode] = value!;
-                                          if (value) {
-                                            selectedZipCodes
-                                                .add(int.parse(zipCode));
+                                          checkedZipCodes[zipCode] = val ?? false;
+                                          if (val == true) {
+                                         // selectedZipCodes.add(zipCode);
+                                            zipCodes.add(int.parse(zipCode));
                                           } else {
-                                            selectedZipCodes
-                                                .remove(int.parse(zipCode));
+                                            selectedZipCodes.remove(zipCode);
+                                            zipCodes.remove(int.parse(zipCode));
                                           }
+                                          selectedZipCodesString = selectedZipCodes.join(', ');
+                                         // _updateButtonState();
                                         });
                                       },
                                     );

@@ -24,6 +24,7 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../../../data/api_data/establishment_data/user/user_modal.dart';
 import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 import '../../em_module/see_all_screen/widgets/user_popup_const_provider.dart';
@@ -35,6 +36,7 @@ import 'confirmation_constant.dart';
 class RegisterScreen extends StatelessWidget {
   final VoidCallback onBackPressed;
   final Function() onRefresh;
+
 
   const RegisterScreen({
     Key? key,
@@ -78,6 +80,7 @@ class RegisterScreen extends StatelessWidget {
     final registerProviderState = Provider.of<HrRegisterProvider>(context,listen:false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       registerProviderState.fetchData(context);
+      registerProviderState.fetchDropdownData(context);
     });
 
     items = List.generate(20, (index) => 'Item ${index + 1}');
@@ -132,15 +135,15 @@ class RegisterScreen extends StatelessWidget {
                             TextButton(
                               onPressed: () async {
                             // const url = "http://localhost:52077/#/onBordingWelcome";
-                            const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                           // const url = "${AppConfig.deployment}/#/onBordingWelcome";
                                 //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                               // Provider.of<RouteProvider>(context,listen:false).navigateToPage(context, OnBoardingWelcome());
+                                Provider.of<RouteProvider>(context,listen:false).navigateToPage(context, OnBoardingWelcome());
                                 //const url = "${AppConfig.deployment}/#/onBordingWelcome";
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
+                                // if (await canLaunch(url)) {
+                                //   await launch(url);
+                                // } else {
+                                //   throw 'Could not launch $url';
+                                // }
                               },
                               child: Text(
                                   'https://prohealth.symmetry.care/register',
@@ -151,6 +154,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+
 
                     Column(
                       children: [
@@ -291,8 +295,8 @@ class RegisterScreen extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 100),
                     child: ListView.builder(
-                      shrinkWrap: true, // Ensures the ListView takes only the space it needs
-                      physics: NeverScrollableScrollPhysics(), // Disables scrolling inside the ListView, let SingleChildScrollView handle it
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         var data = snapshot.data![index];
@@ -342,9 +346,7 @@ class RegisterScreen extends StatelessWidget {
                                               topLeft:
                                               Radius.circular(12)),),
                                         child: Center(
-                                          child:
-
-                                          data.status == 'Notopen'
+                                          child: data.status == 'Notopen'
                                               ? Text(
                                             'Not Opened',
                                             textAlign: TextAlign.center,
@@ -352,7 +354,8 @@ class RegisterScreen extends StatelessWidget {
                                                 color: ColorManager.white,
                                                 fontSize: FontSize.s12,
                                                 fontWeight: FontWeight.w600),
-                                          ):Text(
+                                          )
+                                              :Text(
                                               data.status,
                                               textAlign: TextAlign.center,
                                               style: CustomTextStylesCommon.commonStyle(
@@ -391,7 +394,8 @@ class RegisterScreen extends StatelessWidget {
                                         child: CustomRowname(   text1: data.firstName.capitalizeFirst!,
                                           text2: data.lastName.capitalizeFirst!,),
                                       ),
-                                    ), Expanded(
+                                    ),
+                                    Expanded(
                                       flex: 1,
                                       child: CustomRownew(   text1: 'Role :',
                                         text2: data.role,),
@@ -460,41 +464,30 @@ class RegisterScreen extends StatelessWidget {
                                               CustomTextButton(
                                                 text: AppString.enroll,
                                                 onPressed: () async {
-                                                  List<AEClinicalDiscipline> passData =
-                                                  await HrAddEmplyClinicalDisciplinApi(
-                                                      context, data.deptId! );
+                                                  // final enrollProviderState = Provider.of<HrEnrollEmployeeProvider>(context, listen: false);
+                                                  // List<AEClinicalDiscipline> passData = await HrAddEmplyClinicalDisciplinApi(context, data.deptId! );
+                                                 // final clinicalTypes = await HrAddEmplyClinicalDisciplinApi(context, data.deptId!);
+                                                 // final cities = await HrAddEmplyClinicalCityApi(context);
+                                                 // final offices = await getCompanyOfficeList(context);
+                                                  //final zones = await HrAddEmplyClinicalZoneApi(context);
                                                   showDialog(
                                                     context: context,
-                                                    builder: (_) => FutureBuilder<
-                                                        RegisterDataUserIDPrefill>(
-                                                      future: getRegisterEnrollPrefillUserId(
-                                                          context, data.userId),
+                                                    builder: (_) => FutureBuilder<RegisterDataUserIDPrefill>(
+                                                      future: getRegisterEnrollPrefillUserId(context, data.userId),
                                                       builder: (context, snapshotPrefill) {
-                                                        if (snapshotPrefill.connectionState ==
-                                                            ConnectionState.waiting) {
+                                                        if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                           return Center(
-                                                            child: CircularProgressIndicator(
-                                                                color: ColorManager.blueprime),
+                                                            child: CircularProgressIndicator(color: ColorManager.blueprime),
                                                           );
                                                         }
-                                                        var firstName = snapshotPrefill
-                                                            .data!.firstName
-                                                            .toString();
-                                                        firstNameController =
-                                                            TextEditingController(
-                                                                text: firstName);
+                                                        var firstName = snapshotPrefill.data!.firstName.toString();
+                                                        firstNameController = TextEditingController(text: firstName);
 
-                                                        var lastName = snapshotPrefill
-                                                            .data!.lastName
-                                                            .toString();
-                                                        lastNameController =
-                                                            TextEditingController(
-                                                                text: lastName);
+                                                        var lastName = snapshotPrefill.data!.lastName.toString();
+                                                        lastNameController = TextEditingController(text: lastName);
 
-                                                        var email = snapshotPrefill.data!.email
-                                                            .toString();
-                                                        emailController =
-                                                            TextEditingController(text: email);
+                                                        var email = snapshotPrefill.data!.email.toString();
+                                                        emailController =TextEditingController(text: email);
 
                                                         return RegisterEnrollPopup(
                                                           employeeId: data.employeeId,
@@ -506,14 +499,17 @@ class RegisterScreen extends StatelessWidget {
                                                           status: snapshotPrefill.data!.status,
                                                           // depid :snapshotPrefill.data!.
                                                           depId:snapshotPrefill.data!.departmentId,
-
+                                                          aEClinicalDiscipline: registerProvider.clinicalDisciplines, // Preloaded data
+                                                          cities: registerProvider.clinicalCities, // Pass cities data
+                                                          companyOffices: registerProvider.companyOffices, // Pass company office data
+                                                          zones: registerProvider.zone, // Pass zone data
                                                           onPressed: () {
                                                             Navigator.pop(context);
                                                           },
                                                           onReferesh: () {
                                                             registerProvider.fetchData(context);
                                                           },
-                                                          aEClinicalDiscipline: passData,
+                                                         // aEClinicalDiscipline: passData,
                                                         );
                                                       },
                                                     ),
