@@ -1152,7 +1152,7 @@ class _generalFormState extends State<generalForm> {
     if (addressText.isEmpty && dobText.isEmpty) {
     setState(() {
     _addressDocError = 'Address cannot be empty';
-    _dobDocError = 'DoB cannot be empty';
+    _dobDocError = 'DOB cannot be empty';
     });
     return; // Early return to prevent further execution
     }
@@ -1167,7 +1167,7 @@ class _generalFormState extends State<generalForm> {
     // Check if DoB is empty but Address is filled
     else if (dobText.isEmpty && addressText.isNotEmpty) {
     setState(() {
-    _dobDocError = 'DoB cannot be empty';
+    _dobDocError = 'DOB cannot be empty';
     _addressDocError = null; // Clear Address error if it's filled
     });
     return; // Prevent form submission if DoB is empty
