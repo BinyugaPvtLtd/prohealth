@@ -51,6 +51,7 @@ class ProfileBar extends StatelessWidget {
       profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
       profileState.updateAddress(searchByEmployeeIdProfileData!.finalAddress);
       profileState.updateSummery(searchByEmployeeIdProfileData!.summary);
+     // profileState.updateZone(searchByEmployeeIdProfileData!.zone);
       profileState.maskString(searchByEmployeeIdProfileData!.SSNNbr, 4);
       if (searchByEmployeeIdProfileData?.dateofHire != null) {
         profileState.calculateHireDateTimeStamp(searchByEmployeeIdProfileData!.dateofHire);

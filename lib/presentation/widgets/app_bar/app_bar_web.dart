@@ -544,7 +544,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                     },
                                                   );
 
-                                            } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty) {
+                                            } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty || snapshot.data == "") {
                                               return
                                               // SizedBox(
                                               //   width: 15, // Adjust size according to your requirement
@@ -588,14 +588,6 @@ class _AppBarWebState extends State<AppBarWeb> {
                                             }
                                             else {
                                               return
-                                              //   SizedBox(
-                                              //   width: 15, // Adjust size according to your requirement
-                                              //   height: 15,
-                                              //   child: CircularProgressIndicator(
-                                              //     strokeWidth: 2,
-                                              //     valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
-                                              //   ),
-                                              // );
                                                 GestureDetector(
                                                 child: CircleAvatar(
                                                   backgroundColor: Colors.grey[100],
