@@ -398,7 +398,7 @@ class ProfileBar extends StatelessWidget {
                                         // ),
 
                                         Text(
-                                          searchByEmployeeIdProfileData!.zone[0],
+                                          searchByEmployeeIdProfileData!.zone,
                                           style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                         ),
                                         Padding(
