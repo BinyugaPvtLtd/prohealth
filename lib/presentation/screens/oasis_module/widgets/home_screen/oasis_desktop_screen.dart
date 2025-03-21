@@ -126,8 +126,8 @@ class _EMRDesktopScreenState extends State<EMRDesktopScreen> {
                             _removeOverlay();
                             setState(() {
                               employeeId = id;
-                              getSearchByEmployeeIdProfileByText(
-                                  context, employeeId);
+                              // getSearchByEmployeeIdProfileByText(
+                              //     context, employeeId);
                               myController.selectButton(1);
                               _pageController =
                                   PageController(initialPage: 1);
@@ -147,8 +147,8 @@ class _EMRDesktopScreenState extends State<EMRDesktopScreen> {
                             _removeOverlay();
                             setState(() {
                               employeeId = id;
-                              getSearchByEmployeeIdProfileByText(
-                                  context, employeeId);
+                              // getSearchByEmployeeIdProfileByText(
+                              //     context, employeeId);
                               myController.selectButton(1);
                               _pageController =
                                   PageController(initialPage: 1);
@@ -958,66 +958,66 @@ class _EMRDesktopScreenState extends State<EMRDesktopScreen> {
                         ],
                       );
                     }
-                    if (snapshot.hasData) {
-                      SearchByEmployeeIdProfileData
-                      searchByEmployeeIdProfileData = snapshot.data!;
-                      print(
-                          "Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
-                      int empID = searchByEmployeeIdProfileData.employeeId!;
-
-                      return PageView(
-                        controller: _pageController,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: [
-
-                          EMRdashboardScreen(),
-                          PatientProfileScreen(),
-                          PatientChartScreen(),
-                          LiveFeedScreen(),
-                          // DashBoardScreen(),
-                          // ManageScreen(
-                          //   searchByEmployeeIdProfileData:
-                          //   searchByEmployeeIdProfileData,
-                          //   employeeId: empID,
-                          //   pageManageController: _pageManageController,
-                          //   onRefresh: () {
-                          //     setState(() {});
-                          //   },
-                          // ),
-                          // //AddEmployeeHomeScreen(),
-                          // RegisterScreen(
-                          //   onRefresh: () {
-                          //     myController.selectButton(2);
-                          //     // setState(() {
-                          //     //
-                          //     //  });
-                          //   }, onBackPressed: () {
-                          //   if (myController.selectedIndex.value == 2) {
-                          //     myController.selectButton(myController.selectedIndex.value - 1);
-                          //     _pageController.previousPage(
-                          //       duration: Duration(milliseconds: 500),
-                          //       curve: Curves.ease,
-                          //     );
-                          //   }
-                          //
-                          // },
-                          // ),
-                          // NewOnboardScreen(
-                          //   onBackPressed: () {
-                          //     if (myController.selectedIndex.value == 3) {
-                          //       myController.selectButton(myController.selectedIndex.value - 1);
-                          //       _pageController.previousPage(
-                          //         duration: Duration(milliseconds: 500),
-                          //         curve: Curves.ease,
-                          //       );
-                          //     }
-                          //
-                          //   },
-                          //
-                          // ),
-                        ],
-                      );
-                    }
+                    // if (snapshot.hasData) {
+                    //   // SearchByEmployeeIdProfileData
+                    //   // searchByEmployeeIdProfileData = snapshot.data!;
+                    //   // print(
+                    //   //     "Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
+                    //   // int empID = searchByEmployeeIdProfileData.employeeId!;
+                    //
+                    //   return PageView(
+                    //     controller: _pageController,
+                    //     physics: NeverScrollableScrollPhysics(),
+                    //     children: [
+                    //
+                    //       EMRdashboardScreen(),
+                    //       PatientProfileScreen(),
+                    //       PatientChartScreen(),
+                    //       LiveFeedScreen(),
+                    //       // DashBoardScreen(),
+                    //       // ManageScreen(
+                    //       //   searchByEmployeeIdProfileData:
+                    //       //   searchByEmployeeIdProfileData,
+                    //       //   employeeId: empID,
+                    //       //   pageManageController: _pageManageController,
+                    //       //   onRefresh: () {
+                    //       //     setState(() {});
+                    //       //   },
+                    //       // ),
+                    //       // //AddEmployeeHomeScreen(),
+                    //       // RegisterScreen(
+                    //       //   onRefresh: () {
+                    //       //     myController.selectButton(2);
+                    //       //     // setState(() {
+                    //       //     //
+                    //       //     //  });
+                    //       //   }, onBackPressed: () {
+                    //       //   if (myController.selectedIndex.value == 2) {
+                    //       //     myController.selectButton(myController.selectedIndex.value - 1);
+                    //       //     _pageController.previousPage(
+                    //       //       duration: Duration(milliseconds: 500),
+                    //       //       curve: Curves.ease,
+                    //       //     );
+                    //       //   }
+                    //       //
+                    //       // },
+                    //       // ),
+                    //       // NewOnboardScreen(
+                    //       //   onBackPressed: () {
+                    //       //     if (myController.selectedIndex.value == 3) {
+                    //       //       myController.selectButton(myController.selectedIndex.value - 1);
+                    //       //       _pageController.previousPage(
+                    //       //         duration: Duration(milliseconds: 500),
+                    //       //         curve: Curves.ease,
+                    //       //       );
+                    //       //     }
+                    //       //
+                    //       //   },
+                    //       //
+                    //       // ),
+                    //     ],
+                    //   );
+                    // }
                     return Container();
                   }),
             ),
