@@ -323,6 +323,10 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
   }
 }
 
+
+
+
+
 Future<ProfilePercentage> getPercentage(
     BuildContext context, int employeeId) async {
   String convertIsoToDayMonthYear(String isoDate) {
@@ -690,3 +694,129 @@ Future<List<CountyWiseZoneModal>> fetchCountyWiseZone(BuildContext context,
     return itemsList; // Return empty list on error
   }
 }
+
+
+
+
+
+
+
+// Future<SearchByEmployeeIdProfileDataList> getSearchByEmployeeIdProfileByTextii(
+//     BuildContext context,
+//     int employeeId) async {
+//
+//   // Helper function to convert ISO date format to a simpler 'dd-mm-yyyy' format
+//   String convertIsoToDayMonthYear(String isoDate) {
+//     DateTime dateTime = DateTime.parse(isoDate);
+//     DateFormat dateFormat = DateFormat('yyyy-MM-dd'); // Desired format
+//     String formattedDate = dateFormat.format(dateTime);
+//     return formattedDate;
+//   }
+//
+//   SearchByEmployeeIdProfileDataList? itemsData;
+//
+//   try {
+//     // Make the API call using the provided employeeId
+//     final response = await Api(context).get(
+//       path: ProfileRepository.searchByEmployeeIdProfile(employeeId: employeeId),
+//     );
+//     print("Getting response");
+//     print("Search response ::: ${response}");
+//
+//     // If the response is successful, parse the data
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       String DOB = convertIsoToDayMonthYear(response.data['dateOfBirth']);
+//       String hireDate = convertIsoToDayMonthYear(response.data['dateofHire']);
+//       List<String> county = List<String>.from(response.data['county'] ?? []);
+//       List<String> zone = List<String>.from(response.data['zone'] ?? []);
+//
+//       // Map the response data to the model class
+//       itemsData = SearchByEmployeeIdProfileDataList(
+//         employeeId: response.data['employeeId'] ?? 0,
+//         code: response.data['code'] ?? '--',
+//         userId: response.data['userId'] ?? 0,
+//         firstName: response.data['firstName'] ?? '--',
+//         lastName: response.data['lastName'] ?? '--',
+//         departmentId: response.data['departmentId'] ?? 0,
+//         employeeTypeId: response.data['employeeTypeId'] ?? 0,
+//         expertise: response.data['expertise'] ?? '--',
+//         cityId: response.data['cityId'] ?? 0,
+//         countryId: response.data['countryId'] ?? 0,
+//         countyId: response.data['countyId'] ?? 0,
+//         zoneId: response.data['zoneId'] ?? 0,
+//         SSNNbr: response.data['SSNNbr'] ?? '--',
+//         primaryPhoneNbr: response.data['primaryPhoneNbr'] ?? '--',
+//         secondryPhoneNbr: response.data['secondryPhoneNbr'] ?? '--',
+//         workPhoneNbr: response.data['workPhoneNbr'] ?? '--',
+//         regOfficId: response.data['regOfficId'] ?? '--',
+//         personalEmail: response.data['personalEmail'] ?? '--',
+//         workEmail: response.data['workEmail'] ?? '--',
+//         dateOfBirth: DOB ?? "--",
+//         emergencyContact: response.data['emergencyContact'] ?? '--',
+//         covreage: response.data['covreage'] ?? '--',
+//         employment: response.data['employment'] ?? '--',
+//         gender: response.data['gender'] ?? '--',
+//         status: response.data['status'] ?? '--',
+//         service: response.data['service'] ?? '--',
+//         imgurl: response.data['imgurl'] ?? '--',
+//         resumeurl: response.data['resumeurl'] ?? '--',
+//         onboardingStatus: response.data['onboardingStatus'] ?? '',
+//         driverLicenceNbr: response.data['driverLicenceNbr'] ?? '',
+//         createdAt: response.data['createdAt'] ?? "--",
+//         dateofTermination: response.data['dateofTermination'] ?? "--",
+//         dateofResignation: response.data['dateofResignation'] ?? "--",
+//         dateofHire: hireDate ?? "--",
+//         rehirable: response.data['rehirable'] ?? "--",
+//         position: response.data['position'] ?? '--',
+//         finalAddress: response.data['finalAddress'] ?? '--',
+//         type: response.data['type'] ?? '--',
+//         reason: response.data['reason'] ?? '--',
+//         finalPayCheck: response.data['finalPayCheck'] != null
+//             ? response.data['finalPayCheck'].toDouble()
+//             : 0.0,
+//         checkDate: response.data['checkDate'] ?? "--",
+//         grossPay: response.data['grossPay'] != null
+//             ? response.data['grossPay'].toDouble()
+//             : 0.0,
+//         netPay: response.data['netPay'] != null
+//             ? response.data['netPay'].toDouble()
+//             : 0.0,
+//         methods: response.data['methods'] ?? '--',
+//         materials: response.data['materials'] ?? '--',
+//         race: response.data['race'] ?? '--',
+//         signatureURL: response.data['signatureURL'] ?? '--',
+//         companyId: response.data['companyId'] ?? 0,
+//         employeeEnrollId: response.data['employeeEnrollId'] ?? 0,
+//         active: response.data['active'] ?? false,
+//         summary: response.data['summary'] ?? '--',
+//         reportingOffice: response.data['reportingOffice'] ?? '--',
+//         speciality: response.data['speciality'] ?? '--',
+//         address: response.data['address'] ?? '--',
+//         city: response.data['city'] ?? '--',
+//         employeeType: response.data['employeeType'] ?? '--',
+//         department: response.data['department'] ?? '--',
+//         country: response.data['country'] ?? '--',
+//         county: county, // List of counties
+//         zone: zone, // List of zones
+//         AnnualSkills: response.data['AnnualSkills'] != null
+//             ? response.data['AnnualSkills'].toDouble()
+//             : 0.0,
+//         color: response.data['color'] ?? "#FFFFFF",
+//         profileScorePercentage: response.data['profileScorePercentage'] != null
+//             ? response.data['profileScorePercentage'].toDouble()
+//             : 0.0,
+//       );
+//
+//       print("Search data by Employee ID: ${itemsData.toString()}");
+//
+//     } else {
+//       print("Search Data by Employee ID Error - Response status: ${response.statusCode}");
+//     }
+//
+//     return itemsData!;
+//
+//   } catch (e) {
+//     print("Error occurred: ${e}");
+//     return itemsData!;
+//   }
+// }

@@ -60,11 +60,13 @@ class HrManageProvider extends ChangeNotifier{
   /// Profile bar
   String _trimmedAddress = '';
   String _trimmedSummery = '';
+  String _trimmedZoneList = '';
   String _maskedString = '';
   String _hireDateTimeStamp = '';
   String _dateOfBirthStamp = '';
   OverlayEntry? _overlayEntryAddress;
   OverlayEntry? _overlayEntrySummery;
+  OverlayEntry? _overlayEntryZoneList;
   final StreamController<Map<String, int>> _licenseStreamController =
   StreamController<Map<String, int>>.broadcast();
   Stream<Map<String, int>> get licenseStream => _licenseStreamController.stream;
@@ -258,6 +260,33 @@ class HrManageProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  /// HR profile trim zone
+  // void updateZone(List zoneList) {
+  //   const int maxLength = 30;
+  //
+  //   // Join the list into a string representation
+  //   String zoneListString = zoneList.join(', '); // or another separator if necessary
+  //
+  //   if (zoneListString.length > maxLength) {
+  //     _trimmedZoneList = '${zoneListString.substring(0, maxLength)}...';
+  //   } else {
+  //     _trimmedZoneList = zoneListString;
+  //   }
+  //
+  //   notifyListeners();
+  // }
+
+  ///
+  // void updateZone(List zoneList) {
+  //   const int maxLength = 30;
+  //   if (zoneList.length > maxLength) {
+  //     _trimmedZoneList = '${zoneList.substring(0, maxLength)}...';
+  //   }else{
+  //     _trimmedZoneList = zoneList;
+  //   }
+  //   notifyListeners();
+  // }
+
   /// HR profile bar maske number
   void maskString(String input, int visibleDigits) {
     int maskLength = input.length - visibleDigits;
@@ -321,7 +350,6 @@ class HrManageProvider extends ChangeNotifier{
   }
 
   /// Address overlyentry
-  // Show overlay
   void showOverlayAddress(BuildContext context, Offset position,String finalAddress) {
     _overlayEntryAddress = OverlayEntry(
       builder: (context) => Positioned(
@@ -350,14 +378,10 @@ class HrManageProvider extends ChangeNotifier{
     );
     Overlay.of(context).insert(_overlayEntryAddress!);
   }
-  // Remove overlay
   void removeOverlayAddress() {
     _overlayEntryAddress?.remove();
     _overlayEntryAddress = null;
   }
-
-
-
 
   /// Summery overlay entry
   void showSummeryOverlay(BuildContext context, Offset position, String summery) {
@@ -393,6 +417,41 @@ class HrManageProvider extends ChangeNotifier{
     _overlayEntrySummery?.remove();
     _overlayEntrySummery = null;
   }
+
+  /// zoneList overlay entry
+  // void showZoneListOverlay(BuildContext context, Offset position, String zoneList) {
+  //   _overlayEntryZoneList = OverlayEntry(
+  //     builder: (context) => Positioned(
+  //       right: 300,
+  //       top: position.dy + 20, // Adjust to position below the text
+  //       child: Material(
+  //         color: Colors.transparent,
+  //         child: Container(
+  //           width: 250,
+  //           padding: EdgeInsets.all(8.0),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             borderRadius: BorderRadius.circular(8.0),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                   color: Colors.black26, blurRadius: 4, spreadRadius: 2),
+  //             ],
+  //           ),
+  //           child: Text(
+  //             zoneList,
+  //             style: ProfileBarTextBoldStyle.customEditTextStyle(),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  //
+  //   Overlay.of(context)?.insert(_overlayEntryZoneList!);
+  // }
+  // void removeZoneListOverlay() {
+  //   _overlayEntryZoneList?.remove();
+  //   _overlayEntryZoneList = null;
+  // }
 
   /// Color converter
   bool isDarkColor(Color color) {

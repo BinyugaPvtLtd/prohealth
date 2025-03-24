@@ -51,6 +51,7 @@ class ProfileBar extends StatelessWidget {
       profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
       profileState.updateAddress(searchByEmployeeIdProfileData!.finalAddress);
       profileState.updateSummery(searchByEmployeeIdProfileData!.summary);
+ // profileState.updateZone(searchByEmployeeIdProfileData!.zone);
       profileState.maskString(searchByEmployeeIdProfileData!.SSNNbr, 4);
       if (searchByEmployeeIdProfileData?.dateofHire != null) {
         profileState.calculateHireDateTimeStamp(searchByEmployeeIdProfileData!.dateofHire);
@@ -374,6 +375,28 @@ class ProfileBar extends StatelessWidget {
                                             ),
                                           ],
                                         ),
+
+
+                                        // SizedBox(
+                                        // width: 150,
+                                        //   height: 30,// Can also be a fixed width like 200.0
+                                        //   child: ListView.builder(
+                                        //     scrollDirection: Axis.horizontal,
+                                        //     shrinkWrap: true,
+                                        //     itemCount: searchByEmployeeIdProfileData!.zone.length,
+                                        //     itemBuilder: (context, index) {
+                                        //       return Padding(
+                                        //         padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                        //         child: Text(
+                                        //           searchByEmployeeIdProfileData!.zone[index],
+                                        //           style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                        //           overflow: TextOverflow.ellipsis,
+                                        //         ),
+                                        //       );
+                                        //     },
+                                        //   ),
+                                        // ),
+
 
                                         Text(
                                           searchByEmployeeIdProfileData!.zone,

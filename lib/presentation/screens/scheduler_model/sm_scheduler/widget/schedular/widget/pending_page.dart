@@ -40,8 +40,8 @@ class _PendingPageViewState extends State<PendingPageView> {
   }
 
   List RandomImages = [
-    'images/hr_dashboard/man.png',
-    'images/hr_dashboard/man.png',
+    'images/profilepic.png',
+    'images/1.png',
     'images/hr_dashboard/man.png',
   ];
 
@@ -51,12 +51,12 @@ class _PendingPageViewState extends State<PendingPageView> {
       backgroundColor: Colors.white,
       body:Stack(
         children:[ Padding(
-          padding: const EdgeInsets.only(left: 100, right: 100, top: 10
+          padding: const EdgeInsets.only(left: 80, right: 80, top: 10
           ),
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
@@ -101,9 +101,9 @@ class _PendingPageViewState extends State<PendingPageView> {
 
                     ],
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
                   //     CustomDropdownTextField(
                   //       width: 130,
                   //       isAstric:false,
@@ -194,28 +194,27 @@ class _PendingPageViewState extends State<PendingPageView> {
                   //     ),
                   //     Text("Discipline",style: DocumentTypeDataStyle.customTextStyle(context),),
                   //     SizedBox(width: 10,),
-                  //     Container(
-                  //       width: 125,
-                  //       height: 35,
-                  //       child: ElevatedButton.icon(onPressed: (){},
-                  //         label: Text("Bulk Assign", style: TextStyle(
-                  //           fontSize: FontSize.s12,
-                  //           fontWeight: FontWeight.w700,
-                  //           color: ColorManager.white,
-                  //           decoration: TextDecoration.none,
-                  //         )//BlueButtonTextConst.customTextStyle(context),
-                  //         ),
-                  //         icon:SvgPicture.asset("images/sm/bulk_assign.svg",  height: 13,width: 18,),
-                  //         style: ElevatedButton.styleFrom(
-                  //           backgroundColor:  ColorManager.bluebottom,
-                  //           elevation: 5,
-                  //           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
-                  //           ),),
-                  //       ),
-                  //     )
+                      Container(
+                        width: 125,
+                        height: 35,
+                        child: ElevatedButton.icon(onPressed: (){},
+                          label: Text("Bulk Assign", style: TextStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.white,
+                            decoration: TextDecoration.none,
+                          )//BlueButtonTextConst.customTextStyle(context),
+                          ),
+                          icon:SvgPicture.asset("images/sm/bulk_assign.svg",  height: 13,width: 18,),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:  ColorManager.bluebottom,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+                            ),),
+                        ),
+                      )
                   //
-                  //   ],
-                  // ),
+                    ],
+                  ),
                 ],
               ),
               SizedBox(height: 20,),
@@ -306,7 +305,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                 Expanded(
                                   flex: 3,
                                   child:  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                   // mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       CustomButtonRow(
                                         onSaveClosePressed: () {
@@ -417,13 +416,14 @@ class _PendingPageViewState extends State<PendingPageView> {
                                 //     ],
                                 //   ),
                                 // ),
-
+SizedBox(width: 5,),
 
                                 Expanded(
                                   flex: 2,
                                   child: Column(
                                     children: [
                                       Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
 
                                           Column(
@@ -448,14 +448,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       ),
 
                                       // SizedBox(height: AppSize.s5),
-                                      // Row(
-                                      //   children: [
-                                      //     Text("SOC Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                      //     // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                      //     Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-                                      //
-                                      //   ],
-                                      // ),
+
                                     ],
                                   ),
                                 ),
@@ -527,47 +520,27 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       ),
                                     ],
                                   ),
-                                  // child: Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.start,
+                                  ///
+                                  ///
+                                  ///
+                                  // child: Column(
                                   //   children: [
-                                  //     Column(
-                                  //       children: [
-                                  //         for (int i = 0; i < RandomImages.length; i++)
-                                  //           Align(
-                                  //             widthFactor: 0.5,
-                                  //             // parent circle avatar.
-                                  //             // We defined this for better UI
-                                  //             child: CircleAvatar(
-                                  //               radius: 20,
-                                  //               backgroundColor: Colors.white,
-                                  //               // Child circle avatar
-                                  //               child: CircleAvatar(
-                                  //                 radius: 20,
-                                  //                 backgroundImage: NetworkImage(RandomImages[i]),
-                                  //               ),
-                                  //             ),
-                                  //           ),
-                                  //       ],
-                                  //     ),
-                                  //     Row(
-                                  //       children: [
-                                  //         CustomButtonColumn(
-                                  //           onSaveClosePressed: () {
-                                  //             // Action for Save and Close button
-                                  //             print('Save and Close pressed');
-                                  //           },
-                                  //           onSubmitPressed: () {
-                                  //             // Action for Submit button
-                                  //             print('Submit pressed');
-                                  //           },
-                                  //           onNextPressed: () {
-                                  //             // Action for Next button
-                                  //             print('Next pressed');
-                                  //           },
-                                  //         )
-                                  //       ],
-                                  //     ),
-                                  //
+                                  // SizedBox(
+                                  //     width:30,
+                                  //     height:100,
+                                  //     child: buildStackImages()),
+                                  //                                   // Stack(
+                                  //                                   // children: List.generate(
+                                  //                                   // listOfEvents[i].attendeesList.length, (index) {
+                                  //                                   //   return Positioned(
+                                  //                                   //       left: index * 30,
+                                  //                                   //       child: const CircleAvatar(
+                                  //                                   //         backgroundImage: NetworkImage("https://avatars.githubusercontent.com/u/61495501?v=4"),
+                                  //                                   //         radius: 30,
+                                  //                                   //       )
+                                  //                                   //   );
+                                  //                                   // }
+                                  //                                   // )
                                   //   ],
                                   // ),
                                 ),
@@ -620,8 +593,57 @@ class _PendingPageViewState extends State<PendingPageView> {
     );
   }
 
+  Widget buildStackImages() {
+    final double  size =100;
+    final item = RandomImages.map((RandomImages)=>buildImages(RandomImages)).toList();
+    return stackimage(items: item,
+      size: size,);
+
+  }
+
+  Widget  buildImages(String RandomImages){
+    return ClipOval(
+      child: Container(
+        color: Colors.black,
+          padding: EdgeInsets.all(5),
+          child: ClipOval(child: Image.asset(RandomImages,fit: BoxFit.cover,))),
+    );
+  }
+
+
+
+}
 
 
 
 
+
+
+class stackimage extends StatelessWidget {
+
+  final List<Widget> items;
+  final double size;
+
+  const stackimage({
+    Key? key,
+    required this.items,
+    this.size =100,}): super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final allItems = items.asMap().map((index ,item){
+      final left =size -20;
+      final value = Container(
+        width: size,
+        height: size,
+        child: item,
+        margin: EdgeInsets.only(top :left* index)
+      );
+      return MapEntry(index, value);
+    }).values.toList();
+    return Stack(
+
+      children: allItems
+    );
+  }
 }
