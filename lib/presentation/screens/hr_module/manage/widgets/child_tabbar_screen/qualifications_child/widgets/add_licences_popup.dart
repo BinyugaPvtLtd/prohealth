@@ -387,9 +387,11 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                                       pickedFileName = file.name;
                                       pickedFile = file.bytes;
                                       fileAbove20Mb = !isAbove20MB;
+                                      errorStates ["pickFile"]= false;
                                     });
                                   }
                                 }
+
 
                               ),
                               errorStates["pickFile"]! ?
@@ -517,8 +519,6 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                           return; // Stop further execution if the file is too large
                         }
                       }
-
-
 
                       // Proceed if no validation errors
                       if (!_hasErrors()) {

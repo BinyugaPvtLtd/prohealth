@@ -80,6 +80,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
         pickedFileName = file.name;
         pickedFile = file.bytes;
         fileAbove20Mb = !isAbove20MB;
+        _pickFileError = _validateTextField(pickedFileName, 'Please Upload Document');
       });
     }
   }

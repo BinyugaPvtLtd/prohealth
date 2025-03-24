@@ -481,114 +481,67 @@ class _AppBarWebState extends State<AppBarWeb> {
                                         onExit: (_) {
                                           // Handle mouse leave
                                         },
-                                        // child: FutureBuilder<UserAppBar>(
-                                        //   future: getAppBarDetails(context),
-                                        //   builder: (context, snapshot) {
-                                        //     if (snapshot.connectionState == ConnectionState.waiting) {
-                                        //       return SizedBox(
-                                        //         width: 15,
-                                        //         height: 15,
-                                        //         child: CircularProgressIndicator(
-                                        //           strokeWidth: 2,
-                                        //           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                        //         ),
-                                        //       );
-                                        //     }
-                                        //     String imageUrl = snapshot.hasData && snapshot.data?.imgUrl != null && snapshot.data!.imgUrl.isNotEmpty
-                                        //         ? snapshot.data!.imgUrl
-                                        //         : "images/profilepic.png"; // Local asset fallback
-                                        //
-                                        //     return GestureDetector(
-                                        //       child: CircleAvatar(
-                                        //         backgroundColor: Colors.transparent, // Optional: Background color
-                                        //         radius: 13,
-                                        //         backgroundImage: imageUrl.startsWith("http")
-                                        //             ? NetworkImage(imageUrl) as ImageProvider
-                                        //             : AssetImage(imageUrl), // Fallback to asset image
-                                        //       ),
-                                        //       onTap: () {
-                                        //         print("User ID: ${snapshot.data?.userId}");
-                                        //         print("Employee ID: ${snapshot.data?.employeeId}");
-                                        //         print("Image URL: ${snapshot.data?.imgUrl}");
-                                        //         print("Company ID: ${snapshot.data?.companyId}");
-                                        //       },
-                                        //     );
-                                        //   },
-                                        // ),
                                         child: FutureBuilder<UserAppBar>(
                                           future: getAppBarDetails(context),
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState == ConnectionState.waiting) {
-                                              return
-                                                // SizedBox(
-                                                //     width: 15, // Adjust size according to your requirement
-                                                //     height: 15,
-                                                //     child: CircularProgressIndicator(
-                                                //       strokeWidth: 2,
-                                                //       valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
-                                                //     ),
-                                                //   );
-                                                  GestureDetector(
-                                                    child: CircleAvatar(
-                                                      backgroundColor: Colors.grey[100],
-                                                      radius: 13,
-                                                      backgroundImage: AssetImage("images/profilepic.png"),
-                                                    ),
-                                                    onTap: () {
-                                                      print("userid appbar : ${snapshot.data?.userId}");
-                                                      print(snapshot.data?.employeeId);
-                                                      print(snapshot.data?.imgUrl);
-                                                      print(snapshot.data?.companyId);
-                                                      print(snapshot.data?.userId);
-                                                      // Optional: Handle tap on the profile image
-                                                    },
-                                                  );
-
-                                            } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty || snapshot.data == "") {
-                                              return
-                                              // SizedBox(
-                                              //   width: 15, // Adjust size according to your requirement
-                                              //   height: 15,
-                                              //   child: CircularProgressIndicator(
-                                              //     strokeWidth: 2,
-                                              //     valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
-                                              //   ),
-                                              // );
-                                                GestureDetector(
+                                              print("Future is loading...");
+                                              return GestureDetector(
                                                 child: CircleAvatar(
                                                   backgroundColor: Colors.grey[100],
-                                                  radius: 12,
+                                                  radius: 13,
                                                   backgroundImage: AssetImage("images/profilepic.png"),
                                                 ),
                                                 onTap: () {
-                                                  print("userid appbar : ${snapshot.data?.userId}");
-                                                  print(snapshot.data?.employeeId);
-                                                  print(snapshot.data?.imgUrl);
-                                                  print(snapshot.data?.companyId);
-                                                  print(snapshot.data?.userId);
-                                                  // Optional: Handle tap on the profile image
+                                                  print("userid appbar (waiting state): ${snapshot.data?.userId}");
                                                 },
                                               );
-                                            } else if(snapshot.hasData) {
-                                            return GestureDetector(
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.transparent,
-                                            backgroundImage: NetworkImage(snapshot.data!.imgUrl),
-                                            radius: 13, // Adjust size as needed
-                                            ),
-                                            onTap: () {
-                                            print("userid appbar : ${snapshot.data?.userId}");
-                                            print(snapshot.data?.employeeId);
-                                            print(snapshot.data?.imgUrl);
-                                            print(snapshot.data?.companyId);
-                                            print(snapshot.data?.userId);
-                                            // Optional: Handle tap on the profile image
-                                            },
-                                            );
-                                            }
-                                            else {
-                                              return
-                                                GestureDetector(
+                                            } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty) {
+                                              print("Error or empty imgUrl or snapshot data is null");
+                                              return GestureDetector(
+                                                child: CircleAvatar(
+                                                  backgroundColor: Colors.grey[100],
+                                                  radius: 13,
+                                                  backgroundImage: AssetImage("images/profilepic.png"),
+                                                ),
+                                                onTap: () {
+                                                  print("userid appbar (error or empty imgUrl): ${snapshot.data?.userId}");
+                                                },
+                                              );
+                                            } else if (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty) {
+                                              print("Data exists and imgUrl is not empty: ${snapshot.data!.imgUrl}");
+                                              return GestureDetector(
+                                                child: CircleAvatar(
+                                                  backgroundColor: Colors.transparent,
+                                                  radius: 13, // Adjust size as needed
+                                                  child: ClipOval(
+                                                    child: Image.network(
+                                                      snapshot.data!.imgUrl,
+                                                      fit: BoxFit.cover,
+                                                      loadingBuilder: (context, child, loadingProgress) {
+                                                        if (loadingProgress == null) {
+                                                          print("Image loaded successfully");
+                                                          return child; // When image has fully loaded
+                                                        } else {
+                                                          print("Image is loading...");
+                                                          return Center(child: CircularProgressIndicator());
+                                                        }
+                                                      },
+                                                      errorBuilder: (context, error, stackTrace) {
+                                                        print("Error loading image, fallback to default");
+                                                        // Fallback to default image if error occurs (invalid URL, etc.)
+                                                        return Image.asset("images/profilepic.png", fit: BoxFit.cover);
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  print("userid appbar (network image): ${snapshot.data?.userId}");
+                                                },
+                                              );
+                                            } else {
+                                              print("No data or image URL empty, fallback to default");
+                                              return GestureDetector(
                                                 child: CircleAvatar(
                                                   backgroundColor: Colors.grey[100],
                                                   radius: 13,
@@ -600,17 +553,19 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           },
                                         ),
                                       ),
-                                     const SizedBox(height: AppSize.s5),
+                                      const SizedBox(height: AppSize.s5),
                                       FutureBuilder(
                                         future: user(),
                                         builder: (context, snap) {
                                           if (snap.connectionState == ConnectionState.waiting) {
+                                            print("User data is loading...");
                                             return SizedBox();
                                           }
 
                                           return MouseRegion(
                                             onEnter: (_) {
                                               // Show logout popup when hovering over username
+                                              print("Showing logout menu...");
                                               showMenu(
                                                 context: context,
                                                 position: RelativeRect.fromLTRB(
@@ -625,73 +580,49 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                     child: GestureDetector(
                                                       onTap: () {
                                                         if (isLoggedIn) {
-                                                          // Replace 'value' with 'isLoggedIn'
-                                                          print("User logged out");
+                                                          print("Logging out...");
+                                                          // Handle logout
                                                           showDialog(
                                                             context: context,
-                                                            builder: (context) =>
-                                                                    DeletePopup(
+                                                            builder: (context) => DeletePopup(
                                                               onCancel: () {
-                                                                Navigator.pop(
-                                                                    context);
+                                                                Navigator.pop(context);
                                                               },
                                                               onDelete: () {
-                                                                TokenManager
-                                                                    .removeAccessToken();
-                                                                Navigator
-                                                                    .pushNamedAndRemoveUntil(
+                                                                TokenManager.removeAccessToken();
+                                                                Navigator.pushNamedAndRemoveUntil(
                                                                   context,
-                                                                  LoginScreen
-                                                                      .routeName,
-                                                                  (route) =>
-                                                                      false,
+                                                                  LoginScreen.routeName,
+                                                                      (route) => false,
                                                                 );
                                                               },
-                                                              btnText:
-                                                                  "Log Out",
+                                                              btnText: "Log Out",
                                                               title: "Log Out",
-                                                              text:
-                                                                  "Do you really want to logout?",
+                                                              text: "Do you really want to logout?",
                                                             ),
                                                           );
                                                         }
-                                                        print('Logging out');
                                                       },
                                                       child: Container(
-                                                        height:
-                                                            25, // Reduced height for the logout button
+                                                        height: 25,
                                                         width: 90,
-                                                        // margin: EdgeInsets.symmetric(vertical: 10),
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal: 5,
-                                                                vertical: 5),
+                                                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                                                         child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
+                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
                                                           children: [
                                                             Icon(
                                                               Icons.logout,
-                                                              size:
-                                                                  12, // Set icon size
-                                                              color:
-                                                                  Colors.black,
+                                                              size: 12,
+                                                              color: Colors.black,
                                                             ),
-                                                            // SizedBox(width: 8),
                                                             Text(
                                                               'Log Out',
                                                               style: TextStyle(
-                                                                  fontSize:
-                                                                      12, // Set font size
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
+                                                                fontSize: 12,
+                                                                color: Colors.black,
+                                                                fontWeight: FontWeight.w600,
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
@@ -706,7 +637,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 8,//FontSize.s10,
+                                                fontSize: 8, // Adjust font size as needed
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -716,6 +647,180 @@ class _AppBarWebState extends State<AppBarWeb> {
                                     ],
                                   ),
                                 ),
+
+                                // Expanded(
+                                //   flex: 2,
+                                //   child: Column(
+                                //     mainAxisAlignment: MainAxisAlignment.center,
+                                //     children: [
+                                //       MouseRegion(
+                                //         onEnter: (_) {},
+                                //         onExit: (_) {
+                                //           // Handle mouse leave
+                                //         },
+                                //
+                                //         child: FutureBuilder<UserAppBar>(
+                                //           future: getAppBarDetails(context),
+                                //           builder: (context, snapshot) {
+                                //             if (snapshot.connectionState == ConnectionState.waiting) {
+                                //               return
+                                //
+                                //                   GestureDetector(
+                                //                     child: CircleAvatar(
+                                //                       backgroundColor: Colors.grey[100],
+                                //                       radius: 13,
+                                //                       backgroundImage: AssetImage("images/profilepic.png"),
+                                //                     ),
+                                //                     onTap: () {
+                                //                       print("userid appbar : ${snapshot.data?.userId}");
+                                //                       print(snapshot.data?.employeeId);
+                                //                       print(snapshot.data?.imgUrl);
+                                //                       print(snapshot.data?.companyId);
+                                //                       print(snapshot.data?.userId);
+                                //                       // Optional: Handle tap on the profile image
+                                //                     },
+                                //                   );
+                                //
+                                //             } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty || snapshot.data == "") {
+                                //               return
+                                //
+                                //                 GestureDetector(
+                                //                 child: CircleAvatar(
+                                //                   backgroundColor: Colors.grey[100],
+                                //                   radius: 12,
+                                //                   backgroundImage: AssetImage("images/profilepic.png"),
+                                //                 ),
+                                //                 onTap: () {
+                                //                   print("userid appbar : ${snapshot.data?.userId}");
+                                //                   print(snapshot.data?.employeeId);
+                                //                   print(snapshot.data?.imgUrl);
+                                //                   print(snapshot.data?.companyId);
+                                //                   print(snapshot.data?.userId);
+                                //                   // Optional: Handle tap on the profile image
+                                //                 },
+                                //               );
+                                //             } else if(snapshot.hasData) {
+                                //             return GestureDetector(
+                                //             child: CircleAvatar(
+                                //               backgroundColor: Colors.transparent,
+                                //             backgroundImage: NetworkImage(snapshot.data!.imgUrl),
+                                //             radius: 13, // Adjust size as needed
+                                //             ),
+                                //             onTap: () {
+                                //             print("userid appbar : ${snapshot.data?.userId}");
+                                //             print(snapshot.data?.employeeId);
+                                //             print(snapshot.data?.imgUrl);
+                                //             print(snapshot.data?.companyId);
+                                //             print(snapshot.data?.userId);
+                                //             // Optional: Handle tap on the profile image
+                                //             },
+                                //             );
+                                //             }
+                                //             else {
+                                //               return
+                                //                 GestureDetector(
+                                //                 child: CircleAvatar(
+                                //                   backgroundColor: Colors.grey[100],
+                                //                   radius: 13,
+                                //                   backgroundImage: AssetImage("images/profilepic.png"),
+                                //                 ),
+                                //                 onTap: () {},
+                                //               );
+                                //             }
+                                //           },
+                                //         ),
+                                //       ),
+                                //      const SizedBox(height: AppSize.s5),
+                                //       FutureBuilder(
+                                //         future: user(),
+                                //         builder: (context, snap) {
+                                //           if (snap.connectionState == ConnectionState.waiting) {
+                                //             return SizedBox();
+                                //           }
+                                //
+                                //           return MouseRegion(
+                                //             onEnter: (_) {
+                                //               // Show logout popup when hovering over username
+                                //               showMenu(
+                                //                 context: context,
+                                //                 position: RelativeRect.fromLTRB(
+                                //                     70,
+                                //                     70,
+                                //                     0,
+                                //                     0), // Adjust position as needed
+                                //                 items: [
+                                //                   PopupMenuItem(
+                                //                     padding: EdgeInsets.zero,
+                                //                     height: 30,
+                                //                     child: GestureDetector(
+                                //                       onTap: () {
+                                //                         if (isLoggedIn) {
+                                //                           // Replace 'value' with 'isLoggedIn'
+                                //                           print("User logged out");
+                                //                           showDialog(
+                                //                             context: context,
+                                //                             builder: (context) => DeletePopup(
+                                //                               onCancel: () {
+                                //                                 Navigator.pop(context);
+                                //                               },
+                                //                               onDelete: () {
+                                //                                 TokenManager.removeAccessToken();
+                                //                                 Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName,
+                                //                                   (route) => false,
+                                //                                 );
+                                //                               },
+                                //                               btnText: "Log Out",
+                                //                               title: "Log Out",
+                                //                               text: "Do you really want to logout?",
+                                //                             ),
+                                //                           );
+                                //                         }
+                                //                         print('Logging out');
+                                //                       },
+                                //                       child: Container(
+                                //                         height: 25, // Reduced height for the logout button
+                                //                         width: 90,
+                                //                         // margin: EdgeInsets.symmetric(vertical: 10),
+                                //                         padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                                //                         child: Row(
+                                //                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                //                           crossAxisAlignment: CrossAxisAlignment.center,
+                                //                           children: [
+                                //                             Icon(Icons.logout,
+                                //                               size: 12, // Set icon size
+                                //                               color: Colors.black,
+                                //                             ),
+                                //                             // SizedBox(width: 8),
+                                //                             Text(
+                                //                               'Log Out',
+                                //                               style: TextStyle(
+                                //                                   fontSize: 12, // Set font size
+                                //                                   color: Colors.black,
+                                //                                   fontWeight: FontWeight.w600),
+                                //                             ),
+                                //                           ],
+                                //                         ),
+                                //                       ),
+                                //                     ),
+                                //                   ),
+                                //                 ],
+                                //               );
+                                //             },
+                                //             child: Text(
+                                //               loginName!,
+                                //               textAlign: TextAlign.center,
+                                //               style: TextStyle(
+                                //                 color: Colors.white,
+                                //                 fontSize: 8,//FontSize.s10,
+                                //                 fontWeight: FontWeight.w400,
+                                //               ),
+                                //             ),
+                                //           );
+                                //         },
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                               ],
                             ),
                           )
@@ -781,11 +886,9 @@ class _AppBarDropdownState extends State<AppBarDropdown> {
                   ),
                   child: SingleChildScrollView(
                     child: ListView(
+                      padding: EdgeInsets.zero,
                       shrinkWrap: true,
-                      children: [
-                        // Define a hardcoded list of values
-                        'Super User', 'Admin', 'Staff', 'Patient'
-                      ].map((String item) {
+                      children: ['Super User','Admin','Staff','Patient'].map((String item) {
                         return ListTile(
                           title: Text(
                             item,
@@ -854,3 +957,256 @@ class _AppBarDropdownState extends State<AppBarDropdown> {
     );
   }
 }
+
+
+
+
+
+
+
+
+// Expanded(
+//                                   flex: 2,
+//                                   child: Column(
+//                                     mainAxisAlignment: MainAxisAlignment.center,
+//                                     children: [
+//                                       MouseRegion(
+//                                         onEnter: (_) {},
+//                                         onExit: (_) {
+//                                           // Handle mouse leave
+//                                         },
+//                                         // child: FutureBuilder<UserAppBar>(
+//                                         //   future: getAppBarDetails(context),
+//                                         //   builder: (context, snapshot) {
+//                                         //     if (snapshot.connectionState == ConnectionState.waiting) {
+//                                         //       return SizedBox(
+//                                         //         width: 15,
+//                                         //         height: 15,
+//                                         //         child: CircularProgressIndicator(
+//                                         //           strokeWidth: 2,
+//                                         //           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+//                                         //         ),
+//                                         //       );
+//                                         //     }
+//                                         //     String imageUrl = snapshot.hasData && snapshot.data?.imgUrl != null && snapshot.data!.imgUrl.isNotEmpty
+//                                         //         ? snapshot.data!.imgUrl
+//                                         //         : "images/profilepic.png"; // Local asset fallback
+//                                         //
+//                                         //     return GestureDetector(
+//                                         //       child: CircleAvatar(
+//                                         //         backgroundColor: Colors.transparent, // Optional: Background color
+//                                         //         radius: 13,
+//                                         //         backgroundImage: imageUrl.startsWith("http")
+//                                         //             ? NetworkImage(imageUrl) as ImageProvider
+//                                         //             : AssetImage(imageUrl), // Fallback to asset image
+//                                         //       ),
+//                                         //       onTap: () {
+//                                         //         print("User ID: ${snapshot.data?.userId}");
+//                                         //         print("Employee ID: ${snapshot.data?.employeeId}");
+//                                         //         print("Image URL: ${snapshot.data?.imgUrl}");
+//                                         //         print("Company ID: ${snapshot.data?.companyId}");
+//                                         //       },
+//                                         //     );
+//                                         //   },
+//                                         // ),
+//                                         child: FutureBuilder<UserAppBar>(
+//                                           future: getAppBarDetails(context),
+//                                           builder: (context, snapshot) {
+//                                             if (snapshot.connectionState == ConnectionState.waiting) {
+//                                               return
+//                                                 // SizedBox(
+//                                                 //     width: 15, // Adjust size according to your requirement
+//                                                 //     height: 15,
+//                                                 //     child: CircularProgressIndicator(
+//                                                 //       strokeWidth: 2,
+//                                                 //       valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
+//                                                 //     ),
+//                                                 //   );
+//                                                   GestureDetector(
+//                                                     child: CircleAvatar(
+//                                                       backgroundColor: Colors.grey[100],
+//                                                       radius: 13,
+//                                                       backgroundImage: AssetImage("images/profilepic.png"),
+//                                                     ),
+//                                                     onTap: () {
+//                                                       print("userid appbar : ${snapshot.data?.userId}");
+//                                                       print(snapshot.data?.employeeId);
+//                                                       print(snapshot.data?.imgUrl);
+//                                                       print(snapshot.data?.companyId);
+//                                                       print(snapshot.data?.userId);
+//                                                       // Optional: Handle tap on the profile image
+//                                                     },
+//                                                   );
+//
+//                                             } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty || snapshot.data == "") {
+//                                               return
+//                                               // SizedBox(
+//                                               //   width: 15, // Adjust size according to your requirement
+//                                               //   height: 15,
+//                                               //   child: CircularProgressIndicator(
+//                                               //     strokeWidth: 2,
+//                                               //     valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Change color if needed
+//                                               //   ),
+//                                               // );
+//                                                 GestureDetector(
+//                                                 child: CircleAvatar(
+//                                                   backgroundColor: Colors.grey[100],
+//                                                   radius: 12,
+//                                                   backgroundImage: AssetImage("images/profilepic.png"),
+//                                                 ),
+//                                                 onTap: () {
+//                                                   print("userid appbar : ${snapshot.data?.userId}");
+//                                                   print(snapshot.data?.employeeId);
+//                                                   print(snapshot.data?.imgUrl);
+//                                                   print(snapshot.data?.companyId);
+//                                                   print(snapshot.data?.userId);
+//                                                   // Optional: Handle tap on the profile image
+//                                                 },
+//                                               );
+//                                             } else if(snapshot.hasData) {
+//                                             return GestureDetector(
+//                                             child: CircleAvatar(
+//                                               backgroundColor: Colors.transparent,
+//                                             backgroundImage: NetworkImage(snapshot.data!.imgUrl),
+//                                             radius: 13, // Adjust size as needed
+//                                             ),
+//                                             onTap: () {
+//                                             print("userid appbar : ${snapshot.data?.userId}");
+//                                             print(snapshot.data?.employeeId);
+//                                             print(snapshot.data?.imgUrl);
+//                                             print(snapshot.data?.companyId);
+//                                             print(snapshot.data?.userId);
+//                                             // Optional: Handle tap on the profile image
+//                                             },
+//                                             );
+//                                             }
+//                                             else {
+//                                               return
+//                                                 GestureDetector(
+//                                                 child: CircleAvatar(
+//                                                   backgroundColor: Colors.grey[100],
+//                                                   radius: 13,
+//                                                   backgroundImage: AssetImage("images/profilepic.png"),
+//                                                 ),
+//                                                 onTap: () {},
+//                                               );
+//                                             }
+//                                           },
+//                                         ),
+//                                       ),
+//                                      const SizedBox(height: AppSize.s5),
+//                                       FutureBuilder(
+//                                         future: user(),
+//                                         builder: (context, snap) {
+//                                           if (snap.connectionState == ConnectionState.waiting) {
+//                                             return SizedBox();
+//                                           }
+//
+//                                           return MouseRegion(
+//                                             onEnter: (_) {
+//                                               // Show logout popup when hovering over username
+//                                               showMenu(
+//                                                 context: context,
+//                                                 position: RelativeRect.fromLTRB(
+//                                                     70,
+//                                                     70,
+//                                                     0,
+//                                                     0), // Adjust position as needed
+//                                                 items: [
+//                                                   PopupMenuItem(
+//                                                     padding: EdgeInsets.zero,
+//                                                     height: 30,
+//                                                     child: GestureDetector(
+//                                                       onTap: () {
+//                                                         if (isLoggedIn) {
+//                                                           // Replace 'value' with 'isLoggedIn'
+//                                                           print("User logged out");
+//                                                           showDialog(
+//                                                             context: context,
+//                                                             builder: (context) =>
+//                                                                     DeletePopup(
+//                                                               onCancel: () {
+//                                                                 Navigator.pop(
+//                                                                     context);
+//                                                               },
+//                                                               onDelete: () {
+//                                                                 TokenManager
+//                                                                     .removeAccessToken();
+//                                                                 Navigator
+//                                                                     .pushNamedAndRemoveUntil(
+//                                                                   context,
+//                                                                   LoginScreen
+//                                                                       .routeName,
+//                                                                   (route) =>
+//                                                                       false,
+//                                                                 );
+//                                                               },
+//                                                               btnText:
+//                                                                   "Log Out",
+//                                                               title: "Log Out",
+//                                                               text:
+//                                                                   "Do you really want to logout?",
+//                                                             ),
+//                                                           );
+//                                                         }
+//                                                         print('Logging out');
+//                                                       },
+//                                                       child: Container(
+//                                                         height:
+//                                                             25, // Reduced height for the logout button
+//                                                         width: 90,
+//                                                         // margin: EdgeInsets.symmetric(vertical: 10),
+//                                                         padding: EdgeInsets
+//                                                             .symmetric(
+//                                                                 horizontal: 5,
+//                                                                 vertical: 5),
+//                                                         child: Row(
+//                                                           mainAxisAlignment:
+//                                                               MainAxisAlignment
+//                                                                   .spaceAround,
+//                                                           crossAxisAlignment:
+//                                                               CrossAxisAlignment
+//                                                                   .center,
+//                                                           children: [
+//                                                             Icon(
+//                                                               Icons.logout,
+//                                                               size:
+//                                                                   12, // Set icon size
+//                                                               color:
+//                                                                   Colors.black,
+//                                                             ),
+//                                                             // SizedBox(width: 8),
+//                                                             Text(
+//                                                               'Log Out',
+//                                                               style: TextStyle(
+//                                                                   fontSize:
+//                                                                       12, // Set font size
+//                                                                   color: Colors
+//                                                                       .black,
+//                                                                   fontWeight:
+//                                                                       FontWeight
+//                                                                           .w600),
+//                                                             ),
+//                                                           ],
+//                                                         ),
+//                                                       ),
+//                                                     ),
+//                                                   ),
+//                                                 ],
+//                                               );
+//                                             },
+//                                             child: Text(
+//                                               loginName!,
+//                                               textAlign: TextAlign.center,
+//                                               style: TextStyle(
+//                                                 color: Colors.white,
+//                                                 fontSize: 8,//FontSize.s10,
+//                                                 fontWeight: FontWeight.w400,
+//                                               ),
+//                                             ),
+//                                           );
+//                                         },
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),

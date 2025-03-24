@@ -56,7 +56,6 @@ class AppConfig {
   static const String other = "Other";
 }
 
-
 ///dev instance
 // class AppConfig {
 //   static const String demo = "https://demoapp.symmetry.care";
