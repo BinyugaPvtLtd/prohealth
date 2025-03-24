@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:prohealth/presentation/screens/referal_resource_module/referal_resource_desktop.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_calender/sm_calender.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/sm_dashboard_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sub_widgets/highest_code_view_more.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_live_view/sm_live_view_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/refferal_screen_new_tab.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/app_bar/app_bar.dart';
 import '../../../widgets/widgets/const_appbar/controller.dart';
@@ -104,16 +106,14 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
                         },
-                        text: 'Intake',
+                        text: 'Refferals',
                         isSelected: myController.selectedIndex.value == 1,
                       ),
                     ),
                   ),
-
                   SizedBox(
                     width: AppSize.s60,
                   ),
-
                   Expanded(
                     child: Obx(
                           () => CustomTitleButton(
@@ -128,14 +128,16 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
                         },
-                        text: 'Scheduler',
+                        text: 'Intake',
                         isSelected: myController.selectedIndex.value == 2,
                       ),
                     ),
                   ),
+
                   SizedBox(
                     width: AppSize.s60,
                   ),
+
                   Expanded(
                     child: Obx(
                           () => CustomTitleButton(
@@ -150,7 +152,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
                         },
-                        text: 'Calender',
+                        text: 'Scheduler',
                         isSelected: myController.selectedIndex.value == 3,
                       ),
                     ),
@@ -158,7 +160,6 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                   SizedBox(
                     width: AppSize.s60,
                   ),
-
                   Expanded(
                     child: Obx(
                           () => CustomTitleButton(
@@ -173,8 +174,31 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
                         },
-                        text: 'Live View',
+                        text: 'Calender',
                         isSelected: myController.selectedIndex.value == 4,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: AppSize.s60,
+                  ),
+
+                  Expanded(
+                    child: Obx(
+                          () => CustomTitleButton(
+                        height: AppSize.s30,
+                        width: AppSize.s140,
+                        onPressed: () {
+
+                          //companyByIdApi(context,);
+                          // companyDetailsApi(context,5);
+                          myController.selectButton(5);
+                          _pageController.animateToPage(5,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease);
+                        },
+                        text: 'Live View',
+                        isSelected: myController.selectedIndex.value == 5,
                       ),
                     ),
                   ),
@@ -190,13 +214,13 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
                           //companyByIdApi(context,);
                           // companyDetailsApi(context,5);
-                          myController.selectButton(5);
-                          _pageController.animateToPage(5,
+                          myController.selectButton(6);
+                          _pageController.animateToPage(6,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
                         },
                         text: 'Today',
-                        isSelected: myController.selectedIndex.value == 5,
+                        isSelected: myController.selectedIndex.value == 6,
                       ),
                     ),
                   ),
@@ -253,6 +277,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                       });
                     },
                   ),
+                  RefferalScreenNewTab(),
                   IntakeMainScreen(),
                  // SMIntakeScreen(),
                   NewSchedulerScreen(),
