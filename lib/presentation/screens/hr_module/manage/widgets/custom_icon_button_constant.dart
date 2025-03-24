@@ -14,6 +14,8 @@ class CustomIconButton extends StatefulWidget {
   final IconData? icon;
   final Color? color;
   final Color? textColor;
+  final FontWeight? textWeight;
+  final double? textSize;
   final Future<void> Function() onPressed;
 
    CustomIconButton({
@@ -21,7 +23,7 @@ class CustomIconButton extends StatefulWidget {
     required this.text,
     this.icon,
     required this.onPressed,
-    Key? key,  this.color,
+    Key? key,  this.color, this.textWeight, this.textSize,
   }) : super(key: key);
 
   @override
@@ -49,9 +51,9 @@ class _CustomIconButtonState extends State<CustomIconButton> {
           widget.text,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: FontSize.s14,
-              fontWeight: FontWeight.w600,
-              color: widget.textColor == null ?ColorManager.white:widget.textColor)),
+              fontSize: widget.textSize == null ? FontSize.s14 : FontSize.s12,
+              fontWeight: widget.textWeight == null ? FontWeight.w600 : widget.textWeight,
+              color: widget.textColor == null ? ColorManager.white:widget.textColor)),
       style: ElevatedButton.styleFrom(
         padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         backgroundColor:  widget.color == null ? Color(0xFF50B5E5) : widget.color,

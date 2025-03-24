@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 
 class CustomDropdownTextFieldsm extends StatefulWidget {
@@ -136,6 +137,184 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
                   ),
                   Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime,),
                 ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+///referal
+class SmDropdownConst extends StatefulWidget {
+  final String? value;
+  final List<String>? items;
+  final List<DropdownMenuItem<String>>? dropDownMenuList;
+  final String? hintText;
+  final String headText;
+  final void Function(String?)? onChanged;
+  final double? width;
+  final double? height;
+  final FontWeight? fontwight;
+  final double? fontsize;
+  final String? initialValue;
+  final bool? isAstric;
+  final IconData? icon;
+  final Color? iconColor;
+
+  SmDropdownConst({
+    Key? key,
+    this.isAstric = true,
+    this.dropDownMenuList,
+    required this.headText,
+    this.value,
+    this.items,
+    this.onChanged,
+    this.width,
+    this.height,
+    this.initialValue,
+    this.hintText, this.fontsize,
+    this.icon, this.iconColor, this.fontwight,
+  }) : super(key: key);
+
+  @override
+  _SmDropdownConstState createState() =>
+      _SmDropdownConstState();
+}
+
+class _SmDropdownConstState extends State<SmDropdownConst> {
+  String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.value ?? widget.initialValue;
+  }
+
+  void _showDropdownDialog() async {
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+    final result = await showDialog<String>(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Positioned(
+              left: offset.dx,
+              top: offset.dy + size.height,
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  width: widget.width ?? size.width,
+                  constraints: BoxConstraints(
+                    maxHeight: 250, // Restrict height for scroll
+                  ),
+                  child: SingleChildScrollView(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: widget.items?.length ?? widget.dropDownMenuList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final item = widget.items != null
+                            ? widget.items![index]
+                            : widget.dropDownMenuList![index].value;
+                        return ListTile(
+                          title: Text(
+                            item!,
+                            style: DocumentTypeDataStyle.customTextStyle(context),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pop(item);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result != null) {
+      setState(() {
+        _selectedValue = result;
+        widget.onChanged?.call(result);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        widget.isAstric!?Padding(
+          padding: const EdgeInsets.only(left: 5.0, bottom: 2),
+          child: RichText(
+            text: TextSpan(
+              text: widget.isAstric!?widget.headText:"", // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                widget.isAstric!? TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: ColorManager.red, // Asterisk color
+                  ),
+                ):TextSpan(
+                  text: ' ', // Asterisk
+                )
+              ],
+            ),
+          ),
+          // Text(
+          //   widget.headText,
+          //   style: AllPopupHeadings.customTextStyle(context),
+          // ),
+        )
+            :Offstage(),
+        SizedBox(
+          width: widget.isAstric!?AppSize.s250:widget.width,
+          height: AppSize.s40,
+          child: GestureDetector(
+            onTap: _showDropdownDialog,
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Container(
+                padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
+                decoration:widget.isAstric!? BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade300, width: 1), // Applies to all sides
+                  borderRadius: BorderRadius.circular(4),
+                )
+                    :BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade300, width: 1), // Applies to all sides
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 3),
+                        child: Text(
+                            _selectedValue ?? widget.hintText ?? 'Select',
+                            style: TextStyle(
+                              fontWeight:widget.fontwight ?? FontWeight.w600,
+                              fontSize: widget.fontsize ?? FontSize.s13,
+                              color: ColorManager.mediumgrey,
+                              decoration: TextDecoration.none,
+                            ) //DocumentTypeDataStyle.customTextStyle(context),
+                        ),
+                      ),
+                    ),
+                    Icon(widget.icon ?? Icons.arrow_drop_down_sharp, color: widget.iconColor ?? Colors.grey),
+                  ],
+                ),
               ),
             ),
           ),

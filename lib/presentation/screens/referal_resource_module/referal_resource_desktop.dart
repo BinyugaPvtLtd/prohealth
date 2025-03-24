@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 
@@ -24,14 +23,6 @@ class ReferalResourceDesktop extends StatelessWidget {
     );
         }
   }
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: Container(
-  //       child: Text('Coming Soon',
-  //       style: AllNoDataAvailable.customTextStyle(context),),
-  //     ),
-  //   );
-
 
 class RRTablet extends StatelessWidget {
   const RRTablet({super.key});

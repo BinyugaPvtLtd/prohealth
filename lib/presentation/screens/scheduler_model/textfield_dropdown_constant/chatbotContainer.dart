@@ -202,12 +202,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-//import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class ChatBotContainer extends StatefulWidget {
   final VoidCallback onClose;
@@ -267,6 +267,34 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
     return '${currentTime.hour.toString().padLeft(2, '0')}:${currentTime.minute.toString().padLeft(2, '0')}';
   }
 
+  // Future<void> _makeCall(String phoneNumber) async {
+  //   final Uri url = Uri.parse('tel:$phoneNumber'); // 'tel' scheme for calling
+  //   if (await canLaunchUrl(url)) {
+  //     await launchUrl(url);
+  //   } else {
+  //     print('Could not launch $url');
+  //   }
+  // }
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    final Uri _telUri = Uri(scheme: 'tel', path: phoneNumber);
+    if (await canLaunchUrl(_telUri)) {
+      await launchUrl(_telUri);
+    } else {
+      throw Exception('Could not launch $phoneNumber');
+    }
+  }
+  Future<void> launchPhoneDialer(String contactNumber) async {
+    final Uri _phoneUri = Uri(
+        scheme: "tel",
+        path: contactNumber
+    );
+    try {
+      if (await canLaunch(_phoneUri.toString()))
+        await launch(_phoneUri.toString());
+    } catch (error) {
+      throw("Cannot dial");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -328,7 +356,8 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     icon: Icon(Icons.call_rounded, color: ColorManager.greenDark),
-                    onPressed: (){}, // Call the close function
+                    onPressed: (){},
+                   // onPressed: () => launchPhoneDialer('7499863295'), // Call the close function
                   ),
                   IconButton(
                     splashColor: Colors.transparent,
