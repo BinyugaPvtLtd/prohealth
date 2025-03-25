@@ -380,10 +380,11 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   hintStyle: onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                   suffixIcon: IconButton(
+                                    padding: EdgeInsets.only(bottom: 2),
                                     icon: Icon(
-                                      Icons.calendar_month_outlined,
+                                        Icons.calendar_month,
                                       color: Color(0xff50B5E5),
-                                      size: 16,
+                                      size: 18,
                                     ),
                                     onPressed: () async {
                                       DateTime? pickedDate =
@@ -1274,13 +1275,14 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           isDigitSelect:false,
           errorText: eDate?"Please Enter Effective Date" : null,
           suffixIcon: IconButton(
+            padding: EdgeInsets.only(bottom: 2),
             splashColor: Colors.transparent,
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             icon: Icon(
-              Icons.calendar_month_outlined,
+              Icons.calendar_month,
               color: Color(0xff50B5E5),
-              size: AppSize.s16,
+              size: 18,
             ),
             onPressed: _selectDate,
           ), controller:  widget.effectiveDateController, labelText: 'Effective Date',
