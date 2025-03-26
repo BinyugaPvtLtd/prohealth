@@ -277,12 +277,12 @@ class HrManageProvider extends ChangeNotifier{
   // }
 
   ///
-  // void updateZone(List zoneList) {
-  //   const int maxLength = 30;
-  //   if (zoneList.length > maxLength) {
-  //     _trimmedZoneList = '${zoneList.substring(0, maxLength)}...';
+  // void updateZone(String zone) {
+  //   const int maxLength = 10;
+  //   if (zone.length > maxLength) {
+  //     _trimmedZoneList = '${zone.substring(0, maxLength)}...';
   //   }else{
-  //     _trimmedZoneList = zoneList;
+  //     _trimmedZoneList = zone;
   //   }
   //   notifyListeners();
   // }
