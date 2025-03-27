@@ -105,16 +105,12 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
                   // subDocId: AppConfig.subDocId1Licenses,
                   // officeId: widget.officeId,
                 ),
-                SocPageView(
-                  // docId: widget.docId,
-                  // subDocId: AppConfig.subDocId2Adr,
-                  // officeId: widget.officeId,
-                ),
-                DisciplinePageView(
-                  // docId: widget.docId,
-                  // subDocId: AppConfig.subDocId3CICCMedicalCR,
-                  // officeId: widget.officeId,
-                ),
+                SocPageView(),
+                DisciplinePageView(),
+
+
+
+
                 // RocPageView(),
                 // OverdeuPageView(
                 //   // docId: widget.docId,

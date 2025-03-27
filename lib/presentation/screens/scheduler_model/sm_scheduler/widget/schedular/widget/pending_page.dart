@@ -226,7 +226,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                     itemBuilder: (BuildContext context, int index) { return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
                       child: SchedularContainerConst(
-                        height: 90,
+                        height: 100,
                         child: Column(
                           children: [
                             Row(
@@ -290,6 +290,13 @@ class _PendingPageViewState extends State<PendingPageView> {
                                             ),
                                             SizedBox(height: AppSize.s5),
                                             Text(
+                                              'MRN #584234',
+                                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorManager.mediumgrey,),
+                                            ),
+                                            SizedBox(height: AppSize.s5),
+                                            Text(
                                               'Anxiety',
                                               style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                 fontWeight: FontWeight.w400,
@@ -324,6 +331,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                     ],
                                   ),
                                 ),
+                                SizedBox(width: 10,),
 
                                 Expanded(
                                   flex: 1,

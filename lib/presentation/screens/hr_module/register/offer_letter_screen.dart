@@ -1574,7 +1574,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
   final StreamController<List<CountyWiseZoneModal>> _zoneController = StreamController<List<CountyWiseZoneModal>>.broadcast();
   final StreamController<List<ZipcodeByCountyIdAndZoneIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
 
-  String? selectedZipCodeZone;
+  String selectedZipCodeZone=" ";
   int docZoneId = 0;
   List<ApiAddCovrageData> addCovrage = [];
   bool isButtonEnabled = false;
@@ -1654,7 +1654,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
         } else {
           // Reset values if no zones are available
           setState(() {
-            selectedZipCodeZone = null;
+            selectedZipCodeZone = " ";
             docZoneId = 0;
           });
           _countyStreamController.add([]); // Clear zip code list
@@ -1790,7 +1790,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                         .countyId;
 
                                     // Reset previous selections
-                                    selectedZipCodeZone = null;
+                                    selectedZipCodeZone = " ";
                                     docZoneId = 0;
 
                                     _fetchCountyWiseZone(); // Fetch zones for the selected county
@@ -1820,8 +1820,9 @@ class _DynamciContainerState extends State<DynamciContainer> {
                       SizedBox(width: MediaQuery.of(context).size.height / 15),
 
                       ///zone api
-                      StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) { return  Column(
+                      // StatefulBuilder(
+                      //   builder: (BuildContext context, void Function(void Function()) setState) { return
+                          Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             RichText(
@@ -1847,7 +1848,29 @@ class _DynamciContainerState extends State<DynamciContainer> {
                               //stream: _zoneController.stream,
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return _buildPlaceholder();
+                                  return Container(
+                                    width: 250,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey, width: 1),
+                                      borderRadius: BorderRadius.circular(5),),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                                          child: Text(
+                                            selectedZipCodeZone,
+                                            style: DocumentTypeDataStyle.customTextStyle(context),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                                          child: Icon(Icons.arrow_drop_down),
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                 }
                                 if(selectedCountyId == 0 ){
                                   return _buildPlaceholder(text: " ");
@@ -1879,8 +1902,9 @@ class _DynamciContainerState extends State<DynamciContainer> {
                               },
                             ),
                           ],
-                        ); },
-                      )
+                        ),
+                      //     },
+                      // )
                     ],
                   ),
                   const SizedBox(height: 20,),
