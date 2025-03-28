@@ -177,7 +177,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
           children: [
             ///Create User Button
             Padding(
-              padding: const EdgeInsets.only(right: AppPadding.p30),
+              padding: const EdgeInsets.only(right: AppPadding.p25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -218,7 +218,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               children: [
                 Container(
                   height: AppSize.s30,
-                  margin: EdgeInsets.symmetric(horizontal: 30),
+                  margin: EdgeInsets.symmetric(horizontal: 25),
                   decoration: BoxDecoration(
                     color: ColorManager.fmediumgrey,
                     borderRadius: BorderRadius.circular(12),
