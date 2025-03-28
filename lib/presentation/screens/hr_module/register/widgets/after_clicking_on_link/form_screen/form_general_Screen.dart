@@ -9,9 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/onlink_general_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onlink_general/onlink_general_data.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -111,6 +113,10 @@ class _generalFormState extends State<generalForm> {
       var data = onlinkGeneralData; // Assuming index matches the data list
       setState(() {
         print("Inside function");
+        final providerState = Provider.of<HrProgressMultiStape>(context,listen: false);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          providerState.isGeneralChnaged();
+        });
 
         // If isDobSelected is false and the dateOfBirth is today's date, leave it empty
         if (!isDobSelected && data.dateOfBirth != null) {
@@ -125,6 +131,27 @@ class _generalFormState extends State<generalForm> {
             dobcontroller.text = data.dateOfBirth!;  // Otherwise, populate the date
           }
         }
+
+
+
+
+        ///
+       // current year
+       //  if (!isDobSelected && data.dateOfBirth != null) {
+       //    DateTime apiDob = DateTime.parse(data.dateOfBirth!); // Assuming data.dateOfBirth is a string
+       //    DateTime today = DateTime.now();
+       //
+       //    // Compare API's dateOfBirth with the current year
+       //    if (apiDob.year == today.year) {
+       //      // Hide the DOB if it is in the current year
+       //      dobcontroller.text = '';  // Keep it empty
+       //    } else {
+       //      dobcontroller.text = data.dateOfBirth!;  // Otherwise, populate the date
+       //    }
+       //  }
+
+        ///
+        ///
         // if (!isDobSelected && data.dateOfBirth != null && data.dateOfBirth.isNotEmpty) {
         //   dobcontroller.text = data.dateOfBirth;  // Prefill with the formatted date
         // }
@@ -225,6 +252,7 @@ class _generalFormState extends State<generalForm> {
   }
 
    String? _addressDocError;
+   String? _dobDocError;
   // bool _isFormValid = true;
   // String? _validateTextField(String value, String fieldName) {
   //   if (value.isEmpty) {
@@ -625,6 +653,7 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+
                         onTap:() async {
                           DateTime? pickedDate = await showDatePicker(
                             context: context,
@@ -635,7 +664,10 @@ class _generalFormState extends State<generalForm> {
                           if (pickedDate != null) {
                             dobcontroller.text =
                             "${pickedDate.toLocal()}".split(' ')[0];
-                            isDobSelected = true;
+                           setState(() {
+                              isDobSelected = true;
+                              _dobDocError = null;  // Clear error after a valid date is selected
+                            });
                           }
                         } ,
                         readOnly: true,
@@ -643,31 +675,57 @@ class _generalFormState extends State<generalForm> {
                         hintText: 'yyyy-mm-dd',
                         hintStyle: onlyFormDataStyle.customTextStyle(context),
                         height: 32,
-                        suffixIcon: IconButton(
-                          icon: const Icon(
+                        suffixIcon:  Icon(
                             Icons.calendar_month_outlined,
                             color: Color(0xff50B5E5),
                             size: 16,
                           ),
-                          onPressed: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1901),
-                              lastDate: DateTime(2101),
-                            );
-                            if (pickedDate != null) {
-                              dobcontroller.text =
-                              "${pickedDate.toLocal()}".split(' ')[0];
-                           isDobSelected = true;
-                            }
-                          },
+                          // onPressed: () async {
+                          //   DateTime? pickedDate = await showDatePicker(
+                          //     context: context,
+                          //     initialDate: DateTime.now(),
+                          //     firstDate: DateTime(1901),
+                          //     lastDate: DateTime(2101),
+                          //   );
+                          //   if (pickedDate != null) {
+                          //     dobcontroller.text =
+                          //     "${pickedDate.toLocal()}".split(' ')[0];
+                          //   //  setState(() {
+                          //       isDobSelected = true;
+                          //       _dobDocError = null;  // Clear error after a valid date is selected
+                          //     //});
+                          //   }
+                          // },
+
                         ),
-                      ),
+                        // onChanged: (String value) {
+                        //   // Validate when user types in the address field
+                        //   setState(() {
+                        //     if (value.isEmpty) {
+                        //       _dobDocError = 'DoB cannot be empty';
+                        //     } else {
+                        //       _dobDocError = null; // Clear error if text is entered
+                        //     }
+                        //   });
+                        // },
+
+                      if (_dobDocError != null) // Display error if any
+                        Row(
+                          children: [
+                            Text(
+                              _dobDocError!,
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: FontSize.s10,
+                              ),
+                            ),
+                          ],
+                        )else
+                        SizedBox(height:12),
                       SizedBox(
                           height:
-                          MediaQuery.of(context).size.height / 30),
-                      SizedBox(height: 10,),
+                          MediaQuery.of(context).size.height / 31),
+
                       AddressInput(
                         controller: address,
                         onSuggestionSelected: (selectedSuggestion) {
@@ -1087,19 +1145,41 @@ class _generalFormState extends State<generalForm> {
                 borderRadius: 12,
                 onPressed: () async {
 
-                  String addressText = address.text;
-                  if (addressText.isEmpty) {
-                    setState(() {
-                      _addressDocError = 'Address cannot be empty';
-                    });
-                    return; // Early return to prevent further execution
-                  }else {
-                    setState(() {
-                      _addressDocError = null; // Clear any previous error
-                    });
-                    // Proceed with form submission or other logic
-                    print("Address is valid: $addressText");
-                  }
+    String addressText = address.text;
+    String dobText = dobcontroller.text;
+
+    // Check if both Address and DoB are filled
+    if (addressText.isEmpty && dobText.isEmpty) {
+    setState(() {
+    _addressDocError = 'Address cannot be empty';
+    _dobDocError = 'DOB cannot be empty';
+    });
+    return; // Early return to prevent further execution
+    }
+    // Check if Address is empty but DoB is filled
+    else if (addressText.isEmpty && dobText.isNotEmpty) {
+    setState(() {
+    _addressDocError = 'Address cannot be empty';
+    _dobDocError = null; // Clear DoB error if it's filled
+    });
+    return; // Prevent form submission if Address is empty
+    }
+    // Check if DoB is empty but Address is filled
+    else if (dobText.isEmpty && addressText.isNotEmpty) {
+    setState(() {
+    _dobDocError = 'DOB cannot be empty';
+    _addressDocError = null; // Clear Address error if it's filled
+    });
+    return; // Prevent form submission if DoB is empty
+    } else {
+    // If both Address and DoB are filled, clear any error messages
+    setState(() {
+    _addressDocError = null;
+    _dobDocError = null;
+    });
+    }
+      // Proceed with form submission or other logic
+      print("Address is valid: $addressText");
 
       // Get the company and user IDs
       setState(() {
@@ -1165,10 +1245,10 @@ class _generalFormState extends State<generalForm> {
         gendertype.toString(),
         'Partial',
         // 'service',
-        'imgurl',
+        '',
         'resumeurl',
         companyId,
-        'Active',
+       // 'Active',
         driverlicensenumb.text,
         "0000-00-00",
         //'2024-01-01',

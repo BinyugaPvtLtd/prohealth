@@ -43,32 +43,32 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
       children: [
         if (!_showAutoScreen)
         Padding(
-          padding: const EdgeInsets.only(left: 200,right: 200, top: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 300,vertical: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SMTabbar(onTap: (int index){
                 _selectButton(0);
-              }, index: 0, grpIndex: _selectedIndex, heading: "Pending",badgeNumber: 55, ),
+              }, index: 0, grpIndex: _selectedIndex, heading: "Pending", ),
               SMTabbar(onTap: (int index){
                 _selectButton(1);
-              }, index: 1, grpIndex: _selectedIndex, heading: "SOC"),
+              }, index: 1, grpIndex: _selectedIndex, heading: "To Be Scheduled"),
               SMTabbar(onTap: (int index){
                 _selectButton(2);
-              }, index: 2, grpIndex: _selectedIndex, heading: "Discipline"),
-              SMTabbar(onTap: (int index){
-                _selectButton(3);
-              }, index: 3, grpIndex: _selectedIndex, heading: "ROC",),
-              SMTabbar(onTap: (int index){
-                _selectButton(4);
-              }, index: 4, grpIndex: _selectedIndex, heading: "Overdue",badgeNumber: 55),
-              SMTabbar(onTap: (int index){
-                _selectButton(5);
-              }, index: 5, grpIndex: _selectedIndex, heading: "Completed"),
-              SMTabbar(onTap: (int index){
-                _selectButton(6);
-              }, index: 6, grpIndex: _selectedIndex, heading: "History"),
+              }, index: 2, grpIndex: _selectedIndex, heading: "Scheduled"),
+              // SMTabbar(onTap: (int index){
+              //   _selectButton(3);
+              // }, index: 3, grpIndex: _selectedIndex, heading: "ROC",),
+              // SMTabbar(onTap: (int index){
+              //   _selectButton(4);
+              // }, index: 4, grpIndex: _selectedIndex, heading: "Overdue",badgeNumber: 55),
+              // SMTabbar(onTap: (int index){
+              //   _selectButton(5);
+              // }, index: 5, grpIndex: _selectedIndex, heading: "Completed"),
+              // SMTabbar(onTap: (int index){
+              //   _selectButton(6);
+              // }, index: 6, grpIndex: _selectedIndex, heading: "History"),
 
             ],
           ),
@@ -105,28 +105,24 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
                   // subDocId: AppConfig.subDocId1Licenses,
                   // officeId: widget.officeId,
                 ),
-                SocPageView(
-                  // docId: widget.docId,
-                  // subDocId: AppConfig.subDocId2Adr,
-                  // officeId: widget.officeId,
-                ),
-                DisciplinePageView(
-                  // docId: widget.docId,
-                  // subDocId: AppConfig.subDocId3CICCMedicalCR,
-                  // officeId: widget.officeId,
-                ),
-                RocPageView(),
-                OverdeuPageView(
-                  // docId: widget.docId,
-                  // subDocId: AppConfig.subDocId4CapReport,
-                  // officeId: widget.officeId,
-                ),
-                CompletedPageView(
-                  // docId: widget.docId,
-                  // subDocId: AppConfig.subDocId5BalReport,
-                  // officeId: widget.officeId,
-                ),
-                HistoryPageView(),
+                SocPageView(),
+                DisciplinePageView(),
+
+
+
+
+                // RocPageView(),
+                // OverdeuPageView(
+                //   // docId: widget.docId,
+                //   // subDocId: AppConfig.subDocId4CapReport,
+                //   // officeId: widget.officeId,
+                // ),
+                // CompletedPageView(
+                //   // docId: widget.docId,
+                //   // subDocId: AppConfig.subDocId5BalReport,
+                //   // officeId: widget.officeId,
+                // ),
+                // HistoryPageView(),
               ],
             ),
           ),
@@ -153,14 +149,12 @@ class SMTabbar extends StatelessWidget {
     required this.index,
     required this.grpIndex,
     required this.heading,
-    this.badgeNumber, // Optional badge number parameter
   });
 
   final OnManuButtonTapCallBack onTap;
   final int index;
   final int grpIndex;
   final String heading;
-  final int? badgeNumber; // Badge number is optional
 
   @override
   Widget build(BuildContext context) {
@@ -171,49 +165,24 @@ class SMTabbar extends StatelessWidget {
       onHover: (bool val) {},
       child: Column(
         children: [
-          Stack(
-            clipBehavior: Clip.none, // Allows badge to overflow
-            children: [
-              Container(
-                width: 100, // Fixed width for the heading container
-                height: 40, // Fixed height for the heading container
-                child: Align(
-                  alignment: Alignment.center, // Align text to the left
-                  child: Text(
-                    heading,
-                    style: TextStyle(
-                      fontSize: FontSize.s14,
-                      fontWeight: grpIndex == index
-                          ? FontWeight.w700
-                          : FontWeight.w500,
-                      color: grpIndex == index
-                          ? ColorManager.blueprime
-                          : ColorManager.mediumgrey,
-                    ),
-                  ),
+          Container(
+            width: 200, // Fixed width for the heading container
+            height: 40, // Fixed height for the heading container
+            child: Align(
+              alignment: Alignment.center, // Align text to the left
+              child: Text(
+                heading,
+                style: TextStyle(
+                  fontSize: FontSize.s14,
+                  fontWeight: grpIndex == index
+                      ? FontWeight.w700
+                      : FontWeight.w500,
+                  color: grpIndex == index
+                      ? ColorManager.blueprime
+                      : ColorManager.mediumgrey,
                 ),
               ),
-              if (badgeNumber != null) // Only show badge if badgeNumber is not null
-                Positioned(
-                 // top: -5, // Adjust position of the badge
-                  right: -5, // Adjust position of the badge
-                  child: Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: ColorManager.blueprime, // Badge color
-                      borderRadius: BorderRadius.circular(7), // Rounded badge
-                    ),
-                    child: Text(
-                      badgeNumber!.toString(),
-                      style: TextStyle(
-                        fontSize: FontSize.s10, // Adjust font size
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white, // Badge text color
-                      ),
-                    ),
-                  ),
-                ),
-            ],
+            ),
           ),
           LayoutBuilder(
             builder: (context, constraints) {
@@ -245,6 +214,112 @@ class SMTabbar extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+///batch number
+// class SMTabbar extends StatelessWidget {
+//   const SMTabbar({
+//     super.key,
+//     required this.onTap,
+//     required this.index,
+//     required this.grpIndex,
+//     required this.heading,
+//     this.badgeNumber, // Optional badge number parameter
+//   });
+//
+//   final OnManuButtonTapCallBack onTap;
+//   final int index;
+//   final int grpIndex;
+//   final String heading;
+//   final int? badgeNumber; // Badge number is optional
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return AppClickableWidget(
+//       onTap: () {
+//         onTap(index);
+//       },
+//       onHover: (bool val) {},
+//       child: Column(
+//         children: [
+//           Stack(
+//             clipBehavior: Clip.none, // Allows badge to overflow
+//             children: [
+//               Container(
+//                 width: 100, // Fixed width for the heading container
+//                 height: 40, // Fixed height for the heading container
+//                 child: Align(
+//                   alignment: Alignment.center, // Align text to the left
+//                   child: Text(
+//                     heading,
+//                     style: TextStyle(
+//                       fontSize: FontSize.s14,
+//                       fontWeight: grpIndex == index
+//                           ? FontWeight.w700
+//                           : FontWeight.w500,
+//                       color: grpIndex == index
+//                           ? ColorManager.blueprime
+//                           : ColorManager.mediumgrey,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//               if (badgeNumber != null) // Only show badge if badgeNumber is not null
+//                 Positioned(
+//                  // top: -5, // Adjust position of the badge
+//                   right: -5, // Adjust position of the badge
+//                   child: Container(
+//                     padding: EdgeInsets.all(2),
+//                     decoration: BoxDecoration(
+//                       color: ColorManager.blueprime, // Badge color
+//                       borderRadius: BorderRadius.circular(7), // Rounded badge
+//                     ),
+//                     child: Text(
+//                       badgeNumber!.toString(),
+//                       style: TextStyle(
+//                         fontSize: FontSize.s10, // Adjust font size
+//                         fontWeight: FontWeight.bold,
+//                         color: Colors.white, // Badge text color
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//             ],
+//           ),
+//           LayoutBuilder(
+//             builder: (context, constraints) {
+//               final textPainter = TextPainter(
+//                 text: TextSpan(
+//                   text: heading,
+//                   style: TextStyle(
+//                     fontSize: FontSize.s14,
+//                     fontWeight: FontWeight.w700,
+//                   ),
+//                 ),
+//                 textDirection: TextDirection.ltr,
+//               )..layout();
+//
+//               final textWidth = textPainter.size.width;
+//
+//               return Container(
+//                 margin: const EdgeInsets.symmetric(vertical: 5),
+//                 height: 2,
+//                 width: textWidth + 100, // Adjust padding around text
+//                 color: grpIndex == index
+//                     ? ColorManager.blueprime
+//                     : Colors.transparent,
+//               );
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 
 

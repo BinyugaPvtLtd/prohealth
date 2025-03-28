@@ -183,7 +183,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                               width: 350,
                               height: 30,
                               decoration: BoxDecoration(
-                                border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                border: Border.all(color: Color(0xFFB1B1B1), width: 1),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Padding(
@@ -278,29 +278,24 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                               focusColor: ColorManager.mediumgrey,
                               hoverColor: ColorManager.mediumgrey,
                               hintText: 'yyyy-mm-dd',
-                              hintStyle:
-                              DocumentTypeDataStyle.customTextStyle(context),
+                              hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: BorderSide(
-                                    width: 1, color: ColorManager.mediumgrey),
+                                    color: Color(0xFFB1B1B1), width: 1),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: BorderSide(
-                                    width: 1,
-                                    color: ColorManager
-                                        .mediumgrey), // Set focused border color to red
+                                    color: Color(0xFFB1B1B1), width: 1), // Set focused border color to red
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: BorderSide(
-                                    width: 1,
-                                    color: ColorManager
-                                        .mediumgrey), // Set enabled border color to red
+                                    color: Color(0xFFB1B1B1), width: 1), // Set enabled border color to red
                               ),
                               contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                              suffixIcon: Icon(Icons.calendar_month_outlined,
+                              suffixIcon: Icon(Icons.calendar_month_outlined, size: 18,
                                   color: ColorManager.blueprime),
                               errorText: field.errorText,
                             ),
@@ -310,7 +305,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                 context: context,
                                 initialDate: DateTime.now(),
                                 firstDate: DateTime(1100),
-                                lastDate: DateTime(2026),
+                                lastDate: DateTime(2126),
                               );
                               if (date != null) {
                                 String formattedDate =

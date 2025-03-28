@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
+import 'package:provider/provider.dart';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
@@ -206,6 +208,10 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         documents.length - _fileNames.length,
                         (index) => '', // Or any default value
                       ));
+                      final providerState = Provider.of<HrProgressMultiStape>(context,listen: false);
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        providerState.isHealthRecordChnaged();
+                      });
                     }
 
                     if (finalPaths.length < documents.length) {

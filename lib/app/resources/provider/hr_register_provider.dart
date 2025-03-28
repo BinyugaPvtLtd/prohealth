@@ -256,7 +256,7 @@ void loaderTrue(){
     required String email,
     required String clinicalType,
     required String repoartingOffice,
-    required String zone,
+   // required String zone,
     required String city
   }) {
     _isFormValid = true;
@@ -289,10 +289,10 @@ void loaderTrue(){
       _clinicalType = error;
       if (error != null) _isFormValid = false;
     });
-    validateField(zone, 'Please Select Zone', (error) {
-      _zoneError = error;
-      if (error != null) _isFormValid = false;
-    });
+    // validateField(zone, 'Please Select Zone', (error) {
+    //   _zoneError = error;
+    //   if (error != null) _isFormValid = false;
+    // });
     validateField(repoartingOffice, 'Please Select Reporting Office', (error) {
       _reportingOfficeError = error;
       if (error != null) _isFormValid = false;
@@ -328,6 +328,76 @@ void loaderTrue(){
     _reportingOfficeError = null;
     _zoneError = null;
     _cityError = null;
+    notifyListeners();
+  }
+}
+
+
+class HrProgressMultiStape extends ChangeNotifier{
+  bool _isGneralSaved = false;
+  bool _isEducationSaved = false;
+  bool _isEmployeementSaved = false;
+  bool _isLicenseSaved = false;
+  bool _isBankingSaved = false;
+  bool _isReferenceSaved = false;
+  bool _isClicalLicenseSaved = false;
+  bool _isHealthRecordSaved = false;
+  bool _isAckRecordSaved = false;
+
+
+  bool get isGneralSaved => _isGneralSaved;
+  bool get isEducationSaved => _isEducationSaved;
+  bool get isEmployeementSaved => _isEmployeementSaved;
+  bool get isLicenseSaved => _isLicenseSaved;
+  bool get isBankingSaved => _isBankingSaved;
+  bool get isReferenceSaved => _isReferenceSaved;
+  bool get isClicalLicenseSaved => _isClicalLicenseSaved;
+  bool get isHealthRecordSaved => _isHealthRecordSaved;
+  bool get isAckRecordSaved => _isAckRecordSaved;
+
+
+  void isGeneralChnaged(){
+    _isGneralSaved = true;
+    notifyListeners();
+  }
+
+  void isEducationChnaged(){
+    _isEducationSaved = true;
+    notifyListeners();
+  }
+
+  void isEmployeementChnaged(){
+    _isEmployeementSaved = true;
+    notifyListeners();
+  }
+
+  void isLicenseChnaged(){
+    _isLicenseSaved = true;
+    notifyListeners();
+  }
+
+  void isReferenceChnaged(){
+    _isReferenceSaved = true;
+    notifyListeners();
+  }
+
+  void isBankingChnaged(){
+    _isBankingSaved = true;
+    notifyListeners();
+  }
+
+  void isClinicalLicenseChnaged(){
+    _isClicalLicenseSaved = true;
+    notifyListeners();
+  }
+
+  void isHealthRecordChnaged(){
+    _isHealthRecordSaved = true;
+    notifyListeners();
+  }
+
+  void isAckRecordChnaged(){
+    _isAckRecordSaved = true;
     notifyListeners();
   }
 }

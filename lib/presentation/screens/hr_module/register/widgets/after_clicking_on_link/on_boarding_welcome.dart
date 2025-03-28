@@ -273,8 +273,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                                     employeeID: employeeId, depID: depID,
                                   )),
                         );
-                      } else if (offerLetterData.statusCode == 200 ||
-                          offerLetterData.statusCode == 201) {
+                      } else if (offerLetterData.statusCode == 200 || offerLetterData.statusCode == 201) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -287,6 +286,9 @@ class OnBoardingCongratulation extends StatelessWidget {
                         });
                       } else{
                         print("Something went wrong!");
+                        await showDialog(context: context, builder:(BuildContext context){
+                          return FailedPopup(text: offerLetterData.message,);
+                        });
                       }
                     },
                     style: ElevatedButton.styleFrom(

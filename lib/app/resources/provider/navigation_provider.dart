@@ -261,15 +261,31 @@ class HrManageProvider extends ChangeNotifier{
   }
 
   /// HR profile trim zone
-  void updateZone(String zoneList) {
-    const int maxLength = 30;
-    if (zoneList.length > maxLength) {
-      _trimmedZoneList = '${zoneList.substring(0, maxLength)}...';
-    }else{
-      _trimmedZoneList = zoneList;
-    }
-    notifyListeners();
-  }
+  // void updateZone(List zoneList) {
+  //   const int maxLength = 30;
+  //
+  //   // Join the list into a string representation
+  //   String zoneListString = zoneList.join(', '); // or another separator if necessary
+  //
+  //   if (zoneListString.length > maxLength) {
+  //     _trimmedZoneList = '${zoneListString.substring(0, maxLength)}...';
+  //   } else {
+  //     _trimmedZoneList = zoneListString;
+  //   }
+  //
+  //   notifyListeners();
+  // }
+
+  ///
+  // void updateZone(String zone) {
+  //   const int maxLength = 10;
+  //   if (zone.length > maxLength) {
+  //     _trimmedZoneList = '${zone.substring(0, maxLength)}...';
+  //   }else{
+  //     _trimmedZoneList = zone;
+  //   }
+  //   notifyListeners();
+  // }
 
   /// HR profile bar maske number
   void maskString(String input, int visibleDigits) {

@@ -2,8 +2,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_reference_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -65,6 +67,10 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
             prefilledData.length,
                 (index) => GlobalKey<_ReferencesFormState>(),
           );
+          final providerState = Provider.of<HrProgressMultiStape>(context,listen: false);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            providerState.isReferenceChnaged();
+          });
         });
       }
 

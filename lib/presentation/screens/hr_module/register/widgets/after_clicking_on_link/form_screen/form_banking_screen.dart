@@ -11,12 +11,14 @@ import 'dart:html' as html;
 import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_banking_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../../../../../app/resources/provider/hr_register_provider.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_banking_data.dart';
@@ -71,6 +73,10 @@ class _BankingScreenState extends State<BankingScreen> {
             prefilledData.length,
                 (index) => GlobalKey<_BankingFormState>(),
           );
+          final providerState = Provider.of<HrProgressMultiStape>(context,listen: false);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            providerState.isBankingChnaged();
+          });
         });
 
       }

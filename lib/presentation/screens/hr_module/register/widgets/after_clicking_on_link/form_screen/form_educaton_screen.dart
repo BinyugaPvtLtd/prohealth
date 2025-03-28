@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_education_manager.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -86,6 +88,10 @@ class _EducationScreenState extends State<EducationScreen> {
             prefilledData.length,
                 (index) => GlobalKey<_EducationFormState>(),
           );
+          final providerState = Provider.of<HrProgressMultiStape>(context,listen: false);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            providerState.isEducationChnaged();
+          });
         });
       }
 

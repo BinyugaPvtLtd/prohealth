@@ -9,8 +9,10 @@ import 'package:flutter/widgets.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_employment_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -93,6 +95,10 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
             prefilledData.length,
                 (index) => GlobalKey<_EmploymentFormState>(),
           );
+          final providerState = Provider.of<HrProgressMultiStape>(context,listen: false);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            providerState.isEmployeementChnaged();
+          });
         });
       }
     } catch (e) {

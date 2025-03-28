@@ -132,7 +132,7 @@ Future<ApiDataRegister> updateOnlinkGeneralPatch(
     String imgurl,
     String resumeurl,
     int companyId,
-    String onboardingStatus,
+   // String onboardingStatus,
     String driverLicenceNbr,
     String dateofTermination, // Ensure this is formatted correctly
     String dateofResignation, // Ensure this is formatted correctly
@@ -185,7 +185,7 @@ Future<ApiDataRegister> updateOnlinkGeneralPatch(
         'imgurl': imgurl,
         'resumeurl': resumeurl,
         'companyId': companyId,
-        'onboardingStatus': onboardingStatus,
+       // 'onboardingStatus': onboardingStatus,
         'driverLicenceNbr': driverLicenceNbr,
         'dateofTermination': "2024-01-01T00:00:00Z",
         'dateofResignation': "2024-01-01T00:00:00Z",
