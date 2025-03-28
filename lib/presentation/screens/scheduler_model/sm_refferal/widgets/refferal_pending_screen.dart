@@ -3,13 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
-import '../../../../widgets/widgets/constant_textfield/const_textfield.dart';
-import '../../sm_scheduler/widget/schedular/sm_scheduler_screen_const.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
 class RefferalPendingScreen extends StatefulWidget {
