@@ -487,6 +487,7 @@ class HrManageProvider extends ChangeNotifier{
           'About to Expire': aboutToCount,
           'Upto date': upToDateCount,
         });
+        notifyListeners();
       } catch (error) {
         print("Error fetching data: $error");
         _licenseStreamController.add({
