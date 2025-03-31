@@ -701,6 +701,8 @@ class _EmploymentFormState extends State<EmploymentForm> {
   Uint8List? finalPath;
   String? fileName;
   int? employementIndex;
+  String? docName;
+  String? docurl;
 
 
   bool fileAbove20Mb = false;
@@ -739,6 +741,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
           }
 
           employementIndex = data.employmentId ?? 0;
+          docName = data.documentName;
 
         });
       }
@@ -831,15 +834,32 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                      icon: Icon(Icons.upload, color: Colors.white),
-                      label: Text(
-                        'Upload File',
-                        style: BlueButtonTextConst.customTextStyle(context),
-                      ),
+                        icon: docName == "--" ? Icon(Icons.upload, color: Colors.white):null,
+                        label:docName == null ?Text(
+                          'Upload File',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        ):Text(
+                          'Uploaded',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        )
+                      // icon: Icon(Icons.upload, color: Colors.white),
+                      // label: Text(
+                      //   'Upload File',
+                      //   style: BlueButtonTextConst.customTextStyle(context),
+                      // ),
                     ),
                     SizedBox(height:8),
-                    if (fileName != null)
-                      AutoSizeText('Selected file: $fileName',style:onlyFormDataStyle.customTextStyle(context),),
+                    docName != null ? AutoSizeText(
+                        'Uploaded File: $docName',
+                        style:onlyFormDataStyle.customTextStyle(context)
+                    ):
+                    fileName != null ?
+                    AutoSizeText(
+                        'File picked: $fileName',
+                        style: onlyFormDataStyle.customTextStyle(context)
+                    ) : SizedBox(),
+                    // if (fileName != null)
+                    //   AutoSizeText('Selected file: $fileName',style:onlyFormDataStyle.customTextStyle(context),),
                   ],
                 ); },
 
@@ -989,6 +1009,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     Row(
                       children: [
                         Checkbox(
+                          splashRadius: 0,
                           activeColor: Color(0xff50B5E5),
                           value: isChecked,
                           onChanged: (bool? value) {
