@@ -218,7 +218,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   double? _longitude;
   String? selectedCounty;
   String selectedZipCodeCounty = 'Select County';
-  String? selectedZipCodeZone;
+  String selectedZipCodeZone =" ";
   int docZoneId = 0;
   int countyId = 0;
   int countySortId = 0;
@@ -473,8 +473,9 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       ),
                     ),
                     SizedBox(height: AppSize.s5),
-                    StreamBuilder<List<AllCountyZoneGet>>(
-                        stream: _zoneController.stream,
+            FutureBuilder<List<AllCountyZoneGet>>(
+                        future:  getZoneByCounty(context, widget.officeId, countyId, 1, 200),
+                        //stream: _zoneController.stream,
                         builder: (context, snapshotZone) {
                           getZoneByCounty(
                               context,
@@ -506,8 +507,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                           .symmetric(
                                           horizontal: AppPadding.p10),
                                       child: Text(
-                                        ErrorMessageString
-                                            .noZoneAdded,
+                                        selectedZipCodeZone,
                                         //  AppString.dataNotFound,
                                         style:
                                         AllNoDataAvailable.customTextStyle(context),

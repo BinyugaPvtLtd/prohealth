@@ -732,6 +732,20 @@ class _BankingFormState extends State<BankingForm> {
                                           MediaQuery.of(context).size.height /
                                               60),
                                   CustomTextFieldRegister(
+                                    onTap: () async {
+                                      DateTime? pickedDate =
+                                      await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(2000),
+                                        lastDate: DateTime(2101),
+                                      );
+                                      if (pickedDate != null) {
+                                        effectivecontroller.text =
+                                        "${pickedDate.toLocal()}"
+                                            .split(' ')[0];
+                                      }
+                                    },
                                     isDigitSelect: true,
                                     controller: effectivecontroller,
                                     hintText: 'yyyy-mm-dd',
@@ -742,27 +756,13 @@ class _BankingFormState extends State<BankingForm> {
                                         isPrefill= false;
                                       }
                                     },
-                                    suffixIcon: IconButton(
-                                      icon: Icon(
+                                    suffixIcon: Icon(
                                         Icons.calendar_month_outlined,
                                         color: Color(0xff50B5E5),
-                                        size: 16,
+                                        size: 20,
                                       ),
-                                      onPressed: () async {
-                                        DateTime? pickedDate =
-                                            await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(2000),
-                                          lastDate: DateTime(2101),
-                                        );
-                                        if (pickedDate != null) {
-                                          effectivecontroller.text =
-                                              "${pickedDate.toLocal()}"
-                                                  .split(' ')[0];
-                                        }
-                                      },
-                                    ),
+
+
                                   ),
                                   SizedBox(
                                       height:

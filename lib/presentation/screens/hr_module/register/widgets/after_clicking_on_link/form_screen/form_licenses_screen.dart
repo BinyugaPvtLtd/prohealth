@@ -944,6 +944,22 @@ class _licensesFormState extends State<licensesForm> {
                         MediaQuery.of(context).size.height /
                             60),
                     CustomTextFieldRegister(
+                      onTap:  () async {
+                        DateTime? pickedDate =
+                        await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2101),
+                        );
+                        if (pickedDate != null) {
+                          String formattedDate =
+                          DateFormat('yyyy-MM-dd')
+                              .format(pickedDate);
+                          controllerIssueDate.text =
+                              formattedDate;
+                        }
+                      },
                       controller: controllerIssueDate,
                       hintText: 'yyyy-mm-dd',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
@@ -953,29 +969,13 @@ class _licensesFormState extends State<licensesForm> {
                           isPrefill= false;
                         }
                       },
-                      suffixIcon: IconButton(
-                        icon: Icon(
+                      suffixIcon:  Icon(
                           Icons.calendar_month_outlined,
                           color: Color(0xff50B5E5),
-                          size: 16,
+                          size: 20,
                         ),
-                        onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                            DateFormat('yyyy-MM-dd')
-                                .format(pickedDate);
-                            controllerIssueDate.text =
-                                formattedDate;
-                          }
-                        },
-                      ),
+
+
                     ),
                     SizedBox(
                         height:
@@ -1020,6 +1020,22 @@ class _licensesFormState extends State<licensesForm> {
                         MediaQuery.of(context).size.height /
                             60),
                     CustomTextFieldRegister(
+                      onTap:  () async {
+                        DateTime? pickedDate =
+                        await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2101),
+                        );
+                        if (pickedDate != null) {
+                          String formattedDate =
+                          DateFormat('yyyy-MM-dd')
+                              .format(pickedDate);
+                          controllerExpirationDate.text =
+                              formattedDate;
+                        }
+                      },
                       controller: controllerExpirationDate,
                       hintText: 'yyyy-mm-dd',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
@@ -1029,29 +1045,13 @@ class _licensesFormState extends State<licensesForm> {
                           isPrefill= false;
                         }
                       },
-                      suffixIcon: IconButton(
-                        icon: Icon(
+                      suffixIcon: Icon(
                           Icons.calendar_month_outlined,
                           color: Color(0xff50B5E5),
-                          size: 16,
+                          size: 20,
                         ),
-                        onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                            DateFormat('yyyy-MM-dd')
-                                .format(pickedDate);
-                            controllerExpirationDate.text =
-                                formattedDate;
-                          }
-                        },
-                      ),
+
+
                     ),
                     SizedBox(
                         height:

@@ -934,6 +934,17 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
+                      onTap:  () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2101),
+                        );
+                        if (pickedDate != null) {
+                          startDateController.text = "${pickedDate.toLocal()}".split(' ')[0];
+                        }
+                      },
                       controller: startDateController,
                       hintText: 'yyyy-mm-dd',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
@@ -944,27 +955,13 @@ class _EmploymentFormState extends State<EmploymentForm> {
                         }
                       },
                       //width: MediaQuery.of(context).size.width / 5,
-                      suffixIcon: IconButton(
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        icon: Icon(
+                      suffixIcon: Icon(
                           Icons.calendar_month_outlined,
                           color: Color(0xff50B5E5),
-                          size: 16,
+                          size: 20,
                         ),
-                        onPressed: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            startDateController.text = "${pickedDate.toLocal()}".split(' ')[0];
-                          }
-                        },
-                      ),
+
+
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -973,6 +970,17 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
+                      onTap:  ()async {
+                    DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(2101),
+                    );
+                    if (pickedDate != null || isChecked) {
+                    endDateController.text = "${pickedDate?.toLocal()}".split(' ')[0];
+                    }
+                    },
                       controller: endDateController,
                       hintText: 'yyyy-mm-dd',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
@@ -983,27 +991,13 @@ class _EmploymentFormState extends State<EmploymentForm> {
                         }
                       },
                       //width: MediaQuery.of(context).size.width / 5,
-                      suffixIcon: IconButton(
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        icon: Icon(
+                      suffixIcon: Icon(
                           Icons.calendar_month_outlined,
                           color: Color(0xff50B5E5),
-                          size: 16,
+                          size: 20,
                         ),
-                        onPressed: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null || isChecked) {
-                            endDateController.text = "${pickedDate?.toLocal()}".split(' ')[0];
-                          }
-                        },
-                      ),
+
+
                     ),
                     SizedBox(height: 8),
                     Row(
