@@ -10,7 +10,10 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
 class RefferalPendingScreen extends StatefulWidget {
-  const RefferalPendingScreen({super.key});
+  final VoidCallback onEyeButtonPressed;
+  final VoidCallback onMergeDuplicatePressed;
+  const RefferalPendingScreen({super.key, required this.onEyeButtonPressed,
+    required this.onMergeDuplicatePressed});
 
   @override
   _RefferalPendingScreenState createState() => _RefferalPendingScreenState();
@@ -156,27 +159,26 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   Text("Time",
                   style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
                   SizedBox(width: 10,),
-                  Icon(Icons.arrow_upward,color: ColorManager.mediumgrey,size: IconSize.I16,),
+                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   SizedBox(width: 20,),
-                  Text("Date",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                  Text("Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: 10,),
-                  Icon(Icons.arrow_upward,color: ColorManager.mediumgrey,size: IconSize.I16,),
+                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   SizedBox(width: 20,),
                   Text("Most Recent",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: 10,),
-                  Icon(Icons.arrow_upward,color: ColorManager.mediumgrey,size: IconSize.I16,),
+                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   SizedBox(width: 20,),
                   Text("Hospitals",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: 10,),
-                  Icon(Icons.arrow_upward,color: ColorManager.mediumgrey,size: IconSize.I16,),
+                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   SizedBox(width: 20,),
                   Text("PCP",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: 10,),
-                  Icon(Icons.arrow_upward,color: ColorManager.mediumgrey,size: IconSize.I16,),
+                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   SizedBox(width: 20,),],
               ),
               SizedBox(height: 30,),
@@ -373,163 +375,89 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                   Expanded(
                                       flex: 4,
                                       child: Row(
-                                    children: [
-                                      Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
-                                      SizedBox(width: AppSize.s15),
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(60),
-                                        child: SizedBox(
-                                          width: AppSize.s45,
-                                          height: AppSize.s50,
-                                          child: Image.asset(
-                                            'images/1.png', // Replace with your image path
-                                            fit: BoxFit.cover,
+                                        children: [
+                                        Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
+                                        SizedBox(width: AppSize.s15),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(60),
+                                          child: SizedBox(
+                                            width: AppSize.s45,
+                                            height: AppSize.s50,
+                                            child: Image.asset(
+                                              'images/1.png', // Replace with your image path
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(width: AppSize.s7),
-                                      Text(
-                                        "Sophia Scott",
-                                        textAlign: TextAlign.center,
-                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w700,
-                                          color: ColorManager.mediumgrey,),
-                                      ),
-                                      SizedBox(width: AppSize.s7),
-                                      IconButton(onPressed: (){},
-                                          icon: Icon(Icons.remove_red_eye_outlined,color: ColorManager.bluebottom,size: IconSize.I18,)),
-                                      SizedBox(width: AppSize.s7),
-                                      IconButton(onPressed: (){},
-                                          icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
-                                      SizedBox(width: AppSize.s7),
-                                      Container(
-                                        height:33,
-                                        width: 130,
-                                        child: ElevatedButton.icon(
-                                          icon: Image.asset("images/sm/move.png",height: 20,width: 20,),
-                                          onPressed: (){
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                            backgroundColor: ColorManager.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(12),
-                                              side: BorderSide(color: ColorManager.bluebottom),
-                                            ),
-                                          ), label: Text(
-                                            "Move to Intake",
-                                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w500,
-                                              color: ColorManager.bluebottom,)
+                                        SizedBox(width: AppSize.s7),
+                                        Text(
+                                          "Sophia Scott",
+                                          textAlign: TextAlign.center,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,),
                                         ),
+                                        SizedBox(width: AppSize.s7),
+                                        IconButton(onPressed: () async {
+                                          try {
+                                            widget.onEyeButtonPressed();
+                                          }
+                                          catch (e){
+                                            print("Error: $e");
+                                          }
+                                        },
+                                            icon: Icon(Icons.remove_red_eye_outlined,color: ColorManager.bluebottom,size: IconSize.I18,)),
+                                        SizedBox(width: AppSize.s7),
+                                        IconButton(onPressed: (){},
+                                            icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
+                                        SizedBox(width: AppSize.s7),
+                                        Container(
+                                          height:33,
+                                          width: 130,
+                                          child: ElevatedButton.icon(
+                                            icon: Image.asset("images/sm/move.png",height: 20,width: 20,),
+                                            onPressed: (){
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                              backgroundColor: ColorManager.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(12),
+                                                side: BorderSide(color: ColorManager.bluebottom),
+                                              ),
+                                            ), label: Text(
+                                              "Move to Intake",
+                                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorManager.bluebottom,)
+                                          ),
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(width: AppSize.s7),
-                                      IconButton(onPressed: (){}, icon: Icon(Icons.more_vert,color: ColorManager.mediumgrey,))
-                                    ],
+                                        SizedBox(width: AppSize.s7),
+                                          PopupMenuButton<String>(
+                                            onSelected: (value) {
+                                              if (value == 'Option 1') {
+                                                widget.onEyeButtonPressed;
+                                                print('Option 1 Selected');
+                                              } else if (value == 'Option 2') {
+                                                print('Option 2 Selected');
+                                              }
+                                            },
+                                            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                                              PopupMenuItem<String>(
+                                                value: 'Option 1',
+                                                child: Text('Option 1'),
+                                              ),
+                                              PopupMenuItem<String>(
+                                                value: 'Option 2',
+                                                child: Text('Option 2'),
+                                              ),
+                                            ],
+                                            child: Icon(Icons.more_vert),
+                                          ),
+
+                                        ],
                                   ))
-
-                                  // Expanded(
-                                  //   flex: 3,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I20,),
-                                  //       SizedBox(width: AppSize.s15,),
-                                  //       Container(
-                                  //         child:Text("132 My Street,Kingston, New York 12401",
-                                  //           textAlign: TextAlign.start,
-                                  //           style:DocDefineTableDataID.customTextStyle(context),
-                                  //         ) ,
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  //
-                                  // Expanded(
-                                  //   flex: 1,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       Container(
-                                  //         width: 25,
-                                  //         height: 15,
-                                  //         decoration: BoxDecoration(
-                                  //             color: Color(0xFFE3F2F8),
-                                  //             borderRadius: BorderRadius.circular(3)
-                                  //         ),
-                                  //         child: Center(
-                                  //           child: Text("ST",style: TextStyle(
-                                  //             fontWeight: FontWeight.w700,
-                                  //             fontSize: 12,
-                                  //             color: ColorManager.bluebottom,
-                                  //             decoration: TextDecoration.none,
-                                  //           ),),
-                                  //         ),
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  // Expanded(
-                                  //   flex: 2,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                  //       // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                  //       Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-                                  //
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  // Expanded(
-                                  //   flex: 1,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,),
-                                  //     ],
-                                  //   ),
-                                  // ),
-
-                                  ///dont delete
-                                  // Expanded(
-                                  //   flex: 1,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       GestureDetector(
-                                  //         onTap: () => _makeCall(phoneNumber),
-                                  //         child: SvgPicture.asset(
-                                  //           "images/sm/contact_s.svg",
-                                  //           height: 30,
-                                  //           width: 20,
-                                  //         ),
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  //
-                                  // Expanded(
-                                  //   flex: 2,
-                                  //   child: Column(
-                                  //     mainAxisAlignment: MainAxisAlignment.center,
-                                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                                  //     children: [
-                                  //       Row(
-                                  //         // mainAxisAlignment: MainAxisAlignment.start, // Aligns items in the row to the start (left)
-                                  //         // crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text("Auto assigned on 2024/12/08 |",style: DocDefineTableData.customTextStyle(context),),
-                                  //           // Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                  //         ],
-                                  //       ),
-                                  //       Row(
-                                  //         // mainAxisAlignment: MainAxisAlignment.start, // Aligns items in the row to the start (left)
-                                  //         // crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text("10:00 AM ",style: DocDefineTableData.customTextStyle(context),),
-                                  //
-                                  //         ],
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                               SizedBox(height: 5,)
