@@ -828,7 +828,6 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
 
     );
   }
-
   void _validateFields() {
     errorStates.forEach((key, value) {
       setState(() {
