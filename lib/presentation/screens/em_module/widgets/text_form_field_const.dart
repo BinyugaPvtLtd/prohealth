@@ -24,6 +24,7 @@ class SMTextFConst extends StatefulWidget {
   final List<TextInputFormatter>? inputFormated;
   final bool showDatePicker;
   final Icon? suffixIcon;
+  final bool isAsteric;
 
   SMTextFConst({
     Key? key,
@@ -40,6 +41,7 @@ class SMTextFConst extends StatefulWidget {
     this.prefixWidget,
     this.width, this.inputFormated,
     this.showDatePicker = false, this.suffixIcon,
+    this.isAsteric = true,
   }) : super(key: key);
 
   @override
@@ -72,14 +74,16 @@ class _SMTextFConstState extends State<SMTextFConst> {
             text: TextSpan(
               text: widget.text, // Main text
               style: AllPopupHeadings.customTextStyle(context), // Main style
-              children: [
+              children: widget.isAsteric
+                  ? [
                 TextSpan(
                   text: ' *', // Asterisk
                   style: AllPopupHeadings.customTextStyle(context).copyWith(
                     color: ColorManager.red, // Asterisk color
                   ),
                 ),
-              ],
+              ]
+                  : [],
             ),
           ),
           // Text(
