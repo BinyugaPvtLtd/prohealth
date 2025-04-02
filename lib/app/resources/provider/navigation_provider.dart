@@ -81,6 +81,7 @@ class HrManageProvider extends ChangeNotifier{
   String get maskedString => _maskedString;
   String get trimmedAddress => _trimmedAddress;
   String get trimmedSummery => _trimmedSummery;
+  String get trimmedZone => _trimmedZoneList;
   String get dateOfBirthStamp => _dateOfBirthStamp;
 
   /// Tab bar private veriables HR
@@ -277,15 +278,15 @@ class HrManageProvider extends ChangeNotifier{
   // }
 
   ///
-  // void updateZone(String zone) {
-  //   const int maxLength = 10;
-  //   if (zone.length > maxLength) {
-  //     _trimmedZoneList = '${zone.substring(0, maxLength)}...';
-  //   }else{
-  //     _trimmedZoneList = zone;
-  //   }
-  //   notifyListeners();
-  // }
+  void updateZone(String zone) {
+    const int maxLength = 19;
+    if (zone.length > maxLength) {
+      _trimmedZoneList = '${zone.substring(0, maxLength)}...';
+    }else{
+      _trimmedZoneList = zone;
+    }
+    notifyListeners();
+  }
 
   /// HR profile bar maske number
   void maskString(String input, int visibleDigits) {
@@ -419,39 +420,39 @@ class HrManageProvider extends ChangeNotifier{
   }
 
   /// zoneList overlay entry
-  // void showZoneListOverlay(BuildContext context, Offset position, String zoneList) {
-  //   _overlayEntryZoneList = OverlayEntry(
-  //     builder: (context) => Positioned(
-  //       right: 300,
-  //       top: position.dy + 20, // Adjust to position below the text
-  //       child: Material(
-  //         color: Colors.transparent,
-  //         child: Container(
-  //           width: 250,
-  //           padding: EdgeInsets.all(8.0),
-  //           decoration: BoxDecoration(
-  //             color: Colors.white,
-  //             borderRadius: BorderRadius.circular(8.0),
-  //             boxShadow: [
-  //               BoxShadow(
-  //                   color: Colors.black26, blurRadius: 4, spreadRadius: 2),
-  //             ],
-  //           ),
-  //           child: Text(
-  //             zoneList,
-  //             style: ProfileBarTextBoldStyle.customEditTextStyle(),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  //
-  //   Overlay.of(context)?.insert(_overlayEntryZoneList!);
-  // }
-  // void removeZoneListOverlay() {
-  //   _overlayEntryZoneList?.remove();
-  //   _overlayEntryZoneList = null;
-  // }
+  void showZoneListOverlay(BuildContext context, Offset position, String zoneList) {
+    _overlayEntryZoneList = OverlayEntry(
+      builder: (context) => Positioned(
+        left: 300,
+        top: position.dy + 15, // Adjust to position below the text
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: 250,
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black26, blurRadius: 4, spreadRadius: 2),
+              ],
+            ),
+            child: Text(
+              zoneList,
+              style: ProfileBarTextBoldStyle.customEditTextStyle(),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context)?.insert(_overlayEntryZoneList!);
+  }
+  void removeZoneListOverlay() {
+    _overlayEntryZoneList?.remove();
+    _overlayEntryZoneList = null;
+  }
 
   /// Color converter
   bool isDarkColor(Color color) {

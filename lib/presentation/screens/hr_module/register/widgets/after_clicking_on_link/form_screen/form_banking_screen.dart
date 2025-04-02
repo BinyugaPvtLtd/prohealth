@@ -759,7 +759,7 @@ class _BankingFormState extends State<BankingForm> {
                                     suffixIcon: Icon(
                                         Icons.calendar_month_outlined,
                                         color: Color(0xff50B5E5),
-                                        size: 20,
+                                        size: 22,
                                       ),
 
 

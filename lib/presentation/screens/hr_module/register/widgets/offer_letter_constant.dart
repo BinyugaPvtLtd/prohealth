@@ -45,7 +45,7 @@ class CustomTextFieldOfferScreen extends StatelessWidget {
             hintText: hintText, // Add your hint text here
             hintStyle: onlyFormDataStyle.customTextStyle(context), // Optional: customize hint text style
             labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-            suffixIcon:  Icon(Icons.calendar_month, color: ColorManager.blueprime, size: 20),
+            suffixIcon:  Icon(Icons.calendar_month, color: ColorManager.blueprime, size: 22),
 
           ),
         onTap:onTap ,

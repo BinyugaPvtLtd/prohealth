@@ -139,7 +139,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                         errorKey: 'startDate',
                         errorMessage: 'Please enter start date',
                         suffixIcon: Icon(Icons.calendar_month_outlined,
-                            color: ColorManager.blueprime,size:20,),
+                            color: ColorManager.blueprime,size:22,),
                         onTap: () {
                           _selectDate(
                               widget.startDateContoller, _selectedStartDate);
@@ -159,7 +159,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                         controller: widget.endDateController,
                         labelText: "End Date",
                         suffixIcon: Icon(Icons.calendar_month_outlined,
-                            color: ColorManager.blueprime,size:20,),
+                            color: ColorManager.blueprime,size:22,),
                         onTap: () => _selectDate(
                             widget.endDateController, _selectedEndDate), hintText: 'yyyy-mm-dd',
                       ),
