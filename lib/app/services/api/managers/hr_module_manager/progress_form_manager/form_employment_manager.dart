@@ -115,6 +115,8 @@ Future<List<EmploymentDataForm>> getEmployeeHistoryForm(
             endDate: item['endDate']??"--",
             emgMobile: item['emgMobile']??"--",
             country: item['country']??"--",
+          documentUrl: item['documentUrl']??"--",
+          documentName: item['documentName']??"--",
         ));
         // itemsData.sort((a, b) => a.employmentId.compareTo(b.employmentId));
       }

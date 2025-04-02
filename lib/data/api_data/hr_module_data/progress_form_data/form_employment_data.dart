@@ -12,6 +12,8 @@ final int employmentId;
 //bool? approved;
     final  String emgMobile;
     final  String country;
+    final  String documentUrl;
+    final  String documentName;
 
 
 
@@ -30,5 +32,7 @@ final int employmentId;
        // this.approved,
         required this.country,
         required this.emgMobile,
+        required this.documentUrl,
+        required this.documentName,
       });
 }

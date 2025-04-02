@@ -787,6 +787,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
             suffixIcon: Icon(
               Icons.calendar_month_outlined,
               color: ColorManager.blueprime,
+              size:20,
             ),
             padding: const EdgeInsets.only(
                 bottom: AppPadding.p5, left: AppPadding.p20),
@@ -827,7 +828,6 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
 
     );
   }
-
   void _validateFields() {
     errorStates.forEach((key, value) {
       setState(() {

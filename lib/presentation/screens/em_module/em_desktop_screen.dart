@@ -284,7 +284,79 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
       _showDropdown();
     }
   }
-
+  // void _showDropdown() {
+  //   final RenderBox renderBox = context.findRenderObject() as RenderBox;
+  //   final Offset offset = renderBox.localToGlobal(Offset.zero);
+  //   final double buttonHeight = renderBox.size.height;
+  //   final double buttonWidth = renderBox.size.width;
+  //
+  //   _overlayEntry = OverlayEntry(
+  //     builder: (context) => Positioned(
+  //       width: buttonWidth,
+  //       left: offset.dx,
+  //       top: offset.dy + buttonHeight,
+  //       child: CompositedTransformFollower(
+  //         link: _layerLink,
+  //         offset: Offset(0, buttonHeight),
+  //         child: Padding(
+  //           padding: const EdgeInsets.only(top: 4.0),
+  //           child: Material(
+  //             elevation: 4,
+  //             borderRadius: BorderRadius.circular(12),
+  //             child: Container(
+  //               decoration: BoxDecoration(
+  //                 color: Colors.white,
+  //                 borderRadius: BorderRadius.circular(12),
+  //               ),
+  //               child: Column(
+  //                 mainAxisAlignment: MainAxisAlignment.start,
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: widget.items.map((item) {
+  //                   return InkWell(
+  //                     onTap: () {
+  //                       if (!item.isHeading) {
+  //                         setState(() {
+  //                           _selectedItem = item.title;
+  //                         });
+  //                         int itemIndex = widget.items
+  //                             .where((element) => !element.isHeading)
+  //                             .toList()
+  //                             .indexOf(item) + 2;
+  //                         widget.onItemSelected?.call(item.title, itemIndex);
+  //                         _removeDropdown();
+  //                       }
+  //                     },
+  //                     child: Container(
+  //                       padding: item.isHeading
+  //                           ? EdgeInsets.symmetric(horizontal: 16, vertical: 8)
+  //                           : EdgeInsets.only(top: 8, bottom: 8, left: 30),
+  //                       width: double.infinity, // Makes entire row clickable
+  //                       child: Text(
+  //                         item.title,
+  //                         style: TextStyle(
+  //                           fontSize: FontSize.s14,
+  //                           fontWeight: item.isHeading ? FontWeight.w700 : FontWeight.w500,
+  //                           color: item.isHeading ? ColorManager.black : ColorManager.textPrimaryColor,
+  //                           decoration: TextDecoration.none,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   );
+  //                 }).toList(),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  //
+  //   Overlay.of(context).insert(_overlayEntry!);
+  //   setState(() {
+  //     _isDropdownOpen = true;
+  //   });
+  // }
+  //
   void _showDropdown() {
     final RenderBox renderBox = context.findRenderObject() as RenderBox;
     final Offset offset = renderBox.localToGlobal(Offset.zero);
@@ -292,63 +364,77 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
     final double buttonWidth = renderBox.size.width;
 
     _overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        width: buttonWidth,
-        left: offset.dx,
-        top: offset.dy + buttonHeight,
-        child: CompositedTransformFollower(
-          link: _layerLink,
-          offset: Offset(0, buttonHeight),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(12),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
+      builder: (context) => Stack(
+        children: [
+          // Detect taps outside the dropdown to close it
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: _removeDropdown,
+            child: Container(
+              color: Colors.transparent, // Ensures taps are detected
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+            ),
+          ),
+          Positioned(
+            width: buttonWidth,
+            left: offset.dx,
+            top: offset.dy + buttonHeight,
+            child: CompositedTransformFollower(
+              link: _layerLink,
+              offset: Offset(0, buttonHeight),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 4.0),
+                child: Material(
+                  elevation: 4,
                   borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: widget.items.map((item) {
-                    return InkWell(
-                      onTap: () {
-                        if (!item.isHeading) {
-                          setState(() {
-                            _selectedItem = item.title;
-                          });
-                          int itemIndex = widget.items
-                              .where((element) => !element.isHeading)
-                              .toList()
-                              .indexOf(item) + 2;
-                          widget.onItemSelected?.call(item.title, itemIndex);
-                          _removeDropdown();
-                        }
-                      },
-
-                      child: Padding(
-                        padding: item.isHeading ? EdgeInsets.symmetric(horizontal: 16,vertical: 8) : EdgeInsets.only(top: 8,bottom: 8, left: 30),
-                        child: Text(
-                          item.title,
-                          style:
-                          TextStyle(
-                            fontSize: FontSize.s14,
-                            fontWeight: item.isHeading ? FontWeight.w700 : FontWeight.w500,
-                            color: item.isHeading ?  ColorManager.black : ColorManager.textPrimaryColor,
-                            decoration: TextDecoration.none,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: widget.items.map((item) {
+                        return InkWell(
+                          onTap: () {
+                            if (!item.isHeading) {
+                              setState(() {
+                                _selectedItem = item.title;
+                              });
+                              int itemIndex = widget.items
+                                  .where((element) => !element.isHeading)
+                                  .toList()
+                                  .indexOf(item) + 2;
+                              widget.onItemSelected?.call(item.title, itemIndex);
+                              _removeDropdown();
+                            }
+                          },
+                          child: Container(
+                            padding: item.isHeading
+                                ? EdgeInsets.symmetric(horizontal: 16, vertical: 8)
+                                : EdgeInsets.only(top: 8, bottom: 8, left: 30),
+                            width: double.infinity,
+                            child: Text(
+                              item.title,
+                              style: TextStyle(
+                                fontSize: FontSize.s14,
+                                fontWeight: item.isHeading ? FontWeight.w700 : FontWeight.w500,
+                                color: item.isHeading ? ColorManager.black : ColorManager.textPrimaryColor,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-
-                  }).toList(),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
 

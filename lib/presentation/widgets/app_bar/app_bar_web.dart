@@ -939,7 +939,7 @@ class _AppBarDropdownState extends State<AppBarDropdown> {
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                 child: Text(
                   _selectedValue ?? 'Super User',
-                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color:  ColorManager.white,),
+                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color:ColorManager.white,),
                 ),
               ),
             ),

@@ -384,7 +384,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     icon: Icon(
                                         Icons.calendar_month,
                                       color: Color(0xff50B5E5),
-                                      size: 18,
+                                      size: 20,
                                     ),
                                     onPressed: () async {
                                       DateTime? pickedDate =
@@ -1282,7 +1282,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             icon: Icon(
               Icons.calendar_month,
               color: Color(0xff50B5E5),
-              size: 18,
+              size:20,
             ),
             onPressed: _selectDate,
           ), controller:  widget.effectiveDateController, labelText: 'Effective Date',
