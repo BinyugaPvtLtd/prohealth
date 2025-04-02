@@ -646,6 +646,10 @@ class ProfileBar extends StatelessWidget {
                                           return  StreamBuilder<Map<String, int>>(
                                           stream: profileState.licenseStream,
                                           builder: (BuildContext context, snapshot) {
+                                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                                              profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
+
+                                            });
                                             if (snapshot.connectionState ==
                                                 ConnectionState.waiting) {
                                               return SizedBox(height: 1, width: 1);

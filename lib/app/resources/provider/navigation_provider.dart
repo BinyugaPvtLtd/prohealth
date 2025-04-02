@@ -483,9 +483,9 @@ class HrManageProvider extends ChangeNotifier{
         print('Expired county >>>> ${_upToDateCount}');
         // Add counts to the stream
         _licenseStreamController.add({
-          'Expired': expiredCount,
-          'About to Expire': aboutToCount,
-          'Upto date': upToDateCount,
+          'Expired': _expiredCount,
+          'About to Expire': _aboutToCount,
+          'Upto date': _upToDateCount,
         });
         notifyListeners();
       } catch (error) {
@@ -498,7 +498,7 @@ class HrManageProvider extends ChangeNotifier{
       }
 
       // Wait before fetching again
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 3));
     }
   }
   void dispose() {

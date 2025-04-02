@@ -3,7 +3,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widge
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_move_to_intake_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
+
 
 import '../../../../app/resources/value_manager.dart';
 import '../sm_Intake/intake_main_screen.dart';
