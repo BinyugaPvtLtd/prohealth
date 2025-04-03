@@ -140,8 +140,7 @@ class _EducationScreenState extends State<EducationScreen> {
             }
 
             // Save form data only if file is within the size limit
-            ApiDataRegister response = await FormEducationManager()
-                .posteducationscreen(
+            var response = await posteducationscreen(
               context,
               st.widget.employeeID,
               st.graduatetype.toString(),
@@ -154,16 +153,18 @@ class _EducationScreenState extends State<EducationScreen> {
               "USA",
               "2024-08-09",
             );
-
+            print("Uploading document for Education ID: ${response.educationIdr}");
             // If a file is selected and within the size limit, upload it
-            if (st.finalPath != null && st.finalPath!.isNotEmpty) {
+            if (st.fileName != null) {
               await uploadEducationDocument(
                 context,
-                response.educationId!,
+                response.educationIdr!,
                 st.finalPath,
                 st.fileName!,
               );
             }
+            print("API Response: $response");
+            print(">>>Uploading document for Education ID: ${response.educationIdr}");
 
             // If the API call is successful, show success message
             if (response.statusCode == 200 || response.statusCode == 201) {

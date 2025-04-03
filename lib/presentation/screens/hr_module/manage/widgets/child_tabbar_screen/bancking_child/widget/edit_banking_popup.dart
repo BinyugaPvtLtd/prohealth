@@ -380,10 +380,11 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   hintStyle: onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                   suffixIcon: IconButton(
+                                    padding: EdgeInsets.only(bottom: 2),
                                     icon: Icon(
-                                      Icons.calendar_month_outlined,
+                                        Icons.calendar_month,
                                       color: Color(0xff50B5E5),
-                                      size: 16,
+                                      size: 22,
                                     ),
                                     onPressed: () async {
                                       DateTime? pickedDate =
@@ -657,7 +658,12 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                           _amountError = _validateTextField(requestammount.text, 'Please Enter Amount');
                                         });
                                       },
-                                      prefixStyle: onlyFormDataStyle.customTextStyle(context),
+                                      prefixStyle: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: FontSize.s13,
+                                        color: ColorManager.mediumgrey,
+                                        decoration: TextDecoration.none,
+                                      ),
                                       height: 30,
 
                                     ),
@@ -1274,13 +1280,14 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           isDigitSelect:false,
           errorText: eDate?"Please Enter Effective Date" : null,
           suffixIcon: IconButton(
+            padding: EdgeInsets.only(bottom: 2),
             splashColor: Colors.transparent,
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             icon: Icon(
-              Icons.calendar_month_outlined,
+              Icons.calendar_month,
               color: Color(0xff50B5E5),
-              size: AppSize.s16,
+              size:22,
             ),
             onPressed: _selectDate,
           ), controller:  widget.effectiveDateController, labelText: 'Effective Date',
@@ -1348,6 +1355,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     String? errorText,
     Widget? suffixIcon,
     String? prefixText,
+    TextStyle? prefixStyle,
     required bool isDigitSelect,
     VoidCallback? onTap,double? width,
   }) {
@@ -1371,6 +1379,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         //Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
+          prefixText: prefixText,
           isDigitSelect: isDigitSelect,
           phoneNumberField:false, // Specify if this is the phone field
           height: AppSize.s30,
@@ -1606,9 +1615,17 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       children: [
         _buildTextField(
             isDigitSelect:true,
-            prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
+            prefixText: '\$',
+          controller: widget.specificAmountController,
+          labelText: 'Specific Amount',
             errorText: sac?"Please Enter Specific Amount" : null,
-            width: 150
+            width: 150,
+          prefixStyle: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: FontSize.s13,
+            color: ColorManager.mediumgrey,
+            decoration: TextDecoration.none,
+          ),
         ),
         SizedBox(width: 10),
         ElevatedButton(

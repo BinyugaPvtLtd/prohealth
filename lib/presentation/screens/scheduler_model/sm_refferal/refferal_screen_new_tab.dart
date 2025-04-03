@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_archieved_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_move_to_intake_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
+//import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
 
 import '../../../../app/resources/value_manager.dart';
 import '../sm_Intake/intake_main_screen.dart';
@@ -26,12 +28,40 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
       curve: Curves.ease,
     );
   }
+  bool isShowingReferalEyePageview = false;
+  bool isShowingMergeDuplicatePageview = false;
+  void switchToEyePageviweScreen() {
+    setState(() {
+      isShowingReferalEyePageview = true;
+    });
+  }
 
+  void goBackToInitialScreen() {
+    setState(() {
+      isShowingReferalEyePageview = false;
+    });
+  }
+
+  void switchToMergeDuplicateScreen() {
+    setState(() {
+      isShowingMergeDuplicatePageview = true;
+    });
+  }
+
+  void goBackToInitialRPendingScreen() {
+    setState(() {
+      isShowingMergeDuplicatePageview = false;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
+      body: isShowingReferalEyePageview ?
+      ReferalPendingEyePageview(onGoBackPressed: goBackToInitialScreen,) :
+      // isShowingMergeDuplicatePageview ?
+      //     RPMergeDuplicateScreen(onMergeBackPressed: goBackToInitialRPendingScreen) :
+      Column(
         children: [
           /// Tab bar
           Container(
@@ -78,7 +108,8 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                 });
               },
               children: [
-                RefferalPendingScreen(),
+                RefferalPendingScreen(onEyeButtonPressed: switchToEyePageviweScreen,
+                  onMergeDuplicatePressed: switchToMergeDuplicateScreen,),
                 RefferalMoveToIntakeScreen(),
                 RefferalArchievedScreen()
               ],

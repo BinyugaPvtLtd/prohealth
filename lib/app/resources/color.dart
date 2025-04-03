@@ -114,11 +114,13 @@ class ColorManager {
   static Color SMYellow = Color(0xffD9B039);
   static Color SMRed = Color(0xffCA0E0E);
   static Color SMGreen = Color(0xff00B05D);
+  static Color SMFBlue = Color(0xffE6F1FE);
 
 
 
 
- ///
+
+  ///
   ///oasis
   static Color containergreen = Color(0xFFF0FEEB);
   static Color bluetabbar = Color(0xFF51B5E6);

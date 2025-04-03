@@ -308,7 +308,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                             borderSide: BorderSide(
                                 width: 1, color: ColorManager.fmediumgrey),
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                          contentPadding: EdgeInsets.only(left: AppPadding.p10),
                           suffixIcon: Icon(Icons.calendar_month_outlined,
                               color: ColorManager.blueprime),
                           errorText: field.errorText,
@@ -340,6 +340,9 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
             ),
           ],
         )
+
+
+
             : Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
           child: Column(
@@ -650,8 +653,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                         width: 1,
                                         color: ColorManager.fmediumgrey),
                                   ),
-                                  contentPadding:
-                                  EdgeInsets.symmetric(horizontal: AppPadding.p12),
+                                  contentPadding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                                   suffixIcon: Icon(
                                       Icons.calendar_month_outlined,
                                       color: ColorManager.blueprime),

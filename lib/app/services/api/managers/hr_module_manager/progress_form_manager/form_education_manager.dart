@@ -10,7 +10,7 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-class FormEducationManager {
+
   ///post api
   Future<ApiDataRegister> posteducationscreen(
     BuildContext context,
@@ -43,7 +43,7 @@ class FormEducationManager {
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = response.data;
-        var educationId = data['employeeId'];
+        var educationId = data['educationId'];
 
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(content: Text("Education data saved"),backgroundColor: Colors.green,),
@@ -56,9 +56,9 @@ class FormEducationManager {
             statusCode: response.statusCode!,
             success: true,
             message: response.statusMessage!,
-            educationId: educationId);
+            educationIdr: educationId);
       } else {
-        print("Error 1");
+        print("????????????????Error 1");
         return ApiDataRegister(
             statusCode: response.statusCode!,
             success: false,
@@ -168,7 +168,7 @@ class FormEducationManager {
   ///
   ///
 
-}
+
 
 Future<List<EducationDataForm>> getEmployeeEducationForm(
     BuildContext context, int employeeId) async {
@@ -260,6 +260,7 @@ Future<ApiDataRegister> uploadEducationDocument(
     String documentName,
     ) async {
   try {
+    print("Education ID inside uploadEducationDocument: $educationId");
     var document = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
     var response = await ApiOffer(context).post(
       path: ProgressBarRepository.uploadEducationDocument(educationId: educationId, documentName: documentName),
@@ -275,7 +276,7 @@ Future<ApiDataRegister> uploadEducationDocument(
           success: true,
           message: response.statusMessage!);
     } else {
-      print("Error 1");
+      print(">>>>>>>>>>>Error 1");
       return ApiDataRegister(
           statusCode: response.statusCode!,
           success: false,

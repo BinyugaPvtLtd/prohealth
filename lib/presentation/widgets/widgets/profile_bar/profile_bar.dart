@@ -51,7 +51,7 @@ class ProfileBar extends StatelessWidget {
       profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
       profileState.updateAddress(searchByEmployeeIdProfileData!.finalAddress);
       profileState.updateSummery(searchByEmployeeIdProfileData!.summary);
- // profileState.updateZone(searchByEmployeeIdProfileData!.zone);
+  profileState.updateZone(searchByEmployeeIdProfileData!.zone);
       profileState.maskString(searchByEmployeeIdProfileData!.SSNNbr, 4);
       if (searchByEmployeeIdProfileData?.dateofHire != null) {
         profileState.calculateHireDateTimeStamp(searchByEmployeeIdProfileData!.dateofHire);
@@ -377,30 +377,16 @@ class ProfileBar extends StatelessWidget {
                                         ),
 
 
-                                        // SizedBox(
-                                        // width: 150,
-                                        //   height: 30,// Can also be a fixed width like 200.0
-                                        //   child: ListView.builder(
-                                        //     scrollDirection: Axis.horizontal,
-                                        //     shrinkWrap: true,
-                                        //     itemCount: searchByEmployeeIdProfileData!.zone.length,
-                                        //     itemBuilder: (context, index) {
-                                        //       return Padding(
-                                        //         padding: const EdgeInsets.symmetric(vertical: 4.0),
-                                        //         child: Text(
-                                        //           searchByEmployeeIdProfileData!.zone[index],
-                                        //           style: ProfileBarTextBoldStyle.customEditTextStyle(),
-                                        //           overflow: TextOverflow.ellipsis,
-                                        //         ),
-                                        //       );
-                                        //     },
-                                        //   ),
-                                        // ),
 
-
-                                        Text(
-                                          searchByEmployeeIdProfileData!.zone,
-                                          style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                        MouseRegion(
+                                          onEnter: (event) => profileState.showZoneListOverlay(
+                                              context, event.position, searchByEmployeeIdProfileData!.zone),
+                                          onExit: (_) => profileState.removeZoneListOverlay(),
+                                          child: Text(
+                                          // searchByEmployeeIdProfileData!.zone,
+                                           providerState.trimmedZone,
+                                            style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                          ),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 2.0),
@@ -646,6 +632,10 @@ class ProfileBar extends StatelessWidget {
                                           return  StreamBuilder<Map<String, int>>(
                                           stream: profileState.licenseStream,
                                           builder: (BuildContext context, snapshot) {
+                                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                                              profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
+
+                                            });
                                             if (snapshot.connectionState ==
                                                 ConnectionState.waiting) {
                                               return SizedBox(height: 1, width: 1);

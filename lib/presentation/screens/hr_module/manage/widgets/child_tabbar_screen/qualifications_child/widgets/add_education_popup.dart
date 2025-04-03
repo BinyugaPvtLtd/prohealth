@@ -161,7 +161,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             controller: widget.calenderController,
                             labelText: "Start Date",
                             errorKey: 'StartDate',
-                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime ,size:22,),
                             onTap: () async {
                               DateTime? date = await showDatePicker(
                                 context: context,
@@ -669,7 +669,7 @@ class _EditEducationPopupState extends State<EditEducationPopup> {
                             controller: widget.calenderController,
                             labelText: "Start Date",
                             errorKey: 'StartDate',
-                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime,size:22,),
                             onTap: () async {
                               DateTime? date = await showDatePicker(
                                 context: context,

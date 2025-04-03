@@ -701,6 +701,8 @@ class _EmploymentFormState extends State<EmploymentForm> {
   Uint8List? finalPath;
   String? fileName;
   int? employementIndex;
+  String? docName;
+  String? docurl;
 
 
   bool fileAbove20Mb = false;
@@ -739,6 +741,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
           }
 
           employementIndex = data.employmentId ?? 0;
+          docName = data.documentName;
 
         });
       }
@@ -831,15 +834,32 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                      icon: Icon(Icons.upload, color: Colors.white),
-                      label: Text(
-                        'Upload File',
-                        style: BlueButtonTextConst.customTextStyle(context),
-                      ),
+                        icon: docName == "--" ? Icon(Icons.upload, color: Colors.white):null,
+                        label:docName == null ?Text(
+                          'Upload File',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        ):Text(
+                          'Uploaded',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        )
+                      // icon: Icon(Icons.upload, color: Colors.white),
+                      // label: Text(
+                      //   'Upload File',
+                      //   style: BlueButtonTextConst.customTextStyle(context),
+                      // ),
                     ),
                     SizedBox(height:8),
-                    if (fileName != null)
-                      AutoSizeText('Selected file: $fileName',style:onlyFormDataStyle.customTextStyle(context),),
+                    docName != null ? AutoSizeText(
+                        'Uploaded File: $docName',
+                        style:onlyFormDataStyle.customTextStyle(context)
+                    ):
+                    fileName != null ?
+                    AutoSizeText(
+                        'File picked: $fileName',
+                        style: onlyFormDataStyle.customTextStyle(context)
+                    ) : SizedBox(),
+                    // if (fileName != null)
+                    //   AutoSizeText('Selected file: $fileName',style:onlyFormDataStyle.customTextStyle(context),),
                   ],
                 ); },
 
@@ -914,6 +934,17 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
+                      onTap:  () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2101),
+                        );
+                        if (pickedDate != null) {
+                          startDateController.text = "${pickedDate.toLocal()}".split(' ')[0];
+                        }
+                      },
                       controller: startDateController,
                       hintText: 'yyyy-mm-dd',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
@@ -924,27 +955,13 @@ class _EmploymentFormState extends State<EmploymentForm> {
                         }
                       },
                       //width: MediaQuery.of(context).size.width / 5,
-                      suffixIcon: IconButton(
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        icon: Icon(
+                      suffixIcon: Icon(
                           Icons.calendar_month_outlined,
                           color: Color(0xff50B5E5),
-                          size: 16,
+                          size: 22,
                         ),
-                        onPressed: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            startDateController.text = "${pickedDate.toLocal()}".split(' ')[0];
-                          }
-                        },
-                      ),
+
+
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -953,6 +970,17 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     ),
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
+                      onTap:  ()async {
+                    DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(2101),
+                    );
+                    if (pickedDate != null || isChecked) {
+                    endDateController.text = "${pickedDate?.toLocal()}".split(' ')[0];
+                    }
+                    },
                       controller: endDateController,
                       hintText: 'yyyy-mm-dd',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
@@ -963,32 +991,19 @@ class _EmploymentFormState extends State<EmploymentForm> {
                         }
                       },
                       //width: MediaQuery.of(context).size.width / 5,
-                      suffixIcon: IconButton(
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        icon: Icon(
+                      suffixIcon: Icon(
                           Icons.calendar_month_outlined,
                           color: Color(0xff50B5E5),
-                          size: 16,
+                          size: 22,
                         ),
-                        onPressed: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null || isChecked) {
-                            endDateController.text = "${pickedDate?.toLocal()}".split(' ')[0];
-                          }
-                        },
-                      ),
+
+
                     ),
                     SizedBox(height: 8),
                     Row(
                       children: [
                         Checkbox(
+                          splashRadius: 0,
                           activeColor: Color(0xff50B5E5),
                           value: isChecked,
                           onChanged: (bool? value) {

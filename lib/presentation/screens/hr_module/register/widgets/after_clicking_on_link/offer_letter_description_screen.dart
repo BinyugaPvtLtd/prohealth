@@ -239,6 +239,7 @@ class _OfferLetterDescriptionScreenState
                                 highlightColor: Colors.transparent,
                               ),
                               child: Checkbox(
+                                splashRadius: 0,
                                 activeColor: ColorManager.blueprime,
                                 value: _isChecked,
                                 onChanged: (bool? value) {

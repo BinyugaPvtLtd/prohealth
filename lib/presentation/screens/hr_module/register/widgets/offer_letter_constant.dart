@@ -7,74 +7,54 @@ import '../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 
 
-class CustomTextFieldOfferScreen extends StatefulWidget {
+class CustomTextFieldOfferScreen extends StatelessWidget {
   final TextEditingController controller;
   //final String labelText;
   final double? height;
   final FormFieldValidator<String>? validator;
   final String? hintText;
   final ValueChanged<String>? onChanged;
+  VoidCallback? onTap;
 
-  CustomTextFieldOfferScreen({required this.controller,
+  CustomTextFieldOfferScreen({super.key, required this.controller,
     //required this.labelText,
-    this.height,this.validator,this.onChanged, this.hintText});
+    this.height,this.validator,this.onChanged, this.hintText ,this.onTap});
 
-  @override
-  State<CustomTextFieldOfferScreen> createState() => _CustomTextFieldOfferScreenState();
-}
-
-class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 30, //widget.height,
       width: MediaQuery.of(context).size.width / 5,
       child: TextFormField(
-        readOnly: true,
-        style: DocumentTypeDataStyle.customTextStyle(context),
-        onChanged: widget.onChanged,
-        cursorColor: Colors.black,
-        controller: widget.controller,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(left: 10, bottom: 5),
-          border: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+          readOnly: true,
+          style: DocumentTypeDataStyle.customTextStyle(context),
+          onChanged: onChanged,
+          cursorColor: Colors.black,
+          controller: controller,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.only(left: 10, bottom: 5),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+            ),
+            hintText: hintText, // Add your hint text here
+            hintStyle: onlyFormDataStyle.customTextStyle(context), // Optional: customize hint text style
+            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+            suffixIcon:  Icon(Icons.calendar_month, color: ColorManager.blueprime, size: 22),
+
           ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-          ),
-          hintText: widget.hintText, // Add your hint text here
-          hintStyle: onlyFormDataStyle.customTextStyle(context), // Optional: customize hint text style
-          labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-          suffixIcon: IconButton(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            splashRadius: 1,
-            icon: Icon(Icons.calendar_month, color: ColorManager.blueprime, size: 16),
-            onPressed: () async {
-              DateTime? pickedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(1950),
-                lastDate: DateTime(3000),
-              );
-              if (pickedDate != null) {
-                widget.controller.text = "${pickedDate.toLocal()}".split(' ')[0];
-              }
-            },
-          ),
+        onTap:onTap ,
         ),
-      ),
+
     );
 
   }
 }
-
-
 
 ///
 
@@ -292,7 +272,7 @@ class _CustomDropdownTextFieldpaddingState extends State<CustomDropdownTextField
                       style: DocumentTypeDataStyle.customTextStyle(context),
                     ),
                   ),
-                  Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+                  Icon(Icons.arrow_drop_down_sharp, ),
                 ],
               ),
             ),

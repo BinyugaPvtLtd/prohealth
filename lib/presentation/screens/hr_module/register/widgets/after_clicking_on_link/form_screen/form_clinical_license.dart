@@ -155,33 +155,33 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                           height: 4,
                                         ),
                                         CustomTextFieldRegister(
+                                          onTap: () async {
+                                            DateTime? pickedDate =
+                                            await showDatePicker(
+                                              context: context,
+                                              initialDate: DateTime.now(),
+                                              firstDate: DateTime(2000),
+                                              lastDate: DateTime(2101),
+                                            );
+                                            if (pickedDate != null) {
+                                              expirydatecontrollerdl.text =
+                                              "${pickedDate.toLocal()}"
+                                                  .split(' ')[0];
+                                            }
+                                          },
                                           width: 200,
                                           controller: expirydatecontrollerdl,
                                           hintText: 'yyyy-mm-dd',
                                           hintStyle: onlyFormDataStyle
                                               .customTextStyle(context),
                                           height: 30,
-                                          suffixIcon: IconButton(
-                                            icon: Icon(
+                                          suffixIcon:  Icon(
                                               Icons.calendar_month_outlined,
                                               color: Color(0xff50B5E5),
-                                              size: 16,
+                                              size: 22,
                                             ),
-                                            onPressed: () async {
-                                              DateTime? pickedDate =
-                                              await showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(2000),
-                                                lastDate: DateTime(2101),
-                                              );
-                                              if (pickedDate != null) {
-                                                expirydatecontrollerdl.text =
-                                                "${pickedDate.toLocal()}"
-                                                    .split(' ')[0];
-                                              }
-                                            },
-                                          ),
+
+
                                         ),
                                       ],
                                     ),
@@ -361,34 +361,33 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                           height: 4,
                                         ),
                                         CustomTextFieldRegister(
-                                          width: 200,
+                                          onTap: () async {
+                                            DateTime? pickedDate =
+                                            await showDatePicker(
+                                              context: context,
+                                              initialDate: DateTime.now(),
+                                              firstDate: DateTime(2000),
+                                              lastDate: DateTime(2101),
+                                            );
+                                            if (pickedDate != null) {
+                                              expirydatecontrollerpl.text =
+                                              "${pickedDate.toLocal()}"
+                                                  .split(' ')[0];
+                                            }
+                                          },                                          width: 200,
                                           controller: expirydatecontrollerpl,
                                           hintText: 'yyyy-mm-dd',
                                           hintStyle: onlyFormDataStyle
                                               .customTextStyle(context),
                                           height: 30,
-                                          suffixIcon: IconButton(
-                                            icon: Icon(
+                                          suffixIcon:  Icon(
                                               Icons.calendar_month_outlined,
                                               color: Color(0xff50B5E5),
-                                              size: 16,
+                                              size: 22,
                                             ),
-                                            onPressed: () async {
-                                              DateTime? pickedDate =
-                                              await showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(2000),
-                                                lastDate: DateTime(2101),
-                                              );
-                                              if (pickedDate != null) {
-                                                expirydatecontrollerpl.text =
-                                                "${pickedDate.toLocal()}"
-                                                    .split(' ')[0];
-                                              }
-                                            },
+
                                           ),
-                                        ),
+
                                       ],
                                     ),
                                   ],

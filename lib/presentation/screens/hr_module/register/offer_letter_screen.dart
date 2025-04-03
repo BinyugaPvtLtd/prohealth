@@ -1419,20 +1419,27 @@ class OfferLetterScreen extends StatelessWidget {
   }
 }
 
-class ConstTextField extends StatelessWidget {
+class ConstTextField extends StatefulWidget {
   final TextEditingController controller;
-  String? errorText;
   final String validationLabel;
   final String text;
   final String hintText;
+  VoidCallback? onTap;
   ConstTextField({
     super.key,
     required this.controller,
     String? errorText,
     required this.validationLabel,
     required this.text,
-    required this.hintText,
+    required this.hintText, this.onTap,
   });
+
+  @override
+  State<ConstTextField> createState() => _ConstTextFieldState();
+}
+
+class _ConstTextFieldState extends State<ConstTextField> {
+  String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -1443,7 +1450,7 @@ class ConstTextField extends StatelessWidget {
         children: [
           RichText(
             text: TextSpan(
-              text: text, // Main text
+              text: widget.text, // Main text
               style:
                   DocumentTypeDataStyle.customTextStyle(context), // Main style
               children: [
@@ -1461,30 +1468,30 @@ class ConstTextField extends StatelessWidget {
           SizedBox(
             height: 5,
           ),
-          CustomTextFieldOfferScreen(
-            hintText: hintText,
 
-            height: 36,
-            controller: controller,
-            onChanged: (value) {
-              hrProviderState.validateFields(
-                  validationLabel: validationLabel, value: value);
-              // setState(() {
-              //   // Update error state based on the field
-              //   if (validationLabel == "Issue Date") issueDate = value.isEmpty;
-              //   if (validationLabel == "Last Date") lastDate = value.isEmpty;
-              //   if (validationLabel == "Anticipated Start Date") startDate = value.isEmpty;
-              //   if (validationLabel == "Verbal Acceptance") verbalAcceptanceDate = value.isEmpty;
-              // });
-            },
-            // validator: (value) {
-            //   if (value!.isEmpty) {
-            //     return "Please enter $validationLabel";
-            //   } else {
-            //     return null;
-            //   }
-            // },
-          ),
+          CustomTextFieldOfferScreen(
+              hintText: widget.hintText,
+
+              height: 36,
+              controller: widget.controller,
+              onChanged: (value) {
+                hrProviderState.validateFields(
+                    validationLabel: widget.validationLabel, value: value);
+
+              },
+          onTap:() async {
+          DateTime? pickedDate = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(1950),
+          lastDate: DateTime(3000),
+          );
+          if (pickedDate != null) {
+          widget.controller.text = "${pickedDate.toLocal()}".split(' ')[0];
+          }
+          } ,
+            ),
+
           errorText != null
               ? Padding(
                   padding: const EdgeInsets.only(top: 1),
@@ -1567,7 +1574,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
   final StreamController<List<CountyWiseZoneModal>> _zoneController = StreamController<List<CountyWiseZoneModal>>.broadcast();
   final StreamController<List<ZipcodeByCountyIdAndZoneIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
 
-  String? selectedZipCodeZone;
+  String selectedZipCodeZone=" ";
   int docZoneId = 0;
   List<ApiAddCovrageData> addCovrage = [];
   bool isButtonEnabled = false;
@@ -1647,7 +1654,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
         } else {
           // Reset values if no zones are available
           setState(() {
-            selectedZipCodeZone = null;
+            selectedZipCodeZone = " ";
             docZoneId = 0;
           });
           _countyStreamController.add([]); // Clear zip code list
@@ -1783,7 +1790,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                         .countyId;
 
                                     // Reset previous selections
-                                    selectedZipCodeZone = null;
+                                    selectedZipCodeZone = " ";
                                     docZoneId = 0;
 
                                     _fetchCountyWiseZone(); // Fetch zones for the selected county
@@ -1813,83 +1820,20 @@ class _DynamciContainerState extends State<DynamciContainer> {
                       SizedBox(width: MediaQuery.of(context).size.height / 15),
 
                       ///zone api
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              text: "Zone", // Main text
-                              style: DocumentTypeDataStyle.customTextStyle(
-                                  context), // Main style
-                              children: [
-                                TextSpan(
-                                  text: ' *', // Asterisk
-                                  style: DocumentTypeDataStyle.customTextStyle(
-                                      context)
-                                      .copyWith(
-                                    color: ColorManager.red, // Asterisk color
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          StreamBuilder<List<CountyWiseZoneModal>>(
-                            stream: _zoneController.stream,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return _buildPlaceholder();
-                              }
-                              if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                return _buildPlaceholder(text: "No zones available");
-                              }
-
-                              List<DropdownMenuItem<String>> zoneDropDownList = snapshot.data!.map((zone) => DropdownMenuItem<String>(
-                                value: zone.zoneName,
-                                child: Text(zone.zoneName),
-                              ))
-                                  .toList();
-
-                              return CICCDropdown(
-                                width: 250,
-                                initialValue: selectedZipCodeZone, // Auto-select first zone
-                                onChange: (val) {
-                                  setState(() {
-                                    selectedZipCodeZone = val;
-                                    docZoneId = snapshot.data!.firstWhere((zone) => zone.zoneName == val).zone_id;
-                                  });
-
-                                  _fetchZipCodes(); // Fetch updated zip codes
-                                //  _updateButtonState();
-                                },
-                                items: zoneDropDownList,
-                              );
-                            },
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 20,),
-
-                  ///old code tabbar
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
+                      // StatefulBuilder(
+                      //   builder: (BuildContext context, void Function(void Function()) setState) { return
+                          Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             RichText(
                               text: TextSpan(
-                                text: "Zip Codes", // Main text
+                                text: "Zone", // Main text
                                 style: DocumentTypeDataStyle.customTextStyle(
                                     context), // Main style
                                 children: [
                                   TextSpan(
                                     text: ' *', // Asterisk
-                                    style:
-                                    DocumentTypeDataStyle.customTextStyle(
+                                    style: DocumentTypeDataStyle.customTextStyle(
                                         context)
                                         .copyWith(
                                       color: ColorManager.red, // Asterisk color
@@ -1898,89 +1842,186 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Expanded(
-                          child: Padding(
-                            padding:
-                            const EdgeInsets.only(left: 20.0, right: 300.0),
-                            child: StreamBuilder<List<ZipcodeByCountyIdAndZoneIdData>>(
-                              stream: _countyStreamController.stream,
+                            const SizedBox(height: 5),
+                            FutureBuilder<List<CountyWiseZoneModal>>(
+                              future: fetchCountyWiseZone(context ,selectedCountyId),
+                              //stream: _zoneController.stream,
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return const SizedBox();
-                                }
-                                if (selectedCountyId == 0 || !snapshot.hasData || snapshot.data!.isEmpty) {
-                                  return Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: AppPadding.p180,bottom: AppPadding.p20 ),
-                                      child: Text(
-                                        selectedCountyId == 0
-                                            ? 'Select County'
-                                            : 'No Zipcode Available!',
-                                        style: NumberTExtFieldLegalDoc.customTextStyle(context),
-                                      ),
+                                  return Container(
+                                    width: 250,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey, width: 1),
+                                      borderRadius: BorderRadius.circular(5),),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                                          child: Text(
+                                            selectedZipCodeZone,
+                                            style: DocumentTypeDataStyle.customTextStyle(context),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                                          child: Icon(Icons.arrow_drop_down),
+                                        ),
+                                      ],
                                     ),
                                   );
                                 }
+                                if(selectedCountyId == 0 ){
+                                  return _buildPlaceholder(text: " ");
+                                }
+                                if ( !snapshot.hasData || snapshot.data!.isEmpty) {
+                                  return _buildPlaceholder(text: "No zones available");
+                                }
 
-                                List<ZipcodeByCountyIdAndZoneIdData> zipCodeList = snapshot.data!;
+                                List<DropdownMenuItem<String>> zoneDropDownList = snapshot.data!.map((zone) => DropdownMenuItem<String>(
+                                  value: zone.zoneName,
+                                  child: Text(zone.zoneName),
+                                ))
+                                    .toList();
 
-                                // If only one zip code is available, set it as checked
-                                WidgetsBinding.instance.addPostFrameCallback((_) {
-                                  if (zipCodeList.length == 1) {
-                                    String singleZip = zipCodeList.first.zipCode;
-                                    if (!checkedZipCodes.containsKey(singleZip)) {
-                                      setState(() {
-                                        checkedZipCodes[singleZip] = true;
-                                       // selectedZipCodes.add(singleZip);
-                                        zipCodes.add(int.parse(singleZip));
-                                        selectedZipCodesString = selectedZipCodes.join(', ');
-                                       // _updateButtonState();
-                                      });
-                                    }
-                                  }
-                                });
+                                return CICCDropdown(
+                                  width: 250,
+                                  initialValue: selectedZipCodeZone, // Auto-select first zone
+                                  onChange: (val) {
+                                    setState(() {
+                                      selectedZipCodeZone = val;
+                                      docZoneId = snapshot.data!.firstWhere((zone) => zone.zoneName == val).zone_id;
+                                    });
 
-                                return GridView.builder(
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2, // Two items per row
-                                    childAspectRatio: 10,
-                                    crossAxisSpacing: 5,
-                                    mainAxisSpacing: 5,
-                                  ),
-                                  itemCount: zipCodeList.length,
-                                  itemBuilder: (context, index) {
-                                    String zipCode = zipCodeList[index].zipCode;
-                                    bool isChecked = checkedZipCodes[zipCode] ?? false;
-
-                                    return CheckBoxTileConst(
-                                      text: zipCode,
-                                      value: isChecked,
-                                      onChanged: (bool? val) {
-                                        setState(() {
-                                          checkedZipCodes[zipCode] = val ?? false;
-                                          if (val == true) {
-                                         // selectedZipCodes.add(zipCode);
-                                            zipCodes.add(int.parse(zipCode));
-                                          } else {
-                                            selectedZipCodes.remove(zipCode);
-                                            zipCodes.remove(int.parse(zipCode));
-                                          }
-                                          selectedZipCodesString = selectedZipCodes.join(', ');
-                                         // _updateButtonState();
-                                        });
-                                      },
-                                    );
+                                    _fetchZipCodes(); // Fetch updated zip codes
+                                    //  _updateButtonState();
                                   },
+                                  items: zoneDropDownList,
                                 );
                               },
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
+                      //     },
+                      // )
+                    ],
+                  ),
+                  const SizedBox(height: 20,),
+
+                  ///old code tabbar
+                  StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) { return Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  text: "Zip Codes", // Main text
+                                  style: DocumentTypeDataStyle.customTextStyle(
+                                      context), // Main style
+                                  children: [
+                                    TextSpan(
+                                      text: ' *', // Asterisk
+                                      style:
+                                      DocumentTypeDataStyle.customTextStyle(
+                                          context)
+                                          .copyWith(
+                                        color: ColorManager.red, // Asterisk color
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+
+                          Expanded(
+                            child: Padding(
+                              padding:
+                              const EdgeInsets.only(left: 20.0, right: 300.0),
+                              child: StreamBuilder<List<ZipcodeByCountyIdAndZoneIdData>>(
+                                stream: _countyStreamController.stream,
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return const SizedBox();
+                                  }
+                                  if (selectedCountyId == 0 || !snapshot.hasData || snapshot.data!.isEmpty) {
+                                    return Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: AppPadding.p180,bottom: AppPadding.p20 ),
+                                        child: Text(
+                                          selectedCountyId == 0
+                                              ? 'Select County'
+                                              : 'No Zipcode Available!',
+                                          style: NumberTExtFieldLegalDoc.customTextStyle(context),
+                                        ),
+                                      ),
+                                    );
+                                  }
+
+                                  List<ZipcodeByCountyIdAndZoneIdData> zipCodeList = snapshot.data!;
+
+                                  // If only one zip code is available, set it as checked
+                                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                                    if (zipCodeList.length == 1) {
+                                      String singleZip = zipCodeList.first.zipCode;
+                                      if (!checkedZipCodes.containsKey(singleZip)) {
+                                        setState(() {
+                                          checkedZipCodes[singleZip] = true;
+                                          // selectedZipCodes.add(singleZip);
+                                          zipCodes.add(int.parse(singleZip));
+                                          selectedZipCodesString = selectedZipCodes.join(', ');
+                                          // _updateButtonState();
+                                        });
+                                      }
+                                    }
+                                  });
+
+                                  return GridView.builder(
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, // Two items per row
+                                      childAspectRatio: 10,
+                                      crossAxisSpacing: 5,
+                                      mainAxisSpacing: 5,
+                                    ),
+                                    itemCount: zipCodeList.length,
+                                    itemBuilder: (context, index) {
+                                      String zipCode = zipCodeList[index].zipCode;
+                                      bool isChecked = checkedZipCodes[zipCode] ?? false;
+
+                                      return CheckBoxTileConst(
+                                        text: zipCode,
+                                        value: isChecked,
+                                        onChanged: (bool? val) {
+                                          setState(() {
+                                            checkedZipCodes[zipCode] = val ?? false;
+                                            if (val == true) {
+                                              // selectedZipCodes.add(zipCode);
+                                              zipCodes.add(int.parse(zipCode));
+                                            } else {
+                                              selectedZipCodes.remove(zipCode);
+                                              zipCodes.remove(int.parse(zipCode));
+                                            }
+                                            selectedZipCodesString = selectedZipCodes.join(', ');
+                                            // _updateButtonState();
+                                          });
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ); },
+
                   )
                 ],
               ),

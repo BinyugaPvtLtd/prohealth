@@ -678,7 +678,7 @@ class _generalFormState extends State<generalForm> {
                         suffixIcon:  Icon(
                             Icons.calendar_month_outlined,
                             color: Color(0xff50B5E5),
-                            size: 16,
+                            size: 22,
                           ),
                           // onPressed: () async {
                           //   DateTime? pickedDate = await showDatePicker(
@@ -1245,10 +1245,10 @@ class _generalFormState extends State<generalForm> {
         gendertype.toString(),
         'Partial',
         // 'service',
-        'imgurl',
+        '',
         'resumeurl',
         companyId,
-        'Active',
+       // 'Active',
         driverlicensenumb.text,
         "0000-00-00",
         //'2024-01-01',
