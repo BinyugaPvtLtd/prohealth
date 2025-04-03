@@ -76,7 +76,6 @@ class RegisterEnrollPopup extends StatelessWidget {
     bool _isLoading = false;
 
     String? selectedService="Hospice";
-
     String? selectedServiceName;
     final TextEditingController phone = TextEditingController();
     final TextEditingController position = TextEditingController();
