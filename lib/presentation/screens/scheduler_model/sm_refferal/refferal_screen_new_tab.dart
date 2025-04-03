@@ -59,8 +59,8 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
       backgroundColor: Colors.white,
       body: isShowingReferalEyePageview ?
       ReferalPendingEyePageview(onGoBackPressed: goBackToInitialScreen,) :
-      // isShowingMergeDuplicatePageview ?
-      //     RPMergeDuplicateScreen(onMergeBackPressed: goBackToInitialRPendingScreen) :
+      isShowingMergeDuplicatePageview ?
+          RPMergeDuplicateScreen(onMergeBackPressed: goBackToInitialRPendingScreen) :
       Column(
         children: [
           /// Tab bar
@@ -93,7 +93,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                   },
                   index: 2,
                   grpIndex: _selectedIndex,
-                  heading: "Archieved",
+                  heading: "Archived",
                 ),
               ],
             ),
@@ -110,8 +110,8 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
               children: [
                 RefferalPendingScreen(onEyeButtonPressed: switchToEyePageviweScreen,
                   onMergeDuplicatePressed: switchToMergeDuplicateScreen,),
-                RefferalMoveToIntakeScreen(),
-                RefferalArchievedScreen()
+                RefferalMoveToIntakeScreen(onEyeButtonPressed: switchToEyePageviweScreen,),
+                RefferalArchievedScreen(onEyeButtonPressed: switchToMergeDuplicateScreen,)
               ],
             ),
           ),

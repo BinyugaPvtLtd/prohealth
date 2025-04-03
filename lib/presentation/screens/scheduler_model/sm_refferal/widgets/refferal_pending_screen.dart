@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
@@ -43,46 +44,10 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                 children: [
                   Row(
                     children: [
-                      Container(
-                        width: 381,
-                        height: 36,
-                        child:TextField(
-                          textCapitalization:
-                          TextCapitalization.words,
-                          style: DocumentTypeDataStyle.customTextStyle(context),
-                          // onChanged: _search,
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color(0xFFF8F8F8),
-                              hintText: 'Search',
-                              alignLabelWithHint: true,
-                              hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color:Color(0xFFF0F0F0),width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color:Colors.grey.shade200,width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              prefixIcon: IconButton(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                icon: Center(
-                                  child: Icon(
-                                    Icons.search,
-                                    size: IconSize.I18,
-                                    color:  Colors.grey.shade100,
-                                  ),
-                                ),
-                                onPressed: () {},
-                              ),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
-                        ),
-
-                      ),
-                      SizedBox(width: 20,),
+                     CustomSearchFieldSM(
+                       onPressed: (){},
+                     ),
+                      SizedBox(width: AppSize.s20,),
                       IconButton(
                         hoverColor: Colors.transparent,
                         splashColor: Colors.transparent,
@@ -100,16 +65,16 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                         child: CustomIconButton(
                           color: ColorManager.bluebottom,
                           icon: Icons.add,
-                          textWeight: FontWeight.w500,
+                          textWeight: FontWeight.w600,
                           textSize: FontSize.s11,
                           text: "Add Refferal",
                           onPressed: ()async{},
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: AppSize.s10,),
                       SmDropdownConst(
                         height: AppSize.s30,
-                        width:150,
+                        width:AppSize.s150,
                         isAstric:false,
                         // Adjust headText based on depId
                         initialValue: 'Office',
@@ -127,10 +92,10 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                           // }
                         },
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: AppSize.s10,),
                       SmDropdownConst(
                        height: AppSize.s30,
-                        width:150,
+                        width:AppSize.s150,
                         isAstric:false,
                         // Adjust headText based on depId
                         initialValue: 'All',
@@ -153,35 +118,35 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: AppSize.s20,),
               Row(
                 children: [
                   Text("Time",
                   style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
-                  SizedBox(width: 10,),
+                  SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: 20,),
+                  SizedBox(width: AppSize.s20,),
                   Text("Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: 10,),
+                  SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: 20,),
+                  SizedBox(width: AppSize.s20,),
                   Text("Most Recent",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: 10,),
+                  SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: 20,),
+                  SizedBox(width: AppSize.s20,),
                   Text("Hospitals",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: 10,),
+                  SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: 20,),
+                  SizedBox(width: AppSize.s20,),
                   Text("PCP",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: 10,),
+                  SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: 20,),],
+                  ],
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: AppSize.s30,),
               Expanded(
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -268,6 +233,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                   fontWeight: FontWeight.w700,
                                                   color: ColorManager.mediumgrey,),
                                               ),
+                                              SizedBox(height: AppSize.s4,),
                                               Text(
                                                 "Refferal Date: 09/15/2024",
                                                 textAlign: TextAlign.center,
@@ -305,6 +271,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
+                                        SizedBox(height: AppSize.s4,),
                                         Text(
                                           "Sunshine Hospital",
                                           textAlign: TextAlign.center,
@@ -329,6 +296,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
+                                        SizedBox(height: AppSize.s4,),
                                         Text(
                                           "Sam Johnson",
                                           textAlign: TextAlign.center,
@@ -352,6 +320,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
+                                        SizedBox(height: AppSize.s4,),
                                         Text(
                                           "Migraine",
                                           textAlign: TextAlign.center,
@@ -398,17 +367,33 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                             color: ColorManager.mediumgrey,),
                                         ),
                                         SizedBox(width: AppSize.s7),
-                                        IconButton(onPressed: () async {
-                                          try {
-                                            widget.onEyeButtonPressed();
-                                          }
-                                          catch (e){
-                                            print("Error: $e");
-                                          }
-                                        },
-                                            icon: Icon(Icons.remove_red_eye_outlined,color: ColorManager.bluebottom,size: IconSize.I18,)),
+                                          InkWell(
+                                            onTap: () async {
+                                              try {
+                                                widget.onEyeButtonPressed();
+                                              }
+                                              catch (e){
+                                                print("Error: $e");
+                                              }
+                                            },
+                                            child: Container(
+                                              width: AppSize.s45,
+                                              height: AppSize.s45,
+                                              child: Image.asset(
+                                                'images/eye.png',
+                                                height: AppSize.s15,
+                                                width: AppSize.s22,
+                                                color: ColorManager.bluebottom,
+                                              ),
+                                            ),
+                                          ),
                                         SizedBox(width: AppSize.s7),
-                                        IconButton(onPressed: (){},
+
+                                        IconButton(
+                                            hoverColor: Colors.transparent,
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onPressed: (){},
                                             icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
                                         SizedBox(width: AppSize.s7),
                                         Container(
@@ -428,13 +413,14 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                             ), label: Text(
                                               "Move to Intake",
                                               style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeight.w600,
                                                 color: ColorManager.bluebottom,)
                                           ),
                                           ),
                                         ),
                                         SizedBox(width: AppSize.s7),
                                           PopupMenuButton<String>(
+                                            splashRadius: 0,
                                             onSelected: (value) {
                                               if (value == 'Option 1') {
                                                 widget.onEyeButtonPressed;

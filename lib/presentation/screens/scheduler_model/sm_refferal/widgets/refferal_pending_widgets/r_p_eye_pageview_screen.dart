@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -20,7 +21,8 @@ class ReferalPendingEyePageview extends StatefulWidget {
   const ReferalPendingEyePageview({super.key, required this.onGoBackPressed});
 
   @override
-  State<ReferalPendingEyePageview> createState() => _ReferalPendingEyePageviewState();
+  State<ReferalPendingEyePageview> createState() =>
+      _ReferalPendingEyePageviewState();
 }
 
 class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
@@ -45,6 +47,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return  Padding(
@@ -311,32 +314,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
               ),
               SizedBox(height: AppSize.s10,),
               ///patients info
-              Container(
-                height: 32,
-                decoration: BoxDecoration(
-                  color: ColorManager.SMFBlue,
-                ),
-                padding: EdgeInsets.only(left: 25, right: 60),
-               // margin: EdgeInsets.symmetric(vertical: AppPadding.p8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Patients Information',
-                      style:TextStyle(
-                        fontSize: FontSize.s16,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_up_outlined,
-                      size: IconSize.I24,
-                      color: ColorManager.mediumgrey,
-                    ),
-                  ],
-                ),
-              ),
+              BlueBGHeadConst(HeadText: "Patient Information"),
               SizedBox(height: AppSize.s10,),
               Row(
                 children: [
@@ -400,33 +378,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
               ),
               SizedBox(height: AppSize.s30,),
               ///insurance
-              Container(
-                height: 32,
-                decoration: BoxDecoration(
-                  color: ColorManager.SMFBlue,
-                ),
-                padding: EdgeInsets.only(left: 25, right: 60),
-               // margin: EdgeInsets.symmetric(vertical: AppPadding.p8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Insurance',
-                      style:TextStyle(
-                        fontSize: FontSize.s16,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_up_outlined,
-                      size: IconSize.I24,
-                      color: ColorManager.mediumgrey,
-                    ),
-                  ],
-                ),
-              ),
-          Column(
+              BlueBGHeadConst(HeadText: "Insurance"),
+              Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
@@ -618,32 +571,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
           ),
               SizedBox(height: AppSize.s10,),
               ///diagnosis
-              Container(
-                height: 32,
-                decoration: BoxDecoration(
-                  color: ColorManager.SMFBlue,
-                ),
-                padding: EdgeInsets.only(left: 25, right: 60),
-               // margin: EdgeInsets.symmetric(vertical: AppPadding.p8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'diagnosis',
-                      style:TextStyle(
-                        fontSize: FontSize.s16,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_up_outlined,
-                      size: IconSize.I24,
-                      color: ColorManager.mediumgrey,
-                    ),
-                  ],
-                ),
-              ),
+              BlueBGHeadConst(HeadText: "Diagnosis"),
               SizedBox(height: AppSize.s10,),
               Row(
                 children: [
@@ -677,32 +605,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
               ),
               SizedBox(height: AppSize.s40,),
               ///Suggested Plan of Care
-              Container(
-                height: 32,
-                decoration: BoxDecoration(
-                  color: ColorManager.SMFBlue,
-                ),
-                padding: EdgeInsets.only(left: 25, right: 60),
-               // margin: EdgeInsets.symmetric(vertical: AppPadding.p8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Suggested Plan of Care',
-                      style:TextStyle(
-                        fontSize: FontSize.s16,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_up_outlined,
-                      size: IconSize.I24,
-                      color: ColorManager.mediumgrey,
-                    ),
-                  ],
-                ),
-              ),
+              BlueBGHeadConst(HeadText: "Suggested Plan Of Care"),
               SizedBox(height: AppSize.s10,),
               Row(
                 children: [
@@ -736,32 +639,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
               ),
               SizedBox(height: AppSize.s30,),
               ///documents
-              Container(
-                height: 32,
-                decoration: BoxDecoration(
-                  color: ColorManager.SMFBlue,
-                ),
-                padding: EdgeInsets.only(left: 25, right: 60),
-                // margin: EdgeInsets.symmetric(vertical: AppPadding.p8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Documents',
-                      style:TextStyle(
-                        fontSize: FontSize.s16,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_up_outlined,
-                      size: IconSize.I24,
-                      color: ColorManager.mediumgrey,
-                    ),
-                  ],
-                ),
-              ),
+              BlueBGHeadConst(HeadText: "Documents"),
               SizedBox(height: AppSize.s30,),
               Text(
                 'Upload Bulk Document',
