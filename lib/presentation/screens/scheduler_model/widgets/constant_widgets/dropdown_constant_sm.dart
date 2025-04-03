@@ -272,10 +272,6 @@ class _SmDropdownConstState extends State<SmDropdownConst> {
               ],
             ),
           ),
-          // Text(
-          //   widget.headText,
-          //   style: AllPopupHeadings.customTextStyle(context),
-          // ),
         )
             :Offstage(),
         SizedBox(
@@ -289,18 +285,18 @@ class _SmDropdownConstState extends State<SmDropdownConst> {
                 padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
                 decoration:widget.isAstric!? BoxDecoration(
                   border: Border.all(color: Colors.grey.shade300, width: 1), // Applies to all sides
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(10),
                 )
                     :BoxDecoration(
                   border: Border.all(color: Colors.grey.shade300, width: 1), // Applies to all sides
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 3),
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 3),
                         child: Text(
                             _selectedValue ?? widget.hintText ?? 'Select',
                             style: TextStyle(
@@ -312,7 +308,7 @@ class _SmDropdownConstState extends State<SmDropdownConst> {
                         ),
                       ),
                     ),
-                    Icon(widget.icon ?? Icons.arrow_drop_down_sharp, color: widget.iconColor ?? Colors.grey),
+                    Icon(widget.icon ?? Icons.arrow_drop_down_sharp, color: widget.iconColor ?? ColorManager.mediumgrey,size: IconSize.I22,),
                   ],
                 ),
               ),

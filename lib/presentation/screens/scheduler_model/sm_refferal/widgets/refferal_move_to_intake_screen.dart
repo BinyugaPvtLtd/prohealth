@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -9,7 +10,8 @@ import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
 class RefferalMoveToIntakeScreen extends StatefulWidget {
-  const RefferalMoveToIntakeScreen({super.key});
+  final VoidCallback onEyeButtonPressed;
+  const RefferalMoveToIntakeScreen({super.key, required this.onEyeButtonPressed});
 
   @override
   State<RefferalMoveToIntakeScreen> createState() => _RefferalMoveToIntakeScreenState();
@@ -39,46 +41,10 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                 children: [
                   Row(
                     children: [
-                      Container(
-                        width: 381,
-                        height: 36,
-                        child:TextField(
-                          textCapitalization:
-                          TextCapitalization.words,
-                          style: DocumentTypeDataStyle.customTextStyle(context),
-                          // onChanged: _search,
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color(0xFFF8F8F8),
-                              hintText: 'Search',
-                              alignLabelWithHint: true,
-                              hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color:Color(0xFFF0F0F0),width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color:Colors.grey.shade200,width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              prefixIcon: IconButton(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                icon: Center(
-                                  child: Icon(
-                                    Icons.search,
-                                    size: IconSize.I18,
-                                    color:  Colors.grey.shade100,
-                                  ),
-                                ),
-                                onPressed: () {},
-                              ),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
-                        ),
-
+                      CustomSearchFieldSM(
+                        onPressed: (){},
                       ),
-                      SizedBox(width: 20,),
+                      SizedBox(width: AppSize.s20,),
                       IconButton(
                         hoverColor: Colors.transparent,
                         splashColor: Colors.transparent,
@@ -96,16 +62,16 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                         child: CustomIconButton(
                           color: ColorManager.bluebottom,
                           icon: Icons.add,
-                          textWeight: FontWeight.w500,
+                          textWeight: FontWeight.w600,
                           textSize: FontSize.s11,
                           text: "Add Refferal",
                           onPressed: ()async{},
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: AppSize.s10,),
                       SmDropdownConst(
                         height: AppSize.s30,
-                        width:150,
+                        width:AppSize.s150,
                         isAstric:false,
                         // Adjust headText based on depId
                         initialValue: 'Office',
@@ -123,14 +89,15 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                           // }
                         },
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: AppSize.s10,),
                       SmDropdownConst(
                         height: AppSize.s30,
-                        width:150,
+                        width:AppSize.s150,
                         isAstric:false,
-                        initialValue: 'Filter By',
-                        headText: "",
-                        items: const ['All','Referral App','E-Fax','E-Referrals','Manual',],
+                        // Adjust headText based on depId
+                        initialValue: 'All',
+                        headText: "", // Default fallback if depId doesn't match any of the expected values
+                        items: ['All','Referral App','E-Fax','E-Referrals','Manual',],
                         onChanged: (newValue) {
                           // for (var a in snapshot.data!) {
                           //   if (a.empType == newValue) {
@@ -148,31 +115,35 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: AppSize.s20,),
               Row(
                 children: [
                   Text("Time",
                     style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
-                  SizedBox(width: 10,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),                  SizedBox(width: 20,),
-                  Text("Date",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: 10,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),                  SizedBox(width: 20,),
+                  SizedBox(width: AppSize.s30,),
+                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  SizedBox(width: AppSize.s20,),
+                  Text("Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                  SizedBox(width: AppSize.s30,),
+                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  SizedBox(width: AppSize.s20,),
                   Text("Most Recent",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: 10,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),                  SizedBox(width: 20,),
+                  SizedBox(width: AppSize.s30,),
+                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  SizedBox(width: AppSize.s20,),
                   Text("Hospitals",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: 10,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),                  SizedBox(width: 20,),
+                  SizedBox(width: AppSize.s30,),
+                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  SizedBox(width: AppSize.s20,),
                   Text("PCP",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: 10,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),                  SizedBox(width: 20,),],
+                  SizedBox(width: AppSize.s30,),
+                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                ],
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: AppSize.s30,),
               Expanded(
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -252,6 +223,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                                   fontWeight: FontWeight.w700,
                                                   color: ColorManager.mediumgrey,),
                                               ),
+                                              SizedBox(height: AppSize.s4,),
                                               Text(
                                                 "Refferal Date: 09/15/2024",
                                                 textAlign: TextAlign.center,
@@ -281,6 +253,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
+                                        SizedBox(height: AppSize.s4,),
                                         Text(
                                           "Sunshine Hospital",
                                           textAlign: TextAlign.center,
@@ -305,6 +278,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
+                                        SizedBox(height: AppSize.s4,),
                                         Text(
                                           "Sam Johnson",
                                           textAlign: TextAlign.center,
@@ -328,6 +302,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
+                                        SizedBox(height: AppSize.s4,),
                                         Text(
                                           "Migraine",
                                           textAlign: TextAlign.center,
@@ -374,13 +349,38 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               color: ColorManager.mediumgrey,),
                                           ),
                                           SizedBox(width: AppSize.s7),
-                                          IconButton(onPressed: (){},
-                                              icon: Icon(Icons.remove_red_eye_outlined,color: ColorManager.bluebottom,size: IconSize.I18,)),
-                                          SizedBox(width: AppSize.s7),
-                                          IconButton(onPressed: (){},
+                                          InkWell(
+                                            onTap: () async {
+                                              try {
+                                                widget.onEyeButtonPressed();
+                                              }
+                                              catch (e){
+                                                print("Error: $e");
+                                              }
+                                            },
+                                            child: Container(
+                                              width: AppSize.s45,
+                                              height: AppSize.s45,
+                                              child: Image.asset(
+                                                'images/eye.png',
+                                                height: AppSize.s15,
+                                                width: AppSize.s22,
+                                                color: ColorManager.bluebottom,
+                                              ),
+                                            ),
+                                          ), SizedBox(width: AppSize.s7),
+                                          IconButton(
+                                              hoverColor: Colors.transparent,
+                                              splashColor: Colors.transparent,
+                                              highlightColor: Colors.transparent,
+                                              onPressed: (){},
                                               icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
                                           SizedBox(width: AppSize.s7),
-                                          IconButton(onPressed: (){}, icon: Icon(Icons.more_vert,color: ColorManager.mediumgrey,))
+                                          IconButton(
+                                              hoverColor: Colors.transparent,
+                                              splashColor: Colors.transparent,
+                                              highlightColor: Colors.transparent,
+                                              onPressed: (){}, icon: Icon(Icons.more_vert,color: ColorManager.mediumgrey,))
                                         ],
                                       ))
 
