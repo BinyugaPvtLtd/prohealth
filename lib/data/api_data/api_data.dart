@@ -155,7 +155,7 @@ class ApiDataRegister {
   final Object? data;
   final int? licenses;
   final int? banckingId;
-  final int? educationId;
+  final int? educationIdr;
   final int? legalDocumentId;
   final int? employeeMentId;
   final int? practitionerLicenceId;
@@ -163,7 +163,7 @@ class ApiDataRegister {
 
   ApiDataRegister( {
     this.employeeMentId,
-    this.educationId,
+    this.educationIdr,
     this.legalDocumentId,
     this.banckingId,
     this.licenses,
