@@ -877,6 +877,7 @@ class _AppBarDropdownState extends State<AppBarDropdown> {
                 borderRadius: BorderRadius.circular(5),
                 child: Container(
                   width: 150,
+
                   decoration: BoxDecoration(
                     color: ColorManager.blueprime,
                     borderRadius: BorderRadius.circular(5),
@@ -888,16 +889,8 @@ class _AppBarDropdownState extends State<AppBarDropdown> {
                     child: ListView(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
-                      children: ['Super User','Admin','Staff','Patient'].map((String item) {
-                        return ListTile(
-                          title: Text(
-                            item,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
+                      children: ['Super User', 'Admin', 'Staff', 'Patient'].map((String item) {
+                        return GestureDetector(
                           onTap: () {
                             setState(() {
                               _selectedValue = item;
@@ -905,10 +898,51 @@ class _AppBarDropdownState extends State<AppBarDropdown> {
                             });
                             Navigator.pop(context);
                           },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                            decoration: BoxDecoration(
+                              // border: Border(
+                              //   bottom: BorderSide(color: Colors.white54, width: 0.5),
+                              // ),
+                            ),
+                            child: Text(
+                              item,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         );
                       }).toList(),
                     ),
                   ),
+                  // SingleChildScrollView(
+                  //   child: ListView(
+                  //     padding: EdgeInsets.zero,
+                  //     shrinkWrap: true,
+                  //     children: ['Super User','Admin','Staff','Patient'].map((String item) {
+                  //       return ListTile(
+                  //         title: Text(
+                  //           item,
+                  //           style: TextStyle(
+                  //             fontSize: 12,
+                  //             fontWeight: FontWeight.w500,
+                  //             color: Colors.white,
+                  //           ),
+                  //         ),
+                  //         onTap: () {
+                  //           setState(() {
+                  //             _selectedValue = item;
+                  //             widget.onChange?.call(item);
+                  //           });
+                  //           Navigator.pop(context);
+                  //         },
+                  //       );
+                  //     }).toList(),
+                  //   ),
+                  // ),
 
                 ),
               ),
