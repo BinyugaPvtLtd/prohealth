@@ -21,14 +21,13 @@ class BottomBarRow extends StatefulWidget {
 
 class _BottomBarRowState extends State<BottomBarRow> {
 
- var  ip ;
- var localresponse;
+  var  ip ;
+  var localresponse;
   String? _ipAddress;
   String? _locationData;
   bool _isFetchingIp = true;
   Future<Map<String, double>?>? _geolocationFuture;
- late Future<String> _stateFuture;
-
+  late Future<String> _stateFuture;
 
   @override
   void initState() {
@@ -39,9 +38,9 @@ class _BottomBarRowState extends State<BottomBarRow> {
     // getLocation();
    // _geolocationFuture = _getGeolocation(); // Initialize geolocation fetching
   }
-String? _city;
+  String? _city;
   String? _country;
- Future<void> _fetchIPAddress() async {
+  Future<void> _fetchIPAddress() async {
    try {
      // Fetch the IP address first
      final ipResponse = await http.get(Uri.parse('https://api.ipify.org?format=json'));
@@ -80,19 +79,16 @@ String? _city;
    }
  }
 
-
-
-
- Future getLocation() async {
-    var response = await http.get(Uri.parse("http://ip-api.com/json/${ip}"));
-    var jsonpares = json.decode(response.body);
-    localresponse=jsonpares;
-    print(jsonpares);
-  }
-
-  getDirectLocation() async{
-    await _fetchIPAddress();getLocation();
-  }
+  // Future getLocation() async {
+ //    var response = await http.get(Uri.parse("http://ip-api.com/json/${ip}"));
+ //    var jsonpares = json.decode(response.body);
+ //    localresponse=jsonpares;
+ //    print(jsonpares);
+ //  }
+ //
+ //  getDirectLocation() async{
+ //    await _fetchIPAddress();getLocation();
+ //  }
 
   /// Fetch live geo Location
  Future<String> getStateFromLatLng(double latitude, double longitude) async {
@@ -125,6 +121,7 @@ String? _city;
      return 'Error: ${e.toString()}';
    }
  }
+
  Future<String> getCurrentLocation() async {
    bool serviceEnabled;
    LocationPermission permission;
@@ -160,6 +157,8 @@ String? _city;
    print('Position : ${position}');
    return await getStateFromLatLng(position.latitude,position.longitude);
  }
+
+
   @override
   Widget build(BuildContext context) {
     return Container(

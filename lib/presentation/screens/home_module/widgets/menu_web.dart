@@ -52,8 +52,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
   Future<void> _fetchIPAddress() async {
     try {
       // Fetch the IP address first
-      final ipResponse =
-      await http.get(Uri.parse('https://api.ipify.org?format=json'));
+      final ipResponse = await http.get(Uri.parse('https://api.ipify.org?format=json'));
       if (ipResponse.statusCode == 200) {
         final ipData = jsonDecode(ipResponse.body);
         _ipAddress = ipData['ip'];
