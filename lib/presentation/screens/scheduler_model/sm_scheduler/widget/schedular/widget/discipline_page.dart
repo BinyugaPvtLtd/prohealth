@@ -37,7 +37,7 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                 Row(
                   children: [
                     Container(
-                      width: 220,
+                      width: 381,
                       height: 36,
                       child:TextField(
                         textCapitalization:
@@ -75,7 +75,14 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                       ),
 
                     ),
-
+                    SizedBox(width: 20,),
+                    IconButton(
+                      hoverColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed:(){},
+                      icon: Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                    ),
                   ],
                 ),
                 // Row(

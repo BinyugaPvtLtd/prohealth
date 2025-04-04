@@ -3,6 +3,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widge
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_move_to_intake_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
 //import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
 
 import '../../../../app/resources/value_manager.dart';
@@ -59,8 +60,8 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
       backgroundColor: Colors.white,
       body: isShowingReferalEyePageview ?
       ReferalPendingEyePageview(onGoBackPressed: goBackToInitialScreen,) :
-      // isShowingMergeDuplicatePageview ?
-      //     RPMergeDuplicateScreen(onMergeBackPressed: goBackToInitialRPendingScreen) :
+      isShowingMergeDuplicatePageview ?
+          RPMergeDuplicateScreen(onMergeBackPressed: goBackToInitialRPendingScreen) :
       Column(
         children: [
           /// Tab bar
@@ -93,7 +94,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                   },
                   index: 2,
                   grpIndex: _selectedIndex,
-                  heading: "Archieved",
+                  heading: "Archived",
                 ),
               ],
             ),
@@ -110,8 +111,8 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
               children: [
                 RefferalPendingScreen(onEyeButtonPressed: switchToEyePageviweScreen,
                   onMergeDuplicatePressed: switchToMergeDuplicateScreen,),
-                RefferalMoveToIntakeScreen(),
-                RefferalArchievedScreen()
+                RefferalMoveToIntakeScreen(onEyeButtonPressed: switchToEyePageviweScreen,),
+                RefferalArchievedScreen(onEyeButtonPressed: switchToMergeDuplicateScreen,)
               ],
             ),
           ),
