@@ -514,26 +514,28 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                 child: CircleAvatar(
                                                   backgroundColor: Colors.transparent,
                                                   radius: 13, // Adjust size as needed
-                                                  child: ClipOval(
-                                                    child: Image.network(
-                                                      snapshot.data!.imgUrl,
-                                                      fit: BoxFit.cover,
-                                                      loadingBuilder: (context, child, loadingProgress) {
-                                                        if (loadingProgress == null) {
-                                                          print("Image loaded successfully");
-                                                          return child; // When image has fully loaded
-                                                        } else {
-                                                          print("Image is loading...");
-                                                          return Center(child: CircularProgressIndicator());
-                                                        }
-                                                      },
-                                                      errorBuilder: (context, error, stackTrace) {
-                                                        print("Error loading image, fallback to default");
-                                                        // Fallback to default image if error occurs (invalid URL, etc.)
-                                                        return Image.asset("images/profilepic.png", fit: BoxFit.cover);
-                                                      },
-                                                    ),
-                                                  ),
+                                                  backgroundImage: NetworkImage(snapshot.data!.imgUrl,),
+
+                                                  // child: ClipOval(
+                                                  //   child: Image.network(
+                                                  //     snapshot.data!.imgUrl,
+                                                  //     fit: BoxFit.cover,
+                                                  //     loadingBuilder: (context, child, loadingProgress) {
+                                                  //       if (loadingProgress == null) {
+                                                  //         print("Image loaded successfully");
+                                                  //         return child; // When image has fully loaded
+                                                  //       } else {
+                                                  //         print("Image is loading...");
+                                                  //         return Center(child: CircularProgressIndicator());
+                                                  //       }
+                                                  //     },
+                                                  //     errorBuilder: (context, error, stackTrace) {
+                                                  //       print("Error loading image, fallback to default");
+                                                  //       // Fallback to default image if error occurs (invalid URL, etc.)
+                                                  //       return Image.asset("images/profilepic.png", fit: BoxFit.cover);
+                                                  //     },
+                                                  //   ),
+                                                  // ),
                                                 ),
                                                 onTap: () {
                                                   print("userid appbar (network image): ${snapshot.data?.userId}");
