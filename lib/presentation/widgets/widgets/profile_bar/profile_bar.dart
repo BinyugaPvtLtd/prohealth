@@ -105,6 +105,7 @@ class ProfileBar extends StatelessWidget {
                                       style: ThemeManagerWhite.customTextStyle(context).copyWith(
                                         fontSize: (int.tryParse(snapshot.data!.percentage) ?? 0) <= 10 ? 7 : null,
                                       ),
+
                                     ),
                                   ]),
                           );
