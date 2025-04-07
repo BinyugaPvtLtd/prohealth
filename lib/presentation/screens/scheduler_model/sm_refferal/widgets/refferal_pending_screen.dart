@@ -6,6 +6,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
@@ -28,6 +29,56 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
       _isFilterOpen = !_isFilterOpen; // Toggle panel visibility
     });
   }
+
+  bool _MContainerVisible = false;
+  bool _OContainerVisible = false;
+  bool _RContainerVisible = false;
+  bool _AContainerVisible = false;
+  bool _IContainerVisible = false;
+  bool _ICContainerVisible = false;
+  bool _PContainerVisible = false;
+
+  void toggleContainerM() {
+    setState(() {
+      _MContainerVisible = !_MContainerVisible;
+    });
+  }
+  void toggleContainerO() {
+    setState(() {
+      _OContainerVisible = !_OContainerVisible;
+    });
+  }
+  void toggleContainerR() {
+    setState(() {
+      _RContainerVisible = !_RContainerVisible;
+    });
+  }
+  void toggleContainerA() {
+    setState(() {
+      _AContainerVisible = !_AContainerVisible;
+    });
+  }
+  void toggleContainerI() {
+    setState(() {
+      _IContainerVisible = !_IContainerVisible;
+    });
+  }
+  void toggleContainerIC() {
+    setState(() {
+      _ICContainerVisible = !_ICContainerVisible;
+    });
+  }
+  void toggleContainerP() {
+    setState(() {
+      _PContainerVisible = !_PContainerVisible;
+    });
+  }
+
+
+  ///
+  ///checkbox
+  bool _isChecked = false;
+
   List<String> hardcodedItems = ['All','Referral App','E-Fax','E-Referrals','Manual',];
 
   @override
@@ -460,14 +511,14 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
         ),
 
         // Sliding Filter Panel
+
         AnimatedPositioned(
           duration: Duration(milliseconds: 300),
-          right: _isFilterOpen ? 0 : -220, // Slide in/out effect
+          right: _isFilterOpen ? -0 : -320, // Slide in/out effect
           top: 0,
           bottom: 10,
           child: Container(
-            width: 200,
-
+            width: 300,
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -475,33 +526,472 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                 BoxShadow(color: Colors.black26, blurRadius: 5),
               ],
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Filter Options", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                Divider(),
-                // Example filter fields
-                Text("Status"),
-                DropdownButton<String>(
-                  items: ["All", "Pending", "Approved"]
-                      .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                      .toList(),
-                  onChanged: (val) {},
-                ),
-                SizedBox(height: 10),
-                Text("Date Range"),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Select Date"),
-                ),
-              ],
+            child: SingleChildScrollView(// Wrap the Column inside SingleChildScrollView
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: _toggleFilter,
+                        child: Row(
+                          children: [
+                           Icon(Icons.menu_open),
+                            Text(
+                              "Filter Options",
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      TextButton(onPressed: (){}, child: Text("CLEAR ALL"))
+                    ],
+                  ),
+                  Divider(),
+                  // Example filter fields
+                  InkWell(
+                    onTap:  toggleContainerM,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Marketer"),
+
+                         Icon(
+                            _MContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                          ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _MContainerVisible ? 200 : 0,
+                    width: 300,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: _MContainerVisible
+                        ? Text(
+                      'Container is Open',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                        : null,
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerO,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Order Received Date"),
+
+                        Icon(
+                          _OContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _OContainerVisible ? 200 : 0,
+                    width: 300,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: _OContainerVisible
+                        ? Text(
+                      'Container is Open',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                        : null,
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerR,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Referral Source"),
+
+                        Icon(
+                          _RContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _RContainerVisible ? 500 : 0,
+                    width: 300,
+                   // color: Colors.grey,
+                   // alignment: Alignment.center,
+                    child: _RContainerVisible
+                        ?Column(
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Search...',
+                            prefixIcon: Icon(Icons.search,size: 20,color: Colors.grey),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey), // Set the color of the bottom border
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey), // Set the color when focused
+                            ),
+                          //  contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                          ),
+                          onChanged: (value) {
+                            // Handle search logic here (e.g., filtering options)
+                          },
+                        ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       _isChecked = !_isChecked;  // Toggle checkbox state
+                        //     });
+                        //   },
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //    //   shape: BoxShape.,
+                        //       color:  Colors.transparent, // Checked or unchecked background color
+                        //       border: Border.all(color: Colors.blue), // Border color of the circle
+                        //     ),
+                        //     padding: EdgeInsets.all(10),
+                        //     child: _isChecked
+                        //         ? Icon(Icons.clear, color: Colors.white)  // Use 'clear' icon instead of 'check'
+                        //         : Icon(Icons.check_box_outline_blank, color: ColorManager.grey),  // Unchecked state icon
+                        //   ),
+                        // ),
+                        Row(
+                          children: [
+
+                               Checkbox(
+                                splashRadius: 0,
+                                activeColor: ColorManager.blueprime,
+                                value: _isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isChecked = value!;
+                                  });
+                                },
+                              ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+
+
+                      ],
+                    )
+                        : null,
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerA,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Agency"),
+
+                        Icon(
+                          _AContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _AContainerVisible ? 200 : 0,
+                    width: 300,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: _AContainerVisible
+                        ? Text(
+                      'Container is Open',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                        : null,
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerI,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Insurance"),
+
+                        Icon(
+                          _IContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _IContainerVisible ? 200 : 0,
+                    width: 300,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: _IContainerVisible
+                        ? Text(
+                      'Container is Open',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                        : null,
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerIC,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Insurance Category"),
+
+                        Icon(
+                          _ICContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _ICContainerVisible ? 200 : 0,
+                    width: 300,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: _ICContainerVisible
+                        ? Text(
+                      'Container is Open',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                        : null,
+                  ),
+
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerP,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Potential Discharge Date"),
+
+                        Icon(
+                          _PContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _PContainerVisible ? 200 : 0,
+                    width: 300,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: _PContainerVisible
+                        ? Text(
+                      'Container is Open',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                        : null,
+                  ),
+                  Divider(),
+
+                ],
+              ),
             ),
           ),
         ),
+
+
+
+
+
+
+        // AnimatedPositioned(
+        //   duration: Duration(milliseconds: 300),
+        //   right: _isFilterOpen ? 0 : -220, // Slide in/out effect
+        //   top: 0,
+        //   bottom: 10,
+        //   child: Container(
+        //     width: 200,
+        //
+        //     padding: EdgeInsets.all(10),
+        //     decoration: BoxDecoration(
+        //       color: Colors.white,
+        //       boxShadow: [
+        //         BoxShadow(color: Colors.black26, blurRadius: 5),
+        //       ],
+        //     ),
+        //     child: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         Text("Filter Options", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        //         Divider(),
+        //         // Example filter fields
+        //         Text("Status"),
+        //         DropdownButton<String>(
+        //           items: ["All", "Pending", "Approved"]
+        //               .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+        //               .toList(),
+        //           onChanged: (val) {},
+        //         ),
+        //         SizedBox(height: 10),
+        //         Text("Date Range"),
+        //         ElevatedButton(
+        //           onPressed: () {},
+        //           child: Text("Select Date"),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
 }
+
 
 ///
 // SizedBox(height: 30,),

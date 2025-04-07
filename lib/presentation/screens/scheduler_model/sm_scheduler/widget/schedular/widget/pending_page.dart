@@ -273,12 +273,10 @@ class _PendingPageViewState extends State<PendingPageView> {
                               height: 100,
                               child: Column(
                                 children: [
-
                                   Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children:[
-
                                         Container(
                                             width: AppSize.s88,
                                             height: AppSize.s20,
