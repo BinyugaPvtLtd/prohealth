@@ -3,7 +3,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widg
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/history_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/overdue_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/pending_page.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/discipline_page.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/scheduled_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/roc_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/soc_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/request_log.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -461,7 +462,14 @@ class _PendingPageViewState extends State<PendingPageView> {
                                           children: [
                                             InkWell(
                                               child: Image.asset("images/sm/i_circle.png",height: 60,)
-                                              ,onTap: (){},),
+                                              ,onTap: ()async{
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return  Requestlog();
+                                                },
+                                              );
+                                            },),
                                           ],
                                         ),
                                       ),

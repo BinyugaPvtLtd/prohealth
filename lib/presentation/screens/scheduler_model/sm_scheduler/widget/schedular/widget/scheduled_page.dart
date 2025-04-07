@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/request_log.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -423,7 +424,14 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                   children: [
                                     InkWell(
                                       child: Image.asset("images/sm/i_circle.png",height: 60,)
-                                      ,onTap: (){},),
+                                      ,onTap: ()async{
+                                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return  Requestlog();
+                              },
+                            );
+                                    },),
                                   ],
                                 ),
                               ),

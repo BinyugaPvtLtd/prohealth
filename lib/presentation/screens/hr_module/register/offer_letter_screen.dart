@@ -1092,7 +1092,7 @@ class OfferLetterScreen extends StatelessWidget {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AddFailePopup(
-                                      message: 'Something is messing',
+                                      message: 'Something is missing',
                                     );
                                   },
                                 );

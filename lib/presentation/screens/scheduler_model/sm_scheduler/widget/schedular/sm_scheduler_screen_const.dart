@@ -493,3 +493,129 @@ class CustomButtonRowstack extends StatelessWidget {
   }
 }
 
+
+
+
+class CustomButtonRowPop extends StatelessWidget {
+  final VoidCallback onSaveClosePressed;
+  final VoidCallback onSubmitPressed;
+  final VoidCallback onNextPressed;
+
+  const CustomButtonRowPop({
+    Key? key,
+    required this.onSaveClosePressed,
+    required this.onSubmitPressed,
+    required this.onNextPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Save and Close Button
+        Row(
+          children: [
+
+            InkWell(
+              onTap: onSaveClosePressed,
+              child: Container(
+                width: AppSize.s40,
+                height: AppSize.s25,
+                decoration: BoxDecoration(
+                  color:Color(0xffB4DB4C),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Text(
+                    'RN',
+                    style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                      fontWeight: FontWeight.w400,
+                      color: ColorManager.white,),
+                  ),
+                ),
+              ),
+            ),
+
+
+          ],
+
+        ),
+        SizedBox(width: AppSize.s20),
+
+        // Submit Button
+        Row(
+          children: [
+            InkWell(
+              onTap: onSubmitPressed,
+              child: Container(
+                width: AppSize.s40,
+                height: AppSize.s25,
+                      decoration: BoxDecoration(
+                    color: Color(0xffF6928A),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  child: Center(
+                    child: Text(
+                      'PT',
+                      style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                        fontWeight: FontWeight.w400,
+                        color: ColorManager.white,),
+                    ),
+                  ),
+              ),
+            ),
+
+          ],
+        ),
+        SizedBox(width: AppSize.s20),
+
+        // Next Button
+        Row(
+          children: [
+            InkWell(
+              onTap: onNextPressed,
+              child: Container(
+                width: AppSize.s40,
+                height: AppSize.s25,
+                decoration: BoxDecoration(
+                  color: Color(0xffFEBD4D),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Text(
+                    'OT',
+                    style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                      fontWeight: FontWeight.w400,
+                      color: ColorManager.white,),
+                  ),
+                ),
+              ),
+            ),
+
+            // Container(
+            //   width: AppSize.s50,
+            //   height: AppSize.s25,
+            //   child: ElevatedButton(
+            //     onPressed: onNextPressed,
+            //     style: ElevatedButton.styleFrom(
+            //       backgroundColor: Color(0xffFEBD4D),
+            //
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(5),
+            //       ),
+            //     ),
+            //     child: Text(
+            //       'OT',
+            //       style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+            //         fontWeight: FontWeight.w400,
+            //         color: ColorManager.white,),
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
+      ],
+    );
+  }
+}
