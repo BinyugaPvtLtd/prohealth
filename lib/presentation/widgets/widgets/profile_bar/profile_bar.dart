@@ -92,20 +92,37 @@ class ProfileBar extends StatelessWidget {
                             containerColor = ColorManager.greenF;
                           }
                           return Container(
-                              height: containerHeight,
-                              width: AppSize.s70,
-                              decoration: BoxDecoration(
-                                color: containerColor,
-                              ),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Profile\n${snapshot.data!.percentage}%",
-                                      style: ThemeManagerWhite.customTextStyle(context),
+                            height: containerHeight,
+                            width: AppSize.s70,
+                            decoration: BoxDecoration(
+                              color: containerColor,
+                            ),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Profile\n${snapshot.data!.percentage}%",
+                                    style: ThemeManagerWhite.customTextStyle(context).copyWith(
+                                      fontSize: (int.tryParse(snapshot.data!.percentage) ?? 0) <= 10 ? 7 : null,
                                     ),
-                                  ]),
+                                  ),
+                                ]),
                           );
+                          // return Container(
+                          //     height: containerHeight,
+                          //     width: AppSize.s70,
+                          //     decoration: BoxDecoration(
+                          //       color: containerColor,
+                          //     ),
+                          //     child: Column(
+                          //         mainAxisAlignment: MainAxisAlignment.center,
+                          //         children: [
+                          //           Text(
+                          //             "Profile\n${snapshot.data!.percentage}%",
+                          //             style: ThemeManagerWhite.customTextStyle(context),
+                          //           ),
+                          //         ]),
+                          // );
                         }
                         else{
                           return SizedBox();
