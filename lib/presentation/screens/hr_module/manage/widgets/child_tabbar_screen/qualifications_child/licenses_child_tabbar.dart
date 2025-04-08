@@ -72,7 +72,6 @@ class LicensesChildTabbar extends StatelessWidget {
       return text;
     }
 
-
     return Column(
       children: [
         Padding(
