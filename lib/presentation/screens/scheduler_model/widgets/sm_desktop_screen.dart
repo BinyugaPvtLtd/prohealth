@@ -106,7 +106,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
                         },
-                        text: 'Refferals',
+                        text: 'Referral',
                         isSelected: myController.selectedIndex.value == 1,
                       ),
                     ),

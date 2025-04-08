@@ -70,14 +70,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       width: 3,
                     ),
                   ),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     color: ColorManager.black.withOpacity(0.5),
-                  //     offset: Offset(0, 4),
-                  //     blurRadius: 4,
-                  //     spreadRadius: 0,
-                  //   ),
-                  // ],
                 ),
                 child: Row(
                   children: [
