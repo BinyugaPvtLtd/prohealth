@@ -13,13 +13,14 @@ import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../../textfield_dropdown_constant/chatbotContainer.dart';
 import '../../../../widgets/constant_widgets/button_constant.dart';
 import '../sm_scheduler_screen_const.dart';
 
 class PendingPageView extends StatefulWidget {
-  final VoidCallback? onAutoTap;
-  const PendingPageView({super.key, this.onAutoTap});
+  final VoidCallback onAutoTap;
+  const PendingPageView({super.key,required this.onAutoTap});
 
   @override
   State<PendingPageView> createState() => _PendingPageViewState();
@@ -63,43 +64,9 @@ class _PendingPageViewState extends State<PendingPageView> {
                     padding: const EdgeInsets.only(left: 40),
                     child: Row(
                       children: [
-                        Container(
-                          width: 381,
-                          height: 36,
-                          child: TextField(
-                            textCapitalization:
-                            TextCapitalization.words,
-                            style: DocDefineTableDataID.customTextStyle(context),
-                            // onChanged: _search,
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Color(0xFFF8F8F8),
-                                hintText: 'Search',
-                                alignLabelWithHint: true,
-                                hintStyle: DocDefineTableDataID.customTextStyle(context),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color:Color(0xFFC9C9C9),width: 0.2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color:Colors.grey.shade200,width: 0.2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                prefixIcon: IconButton(
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  icon: Center(
-                                    child: Icon(
-                                      Icons.search,
-                                      size: IconSize.I20,
-                                      color:  ColorManager.greylight,
-                                    ),
-                                  ),
-                                  onPressed: () {},
-                                ),
-                                contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
-                          ),
+
+                        CustomSearchFieldSM(
+                          onPressed: (){},
                         ),
                         SizedBox(width: 20,),
                         IconButton(
@@ -359,10 +326,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                          // mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             CustomButtonRow(
-                                              onSaveClosePressed: () {
-                                                // Action for Save and Close button
-                                                print('Save and Close pressed');
-                                              },
+                                              onSaveClosePressed: widget.onAutoTap,
                                               onSubmitPressed: () {
                                                 // Action for Submit button
                                                 print('Submit pressed');
@@ -438,9 +402,6 @@ class _PendingPageViewState extends State<PendingPageView> {
 
                                               ],
                                             ),
-
-                                            // SizedBox(height: AppSize.s5),
-
                                           ],
                                         ),
                                       ),

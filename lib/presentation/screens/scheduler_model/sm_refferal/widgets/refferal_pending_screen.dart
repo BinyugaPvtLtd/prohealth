@@ -21,11 +21,11 @@ class RefferalPendingScreen extends StatefulWidget {
 }
 
 class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
-  bool _isFilterOpen = false; // Track filter panel state
+  bool _isFilterOpen = false;
 
   void _toggleFilter() {
     setState(() {
-      _isFilterOpen = !_isFilterOpen; // Toggle panel visibility
+      _isFilterOpen = !_isFilterOpen;
     });
   }
   List<String> hardcodedItems = ['All','Referral App','E-Fax','E-Referrals','Manual',];
@@ -463,11 +463,10 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
         AnimatedPositioned(
           duration: Duration(milliseconds: 300),
           right: _isFilterOpen ? 0 : -220, // Slide in/out effect
-          top: 0,
-          bottom: 10,
+          top: 0, // Adjust based on TabBar height
+          bottom: 0, // Extend to the bottom
           child: Container(
             width: 200,
-
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -480,7 +479,6 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
               children: [
                 Text("Filter Options", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 Divider(),
-                // Example filter fields
                 Text("Status"),
                 DropdownButton<String>(
                   items: ["All", "Pending", "Approved"]
@@ -498,6 +496,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
             ),
           ),
         ),
+
       ],
     );
   }

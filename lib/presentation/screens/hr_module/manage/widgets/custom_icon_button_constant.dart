@@ -187,16 +187,21 @@ class CustomeTransparentAddShift extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final IconData? icon;
+  final double? width;
+  final double? height;
   const CustomeTransparentAddShift(
-      {super.key, required this.text, required this.onPressed, this.icon});
+      {super.key, required this.text, required this.onPressed, this.icon, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       onTap: onPressed,
       child: Container(
-          height: MediaQuery.of(context).size.height / 30,
-          width: MediaQuery.of(context).size.width / 17,
+          height: height ?? MediaQuery.of(context).size.height / 30,
+          width: width ?? MediaQuery.of(context).size.width / 17,
           decoration: BoxDecoration(
               border: Border.all(color: ColorManager.blueprime),
               borderRadius: BorderRadius.circular(30)),
@@ -204,7 +209,8 @@ class CustomeTransparentAddShift extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(Icons.add,
+              Icon(
+                  Icons.add,
                   color: ColorManager.blueprime,
                   size: IconSize.I14),
               Text(
