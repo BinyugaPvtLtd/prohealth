@@ -48,6 +48,15 @@ class ReferencesChildTabbar extends StatelessWidget {
     TextEditingController associationLengthController = TextEditingController();
     TextEditingController mobileNumberController = TextEditingController();
     TextEditingController referredBController = TextEditingController();
+
+   // Truncate the text to 10 characters
+   String _truncateText(String text, int maxLength) {
+     if (text.length > maxLength) {
+       return text.substring(0, maxLength) + '...'; // Add "..." if the text exceeds 10 characters
+     }
+     return text;
+   }
+
     return Column(
       children: [
         ///add button
@@ -192,8 +201,12 @@ class ReferencesChildTabbar extends StatelessWidget {
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
-                                      snapshot.data![index].title,
+                                    _truncateText(snapshot.data![index].title ?? '--', 10),
                                     style: ThemeManagerDarkFont.customTextStyle(context),
+                                    overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                    maxLines: 1,
+                                    //   snapshot.data![index].title,
+                                    // style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
                               const SizedBox(height: 10,),
@@ -229,8 +242,12 @@ class ReferencesChildTabbar extends StatelessWidget {
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
-                                    snapshot.data![index].company,
+                                    _truncateText(snapshot.data![index].company ?? '--', 10),
                                     style: ThemeManagerDarkFont.customTextStyle(context),
+                                    overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                    maxLines: 1,
+                                    // snapshot.data![index].company,
+                                    // style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
                               const SizedBox(height: 10,),
@@ -242,8 +259,12 @@ class ReferencesChildTabbar extends StatelessWidget {
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
-                                    snapshot.data![index].references,
+                                    _truncateText(snapshot.data![index].references ?? '--', 10),
                                     style: ThemeManagerDarkFont.customTextStyle(context),
+                                    overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                    maxLines: 1,
+                                    // snapshot.data![index].references,
+                                    // style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
                               const SizedBox(height: 10,),

@@ -57,6 +57,19 @@ class EmploymentContainerConstant extends StatelessWidget {
     TextEditingController emergencyMobileNumber = TextEditingController();
     TextEditingController countryController = TextEditingController();
     //print("Employee id in EmployeeMent screen :: ${employeeId}");
+
+
+
+    // Truncate the text to 10 characters
+    String _truncateText(String text, int maxLength) {
+      if (text.length > maxLength) {
+        return text.substring(0, maxLength) + '...'; // Add "..." if the text exceeds 10 characters
+      }
+      return text;
+    }
+
+
+
     return Column(
       children: [
         Row(
@@ -342,10 +355,15 @@ class EmploymentContainerConstant extends StatelessWidget {
                                 child: CompositedTransformTarget(
                                   link: _layerLink,
                                   child: Text(
-                                      snapshot.data![index].reason,
-                                    style: ThemeManagerDarkFont.customTextStyle(
-                                        context),
-                                  ),),
+                                    _truncateText(snapshot.data![index].reason ?? '--', 10),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),
+                                    overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                    maxLines: 1,
+                                       // snapshot.data![index].reason,
+                                    //style: ThemeManagerDarkFont.customTextStyle(
+                                        //context),
+                                  ),
+                                ),
                               ),
                               // Text(_trimAddress(
                               //   snapshot.data![index].reason),
@@ -366,9 +384,12 @@ class EmploymentContainerConstant extends StatelessWidget {
                                 child: CompositedTransformTarget(
                                   link: _layerLink,
                                   child: Text(
-                                    snapshot.data![index].supervisor,
-                                    style: ThemeManagerDarkFont.customTextStyle(
-                                        context),
+                                    _truncateText(snapshot.data![index].supervisor ?? '--', 10),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),
+                                    overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                    maxLines: 1,
+                                    //snapshot.data![index].supervisor,
+                                    //style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
                               // Text( _trimAddress(

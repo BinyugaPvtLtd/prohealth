@@ -271,7 +271,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                             height: 100,),
                           Flexible(
                             child: SchedularContainerConst(
-                              height: 100,
+                              height: 105,
                               child: Column(
                                 children: [
                                   Row(
@@ -280,7 +280,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       children:[
                                         Container(
                                             width: AppSize.s88,
-                                            height: AppSize.s20,
+                                            height: AppSize.s18,
                                             decoration: BoxDecoration(
                                               color:Color(0xFFE3F2F8),
                                               borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),),
@@ -475,75 +475,120 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       ),
                                       Expanded(
                                         flex: 2,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 5),
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(60),
-                                                child: SizedBox(
-                                                  width: AppSize.s40,
-                                                  height: AppSize.s45,
-                                                  child: Image.asset(
-                                                    'images/hr_dashboard/man.png', // Replace with your image path
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(width: AppSize.s10,),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: AppSize.s50,
-                                                  height: AppSize.s25,
-                                                  child: ElevatedButton(
-                                                    onPressed: (){},
-                                                    style: ElevatedButton.styleFrom(
-                                                      backgroundColor:Color(0xffB4DB4C),
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(5),
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      'RN',
-                                                      style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s10,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: ColorManager.white,),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(width: AppSize.s5,),
-                                                Text("Pending")
-                                              ],
-
-                                            ),
-                                          ],
-                                        ),
-                                        ///
-                                        ///
-                                        ///
-                                        // child: Column(
+                                        // child: Row(
                                         //   children: [
-                                        // SizedBox(
-                                        //     width:30,
-                                        //     height:100,
-                                        //     child: buildStackImages()),
-                                        //                                   // Stack(
-                                        //                                   // children: List.generate(
-                                        //                                   // listOfEvents[i].attendeesList.length, (index) {
-                                        //                                   //   return Positioned(
-                                        //                                   //       left: index * 30,
-                                        //                                   //       child: const CircleAvatar(
-                                        //                                   //         backgroundImage: NetworkImage("https://avatars.githubusercontent.com/u/61495501?v=4"),
-                                        //                                   //         radius: 30,
-                                        //                                   //       )
-                                        //                                   //   );
-                                        //                                   // }
-                                        //                                   // )
+                                        //     Padding(
+                                        //       padding: const EdgeInsets.symmetric(vertical: 5),
+                                        //       child: ClipRRect(
+                                        //         borderRadius: BorderRadius.circular(60),
+                                        //         child: SizedBox(
+                                        //           width: AppSize.s40,
+                                        //           height: AppSize.s45,
+                                        //           child: Image.asset(
+                                        //             'images/hr_dashboard/man.png', // Replace with your image path
+                                        //             fit: BoxFit.cover,
+                                        //           ),
+                                        //         ),
+                                        //       ),
+                                        //     ),
+                                        //     SizedBox(width: AppSize.s10,),
+                                        //     Row(
+                                        //       children: [
+                                        //         Container(
+                                        //           width: AppSize.s50,
+                                        //           height: AppSize.s25,
+                                        //           child: ElevatedButton(
+                                        //             onPressed: (){},
+                                        //             style: ElevatedButton.styleFrom(
+                                        //               backgroundColor:Color(0xffB4DB4C),
+                                        //               shape: RoundedRectangleBorder(
+                                        //                 borderRadius: BorderRadius.circular(5),
+                                        //               ),
+                                        //             ),
+                                        //             child: Text(
+                                        //               'RN',
+                                        //               style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s10,
+                                        //                 fontWeight: FontWeight.w400,
+                                        //                 color: ColorManager.white,),
+                                        //             ),
+                                        //           ),
+                                        //         ),
+                                        //         SizedBox(width: AppSize.s5,),
+                                        //         Text("Pending")
+                                        //       ],
+                                        //
+                                        //     ),
                                         //   ],
                                         // ),
+                                        ///
+                                        ///
+                                        ///
+                                        child:Column(// Horizontally center the children
+                                          children: [
+                                            SizedBox(
+                                              height: 80, // Adjust the height to give space for stacked avatars
+                                              child: Stack(
+                                                children: [
+                                                  for (var i = 0; i < 3; i++) // Loop 3 times for the 3 avatars
+                                                    Positioned(
+                                                      left: 0, // Keep the left position constant
+                                                      top: (i * (1 - .4) * 40).toDouble(), // Stagger the top position
+                                                      child: Row(
+                                                        children: [
+                                                          CircleAvatar(
+                                                            backgroundColor: Colors.blue,
+                                                            child: Container(
+                                                              clipBehavior: Clip.antiAlias,
+                                                              decoration: BoxDecoration(
+                                                                border: Border.all(color: Colors.grey, width: 2),
+                                                                borderRadius: BorderRadius.circular(50),
+                                                              ),
+                                                             // padding: const EdgeInsets.all(5.0),
+                                                              child: Image.asset(
+                                                                'images/hr_dashboard/man.png', // Replace with your image path
+                                                                fit: BoxFit.cover,
+                                                              ),
+                                                              // Image.network(
+                                                              //   "https://github.com/identicons/guest.png", // Network image URL
+                                                              //   fit: BoxFit.cover, // Ensures the image fills the CircleAvatar
+                                                              // ),
+                                                            ),
+                                                            radius: 16,
+                                                          ),
+                                                          SizedBox(width: AppSize.s10,),
+                                                          Container(
+                                                            width: AppSize.s40,
+                                                            height: AppSize.s20,
+                                                            decoration: BoxDecoration(
+                                                              color:Color(0xffB4DB4C),
+                                                              borderRadius: BorderRadius.circular(5),
+                                                            ),
+                                                            child: Center(
+                                                              child: Text(
+                                                                'RN',
+                                                                style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: ColorManager.white,),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                      SizedBox(width: AppSize.s5,),
+                                                          Text("Pending",style: TextStyle(fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
+                                                            color: ColorManager.granitegray,),),
+                                                        ],
+                                                      ),
+
+                                                    ),
+                                                ],
+                                              ),
+                                            ),
+
+                                          ],
+                                        )
+
                                       ),
+
 
                                     ],
                                   ),
