@@ -139,9 +139,158 @@ class _RequestlogState extends State<Requestlog> {
 
             ),
             Divider(),
+
+
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: double.infinity, // Ensure full width
+                  height: 300, // Adjust height as needed
+                  child: Timeline(
+                    children: <Widget>[
+                      Container(height: 30, color: Colors.blue),
+                      Container(height: 30, color: Colors.green),
+                      Container(height: 30, color: Colors.red),
+                      Container(height: 30, color: Colors.orange),
+                    ],
+                    indicators: <Widget>[
+                      Icon(Icons.access_alarm),
+                      Icon(Icons.backup),
+                      Icon(Icons.accessibility_new),
+                      Icon(Icons.access_alarm),
+                    ],
+                    isLeftAligned: true,
+                    itemGap: 20.0,
+                    lineColor: Colors.blueAccent,
+                    indicatorSize: 20.0,
+                    indicatorColor: Colors.blue,
+                    strokeWidth: 3.0,
+                  ),
+                ),
+              ),
+            )
+
+
+
+
           ],
         ),
       ),
+
     );
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Timeline extends StatelessWidget {
+  final List<Widget> children;
+  final List<Widget>? indicators;
+  final bool isLeftAligned;
+  final double itemGap;
+  final Color lineColor;
+  final double indicatorSize;
+  final Color indicatorColor;
+  final double strokeWidth;
+
+  const Timeline({
+    Key? key,
+    required this.children,
+    this.indicators,
+    this.isLeftAligned = true,
+    this.itemGap = 12.0,
+    this.lineColor = Colors.grey,
+    this.indicatorSize = 30.0,
+    this.indicatorColor = Colors.blue,
+    this.strokeWidth = 2.0,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      itemCount: children.length,
+      separatorBuilder: (_, __) => SizedBox(height: itemGap),
+      itemBuilder: (context, index) {
+        final child = children[index];
+        final _indicators = indicators;
+        Widget? indicator;
+        if (_indicators != null) {
+          indicator = _indicators[index];
+        }
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CustomPaint(
+            //  size: Size(indicatorSize, 100),  // Define custom paint size
+              foregroundPainter: _TimelinePainter(
+                lineColor: lineColor,
+                indicatorColor: indicatorColor,
+                indicatorSize: indicatorSize,
+                strokeWidth: strokeWidth,
+                hideDefaultIndicator: indicator != null,
+              ),
+              child: SizedBox(
+                width: indicatorSize,
+                height: 10,
+                child: indicator,
+              ),
+            ),
+            SizedBox(width: 10),
+            Expanded(child: child),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _TimelinePainter extends CustomPainter {
+  final Color lineColor;
+  final Color indicatorColor;
+  final double indicatorSize;
+  final double strokeWidth;
+  final bool hideDefaultIndicator;
+
+  _TimelinePainter({
+    required this.lineColor,
+    required this.indicatorColor,
+    required this.indicatorSize,
+    required this.strokeWidth,
+    required this.hideDefaultIndicator,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = lineColor
+      ..strokeWidth = strokeWidth;
+
+    // Draw the line vertically
+    canvas.drawLine(Offset(size.width / 2, 0), Offset(size.width / 2, size.height), paint);
+
+    if (!hideDefaultIndicator) {
+      // Draw the indicator (circle) in the middle
+      final paintCircle = Paint()..color = indicatorColor;
+      canvas.drawCircle(Offset(size.width / 2, size.height / 2), indicatorSize, paintCircle);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
