@@ -88,16 +88,17 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                     CustomSearchFieldSM(
+                      CustomSearchFieldSM(
                        onPressed: (){},
                      ),
                       SizedBox(width: AppSize.s20,),
@@ -106,100 +107,91 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onPressed: _toggleFilter,
-                        icon: Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                        icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 15,)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: AppSize.s30,
-                        child: CustomIconButton(
-                          color: ColorManager.bluebottom,
-                          icon: Icons.add,
-                          textWeight: FontWeight.w600,
-                          textSize: FontSize.s11,
-                          text: "Add Refferal",
-                          onPressed: ()async{},
-                        ),
-                      ),
-                      SizedBox(width: AppSize.s10,),
-                      SmDropdownConst(
-                        height: AppSize.s30,
-                        width:AppSize.s150,
-                        isAstric:false,
-                        // Adjust headText based on depId
-                        initialValue: 'Office',
-                        headText: "", // Default fallback if depId doesn't match any of the expected values
-                        items: ['Office 1','Office 2','Office 3'],
-                        onChanged: (newValue) {
-                          // for (var a in snapshot.data!) {
-                          //   if (a.empType == newValue) {
-                          //     clinicialName = a.empType!;
-                          //     clinicalId = a.employeeTypesId!;
-                          //     print("Dept ID'''''' ${clinicalId}");
-                          //     print("';';';''''''''Dept ID ${clinicialName}");
-                          //     // Do something with docType
-                          //   }
-                          // }
-                        },
-                      ),
-                      SizedBox(width: AppSize.s10,),
-                      SmDropdownConst(
-                       height: AppSize.s30,
-                        width:AppSize.s150,
-                        isAstric:false,
-                        // Adjust headText based on depId
-                        initialValue: 'All',
-                        headText: "", // Default fallback if depId doesn't match any of the expected values
-                        items: ['All','Referral App','E-Fax','E-Referrals','Manual',],
-                        onChanged: (newValue) {
-                          // for (var a in snapshot.data!) {
-                          //   if (a.empType == newValue) {
-                          //     clinicialName = a.empType!;
-                          //     clinicalId = a.employeeTypesId!;
-                          //     print("Dept ID'''''' ${clinicalId}");
-                          //     print("';';';''''''''Dept ID ${clinicialName}");
-                          //     // Do something with docType
-                          //   }
-                          // }
-                        },
-                      ),
-
-                    ],
-                  ),
-                ],
-              ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Container(
+                  //       height: AppSize.s30,
+                  //       child: CustomIconButton(
+                  //         color: ColorManager.bluebottom,
+                  //         icon: Icons.add,
+                  //         textWeight: FontWeight.w600,
+                  //         textSize: FontSize.s11,
+                  //         text: "Add Refferal",
+                  //         onPressed: ()async{},
+                  //       ),
+                  //     ),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     SmDropdownConst(
+                  //       height: AppSize.s30,
+                  //       width:AppSize.s150,
+                  //       isAstric:false,
+                  //       // Adjust headText based on depId
+                  //       initialValue: 'Office',
+                  //       headText: "", // Default fallback if depId doesn't match any of the expected values
+                  //       items: ['Office 1','Office 2','Office 3'],
+                  //       onChanged: (newValue) {
+                  //         // for (var a in snapshot.data!) {
+                  //         //   if (a.empType == newValue) {
+                  //         //     clinicialName = a.empType!;
+                  //         //     clinicalId = a.employeeTypesId!;
+                  //         //     print("Dept ID'''''' ${clinicalId}");
+                  //         //     print("';';';''''''''Dept ID ${clinicialName}");
+                  //         //     // Do something with docType
+                  //         //   }
+                  //         // }
+                  //       },
+                  //     ),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     SmDropdownConst(
+                  //      height: AppSize.s30,
+                  //       width:AppSize.s150,
+                  //       isAstric:false,
+                  //       // Adjust headText based on depId
+                  //       initialValue: 'All',
+                  //       headText: "", // Default fallback if depId doesn't match any of the expected values
+                  //       items: ['All','Referral App','E-Fax','E-Referrals','Manual',],
+                  //       onChanged: (newValue) {
+                  //         // for (var a in snapshot.data!) {
+                  //         //   if (a.empType == newValue) {
+                  //         //     clinicialName = a.empType!;
+                  //         //     clinicalId = a.employeeTypesId!;
+                  //         //     print("Dept ID'''''' ${clinicalId}");
+                  //         //     print("';';';''''''''Dept ID ${clinicialName}");
+                  //         //     // Do something with docType
+                  //         //   }
+                  //         // }
+                  //       },
+                  //     ),
+                  //
+                  //   ],
+                  // ),
+              //   ],
+              // ),
               SizedBox(height: AppSize.s20,),
               Row(
                 children: [
-                  Text("Time",
-                  style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
-                  SizedBox(width: AppSize.s30,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
-                  Text("Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s30,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
-                  Text("Most Recent",
+                  Text("Received Date",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s30,),
+                  SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                   SizedBox(width: AppSize.s50,),
                   Text("Hospitals",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s30,),
+                  SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  SizedBox(width: AppSize.s50,),
                   Text("PCP",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s30,),
+                  SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   ],
               ),
-              SizedBox(height: AppSize.s30,),
+              SizedBox(height: AppSize.s20,),
               Expanded(
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -207,7 +199,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
+                        padding: const EdgeInsets.symmetric(vertical: 5,),
                         child: Container(
                           height: 75,
                           decoration: BoxDecoration(
@@ -237,7 +229,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                   children:[
                                     Container(
                                         width: AppSize.s99,
-                                        height: AppSize.s20,
+                                        height: AppSize.s15,
                                         decoration: BoxDecoration(
                                           color:Color(0xFFFFE4E2),
                                           borderRadius: BorderRadius.only(
@@ -258,16 +250,16 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
-                                    flex: 3,
+                                    flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 30.0),
+                                      padding: const EdgeInsets.only(left: 20.0),
                                       child: Row(
                                         children: [
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
                                               width: AppSize.s45,
-                                              height: AppSize.s50,
+                                              height: AppSize.s45,
                                               child: Image.asset(
                                                 'images/1.png', // Replace with your image path
                                                 fit: BoxFit.cover,
@@ -303,14 +295,15 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                               ),
                                             ],
                                           ),
-                                          SizedBox(width: AppSize.s35),
-                                          Text("Ch #1",style: DocDefineTableData.customTextStyle(context),),
-
-
+                                          SizedBox(width: AppSize.s30),
+                                          Text("Ch #1",style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.textBlack,)),
                                         ],
                                       ),
                                     ),
                                   ),
+                                  SizedBox(width: 30,),
                                   Expanded(
                                     flex: 1,
                                     child:  Column(
@@ -335,7 +328,6 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 15,),
                                   Expanded(
                                     flex: 1,
                                     child:  Column(
@@ -384,18 +376,18 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 15,),
                                   Expanded(
                                     flex: 1,
                                     child: Row(
                                       children: [
-                                        Text("Manual",style: DocDefineTableData.customTextStyle(context),),
+
+                                        Image.asset('images/logo_login.png',width: 100,),
+                                       // Text("Manual",style: DocDefineTableData.customTextStyle(context),),
                                       ],
                                     ),
                                   ),
-
                                   Expanded(
-                                      flex: 4,
+                                      flex: 3,
                                       child: Row(
                                         children: [
                                         Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
@@ -404,14 +396,14 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           borderRadius: BorderRadius.circular(60),
                                           child: SizedBox(
                                             width: AppSize.s45,
-                                            height: AppSize.s50,
+                                            height: AppSize.s45,
                                             child: Image.asset(
                                               'images/1.png', // Replace with your image path
                                               fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: AppSize.s7),
+                                        SizedBox(width: AppSize.s15),
                                         Text(
                                           "Sophia Scott",
                                           textAlign: TextAlign.center,
@@ -430,7 +422,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                               }
                                             },
                                             child: Container(
-                                              width: AppSize.s45,
+                                              width: AppSize.s40,
                                               height: AppSize.s45,
                                               child: Image.asset(
                                                 'images/eye.png',
@@ -494,12 +486,11 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                             ],
                                             child: Icon(Icons.more_vert),
                                           ),
-
                                         ],
                                   ))
                                 ],
                               ),
-                              SizedBox(height: 5,)
+                              Container(height: AppSize.s15,),
                             ],
                           ),
                         ),

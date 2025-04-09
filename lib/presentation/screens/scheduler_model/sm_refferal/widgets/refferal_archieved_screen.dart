@@ -31,13 +31,13 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
                   Row(
                     children: [
                       CustomSearchFieldSM(
@@ -53,67 +53,67 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: AppSize.s30,
-                        child: CustomIconButton(
-                          color: ColorManager.bluebottom,
-                          icon: Icons.add,
-                          textWeight: FontWeight.w600,
-                          textSize: FontSize.s11,
-                          text: "Add Refferal",
-                          onPressed: ()async{},
-                        ),
-                      ),
-                      SizedBox(width: AppSize.s10,),
-                      SmDropdownConst(
-                        height: AppSize.s30,
-                        width:AppSize.s150,
-                        isAstric:false,
-                        // Adjust headText based on depId
-                        initialValue: 'Office',
-                        headText: "", // Default fallback if depId doesn't match any of the expected values
-                        items: ['Office 1','Office 2','Office 3'],
-                        onChanged: (newValue) {
-                          // for (var a in snapshot.data!) {
-                          //   if (a.empType == newValue) {
-                          //     clinicialName = a.empType!;
-                          //     clinicalId = a.employeeTypesId!;
-                          //     print("Dept ID'''''' ${clinicalId}");
-                          //     print("';';';''''''''Dept ID ${clinicialName}");
-                          //     // Do something with docType
-                          //   }
-                          // }
-                        },
-                      ),
-                      SizedBox(width: AppSize.s10,),
-                      SmDropdownConst(
-                        height: AppSize.s30,
-                        width:AppSize.s150,
-                        isAstric:false,
-                        // Adjust headText based on depId
-                        initialValue: 'All',
-                        headText: "", // Default fallback if depId doesn't match any of the expected values
-                        items: ['All','Referral App','E-Fax','E-Referrals','Manual',],
-                        onChanged: (newValue) {
-                          // for (var a in snapshot.data!) {
-                          //   if (a.empType == newValue) {
-                          //     clinicialName = a.empType!;
-                          //     clinicalId = a.employeeTypesId!;
-                          //     print("Dept ID'''''' ${clinicalId}");
-                          //     print("';';';''''''''Dept ID ${clinicialName}");
-                          //     // Do something with docType
-                          //   }
-                          // }
-                        },
-                      ),
-
-                    ],
-                  ),
-                ],
-              ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Container(
+                  //       height: AppSize.s30,
+                  //       child: CustomIconButton(
+                  //         color: ColorManager.bluebottom,
+                  //         icon: Icons.add,
+                  //         textWeight: FontWeight.w600,
+                  //         textSize: FontSize.s11,
+                  //         text: "Add Refferal",
+                  //         onPressed: ()async{},
+                  //       ),
+                  //     ),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     SmDropdownConst(
+                  //       height: AppSize.s30,
+                  //       width:AppSize.s150,
+                  //       isAstric:false,
+                  //       // Adjust headText based on depId
+                  //       initialValue: 'Office',
+                  //       headText: "", // Default fallback if depId doesn't match any of the expected values
+                  //       items: ['Office 1','Office 2','Office 3'],
+                  //       onChanged: (newValue) {
+                  //         // for (var a in snapshot.data!) {
+                  //         //   if (a.empType == newValue) {
+                  //         //     clinicialName = a.empType!;
+                  //         //     clinicalId = a.employeeTypesId!;
+                  //         //     print("Dept ID'''''' ${clinicalId}");
+                  //         //     print("';';';''''''''Dept ID ${clinicialName}");
+                  //         //     // Do something with docType
+                  //         //   }
+                  //         // }
+                  //       },
+                  //     ),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     SmDropdownConst(
+                  //       height: AppSize.s30,
+                  //       width:AppSize.s150,
+                  //       isAstric:false,
+                  //       // Adjust headText based on depId
+                  //       initialValue: 'All',
+                  //       headText: "", // Default fallback if depId doesn't match any of the expected values
+                  //       items: ['All','Referral App','E-Fax','E-Referrals','Manual',],
+                  //       onChanged: (newValue) {
+                  //         // for (var a in snapshot.data!) {
+                  //         //   if (a.empType == newValue) {
+                  //         //     clinicialName = a.empType!;
+                  //         //     clinicalId = a.employeeTypesId!;
+                  //         //     print("Dept ID'''''' ${clinicalId}");
+                  //         //     print("';';';''''''''Dept ID ${clinicialName}");
+                  //         //     // Do something with docType
+                  //         //   }
+                  //         // }
+                  //       },
+                  //     ),
+                  //
+                  //   ],
+                  // ),
+              //   ],
+              // ),
               SizedBox(height: AppSize.s20,),
               Row(
                 children: [
@@ -121,21 +121,21 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                     style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
                   SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  SizedBox(width: AppSize.s15,),
                   Text("Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  SizedBox(width: AppSize.s15,),
                   Text("Most Recent",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  SizedBox(width: AppSize.s15,),
                   Text("Hospitals",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  SizedBox(width: AppSize.s15,),
                   Text("PCP",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: AppSize.s30,),
@@ -183,7 +183,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                               //     children:[
                               //       Container(
                               //           width: AppSize.s99,
-                              //           height: AppSize.s20,
+                              //           height: AppSize.s15,
                               //           decoration: BoxDecoration(
                               //             color:Color(0xFFFFE4E2),
                               //             borderRadius: BorderRadius.only(
@@ -204,16 +204,16 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
-                                    flex: 4,
+                                    flex: 3,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 30.0),
+                                      padding: const EdgeInsets.only(left: 20.0),
                                       child: Row(
                                         children: [
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
                                               width: AppSize.s45,
-                                              height: AppSize.s50,
+                                              height: AppSize.s45,
                                               child: Image.asset(
                                                 'images/1.png', // Replace with your image path
                                                 fit: BoxFit.cover,
@@ -249,13 +249,13 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                               ),
                                             ],
                                           ),
-                                          SizedBox(width: AppSize.s25),
+                                          SizedBox(width: AppSize.s35),
                                           Row(
                                             children: [
                                               Text("By Ross Geller",style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w600,
+                                                fontWeight: FontWeight.w500,
                                                 color: ColorManager.mediumgrey,),),
-                                              SizedBox(width: AppSize.s25),
+                                              SizedBox(width: AppSize.s35),
                                               Text("Ch #1",style: DocDefineTableData.customTextStyle(context),),
                                             ],
                                           ),
@@ -263,6 +263,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(width: 50,),
 
                                   // Expanded(
                                   //   flex: 2,
@@ -275,7 +276,6 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                   //     ],
                                   //   ),
                                   // ),
-                                  SizedBox(width: AppSize.s12),
 
                                   Expanded(
                                     flex: 1,
@@ -301,7 +301,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 15,),
+                                  SizedBox(width: 30,),
                                   Expanded(
                                     flex: 1,
                                     child:  Column(
@@ -326,6 +326,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                       ],
                                     ),
                                   ),
+                                  SizedBox(width: AppSize.s15),
                                   Expanded(
                                     flex: 1,
                                     child:  Column(
@@ -350,18 +351,17 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: AppSize.s12),
+                                  SizedBox(width: AppSize.s15),
                                   Expanded(
                                     flex: 1,
                                     child: Row(
                                       children: [
-                                        Image.asset("images/logo.png",width: 99,),
+                                        Image.asset("images/logo.png",width: 105,),
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: AppSize.s12),
                                   Expanded(
-                                      flex: 4,
+                                      flex: 3,
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
@@ -371,14 +371,14 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
                                               width: AppSize.s45,
-                                              height: AppSize.s50,
+                                              height: AppSize.s45,
                                               child: Image.asset(
                                                 'images/1.png', // Replace with your image path
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: AppSize.s7),
+                                          SizedBox(width: AppSize.s15),
                                           Text(
                                             "Sophia Scott",
                                             textAlign: TextAlign.center,
@@ -386,7 +386,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                               fontWeight: FontWeight.w700,
                                               color: ColorManager.mediumgrey,),
                                           ),
-                                          SizedBox(width: AppSize.s7),
+                                          SizedBox(width: AppSize.s15),
                                           InkWell(
                                             onTap: () async {
                                               try {
@@ -398,7 +398,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                             },
                                             child: Container(
                                               width: AppSize.s45,
-                                              height: AppSize.s45,
+                                              height: AppSize.s40,
                                               child: Image.asset(
                                                 'images/eye.png',
                                                 height: AppSize.s15,
@@ -406,38 +406,39 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                 color: ColorManager.bluebottom,
                                               ),
                                             ),
-                                          ), SizedBox(width: AppSize.s7),
+                                          ),
+                                          SizedBox(width: AppSize.s15),
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              IconButton(
+                                              InkWell(
                                                   hoverColor: Colors.transparent,
                                                   splashColor: Colors.transparent,
                                                   highlightColor: Colors.transparent,
-                                                  onPressed: (){},
-                                                  icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I20,)),
+                                                  onTap: (){},
+                                                  child : Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
+                                              SizedBox(height: 8,),
                                               Text("Call",
-                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s10,
                                                   fontWeight: FontWeight.w500,
                                                   color: ColorManager.bluebottom,),)
                                             ],
                                           ),
-                                          SizedBox(width: AppSize.s7),
+                                          SizedBox(width: AppSize.s20),
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              SizedBox(height: 15,),
-                                              Image.asset("images/sm/sm_refferal/Restore.png",height: 18,width: 18,color: ColorManager.bluebottom,),
-                                               SizedBox(height: 8,),
+                                              Image.asset("images/sm/sm_refferal/Restore.png",height: 16,width: 18,color: ColorManager.bluebottom,),
+                                               SizedBox(height: 6,),
                                               Text("Restore",
-                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s10,
                                                   fontWeight: FontWeight.w500,
                                                   color: ColorManager.bluebottom,),)
                                             ],
                                           ),
-                                          SizedBox(width: AppSize.s30),
+                                          SizedBox(width: AppSize.s20),
                                         ],
                                       ))
 
@@ -544,7 +545,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                   // ),
                                 ],
                               ),
-                              SizedBox(height: 5,)
+                              //Container(height: AppSize.s15,),
                             ],
                           ),
                         ),
