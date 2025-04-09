@@ -14,6 +14,7 @@ import '../../../../../widgets/app_clickable_widget.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../hr_module/dashboard/widgets/view_details_popup.dart';
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../textfield_dropdown_constant/chatbotContainer.dart';
 
 class InformationUpdateProvider extends ChangeNotifier{
@@ -43,6 +44,7 @@ class InformationUpdateProvider extends ChangeNotifier{
 class InformationUpdateScreen extends StatelessWidget {
   const InformationUpdateScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     TextEditingController _searchController = TextEditingController();
@@ -53,68 +55,72 @@ class InformationUpdateScreen extends StatelessWidget {
         provider.handlePatientId(fetchedPatientId);
         return  Stack(
             children:[ Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 55.0),
+              padding: const EdgeInsets.symmetric(horizontal: 75),
               child: Column(
                 children: [
                   ///button
                   Row(
-                    //crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: 320,
-                        height: 35,
-                        decoration: BoxDecoration(
-                            color: Colors.grey[100],
-                            borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(color: ColorManager.mediumgrey.withOpacity(0.1),width: 1)
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: Colors.black26,
-                          //     blurRadius: 5.0,
-                          //   ),
-                          // ],
-                        ),
-                        child: TextField(
-                          controller: _searchController,
-                          textInputAction: TextInputAction.search,
-                          //onSubmitted: (value) => _performSearch(),
-                          decoration: InputDecoration(
-                            hintText: "Search",
-                            hintStyle: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),
-                            prefixIcon: Icon(Icons.search),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.only(left: 15.0, right: 15,bottom: 5),
-                          ),
-                        ),
+                      CustomSearchFieldSM(
+                        onPressed: (){},
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10,),
-                        child: Container(
-                          height: 33,
-                          child: CustomIconButton(
-                            color: ColorManager.bluebottom,
-                            icon: Icons.add,
-                            text: "Add Patient",
-                            onPressed: () async {
-                              try {
-                                provider.onUpdateButtonPressed();
-                              }
-                              catch (e){
-                                print("Error: $e");
-                              }
-                            },
-                          ),
-                        ),
+                      SizedBox(width: 20,),
+                      IconButton(
+                        hoverColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onPressed:(){},
+                        icon: Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                       ),
                     ],
                   ),
+                  SizedBox(height: AppSize.s20,),
+                  Row(
+                    children: [
+                      Text("Referral Received", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
+                      SizedBox(width: AppSize.s10,),
+                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                      SizedBox(width: AppSize.s20,),
+                      Text("Potential DC Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      SizedBox(width: AppSize.s10,),
+                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                      SizedBox(width: AppSize.s20,),
+                      Text("Referral Source", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      SizedBox(width: AppSize.s10,),
+                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                      SizedBox(width: AppSize.s20,),
+                      Text("Demographics", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      SizedBox(width: AppSize.s10,),
+                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                      SizedBox(width: AppSize.s20,),
+                      Text("Documentation", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      SizedBox(width: AppSize.s10,),
+                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                      SizedBox(width: AppSize.s20,),
+                      Text("Insurance", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      SizedBox(width: AppSize.s10,),
+                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                      SizedBox(width: AppSize.s20,),
+                      Text("Physician Info", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      SizedBox(width: AppSize.s10,),
+                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                      SizedBox(width: AppSize.s20,),
+                      Text("Orders", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      SizedBox(width: AppSize.s10,),
+                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                      SizedBox(width: AppSize.s20,),
+                      Text("Initial Contact", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      SizedBox(width: AppSize.s10,),
+                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                    ],
+                  ),
+                  SizedBox(height: AppSize.s30,),
                   Expanded(
                       child: ScrollConfiguration(
                         behavior: ScrollBehavior().copyWith(scrollbars: false),
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,
-                          itemCount: 15,
+                          itemCount: 10,
                           itemBuilder: (context, index) {
                             //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                             // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
@@ -123,18 +129,22 @@ class InformationUpdateScreen extends StatelessWidget {
                               children: [
                                 SizedBox(height: AppSize.s5),
                                 Container(
-                                  height: AppSize.s88,
-                                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                                  height: AppSize.s90,
+                                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
                                   // margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
                                   decoration: BoxDecoration(
                                     color: ColorManager.white,
                                     borderRadius: BorderRadius.circular(12),
+                                    border: Border(left: BorderSide(
+                                      color: Color(0xFFC30909),
+                                      width: 5,
+                                    ),),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: ColorManager.black.withOpacity(0.2),
+                                        color: Colors.grey.withOpacity(0.6),
                                         spreadRadius: 0,
-                                        blurRadius: 2,
-                                        offset: Offset(0, 2),
+                                        blurRadius: 4,
+                                        offset: const Offset(0, 2),
                                       ),
                                     ],
                                   ),
@@ -162,7 +172,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(width: 10,),
+                                            SizedBox(width: 12,),
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.center,
@@ -174,8 +184,17 @@ class InformationUpdateScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w700,
                                                     color: ColorManager.mediumgrey,),
                                                 ),
+                                                SizedBox(height: 5,),
                                                 Text(
                                                   "Intake Date: 09/15/2024",
+                                                  textAlign: TextAlign.center,
+                                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.mediumgrey,),
+                                                ),
+                                                SizedBox(height: 3,),
+                                                Text(
+                                                  "Potential DC Date: 11/26/2024",
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w400,
@@ -187,53 +206,62 @@ class InformationUpdateScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 2,
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
-                                            // Image.asset(
-                                            //     "images/sm/location.png",
-                                            //   height: 25,width: 26,fit: BoxFit.fill,
-                                            // ),
-                                            SizedBox(width: 10,),
-                                            Text(
-                                              "Tufts International Center, 20 Sawyer Ave,\nMedford MA 02155 ",
-                                              textAlign: TextAlign.start,
-                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorManager.textBlack,),
-                                            ),
-                                          ],
-                                        ),
+                                        flex: 1,
+                                        child:  SizedBox(
+                                                      width: 100,
+                                                      child:Text("Apollo Hospital, Washington DC",
+                                                        textAlign: TextAlign.start,
+                                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: ColorManager.textBlack,),
+                                                      ) ,
+                                                    ),
+                                        // child: Row(
+                                        //   children: [
+                                        //     Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
+                                        //     // Image.asset(
+                                        //     //     "images/sm/location.png",
+                                        //     //   height: 25,width: 26,fit: BoxFit.fill,
+                                        //     // ),
+                                        //     SizedBox(width: 10,),
+                                        //     Text(
+                                        //       " Apollo Hospital, Washington DC",
+                                        //       textAlign: TextAlign.start,
+                                        //       style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                        //         fontWeight: FontWeight.w400,
+                                        //         color: ColorManager.textBlack,),
+                                        //     ),
+                                        //   ],
+                                       // ),
                                       ),
-                                      SizedBox(width: 10,),
+                                      // SizedBox(width: 10,),
                                       Expanded(
-                                        flex: 5,
+                                        flex: 4,
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  "Refferal :",
-                                                  textAlign: TextAlign.start,
-                                                  style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorManager.textBlack,),
-                                                ),
-                                                // SizedBox(width: 25,),
-                                                Text(
-                                                  "Prohealth App",
-                                                  textAlign: TextAlign.start,
-                                                  style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorManager.textBlack,),
-                                                ),
-                                              ],
-                                            ),
+                                            // Column(
+                                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                                            //   mainAxisAlignment: MainAxisAlignment.center,
+                                            //   children: [
+                                            //     Text(
+                                            //       "Refferal :",
+                                            //       textAlign: TextAlign.start,
+                                            //       style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            //         fontWeight: FontWeight.w400,
+                                            //         color: ColorManager.textBlack,),
+                                            //     ),
+                                            //     // SizedBox(width: 25,),
+                                            //     Text(
+                                            //       "Prohealth App",
+                                            //       textAlign: TextAlign.start,
+                                            //       style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            //         fontWeight: FontWeight.w400,
+                                            //         color: ColorManager.textBlack,),
+                                            //     ),
+                                            //   ],
+                                            // ),
                                             // SizedBox(width: 10,),
                                             Padding(
                                               padding: const EdgeInsets.only(top:30.0),
@@ -247,32 +275,16 @@ class InformationUpdateScreen extends StatelessWidget {
                                                       },
                                                       index: 0,
                                                       grpIndex: 0,
-                                                      heading: "Patients Data"),
-                                                  SizedBox(width: 5,),
+                                                      heading: "Demographics"),
+                                                  SizedBox(width: 15,),
                                                   SMDashboardMenuButtons(
                                                       onTap: (int index) {
                                                         //_selectButton(index);
                                                       },
                                                       index: 0,
                                                       grpIndex: 0,
-                                                      heading: "Physical Info"),
-                                                  SizedBox(width: 5,),
-                                                  SMDashboardMenuButtons(
-                                                      onTap: (int index) {
-                                                        //_selectButton(index);
-                                                      },
-                                                      index: 0,
-                                                      grpIndex: 0,
-                                                      heading: "Medication"),
-                                                  SizedBox(width: 5,),
-                                                  SMDashboardMenuButtons(
-                                                      onTap: (int index) {
-                                                        //_selectButton(index);
-                                                      },
-                                                      index: 0,
-                                                      grpIndex: 0,
-                                                      heading: "Lab Results"),
-                                                  SizedBox(width: 5,),
+                                                      heading: "Documentation"),
+                                                  SizedBox(width: 15,),
                                                   SMDashboardMenuButtons(
                                                       onTap: (int index) {
                                                         //_selectButton(index);
@@ -280,31 +292,153 @@ class InformationUpdateScreen extends StatelessWidget {
                                                       index: 0,
                                                       grpIndex: 0,
                                                       heading: "Insurance"),
-                                                  SizedBox(width: 5,),
+                                                  SizedBox(width: 15,),
                                                   SMDashboardMenuButtons(
                                                       onTap: (int index) {
                                                         //_selectButton(index);
                                                       },
                                                       index: 0,
                                                       grpIndex: 0,
-                                                      heading: "Notes"),
+                                                      heading: "Physician Info"),
+                                                  SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Orders"),
+                                                  SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Initial Contact"),
 
                                                 ],
 
                                               ),
                                             ),
                                             // SizedBox(width: 15,),
-                                            InkWell(
-                                              child: SvgPicture.asset("images/sm/contact_sv.svg",
-                                                height: 30,width: 20,
-                                              ),
-                                              onTap: provider._toggleChatbotVisibility,
-                                            )
+                                            // InkWell(
+                                            //   child: SvgPicture.asset("images/sm/contact_sv.svg",
+                                            //     height: 30,width: 20,
+                                            //   ),
+                                            //   onTap: provider._toggleChatbotVisibility,
+                                            // )
+                                            ///
+                                            ///
+                                            // Column(
+                                            //   mainAxisAlignment: MainAxisAlignment.center,
+                                            //   children: [
+                                            //     Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
+                                            //     SizedBox(height: 8,),
+                                            //     Text("Update",
+                                            //       style: TextStyle(
+                                            //         fontSize: FontSize.s11,
+                                            //         fontWeight: FontWeight.w600,
+                                            //         color: Color(0xFF2F6D8A),
+                                            //       ),)
+                                            //   ],
+                                            // ),
+                                            // SizedBox(width: AppSize.s20,),
+                                            // Column(
+                                            //   mainAxisAlignment: MainAxisAlignment.center,
+                                            //   children: [
+                                            //     SizedBox(height: 3,),
+                                            //     Image.asset("images/sm/move_to_s.png",height: 20,width: 20,),
+                                            //     SizedBox(height: 8,),
+                                            //     Text(" Move to\nScheduler",
+                                            //       style: TextStyle(
+                                            //         fontSize: FontSize.s11,
+                                            //         fontWeight: FontWeight.w600,
+                                            //         color: Color(0xFF2F6D8A),
+                                            //       ),)
+                                            //   ],
+                                            // ),
+                                            // SizedBox(width: AppSize.s20,),
+                                            // Column(
+                                            //   mainAxisAlignment: MainAxisAlignment.center,
+                                            //   children: [
+                                            //     Icon(Icons.block,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
+                                            //     SizedBox(height: 8,),
+                                            //     Text("Non-Admit",
+                                            //       style: TextStyle(
+                                            //         fontSize: FontSize.s11,
+                                            //         fontWeight: FontWeight.w600,
+                                            //          color: Color(0xFF2F6D8A),
+                                            //       ),)
+                                            //   ],
+                                            // )
 
                                           ],
                                         ),
                                       ),
-                                      SizedBox(width: 20,),
+                                      // SizedBox(width: 20,),
+
+                                      Expanded(
+                                        flex: 1,
+                                        child: InkWell(
+                                          onTap: (){},
+                                          child:Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
+                                              SizedBox(height: 8,),
+                                              Text("Update",
+                                                style: TextStyle(
+                                                  fontSize: FontSize.s11,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0xFF2F6D8A),
+                                                ),)
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: InkWell(
+                                          onTap: (){},
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(height: 3,),
+                                              Image.asset("images/sm/move_to_s.png",height: 20,width: 20,),
+                                              SizedBox(height: 6,),
+                                              Text(" Move to\nScheduler",
+                                                style: TextStyle(
+                                                  fontSize: FontSize.s11,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0xFF2F6D8A),
+                                                ),)
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: InkWell(
+                                          onTap: (){},
+                                          child:Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.block,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
+                                              SizedBox(height: 8,),
+                                              Text("Non-Admit",
+                                                style: TextStyle(
+                                                  fontSize: FontSize.s11,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0xFF2F6D8A),
+                                                ),)
+                                            ],
+                                          )
+                                        ),
+                                      ),
+
+
+
                                       ///conditional button don't delete
                                       //   Container(
                                       //     height:33,
@@ -361,29 +495,29 @@ class InformationUpdateScreen extends StatelessWidget {
                                       //     ),
                                       //   ),
                                       // ),
-                                      Container(
-                                        height:33,
-                                        width: 160,
-                                        child: ElevatedButton.icon(
-                                          icon: Image.asset("images/sm/move.png",height: 20,width: 20,),
-                                          onPressed: (){
-                                            showDialog(context: context, builder: (context) => ViewDetailsPopup());
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                            backgroundColor: ColorManager.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(12),
-                                              side: BorderSide(color: ColorManager.bluebottom),
-                                            ),
-                                          ), label: Text(
-                                            "Move to Schedular",
-                                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w500,
-                                              color: ColorManager.bluebottom,)
-                                        ),
-                                        ),
-                                      ),
+                                      // Container(
+                                      //   height:33,
+                                      //   width: 160,
+                                      //   child: ElevatedButton.icon(
+                                      //     icon: Image.asset("images/sm/move.png",height: 20,width: 20,),
+                                      //     onPressed: (){
+                                      //       showDialog(context: context, builder: (context) => ViewDetailsPopup());
+                                      //     },
+                                      //     style: ElevatedButton.styleFrom(
+                                      //       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                      //       backgroundColor: ColorManager.white,
+                                      //       shape: RoundedRectangleBorder(
+                                      //         borderRadius: BorderRadius.circular(12),
+                                      //         side: BorderSide(color: ColorManager.bluebottom),
+                                      //       ),
+                                      //     ), label: Text(
+                                      //       "Move to Schedular",
+                                      //       style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                      //         fontWeight: FontWeight.w500,
+                                      //         color: ColorManager.bluebottom,)
+                                      //   ),
+                                      //   ),
+                                      // ),
                                     ],),
                                 ),
                                 SizedBox(height: AppSize.s5),
@@ -500,7 +634,7 @@ class SMDashboardMenuButtons extends StatelessWidget {
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: AppMargin.m5),
                 height: 6,
-                width: 65,// textWidth + 10,
+                width: 70,// textWidth + 10,
                 decoration: BoxDecoration(
                     color: ColorManager.greenDark,
                     borderRadius: BorderRadius.circular(12)
@@ -513,6 +647,38 @@ class SMDashboardMenuButtons extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+//
+// class IconinColoum extends StatelessWidget {
+//
+//   final String text;
+//    IconinColoum({super.key, required this.text,});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Icon(Icon,size: IconSize.I18,),
+//         SizedBox(height: 8,),
+//         Text(text,
+//           style: TextStyle(
+//             fontSize: FontSize.s10,
+//             fontWeight: FontWeight.w400,
+//           ),)
+//       ],
+//     );
+//   }
+// }
+
+
+
+
+
 
 ///stf
 // class InformationUpdateScreen extends StatefulWidget {

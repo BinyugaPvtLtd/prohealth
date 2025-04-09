@@ -54,44 +54,45 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: isShowingPatientsDetailsPageview ?
       SchedularPendingPatientDetails(onMergeBackPressed: goBackToInitialScreen,)
        : Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 300,vertical: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SMTabbar(onTap: (int index){
-                  _selectButton(0);
-                }, index: 0, grpIndex: _selectedIndex, heading: "Pending", ),
-                SMTabbar(onTap: (int index){
-                  _selectButton(1);
-                }, index: 1, grpIndex: _selectedIndex, heading: "To Be Scheduled"),
-                SMTabbar(onTap: (int index){
-                  _selectButton(2);
-                }, index: 2, grpIndex: _selectedIndex, heading: "Scheduled"),
-                // SMTabbar(onTap: (int index){
-                //   _selectButton(3);
-                // }, index: 3, grpIndex: _selectedIndex, heading: "ROC",),
-                // SMTabbar(onTap: (int index){
-                //   _selectButton(4);
-                // }, index: 4, grpIndex: _selectedIndex, heading: "Overdue",badgeNumber: 55),
-                // SMTabbar(onTap: (int index){
-                //   _selectButton(5);
-                // }, index: 5, grpIndex: _selectedIndex, heading: "Completed"),
-                // SMTabbar(onTap: (int index){
-                //   _selectButton(6);
-                // }, index: 6, grpIndex: _selectedIndex, heading: "History"),
+          Row(
+           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SMTabbar(onTap: (int index){
+                _selectButton(0);
+              }, index: 0, grpIndex: _selectedIndex, heading: "Pending", ),
+              SizedBox(width: 10),
+              SMTabbar(onTap: (int index){
+                _selectButton(1);
+              }, index: 1, grpIndex: _selectedIndex, heading: "To Be Scheduled"),
+              SizedBox(width: 10),
+              SMTabbar(onTap: (int index){
+                _selectButton(2);
+              }, index: 2, grpIndex: _selectedIndex, heading: "Scheduled"),
+              // SMTabbar(onTap: (int index){
+              //   _selectButton(3);
+              // }, index: 3, grpIndex: _selectedIndex, heading: "ROC",),
+              // SMTabbar(onTap: (int index){
+              //   _selectButton(4);
+              // }, index: 4, grpIndex: _selectedIndex, heading: "Overdue",badgeNumber: 55),
+              // SMTabbar(onTap: (int index){
+              //   _selectButton(5);
+              // }, index: 5, grpIndex: _selectedIndex, heading: "Completed"),
+              // SMTabbar(onTap: (int index){
+              //   _selectButton(6);
+              // }, index: 6, grpIndex: _selectedIndex, heading: "History"),
 
-              ],
-            ),
+            ],
           ),
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 70),
+            flex: 1,
+            // child: Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 70),
               child: NonScrollablePageView(
                 controller: _tabPageController,
                 onPageChanged: (index) {
@@ -108,7 +109,7 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
                   DisciplinePageView(),
                 ],
               ),
-            ),
+            // ),
           )
         ],
       ),

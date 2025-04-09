@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/sm_intake_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/information_update.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/non_admit.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/sent_to_schedular.dart';
 import 'package:provider/provider.dart';
 
@@ -85,6 +86,16 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
                   heading: "Send to Scheduler",
                     badgeNumber: 55
                 ),
+                SizedBox(width: 20),
+                SMTabbar(
+                    onTap: (int index) {
+                      _selectButton(2);
+                    },
+                    index: 2,
+                    grpIndex: _selectedIndex,
+                    heading: "Non admit",
+                   // badgeNumber: 55
+                ),
               ],
             ),
           ),
@@ -115,6 +126,7 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
                   ),
                 ),
                 SentToSchedularScreen(),
+                NonAdmitPage(),
               ],
             ),
           ),
