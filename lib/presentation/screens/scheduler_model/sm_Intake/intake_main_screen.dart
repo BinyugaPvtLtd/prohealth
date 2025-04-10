@@ -16,7 +16,8 @@ import '../../em_module/company_identity/company_identity_screen.dart';
 
 
 class IntakeMainScreen extends StatefulWidget {
-  const IntakeMainScreen({super.key});
+  final VoidCallback intakeFlowSelected;
+  const IntakeMainScreen({super.key, required this.intakeFlowSelected});
 
   @override
   State<IntakeMainScreen> createState() => _IntakeMainScreenState();
@@ -115,8 +116,9 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
                    onPatientIdReceived: (int receivedPatientId) {
                     patientId = receivedPatientId;
                     print("pid :::::::::::: $patientId");
-                    }),
+                    }, ),
                   child: InformationUpdateScreen(
+                      selectUploadButton: widget.intakeFlowSelected
                               //onUpdateButtonPressed: switchToSMIntakeScreen,
               // onPatientIdReceived: (int receivedPatientId) {
               //                // setState(() {

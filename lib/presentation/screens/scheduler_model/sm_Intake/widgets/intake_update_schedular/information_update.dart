@@ -20,6 +20,7 @@ import '../../../textfield_dropdown_constant/chatbotContainer.dart';
 class InformationUpdateProvider extends ChangeNotifier{
   final VoidCallback onUpdateButtonPressed;
   final void Function(int patientId) onPatientIdReceived;
+
   InformationUpdateProvider({required this.onUpdateButtonPressed, required this.onPatientIdReceived});
 
 
@@ -42,7 +43,8 @@ class InformationUpdateProvider extends ChangeNotifier{
 
 }
 class InformationUpdateScreen extends StatelessWidget {
-  const InformationUpdateScreen({super.key});
+  final VoidCallback selectUploadButton;
+  const InformationUpdateScreen({required this.selectUploadButton,super.key});
 
 
   @override
@@ -381,7 +383,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
-                                          onTap: (){},
+                                          onTap: selectUploadButton,
                                           child:Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
@@ -567,8 +569,6 @@ class InformationUpdateScreen extends StatelessWidget {
                     ),
                     height: 450,
                     width: 500,
-
-
                     child: ChatBotContainer(
                       onClose: provider._toggleChatbotVisibility,
                     ),
