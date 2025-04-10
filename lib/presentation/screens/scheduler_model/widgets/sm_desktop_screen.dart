@@ -45,6 +45,19 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   int pgeControllerId = 0;
 
   final ButtonSelectionSMController myController = Get.put(ButtonSelectionSMController());
+  bool isShowingReferalEyePageview = false;
+  bool isShowingMergeDuplicatePageview = false;
+  void switchToEyePageviweScreen() {
+    setState(() {
+      isShowingReferalEyePageview = true;
+    });
+  }
+
+  void goBackToInitialScreen() {
+    setState(() {
+      isShowingReferalEyePageview = false;
+    });
+  }
 
   void navigateToPage2() {
     if (_pageController.page != 2) {
@@ -397,7 +410,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                     SmLiveViewMapScreen(),
                     Container(color:Colors.white),
                     SMIntakeScreen(onGoBackPressed: () {
-                      Navigator.pop(context);
+                      //Navigator.pop(context);
                     }, patientId: 0,)
 
 
