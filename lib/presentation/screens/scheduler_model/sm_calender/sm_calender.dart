@@ -50,37 +50,40 @@ class _SmCalenderScreenState extends State<SmCalenderScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: StreamBuilder<SchedularData>(
-          stream: _schedulerController.stream,
-          builder: (context,snapshot) {
-            getSchedularByClinitian(context: context, clinicialId: 134).then((data) {
-              _schedulerController.add(data);
-            }).catchError((error) {
-// Handle error
-            });
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 150),
-                child: Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),),
-              );
-            }
-            if(snapshot.data!.isBlank!){
-              return const Padding(
-                padding: EdgeInsets.symmetric(vertical: 150),
-                child: Center(child: Text('No record found!'),),
-              );
-            }
-            if(snapshot.hasData){
-              return Container(
-                    height: MediaQuery.of(context).size.height / 1,
-                    child: CalenderConstant(schedularData: snapshot.data!, onBack: goBack,));
-            }
-            else{
-              return const SizedBox();
-            }
-
-          }
-      ),
+      child: Container(
+          height: MediaQuery.of(context).size.height / 1,
+          child: CalenderConstant(onBack: goBack,)),
+//       StreamBuilder<SchedularData>(
+//           stream: _schedulerController.stream,
+//           builder: (context,snapshot) {
+//             getSchedularByClinitian(context: context, clinicialId: 134).then((data) {
+//               _schedulerController.add(data);
+//             }).catchError((error) {
+// // Handle error
+//             });
+//             if(snapshot.connectionState == ConnectionState.waiting){
+//               return Padding(
+//                 padding: const EdgeInsets.symmetric(vertical: 150),
+//                 child: Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),),
+//               );
+//             }
+//             if(snapshot.data!.isBlank!){
+//               return const Padding(
+//                 padding: EdgeInsets.symmetric(vertical: 150),
+//                 child: Center(child: Text('No record found!'),),
+//               );
+//             }
+//             if(snapshot.hasData){
+//               return Container(
+//                     height: MediaQuery.of(context).size.height / 1,
+//                     child: CalenderConstant(schedularData: snapshot.data!, onBack: goBack,));
+//             }
+//             else{
+//               return const SizedBox();
+//             }
+//
+//           }
+//       ),
     );
   }
 }

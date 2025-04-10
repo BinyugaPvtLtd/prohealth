@@ -373,9 +373,9 @@ import 'package:provider/provider.dart';
 import 'assign_visit_pop_up.dart';
 
 class CalenderConstant extends StatefulWidget {
-  final SchedularData schedularData;
+  final SchedularData? schedularData;
   final VoidCallback onBack;
-  CalenderConstant({required this.schedularData, required this.onBack});
+  CalenderConstant({ this.schedularData, required this.onBack});
   @override
   _CalenderConstantState createState() => _CalenderConstantState();
 }
@@ -907,7 +907,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
       builder: (context) {
         return AssignVisitPopUp(
           clinicialName: editCctlrendClinitianName,
-          patientNameController: TextEditingController(text:"${widget.schedularData.calender[0].patientFirstName} ${widget.schedularData.calender[0].patientLastName}"),
+          patientNameController: TextEditingController(text:"${widget.schedularData!.calender[0].patientFirstName} ${widget.schedularData!.calender[0].patientLastName}"),
           assignDate: ctlrassignedate,
          startTime: ctlrstarttime,
         endTime: ctlrendtime,
