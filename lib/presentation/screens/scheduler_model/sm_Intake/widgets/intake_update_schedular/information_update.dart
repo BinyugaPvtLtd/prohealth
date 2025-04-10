@@ -366,7 +366,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                             //     SizedBox(height: 8,),
                                             //     Text("Non-Admit",
                                             //       style: TextStyle(
-                                            //         fontSize: FontSize.s11,
+                                            //         fontSize:  FontSize.s11,
                                             //         fontWeight: FontWeight.w600,
                                             //          color: Color(0xFF2F6D8A),
                                             //       ),)
@@ -381,11 +381,15 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
                                           onTap: (){},
                                           child:Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
+                                              Image.asset("images/sm/cloud_uploade.png",height: 20,width: 20,),
+                                              // Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
                                               SizedBox(height: 8,),
                                               Text("Update",
                                                 style: TextStyle(
@@ -400,6 +404,9 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
                                           onTap: (){},
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -420,6 +427,9 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
                                           onTap: (){},
                                           child:Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -632,9 +642,9 @@ class SMDashboardMenuButtons extends StatelessWidget {
               final textWidth = textPainter.size.width;
               print("textwidth :::::::: $heading $textWidth");
               return Container(
-                margin: const EdgeInsets.symmetric(vertical: AppMargin.m5),
+                margin: const EdgeInsets.only(top: 12),
                 height: 6,
-                width: 70,// textWidth + 10,
+                width: 75,// textWidth + 10,
                 decoration: BoxDecoration(
                     color: ColorManager.greenDark,
                     borderRadius: BorderRadius.circular(12)
