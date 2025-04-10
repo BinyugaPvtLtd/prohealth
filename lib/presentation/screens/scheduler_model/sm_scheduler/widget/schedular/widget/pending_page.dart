@@ -397,10 +397,6 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                   SizedBox(height: AppSize.s5),
                                                   Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
                                                 ],)
-                                                // Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                                // // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                                // Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-
                                               ],
                                             ),
                                           ],

@@ -71,6 +71,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SMTabbar(
+                    width: 100,
                     onTap: (int index) {
                       _selectButton(0);
                     },
@@ -78,8 +79,9 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                     grpIndex: _selectedIndex,
                     heading: "Pending",
                 ),
-                SizedBox(width: 20),
+               // SizedBox(width: 20),
                 SMTabbar(
+                  width: 100,
                     onTap: (int index) {
                       _selectButton(1);
                     },
@@ -87,8 +89,9 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                     grpIndex: _selectedIndex,
                     heading: "Move to Intake",
                 ),
-                SizedBox(width: 20),
+               // SizedBox(width: 20),
                 SMTabbar(
+                  width: 100,
                   onTap: (int index) {
                     _selectButton(2);
                   },
