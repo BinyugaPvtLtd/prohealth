@@ -76,8 +76,6 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
     });
   }
 
-
-  ///
   ///checkbox
   bool _isChecked = false;
 
@@ -199,12 +197,12 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5,),
+                        padding: const EdgeInsets.symmetric(vertical: 6,),
                         child: Container(
                           height: 75,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(12),bottomLeft: Radius.circular(12),bottomRight: Radius.circular(12)),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.6),
@@ -237,7 +235,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                               Radius.circular(12)),),
                                         child: Center(
                                           child: Text(
-                                              'Potencial Duplicate',
+                                              'Potential Duplicate',
                                               textAlign: TextAlign.center,
                                               style: CustomTextStylesCommon.commonStyle(
                                                   color: ColorManager.mediumgrey,
@@ -280,7 +278,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                               ),
                                               SizedBox(height: AppSize.s4,),
                                               Text(
-                                                "Refferal Date: 09/15/2024",
+                                                "Referral Date :  09/15/2024",
                                                 textAlign: TextAlign.center,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
                                                   fontWeight: FontWeight.w400,
@@ -311,9 +309,9 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Refferal Source: ",
+                                          "Referral Source: ",
                                           textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
@@ -337,7 +335,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                         Text(
                                           "PCP: ",
                                           textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
@@ -361,7 +359,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                         Text(
                                           "Primary Diagnosis: ",
                                           textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
@@ -391,7 +389,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                       child: Row(
                                         children: [
                                         Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
-                                        SizedBox(width: AppSize.s15),
+                                         SizedBox(width: AppSize.s30),
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(60),
                                           child: SizedBox(
@@ -432,7 +430,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                               ),
                                             ),
                                           ),
-                                        SizedBox(width: AppSize.s7),
+                                        SizedBox(width: AppSize.s4),
 
                                         IconButton(
                                             hoverColor: Colors.transparent,
@@ -443,13 +441,13 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                         SizedBox(width: AppSize.s7),
                                         Container(
                                           height:33,
-                                          width: 130,
+                                          width: 125,
                                           child: ElevatedButton.icon(
                                             icon: Image.asset("images/sm/move.png",height: 20,width: 20,),
                                             onPressed: (){
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                                               backgroundColor: ColorManager.white,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.circular(12),
@@ -463,7 +461,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           ),
                                           ),
                                         ),
-                                        SizedBox(width: AppSize.s7),
+                                        SizedBox(width: AppSize.s6),
                                           PopupMenuButton<String>(
                                             splashRadius: 0,
                                             onSelected: (value) {
