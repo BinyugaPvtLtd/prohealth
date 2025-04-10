@@ -161,10 +161,10 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                          mainAxisAlignment: MainAxisAlignment.center,
                                          children: [
                                            Text(
-                                             "John smith",
+                                             "John Smith",
                                              textAlign: TextAlign.center,
                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                               fontWeight: FontWeight.w700,
+                                               fontWeight: FontWeight.w600,
                                                color: ColorManager.mediumgrey,),
                                            ),
                                            SizedBox(height: 5,),
@@ -176,12 +176,24 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                                color: ColorManager.mediumgrey,),
                                            ),
                                            SizedBox(height: 3,),
-                                           Text(
-                                             "Potential DC Date: 11/26/2024",
-                                             textAlign: TextAlign.center,
-                                             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                               fontWeight: FontWeight.w400,
-                                               color: ColorManager.mediumgrey,),
+                                           Row(
+                                             children: [
+                                               Text(
+                                                 "Potential DC Date :",
+                                                 textAlign: TextAlign.center,
+                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                   fontWeight: FontWeight.w600,
+                                                   color: ColorManager.mediumgrey,),
+                                               ),
+                                               Text(
+                                                 " 11/26/2024",
+                                                 textAlign: TextAlign.center,
+                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                   fontWeight: FontWeight.w400,
+                                                   color: ColorManager.mediumgrey,),
+                                               ),
+
+                                             ],
                                            ),
                                          ],
                                        ),
@@ -195,7 +207,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                      child:Text("Apollo Hospital, Washington DC",
                                        textAlign: TextAlign.start,
                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                         fontWeight: FontWeight.w400,
+                                         fontWeight: FontWeight.w500,
                                          color: ColorManager.textBlack,),
                                      ) ,
                                    ),
@@ -214,7 +226,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                            textAlign: TextAlign.start,
                                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                              fontWeight: FontWeight.w400,
-                                             color: ColorManager.textBlack,),
+                                             color: ColorManager.mediumgrey,),
                                          ) ,
                                        )
                                      ],
@@ -222,53 +234,51 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                  ),
                              Expanded(
                                flex: 2,
-                               child: Padding(
-                                 padding: const EdgeInsets.only(left: 25.0),
-                                 child: Row(
-                                   children: [
-                                     Stack(
-                                       children: [
-                                         ClipRRect(
-                                           borderRadius: BorderRadius.circular(60),
-                                           child: SizedBox(
-                                             width: AppSize.s45,
-                                             height: AppSize.s50,
-                                             child: Image.asset(
-                                               'images/1.png', // Replace with your image path
-                                               fit: BoxFit.cover,
-                                             ),
+                               child: Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                                 children: [
+                                   Stack(
+                                     children: [
+                                       ClipRRect(
+                                         borderRadius: BorderRadius.circular(60),
+                                         child: SizedBox(
+                                           width: AppSize.s45,
+                                           height: AppSize.s50,
+                                           child: Image.asset(
+                                             'images/1.png', // Replace with your image path
+                                             fit: BoxFit.cover,
                                            ),
                                          ),
-                                         Positioned(
-                                           left:22,
-                                           bottom :1,
-                                           child: Container(
-                                             width: 19,
-                                             height: 19,
-                                             decoration: BoxDecoration(
-                                                 color: Color(0xFF527FB9),
-                                                 borderRadius: BorderRadius.circular(3)
-                                             ),
-                                             child: Center(
-                                               child: Text("ST",style: TextStyle(
-                                                 fontWeight: FontWeight.w400,
-                                                 fontSize: 10,
-                                                 color: ColorManager.white,
-                                                 decoration: TextDecoration.none,
-                                               ),),
-                                             ),
-                                           ),)
-                                       ],
-                                     ),
-                                     SizedBox(width: AppSize.s7),
-                                     Text(
-                                       'James',
-                                       style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                       fontWeight: FontWeight.w400,
-                                       color: ColorManager.textBlack,),
-                                     ),
-                                   ],
-                                 ),
+                                       ),
+                                       Positioned(
+                                         left:22,
+                                         bottom :1,
+                                         child: Container(
+                                           width: 19,
+                                           height: 19,
+                                           decoration: BoxDecoration(
+                                               color: Color(0xFF527FB9),
+                                               borderRadius: BorderRadius.circular(3)
+                                           ),
+                                           child: Center(
+                                             child: Text("ST",style: TextStyle(
+                                               fontWeight: FontWeight.w400,
+                                               fontSize: 10,
+                                               color: ColorManager.white,
+                                               decoration: TextDecoration.none,
+                                             ),),
+                                           ),
+                                         ),)
+                                     ],
+                                   ),
+                                   SizedBox(width: AppSize.s12),
+                                   Text(
+                                     'James',
+                                     style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                     fontWeight: FontWeight.w400,
+                                     color: ColorManager.textBlack,),
+                                   ),
+                                 ],
                                ),
                              ),
                                Expanded(
@@ -291,7 +301,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                            ),
                                          ),
                                        ),
-                                       SizedBox(width: 10,),
+                                       SizedBox(width: 20,),
                                        Text(
                                          "Scheduled",
                                          textAlign: TextAlign.start,

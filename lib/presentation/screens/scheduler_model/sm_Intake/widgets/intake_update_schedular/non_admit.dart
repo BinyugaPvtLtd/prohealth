@@ -157,7 +157,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              "John smith",
+                                              "John Smith",
                                               textAlign: TextAlign.center,
                                               style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                 fontWeight: FontWeight.w700,
@@ -172,12 +172,24 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                 color: ColorManager.mediumgrey,),
                                             ),
                                             SizedBox(height: 3,),
-                                            Text(
-                                              "Potential DC Date: 11/26/2024",
-                                              textAlign: TextAlign.center,
-                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorManager.mediumgrey,),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "Potential DC Date :",
+                                                  textAlign: TextAlign.center,
+                                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.mediumgrey,),
+                                                ),
+                                                Text(
+                                                  " 11/26/2024",
+                                                  textAlign: TextAlign.center,
+                                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.mediumgrey,),
+                                                ),
+
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -191,7 +203,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                       child:Text("Apollo Hospital, Washington DC",
                                         textAlign: TextAlign.start,
                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w400,
+                                          fontWeight: FontWeight.w500,
                                           color: ColorManager.textBlack,),
                                       ) ,
                                     ),

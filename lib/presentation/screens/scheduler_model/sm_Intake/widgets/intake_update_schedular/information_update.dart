@@ -180,7 +180,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "John smith",
+                                                  "John Smith",
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w700,
@@ -195,12 +195,24 @@ class InformationUpdateScreen extends StatelessWidget {
                                                     color: ColorManager.mediumgrey,),
                                                 ),
                                                 SizedBox(height: 3,),
-                                                Text(
-                                                  "Potential DC Date: 11/26/2024",
-                                                  textAlign: TextAlign.center,
-                                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorManager.mediumgrey,),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      "Potential DC Date :",
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: ColorManager.mediumgrey,),
+                                                    ),
+                                                    Text(
+                                                      " 11/26/2024",
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w400,
+                                                        color: ColorManager.mediumgrey,),
+                                                    ),
+
+                                                  ],
                                                 ),
                                               ],
                                             ),
@@ -214,7 +226,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                       child:Text("Apollo Hospital, Washington DC",
                                                         textAlign: TextAlign.start,
                                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w400,
+                                                          fontWeight: FontWeight.w500,
                                                           color: ColorManager.textBlack,),
                                                       ) ,
                                                     ),
@@ -633,7 +645,7 @@ class SMDashboardMenuButtons extends StatelessWidget {
               final textWidth = textPainter.size.width;
               print("textwidth :::::::: $heading $textWidth");
               return Container(
-                margin: const EdgeInsets.symmetric(vertical: AppMargin.m5),
+                margin: const EdgeInsets.only(top: 10),
                 height: 6,
                 width: 70,// textWidth + 10,
                 decoration: BoxDecoration(

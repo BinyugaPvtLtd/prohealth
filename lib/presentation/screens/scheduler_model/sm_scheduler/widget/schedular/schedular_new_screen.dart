@@ -60,8 +60,9 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
        : Column(
         children: [
           Row(
-           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisAlignment: MainAxisAlignment.center,
+           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+           // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SMTabbar(onTap: (int index){
                 _selectButton(0);
@@ -151,7 +152,7 @@ class SMTabbar extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: 200, // Fixed width for the heading container
+            width: 130, // Fixed width for the heading container
             height: 40, // Fixed height for the heading container
             child: Align(
               alignment: Alignment.center, // Align text to the left
@@ -187,7 +188,7 @@ class SMTabbar extends StatelessWidget {
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 height: 2,
-                width: textWidth + 100, // Adjust padding around text
+                width: textWidth + 60, // Adjust padding around text
                 color: grpIndex == index
                     ? ColorManager.blueprime
                     : Colors.transparent,
