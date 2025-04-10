@@ -196,7 +196,7 @@ class SMTabbar extends StatelessWidget {
             children: [
               Container(
                 //color: Colors.red,
-                width: width ?? 160,
+                width: width ?? 170,
                 height: 40,
                 child: Align(
                   alignment: Alignment.center,
@@ -210,7 +210,7 @@ class SMTabbar extends StatelessWidget {
                 Positioned(
                   right: -5,
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 2),
+                    padding: EdgeInsets.symmetric(horizontal: 4,vertical: 2),
                     decoration: BoxDecoration(
                       color: ColorManager.blueprime, // Badge color
                       borderRadius: BorderRadius.circular(12), // Rounded badge
