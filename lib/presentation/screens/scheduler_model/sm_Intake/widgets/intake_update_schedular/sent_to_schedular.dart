@@ -214,6 +214,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                  ),
                                  SizedBox(width: 10,),
 
+
                                  Expanded(
                                    flex: 2,
                                    child: Row(
