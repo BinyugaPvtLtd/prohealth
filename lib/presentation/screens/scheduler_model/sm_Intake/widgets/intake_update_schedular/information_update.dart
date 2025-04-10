@@ -387,7 +387,8 @@ class InformationUpdateScreen extends StatelessWidget {
                                           child:Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
+                                              Image.asset("images/sm/cloud_uploade.png",height: 20,width: 20,),
+                                              // Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
                                               SizedBox(height: 8,),
                                               Text("Update",
                                                 style: TextStyle(

@@ -397,7 +397,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                     SmLiveViewMapScreen(),
                     Container(color:Colors.white),
                     SMIntakeScreen(onGoBackPressed: () {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                     }, patientId: 0,)
 
 
