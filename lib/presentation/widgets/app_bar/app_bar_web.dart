@@ -496,8 +496,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                   print("userid appbar (waiting state): ${snapshot.data?.userId}");
                                                 },
                                               );
-                                            }
-                                            else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty) {
+                                            } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty) {
                                               print("Error or empty imgUrl or snapshot data is null");
                                               return GestureDetector(
                                                 child: CircleAvatar(
@@ -511,67 +510,37 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               );
                                             } else if (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty) {
                                               print("Data exists and imgUrl is not empty: ${snapshot.data!.imgUrl}");
-                                              return
-                                                GestureDetector(
-                                                  child: CircleAvatar(
-                                                    backgroundColor: Colors.transparent,
-                                                    radius: 13,
-                                                    child: ClipOval(
-                                                      child: Image.network(
-                                                        snapshot.data!.imgUrl,
-                                                        width: 26,
-                                                        height: 26,
-                                                        fit: BoxFit.cover,
-                                                        loadingBuilder: (context, child, loadingProgress) {
-                                                          if (loadingProgress == null) {
-                                                            print("Image loaded successfully");
-                                                            return child;
-                                                          } else {
-                                                            print("Image is loading...");
-                                                            return Center(child: CircularProgressIndicator(strokeWidth: 2));
-                                                          }
-                                                        },
-                                                        errorBuilder: (context, error, stackTrace) {
-                                                          print("Error loading image, fallback to default");
-                                                          return Image.asset("images/profilepic.png", fit: BoxFit.cover);
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    print("userid appbar (network image): ${snapshot.data?.userId}");
-                                                  },
-                                                );
+                                              return GestureDetector(
+                                                child: CircleAvatar(
+                                                  backgroundColor: Colors.transparent,
+                                                  radius: 13, // Adjust size as needed
+                                                  backgroundImage: NetworkImage(snapshot.data!.imgUrl,),
 
-
-                                              ///
-                                              //   GestureDetector(
-                                              //   child: CircleAvatar(
-                                              //     backgroundColor: Colors.transparent,
-                                              //     radius: 13, // Adjust size as needed
-                                              //     child: Image.network(
-                                              //       snapshot.data!.imgUrl,
-                                              //       fit: BoxFit.cover,
-                                              //       loadingBuilder: (context, child, loadingProgress) {
-                                              //         if (loadingProgress == null) {
-                                              //           print("Image loaded successfully");
-                                              //           return child; // When image has fully loaded
-                                              //         } else {
-                                              //           print("Image is loading...");
-                                              //           return Center(child: CircularProgressIndicator());
-                                              //         }
-                                              //       },
-                                              //       errorBuilder: (context, error, stackTrace) {
-                                              //         print("Error loading image, fallback to default");
-                                              //         // Fallback to default image if error occurs (invalid URL, etc.)
-                                              //         return Image.asset("images/profilepic.png", fit: BoxFit.cover);
-                                              //       },
-                                              //     ),
-                                              //   ),
-                                              //   onTap: () {
-                                              //     print("userid appbar (network image): ${snapshot.data?.userId}");
-                                              //   },
-                                              // );
+                                                  // child: ClipOval(
+                                                  //   child: Image.network(
+                                                  //     snapshot.data!.imgUrl,
+                                                  //     fit: BoxFit.cover,
+                                                  //     loadingBuilder: (context, child, loadingProgress) {
+                                                  //       if (loadingProgress == null) {
+                                                  //         print("Image loaded successfully");
+                                                  //         return child; // When image has fully loaded
+                                                  //       } else {
+                                                  //         print("Image is loading...");
+                                                  //         return Center(child: CircularProgressIndicator());
+                                                  //       }
+                                                  //     },
+                                                  //     errorBuilder: (context, error, stackTrace) {
+                                                  //       print("Error loading image, fallback to default");
+                                                  //       // Fallback to default image if error occurs (invalid URL, etc.)
+                                                  //       return Image.asset("images/profilepic.png", fit: BoxFit.cover);
+                                                  //     },
+                                                  //   ),
+                                                  // ),
+                                                ),
+                                                onTap: () {
+                                                  print("userid appbar (network image): ${snapshot.data?.userId}");
+                                                },
+                                              );
                                             } else {
                                               print("No data or image URL empty, fallback to default");
                                               return GestureDetector(

@@ -63,6 +63,14 @@ class LicensesChildTabbar extends StatelessWidget {
     String docName ='Select Document';
     String docNameadd ='Select';
     String docNameEdit ='';
+
+    // Truncate the text to 10 characters
+    String _truncateText(String text, int maxLength) {
+      if (text.length > maxLength) {
+        return text.substring(0, maxLength) + '...'; // Add "..." if the text exceeds 10 characters
+      }
+      return text;
+    }
     return Column(
       children: [
         Padding(
@@ -371,8 +379,12 @@ class LicensesChildTabbar extends StatelessWidget {
                             },
                             child: CompositedTransformTarget(link: _layerLink,
                               child: Text(
-                                snapshot.data![index].org ,
+                                _truncateText(snapshot.data![index].org ?? '--', 10),
                                 style: ThemeManagerDarkFont.customTextStyle(context),
+                                overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                maxLines: 1,
+                                // snapshot.data![index].org ,
+                                // style: ThemeManagerDarkFont.customTextStyle(context),
                               ),),
                           ),
                           // Text(_trimAddress(snapshot.data![index].org),

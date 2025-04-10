@@ -32,118 +32,45 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      CustomSearchFieldSM(
-                        onPressed: (){},
-                      ),
-                      SizedBox(width: AppSize.s20,),
-                      IconButton(
-                        hoverColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onPressed: _toggleFilter,
-                        icon: Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
-                      ),
-                    ],
+                  CustomSearchFieldSM(
+                    onPressed: (){},
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: AppSize.s30,
-                        child: CustomIconButton(
-                          color: ColorManager.bluebottom,
-                          icon: Icons.add,
-                          textWeight: FontWeight.w600,
-                          textSize: FontSize.s11,
-                          text: "Add Refferal",
-                          onPressed: ()async{},
-                        ),
-                      ),
-                      SizedBox(width: AppSize.s10,),
-                      SmDropdownConst(
-                        height: AppSize.s30,
-                        width:AppSize.s150,
-                        isAstric:false,
-                        // Adjust headText based on depId
-                        initialValue: 'Office',
-                        headText: "", // Default fallback if depId doesn't match any of the expected values
-                        items: ['Office 1','Office 2','Office 3'],
-                        onChanged: (newValue) {
-                          // for (var a in snapshot.data!) {
-                          //   if (a.empType == newValue) {
-                          //     clinicialName = a.empType!;
-                          //     clinicalId = a.employeeTypesId!;
-                          //     print("Dept ID'''''' ${clinicalId}");
-                          //     print("';';';''''''''Dept ID ${clinicialName}");
-                          //     // Do something with docType
-                          //   }
-                          // }
-                        },
-                      ),
-                      SizedBox(width: AppSize.s10,),
-                      SmDropdownConst(
-                        height: AppSize.s30,
-                        width:AppSize.s150,
-                        isAstric:false,
-                        // Adjust headText based on depId
-                        initialValue: 'All',
-                        headText: "", // Default fallback if depId doesn't match any of the expected values
-                        items: ['All','Referral App','E-Fax','E-Referrals','Manual',],
-                        onChanged: (newValue) {
-                          // for (var a in snapshot.data!) {
-                          //   if (a.empType == newValue) {
-                          //     clinicialName = a.empType!;
-                          //     clinicalId = a.employeeTypesId!;
-                          //     print("Dept ID'''''' ${clinicalId}");
-                          //     print("';';';''''''''Dept ID ${clinicialName}");
-                          //     // Do something with docType
-                          //   }
-                          // }
-                        },
-                      ),
-
-                    ],
+                  SizedBox(width: AppSize.s20,),
+                  IconButton(
+                      hoverColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: _toggleFilter,
+                      icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 15,)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                   ),
                 ],
               ),
               SizedBox(height: AppSize.s20,),
               Row(
                 children: [
-                  Text("Time",
-                    style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
-                  SizedBox(width: AppSize.s30,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
-                  Text("Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s30,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
-                  Text("Most Recent",
+                  Text("Received Date",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s30,),
+                  SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  SizedBox(width: AppSize.s45,),
                   Text("Hospitals",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s30,),
+                  SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  SizedBox(width: AppSize.s45,),
                   Text("PCP",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s30,),
+                  SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                 ],
               ),
-              SizedBox(height: AppSize.s30,),
+              SizedBox(height: AppSize.s20,),
               Expanded(
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -151,7 +78,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
+                        padding: const EdgeInsets.symmetric(vertical: 5,),
                         child: Container(
                           height: 75,
                           decoration: BoxDecoration(
@@ -165,8 +92,15 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                 offset: const Offset(0, 2),
                               ),
                             ],
+                            // border:  Border(
+                            //   left: BorderSide(
+                            //     color: ColorManager.greenDark,
+                            //     width: 6,
+                            //   ),
+                            // ),
                           ),
-                          child: Column(
+                          child:
+                          Column(
                             children: [
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -174,7 +108,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                   children:[
                                     Container(
                                         width: AppSize.s99,
-                                        height: AppSize.s20,
+                                        height: AppSize.s15,
                                         decoration: BoxDecoration(
                                           color:Color(0xFFFFE4E2),
                                           borderRadius: BorderRadius.only(
@@ -197,14 +131,14 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                   Expanded(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 30.0),
+                                      padding: const EdgeInsets.only(left: 20.0),
                                       child: Row(
                                         children: [
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
                                               width: AppSize.s45,
-                                              height: AppSize.s50,
+                                              height: AppSize.s45,
                                               child: Image.asset(
                                                 'images/1.png', // Replace with your image path
                                                 fit: BoxFit.cover,
@@ -233,13 +167,15 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               ),
                                             ],
                                           ),
+                                          SizedBox(width: AppSize.s40),
+                                          Text("Ch #1",style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.textBlack,)),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Text("Ch #1",style: DocDefineTableData.customTextStyle(context),),
-                                  ),
+                                  SizedBox(width: 30,),
                                   Expanded(
                                     flex: 1,
                                     child:  Column(
@@ -264,7 +200,6 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 15,),
                                   Expanded(
                                     flex: 1,
                                     child:  Column(
@@ -313,18 +248,18 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 15,),
                                   Expanded(
                                     flex: 1,
                                     child: Row(
                                       children: [
-                                    Image.asset("images/logo.png",width: 100,),
+
+                                        Image.asset('images/logo_login.png',width: 100,),
+                                        // Text("Manual",style: DocDefineTableData.customTextStyle(context),),
                                       ],
                                     ),
                                   ),
-
                                   Expanded(
-                                      flex: 3,
+                                      flex: 2,
                                       child: Row(
                                         children: [
                                           Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
@@ -333,14 +268,14 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
                                               width: AppSize.s45,
-                                              height: AppSize.s50,
+                                              height: AppSize.s45,
                                               child: Image.asset(
                                                 'images/1.png', // Replace with your image path
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: AppSize.s7),
+                                          SizedBox(width: AppSize.s15),
                                           Text(
                                             "Sophia Scott",
                                             textAlign: TextAlign.center,
@@ -348,7 +283,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               fontWeight: FontWeight.w700,
                                               color: ColorManager.mediumgrey,),
                                           ),
-                                          SizedBox(width: AppSize.s7),
+                                          SizedBox(width: AppSize.s15),
                                           InkWell(
                                             onTap: () async {
                                               try {
@@ -359,7 +294,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               }
                                             },
                                             child: Container(
-                                              width: AppSize.s45,
+                                              width: AppSize.s40,
                                               height: AppSize.s45,
                                               child: Image.asset(
                                                 'images/eye.png',
@@ -368,24 +303,42 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                                 color: ColorManager.bluebottom,
                                               ),
                                             ),
-                                          ), SizedBox(width: AppSize.s7),
+                                          ),
+                                          SizedBox(width: AppSize.s15),
                                           IconButton(
                                               hoverColor: Colors.transparent,
                                               splashColor: Colors.transparent,
                                               highlightColor: Colors.transparent,
                                               onPressed: (){},
                                               icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
-                                          SizedBox(width: AppSize.s7),
-                                          IconButton(
-                                              hoverColor: Colors.transparent,
-                                              splashColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
-                                              onPressed: (){}, icon: Icon(Icons.more_vert,color: ColorManager.mediumgrey,))
+                                          SizedBox(width: AppSize.s15),
+                                          PopupMenuButton<String>(
+                                            splashRadius: 0,
+                                            onSelected: (value) {
+                                              if (value == 'Option 1') {
+                                                widget.onEyeButtonPressed;
+                                                print('Option 1 Selected');
+                                              } else if (value == 'Option 2') {
+                                                print('Option 2 Selected');
+                                              }
+                                            },
+                                            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                                              PopupMenuItem<String>(
+                                                value: 'Option 1',
+                                                child: Text('Option 1'),
+                                              ),
+                                              PopupMenuItem<String>(
+                                                value: 'Option 2',
+                                                child: Text('Option 2'),
+                                              ),
+                                            ],
+                                            child: Icon(Icons.more_vert),
+                                          ),
                                         ],
                                       ))
-
                                 ],
                               ),
+                              Container(height: AppSize.s15,),
                             ],
                           ),
                         ),
@@ -394,6 +347,256 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                   ),
                 ),
               ),
+              // Expanded(
+              //   child: ScrollConfiguration(
+              //     behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              //     child: ListView.builder(
+              //       itemCount: 5,
+              //       itemBuilder: (BuildContext context, int index) {
+              //         return Padding(
+              //           padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
+              //           child: Container(
+              //             height: 75,
+              //             decoration: BoxDecoration(
+              //               color: Colors.white,
+              //               borderRadius: BorderRadius.circular(12),
+              //               boxShadow: [
+              //                 BoxShadow(
+              //                   color: Colors.grey.withOpacity(0.6),
+              //                   spreadRadius: 0,
+              //                   blurRadius: 4,
+              //                   offset: const Offset(0, 2),
+              //                 ),
+              //               ],
+              //             ),
+              //             child: Column(
+              //               children: [
+              //                 Row(
+              //                     mainAxisAlignment: MainAxisAlignment.end,
+              //                     crossAxisAlignment: CrossAxisAlignment.end,
+              //                     children:[
+              //                       Container(
+              //                           width: AppSize.s99,
+              //                           height: AppSize.s20,
+              //                           decoration: BoxDecoration(
+              //                             color:Color(0xFFFFE4E2),
+              //                             borderRadius: BorderRadius.only(
+              //                                 topRight:
+              //                                 Radius.circular(12)),),
+              //                           child: Center(
+              //                             child: Text(
+              //                                 'Potencial Duplicate',
+              //                                 textAlign: TextAlign.center,
+              //                                 style: CustomTextStylesCommon.commonStyle(
+              //                                     color: ColorManager.mediumgrey,
+              //                                     fontSize: FontSize.s11,
+              //                                     fontWeight: FontWeight.w400)),
+              //                           )),
+              //                     ]
+              //                 ),
+              //                 Row(
+              //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //                   children: [
+              //                     Expanded(
+              //                       flex: 2,
+              //                       child: Padding(
+              //                         padding: const EdgeInsets.only(left: 30.0),
+              //                         child: Row(
+              //                           children: [
+              //                             ClipRRect(
+              //                               borderRadius: BorderRadius.circular(60),
+              //                               child: SizedBox(
+              //                                 width: AppSize.s45,
+              //                                 height: AppSize.s50,
+              //                                 child: Image.asset(
+              //                                   'images/1.png', // Replace with your image path
+              //                                   fit: BoxFit.cover,
+              //                                 ),
+              //                               ),
+              //                             ),
+              //                             SizedBox(width: AppSize.s12),
+              //                             Column(
+              //                               crossAxisAlignment: CrossAxisAlignment.start,
+              //                               mainAxisAlignment: MainAxisAlignment.center,
+              //                               children: [
+              //                                 Text(
+              //                                   "John smith",
+              //                                   textAlign: TextAlign.center,
+              //                                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+              //                                     fontWeight: FontWeight.w700,
+              //                                     color: ColorManager.mediumgrey,),
+              //                                 ),
+              //                                 SizedBox(height: AppSize.s4,),
+              //                                 Text(
+              //                                   "Refferal Date: 09/15/2024",
+              //                                   textAlign: TextAlign.center,
+              //                                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+              //                                     fontWeight: FontWeight.w400,
+              //                                     color: ColorManager.mediumgrey,),
+              //                                 ),
+              //                               ],
+              //                             ),
+              //                           ],
+              //                         ),
+              //                       ),
+              //                     ),
+              //                     Expanded(
+              //                       child: Text("Ch #1",style: DocDefineTableData.customTextStyle(context),),
+              //                     ),
+              //                     Expanded(
+              //                       flex: 1,
+              //                       child:  Column(
+              //                         crossAxisAlignment: CrossAxisAlignment.start,
+              //                         mainAxisAlignment: MainAxisAlignment.center,
+              //                         children: [
+              //                           Text(
+              //                             "Refferal Source: ",
+              //                             textAlign: TextAlign.center,
+              //                             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+              //                               fontWeight: FontWeight.w400,
+              //                               color: ColorManager.mediumgrey,),
+              //                           ),
+              //                           SizedBox(height: AppSize.s4,),
+              //                           Text(
+              //                             "Sunshine Hospital",
+              //                             textAlign: TextAlign.center,
+              //                             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+              //                               fontWeight: FontWeight.w700,
+              //                               color: ColorManager.mediumgrey,),
+              //                           ),
+              //                         ],
+              //                       ),
+              //                     ),
+              //                     SizedBox(width: 15,),
+              //                     Expanded(
+              //                       flex: 1,
+              //                       child:  Column(
+              //                         crossAxisAlignment: CrossAxisAlignment.start,
+              //                         mainAxisAlignment: MainAxisAlignment.center,
+              //                         children: [
+              //                           Text(
+              //                             "PCP: ",
+              //                             textAlign: TextAlign.center,
+              //                             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+              //                               fontWeight: FontWeight.w400,
+              //                               color: ColorManager.mediumgrey,),
+              //                           ),
+              //                           SizedBox(height: AppSize.s4,),
+              //                           Text(
+              //                             "Sam Johnson",
+              //                             textAlign: TextAlign.center,
+              //                             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+              //                               fontWeight: FontWeight.w700,
+              //                               color: ColorManager.mediumgrey,),
+              //                           ),
+              //                         ],
+              //                       ),
+              //                     ),
+              //                     Expanded(
+              //                       flex: 1,
+              //                       child:  Column(
+              //                         crossAxisAlignment: CrossAxisAlignment.start,
+              //                         mainAxisAlignment: MainAxisAlignment.center,
+              //                         children: [
+              //                           Text(
+              //                             "Primary Diagnosis: ",
+              //                             textAlign: TextAlign.center,
+              //                             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+              //                               fontWeight: FontWeight.w400,
+              //                               color: ColorManager.mediumgrey,),
+              //                           ),
+              //                           SizedBox(height: AppSize.s4,),
+              //                           Text(
+              //                             "Migraine",
+              //                             textAlign: TextAlign.center,
+              //                             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+              //                               fontWeight: FontWeight.w700,
+              //                               color: ColorManager.mediumgrey,),
+              //                           ),
+              //                         ],
+              //                       ),
+              //                     ),
+              //                     SizedBox(width: 15,),
+              //                     Expanded(
+              //                       flex: 1,
+              //                       child: Row(
+              //                         children: [
+              //                       Image.asset("images/logo.png",width: 100,),
+              //                         ],
+              //                       ),
+              //                     ),
+              //
+              //                     Expanded(
+              //                         flex: 3,
+              //                         child: Row(
+              //                           children: [
+              //                             Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
+              //                             SizedBox(width: AppSize.s15),
+              //                             ClipRRect(
+              //                               borderRadius: BorderRadius.circular(60),
+              //                               child: SizedBox(
+              //                                 width: AppSize.s45,
+              //                                 height: AppSize.s50,
+              //                                 child: Image.asset(
+              //                                   'images/1.png', // Replace with your image path
+              //                                   fit: BoxFit.cover,
+              //                                 ),
+              //                               ),
+              //                             ),
+              //                             SizedBox(width: AppSize.s7),
+              //                             Text(
+              //                               "Sophia Scott",
+              //                               textAlign: TextAlign.center,
+              //                               style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+              //                                 fontWeight: FontWeight.w700,
+              //                                 color: ColorManager.mediumgrey,),
+              //                             ),
+              //                             SizedBox(width: AppSize.s7),
+              //                             InkWell(
+              //                               onTap: () async {
+              //                                 try {
+              //                                   widget.onEyeButtonPressed();
+              //                                 }
+              //                                 catch (e){
+              //                                   print("Error: $e");
+              //                                 }
+              //                               },
+              //                               child: Container(
+              //                                 width: AppSize.s45,
+              //                                 height: AppSize.s45,
+              //                                 child: Image.asset(
+              //                                   'images/eye.png',
+              //                                   height: AppSize.s15,
+              //                                   width: AppSize.s22,
+              //                                   color: ColorManager.bluebottom,
+              //                                 ),
+              //                               ),
+              //                             ), SizedBox(width: AppSize.s7),
+              //                             IconButton(
+              //                                 hoverColor: Colors.transparent,
+              //                                 splashColor: Colors.transparent,
+              //                                 highlightColor: Colors.transparent,
+              //                                 onPressed: (){},
+              //                                 icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
+              //                             SizedBox(width: AppSize.s7),
+              //                             IconButton(
+              //                                 hoverColor: Colors.transparent,
+              //                                 splashColor: Colors.transparent,
+              //                                 highlightColor: Colors.transparent,
+              //                                 onPressed: (){}, icon: Icon(Icons.more_vert,color: ColorManager.mediumgrey,))
+              //                           ],
+              //                         ))
+              //
+              //                   ],
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ); },
+              //
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

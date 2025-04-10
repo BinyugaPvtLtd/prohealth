@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widg
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/roc_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/soc_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/schedular_pending_patient_details.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -37,23 +38,39 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
     );
   }
   bool _showAutoScreen = false;
+  bool isShowingPatientsDetailsPageview = false;
+  bool isShowingMergeDuplicatePageview = false;
+  void switchToPatientsDetailsPageviweScreen() {
+    setState(() {
+      isShowingPatientsDetailsPageview = true;
+    });
+  }
+
+  void goBackToInitialScreen() {
+    setState(() {
+      isShowingPatientsDetailsPageview = false;
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (!_showAutoScreen)
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 300,vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
+    return Scaffold(
+      backgroundColor: ColorManager.white,
+      body: isShowingPatientsDetailsPageview ?
+      SchedularPendingPatientDetails(onMergeBackPressed: goBackToInitialScreen,)
+       : Column(
+        children: [
+          Row(
+           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SMTabbar(onTap: (int index){
                 _selectButton(0);
               }, index: 0, grpIndex: _selectedIndex, heading: "Pending", ),
+              SizedBox(width: 10),
               SMTabbar(onTap: (int index){
                 _selectButton(1);
               }, index: 1, grpIndex: _selectedIndex, heading: "To Be Scheduled"),
+              SizedBox(width: 10),
               SMTabbar(onTap: (int index){
                 _selectButton(2);
               }, index: 2, grpIndex: _selectedIndex, heading: "Scheduled"),
@@ -72,62 +89,30 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
 
             ],
           ),
-        ),
-
-
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 70),
-            child:_showAutoScreen
-                ? Auto_Assign(
-              onGoBackAuto: () {
-                setState(() {
-                  _showAutoScreen = false; // Show PageView
-                });
-              },
-            )
-                : NonScrollablePageView(
-              controller: _tabPageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              children: [
-                // Page 1
-                PendingPageView(
-                  onAutoTap: () {
-                    setState(() {
-                      _showAutoScreen = true; // Show view-more screen
-                    });
-                  },
-                  // docId: widget.docId,
-                  // subDocId: AppConfig.subDocId1Licenses,
-                  // officeId: widget.officeId,
-                ),
-                SocPageView(),
-                DisciplinePageView(),
-
-
-
-
-                // RocPageView(),
-                // OverdeuPageView(
-                //   // docId: widget.docId,
-                //   // subDocId: AppConfig.subDocId4CapReport,
-                //   // officeId: widget.officeId,
-                // ),
-                // CompletedPageView(
-                //   // docId: widget.docId,
-                //   // subDocId: AppConfig.subDocId5BalReport,
-                //   // officeId: widget.officeId,
-                // ),
-                // HistoryPageView(),
-              ],
-            ),
-          ),
-        )
-      ],
+          Expanded(
+            flex: 1,
+            // child: Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 70),
+              child: NonScrollablePageView(
+                controller: _tabPageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                children: [
+                  // Page 1
+                  PendingPageView(
+                    onAutoTap: switchToPatientsDetailsPageviweScreen,
+                  ),
+                  SocPageView(),
+                  DisciplinePageView(),
+                ],
+              ),
+            // ),
+          )
+        ],
+      ),
     );
   }
 }

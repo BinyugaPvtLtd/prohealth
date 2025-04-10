@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/sm_intake_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/information_update.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/non_admit.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/sent_to_schedular.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/app_clickable_widget.dart';
@@ -85,6 +87,16 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
                   heading: "Send to Scheduler",
                     badgeNumber: 55
                 ),
+                SizedBox(width: 20),
+                SMTabbar(
+                    onTap: (int index) {
+                      _selectButton(2);
+                    },
+                    index: 2,
+                    grpIndex: _selectedIndex,
+                    heading: "Non admit",
+                   // badgeNumber: 55
+                ),
               ],
             ),
           ),
@@ -115,6 +127,7 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
                   ),
                 ),
                 SentToSchedularScreen(),
+                NonAdmitPage(),
               ],
             ),
           ),
@@ -159,6 +172,7 @@ class SMTabbar extends StatelessWidget {
     required this.grpIndex,
     required this.heading,
     this.badgeNumber,
+    this.width,
   });
 
   final OnManuButtonTapCallBack onTap;
@@ -166,6 +180,7 @@ class SMTabbar extends StatelessWidget {
   final int grpIndex;
   final String heading;
   final int? badgeNumber;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -177,33 +192,25 @@ class SMTabbar extends StatelessWidget {
       child: Column(
         children: [
           Stack(
-            clipBehavior: Clip.none, // Allows badge to overflow
+            clipBehavior: Clip.none,
             children: [
               Container(
-                width: 160, // Fixed width for the heading container
-                height: 40, // Fixed height for the heading container
+                //color: Colors.red,
+                width: width ?? 170,
+                height: 40,
                 child: Align(
-                  alignment: Alignment.center, // Align text to the left
+                  alignment: Alignment.center,
                   child: Text(
                     heading,
-                    style: TextStyle(
-                      fontSize: FontSize.s14,
-                      fontWeight: grpIndex == index
-                          ? FontWeight.w700
-                          : FontWeight.w500,
-                      color: grpIndex == index
-                          ? ColorManager.blueprime
-                          : ColorManager.mediumgrey,
-                    ),
+                    style: TransparentBgTabbar.customTextStyle(grpIndex, index),
                   ),
                 ),
               ),
               if (badgeNumber != null) // Only show badge if badgeNumber is not null
                 Positioned(
-                  // top: -5, // Adjust position of the badge
-                  right: -5, // Adjust position of the badge
+                  right: -5,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: EdgeInsets.symmetric(horizontal: 4,vertical: 2),
                     decoration: BoxDecoration(
                       color: ColorManager.blueprime, // Badge color
                       borderRadius: BorderRadius.circular(12), // Rounded badge
@@ -236,7 +243,7 @@ class SMTabbar extends StatelessWidget {
               final textWidth = textPainter.size.width;
 
               return Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
+                margin: const EdgeInsets.symmetric(vertical: 3),
                 height: 2,
                 width: textWidth + 60, // Adjust padding around text
                 color: grpIndex == index

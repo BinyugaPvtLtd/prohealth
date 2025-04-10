@@ -90,6 +90,7 @@ class EMDesktopScreen extends StatelessWidget {
     }
     return true; // Allow the back navigation to exit the app
   }
+  var selectedItem =  EmDashboardStringManager.selectModule.obs;
   //final int companyId = await TokenManager.getCompanyId();
   @override
   Widget build(BuildContext context) {
@@ -152,10 +153,10 @@ class EMDesktopScreen extends StatelessWidget {
                         Material(
                             elevation: 4,
                             borderRadius: BorderRadius.all(Radius.circular(12)),
-                            child: CustomDropdownButton(
+                            child: Obx(()=>CustomDropdownButton(
                               height: AppSize.s30,
                               width: AppSize.s170,
-                              initialItem: EmDashboardStringManager.selectModule,
+                              initialItem: myController.selectedIndex.value == 1 || myController.selectedIndex.value == 0 ? selectedItem.toString() : '',
                               items: [
                                 DropdownItem(title: "User Management", isHeading: true),
                                 DropdownItem(title: "Users", index: 2),
@@ -176,14 +177,14 @@ class EMDesktopScreen extends StatelessWidget {
                                 DropdownItem(title: "Document Definition", index: 9),
                               ],
                               onItemSelected: (selectedValue, pageIndex) {
-                                  myController.selectButton(pageIndex);
-                                  _pageController.animateToPage(
-                                    pageIndex,
-                                    duration: Duration(milliseconds: 300),
-                                    curve: Curves.ease,
-                                  );
+                                myController.selectButton(pageIndex);
+                                _pageController.animateToPage(
+                                  pageIndex,
+                                  duration: Duration(milliseconds: 300),
+                                  curve: Curves.ease,
+                                );
                               },
-                            )
+                            ) )
                           ),
                         SizedBox(width: AppSize.s15,),
                       ],

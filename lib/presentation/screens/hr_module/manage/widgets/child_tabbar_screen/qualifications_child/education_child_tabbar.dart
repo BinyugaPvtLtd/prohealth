@@ -42,6 +42,18 @@ class EducationChildTabbar extends StatelessWidget {
     TextEditingController majorSubjectController = TextEditingController();
     TextEditingController countryNameController = TextEditingController();
     String? expiryType = "No";
+
+
+
+    // Truncate the text to 10 characters
+    String _truncateText(String text, int maxLength) {
+      if (text.length > maxLength) {
+        return text.substring(0, maxLength) + '...'; // Add "..." if the text exceeds 10 characters
+      }
+      return text;
+    }
+
+
     return Column(
       children: [
         Row(
@@ -187,9 +199,13 @@ class EducationChildTabbar extends StatelessWidget {
                             child: CompositedTransformTarget(link: _layerLinkDegree,
                               child:
                               Text(
-                                  snapshot.data![index].degree,
-                                //providerState.trimmedDegree,
+                                _truncateText(snapshot.data![index].degree ?? '--', 10),
                                 style: ThemeManagerDarkFont.customTextStyle(context),
+                                overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                maxLines: 1,
+                                //   snapshot.data![index].degree,
+                                // //providerState.trimmedDegree,
+                                // style: ThemeManagerDarkFont.customTextStyle(context),
                              ),
                              ),
                         ),
@@ -210,9 +226,13 @@ class EducationChildTabbar extends StatelessWidget {
                           child: CompositedTransformTarget(link: _layerLinkCollege,
                           child:
                           Text(
+                            _truncateText(snapshot.data![index].college ?? '--', 10),
+                            style: ThemeManagerDarkFont.customTextStyle(context),
+                            overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                            maxLines: 1,
                            // providerState.trimmedCollege,
-                        snapshot.data![index].college,
-                                style: ThemeManagerDarkFont.customTextStyle(context),
+                        // snapshot.data![index].college,
+                        //         style: ThemeManagerDarkFont.customTextStyle(context),
                               ),
                           ),
                         ),
