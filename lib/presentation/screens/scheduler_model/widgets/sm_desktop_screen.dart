@@ -156,14 +156,14 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                   ? SizedBox(height: 30,)
                   : Container(
                // color: Colors.pink,
-                margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p20),
+                margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Expanded(
                       child: Obx(
                             () => Padding(
-                              padding: const EdgeInsets.only(left:20),
+                              padding: const EdgeInsets.only(left:25),
                               child: CustomTitleButton(
                                                         height: AppSize.s30,
                                                         width: AppSize.s100,
