@@ -211,7 +211,6 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                          color: ColorManager.textBlack,),
                                      ) ,
                                    ),
-
                                  ),
                                  SizedBox(width: 10,),
                                  Expanded(
