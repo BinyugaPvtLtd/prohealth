@@ -25,6 +25,7 @@ class SMTextFConst extends StatefulWidget {
   final bool showDatePicker;
   final Icon? suffixIcon;
   final bool isAsteric;
+  final bool isIcon;
 
   SMTextFConst({
     Key? key,
@@ -41,7 +42,7 @@ class SMTextFConst extends StatefulWidget {
     this.prefixWidget,
     this.width, this.inputFormated,
     this.showDatePicker = false, this.suffixIcon,
-    this.isAsteric = true,
+    this.isAsteric = true, this.isIcon = false,
   }) : super(key: key);
 
   @override
@@ -70,27 +71,34 @@ class _SMTextFConstState extends State<SMTextFConst> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          RichText(
-            text: TextSpan(
-              text: widget.text, // Main text
-              style: AllPopupHeadings.customTextStyle(context), // Main style
-              children: widget.isAsteric
-                  ? [
-                TextSpan(
-                  text: ' *', // Asterisk
-                  style: AllPopupHeadings.customTextStyle(context).copyWith(
-                    color: ColorManager.red, // Asterisk color
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RichText(
+                text: TextSpan(
+                  text: widget.text, // Main text
+                  style: AllPopupHeadings.customTextStyle(context), // Main style
+                  children: widget.isAsteric
+                      ? [
+                    TextSpan(
+                      text: ' *', // Asterisk
+                      style: AllPopupHeadings.customTextStyle(context).copyWith(
+                        color: ColorManager.red, // Asterisk color
+                      ),
+                    ),
+                  ]
+                      : [],
                 ),
-              ]
-                  : [],
-            ),
+              ),
+             widget.isIcon ? InkWell(
+                  hoverColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: (){},
+                  child: Icon(Icons.info_outline,color: ColorManager.blueprime,size: IconSize.I18,))
+                 : SizedBox()
+            ],
           ),
-          // Text(
-          //   widget.text,
-          //   style: AllPopupHeadings.customTextStyle(context)
-          //   //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
-          // ),
           SizedBox(
             height: AppSize.s5,
           ),

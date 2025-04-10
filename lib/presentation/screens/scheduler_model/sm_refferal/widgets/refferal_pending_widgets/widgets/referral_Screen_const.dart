@@ -17,7 +17,7 @@ class BlueBGHeadConst extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorManager.SMFBlue,
       ),
-      padding: EdgeInsets.only(left: 25, right: 60),
+      padding: EdgeInsets.only(left: 25, right: 30),
       // margin: EdgeInsets.symmetric(vertical: AppPadding.p8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
