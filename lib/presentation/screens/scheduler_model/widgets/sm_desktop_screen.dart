@@ -45,6 +45,19 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   int pgeControllerId = 0;
 
   final ButtonSelectionSMController myController = Get.put(ButtonSelectionSMController());
+  bool isShowingReferalEyePageview = false;
+  bool isShowingMergeDuplicatePageview = false;
+  void switchToEyePageviweScreen() {
+    setState(() {
+      isShowingReferalEyePageview = true;
+    });
+  }
+
+  void goBackToInitialScreen() {
+    setState(() {
+      isShowingReferalEyePageview = false;
+    });
+  }
 
   void navigateToPage2() {
     if (_pageController.page != 2) {
@@ -156,14 +169,14 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                   ? SizedBox(height: 30,)
                   : Container(
                // color: Colors.pink,
-                margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p20),
+                margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Expanded(
                       child: Obx(
                             () => Padding(
-                              padding: const EdgeInsets.only(left:20),
+                              padding: const EdgeInsets.only(left:25),
                               child: CustomTitleButton(
                                                         height: AppSize.s30,
                                                         width: AppSize.s100,
@@ -397,7 +410,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                     SmLiveViewMapScreen(),
                     Container(color:Colors.white),
                     SMIntakeScreen(onGoBackPressed: () {
-                      // Navigator.pop(context);
+                      //Navigator.pop(context);
                     }, patientId: 0,)
 
 
