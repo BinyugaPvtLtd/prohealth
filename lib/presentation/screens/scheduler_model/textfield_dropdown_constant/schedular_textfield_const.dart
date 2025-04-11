@@ -88,10 +88,16 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-                widget.labelText,
-                style: AllPopupHeadings.customTextStyle(context)
-              //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                    widget.labelText,
+                    style: AllPopupHeadings.customTextStyle(context)
+                  //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+                ),
+                Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
+              ],
             ),
             SizedBox(
               height: 5,

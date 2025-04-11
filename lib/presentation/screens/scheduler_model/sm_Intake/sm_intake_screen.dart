@@ -154,7 +154,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
             });
           },
           children: [
-            SmIntakePatientsScreen(
+            SmIntakeDemographicsScreen(
               onPatientIdGenerated: (int id) {
                 setState(() {
                   patientId = id;
