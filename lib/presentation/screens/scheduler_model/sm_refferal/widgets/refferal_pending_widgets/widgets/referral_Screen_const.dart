@@ -104,6 +104,7 @@ class CustomSearchFieldSM extends StatelessWidget {
                 size: IconSize.I18,
                 color: ColorManager.mediumgrey,
               ),
+              //Image.asset("images/sm/search_icon.jpg",)
             ),
             onPressed: onPressed,
           ),

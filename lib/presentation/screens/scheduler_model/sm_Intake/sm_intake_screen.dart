@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../widgets/constant_widgets/page_view_menu_button_const.dart';
+import 'new_documation/documation_screen.dart';
 
 class SMIntakeScreen extends StatefulWidget {
   final VoidCallback onGoBackPressed;
@@ -162,7 +163,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               },
             ),
             // SMIntakeReferralScreen(patientId: patientId),
-            IntakePhysicianScreen(patientId: patientId),
+            DocumationScreenTab(),
             IntakeMedicationScreen(patientId: patientId),
             IntakeLabResultScreen(patientId: patientId),
             SMIntakeInsuranceScreen(patientId: patientId),
