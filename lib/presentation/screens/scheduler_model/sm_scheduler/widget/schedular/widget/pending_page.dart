@@ -501,7 +501,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                             child: Container(
                                                               clipBehavior: Clip.antiAlias,
                                                               decoration: BoxDecoration(
-                                                                border: Border.all(color: Colors.grey, width: 2),
+                                                                border: Border.all(color: Colors.white, width: 1),
                                                                 borderRadius: BorderRadius.circular(50),
                                                               ),
                                                              // padding: const EdgeInsets.all(5.0),

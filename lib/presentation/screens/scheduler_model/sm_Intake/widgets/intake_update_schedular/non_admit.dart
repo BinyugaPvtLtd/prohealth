@@ -45,11 +45,11 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                   ),
                   SizedBox(width: 20,),
                   IconButton(
-                    hoverColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onPressed:(){},
-                    icon: Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                      hoverColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: (){},
+                      icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 15,)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                   ),
                 ],
               ),
@@ -196,16 +196,20 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                       ],
                                     ),
                                   ),
+                                  SizedBox(width: 15,),
                                   Expanded(
                                     flex: 1,
-                                    child:  SizedBox(
-                                      width: 100,
-                                      child:Text("Apollo Hospital, Washington DC",
-                                        textAlign: TextAlign.start,
-                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w500,
-                                          color: ColorManager.textBlack,),
-                                      ) ,
+                                    child:  Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: SizedBox(
+                                        width: 100,
+                                        child:Text("Apollo Hospital, Washington DC",
+                                          textAlign: TextAlign.start,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w500,
+                                            color: ColorManager.textBlack,),
+                                        ) ,
+                                      ),
                                     ),
 
                                   ),
@@ -218,7 +222,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                       children: [
 
                                         Padding(
-                                          padding: const EdgeInsets.only(top:30.0,left: 10),
+                                          padding: const EdgeInsets.only(top:30.0,left: 15),
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             crossAxisAlignment: CrossAxisAlignment.center,

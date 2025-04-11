@@ -68,11 +68,11 @@ class InformationUpdateScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 20,),
                       IconButton(
-                        hoverColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onPressed:(){},
-                        icon: Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                          hoverColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onPressed: (){},
+                          icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 15,)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                       ),
                     ],
                   ),
@@ -376,6 +376,9 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
                                           onTap: selectUploadButton,
                                           child:Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -396,6 +399,9 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
                                           onTap: (){},
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -416,6 +422,9 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
                                           onTap: (){},
                                           child:Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
