@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
@@ -87,15 +91,15 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
     super.initState();
 
     // Add a listener to the controller
-    widget.ctlrDateOfDeath.addListener(() {
-      String value = widget.ctlrDateOfDeath.text;
-
-      if (value.isEmpty) {
-        dateOfDeath = null;  // Set to null if empty
-      } else {
-        dateOfDeath = value;  // Store the value otherwise
-      }
-    });
+    // widget.ctlrDateOfDeath.addListener(() {
+    //   String value = widget.ctlrDateOfDeath.text;
+    //
+    //   if (value.isEmpty) {
+    //     dateOfDeath = null;  // Set to null if empty
+    //   } else {
+    //     dateOfDeath = value;  // Store the value otherwise
+    //   }
+    // });
   }
 
   @override
@@ -112,6 +116,22 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
         child: SingleChildScrollView(
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text('Review and confirm the data pulled is correct',style: CustomTextStylesCommon.commonStyle(
+                        color:Color(0xFF575757),
+                          fontWeight: FontWeight.w300,fontSize: 12))
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: BlueBGHeadConst(HeadText: "Contact Information"),
+                ),
+
                 IntakeFlowContainerConst(
                   height: AppSize.s500,
                   child: ScrollConfiguration(
@@ -123,91 +143,35 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                             children: [
                               Flexible(
                                   child: SchedularTextField(
-                                controller: widget.ctlrSos,
-                                labelText: 'SOC Date',
-                                      showDatePicker:true
+                                controller: widget.ctlrfirstName,
+                                labelText: 'First Name*',
+                                      //showDatePicker:true
                               )),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: widget.ctlrMedicalRecord,
-                                      labelText: 'Medical Record',
-                                      initialValue: '#632654')),
-                              SizedBox(width: AppSize.s35),
-
-                              Flexible(
-                                 child: widget.childStatus,
-                              //     child: SchedularDropdown(
-                              //   labelText: AppString.status,
-                              //   items: ['Option 1', 'Option 2', 'Option 3'],
-                              //   onChanged: (newValue) {
-                              //     setState(() {
-                              //       selectedStatus = newValue;
-                              //       print(selectedStatus);
-                              //     });
-                              //   },
-                              ),
-                              SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: widget.ctlrfirstName,
-                                      labelText: AppString.fname,
-                                      initialValue: 'Erica')),
-                            ],
-                          ),
-                          SizedBox(height: AppSize.s16),
-                          Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: widget.ctlrMI,
-                                      labelText: 'M.I.',
+                                      labelText: 'Middle Initial',
                                       initialValue: 'A')),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: widget.ctlrLastName,
-                                      labelText: AppString.lname)),
+                                      labelText: "Last Name*",
+                                      initialValue: 'Erica')),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: widget.ctlrSuffix,
-                                      labelText: AppString.suffix)),
+                                      labelText: "Suffix",
+                                      initialValue: 'Erica')),
                               SizedBox(width: AppSize.s35),
                               Flexible(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Status',
-                                        style: AllPopupHeadings.customTextStyle(context)),
-                                    SizedBox(height: 1),
-                                    Row(
-                                      children: [
-                                        CustomRadioListTile(
-                                          title: 'Active',
-                                          value: 'active',
-                                          groupValue: statustype,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              statustype = value;
-                                            });
-                                          },
-                                        ),
-                                        CustomRadioListTile(
-                                          title: 'Trainee',
-                                          value: 'trainee',
-                                          groupValue: statustype,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              statustype = value;
-                                            });
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                  child: SizedBox(width:0)),
+
+
+                              //SizedBox(width: AppSize.s35),
+
                             ],
                           ),
                           SizedBox(height: AppSize.s16),
@@ -215,55 +179,90 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                             children: [
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrDate,
-                                      labelText: AppString.date_of_birth,
-                                      initialValue: '25-05-1999',
-                                      showDatePicker:true)),
+                                      controller: widget.ctlrStreet,
+                                      labelText: 'Street*',
+                                      initialValue: 'A')),
                               SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                controller: widget.ctlrStreet,
-                                labelText: AppString.street,
-                              )),
-                              SizedBox(width: AppSize.s35),
-                              Flexible(child: widget.childState),
-                              SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextFieldWithButton(
-                                      textController: widget.ctlrZipCode,
-                                      labelText: AppString.zip_code,
-                                      buttonText: AppString.viewzone)),
-                            ],
-                          ),
-                          SizedBox(height: AppSize.s16),
-                          Row(
-                            children: [
                               Flexible(
                                   child: SchedularTextField(
                                       controller: widget.ctlrApartment,
-                                      labelText: 'Suite/ Apt.')),
+                                      labelText: "Suit/Apt#")),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(child: widget.childState),
                               SizedBox(width: AppSize.s35),
                               Flexible(child: widget.childCity),
-                              SizedBox(width: 35),
-                              Flexible(
-
-                                child: widget.childCountry
-                              //     child: SchedularDropdown(
-                              //   labelText: AppString.country,
-                              //   items: ['Option 1', 'Option 2', 'Option 3'],
-                              //   onChanged: (newValue) {
-                              //     setState(() {
-                              //       selectedCountry = newValue;
-                              //     });
-                              //   },
-                              // ),
-
-                              ),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrMajorStreet,
-                                      labelText: 'Major Cross Street')),
+                                      controller: widget.ctlrZipCode,
+                                      labelText: AppString.zip_code)
+                                  )
+                              // Flexible(
+                              //   child: Column(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       Text('Status',
+                              //           style: AllPopupHeadings.customTextStyle(context)),
+                              //       SizedBox(height: 1),
+                              //       Row(
+                              //         children: [
+                              //           CustomRadioListTile(
+                              //             title: 'Active',
+                              //             value: 'active',
+                              //             groupValue: statustype,
+                              //             onChanged: (value) {
+                              //               setState(() {
+                              //                 statustype = value;
+                              //               });
+                              //             },
+                              //           ),
+                              //           CustomRadioListTile(
+                              //             title: 'Trainee',
+                              //             value: 'trainee',
+                              //             groupValue: statustype,
+                              //             onChanged: (value) {
+                              //               setState(() {
+                              //                 statustype = value;
+                              //               });
+                              //             },
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                          SizedBox(height: AppSize.s16),
+                          Row(
+                            children: [
+                              Flexible(
+                                  child: widget.childCountry
+                              ),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: widget.childRace ),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: widget.ctlrStreet,
+                                    labelText: 'Facility Name',
+                                  )),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: widget.ctlrStreet,
+                                    labelText: 'Zone*',
+                                  )),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: widget.ctlrStreet,
+                                    labelText: 'Location Notes',
+                                  )),
+
+                              /// Remove code
+
                             ],
                           ),
                           SizedBox(height: AppSize.s16),
@@ -272,9 +271,37 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               Flexible(
                                   child: SchedularTextField(
                                       controller: widget.ctlrPrimeNo,
-                                      labelText: AppString.primary_phone_number,
+                                      labelText: "Primary Contact*",
                                       phoneField:true)),
                               SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: widget.ctlrPrimeNo,
+                                      labelText: "Primary Contact Name*",
+                                      )),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: widget.ctlrPrimeNo,
+                                      labelText: "Primary Phone #*",
+                                      phoneField:true)),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: widget.ctlrEmail,
+                                      labelText: "Primary Email")),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: widget.ctlrEmail,
+                                      labelText: "CAHPS Contact")),
+
+
+                            ],
+                          ),
+                          SizedBox(height: AppSize.s16),
+                          Row(
+                            children: [
                               Flexible(
                                   child: SchedularTextField(
                                       controller: widget.ctlrSecNo,
@@ -283,92 +310,194 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrEmail,
-                                      labelText: AppString.email)),
+                                    controller: widget.ctlrSecNo,
+                                    labelText: "Secondary Contact Name",
+                                  )),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrSocialSec,
-                                      labelText: 'Soc. sec#')),
-                            ],
-                          ),
-                          SizedBox(height: AppSize.s16),
-                          Row(
-                            children: [
-                              Flexible(child: widget.childLanguage),
+                                    controller: widget.ctlrSecNo,
+                                    labelText: "Secondary Phone #*",
+                                  )),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrDischargeResaon,
-                                      labelText: 'Discharge Reason')),
+                                    controller: widget.ctlrEmail,
+                                    labelText: "Secondary Email",
+                                  )),
                               SizedBox(width: AppSize.s35),
                               Flexible(
-                                child: widget.childRace ),
-                              SizedBox(width: AppSize.s35),
-                              Flexible(
-                                child: widget.childReligion,),
+                                  child: SizedBox(width:0)),
+
                             ],
                           ),
-                          SizedBox(height: AppSize.s16),
-                          Row(
-                            children: [
-                              Flexible(
-                                child: widget.childMaritalStatus ),
-                              SizedBox(width: AppSize.s35),
-
-                              Flexible(
-                                child: SchedularTextField(
-                                  controller: widget.ctlrDateOfDeath,
-                                  labelText: AppString.date_of_death,
-                                    showDatePicker:true,
-                                  onChanged: (value) {
-                                    /// If the TextField is empty, set dateOfDeath to null
-                                    dateOfDeath = value.isEmpty ? null : value;
-                                  },
-                                ),
-                              ),
-
-                              // Flexible(
-                              //   child: SchedularTextField(
-                              //     controller: widget.ctlrDateOfDeath,
-                              //     labelText: AppString.date_of_death,
-                              //     suffixIcon: Icon(
-                              //       Icons.calendar_month_outlined,
-                              //       color: ColorManager.blueprime,
-                              //     ),
-                              //     onChanged: (value) {
-                              //       /// If the TextField is empty, set dateOfDeath to null
-                              //       if (value.isEmpty) {
-                              //         dateOfDeath = null;
-                              //       } else {
-                              //         /// Otherwise, store the date value
-                              //         dateOfDeath = value;
-                              //       }
-                              //     },
-                              //   ),
-                              // ),
-                              // Flexible(
-                              //     child: SchedularTextField(
-                              //         controller: widget.ctlrDateOfDeath,
-                              //         labelText: AppString.date_of_death,
-                              //         suffixIcon:
-                              //             Icon(Icons.calendar_month_outlined,
-                              //               color: ColorManager.blueprime,))),
-                              SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child:
-                                      Container()), // Empty container for alignment
-                              SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child:
-                                      Container()), // Empty container for alignment
-                            ],
-                          ),
+                          // SizedBox(height: AppSize.s16),
+                          // Row(
+                          //   children: [
+                          //     Flexible(child: widget.childLanguage),
+                          //     SizedBox(width: AppSize.s35),
+                          //     Flexible(
+                          //         child: SchedularTextField(
+                          //             controller: widget.ctlrDischargeResaon,
+                          //             labelText: 'Discharge Reason')),
+                          //     SizedBox(width: AppSize.s35),
+                          //     Flexible(
+                          //       child: widget.childRace ),
+                          //     SizedBox(width: AppSize.s35),
+                          //     Flexible(
+                          //       child: widget.childReligion,),
+                          //   ],
+                          // ),
+                          // SizedBox(height: AppSize.s16),
+                          // Row(
+                          //   children: [
+                          //     Flexible(
+                          //       child: widget.childMaritalStatus ),
+                          //     SizedBox(width: AppSize.s35),
+                          //
+                          //     Flexible(
+                          //       child: SchedularTextField(
+                          //         controller: widget.ctlrDateOfDeath,
+                          //         labelText: AppString.date_of_death,
+                          //           showDatePicker:true,
+                          //         onChanged: (value) {
+                          //           /// If the TextField is empty, set dateOfDeath to null
+                          //           dateOfDeath = value.isEmpty ? null : value;
+                          //         },
+                          //       ),
+                          //     ),
+                          //
+                          //     // Flexible(
+                          //     //   child: SchedularTextField(
+                          //     //     controller: widget.ctlrDateOfDeath,
+                          //     //     labelText: AppString.date_of_death,
+                          //     //     suffixIcon: Icon(
+                          //     //       Icons.calendar_month_outlined,
+                          //     //       color: ColorManager.blueprime,
+                          //     //     ),
+                          //     //     onChanged: (value) {
+                          //     //       /// If the TextField is empty, set dateOfDeath to null
+                          //     //       if (value.isEmpty) {
+                          //     //         dateOfDeath = null;
+                          //     //       } else {
+                          //     //         /// Otherwise, store the date value
+                          //     //         dateOfDeath = value;
+                          //     //       }
+                          //     //     },
+                          //     //   ),
+                          //     // ),
+                          //     // Flexible(
+                          //     //     child: SchedularTextField(
+                          //     //         controller: widget.ctlrDateOfDeath,
+                          //     //         labelText: AppString.date_of_death,
+                          //     //         suffixIcon:
+                          //     //             Icon(Icons.calendar_month_outlined,
+                          //     //               color: ColorManager.blueprime,))),
+                          //     SizedBox(width: AppSize.s35),
+                          //     Flexible(
+                          //         child:
+                          //             Container()), // Empty container for alignment
+                          //     SizedBox(width: AppSize.s35),
+                          //     Flexible(
+                          //         child:
+                          //             Container()), // Empty container for alignment
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: BlueBGHeadConst(HeadText: "Additional Information"),
+                ),
+
+
+                SizedBox(height: AppSize.s25),
+                IntakeFlowContainerConst(
+                    height: AppSize.s300,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: widget.ctlrDate,
+                                    labelText: 'Date of Birth*',
+                                    showDatePicker:true
+                                  )),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: CustomDropdownTextFieldsm(
+                                      headText: 'Gender*',
+                                      items: ['Male','Female','Other'],
+                                      //dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+
+                                      })),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: widget.ctlrLastName,
+                                      labelText: "Primary Language",
+                                      initialValue: 'English')),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SizedBox(width:0)),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SizedBox(width:0)),
+
+
+                              //SizedBox(width: AppSize.s35),
+
+                            ],
+                          ),
+                          SizedBox(height: AppSize.s16),
+                          Row(
+                            children: [
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: widget.ctlrSocialSec,
+                                    labelText: 'Social Security',
+                                    //showDatePicker:true
+                                  )),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: CustomDropdownTextFieldsm(
+                                      headText: 'Race/Ethnicity',
+                                      items: ['White','Blue',],
+                                      //dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+
+                                      })),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: CustomDropdownTextFieldsm(
+                                      headText: 'Marital Status',
+                                      items: ['Married','Unmarried',],
+                                      //dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+
+                                      })),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SizedBox(width:0)),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SizedBox(width:0)),
+
+
+                              //SizedBox(width: AppSize.s35),
+
+                            ],
+                          ),
+
+                        ],
+                      ),
+                    ) )
                 // Padding(
                 //   padding: const EdgeInsets.only(right: 40.0),
                 //   child: Container(

@@ -19,15 +19,15 @@ import '../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 
-class SmIntakePatientsScreen extends StatefulWidget {
+class SmIntakeDemographicsScreen extends StatefulWidget {
   final Function(int) onPatientIdGenerated;
-  SmIntakePatientsScreen({super.key, required this.onPatientIdGenerated});
+  SmIntakeDemographicsScreen({super.key, required this.onPatientIdGenerated});
 
   @override
-  State<SmIntakePatientsScreen> createState() => _SmIntakePatientsScreenState();
+  State<SmIntakeDemographicsScreen> createState() => _SmIntakeDemographicsScreenState();
 }
 
-class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
+class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen> {
   int selectedIndex = 0;
   bool showProfileBar = false;
   final PageController smIntakePageController = PageController();
@@ -120,12 +120,13 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Add New Patients",
-                    style: AllPopupHeadings.customTextStyle(context)
-                    //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
-                    ),
+                // Text("Add New Patients",
+                //     style: AllPopupHeadings.customTextStyle(context)
+                //     //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+                //     ),
+                SizedBox(width:200),
                 Container(
-                  width: MediaQuery.of(context).size.width / 2.455,
+                  width: MediaQuery.of(context).size.width / 5.300,
                   height: AppSize.s30,
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -154,7 +155,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                             color: selectedIndex == 0 ? Colors.white : null,
                           ),
                           child: Text(
-                            'Info',
+                            'Patient Info',
                             textAlign: TextAlign.center,
                             style: CustomTextStylesCommon.commonStyle(
                               fontSize: FontSize.s14,
@@ -167,10 +168,12 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         ),
                         onTap: () => selectButton(0),
                       ),
+
+
                       InkWell(
                         child: Container(
                           height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 10,
+                          width: MediaQuery.of(context).size.width / 9.5,
                           padding: EdgeInsets.symmetric(vertical: 6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -178,7 +181,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                                 selectedIndex == 1 ? ColorManager.white : null,
                           ),
                           child: Text(
-                            'Compliance',
+                            'Related Parties',
                             textAlign: TextAlign.center,
                             style: CustomTextStylesCommon.commonStyle(
                               fontSize: FontSize.s14,
@@ -193,87 +196,8 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         ),
                         onTap: patientId != 0 ? () => selectButton(1) : null,
                       ),
-                      // InkWell(
-                      //   child: Container(
-                      //     height: AppSize.s30,
-                      //     width: MediaQuery.of(context).size.width / 10,
-                      //     padding: EdgeInsets.symmetric(vertical: 6),
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(20),
-                      //       color: selectedIndex == 2 ? ColorManager.white : null,
-                      //     ),
-                      //     child: Text(
-                      //       'Plan of Care',
-                      //       textAlign: TextAlign.center,
-                      //       style: GoogleFonts.firaSans(
-                      //         fontSize: FontSize.s14,
-                      //         fontWeight: FontWeightManager.semiBold,
-                      //         color: patientId == 0
-                      //             ? ColorManager.fmediumgrey
-                      //             :( selectedIndex == 2
-                      //             ? ColorManager.mediumgrey
-                      //             : Colors.white),
-                      //       ),
-                      //     ),
-                      //   ),
-                      //   onTap: patientId != 0 ? () => selectButton(2) : null,
-                      // ),
-                      InkWell(
-                        child: Container(
-                          height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 9.5,
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                selectedIndex == 2 ? ColorManager.white : null,
-                          ),
-                          child: Text(
-                            'Related Parties',
-                            textAlign: TextAlign.center,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w600,
-                              color: patientId == 0
-                                  ? ColorManager.fmediumgrey
-                                  : (selectedIndex == 2
-                                      ? ColorManager.mediumgrey
-                                      : ColorManager.white),
-                            ),
-                          ),
-                        ),
-                        onTap: patientId != 0 ? () => selectButton(2) : null,
-                      ),
 
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        child: Container(
-                          height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 9.8,
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                selectedIndex == 3 ? ColorManager.white : null,
-                          ),
-                          child: Text(
-                            'Stay Info',
-                            textAlign: TextAlign.center,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w600,
-                              color: patientId == 0
-                                  ? ColorManager.fmediumgrey
-                                  : (selectedIndex == 3
-                                      ? ColorManager.mediumgrey
-                                      : Colors.white),
-                            ),
-                          ),
-                        ),
-                        onTap: patientId != 0 ? () => selectButton(3) : null,
-                      ),
+
                     ],
                   ),
                 ),
@@ -328,37 +252,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                           'Type',
                           companyId,
                         );
-                        print('${ctlrDateOfDeath.text}');
-                        print('${ctlrSos.text}');
-                        print('${ctlrDate.text}');
 
-                        print('${ctlrLastName.text}');
-                        print('${ctlrfirstName.text}');
-                        print('${ctlrMedicalRecord.text}');
-                        print('${statusType}');
-                        print('${ctlrSuffix.text}');
-                        print('${ctlrMI.text}');
-                        print('${ctlrZipCode.text}');
-                        print('${selectedState}');
-                        print('${ctlrStreet.text}');
-
-                        print('${selectedCountry}');
-                        print('${selectedcity}');
-                        print('${ctlrApartment.text}');
-
-                        print('${ctlrSecNo.text}');
-                        print('${ctlrPrimeNo.text}');
-                        print('${ctlrMajorStreet.text}');
-
-                        print('${ctlrSocialSec.text}');
-                        print('${ctlrEmail.text}');
-
-                        print('${selectedRace.toString()}');
-                        print('${selectedLanguage.toString()}');
-                        print('${selectedMaritalStatus.toString()}');
-                        print('${selectedReligion.toString()}');
-                        print('${ctlrDischargeResaon.text}');
-                        print('===========');
                         if (result.success) {
                           patientId = result.patientId!;
                           widget.onPatientIdGenerated(patientId);
