@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 
 class BlueBGHeadConst extends StatelessWidget {
@@ -16,7 +17,7 @@ class BlueBGHeadConst extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorManager.SMFBlue,
       ),
-      padding: EdgeInsets.only(left: 25, right: 60),
+      padding: EdgeInsets.only(left: 25, right: 30),
       // margin: EdgeInsets.symmetric(vertical: AppPadding.p8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,7 +83,9 @@ class CustomSearchFieldSM extends StatelessWidget {
           fillColor: Color(0xFFF8F8F8),
           hintText: 'Search',
           alignLabelWithHint: true,
-          hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+          hintStyle:  CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+            fontWeight: FontWeight.w400,
+            color: ColorManager.mediumgrey,),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFF0F0F0), width: 1),
             borderRadius: BorderRadius.circular(10),

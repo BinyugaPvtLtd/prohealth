@@ -117,21 +117,11 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
               SizedBox(height: AppSize.s20,),
               Row(
                 children: [
-                  Text("Time",
-                    style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
+                  Text("Received Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   SizedBox(width: AppSize.s15,),
-                  Text("Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s30,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s15,),
-                  Text("Most Recent",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s30,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s15,),
-                  Text("Hospitals",
+                   Text("Hospitals",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: AppSize.s30,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
@@ -150,10 +140,28 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
+                        padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 8,),
                         child: Container(
                           height: 75,
-                          decoration: BoxDecoration(
+                          // decoration:  BoxDecoration(
+                          //   color: ColorManager.white,
+                          //   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12),topLeft: Radius.circular(12),topRight: Radius.circular(12)),
+                          //   border: Border(
+                          //     bottom: BorderSide(
+                          //       color: Colors.grey.shade200,
+                          //       width: 3,
+                          //     ),
+                          //     left: BorderSide(
+                          //       color: Colors.grey.shade200,
+                          //       width: 3,
+                          //     ),
+                          //     right: BorderSide(
+                          //       color: Colors.grey.shade200,
+                          //       width: 3,
+                          //     ),
+                          //   ),
+                          // ),
+                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
@@ -234,14 +242,15 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                               ),
                                               SizedBox(height: AppSize.s4,),
                                               Text(
-                                                "Refferal Date: 09/15/2024",
+                                                "Referral Date: 09/15/2024",
                                                 textAlign: TextAlign.center,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
                                                   fontWeight: FontWeight.w400,
                                                   color: ColorManager.mediumgrey,),
                                               ),
+                                              SizedBox(height: AppSize.s2,),
                                               Text(
-                                                "08/05/2024 | 7:35 PM",
+                                                "08/05/24  |  04:20 PM",
                                                 textAlign: TextAlign.center,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
                                                   fontWeight: FontWeight.w400,
@@ -284,9 +293,9 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Refferal Source: ",
+                                          "Referral Source: ",
                                           textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
@@ -311,7 +320,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                         Text(
                                           "PCP: ",
                                           textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
@@ -336,7 +345,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                         Text(
                                           "Primary Diagnosis: ",
                                           textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
@@ -366,7 +375,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
-                                          SizedBox(width: AppSize.s15),
+                                          SizedBox(width: AppSize.s30),
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
@@ -421,7 +430,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                               SizedBox(height: 8,),
                                               Text("Call",
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s10,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeight.w700,
                                                   color: ColorManager.bluebottom,),)
                                             ],
                                           ),
@@ -434,7 +443,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                SizedBox(height: 6,),
                                               Text("Restore",
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s10,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeight.w700,
                                                   color: ColorManager.bluebottom,),)
                                             ],
                                           ),
