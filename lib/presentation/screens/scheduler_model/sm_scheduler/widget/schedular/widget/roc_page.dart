@@ -1359,8 +1359,6 @@ class _PTPageviewState extends State<PTPageview> {
               ),
             ),
             SizedBox(width: 10,),
-
-
           ],
         ),
 
