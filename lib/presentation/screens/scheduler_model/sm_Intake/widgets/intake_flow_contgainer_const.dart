@@ -17,17 +17,19 @@ class IntakeFlowContainerConst extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
         decoration: BoxDecoration(
           color: ColorManager.white,
-          borderRadius: BorderRadius.circular(5),
+          // borderRadius: BorderRadius.circular(5),
           // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
-          border: Border.all(width: 1,color: ColorManager.lightGrey),//all(width: 1, color: Color(0xFFBCBCBC)),
-          boxShadow: [
-            BoxShadow(
-              color: ColorManager.black.withOpacity(0.2),
-              spreadRadius: 0,
-              blurRadius: 4,
-              offset: Offset(0, 4),
-            ),
-          ],
+          border: Border(
+            bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey),
+              ),//all(width: 1, color: Color(0xFFBCBCBC)),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: ColorManager.black.withOpacity(0.2),
+          //     spreadRadius: 0,
+          //     blurRadius: 4,
+          //     offset: Offset(0, 4),
+          //   ),
+          // ],
         ),
         child: child,
       ),

@@ -21,25 +21,26 @@ class SMIntakeScreen extends StatefulWidget {
 }
 
 class _SMIntakeScreenState extends State<SMIntakeScreen> {
-  final PageController intakePageController = PageController(initialPage: 0);
-  int _selectedIndex = 0;
-  int patientId = 51;
 
-  void intakeSelectButton(int index) {
-    if (index == 0 || patientId != 0) {
-      setState(() {
-        _selectedIndex = index;
-      });
-      intakePageController.animateToPage(
-        index,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.ease,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    final PageController intakePageController = PageController(initialPage: 0);
+    int _selectedIndex = 0;
+    int patientId = 51;
+
+    void intakeSelectButton(int index) {
+      if (index == 0 || patientId != 0) {
+        setState(() {
+          _selectedIndex = index;
+        });
+        intakePageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.ease,
+        );
+      }
+    }
     return Column(children: [
       Container(
         decoration: BoxDecoration(

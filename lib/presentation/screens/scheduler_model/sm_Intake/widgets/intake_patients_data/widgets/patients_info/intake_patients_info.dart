@@ -86,6 +86,15 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
   String? selectedReligion;
   String? selectedMaritalStatus;
   String? dateOfDeath;
+  TextEditingController facilityNameController = TextEditingController();
+  TextEditingController zoneController = TextEditingController();
+  TextEditingController locationNotesController = TextEditingController();
+  TextEditingController primaryContactNameController = TextEditingController();
+  TextEditingController cahpsContactController = TextEditingController();
+  TextEditingController primaryPhoneController = TextEditingController();
+  TextEditingController secondaryPhoneController = TextEditingController();
+  TextEditingController secEmailController = TextEditingController();
+  TextEditingController primaryLanguageController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -117,7 +126,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -128,7 +137,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  padding: const EdgeInsets.symmetric(horizontal: 35),
                   child: BlueBGHeadConst(HeadText: "Contact Information"),
                 ),
 
@@ -245,19 +254,19 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                    controller: widget.ctlrStreet,
+                                    controller: facilityNameController,
                                     labelText: 'Facility Name',
                                   )),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                    controller: widget.ctlrStreet,
+                                    controller: zoneController,
                                     labelText: 'Zone*',
                                   )),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                    controller: widget.ctlrStreet,
+                                    controller: locationNotesController,
                                     labelText: 'Location Notes',
                                   )),
 
@@ -269,14 +278,17 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           Row(
                             children: [
                               Flexible(
-                                  child: SchedularTextField(
-                                      controller: widget.ctlrPrimeNo,
-                                      labelText: "Primary Contact*",
-                                      phoneField:true)),
+                                  child: CustomDropdownTextFieldsm(
+                                      headText: 'Primary Contact*',
+                                      items: ['Spouse','Patient',],
+                                      //dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+
+                                      })),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrPrimeNo,
+                                      controller: primaryContactNameController,
                                       labelText: "Primary Contact Name*",
                                       )),
                               SizedBox(width: AppSize.s35),
@@ -293,7 +305,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrEmail,
+                                      controller: cahpsContactController,
                                       labelText: "CAHPS Contact")),
 
 
@@ -303,14 +315,17 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           Row(
                             children: [
                               Flexible(
-                                  child: SchedularTextField(
-                                      controller: widget.ctlrSecNo,
-                                      labelText: AppString.secondary_phone_number,
-                                      phoneField:true)),
+                                  child: CustomDropdownTextFieldsm(
+                                      headText: 'Secondary Contact*',
+                                      items: ['Spouse','Patient',],
+                                      //dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+
+                                      })),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                    controller: widget.ctlrSecNo,
+                                    controller: secondaryPhoneController,
                                     labelText: "Secondary Contact Name",
                                   )),
                               SizedBox(width: AppSize.s35),
@@ -322,7 +337,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                    controller: widget.ctlrEmail,
+                                    controller: secEmailController,
                                     labelText: "Secondary Email",
                                   )),
                               SizedBox(width: AppSize.s35),
@@ -408,13 +423,13 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                     ),
                   ),
                 ),
+
+                SizedBox(height: AppSize.s40),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  padding: const EdgeInsets.symmetric(horizontal: 35),
                   child: BlueBGHeadConst(HeadText: "Additional Information"),
                 ),
 
-
-                SizedBox(height: AppSize.s25),
                 IntakeFlowContainerConst(
                     height: AppSize.s300,
                     child: SingleChildScrollView(
@@ -440,7 +455,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrLastName,
+                                      controller: primaryLanguageController,
                                       labelText: "Primary Language",
                                       initialValue: 'English')),
                               SizedBox(width: AppSize.s35),

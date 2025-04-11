@@ -126,7 +126,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                 //     ),
                 SizedBox(width:200),
                 Container(
-                  width: MediaQuery.of(context).size.width / 5.300,
+                  width: MediaQuery.of(context).size.width / 4.9,
                   height: AppSize.s30,
                   decoration: BoxDecoration(
                     boxShadow: [

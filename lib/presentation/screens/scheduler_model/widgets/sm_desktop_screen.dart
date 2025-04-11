@@ -176,7 +176,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                     Expanded(
                       child: Obx(
                             () => Padding(
-                              padding: const EdgeInsets.only(left:25),
+                              padding: const EdgeInsets.only(left:30),
                               child: CustomTitleButton(
                                                         height: AppSize.s30,
                                                         width: AppSize.s100,
