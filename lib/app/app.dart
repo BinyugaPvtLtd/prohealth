@@ -200,7 +200,7 @@ class _App extends State<App> {
               return MaterialPageRoute(
                 builder: (context) => SplashScreen(
                   onFinish: () => Navigator.of(context)
-                      .pushReplacementNamed(LoginScreen.routeName),
+                      .popAndPushNamed(LoginScreen.routeName),
                 ),
               );
             }
@@ -209,7 +209,7 @@ class _App extends State<App> {
             return MaterialPageRoute(
               builder: (context) => SplashScreen(
                 onFinish: () => Navigator.of(context)
-                    .pushReplacementNamed(OnBoardingWelcome.routeName),
+                    .popAndPushNamed(OnBoardingWelcome.routeName),
               ),
             );
           default:

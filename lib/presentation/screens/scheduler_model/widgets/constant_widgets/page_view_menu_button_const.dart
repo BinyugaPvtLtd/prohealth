@@ -41,7 +41,7 @@ class PageViewMenuButtonConst extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.only(top: 10),
-              height: AppSize.s6,
+              height: AppSize.s5,
               width: AppSize.s120,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(13.0),

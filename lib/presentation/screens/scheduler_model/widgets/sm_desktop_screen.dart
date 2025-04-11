@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:prohealth/presentation/screens/referal_resource_module/referal_resource_desktop.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/sm_intake_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_calender/sm_calender.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/sm_dashboard_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sub_widgets/highest_code_view_more.dart';
@@ -44,6 +45,19 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   int pgeControllerId = 0;
 
   final ButtonSelectionSMController myController = Get.put(ButtonSelectionSMController());
+  bool isShowingReferalEyePageview = false;
+  bool isShowingMergeDuplicatePageview = false;
+  void switchToEyePageviweScreen() {
+    setState(() {
+      isShowingReferalEyePageview = true;
+    });
+  }
+
+  void goBackToInitialScreen() {
+    setState(() {
+      isShowingReferalEyePageview = false;
+    });
+  }
 
   void navigateToPage2() {
     if (_pageController.page != 2) {
@@ -155,27 +169,30 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                   ? SizedBox(height: 30,)
                   : Container(
                // color: Colors.pink,
-                margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p20),
+                margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Expanded(
                       child: Obx(
-                            () => CustomTitleButton(
-                          height: AppSize.s30,
-                          width: AppSize.s100,
-                          onPressed: () {
-                            //companyAll(context);
-                            myController.selectButton(0);
-                            _pageController.animateToPage(0,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                            onPageChanged(0);
-                            pgeControllerId = 0;
-                          },
-                          text: 'Dashboard',
-                          isSelected: myController.selectedIndex.value == 0,
-                        ),
+                            () => Padding(
+                              padding: const EdgeInsets.only(left:25),
+                              child: CustomTitleButton(
+                                                        height: AppSize.s30,
+                                                        width: AppSize.s100,
+                                                        onPressed: () {
+                              //companyAll(context);
+                              myController.selectButton(0);
+                              _pageController.animateToPage(0,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                              onPageChanged(0);
+                              pgeControllerId = 0;
+                                                        },
+                                                        text: 'Dashboard',
+                                                        isSelected: myController.selectedIndex.value == 0,
+                                                      ),
+                            ),
                       ),
                     ),
                     SizedBox(
@@ -197,7 +214,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             onPageChanged(1);
                             pgeControllerId = 1;
                           },
-                          text: 'Referral',
+                          text: 'Referrals',
                           isSelected: myController.selectedIndex.value == 1,
                         ),
                       ),
@@ -222,7 +239,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             pgeControllerId = 2;
                           },
                           text: 'Intake',
-                          isSelected: myController.selectedIndex.value == 2,
+                          isSelected: myController.selectedIndex.value == 2||myController.selectedIndex.value == 7,
                         ),
                       ),
                     ),
@@ -379,12 +396,22 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                       },
                     ),
                     RefferalScreenNewTab(),
-                    IntakeMainScreen(),
+                    IntakeMainScreen(intakeFlowSelected: () { setState(() {
+                      myController.selectButton(7);
+                      _pageController.animateToPage(7,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease);
+                      onPageChanged(7);
+                      pgeControllerId = 7;
+                    }); },),
                    // SMIntakeScreen(),
                     NewSchedulerScreen(),
                     SmCalenderScreen(),
                     SmLiveViewMapScreen(),
-                    Container(color:Colors.white)
+                    Container(color:Colors.white),
+                    SMIntakeScreen(onGoBackPressed: () {
+                      //Navigator.pop(context);
+                    }, patientId: 0,)
 
 
                     // WhitelabellingScreen()

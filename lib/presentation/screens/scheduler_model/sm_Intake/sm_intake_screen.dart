@@ -85,7 +85,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               },
               index: 0,
               grpIndex: _selectedIndex,
-              heading: "Patients Data",
+              heading: "Demographics",
             ),
             // PageViewMenuButtonConst(
             //   onTap: (int index) {
@@ -102,7 +102,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               },
               index: 1,
               grpIndex: _selectedIndex,
-              heading: "Physician Info",
+              heading: "Documentation",
               enabled: patientId != 0,
             ),
             PageViewMenuButtonConst(
@@ -111,7 +111,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               },
               index: 2,
               grpIndex: _selectedIndex,
-              heading: "Medications",
+              heading: "Insurance",
               enabled: patientId != 0,
             ),
             PageViewMenuButtonConst(
@@ -120,7 +120,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               },
               index: 9,//3,
               grpIndex: _selectedIndex,
-              heading: "Lab Results",
+              heading: "Physician Info",
               enabled: patientId != 0,
             ),
             PageViewMenuButtonConst(
@@ -129,7 +129,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               },
               index: 4,
               grpIndex: _selectedIndex,
-              heading: "Insurance",
+              heading: "Orders",
               enabled: patientId != 0,
             ),
             PageViewMenuButtonConst(
@@ -138,7 +138,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               },
               index: 5,
               grpIndex: _selectedIndex,
-              heading: "Notes",
+              heading: "Initial Contact",
               enabled: patientId != 0,
             ),
           ],

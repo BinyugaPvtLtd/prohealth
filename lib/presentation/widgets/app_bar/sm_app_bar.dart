@@ -273,19 +273,32 @@ class _SmAppBarState extends State<SmAppBar> with SingleTickerProviderStateMixin
                                         ),
                                       ),
                                       SizedBox(width: AppSize.s15),
-                                      AppClickableWidget(
-                                        onTap: () {},
-                                        onHover: (bool val) {},
-                                        child: Container(
-                                          // padding: const EdgeInsets.symmetric(
-                                          //     horizontal: 5, vertical: 3),
-                                          child: const Center(
-                                            child: Icon(
-                                              Icons.notifications_none_outlined,
-                                              color: Colors.white,
+                                      Stack(
+                                        children: [
+                                          AppClickableWidget(
+                                            onTap: () {},
+                                            onHover: (bool val) {},
+                                            child: Container(
+                                              // padding: const EdgeInsets.symmetric(
+                                              //     horizontal: 5, vertical: 3),
+                                              child: const Center(
+                                                child: Icon(
+                                                  Icons.notifications_none_outlined,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                          Positioned(
+                                            top: 20,
+                                            left: 30,
+                                            child: CircleAvatar(
+                                              radius: 10,
+                                              backgroundColor:Colors.red,
+                                              child: Center(child: Text('1')),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -293,7 +306,7 @@ class _SmAppBarState extends State<SmAppBar> with SingleTickerProviderStateMixin
                                 Expanded(
                                   flex: 2,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(right:20),
+                                    padding: const EdgeInsets.only(right:30),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [

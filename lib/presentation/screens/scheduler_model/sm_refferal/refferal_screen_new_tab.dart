@@ -66,7 +66,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
         children: [
           /// Tab bar
           Container(
-            margin: EdgeInsets.symmetric(vertical: AppPadding.p8),
+            margin: EdgeInsets.only(bottom: AppPadding.p8,),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -58,6 +58,7 @@ class _PendingPageViewState extends State<PendingPageView> {
           padding:const EdgeInsets.only(right: 80,left: 50,bottom: 5),
           child: Column(
             children: [
+              SizedBox(height: AppSize.s20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -209,7 +210,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 30,),
               Expanded(
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -529,7 +530,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                               ),
                                                             ),
                                                           ),
-                                                      SizedBox(width: AppSize.s5,),
+                                                      SizedBox(width: AppSize.s10,),
                                                           Text("Pending",style: TextStyle(fontSize: FontSize.s12,
                                                             fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
                                                             color: ColorManager.granitegray,),),

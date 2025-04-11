@@ -20,6 +20,7 @@ import '../../../textfield_dropdown_constant/chatbotContainer.dart';
 class InformationUpdateProvider extends ChangeNotifier{
   final VoidCallback onUpdateButtonPressed;
   final void Function(int patientId) onPatientIdReceived;
+
   InformationUpdateProvider({required this.onUpdateButtonPressed, required this.onPatientIdReceived});
 
 
@@ -42,7 +43,8 @@ class InformationUpdateProvider extends ChangeNotifier{
 
 }
 class InformationUpdateScreen extends StatelessWidget {
-  const InformationUpdateScreen({super.key});
+  final VoidCallback selectUploadButton;
+  const InformationUpdateScreen({required this.selectUploadButton,super.key});
 
 
   @override
@@ -178,7 +180,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "John smith",
+                                                  "John Smith",
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w700,
@@ -193,12 +195,24 @@ class InformationUpdateScreen extends StatelessWidget {
                                                     color: ColorManager.mediumgrey,),
                                                 ),
                                                 SizedBox(height: 3,),
-                                                Text(
-                                                  "Potential DC Date: 11/26/2024",
-                                                  textAlign: TextAlign.center,
-                                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorManager.mediumgrey,),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      "Potential DC Date :",
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: ColorManager.mediumgrey,),
+                                                    ),
+                                                    Text(
+                                                      " 11/26/2024",
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w400,
+                                                        color: ColorManager.mediumgrey,),
+                                                    ),
+
+                                                  ],
                                                 ),
                                               ],
                                             ),
@@ -212,7 +226,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                       child:Text("Apollo Hospital, Washington DC",
                                                         textAlign: TextAlign.start,
                                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w400,
+                                                          fontWeight: FontWeight.w500,
                                                           color: ColorManager.textBlack,),
                                                       ) ,
                                                     ),
@@ -381,11 +395,12 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
-                                          onTap: (){},
+                                          onTap: selectUploadButton,
                                           child:Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
+                                              Image.asset("images/sm/cloud_uploade.png",height: 20,width: 20,),
+                                              // Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
                                               SizedBox(height: 8,),
                                               Text("Update",
                                                 style: TextStyle(
@@ -567,8 +582,6 @@ class InformationUpdateScreen extends StatelessWidget {
                     ),
                     height: 450,
                     width: 500,
-
-
                     child: ChatBotContainer(
                       onClose: provider._toggleChatbotVisibility,
                     ),
@@ -632,7 +645,7 @@ class SMDashboardMenuButtons extends StatelessWidget {
               final textWidth = textPainter.size.width;
               print("textwidth :::::::: $heading $textWidth");
               return Container(
-                margin: const EdgeInsets.symmetric(vertical: AppMargin.m5),
+                margin: const EdgeInsets.only(top: 10),
                 height: 6,
                 width: 70,// textWidth + 10,
                 decoration: BoxDecoration(

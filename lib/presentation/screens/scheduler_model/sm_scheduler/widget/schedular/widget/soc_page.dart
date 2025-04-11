@@ -9,6 +9,7 @@ import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
+import '../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../sm_scheduler_screen_const.dart';
 
 class SocPageView extends StatefulWidget {
@@ -33,6 +34,7 @@ class _SocPageViewState extends State<SocPageView> {
         padding: const EdgeInsets.only(right: 80,left: 50,bottom: 5),
         child: Column(
           children: [
+            SizedBox(height: AppSize.s20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -40,44 +42,9 @@ class _SocPageViewState extends State<SocPageView> {
                   padding: const EdgeInsets.only(left: 40),
                   child: Row(
                     children: [
-                      Container(
-                        width: 381,
-                        height: 36,
-                        child:TextField(
-                          textCapitalization:
-                          TextCapitalization.words,
-                          style: DocumentTypeDataStyle.customTextStyle(context),
-                          // onChanged: _search,
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color(0xFFF8F8F8),
-                              hintText: 'Search',
-                              alignLabelWithHint: true,
-                              hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color:Color(0xFFC9C9C9),width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color:Colors.grey.shade200,width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              prefixIcon: IconButton(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                icon: Center(
-                                  child: Icon(
-                                    Icons.search,
-                                    size: IconSize.I18,
-                                    color:  ColorManager.greylight,
-                                  ),
-                                ),
-                                onPressed: () {},
-                              ),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
-                        ),
 
+                      CustomSearchFieldSM(
+                        onPressed: (){},
                       ),
                       SizedBox(width: 20,),
                       IconButton(
@@ -90,6 +57,97 @@ class _SocPageViewState extends State<SocPageView> {
                     ],
                   ),
                 ),
+
+                //     CustomDropdownTextField(
+                //       width: 130,
+                //       isAstric:false,
+                //       iconColor: ColorManager.mediumgrey,
+                //       initialValue: 'Employee Type',
+                //       headText: "",
+                //       items: ['Employee 1','Employee 2','Employee 3'],
+                //       onChanged: (newValue) {
+                //         // for (var a in snapshot.data!) {
+                //         //   if (a.empType == newValue) {
+                //         //     clinicialName = a.empType!;
+                //         //     clinicalId = a.employeeTypesId!;
+                //         //     print("Dept ID'''''' ${clinicalId}");
+                //         //     print("';';';''''''''Dept ID ${clinicialName}");
+                //         //     // Do something with docType
+                //         //   }
+                //         // }
+                //       },
+                //     ),
+                //     CustomDropdownTextField(
+                //       width:120,
+                //       isAstric:false,
+                //       iconColor: ColorManager.mediumgrey,
+                //       initialValue: 'Clinician Type',
+                //       headText: "",
+                //       items: ['Clinical 1','Clinical 2','Clinical 3'],
+                //       onChanged: (newValue) {
+                //         // for (var a in snapshot.data!) {
+                //         //   if (a.empType == newValue) {
+                //         //     clinicialName = a.empType!;
+                //         //     clinicalId = a.employeeTypesId!;
+                //         //     print("Dept ID'''''' ${clinicalId}");
+                //         //     print("';';';''''''''Dept ID ${clinicialName}");
+                //         //     // Do something with docType
+                //         //   }
+                //         // }
+                //       },
+                //     ),
+                //
+                //     Container(
+                //       decoration: BoxDecoration(
+                //           border:  Border.all(color: Color(0xFFF0F0F0), width: 0.2),
+                //           borderRadius: BorderRadius.all(Radius.circular(8))
+                //       ),
+                //       child: CustomDropdownTextField(
+                //         width:100,
+                //         isAstric:false,
+                //         iconColor: ColorManager.mediumgrey,
+                //         initialValue: 'Filter by',
+                //         headText: "", // Default fallback if depId doesn't match any of the expected values
+                //         items: ['Weekly','Monthly',],
+                //         onChanged: (newValue) {
+                //           // for (var a in snapshot.data!) {
+                //           //   if (a.empType == newValue) {
+                //           //     clinicialName = a.empType!;
+                //           //     clinicalId = a.employeeTypesId!;
+                //           //     print("Dept ID'''''' ${clinicalId}");
+                //           //     print("';';';''''''''Dept ID ${clinicialName}");
+                //           //     // Do something with docType
+                //           //   }
+                //           // }
+                //         },
+                //       ),
+                //     ),
+                //
+                //     Padding(
+                //       padding: const EdgeInsets.only(left: 30.0,right: 10),
+                //       child: Text("SOC",style: DocumentTypeDataStyle.customTextStyle(context),),
+                //     ),
+                //     Padding(
+                //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                //       child: Container(
+                //         child:  Switch(
+                //           focusColor: Colors.transparent,
+                //           hoverColor: Colors.transparent,
+                //           value: isSwitched,
+                //           onChanged: (value) {
+                //             setState(() {
+                //               isSwitched = value;
+                //               print(isSwitched);
+                //             });
+                //           },
+                //           activeTrackColor: ColorManager.bluebottom,
+                //           inactiveTrackColor:ColorManager.bluebottom ,
+                //           activeColor: ColorManager.white,
+                //         ),
+                //       ),
+                //     ),
+                //     Text("Discipline",style: DocumentTypeDataStyle.customTextStyle(context),),
+                //     SizedBox(width: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -104,7 +162,7 @@ class _SocPageViewState extends State<SocPageView> {
                         label: Text(
                             _isBulkAssignActive ? "Save" : "Bulk Assign",
                             style: TextStyle(
-                              fontSize: _isBulkAssignActive ? FontSize.s14:FontSize.s12,
+                              fontSize:_isBulkAssignActive ? FontSize.s14:FontSize.s12,
                               fontWeight: FontWeight.w700,
                               color: ColorManager.white,
                               decoration: TextDecoration.none,
@@ -126,81 +184,8 @@ class _SocPageViewState extends State<SocPageView> {
 
                   ],
                 ),
-
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     CustomDropdownTextField(
-                //       width: 150,
-                //       isAstric:false,
-                //       // Adjust headText based on depId
-                //       initialValue: 'Employee Type',
-                //       headText: "", // Default fallback if depId doesn't match any of the expected values
-                //       items: ['Employee 1','Employee 2','Employee 3'],
-                //       onChanged: (newValue) {
-                //         // for (var a in snapshot.data!) {
-                //         //   if (a.empType == newValue) {
-                //         //     clinicialName = a.empType!;
-                //         //     clinicalId = a.employeeTypesId!;
-                //         //     print("Dept ID'''''' ${clinicalId}");
-                //         //     print("';';';''''''''Dept ID ${clinicialName}");
-                //         //     // Do something with docType
-                //         //   }
-                //         // }
-                //       },
-                //     ),
-                //     CustomDropdownTextField(
-                //       width:150,
-                //       isAstric:false,
-                //       // Adjust headText based on depId
-                //       initialValue: 'Clinician Type',
-                //       headText: "", // Default fallback if depId doesn't match any of the expected values
-                //       items: ['Clinical 1','Clinical 2','Clinical 3'],
-                //       onChanged: (newValue) {
-                //         // for (var a in snapshot.data!) {
-                //         //   if (a.empType == newValue) {
-                //         //     clinicialName = a.empType!;
-                //         //     clinicalId = a.employeeTypesId!;
-                //         //     print("Dept ID'''''' ${clinicalId}");
-                //         //     print("';';';''''''''Dept ID ${clinicialName}");
-                //         //     // Do something with docType
-                //         //   }
-                //         // }
-                //       },
-                //     ),
-                //     Container(
-                //       decoration: BoxDecoration(
-                //           border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
-                //           borderRadius: BorderRadius.all(
-                //               Radius.circular(8))
-                //       ),
-                //       // child:buildDropdownButton(context),
-                //       child: CustomDropdownTextField(
-                //         width:100,
-                //         height: 32,
-                //         isAstric:false,
-                //         // Adjust headText based on depId
-                //         initialValue: 'Filter by',
-                //         headText: "", // Default fallback if depId doesn't match any of the expected values
-                //         items: ['Weekly','Monthly',],
-                //         onChanged: (newValue) {
-                //           // for (var a in snapshot.data!) {
-                //           //   if (a.empType == newValue) {
-                //           //     clinicialName = a.empType!;
-                //           //     clinicalId = a.employeeTypesId!;
-                //           //     print("Dept ID'''''' ${clinicalId}");
-                //           //     print("';';';''''''''Dept ID ${clinicialName}");
-                //           //     // Do something with docType
-                //           //   }
-                //           // }
-                //         },
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
-
             SizedBox(height: 30,),
             Expanded(
               child: ScrollConfiguration(
@@ -229,7 +214,7 @@ class _SocPageViewState extends State<SocPageView> {
                     ):Container(width: 40,height: 100,),
                         Flexible(
                           child: SchedularContainerConst(
-                            height: 100,
+                            height: 105,
                             child: Column(
                               children: [
                                 Row(
@@ -239,7 +224,7 @@ class _SocPageViewState extends State<SocPageView> {
 
                                       Container(
                                           width: AppSize.s88,
-                                          height: AppSize.s20,
+                                          height: AppSize.s18,
                                           decoration: BoxDecoration(
                                             color:Color(0xFFE3F2F8),
                                             borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),),
@@ -254,336 +239,336 @@ class _SocPageViewState extends State<SocPageView> {
                                           )),
                                     ]
                                 ),
-                                Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 20),
-                                          child: Row(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 5),
-                                                    child: ClipRRect(
-                                                      borderRadius: BorderRadius.circular(60),
-                                                      child: SizedBox(
-                                                        width: AppSize.s40,
-                                                        height: AppSize.s45,
-                                                        child: Image.asset(
-                                                          'images/hr_dashboard/man.png', // Replace with your image path
-                                                          fit: BoxFit.cover,
-                                                        ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 20),
+                                        child: Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 5),
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(60),
+                                                    child: SizedBox(
+                                                      width: AppSize.s40,
+                                                      height: AppSize.s45,
+                                                      child: Image.asset(
+                                                        'images/hr_dashboard/man.png', // Replace with your image path
+                                                        fit: BoxFit.cover,
                                                       ),
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                              SizedBox(width: AppSize.s7),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(width: AppSize.s7),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Jeh Tiwari',
+                                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: ColorManager.mediumgrey,),
+                                                ),
+                                                SizedBox(height: AppSize.s5),
+                                                Text(
+                                                  'MRN #584234',
+                                                  style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.mediumgrey,),
+                                                ),
+                                                SizedBox(height: AppSize.s5),
+                                                Text(
+                                                  'Anxiety',
+                                                  style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.mediumgrey,),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                                    Expanded(
+                                      flex: 3,
+                                      child:  Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          CustomButtonRow(
+                                            onSaveClosePressed: () {
+                                              // Action for Save and Close button
+                                              print('Save and Close pressed');
+                                            },
+                                            onSubmitPressed: () {
+                                              // Action for Submit button
+                                              print('Submit pressed');
+                                            },
+                                            onNextPressed: () {
+                                              // Action for Next button
+                                              print('Next pressed');
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(width: 10,),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        children: [
+                                          Text("Kaiser Med Advantage ",
+                                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.mediumgrey,),),
+                                          // Container(
+                                          //   decoration: BoxDecoration(
+                                          //     color: Color(0xFF527FB9).withOpacity(0.5),
+                                          //     borderRadius: BorderRadius.circular(2), // Makes the borders curved with radius 5
+                                          //   ),
+                                          //   // color: Color(0xFF527FB9).withOpacity(0.5),
+                                          //   width: 22,
+                                          //   height: 20,
+                                          //   child: Center(
+                                          //     child: Text("ST",style: TextStyle(
+                                          //       fontWeight: FontWeight.w700,
+                                          //       fontSize: 12,
+                                          //       color: ColorManager.white,
+                                          //       decoration: TextDecoration.none,
+                                          //     ),),
+                                          //   ),
+                                          // ),
+                                          // SizedBox(width: 15,),
+                                          // Container(
+                                          //   decoration: BoxDecoration(
+                                          //     color: Color(0xFFFEBD4D).withOpacity(0.5),
+                                          //     borderRadius: BorderRadius.circular(2), // Makes the borders curved with radius 5
+                                          //   ),
+                                          //   width: 22,
+                                          //   height: 20,
+                                          //   child: Center(
+                                          //     child: Text(
+                                          //       "OT",
+                                          //       style: TextStyle(
+                                          //         fontWeight: FontWeight.w700,
+                                          //         fontSize: 12,
+                                          //         color: ColorManager.white,
+                                          //         decoration: TextDecoration.none,
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // )
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("San Josaquin z3",
+                                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.mediumgrey,),),
+
+                                          SizedBox(height: AppSize.s5),
+                                          Text("58244",
+                                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.mediumgrey,),),
+                                        ],
+                                      ),
+                                    ),
+                                    // Expanded(
+                                    //   flex: 1,
+                                    //   child: Row(
+                                    //     children: [
+                                    //       Container(
+                                    //         width: 25,
+                                    //         height: 15,
+                                    //         decoration: BoxDecoration(
+                                    //             color: Color(0xFFE3F2F8),
+                                    //             borderRadius: BorderRadius.circular(3)
+                                    //         ),
+                                    //         child: Center(
+                                    //           child: Text("PB",style: TextStyle(
+                                    //             fontWeight: FontWeight.w700,
+                                    //             fontSize: 12,
+                                    //             color: ColorManager.bluebottom,
+                                    //             decoration: TextDecoration.none,
+                                    //           ),),
+                                    //         ),
+                                    //       )
+                                    //       // Image.asset("images/sm/pb.png", //width: 22,
+                                    //       //   height: 20,)
+                                    //     ],
+                                    //   ),
+                                    // ),
+
+                                    SizedBox(width: 5,),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+
                                               Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    'Jeh Tiwari',
-                                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                      fontWeight: FontWeight.w700,
-                                                      color: ColorManager.mediumgrey,),
-                                                  ),
+                                                  Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
                                                   SizedBox(height: AppSize.s5),
-                                                  Text(
-                                                    'MRN #584234',
-                                                    style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: ColorManager.mediumgrey,),
-                                                  ),
+                                                  Text("SOC Date : ",style: DocDefineTableDataID.customTextStyle(context),),
+                                                ],),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
                                                   SizedBox(height: AppSize.s5),
-                                                  Text(
-                                                    'Anxiety',
-                                                    style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: ColorManager.mediumgrey,),
-                                                  ),
-                                                ],
-                                              ),
+                                                  Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
+                                                ],)
+                                              // Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
+                                              // // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                              // Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
+
                                             ],
                                           ),
-                                        ),
-                                      ),
 
-                                      Expanded(
-                                        flex: 3,
-                                        child:  Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            CustomButtonRow(
-                                              onSaveClosePressed: () {
-                                                // Action for Save and Close button
-                                                print('Save and Close pressed');
-                                              },
-                                              onSubmitPressed: () {
-                                                // Action for Submit button
-                                                print('Submit pressed');
-                                              },
-                                              onNextPressed: () {
-                                                // Action for Next button
-                                                print('Next pressed');
-                                              },
-                                            )
-                                          ],
-                                        ),
+                                          // SizedBox(height: AppSize.s5),
+                                          // Row(
+                                          //   children: [
+                                          //     Text("SOC Date : ",style: DocDefineTableDataID.customTextStyle(context),),
+                                          //     // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                          //     Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
+                                          //
+                                          //   ],
+                                          // ),
+                                        ],
                                       ),
-                                      SizedBox(width: 10,),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Column(
-                                          children: [
-                                            Text("Kaiser Med Advantage ",
-                                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorManager.mediumgrey,),),
-                                            // Container(
-                                            //   decoration: BoxDecoration(
-                                            //     color: Color(0xFF527FB9).withOpacity(0.5),
-                                            //     borderRadius: BorderRadius.circular(2), // Makes the borders curved with radius 5
-                                            //   ),
-                                            //   // color: Color(0xFF527FB9).withOpacity(0.5),
-                                            //   width: 22,
-                                            //   height: 20,
-                                            //   child: Center(
-                                            //     child: Text("ST",style: TextStyle(
-                                            //       fontWeight: FontWeight.w700,
-                                            //       fontSize: 12,
-                                            //       color: ColorManager.white,
-                                            //       decoration: TextDecoration.none,
-                                            //     ),),
-                                            //   ),
-                                            // ),
-                                            // SizedBox(width: 15,),
-                                            // Container(
-                                            //   decoration: BoxDecoration(
-                                            //     color: Color(0xFFFEBD4D).withOpacity(0.5),
-                                            //     borderRadius: BorderRadius.circular(2), // Makes the borders curved with radius 5
-                                            //   ),
-                                            //   width: 22,
-                                            //   height: 20,
-                                            //   child: Center(
-                                            //     child: Text(
-                                            //       "OT",
-                                            //       style: TextStyle(
-                                            //         fontWeight: FontWeight.w700,
-                                            //         fontSize: 12,
-                                            //         color: ColorManager.white,
-                                            //         decoration: TextDecoration.none,
-                                            //       ),
-                                            //     ),
-                                            //   ),
-                                            // )
-                                          ],
-                                        ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        children: [
+                                          InkWell(
+                                            child: Image.asset("images/sm/contact_text.png",height: 60,)
+                                            ,onTap:(){},),
+                                        ],
                                       ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("San Josaquin z3",
-                                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorManager.mediumgrey,),),
-
-                                            SizedBox(height: AppSize.s5),
-                                            Text("58244",
-                                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorManager.mediumgrey,),),
-                                          ],
-                                        ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        children: [
+                                          InkWell(
+                                            child: Image.asset("images/sm/i_circle.png",height: 60,)
+                                            ,onTap: (){},),
+                                        ],
                                       ),
-                                      // Expanded(
-                                      //   flex: 1,
-                                      //   child: Row(
-                                      //     children: [
-                                      //       Container(
-                                      //         width: 25,
-                                      //         height: 15,
-                                      //         decoration: BoxDecoration(
-                                      //             color: Color(0xFFE3F2F8),
-                                      //             borderRadius: BorderRadius.circular(3)
-                                      //         ),
-                                      //         child: Center(
-                                      //           child: Text("PB",style: TextStyle(
-                                      //             fontWeight: FontWeight.w700,
-                                      //             fontSize: 12,
-                                      //             color: ColorManager.bluebottom,
-                                      //             decoration: TextDecoration.none,
-                                      //           ),),
-                                      //         ),
-                                      //       )
-                                      //       // Image.asset("images/sm/pb.png", //width: 22,
-                                      //       //   height: 20,)
-                                      //     ],
-                                      //   ),
-                                      // ),
-
-                                      SizedBox(width: 5,),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              children: [
-
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                                    SizedBox(height: AppSize.s5),
-                                                    Text("SOC Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                                  ],),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-                                                    SizedBox(height: AppSize.s5),
-                                                    Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-                                                  ],)
-                                                // Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                                // // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                                // Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-
-                                              ],
-                                            ),
-
-                                            // SizedBox(height: AppSize.s5),
-                                            // Row(
-                                            //   children: [
-                                            //     Text("SOC Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                            //     // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                            //     Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-                                            //
-                                            //   ],
-                                            // ),
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Column(
-                                          children: [
-                                            InkWell(
-                                              child: Image.asset("images/sm/contact_text.png",height: 60,)
-                                              ,onTap:(){},),
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Column(
-                                          children: [
-                                            InkWell(
-                                              child: Image.asset("images/sm/i_circle.png",height: 60,)
-                                              ,onTap: (){},),
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 5),
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(60),
-                                                child: SizedBox(
-                                                  width: AppSize.s40,
-                                                  height: AppSize.s45,
-                                                  child: Image.asset(
-                                                    'images/hr_dashboard/man.png', // Replace with your image path
-                                                    fit: BoxFit.cover,
-                                                  ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 5),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(60),
+                                              child: SizedBox(
+                                                width: AppSize.s40,
+                                                height: AppSize.s45,
+                                                child: Image.asset(
+                                                  'images/hr_dashboard/man.png', // Replace with your image path
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(width: AppSize.s10,),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: AppSize.s50,
-                                                  height: AppSize.s25,
-                                                  child: ElevatedButton(
-                                                    onPressed: (){},
-                                                    style: ElevatedButton.styleFrom(
-                                                      backgroundColor:Color(0xffB4DB4C),
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(5),
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      'RN',
-                                                      style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s10,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: ColorManager.white,),
+                                          ),
+                                          SizedBox(width: AppSize.s10,),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                width: AppSize.s50,
+                                                height: AppSize.s25,
+                                                child: ElevatedButton(
+                                                  onPressed: (){},
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor:Color(0xffB4DB4C),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(5),
                                                     ),
                                                   ),
+                                                  child: Text(
+                                                    'RN',
+                                                    style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s10,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: ColorManager.white,),
+                                                  ),
                                                 ),
-                                                SizedBox(width: AppSize.s5,),
-                                                Text("Pending")
-                                              ],
+                                              ),
+                                              SizedBox(width: AppSize.s10,),
+                                              Text("Pending",style: TextStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
+                                                color: ColorManager.granitegray,),)
+                                            ],
 
-                                            ),
-                                          ],
-                                        ),
-                                        // child: Row(
-                                        //   mainAxisAlignment: MainAxisAlignment.start,
-                                        //   children: [
-                                        //     Column(
-                                        //       children: [
-                                        //         for (int i = 0; i < RandomImages.length; i++)
-                                        //           Align(
-                                        //             widthFactor: 0.5,
-                                        //             // parent circle avatar.
-                                        //             // We defined this for better UI
-                                        //             child: CircleAvatar(
-                                        //               radius: 20,
-                                        //               backgroundColor: Colors.white,
-                                        //               // Child circle avatar
-                                        //               child: CircleAvatar(
-                                        //                 radius: 20,
-                                        //                 backgroundImage: NetworkImage(RandomImages[i]),
-                                        //               ),
-                                        //             ),
-                                        //           ),
-                                        //       ],
-                                        //     ),
-                                        //     Row(
-                                        //       children: [
-                                        //         CustomButtonColumn(
-                                        //           onSaveClosePressed: () {
-                                        //             // Action for Save and Close button
-                                        //             print('Save and Close pressed');
-                                        //           },
-                                        //           onSubmitPressed: () {
-                                        //             // Action for Submit button
-                                        //             print('Submit pressed');
-                                        //           },
-                                        //           onNextPressed: () {
-                                        //             // Action for Next button
-                                        //             print('Next pressed');
-                                        //           },
-                                        //         )
-                                        //       ],
-                                        //     ),
-                                        //
-                                        //   ],
-                                        // ),
+                                          ),
+                                        ],
                                       ),
+                                      // child: Row(
+                                      //   mainAxisAlignment: MainAxisAlignment.start,
+                                      //   children: [
+                                      //     Column(
+                                      //       children: [
+                                      //         for (int i = 0; i < RandomImages.length; i++)
+                                      //           Align(
+                                      //             widthFactor: 0.5,
+                                      //             // parent circle avatar.
+                                      //             // We defined this for better UI
+                                      //             child: CircleAvatar(
+                                      //               radius: 20,
+                                      //               backgroundColor: Colors.white,
+                                      //               // Child circle avatar
+                                      //               child: CircleAvatar(
+                                      //                 radius: 20,
+                                      //                 backgroundImage: NetworkImage(RandomImages[i]),
+                                      //               ),
+                                      //             ),
+                                      //           ),
+                                      //       ],
+                                      //     ),
+                                      //     Row(
+                                      //       children: [
+                                      //         CustomButtonColumn(
+                                      //           onSaveClosePressed: () {
+                                      //             // Action for Save and Close button
+                                      //             print('Save and Close pressed');
+                                      //           },
+                                      //           onSubmitPressed: () {
+                                      //             // Action for Submit button
+                                      //             print('Submit pressed');
+                                      //           },
+                                      //           onNextPressed: () {
+                                      //             // Action for Next button
+                                      //             print('Next pressed');
+                                      //           },
+                                      //         )
+                                      //       ],
+                                      //     ),
+                                      //
+                                      //   ],
+                                      // ),
+                                    ),
 
-                                    ],
-                                  ),
+                                  ],
                                 ),
                               ],
                             ),

@@ -92,12 +92,6 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                 offset: const Offset(0, 2),
                               ),
                             ],
-                            // border:  Border(
-                            //   left: BorderSide(
-                            //     color: ColorManager.greenDark,
-                            //     width: 6,
-                            //   ),
-                            // ),
                           ),
                           child:
                           Column(
@@ -116,7 +110,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               Radius.circular(12)),),
                                         child: Center(
                                           child: Text(
-                                              'Potencial Duplicate',
+                                              'Potential Duplicate',
                                               textAlign: TextAlign.center,
                                               style: CustomTextStylesCommon.commonStyle(
                                                   color: ColorManager.mediumgrey,
@@ -159,9 +153,9 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               ),
                                               SizedBox(height: AppSize.s4,),
                                               Text(
-                                                "Refferal Date: 09/15/2024",
+                                                "Referral Date : 09/15/2024",
                                                 textAlign: TextAlign.center,
-                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                   fontWeight: FontWeight.w400,
                                                   color: ColorManager.mediumgrey,),
                                               ),
@@ -183,9 +177,9 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Refferal Source: ",
+                                          "Referral Source: ",
                                           textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
@@ -209,7 +203,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                         Text(
                                           "PCP: ",
                                           textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
@@ -233,7 +227,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                         Text(
                                           "Primary Diagnosis: ",
                                           textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
@@ -263,7 +257,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                       child: Row(
                                         children: [
                                           Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
-                                          SizedBox(width: AppSize.s15),
+                                          SizedBox(width: AppSize.s30),
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
@@ -304,14 +298,14 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: AppSize.s15),
+                                          SizedBox(width: AppSize.s10),
                                           IconButton(
                                               hoverColor: Colors.transparent,
                                               splashColor: Colors.transparent,
                                               highlightColor: Colors.transparent,
                                               onPressed: (){},
                                               icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
-                                          SizedBox(width: AppSize.s15),
+                                          SizedBox(width: AppSize.s10),
                                           PopupMenuButton<String>(
                                             splashRadius: 0,
                                             onSelected: (value) {

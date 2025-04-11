@@ -11,6 +11,7 @@ import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../sm_scheduler_screen_const.dart';
 
 class DisciplinePageView extends StatefulWidget {
@@ -32,49 +33,15 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
         padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 10),
         child: Column(
           children: [
+            SizedBox(height: AppSize.s20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    Container(
-                      width: 381,
-                      height: 36,
-                      child:TextField(
-                        textCapitalization:
-                        TextCapitalization.words,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
-                        // onChanged: _search,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xFFF8F8F8),
-                            hintText: 'Search',
-                            alignLabelWithHint: true,
-                            hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color:Color(0xFFC9C9C9),width: 1),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color:Colors.grey.shade200,width: 1),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            prefixIcon: IconButton(
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              icon: Center(
-                                child: Icon(
-                                  Icons.search,
-                                  size: IconSize.I18,
-                                  color:  ColorManager.greylight,
-                                ),
-                              ),
-                              onPressed: () {},
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
-                      ),
 
+                    CustomSearchFieldSM(
+                      onPressed: (){},
                     ),
                     SizedBox(width: 20,),
                     IconButton(
@@ -164,7 +131,7 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
               ],
             ),
 
-            SizedBox(height: 20,),
+            SizedBox(height: 30,),
             Expanded(
               child: ScrollConfiguration(
                 behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -173,7 +140,7 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                   itemBuilder: (BuildContext context, int index) { return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
                     child: borderSchedularContainerConst(
-                      height: 100,
+                      height: 105,
 
                       child: Column(
                         children: [
@@ -183,7 +150,7 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                               children:[
                                 Container(
                                     width: AppSize.s88,
-                                    height: AppSize.s20,
+                                    height: AppSize.s18,
                                     decoration: BoxDecoration(
                                       color:Color(0xFFE3F2F8),
                                       borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),),
@@ -475,8 +442,10 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: AppSize.s5,),
-                                        Text("Pending")
+                                        SizedBox(width: AppSize.s10,),
+                                        Text("Pending",style: TextStyle(fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
+                                          color: ColorManager.granitegray,),)
                                       ],
 
                                     ),
