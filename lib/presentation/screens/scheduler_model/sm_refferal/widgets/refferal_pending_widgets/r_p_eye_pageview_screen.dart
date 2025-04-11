@@ -583,7 +583,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         itemCount: 4, // Adjust as needed
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 0.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -844,15 +844,12 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
               ///documents
               BlueBGHeadConst(HeadText: "Documents"),
               SizedBox(height: AppSize.s30,),
-              Padding(
-                padding: const EdgeInsets.only(left: 25.0),
-                child: Text(
-                  'Upload Bulk Document',
-                  style:TextStyle(
-                    fontSize: FontSize.s16,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                  ),
+              Text(
+                'Upload Bulk Document',
+                style:TextStyle(
+                  fontSize: FontSize.s16,
+                  fontWeight: FontWeight.w700,
+                  color: ColorManager.mediumgrey,
                 ),
               ),
               SizedBox(height: 8),
@@ -862,7 +859,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                 dashPattern: [6, 3],
                 borderType: BorderType.RRect,
                 radius: Radius.circular(12),
-                borderPadding: EdgeInsets.symmetric(horizontal: 10),
+               // borderPadding: EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
                   width: double.infinity,
                   height: 80,
@@ -965,7 +962,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               children: [
                                 //SizedBox(height: 5),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p10),
+                                  padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,),
                                   child: Container(
                                       margin: EdgeInsets.symmetric(horizontal: AppSize.s5),
                                       decoration: BoxDecoration(
@@ -1190,6 +1187,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
       child: Row(
         children: [
           Checkbox(
+            splashRadius: 0,
+            hoverColor: Colors.transparent,
             value: value,
             activeColor: ColorManager.bluebottom,
             onChanged: onChanged,
