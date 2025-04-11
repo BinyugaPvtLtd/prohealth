@@ -367,7 +367,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
             ),
       
             ///
-            SizedBox(height: AppSize.s10,),
+            SizedBox(height: AppSize.s30,),
             BlueBGHeadConst(HeadText: "Billing Attachments"),
             SizedBox(height: AppSize.s10,),
             Padding(
@@ -688,7 +688,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
               ],
             ),
             ///
-            SizedBox(height: AppSize.s10,),
+            SizedBox(height: AppSize.s30,),
             BlueBGHeadConst(HeadText: "Consents"),
             SizedBox(height: AppSize.s10,),
             Padding(

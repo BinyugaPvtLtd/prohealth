@@ -126,7 +126,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                 //     ),
                 SizedBox(width:200),
                 Container(
-                  width: MediaQuery.of(context).size.width / 4.9,
+                  width: MediaQuery.of(context).size.width / 4.6,
                   height: AppSize.s30,
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -148,7 +148,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         hoverColor: Colors.transparent,
                         child: Container(
                           height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 10,
+                          width: MediaQuery.of(context).size.width / 9,
                           padding: EdgeInsets.symmetric(vertical: 6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
