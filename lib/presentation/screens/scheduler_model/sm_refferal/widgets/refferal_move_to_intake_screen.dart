@@ -32,13 +32,14 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          padding: const EdgeInsets.only(left: 60,right: 45, top: 5,bottom: 10),
           child: Column(
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomSearchFieldSM(
+                    width: 440,
                     onPressed: (){},
                   ),
                   SizedBox(width: AppSize.s20,),
@@ -78,20 +79,26 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5,),
+                        padding: const EdgeInsets.symmetric(vertical: 8,),
                         child: Container(
                           height: 75,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.6),
-                                spreadRadius: 0,
-                                blurRadius: 4,
-                                offset: const Offset(0, 2),
+                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12),topLeft: Radius.circular(12),topRight: Radius.circular(12)),
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Colors.grey.shade300,
+                                width: 3,
                               ),
-                            ],
+                              left: BorderSide(
+                                color: Colors.grey.shade300,
+                                width: 1,
+                              ),
+                              right: BorderSide(
+                                color: Colors.grey.shade300,
+                                width: 1,
+                              ),
+                            ),
                           ),
                           child:
                           Column(
@@ -169,7 +176,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 30,),
+                                  SizedBox(width: 25,),
                                   Expanded(
                                     flex: 1,
                                     child:  Column(
@@ -332,7 +339,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                       ))
                                 ],
                               ),
-                              Container(height: AppSize.s15,),
+                              Container(height: AppSize.s12,),
                             ],
                           ),
                         ),

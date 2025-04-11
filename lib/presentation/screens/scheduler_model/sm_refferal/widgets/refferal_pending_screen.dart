@@ -86,7 +86,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          padding: const EdgeInsets.only(left: 60,right: 45, top: 5,bottom: 10),
           child: Column(
             children: [
               // Row(
@@ -97,6 +97,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomSearchFieldSM(
+                        width: 440,
                        onPressed: (){},
                      ),
                       SizedBox(width: AppSize.s20,),
@@ -109,6 +110,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                       ),
                     ],
                   ),
+
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   //   children: [

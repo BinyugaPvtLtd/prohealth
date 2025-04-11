@@ -23,10 +23,10 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
     setState(() {
       _selectedIndex = index;
     });
-    _tabPageController.animateToPage(
+    _tabPageController.jumpToPage(
       index,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.ease,
+    //  duration: const Duration(milliseconds: 500),
+  //    curve: Curves.ease,
     );
   }
   bool isShowingReferalEyePageview = false;

@@ -31,7 +31,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          padding: const EdgeInsets.only(left: 60,right: 45, top: 5,bottom: 10),
           child: Column(
             children: [
               // Row(
@@ -41,6 +41,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                   Row(
                     children: [
                       CustomSearchFieldSM(
+                        width: 440,
                         onPressed: (){},
                       ),
                       SizedBox(width: AppSize.s20,),
@@ -132,7 +133,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                 ],
               ),
-              SizedBox(height: AppSize.s30,),
+              SizedBox(height: AppSize.s20,),
               Expanded(
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -161,24 +162,24 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                           //     ),
                           //   ),
                           // ),
-                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.6),
-                                spreadRadius: 0,
-                                blurRadius: 4,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                            // border:  Border(
-                            //   left: BorderSide(
-                            //     color: ColorManager.greenDark,
-                            //     width: 6,
-                            //   ),
-                            // ),
+                         decoration:  BoxDecoration(
+                          color: ColorManager.white,
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12),topLeft: Radius.circular(12),topRight: Radius.circular(12)),
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.grey.shade300,
+                              width: 3,
+                            ),
+                            left: BorderSide(
+                              color: Colors.grey.shade300,
+                              width: 1,
+                            ),
+                            right: BorderSide(
+                              color: Colors.grey.shade300,
+                              width: 1,
+                            ),
                           ),
+                        ),
                           child:
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,

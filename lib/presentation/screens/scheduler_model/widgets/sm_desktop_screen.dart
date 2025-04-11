@@ -169,7 +169,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                   ? SizedBox(height: 30,)
                   : Container(
                // color: Colors.pink,
-                margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p30),
+                margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p40),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
