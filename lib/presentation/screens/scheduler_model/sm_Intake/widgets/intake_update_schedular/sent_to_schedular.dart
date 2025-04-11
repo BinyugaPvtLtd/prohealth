@@ -119,9 +119,20 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                              decoration: BoxDecoration(
                                color: ColorManager.white,
                                borderRadius: BorderRadius.circular(12),
-                               border: Border(left: BorderSide(color: Color(0xFFC30909),
-                                 width: 5,
-                               ),),
+                               border: Border(left: BorderSide(color: Color(0xFFC30909), width: 5,),
+                                 top: BorderSide(
+                                   color: Colors.white,
+                                   width: 1,
+                                 ),
+                                 right: BorderSide(
+                                   color: Colors.transparent,
+                                   width: 1,
+                                 ),
+                                 bottom: BorderSide(
+                                   color: Colors.white,
+                                   width: 1,
+                                 ),
+                               ),
                                boxShadow: [
                                  BoxShadow(
                                    color: Colors.grey.withOpacity(0.6),

@@ -55,7 +55,7 @@ class _PendingPageViewState extends State<PendingPageView> {
       backgroundColor: Colors.white,
       body:Stack(
         children:[ Padding(
-          padding:const EdgeInsets.only(right: 80,left: 50,bottom: 5),
+          padding:const EdgeInsets.only(right: 80,left: 30,bottom: 5),
           child: Column(
             children: [
               SizedBox(height: AppSize.s20,),
@@ -239,7 +239,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                             height: 100,),
                           Flexible(
                             child: SchedularContainerConst(
-                              height: 105,
+                              height: 110,
                               child: Column(
                                 children: [
                                   Row(
@@ -250,14 +250,14 @@ class _PendingPageViewState extends State<PendingPageView> {
                                             width: AppSize.s88,
                                             height: AppSize.s18,
                                             decoration: BoxDecoration(
-                                              color:Color(0xFFE3F2F8),
+                                              color:Color(0xFF4FB4F4),
                                               borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),),
                                             child: Center(
                                               child: Text(
                                                   'Wound',
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon.commonStyle(
-                                                      color: Color(0xFFE1696C8),
+                                                      color: ColorManager.white,
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w600)),
                                             )),
@@ -291,7 +291,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(width: AppSize.s7),
+                                              SizedBox(width: AppSize.s12),
                                               Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
@@ -416,19 +416,22 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       ),
                                       Expanded(
                                         flex: 1,
-                                        child: Column(
-                                          children: [
-                                            InkWell(
-                                              child: Image.asset("images/sm/i_circle.png",height: 60,)
-                                              ,onTap: ()async{
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return  Requestlog();
-                                                },
-                                              );
-                                            },),
-                                          ],
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(right: 40),
+                                          child: Column(
+                                            children: [
+                                              InkWell(
+                                                child: Image.asset("images/sm/i_circle.png",height: 60,)
+                                                ,onTap: ()async{
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return  Requestlog();
+                                                  },
+                                                );
+                                              },),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                       Expanded(
@@ -513,7 +516,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                             ),
                                                             radius: 16,
                                                           ),
-                                                          SizedBox(width: AppSize.s10,),
+                                                          SizedBox(width: AppSize.s12,),
                                                           Container(
                                                             width: AppSize.s40,
                                                             height: AppSize.s20,
@@ -530,7 +533,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                               ),
                                                             ),
                                                           ),
-                                                      SizedBox(width: AppSize.s10,),
+                                                      SizedBox(width: AppSize.s12,),
                                                           Text("Pending",style: TextStyle(fontSize: FontSize.s12,
                                                             fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
                                                             color: ColorManager.granitegray,),),
@@ -550,6 +553,17 @@ class _PendingPageViewState extends State<PendingPageView> {
 
                                     ],
                                   ),
+                                  // Row(
+                                  //     mainAxisAlignment: MainAxisAlignment.start,
+                                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                                  //     children:[
+                                  //       Container(
+                                  //           width: AppSize.s88,
+                                  //           height: AppSize.s18,
+                                  //         child: SizedBox(),
+                                  //          ),
+                                  //     ]
+                                  // ),
                                 ],
                               ),
                             ),

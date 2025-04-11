@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/request_log.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -31,7 +32,7 @@ class _SocPageViewState extends State<SocPageView> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.only(right: 80,left: 50,bottom: 5),
+        padding: const EdgeInsets.only(right: 80,left: 30,bottom: 5),
         child: Column(
           children: [
             SizedBox(height: AppSize.s20,),
@@ -214,7 +215,7 @@ class _SocPageViewState extends State<SocPageView> {
                     ):Container(width: 40,height: 100,),
                         Flexible(
                           child: SchedularContainerConst(
-                            height: 105,
+                            height: 110,
                             child: Column(
                               children: [
                                 Row(
@@ -226,14 +227,14 @@ class _SocPageViewState extends State<SocPageView> {
                                           width: AppSize.s88,
                                           height: AppSize.s18,
                                           decoration: BoxDecoration(
-                                            color:Color(0xFFE3F2F8),
+                                            color:Color(0xFF4FB4F4),
                                             borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),),
                                           child: Center(
                                             child: Text(
                                                 'Wound',
                                                 textAlign: TextAlign.center,
                                                 style: CustomTextStylesCommon.commonStyle(
-                                                    color: Color(0xFFE1696C8),
+                                                    color: ColorManager.white,
                                                     fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w600)),
                                           )),
@@ -267,7 +268,7 @@ class _SocPageViewState extends State<SocPageView> {
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(width: AppSize.s7),
+                                            SizedBox(width: AppSize.s12),
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -466,12 +467,22 @@ class _SocPageViewState extends State<SocPageView> {
                                     ),
                                     Expanded(
                                       flex: 1,
-                                      child: Column(
-                                        children: [
-                                          InkWell(
-                                            child: Image.asset("images/sm/i_circle.png",height: 60,)
-                                            ,onTap: (){},),
-                                        ],
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 40),
+                                        child: Column(
+                                          children: [
+                                            InkWell(
+                                              child: Image.asset("images/sm/i_circle.png",height: 60,)
+                                              ,onTap:()async{
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return  Requestlog();
+                                                },
+                                              );
+                                            },),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     Expanded(
@@ -492,7 +503,7 @@ class _SocPageViewState extends State<SocPageView> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: AppSize.s10,),
+                                          SizedBox(width: AppSize.s12,),
                                           Row(
                                             children: [
                                               Container(
@@ -514,7 +525,7 @@ class _SocPageViewState extends State<SocPageView> {
                                                   ),
                                                 ),
                                               ),
-                                              SizedBox(width: AppSize.s10,),
+                                              SizedBox(width: AppSize.s12,),
                                               Text("Pending",style: TextStyle(fontSize: FontSize.s12,
                                                 fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
                                                 color: ColorManager.granitegray,),)
