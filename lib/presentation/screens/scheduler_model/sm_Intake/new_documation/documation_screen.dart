@@ -1308,7 +1308,6 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                           )//BlueButtonTextConst.customTextStyle(context),
                       ),
                       icon:Icon(Icons.add),
-        
                       style: ElevatedButton.styleFrom(
                         backgroundColor:  ColorManager.bluebottom,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
