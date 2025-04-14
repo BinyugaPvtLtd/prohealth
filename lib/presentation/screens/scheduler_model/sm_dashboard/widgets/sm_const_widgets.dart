@@ -486,7 +486,7 @@ class PatientsToBeScheduledList extends StatelessWidget {
                                         SizedBox(width: 10,),
                                         Expanded(
                                           child: Text(
-                                            "Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
+                                            "Tufts International Center, 20\nSawyer Ave, Medford MA 02155 ",
                                             textAlign: TextAlign.start,
                                             style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w500,

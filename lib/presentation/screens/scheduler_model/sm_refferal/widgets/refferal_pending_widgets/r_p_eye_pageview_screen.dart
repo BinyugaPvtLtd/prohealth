@@ -32,6 +32,14 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   TextEditingController patientsController = TextEditingController();
   TextEditingController zipCodeController = TextEditingController();
   TextEditingController patientsSummary = TextEditingController();
+  TextEditingController referredfor = TextEditingController();
+  TextEditingController policy = TextEditingController();
+  TextEditingController plan = TextEditingController();
+  TextEditingController provider = TextEditingController();
+  TextEditingController possible = TextEditingController();
+  TextEditingController icd = TextEditingController();
+  TextEditingController pdgm = TextEditingController();
+  //TextEditingController patientsSummary = TextEditingController();
   String selectedType = "Insurance";
   bool isChecked = false;
   List<bool> isCheckedList = List.generate(5, (index) => false); // Initialize list with false
@@ -172,7 +180,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     flex: 2,
                                     child: Container(
                                       child: Text(
-                                        "9/15/2025",
+                                        "9/15/2024",
                                         textAlign: TextAlign.start,
                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                           fontWeight: FontWeight.w700,
@@ -355,7 +363,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                 children: [
                   SizedBox(width: AppSize.s25,),
                   Expanded(
-                    child: SMTextFConst(controller: firstNameController,
+                    child: SMTextFConst(controller: referredfor,
                         isAsteric: false,
                         keyboardType: TextInputType.text, text: "Referred for"),
                   ),
@@ -435,7 +443,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Insurance #1',
+                              'Insurance  #1',
                               style: AllPopupHeadings.customTextStyle(context),
                             ),
                             Row(mainAxisAlignment: MainAxisAlignment.start,
@@ -462,7 +470,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 Expanded(
                                   flex: 2,
                                   child: SMTextFConst(
-                                    controller: firstNameController,
+                                    controller: policy,
                                     isAsteric: false,
                                     keyboardType: TextInputType.text,
                                     text: "Policy # ${index + 1}",
@@ -472,7 +480,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 Expanded(
                                   flex: 2,
                                   child: SMTextFConst(
-                                    controller: firstNameController,
+                                    controller: provider,
                                     isAsteric: false,
                                     keyboardType: TextInputType.text,
                                     text: "Insurance Provider :",
@@ -482,7 +490,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 Expanded(
                                   flex: 2,
                                   child: SMTextFConst(
-                                    controller: firstNameController,
+                                    controller: plan,
                                     isAsteric: false,
                                     keyboardType: TextInputType.text,
                                     text: "Insurance Plan :",
@@ -501,7 +509,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     SizedBox(height: 12,),
                                     Container(
                                       height: 30,
-                                      padding: EdgeInsets.only(left: 60,right: 20),
+                                      padding: EdgeInsets.only(left: 55,right: 20),
                                       child: Text("Not all visit\ncovered",
                                         style: TextStyle(
                                           fontSize: FontSize.s12,
@@ -537,7 +545,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                         width: AppSize.s130,
                                         height: AppSize.s30,
                                         text: "Check Eligibility",
-                                        color:  ColorManager.blueprime,
+                                        color:  ColorManager.bluebottom,
                                         onPressed: (){},
                                       ),
                                       SizedBox(height: 5,),
@@ -592,21 +600,21 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     Container(height: 90,width: 5,color: ColorManager.greenDark,),
                                     SizedBox(width: AppSize.s30,),
                                     Expanded(
-                                      child: SMTextFConst(controller: firstNameController,
+                                      child: SMTextFConst(controller: possible,
                                           isAsteric: false,
                                           isIcon: true,
                                           keyboardType: TextInputType.text, text: "Possible Diagnosis"),
                                     ),
                                     SizedBox(width: AppSize.s60,),
                                     Expanded(
-                                      child: SMTextFConst(controller: firstNameController,
+                                      child: SMTextFConst(controller: icd,
                                           isAsteric: false,
                                           isIcon: true,
                                           keyboardType: TextInputType.text, text: "ICD Code"),
                                     ),
                                     SizedBox(width: AppSize.s60,),
                                     Expanded(
-                                      child: SMTextFConst(controller: firstNameController,
+                                      child: SMTextFConst(controller: pdgm,
                                           isAsteric: false,
                                           isIcon: true,
                                           keyboardType: TextInputType.text, text: "PDGM - Acceptable"),
