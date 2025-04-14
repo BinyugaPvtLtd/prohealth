@@ -86,7 +86,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          padding: const EdgeInsets.only(left: 60,right: 45, top: 5,bottom: 10),
           child: Column(
             children: [
               // Row(
@@ -97,6 +97,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomSearchFieldSM(
+                        width: 440,
                        onPressed: (){},
                      ),
                       SizedBox(width: AppSize.s20,),
@@ -276,14 +277,15 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                   fontWeight: FontWeight.w700,
                                                   color: ColorManager.mediumgrey,),
                                               ),
-                                              SizedBox(height: AppSize.s4,),
+                                              SizedBox(height: AppSize.s3,),
                                               Text(
-                                                "Referral Date :  09/15/2024",
+                                                "Received Date :  09/15/2024",
                                                 textAlign: TextAlign.center,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
                                                   fontWeight: FontWeight.w400,
                                                   color: ColorManager.mediumgrey,),
                                               ),
+                                              SizedBox(height: AppSize.s2,),
                                               Text(
                                                 "7:35 PM",
                                                 textAlign: TextAlign.center,
@@ -326,6 +328,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                       ],
                                     ),
                                   ),
+                                  SizedBox(width: 5,),
                                   Expanded(
                                     flex: 1,
                                     child:  Column(
@@ -393,7 +396,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(60),
                                           child: SizedBox(
-                                            width: AppSize.s45,
+                                            width: AppSize.s41,
                                             height: AppSize.s45,
                                             child: Image.asset(
                                               'images/1.png', // Replace with your image path
@@ -447,7 +450,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                             onPressed: (){
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                                              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                                               backgroundColor: ColorManager.white,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.circular(12),
@@ -465,10 +468,10 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           PopupMenuButton<String>(
                                             splashRadius: 0,
                                             onSelected: (value) {
-                                              if (value == 'Option 1') {
+                                              if (value == 'Merge Duplicate') {
                                                 widget.onEyeButtonPressed;
                                                 print('Option 1 Selected');
-                                              } else if (value == 'Option 2') {
+                                              } else if (value == 'Archived') {
                                                 print('Option 2 Selected');
                                               }
                                             },
@@ -1167,56 +1170,51 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
             ),
           ),
         ),
-
-
-
-
-
-
-        // AnimatedPositioned(
-        //   duration: Duration(milliseconds: 300),
-        //   right: _isFilterOpen ? 0 : -220, // Slide in/out effect
-        //   top: 0,
-        //   bottom: 10,
-        //   child: Container(
-        //     width: 200,
-        //
-        //     padding: EdgeInsets.all(10),
-        //     decoration: BoxDecoration(
-        //       color: Colors.white,
-        //       boxShadow: [
-        //         BoxShadow(color: Colors.black26, blurRadius: 5),
-        //       ],
-        //     ),
-        //     child: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: [
-        //         Text("Filter Options", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        //         Divider(),
-        //         // Example filter fields
-        //         Text("Status"),
-        //         DropdownButton<String>(
-        //           items: ["All", "Pending", "Approved"]
-        //               .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-        //               .toList(),
-        //           onChanged: (val) {},
-        //         ),
-        //         SizedBox(height: 10),
-        //         Text("Date Range"),
-        //         ElevatedButton(
-        //           onPressed: () {},
-        //           child: Text("Select Date"),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }
 }
 
 
+///
+// AnimatedPositioned(
+//   duration: Duration(milliseconds: 300),
+//   right: _isFilterOpen ? 0 : -220, // Slide in/out effect
+//   top: 0,
+//   bottom: 10,
+//   child: Container(
+//     width: 200,
+//
+//     padding: EdgeInsets.all(10),
+//     decoration: BoxDecoration(
+//       color: Colors.white,
+//       boxShadow: [
+//         BoxShadow(color: Colors.black26, blurRadius: 5),
+//       ],
+//     ),
+//     child: Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text("Filter Options", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+//         Divider(),
+//         // Example filter fields
+//         Text("Status"),
+//         DropdownButton<String>(
+//           items: ["All", "Pending", "Approved"]
+//               .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+//               .toList(),
+//           onChanged: (val) {},
+//         ),
+//         SizedBox(height: 10),
+//         Text("Date Range"),
+//         ElevatedButton(
+//           onPressed: () {},
+//           child: Text("Select Date"),
+//         ),
+//       ],
+//     ),
+//   ),
+// ),
 ///
 // SizedBox(height: 30,),
 // Expanded(

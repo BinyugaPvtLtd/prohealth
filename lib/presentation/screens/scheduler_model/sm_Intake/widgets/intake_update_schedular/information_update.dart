@@ -68,11 +68,11 @@ class InformationUpdateScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 20,),
                       IconButton(
-                        hoverColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onPressed:(){},
-                        icon: Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                          hoverColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onPressed: (){},
+                          icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 15,)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                       ),
                     ],
                   ),
@@ -130,26 +130,7 @@ class InformationUpdateScreen extends StatelessWidget {
                             return Column(
                               children: [
                                 SizedBox(height: AppSize.s5),
-                                Container(
-                                  height: AppSize.s90,
-                                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                                  // margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.white,
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border(left: BorderSide(
-                                      color: Color(0xFFC30909),
-                                      width: 5,
-                                    ),),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.6),
-                                        spreadRadius: 0,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
+                                IntakeContainer(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -395,6 +376,9 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
                                           onTap: selectUploadButton,
                                           child:Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -415,6 +399,9 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
                                           onTap: (){},
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -435,6 +422,9 @@ class InformationUpdateScreen extends StatelessWidget {
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
                                           onTap: (){},
                                           child:Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -663,6 +653,42 @@ class SMDashboardMenuButtons extends StatelessWidget {
 
 
 
+
+
+
+
+
+
+
+class IntakeContainer extends StatelessWidget {
+  final Widget child;
+  final double? height;
+  const IntakeContainer({super.key, required this.child, this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height ?? AppSize.s90,
+        padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+        // margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border(left: BorderSide(color: Color(0xFFC30909), width: 5,),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.4),
+              spreadRadius: 0,
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child:child,
+    );
+  }
+}
 
 
 

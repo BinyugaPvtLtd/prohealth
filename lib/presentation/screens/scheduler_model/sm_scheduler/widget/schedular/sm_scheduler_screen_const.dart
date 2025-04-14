@@ -276,16 +276,31 @@ class CustomButtonColumn extends StatelessWidget {
 
 
 class CustomButtonRowstack extends StatelessWidget {
-  final VoidCallback onSaveClosePressed;
-  final VoidCallback onSubmitPressed;
-  final VoidCallback onNextPressed;
+  final VoidCallback onRN;
+  final VoidCallback onPT;
+  final VoidCallback onOT;
 
-  const CustomButtonRowstack({
+  final GlobalKey _rnKey = GlobalKey(); // Add key for RN
+
+   CustomButtonRowstack({
     Key? key,
-    required this.onSaveClosePressed,
-    required this.onSubmitPressed,
-    required this.onNextPressed,
+    required this.onRN,
+    required this.onPT,
+    required this.onOT,
   }) : super(key: key);
+
+
+  // void _showPopup(BuildContext context, GlobalKey key, String text) {
+  //   ShowMoreTextPopup popup = ShowMoreTextPopup(
+  //     context,
+  //     text: text,
+  //     textStyle: TextStyle(color: Colors.black),
+  //     height: 200,
+  //     width: 100,
+  //     backgroundColor: Color(0xFF16CCCC),
+  //   );
+  //   popup.show(widgetKey: key);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -294,26 +309,23 @@ class CustomButtonRowstack extends StatelessWidget {
       children: [
         // Save and Close Button with Positioned Icon
         Container(
-         // padding: EdgeInsets.only(top: 15),
           margin: EdgeInsets.only(top: 20.0),
           height: 50,
           child: Stack(
             children: <Widget>[
-              InkWell(
-                onTap: onSaveClosePressed,
-                child: SizedBox(
-                               // margin: EdgeInsets.only(top: 20.0),
-                  width: AppSize.s70,
-                  height: AppSize.s25,
-                  child: Container(
-                   // margin: EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      color: Color(0xffB4DB4C),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+              Material(
+                elevation: 5,
+                borderRadius: BorderRadius.circular(5),
+                color: Color(0xffB4DB4C),
+                child: InkWell(
+                  onTap: onRN,
+                  borderRadius: BorderRadius.circular(5),
+                  child: SizedBox(
+                    width: AppSize.s70,
+                    height: AppSize.s25,
                     child: Center(
                       child: Text(
-                        'RN',
+                        'RN SOC',
                         style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeight.w400,
@@ -327,12 +339,96 @@ class CustomButtonRowstack extends StatelessWidget {
               Positioned(
                 right: 0,
                 bottom: 13,
-                child: Image.asset("images/sm/checkgram.png", height: 20,)
-
-              )
+                child: Image.asset("images/sm/checkgram.png", height: 20),
+              ),
             ],
           ),
         ),
+        ////
+
+
+        // MouseRegion(
+        //   onEnter: (_) => _showPopup(context, _rnKey, "This is RN SOC popup"),
+        //   child: Container(
+        //     key: _rnKey,
+        //     margin: EdgeInsets.only(top: 20.0),
+        //     height: 50,
+        //     child: Stack(
+        //       children: <Widget>[
+        //         Material(
+        //           elevation: 5,
+        //           borderRadius: BorderRadius.circular(5),
+        //           color: Color(0xffB4DB4C),
+        //           child: InkWell(
+        //             onTap: onRN,
+        //             borderRadius: BorderRadius.circular(5),
+        //             child: SizedBox(
+        //               width: AppSize.s70,
+        //               height: AppSize.s25,
+        //               child: Center(
+        //                 child: Text(
+        //                   'RN SOC',
+        //                   style: CustomTextStylesCommon.commonStyle(
+        //                     fontSize: FontSize.s12,
+        //                     fontWeight: FontWeight.w400,
+        //                     color: ColorManager.white,
+        //                   ),
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //         Positioned(
+        //           right: 0,
+        //           bottom: 13,
+        //           child: Image.asset("images/sm/checkgram.png", height: 20),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        ///
+        ///
+        // Container(
+        //  // padding: EdgeInsets.only(top: 15),
+        //   margin: EdgeInsets.only(top: 20.0),
+        //   height: 50,
+        //   child: Stack(
+        //     children: <Widget>[
+        //       InkWell(
+        //         onTap: onSaveClosePressed,
+        //         child: SizedBox(
+        //                        // margin: EdgeInsets.only(top: 20.0),
+        //           width: AppSize.s70,
+        //           height: AppSize.s25,
+        //           child: Container(
+        //            // margin: EdgeInsets.all(5.0),
+        //             decoration: BoxDecoration(
+        //               color: Color(0xffB4DB4C),
+        //               borderRadius: BorderRadius.circular(5),
+        //             ),
+        //             child: Center(
+        //               child: Text(
+        //                 'RN SOC',
+        //                 style: CustomTextStylesCommon.commonStyle(
+        //                   fontSize: FontSize.s12,
+        //                   fontWeight: FontWeight.w400,
+        //                   color: ColorManager.white,
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //       Positioned(
+        //         right: 0,
+        //         bottom: 13,
+        //         child: Image.asset("images/sm/checkgram.png", height: 20,)
+        //
+        //       )
+        //     ],
+        //   ),
+        // ),
         SizedBox(width: AppSize.s20),
 
 
@@ -342,31 +438,29 @@ class CustomButtonRowstack extends StatelessWidget {
           height: 50,
           child: Stack(
             children: <Widget>[
-              InkWell(
-                onTap: onSubmitPressed,
-                child: SizedBox(
-                  // margin: EdgeInsets.only(top: 20.0),
-                  width: AppSize.s70,
-                  height: AppSize.s25,
-                  child: Container(
-                    // margin: EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      color: Color(0xffF6928A),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'PT',
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: ColorManager.white,
+              Material(
+                elevation: 5,
+                borderRadius: BorderRadius.circular(5),
+                color: Color(0xffF6928A),
+                child: InkWell(
+                  onTap: onPT,
+                  borderRadius: BorderRadius.circular(5),
+                  child: SizedBox(
+                    width: AppSize.s70,
+                    height: AppSize.s25,
+                      child: Center(
+                        child: Text(
+                          'PT',
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
               Positioned(
                 right: 0,
                 bottom: 13,
@@ -419,31 +513,32 @@ class CustomButtonRowstack extends StatelessWidget {
           height: 50,
           child: Stack(
             children: <Widget>[
-              InkWell(
-                onTap: onNextPressed,
-                child: SizedBox(
-                  // margin: EdgeInsets.only(top: 20.0),
-                  width: AppSize.s70,
-                  height: AppSize.s25,
-                  child: Container(
-                    // margin: EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      color: Color(0xffFEBD4D),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'OT',
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: ColorManager.white,
+              Material(
+                elevation: 5,
+                borderRadius: BorderRadius.circular(5),
+                color: Color(0xffFEBD4D),
+                child: InkWell(
+                  onTap: onOT,
+                  borderRadius: BorderRadius.circular(5),
+                  child: SizedBox(
+                    // margin: EdgeInsets.only(top: 20.0),
+                    width: AppSize.s70,
+                    height: AppSize.s25,
+
+                      child: Center(
+                        child: Text(
+                          'OT',
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
+
               Positioned(
                 right: 0,
                 bottom: 13,
@@ -517,7 +612,7 @@ class CustomButtonRowPop extends StatelessWidget {
         Row(
           children: [
 
-            InkWell(
+            GestureDetector(
               onTap: onSaveClosePressed,
               child: Container(
                 width: AppSize.s40,
@@ -546,7 +641,7 @@ class CustomButtonRowPop extends StatelessWidget {
         // Submit Button
         Row(
           children: [
-            InkWell(
+            GestureDetector(
               onTap: onSubmitPressed,
               child: Container(
                 width: AppSize.s40,

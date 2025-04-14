@@ -93,7 +93,7 @@ class _RequestlogState extends State<Requestlog> {
                           ),
                         ],
                       ),
-                      SizedBox(width: AppSize.s7),
+                      SizedBox(width: AppSize.s12),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

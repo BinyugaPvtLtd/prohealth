@@ -140,7 +140,7 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                   itemBuilder: (BuildContext context, int index) { return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
                     child: borderSchedularContainerConst(
-                      height: 105,
+                      height: 110,
 
                       child: Column(
                         children: [
@@ -152,14 +152,14 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                     width: AppSize.s88,
                                     height: AppSize.s18,
                                     decoration: BoxDecoration(
-                                      color:Color(0xFFE3F2F8),
-                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),),
+                                      color:Color(0xFF4FB4F4),
+                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(8)),),
                                     child: Center(
                                       child: Text(
                                           'Wound',
                                           textAlign: TextAlign.center,
                                           style: CustomTextStylesCommon.commonStyle(
-                                              color: Color(0xFFE1696C8),
+                                              color:  ColorManager.white,
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w600)),
                                     )),
@@ -193,7 +193,7 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(width: AppSize.s7),
+                                      SizedBox(width: AppSize.s12),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -230,15 +230,15 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CustomButtonRowstack(
-                                      onSaveClosePressed: () {
+                                      onRN: () {
                                         // Action for Save and Close button
                                         print('Save and Close pressed');
                                       },
-                                      onSubmitPressed: () {
+                                      onPT: () {
                                         // Action for Submit button
                                         print('Submit pressed');
                                       },
-                                      onNextPressed: () {
+                                      onOT: () {
                                         // Action for Next button
                                         print('Next pressed');
                                       },
@@ -387,19 +387,22 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                               ),
                               Expanded(
                                 flex: 1,
-                                child: Column(
-                                  children: [
-                                    InkWell(
-                                      child: Image.asset("images/sm/i_circle.png",height: 60,)
-                                      ,onTap: ()async{
-                                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return  Requestlog();
-                              },
-                            );
-                                    },),
-                                  ],
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 40),
+                                  child: Column(
+                                    children: [
+                                      InkWell(
+                                        child: Image.asset("images/sm/i_circle.png",height: 60,)
+                                        ,onTap: ()async{
+                                            showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context) {
+                                  return  Requestlog();
+                                                                },
+                                                              );
+                                      },),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Expanded(
@@ -420,7 +423,7 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: AppSize.s10,),
+                                    SizedBox(width: AppSize.s12,),
                                     Row(
                                       children: [
                                         Container(
@@ -442,7 +445,7 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: AppSize.s10,),
+                                        SizedBox(width: AppSize.s12,),
                                         Text("Pending",style: TextStyle(fontSize: FontSize.s12,
                                           fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
                                           color: ColorManager.granitegray,),)

@@ -49,13 +49,13 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                    onPressed: (){},
                  ),
                  SizedBox(width: 20,),
-                 IconButton(
-                   hoverColor: Colors.transparent,
-                   splashColor: Colors.transparent,
-                   highlightColor: Colors.transparent,
-                   onPressed:(){},
-                   icon: Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
-                 ),
+    IconButton(
+    hoverColor: Colors.transparent,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    onPressed: (){},
+    icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 15,)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+    ),
                ],
              ),
              SizedBox(height: AppSize.s20,),
@@ -119,9 +119,8 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                              decoration: BoxDecoration(
                                color: ColorManager.white,
                                borderRadius: BorderRadius.circular(12),
-                               border: Border(left: BorderSide(color: Color(0xFFC30909),
-                                 width: 5,
-                               ),),
+                               border: Border(left: BorderSide(color: Color(0xFFC30909), width: 5,),
+                               ),
                                boxShadow: [
                                  BoxShadow(
                                    color: Colors.grey.withOpacity(0.6),

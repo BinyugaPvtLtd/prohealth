@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../widgets/constant_widgets/page_view_menu_button_const.dart';
+import 'new_documation/documation_screen.dart';
 
 class SMIntakeScreen extends StatefulWidget {
   final VoidCallback onGoBackPressed;
@@ -20,25 +21,26 @@ class SMIntakeScreen extends StatefulWidget {
 }
 
 class _SMIntakeScreenState extends State<SMIntakeScreen> {
-  final PageController intakePageController = PageController(initialPage: 0);
-  int _selectedIndex = 0;
-  int patientId = 51;
 
-  void intakeSelectButton(int index) {
-    if (index == 0 || patientId != 0) {
-      setState(() {
-        _selectedIndex = index;
-      });
-      intakePageController.animateToPage(
-        index,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.ease,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    final PageController intakePageController = PageController(initialPage: 0);
+    int _selectedIndex = 0;
+    int patientId = 51;
+
+    void intakeSelectButton(int index) {
+      if (index == 0 || patientId != 0) {
+        setState(() {
+          _selectedIndex = index;
+        });
+        intakePageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.ease,
+        );
+      }
+    }
     return Column(children: [
       Container(
         decoration: BoxDecoration(
@@ -154,7 +156,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
             });
           },
           children: [
-            SmIntakePatientsScreen(
+            SmIntakeDemographicsScreen(
               onPatientIdGenerated: (int id) {
                 setState(() {
                   patientId = id;
@@ -162,7 +164,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               },
             ),
             // SMIntakeReferralScreen(patientId: patientId),
-            IntakePhysicianScreen(patientId: patientId),
+            DocumationScreenTab(),
             IntakeMedicationScreen(patientId: patientId),
             IntakeLabResultScreen(patientId: patientId),
             SMIntakeInsuranceScreen(patientId: patientId),

@@ -1078,6 +1078,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
 //   }
 // }
 
+
 ///
 class PTPageview extends StatefulWidget {
   const PTPageview({super.key});
@@ -1358,8 +1359,6 @@ class _PTPageviewState extends State<PTPageview> {
               ),
             ),
             SizedBox(width: 10,),
-
-
           ],
         ),
 

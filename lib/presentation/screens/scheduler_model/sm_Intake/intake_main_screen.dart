@@ -95,7 +95,7 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
                     },
                     index: 2,
                     grpIndex: _selectedIndex,
-                    heading: "Non admit",
+                    heading: "Non-Admit",
                    // badgeNumber: 55
                 ),
               ],
