@@ -26,7 +26,10 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController patientsController = TextEditingController();
-  TextEditingController zipCodeController = TextEditingController(text: "1");
+  TextEditingController zipCodeController = TextEditingController();
+  TextEditingController referred = TextEditingController();
+  TextEditingController insurance = TextEditingController();
+  TextEditingController secInsurance = TextEditingController();
   String selectedType = "Insurance";
   bool isChecked = false;
   List<bool> isCheckedList = List.generate(5, (index) => false); // Initialize list with false
@@ -106,6 +109,9 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                               text: "Submit",
                               color: ColorManager.bluebottom,
                               onPressed: () {},
+                            ),
+                            SizedBox(
+                              width: 3,
                             ),
                           ],
                         )
@@ -192,7 +198,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                               flex: 2,
                                               child: Container()),
                                           Expanded(child: Container(
-                                            child: Text("PCP ",style: DocDefineTableDataID.customTextStyle(context)),
+                                            child: Text("PCP: ",style: DocDefineTableDataID.customTextStyle(context)),
                                           )),
                                           SizedBox(width: 50,),
                                           Expanded(child: Container(
@@ -320,10 +326,9 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                       SizedBox(height: 15),
                                       Row(
                                         children: [
-                                          SMTextFConst(
+                                          SMTextFConstPhone(
                                             controller: patientsController,
-                                            isAsteric: false,
-                                            keyboardType: TextInputType.text,
+                                            keyboardType: TextInputType.number,
                                             text: "Patient or Caregiver Phone Number",
                                           ),
                                           SizedBox(width: AppSize.s15,),
@@ -343,9 +348,8 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                       SizedBox(height: 15),
                                       Row(
                                         children: [
-                                          SMTextFConst(
+                                          SMTextfieldAsteric(
                                             controller: zipCodeController,
-                                            isAsteric: false,
                                             keyboardType: TextInputType.text,
                                             text: "Zip Code",
                                           ),
@@ -367,7 +371,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                       Row(
                                         children: [
                                           SMTextFConst(
-                                            controller: firstNameController,
+                                            controller: referred,
                                             isAsteric: false,
                                             keyboardType: TextInputType.text,
                                             text: "Referred for",
@@ -392,11 +396,11 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                 SizedBox(height: 30,),
                                 BlueBGHeadConst(HeadText: "Insurance"),
                                 Container(
-                                  padding: EdgeInsets.only(left: 25,top: 30),
+                                  padding: EdgeInsets.only(left: 25,top: 15),
                                   child: Column(
                                     children: [
 
-                                      CustomRadioListTile(
+                                      CustomRadioListTileSM(
                                         value: 'Insurance',
                                         groupValue: selectedType,
                                         onChanged: (value) {
@@ -409,7 +413,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                       Row(
                                         children: [
                                           SMTextFConst(
-                                            controller: firstNameController,
+                                            controller: insurance,
                                             isAsteric: false,
                                             keyboardType: TextInputType.text,
                                             text: "Insurance Number",
@@ -428,6 +432,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                           ),
                                         ],
                                       ),
+                                      SizedBox(height: 10,),
                                       Row(
                                         children: [
                                           SMCheckbox(
@@ -443,13 +448,14 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                             style: DocDefineTableDataID.customTextStyle(context),  )
                                         ],
                                       ),
+                                      SizedBox(height: 15,),
                                       Row(
                                         children: [
                                           SMTextFConst(
-                                            controller: firstNameController,
+                                            controller: secInsurance,
                                             isAsteric: false,
                                             keyboardType: TextInputType.text,
-                                            text: "Secondary Insurance",
+                                            text: "Secondary Insurance Number",
                                           ),
                                           SizedBox(width: AppSize.s15,),
                                           Padding(
@@ -496,6 +502,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                           ),
                                         ],
                                       ),
+                                      SizedBox(height: 15,),
                                       Row(
                                         children: [
                                           SMTextFConst(
@@ -549,6 +556,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                           ),
                                         ],
                                       ),
+                                      SizedBox(height: 15,),
                                       Row(
                                         children: [
                                           SMTextFConst(
@@ -835,7 +843,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                               flex: 2,
                                               child: Container()),
                                           Expanded(child: Container(
-                                            child: Text("PCP ",style: DocDefineTableDataID.customTextStyle(context)),
+                                            child: Text("PCP: ",style: DocDefineTableDataID.customTextStyle(context)),
                                           )),
                                           SizedBox(width: 50,),
                                           Expanded(child: Container(
@@ -963,10 +971,9 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                       SizedBox(height: 15),
                                       Row(
                                         children: [
-                                          SMTextFConst(
+                                          SMTextFConstPhone(
                                             controller: patientsController,
-                                            isAsteric: false,
-                                            keyboardType: TextInputType.text,
+                                            keyboardType: TextInputType.number,
                                             text: "Patient or Caregiver Phone Number",
                                           ),
                                           SizedBox(width: AppSize.s15,),
@@ -986,9 +993,8 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                       SizedBox(height: 15),
                                       Row(
                                         children: [
-                                          SMTextFConst(
+                                          SMTextfieldAsteric(
                                             controller: zipCodeController,
-                                            isAsteric: false,
                                             keyboardType: TextInputType.text,
                                             text: "Zip Code",
                                           ),
@@ -1010,7 +1016,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                       Row(
                                         children: [
                                           SMTextFConst(
-                                            controller: firstNameController,
+                                            controller: referred,
                                             isAsteric: false,
                                             keyboardType: TextInputType.text,
                                             text: "Referred for",
@@ -1035,11 +1041,11 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                 SizedBox(height: 30,),
                                 BlueBGHeadConst(HeadText: "Insurance"),
                                 Container(
-                                  padding: EdgeInsets.only(left: 25,top: 30),
+                                  padding: EdgeInsets.only(left: 25,top: 15),
                                   child: Column(
                                     children: [
 
-                                      CustomRadioListTile(
+                                      CustomRadioListTileSM(
                                         value: 'Insurance',
                                         groupValue: selectedType,
                                         onChanged: (value) {
@@ -1052,7 +1058,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                       Row(
                                         children: [
                                           SMTextFConst(
-                                            controller: firstNameController,
+                                            controller: insurance,
                                             isAsteric: false,
                                             keyboardType: TextInputType.text,
                                             text: "Insurance Number",
@@ -1071,6 +1077,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                           ),
                                         ],
                                       ),
+                                      SizedBox(height: 10,),
                                       Row(
                                         children: [
                                           SMCheckbox(
@@ -1086,13 +1093,14 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                             style: DocDefineTableDataID.customTextStyle(context),  )
                                         ],
                                       ),
+                                      SizedBox(height: 15,),
                                       Row(
                                         children: [
                                           SMTextFConst(
-                                            controller: firstNameController,
+                                            controller: secInsurance,
                                             isAsteric: false,
                                             keyboardType: TextInputType.text,
-                                            text: "Secondary Insurance",
+                                            text: "Secondary Insurance Number",
                                           ),
                                           SizedBox(width: AppSize.s15,),
                                           Padding(
@@ -1139,6 +1147,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                           ),
                                         ],
                                       ),
+                                      SizedBox(height: 15,),
                                       Row(
                                         children: [
                                           SMTextFConst(
@@ -1192,6 +1201,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                           ),
                                         ],
                                       ),
+                                      SizedBox(height: 15,),
                                       Row(
                                         children: [
                                           SMTextFConst(

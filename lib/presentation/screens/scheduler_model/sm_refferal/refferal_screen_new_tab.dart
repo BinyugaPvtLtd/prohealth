@@ -87,7 +87,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                     },
                     index: 1,
                     grpIndex: _selectedIndex,
-                    heading: "Move to Intake",
+                    heading: "Moved to Intake",
                 ),
                // SizedBox(width: 20),
                 SMTabbar(
@@ -114,8 +114,8 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
               children: [
                 RefferalPendingScreen(onEyeButtonPressed: switchToEyePageviweScreen,
                   onMergeDuplicatePressed: switchToMergeDuplicateScreen,),
-                RefferalMoveToIntakeScreen(onEyeButtonPressed: switchToEyePageviweScreen,),
-                RefferalArchievedScreen(onEyeButtonPressed: switchToMergeDuplicateScreen,)
+                RefferalMoveToIntakeScreen(onEyeButtonPressed: switchToEyePageviweScreen,onMergeDuplicatePressed: switchToMergeDuplicateScreen,),
+                RefferalArchievedScreen(onEyeButtonPressed: switchToEyePageviweScreen,)
               ],
             ),
           ),

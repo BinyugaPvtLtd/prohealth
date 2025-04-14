@@ -86,7 +86,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 60,right: 45, top: 5,bottom: 10),
+          padding: const EdgeInsets.only(left: 60,right: 45, top: 10,bottom: 10),
           child: Column(
             children: [
               // Row(
@@ -106,7 +106,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onPressed: _toggleFilter,
-                        icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 15,)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                        icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 18,width: 16)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                       ),
                     ],
                   ),
@@ -198,7 +198,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6,),
+                        padding: const EdgeInsets.symmetric(vertical: 9,),
                         child: Container(
                           height: 75,
                           decoration: BoxDecoration(
@@ -227,8 +227,8 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children:[
                                     Container(
-                                        width: AppSize.s99,
-                                        height: AppSize.s15,
+                                        width: AppSize.s105,
+                                        height: AppSize.s16,
                                         decoration: BoxDecoration(
                                           color:Color(0xFFFFE4E2),
                                           borderRadius: BorderRadius.only(
@@ -251,7 +251,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                   Expanded(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 20.0),
+                                      padding: const EdgeInsets.only(left: 10.0),
                                       child: Row(
                                         children: [
                                           ClipRRect(
@@ -303,7 +303,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 30,),
+                                  SizedBox(width: 40,),
                                   Expanded(
                                     flex: 1,
                                     child:  Column(
@@ -330,53 +330,79 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                   ),
                                   SizedBox(width: 5,),
                                   Expanded(
-                                    flex: 1,
-                                    child:  Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                    flex: 2,
+                                    child:  Row(
                                       children: [
-                                        Text(
-                                          "PCP: ",
-                                          textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w400,
-                                            color: ColorManager.mediumgrey,),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "PCP: ",
+                                              textAlign: TextAlign.center,
+                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorManager.mediumgrey,),
+                                            ),
+                                            SizedBox(height: AppSize.s4,),
+                                            Text(
+                                              "Sam Johnson",
+                                              textAlign: TextAlign.center,
+                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w700,
+                                                color: ColorManager.mediumgrey,),
+                                            ),
+                                          ],
                                         ),
-                                        SizedBox(height: AppSize.s4,),
-                                        Text(
-                                          "Sam Johnson",
-                                          textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorManager.mediumgrey,),
+                                        SizedBox(width: 70,),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Primary Diagnosis: ",
+                                              textAlign: TextAlign.center,
+                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorManager.mediumgrey,),
+                                            ),
+                                            SizedBox(height: AppSize.s4,),
+                                            Text(
+                                              "Migraine",
+                                              textAlign: TextAlign.center,
+                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w700,
+                                                color: ColorManager.mediumgrey,),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
                                   ),
-                                  Expanded(
-                                    flex: 1,
-                                    child:  Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Primary Diagnosis: ",
-                                          textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w400,
-                                            color: ColorManager.mediumgrey,),
-                                        ),
-                                        SizedBox(height: AppSize.s4,),
-                                        Text(
-                                          "Migraine",
-                                          textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorManager.mediumgrey,),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  // Expanded(
+                                  //   flex: 1,
+                                  //   child:  Column(
+                                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                                  //     mainAxisAlignment: MainAxisAlignment.center,
+                                  //     children: [
+                                  //       Text(
+                                  //         "Primary Diagnosis: ",
+                                  //         textAlign: TextAlign.center,
+                                  //         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                  //           fontWeight: FontWeight.w400,
+                                  //           color: ColorManager.mediumgrey,),
+                                  //       ),
+                                  //       SizedBox(height: AppSize.s4,),
+                                  //       Text(
+                                  //         "Migraine",
+                                  //         textAlign: TextAlign.center,
+                                  //         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                  //           fontWeight: FontWeight.w700,
+                                  //           color: ColorManager.mediumgrey,),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                   Expanded(
                                     flex: 1,
                                     child: Row(
@@ -392,7 +418,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                       child: Row(
                                         children: [
                                         Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
-                                         SizedBox(width: AppSize.s30),
+                                         SizedBox(width: AppSize.s28),
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(60),
                                           child: SizedBox(
@@ -412,7 +438,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                             fontWeight: FontWeight.w700,
                                             color: ColorManager.mediumgrey,),
                                         ),
-                                        SizedBox(width: AppSize.s7),
+                                        SizedBox(width: AppSize.s10),
                                           InkWell(
                                             onTap: () async {
                                               try {
@@ -423,8 +449,8 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                               }
                                             },
                                             child: Container(
-                                              width: AppSize.s40,
-                                              height: AppSize.s45,
+                                              width: AppSize.s29,
+                                              height: AppSize.s40,
                                               child: Image.asset(
                                                 'images/eye.png',
                                                 height: AppSize.s15,
@@ -446,9 +472,8 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           height:33,
                                           width: 125,
                                           child: ElevatedButton.icon(
-                                            icon: Image.asset("images/sm/move.png",height: 20,width: 20,),
-                                            onPressed: (){
-                                            },
+                                            icon: Image.asset("images/sm/sm_refferal/file.png",height: 20,width: 20,),
+                                            onPressed: (){},
                                             style: ElevatedButton.styleFrom(
                                               padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                                               backgroundColor: ColorManager.white,
@@ -466,32 +491,37 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                         ),
                                         SizedBox(width: AppSize.s6),
                                           PopupMenuButton<String>(
+                                            tooltip: '',
                                             splashRadius: 0,
                                             onSelected: (value) {
                                               if (value == 'Merge Duplicate') {
-                                                widget.onEyeButtonPressed;
-                                                print('Option 1 Selected');
+                                                Future.microtask(() {
+                                                  widget.onMergeDuplicatePressed();
+                                                });
                                               } else if (value == 'Archived') {
-                                                print('Option 2 Selected');
+                                                Future.microtask(() {
+                                                  print('Option 2 Selected');
+                                                });
                                               }
                                             },
                                             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                                               PopupMenuItem<String>(
-                                                value: 'Option 1',
-                                                child: Text('Option 1'),
+                                                value: 'Merge Duplicate',
+                                                child: Text('Merge Duplicate'),
                                               ),
                                               PopupMenuItem<String>(
-                                                value: 'Option 2',
-                                                child: Text('Option 2'),
+                                                value: 'Archived',
+                                                child: Text('Archived'),
                                               ),
                                             ],
                                             child: Icon(Icons.more_vert),
                                           ),
+                                          SizedBox(width: AppSize.s9),
                                         ],
                                   ))
                                 ],
                               ),
-                              Container(height: AppSize.s15,),
+                              Container(height: AppSize.s14,),
                             ],
                           ),
                         ),
@@ -505,7 +535,16 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
         ),
 
         // Sliding Filter Panel
-
+        if (_isFilterOpen)
+          GestureDetector(
+            onTap: _toggleFilter,
+            behavior: HitTestBehavior.translucent,
+            child: Container(
+              color: Colors.black.withOpacity(0.0), // Invisible but catches taps
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
         AnimatedPositioned(
           duration: Duration(milliseconds: 300),
           right: _isFilterOpen ? -0 : -320, // Slide in/out effect
@@ -524,23 +563,27 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: _toggleFilter,
-                        child: Row(
-                          children: [
-                           Icon(Icons.menu_open),
-                            Text(
-                              "Filter Options",
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: _toggleFilter,
+                          child: Row(
+                            children: [
+                             Icon(Icons.menu_open),
+                              SizedBox(width: AppSize.s10),
+                              Text(
+                                "Filters",
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      TextButton(onPressed: (){}, child: Text("CLEAR ALL"))
-                    ],
+                        // TextButton(onPressed: (){}, child: Text("CLEAR ALL"))
+                      ],
+                    ),
                   ),
                   Divider(),
                   // Example filter fields
@@ -549,7 +592,11 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Marketer"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text("Marketer",
+                          style: AllHRTableData.customTextStyle(context),),
+                        ),
 
                          Icon(
                             _MContainerVisible
@@ -579,7 +626,11 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Order Received Date"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text("Order Received Date",
+                              style: AllHRTableData.customTextStyle(context)),
+                        ),
 
                         Icon(
                           _OContainerVisible
@@ -609,7 +660,11 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Referral Source"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text("Referral Source",
+                              style: AllHRTableData.customTextStyle(context)),
+                        ),
 
                         Icon(
                           _RContainerVisible
@@ -679,7 +734,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -699,7 +754,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -719,7 +774,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -739,7 +794,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -759,7 +814,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -779,7 +834,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -799,7 +854,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -815,7 +870,11 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Agency"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text("Agency",
+                              style: AllHRTableData.customTextStyle(context)),
+                        ),
 
                         Icon(
                           _AContainerVisible
@@ -845,7 +904,11 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Insurance"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text("Insurance",
+                              style: AllHRTableData.customTextStyle(context)),
+                        ),
 
                         Icon(
                           _IContainerVisible
@@ -875,7 +938,11 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Insurance Category"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text("Insurance Category",
+                              style: AllHRTableData.customTextStyle(context)),
+                        ),
 
                         Icon(
                           _ICContainerVisible
@@ -945,7 +1012,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Medicare',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -965,7 +1032,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Private Med Advantage',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -985,7 +1052,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Kaiser',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1005,7 +1072,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Medi-Cal',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1025,7 +1092,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Private Commercial',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1045,7 +1112,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'LOA',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1065,7 +1132,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'ProBono',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1085,7 +1152,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
 
                             Text(
                               'Other',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1102,7 +1169,11 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Potential Discharge Date"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text("Potential Discharge Date",
+                              style: AllHRTableData.customTextStyle(context)),
+                        ),
 
                         Icon(
                           _PContainerVisible
@@ -1164,7 +1235,27 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                         : null,
                   ),
                   Divider(),
+                  // Example filter fields
+                  InkWell(
+                    onTap:  toggleContainerM,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text("Physician",
+                              style: AllHRTableData.customTextStyle(context)),
+                        ),
+                        Icon(
+                          _MContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
 
+                      ],
+                    ),
+                  ),
+                  Divider(),
                 ],
               ),
             ),
