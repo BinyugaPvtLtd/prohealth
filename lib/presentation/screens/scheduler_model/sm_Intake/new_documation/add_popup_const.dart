@@ -53,6 +53,7 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                 ),
               ),
             ),
+            ///
             HeaderContentConst(
               isAsterisk: false,
               heading: AppString.type_of_the_document,
@@ -131,6 +132,8 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                 ),
               ),
             ),
+            SizedBox(height: 60,),
+            SizedBox(height: 20,),
           ],
         ),
         // Visibility(

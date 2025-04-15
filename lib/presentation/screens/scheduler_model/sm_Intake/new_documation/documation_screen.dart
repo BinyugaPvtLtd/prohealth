@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
@@ -25,7 +27,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
   TextEditingController ffpostController = TextEditingController();
   TextEditingController ffappoController = TextEditingController();
 
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,21 +40,24 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
             // Your onPressed action here
           },
           backgroundColor: ColorManager.bluebottom,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.call,size: 22,),
-              SizedBox(height: 5,),
-              Text(
-                "Contact",
-                style: CustomTextStylesCommon.commonStyle(
-                  fontSize: FontSize.s10,
-                  fontWeight: FontWeight.w400,
-                  color: ColorManager.white,
-                ),
-                textAlign: TextAlign.center,
-              )
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.call,size: 22,),
+                SizedBox(height: 3,),
+                Text(
+                  "Contact",
+                  style: CustomTextStylesCommon.commonStyle(
+                    fontSize: FontSize.s10,
+                    fontWeight: FontWeight.w500,
+                    color: ColorManager.white,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -71,7 +76,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
             style: TextStyle(fontSize: FontSize.s12,
             fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
             color: ColorManager.granitegray,),)
-        
+
               ],),
               SizedBox(height: AppSize.s5,),
               Row(
@@ -82,7 +87,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                     style: TextStyle(fontSize: FontSize.s12,
                       fontWeight: FontWeight.w300,
                       color: Color(0xFFC30909)),)
-        
+
                 ],),
               SizedBox(height: AppSize.s10,),
               BlueBGHeadConst(HeadText: "Clinical Attachments"),
@@ -142,7 +147,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                        color: ColorManager.mediumgrey,),
                                    ),
                                    SizedBox(height:AppSize.s3 ),
-        
+
                                    //SizedBox(height: AppSize.s1),
                                    Text(
                                      "Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
@@ -202,16 +207,16 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                  color: Color(0xff686464),
                                ),
                                onPressed: () {
-        
+
                                  // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
-        
-        
+
+
                                },
                              ),
                              SizedBox(width: 15),
                              IconButton(
                                onPressed: () {
-        
+
                                },
                                icon: Icon(
                                  Icons.delete_outline,
@@ -286,7 +291,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                         color: ColorManager.mediumgrey,),
                                     ),
                                     SizedBox(height:AppSize.s3 ),
-        
+
                                     //SizedBox(height: AppSize.s1),
                                     Text(
                                       "Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
@@ -346,16 +351,16 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                   color: Color(0xff686464),
                                 ),
                                 onPressed: () {
-        
+
                                   // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
-        
-        
+
+
                                 },
                               ),
                               SizedBox(width: 15),
                               IconButton(
                                 onPressed: () {
-        
+
                                 },
                                 icon: Icon(
                                   Icons.delete_outline,
@@ -388,7 +393,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                           return AddPopupConstant(title: 'Add  Clinical Attachment',);
                         },
                       );
-        
+
                     },
                       label: Text(
                           "Add Attachment",
@@ -400,17 +405,17 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                           )//BlueButtonTextConst.customTextStyle(context),
                       ),
                       icon:Icon(Icons.add),
-        
+
                       style: ElevatedButton.styleFrom(
                         backgroundColor:  ColorManager.bluebottom,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
                         ),),
                     ),
                   )
-        
+
                 ],
               ),
-        
+
               ///
               SizedBox(height: AppSize.s30,),
               BlueBGHeadConst(HeadText: "Billing Attachments"),
@@ -470,7 +475,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                         color: ColorManager.mediumgrey,),
                                     ),
                                     SizedBox(height:AppSize.s3 ),
-        
+
                                     //SizedBox(height: AppSize.s1),
                                     Text(
                                       "Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
@@ -530,16 +535,16 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                   color: Color(0xff686464),
                                 ),
                                 onPressed: () {
-        
+
                                   // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
-        
-        
+
+
                                 },
                               ),
                               SizedBox(width: 15),
                               IconButton(
                                 onPressed: () {
-        
+
                                 },
                                 icon: Icon(
                                   Icons.delete_outline,
@@ -614,7 +619,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                         color: ColorManager.mediumgrey,),
                                     ),
                                     SizedBox(height:AppSize.s3 ),
-        
+
                                     //SizedBox(height: AppSize.s1),
                                     Text(
                                       "Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
@@ -674,16 +679,16 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                   color: Color(0xff686464),
                                 ),
                                 onPressed: () {
-        
+
                                   // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
-        
-        
+
+
                                 },
                               ),
                               SizedBox(width: 15),
                               IconButton(
                                 onPressed: () {
-        
+
                                 },
                                 icon: Icon(
                                   Icons.delete_outline,
@@ -727,14 +732,14 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                           )//BlueButtonTextConst.customTextStyle(context),
                       ),
                       icon:Icon(Icons.add),
-        
+
                       style: ElevatedButton.styleFrom(
                         backgroundColor:  ColorManager.bluebottom,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
                         ),),
                     ),
                   )
-        
+
                 ],
               ),
               ///
@@ -745,70 +750,54 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                 padding: const EdgeInsets.symmetric(horizontal: 35),
                 child: Column(
                   children: [
-                    Container(
-                      height: AppSize.s75,
-                      // decoration: BoxDecoration(
-                      //   color: ColorManager.white,
-                      //   borderRadius: BorderRadius.circular(8.0),
-                      //   boxShadow: [
-                      //     BoxShadow(
-                      //       color: ColorManager.black.withOpacity(0.2),
-                      //       spreadRadius: 1,
-                      //       blurRadius: 5,
-                      //       offset: Offset(0, 4),
-                      //     ),
-                      //   ],
-                      // ),
-                      child:
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                  controller:ffdateController ,
-                                  labelText: 'F2F Date:',
-                                  showDatePicker:true
-                              )),
-                          SizedBox(width: AppSize.s58),
-                          Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: CustomDropdownTextFieldsm(
-                                    headText: 'Marketer',
-                                    items: ['Spouse','Patient',],
-                                    //dropDownMenuList: dropDownList,
-                                    onChanged: (newValue) {
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                                controller:ffdateController ,
+                                labelText: 'F2F Date:',
+                                showDatePicker:true
+                            )),
+                        SizedBox(width: AppSize.s58),
+                        Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: CustomDropdownTextFieldsm(
+                                  headText: 'Marketer',
+                                  items: ['Spouse','Patient',],
+                                  //dropDownMenuList: dropDownList,
+                                  onChanged: (newValue) {
 
-                                    }),
-                              )),
-                          SizedBox(width: AppSize.s58),
-                          Flexible(
-                              child: SchedularTextFieldcheckbox(
-                                  controller: ffpostController,
-                                  labelText: 'Post-op Visit Note Needed',
-                                  showDatePicker:true,
-                                initialCheckboxValue: true,
-                                onCheckboxChanged: (val) {
-                                  print("Checkbox value: $val");
-                                },
-                              )),
-                          SizedBox(width: AppSize.s58),
-                          Flexible(
-                              child: SchedularTextFieldcheckbox(
-                                  controller: ffappoController,
-                                  labelText: 'F2F Appointment Needed',
-                                  showDatePicker:true,
-                                initialCheckboxValue: false,
-                                onCheckboxChanged: (val) {
-                                  print("Checkbox value: $val");
-                                },
-                              )),
-                          Flexible(
-                              child: SizedBox(width:0)),
-                          //SizedBox(width: AppSize.s65),
-                        ],
-                      ),
+                                  }),
+                            )),
+                        SizedBox(width: AppSize.s58),
+                        Flexible(
+                            child: SchedularTextFieldcheckbox(
+                                controller: ffpostController,
+                                labelText: 'Post-op Visit Note Needed',
+                                showDatePicker:true,
+                              initialCheckboxValue: true,
+                              onCheckboxChanged: (val) {
+                                print("Checkbox value: $val");
+                              },
+                            )),
+                        SizedBox(width: AppSize.s58),
+                        Flexible(
+                            child: SchedularTextFieldcheckbox(
+                                controller: ffappoController,
+                                labelText: 'F2F Appointment Needed',
+                                showDatePicker:true,
+                              initialCheckboxValue: false,
+                              onCheckboxChanged: (val) {
+                                print("Checkbox value: $val");
+                              },
+                            )),
+                        Flexible(
+                            child: SizedBox(width:0)),
+                        //SizedBox(width: AppSize.s65),
+                      ],
                     ),
                   ],
                 ),
@@ -1051,7 +1040,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                         color: ColorManager.mediumgrey,),
                                     ),
                                     SizedBox(height:AppSize.s3 ),
-        
+
                                     //SizedBox(height: AppSize.s1),
                                     Text(
                                       "Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
@@ -1111,16 +1100,16 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                   color: Color(0xff686464),
                                 ),
                                 onPressed: () {
-        
+
                                   // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
-        
-        
+
+
                                 },
                               ),
                               SizedBox(width: 15),
                               IconButton(
                                 onPressed: () {
-        
+
                                 },
                                 icon: Icon(
                                   Icons.delete_outline,
@@ -1195,7 +1184,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                         color: ColorManager.mediumgrey,),
                                     ),
                                     SizedBox(height:AppSize.s3 ),
-        
+
                                     //SizedBox(height: AppSize.s1),
                                     Text(
                                       "Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
@@ -1255,16 +1244,16 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                   color: Color(0xff686464),
                                 ),
                                 onPressed: () {
-        
+
                                   // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
-        
-        
+
+
                                 },
                               ),
                               SizedBox(width: 15),
                               IconButton(
                                 onPressed: () {
-        
+
                                 },
                                 icon: Icon(
                                   Icons.delete_outline,
@@ -1314,12 +1303,61 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                         ),),
                     ),
                   )
-        
+
                 ],
               ),
               ///
               ///
-             
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                              Container(
+                                width: 117,
+                                height: 30,
+                                child: ElevatedButton(
+                                  onPressed: (){
+                    },
+                                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: BorderSide(
+                                        color: ColorManager.bluebottom,
+                                        width: 1,
+                                      ),
+                                    ),),
+                                  child: Text('Cancel',
+                                    style: TransparentButtonTextConst.customTextStyle(context),
+                                  ),),
+                              ),
+
+
+                                     const SizedBox(width: AppSize.s30,),
+                    Container(
+                      //color: Colors.white,
+                      width: 117,
+                      height: 30,
+                      child: ElevatedButton(
+                        onPressed: (){},
+                        style: ElevatedButton.styleFrom(backgroundColor:ColorManager.bluebottom,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),),
+                        child: Text('Save',
+                          style:  TextStyle(
+                            fontSize: FontSize.s13,
+                            fontWeight: FontWeight.w600,
+                            color: ColorManager.white,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

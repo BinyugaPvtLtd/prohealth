@@ -259,6 +259,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                 ),
                                               ],
                                             ),
+
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment

@@ -6,10 +6,12 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/intake_notes_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/intake_patients_data_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/intake_physician_home_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_info/physician_info_info.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../widgets/constant_widgets/page_view_menu_button_const.dart';
 import 'new_documation/documation_screen.dart';
+import 'new_phsician_info/physician_info_tab.dart';
 
 class SMIntakeScreen extends StatefulWidget {
   final VoidCallback onGoBackPressed;
@@ -118,9 +120,9 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
             ),
             PageViewMenuButtonConst(
               onTap: (int index) {
-                //intakeSelectButton(index);
+                intakeSelectButton(index);
               },
-              index: 9,//3,
+              index: 3,//3,
               grpIndex: _selectedIndex,
               heading: "Physician Info",
               enabled: patientId != 0,
@@ -166,7 +168,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
             // SMIntakeReferralScreen(patientId: patientId),
             DocumationScreenTab(),
             IntakeMedicationScreen(patientId: patientId),
-            IntakeLabResultScreen(patientId: patientId),
+            PhysicianInfoTab(),
             SMIntakeInsuranceScreen(patientId: patientId),
             SmIntakeNotesScreen(patientId: patientId),
           ],
