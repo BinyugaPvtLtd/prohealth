@@ -10,6 +10,7 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../widgets/constant_widgets/page_view_menu_button_const.dart';
 import 'new_documation/documation_screen.dart';
+import 'new_phsician_info/physician_info_tab.dart';
 
 class SMIntakeScreen extends StatefulWidget {
   final VoidCallback onGoBackPressed;
@@ -173,7 +174,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
             // SMIntakeReferralScreen(patientId: patientId),
             DocumationScreenTab(),
             IntakeMedicationScreen(patientId: patientId),
-            IntakeLabResultScreen(patientId: patientId),
+            PhysicianInfoTab(),
             SMIntakeInsuranceScreen(patientId: patientId),
             SmIntakeNotesScreen(patientId: patientId),
           ],
