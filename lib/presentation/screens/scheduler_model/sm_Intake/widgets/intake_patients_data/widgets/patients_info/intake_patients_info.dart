@@ -8,12 +8,14 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../../../../em_module/widgets/button_constant.dart';
+import '../../../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 import '../../../intake_flow_contgainer_const.dart';
 
-class IntakePatientsDatatInfo extends StatefulWidget {
+class IntakePatientsDatatInfo extends StatelessWidget {
   final TextEditingController ctlrSos;
   final TextEditingController ctlrMedicalRecord;
   final TextEditingController ctlrfirstName;
@@ -68,57 +70,29 @@ class IntakePatientsDatatInfo extends StatefulWidget {
       required this.childLanguage,
 
       required this.childMaritalStatus, required this.childCountry, required this.childStatus});
-
-  @override
-  State<IntakePatientsDatatInfo> createState() => _PatientInfoState();
-}
-
-class _PatientInfoState extends State<IntakePatientsDatatInfo> {
-  String? status = '';
-
-  String? statustype;
-  String? selectedStatus;
-  String? selectedCountry;
-  String? selectedRace;
-  String? selectedState;
-  String? selectedcity;
-  String? selectedLanguage;
-  String? selectedReligion;
-  String? selectedMaritalStatus;
-  String? dateOfDeath;
-  TextEditingController facilityNameController = TextEditingController();
-  TextEditingController zoneController = TextEditingController();
-  TextEditingController locationNotesController = TextEditingController();
-  TextEditingController primaryContactNameController = TextEditingController();
-  TextEditingController cahpsContactController = TextEditingController();
-  TextEditingController primaryPhoneController = TextEditingController();
-  TextEditingController secondaryPhoneController = TextEditingController();
-  TextEditingController secEmailController = TextEditingController();
-  TextEditingController primaryLanguageController = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-
-    // Add a listener to the controller
-    // widget.ctlrDateOfDeath.addListener(() {
-    //   String value = widget.ctlrDateOfDeath.text;
-    //
-    //   if (value.isEmpty) {
-    //     dateOfDeath = null;  // Set to null if empty
-    //   } else {
-    //     dateOfDeath = value;  // Store the value otherwise
-    //   }
-    // });
-  }
-
-  @override
-  void dispose() {
-    widget.ctlrDateOfDeath.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    String? status = '';
+
+    String? statustype;
+    String? selectedStatus;
+    String? selectedCountry;
+    String? selectedRace;
+    String? selectedState;
+    String? selectedcity;
+    String? selectedLanguage;
+    String? selectedReligion;
+    String? selectedMaritalStatus;
+    String? dateOfDeath;
+    TextEditingController facilityNameController = TextEditingController();
+    TextEditingController zoneController = TextEditingController();
+    TextEditingController locationNotesController = TextEditingController();
+    TextEditingController primaryContactNameController = TextEditingController();
+    TextEditingController cahpsContactController = TextEditingController();
+    TextEditingController primaryPhoneController = TextEditingController();
+    TextEditingController secondaryPhoneController = TextEditingController();
+    TextEditingController secEmailController = TextEditingController();
+    TextEditingController primaryLanguageController = TextEditingController();
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: Center(
@@ -152,26 +126,26 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                             children: [
                               Flexible(
                                   child: SchedularTextField(
-                                controller: widget.ctlrfirstName,
+                                controller: ctlrfirstName,
                                 labelText: 'First Name*',
                                       //showDatePicker:true
                               )),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrMedicalRecord,
+                                      controller: ctlrMedicalRecord,
                                       labelText: 'Middle Initial',
                                       initialValue: 'A')),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrLastName,
+                                      controller: ctlrLastName,
                                       labelText: "Last Name*",
                                       initialValue: 'Erica')),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrSuffix,
+                                      controller:ctlrSuffix,
                                       labelText: "Suffix",
                                       initialValue: 'Erica')),
                               SizedBox(width: AppSize.s35),
@@ -188,22 +162,22 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                             children: [
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrStreet,
+                                      controller: ctlrStreet,
                                       labelText: 'Street*',
                                       initialValue: 'A')),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrApartment,
+                                      controller: ctlrApartment,
                                       labelText: "Suit/Apt#")),
                               SizedBox(width: AppSize.s35),
-                              Flexible(child: widget.childState),
+                              Flexible(child: childState),
                               SizedBox(width: AppSize.s35),
-                              Flexible(child: widget.childCity),
+                              Flexible(child: childCity),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrZipCode,
+                                      controller: ctlrZipCode,
                                       labelText: AppString.zip_code)
                                   )
                               // Flexible(
@@ -246,11 +220,11 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           Row(
                             children: [
                               Flexible(
-                                  child: widget.childCountry
+                                  child: childCountry
                               ),
                               SizedBox(width: AppSize.s35),
                               Flexible(
-                                  child: widget.childRace ),
+                                  child: childRace ),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
@@ -294,13 +268,13 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrPrimeNo,
+                                      controller: ctlrPrimeNo,
                                       labelText: "Primary Phone #*",
                                       phoneField:true)),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                      controller: widget.ctlrEmail,
+                                      controller: ctlrEmail,
                                       labelText: "Primary Email")),
                               SizedBox(width: AppSize.s35),
                               Flexible(
@@ -331,7 +305,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
-                                    controller: widget.ctlrSecNo,
+                                    controller: ctlrSecNo,
                                     labelText: "Secondary Phone #*",
                                   )),
                               SizedBox(width: AppSize.s35),
@@ -439,7 +413,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                             children: [
                               Flexible(
                                   child: SchedularTextField(
-                                    controller: widget.ctlrDate,
+                                    controller: ctlrDate,
                                     labelText: 'Date of Birth*',
                                     showDatePicker:true
                                   )),
@@ -475,7 +449,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                             children: [
                               Flexible(
                                   child: SchedularTextField(
-                                    controller: widget.ctlrSocialSec,
+                                    controller: ctlrSocialSec,
                                     labelText: 'Social Security',
                                     //showDatePicker:true
                                   )),
@@ -512,7 +486,25 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
 
                         ],
                       ),
-                    ) )
+                    ) ),
+                SizedBox(height: AppSize.s80),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 10,
+                  children: [
+                    CustomButtonTransparent(
+                      text: "Skip",
+                      onPressed: () {
+
+                      },
+                    ),
+                    CustomElevatedButton(
+                      width: AppSize.s100,
+                      text: AppString.save,
+                      onPressed: (){},
+                    ),
+                  ],
+                ),
                 // Padding(
                 //   padding: const EdgeInsets.only(right: 40.0),
                 //   child: Container(
