@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -187,17 +188,17 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
               Row(
                 children: [
                   Text("Received Date",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12,fontWeight: FontWeight.w400)),
                   SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   SizedBox(width: AppSize.s50,),
                   Text("Hospitals",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
                   SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   SizedBox(width: AppSize.s50,),
                   Text("PCP",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
                   SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                 ],
@@ -410,7 +411,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                               .commonStyle(
                                             fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
-                                            color: ColorManager.mediumgrey,
+                                            color: ColorManager.textBlack,
                                           ),
                                         ),
                                         SizedBox(
@@ -521,8 +522,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                         children: [
                                           Text(
                                             "Marketer: ",
-                                            style: DocDefineTableData
-                                                .customTextStyle(context),
+                                            style: DocDefineTableData.customTextStyle(context),
                                           ),
                                           SizedBox(width: AppSize.s30),
                                           ClipRRect(
@@ -541,12 +541,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                           Text(
                                             "Sophia Scott",
                                             textAlign: TextAlign.center,
-                                            style: CustomTextStylesCommon
-                                                .commonStyle(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                            ),
+                                            style: DocDefineTableData.customTextStyle(context),
                                           ),
                                           SizedBox(width: AppSize.s15),
                                           InkWell(
@@ -557,16 +552,17 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                 print("Error: $e");
                                               }
                                             },
-                                            child: Container(
-                                              width: AppSize.s45,
-                                              height: AppSize.s40,
-                                              child: Image.asset(
-                                                'images/eye.png',
+                                            child:Container(
+                                              width: AppSize.s20,
+                                              height: AppSize.s25,
+                                              child: SvgPicture.asset(
+                                                'images/sm/sm_refferal/eye.svg',
                                                 height: AppSize.s15,
                                                 width: AppSize.s22,
                                                 color: ColorManager.bluebottom,
                                               ),
                                             ),
+
                                           ),
                                           SizedBox(width: AppSize.s15),
                                           Column(

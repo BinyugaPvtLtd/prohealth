@@ -86,9 +86,10 @@ class CustomSearchFieldSM extends StatelessWidget {
           alignLabelWithHint: true,
           hintStyle:  CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
             fontWeight: FontWeight.w400,
-            color: ColorManager.mediumgrey,),
+            color: Color(0xFF7F7F7F),),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFF0F0F0), width: 1),
+            borderSide: BorderSide(color: Colors.grey.shade200,//Color(0xFFF0F0F0),
+                width: 1),
             borderRadius: BorderRadius.circular(10),
           ),
           focusedBorder: OutlineInputBorder(
@@ -100,15 +101,16 @@ class CustomSearchFieldSM extends StatelessWidget {
             highlightColor: Colors.transparent,
             hoverColor: Colors.transparent,
             icon: Center(
-              child: Icon(
-                Icons.search,
-                size: IconSize.I18,
-                color: ColorManager.mediumgrey,
+              child: Image.asset(
+                "images/sm/sm_refferal/magnifying_glass.png",
+                height: IconSize.I24,
+                width: IconSize.I24,
+                //color: ColorManager.mediumgrey,
               ),
             ),
             onPressed: onPressed,
           ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          contentPadding: EdgeInsets.symmetric(horizontal: 13, vertical: 8),
         ),
       ),
     );

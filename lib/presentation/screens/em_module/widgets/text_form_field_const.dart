@@ -26,6 +26,7 @@ class SMTextFConst extends StatefulWidget {
   final Icon? suffixIcon;
   final bool isAsteric;
   final bool isIcon;
+  final bool? onlyAllowNumbers;
 
   SMTextFConst({
     Key? key,
@@ -42,7 +43,7 @@ class SMTextFConst extends StatefulWidget {
     this.prefixWidget,
     this.width, this.inputFormated,
     this.showDatePicker = false, this.suffixIcon,
-    this.isAsteric = true, this.isIcon = false,
+    this.isAsteric = true, this.isIcon = false, this.onlyAllowNumbers = false,
   }) : super(key: key);
 
   @override
@@ -135,6 +136,9 @@ class _SMTextFConstState extends State<SMTextFConst> {
               //validator: widget.validator,
               onTap: widget.onChange,
               validator: widget.validator,
+              inputFormatters: widget.onlyAllowNumbers!
+                  ? [FilteringTextInputFormatter.digitsOnly]  // Allow only digits if true
+                  : widget.inputFormated,
               // onTap: widget.onChange,
             ),
           ),
@@ -512,6 +516,8 @@ class SMTextFConstPhone extends StatefulWidget {
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
+  final bool isAsteric;
+
 
   SMTextFConstPhone({
     Key? key,
@@ -525,6 +531,7 @@ class SMTextFConstPhone extends StatefulWidget {
     this.enable,
     this.validator,
     this.prefixWidget, this.onChanged,
+    this.isAsteric = true,
   }) : super(key: key);
 
   @override
@@ -544,7 +551,9 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
             text: TextSpan(
               text: widget.text, // Main text
               style: AllPopupHeadings.customTextStyle(context), // Main style
-              children: [
+              children: widget.isAsteric
+              ? []
+              : [
                 TextSpan(
                   text: ' *', // Asterisk
                   style: AllPopupHeadings.customTextStyle(context).copyWith(
