@@ -802,6 +802,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                   ],
                 ),
               ),
+
               SizedBox(height: AppSize.s10,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 35),
