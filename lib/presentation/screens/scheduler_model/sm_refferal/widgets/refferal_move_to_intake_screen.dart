@@ -4,6 +4,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widge
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -11,7 +12,8 @@ import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
 class RefferalMoveToIntakeScreen extends StatefulWidget {
   final VoidCallback onEyeButtonPressed;
-  const RefferalMoveToIntakeScreen({super.key, required this.onEyeButtonPressed});
+  final VoidCallback onMergeDuplicatePressed;
+  const RefferalMoveToIntakeScreen({super.key, required this.onEyeButtonPressed, required this.onMergeDuplicatePressed});
 
   @override
   State<RefferalMoveToIntakeScreen> createState() => _RefferalMoveToIntakeScreenState();
@@ -25,6 +27,53 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
       _isFilterOpen = !_isFilterOpen; // Toggle panel visibility
     });
   }
+
+  bool _MContainerVisible = false;
+  bool _OContainerVisible = false;
+  bool _RContainerVisible = false;
+  bool _AContainerVisible = false;
+  bool _IContainerVisible = false;
+  bool _ICContainerVisible = false;
+  bool _PContainerVisible = false;
+
+  TextEditingController assigndatecontroller = TextEditingController();
+
+  void toggleContainerM() {
+    setState(() {
+      _MContainerVisible = !_MContainerVisible;
+    });
+  }
+  void toggleContainerO() {
+    setState(() {
+      _OContainerVisible = !_OContainerVisible;
+    });
+  }
+  void toggleContainerR() {
+    setState(() {
+      _RContainerVisible = !_RContainerVisible;
+    });
+  }
+  void toggleContainerA() {
+    setState(() {
+      _AContainerVisible = !_AContainerVisible;
+    });
+  }
+  void toggleContainerI() {
+    setState(() {
+      _IContainerVisible = !_IContainerVisible;
+    });
+  }
+  void toggleContainerIC() {
+    setState(() {
+      _ICContainerVisible = !_ICContainerVisible;
+    });
+  }
+  void toggleContainerP() {
+    setState(() {
+      _PContainerVisible = !_PContainerVisible;
+    });
+  }
+  bool _isChecked = false;
   List<String> hardcodedItems = ['All','Referral App','E-Fax','E-Referrals','Manual',];
 
   @override
@@ -32,7 +81,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 60,right: 45, top: 5,bottom: 10),
+          padding: const EdgeInsets.only(left: 60,right: 45, top: 10,bottom: 10),
           child: Column(
             children: [
               Row(
@@ -48,7 +97,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onPressed: _toggleFilter,
-                      icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 15,)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                      icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 18,width: 16)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                   ),
                 ],
               ),
@@ -59,12 +108,12 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s45,),
+                  SizedBox(width: AppSize.s50,),
                   Text("Hospitals",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s45,),
+                  SizedBox(width: AppSize.s50,),
                   Text("PCP",
                       style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
                   SizedBox(width: AppSize.s15,),
@@ -79,7 +128,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8,),
+                        padding: const EdgeInsets.symmetric(vertical: 9,),
                         child: Container(
                           height: 75,
                           decoration: BoxDecoration(
@@ -108,8 +157,8 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children:[
                                     Container(
-                                        width: AppSize.s99,
-                                        height: AppSize.s15,
+                                        width: AppSize.s105,
+                                        height: AppSize.s16,
                                         decoration: BoxDecoration(
                                           color:Color(0xFFFFE4E2),
                                           borderRadius: BorderRadius.only(
@@ -132,7 +181,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                   Expanded(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 20.0),
+                                      padding: const EdgeInsets.only(left: 10.0),
                                       child: Row(
                                         children: [
                                           ClipRRect(
@@ -295,7 +344,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               }
                                             },
                                             child: Container(
-                                              width: AppSize.s40,
+                                              width: AppSize.s29,
                                               height: AppSize.s45,
                                               child: Image.asset(
                                                 'images/eye.png',
@@ -314,32 +363,37 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
                                           SizedBox(width: AppSize.s10),
                                           PopupMenuButton<String>(
+                                            tooltip: '',
                                             splashRadius: 0,
                                             onSelected: (value) {
-                                              if (value == 'Option 1') {
-                                                widget.onEyeButtonPressed;
-                                                print('Option 1 Selected');
-                                              } else if (value == 'Option 2') {
-                                                print('Option 2 Selected');
+                                              if (value == 'Merge Duplicate') {
+                                                Future.microtask(() {
+                                                  widget.onMergeDuplicatePressed();
+                                                });
+                                              } else if (value == 'Archived') {
+                                                Future.microtask(() {
+                                                  print('Option 2 Selected');
+                                                });
                                               }
                                             },
                                             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                                               PopupMenuItem<String>(
-                                                value: 'Option 1',
-                                                child: Text('Option 1'),
+                                                value: 'Merge Duplicate',
+                                                child: Text('Merge Duplicate'),
                                               ),
                                               PopupMenuItem<String>(
-                                                value: 'Option 2',
-                                                child: Text('Option 2'),
+                                                value: 'Archived',
+                                                child: Text('Archived'),
                                               ),
                                             ],
                                             child: Icon(Icons.more_vert),
                                           ),
+                                          SizedBox(width: AppSize.s10),
                                         ],
                                       ))
                                 ],
                               ),
-                              Container(height: AppSize.s12,),
+                              Container(height: AppSize.s10,),
                             ],
                           ),
                         ),
@@ -601,16 +655,24 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
             ],
           ),
         ),
-
+        if (_isFilterOpen)
+          GestureDetector(
+            onTap: _toggleFilter,
+            behavior: HitTestBehavior.translucent,
+            child: Container(
+              color: Colors.black.withOpacity(0.0), // Invisible but catches taps
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
         // Sliding Filter Panel
         AnimatedPositioned(
           duration: Duration(milliseconds: 300),
-          right: _isFilterOpen ? 0 : -220, // Slide in/out effect
+          right: _isFilterOpen ? -0 : -320, // Slide in/out effect
           top: 0,
           bottom: 10,
           child: Container(
-            width: 200,
-
+            width: 300,
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -618,26 +680,653 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                 BoxShadow(color: Colors.black26, blurRadius: 5),
               ],
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Filter Options", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                Divider(),
-                // Example filter fields
-                Text("Status"),
-                DropdownButton<String>(
-                  items: ["All", "Pending", "Approved"]
-                      .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                      .toList(),
-                  onChanged: (val) {},
-                ),
-                SizedBox(height: 10),
-                Text("Date Range"),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Select Date"),
-                ),
-              ],
+            child: SingleChildScrollView(// Wrap the Column inside SingleChildScrollView
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: _toggleFilter,
+                        child: Row(
+                          children: [
+                            Icon(Icons.menu_open),
+                            Text(
+                              "Filter Options",
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      TextButton(onPressed: (){}, child: Text("CLEAR ALL"))
+                    ],
+                  ),
+                  Divider(),
+                  // Example filter fields
+                  InkWell(
+                    onTap:  toggleContainerM,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Marketer"),
+
+                        Icon(
+                          _MContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _MContainerVisible ? 0 : 0,
+                    width: 300,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: _MContainerVisible
+                        ? Text(
+                      'Container is Open',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                        : null,
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerO,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Order Received Date"),
+
+                        Icon(
+                          _OContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _OContainerVisible ? 0 : 0,
+                    width: 300,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: _OContainerVisible
+                        ? Text(
+                      'Container is Open',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                        : null,
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerR,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Referral Source"),
+
+                        Icon(
+                          _RContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _RContainerVisible ? 300 : 0,
+                    width: 300,
+                    // color: Colors.grey,
+                    // alignment: Alignment.center,
+                    child: _RContainerVisible
+                        ?Column(
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Search...',
+                            prefixIcon: Icon(Icons.search,size: 20,color: Colors.grey),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey), // Set the color of the bottom border
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey), // Set the color when focused
+                            ),
+                            //  contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                          ),
+                          onChanged: (value) {
+                            // Handle search logic here (e.g., filtering options)
+                          },
+                        ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       _isChecked = !_isChecked;  // Toggle checkbox state
+                        //     });
+                        //   },
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //    //   shape: BoxShape.,
+                        //       color:  Colors.transparent, // Checked or unchecked background color
+                        //       border: Border.all(color: Colors.blue), // Border color of the circle
+                        //     ),
+                        //     padding: EdgeInsets.all(10),
+                        //     child: _isChecked
+                        //         ? Icon(Icons.clear, color: Colors.white)  // Use 'clear' icon instead of 'check'
+                        //         : Icon(Icons.check_box_outline_blank, color: ColorManager.grey),  // Unchecked state icon
+                        //   ),
+                        // ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Lorem Ipsum',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+
+
+                      ],
+                    )
+                        : null,
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerA,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Agency"),
+
+                        Icon(
+                          _AContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _AContainerVisible ? 0 : 0,
+                    width: 300,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: _AContainerVisible
+                        ? Text(
+                      'Container is Open',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                        : null,
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerI,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Insurance"),
+
+                        Icon(
+                          _IContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _IContainerVisible ? 0 : 0,
+                    width: 300,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: _IContainerVisible
+                        ? Text(
+                      'Container is Open',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                        : null,
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerIC,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Insurance Category"),
+
+                        Icon(
+                          _ICContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _ICContainerVisible ? 310 : 0,
+                    width: 300,
+                    // color: Colors.blue,
+                    // alignment: Alignment.center,
+                    child: _ICContainerVisible
+                        ?Column(
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Search...',
+                            prefixIcon: Icon(Icons.search,size: 20,color: Colors.grey),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey), // Set the color of the bottom border
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey), // Set the color when focused
+                            ),
+                            //  contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                          ),
+                          onChanged: (value) {
+                            // Handle search logic here (e.g., filtering options)
+                          },
+                        ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       _isChecked = !_isChecked;  // Toggle checkbox state
+                        //     });
+                        //   },
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //    //   shape: BoxShape.,
+                        //       color:  Colors.transparent, // Checked or unchecked background color
+                        //       border: Border.all(color: Colors.blue), // Border color of the circle
+                        //     ),
+                        //     padding: EdgeInsets.all(10),
+                        //     child: _isChecked
+                        //         ? Icon(Icons.clear, color: Colors.white)  // Use 'clear' icon instead of 'check'
+                        //         : Icon(Icons.check_box_outline_blank, color: ColorManager.grey),  // Unchecked state icon
+                        //   ),
+                        // ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Medicare',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Private Med Advantage',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Kaiser',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Medi-Cal',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Private Commercial',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'LOA',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'ProBono',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+
+                            Checkbox(
+                              splashRadius: 0,
+                              activeColor: ColorManager.blueprime,
+                              value: _isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
+
+                            Text(
+                              'Other',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+
+
+                      ],
+                    )
+                        : null,
+                  ),
+
+                  Divider(),
+                  InkWell(
+                    onTap:  toggleContainerP,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Potential Discharge Date"),
+
+                        Icon(
+                          _PContainerVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 30),
+                    height: _PContainerVisible ? 100 : 0,
+                    width: 300,
+                    // color: Colors.blue,
+                    // alignment: Alignment.center,
+                    child: _PContainerVisible
+                        ? Column(
+                        children: [
+                          TextField(
+                            controller: assigndatecontroller,style: TextStyle(
+                              fontSize: 14
+                          ),
+
+                            decoration: InputDecoration(
+                              hintText: 'Date Range',
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Icon(Icons.calendar_month_outlined,size: 18,color: Colors.grey,),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey), // Set the color of the bottom border
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey), // Set the color when focused
+                              ),
+                              contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                            ),
+                            onChanged: (value) {
+                              // Handle search logic here (e.g., filtering options)
+                            },
+
+                            onTap: ()async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1901),
+                                lastDate: DateTime(2101),
+                              );
+                              if (pickedDate != null) {
+                                assigndatecontroller.text =
+                                "${pickedDate.toLocal()}".split(' ')[0];
+
+                              }
+                            },
+                          ),
+                        ]
+                    )
+                        : null,
+                  ),
+                  Divider(),
+
+                ],
+              ),
             ),
           ),
         ),
