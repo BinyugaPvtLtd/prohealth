@@ -73,28 +73,22 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
   }
 
   // Function to validate text fields
-  bool _validateInputs() {
-    return ctlrMedicalRecord.text.isNotEmpty &&
-        ctlrfirstName.text.isNotEmpty &&
-        ctlrLastName.text.isNotEmpty &&
-        ctlrMI.text.isNotEmpty &&
-        ctlrSuffix.text.isNotEmpty &&
-        ctlrStreet.text.isNotEmpty &&
-        ctlrZipCode.text.isNotEmpty &&
-        ctlrCity.text.isNotEmpty &&
-        ctlrEmail.text.isNotEmpty &&
-        ctlrSocialSec.text.isNotEmpty &&
-        ctlrDischargeResaon.text.isNotEmpty;
-  }
+  // bool _validateInputs() {
+  //   return ctlrMedicalRecord.text.isNotEmpty &&
+  //       ctlrfirstName.text.isNotEmpty &&
+  //       ctlrLastName.text.isNotEmpty &&
+  //       ctlrMI.text.isNotEmpty &&
+  //       ctlrSuffix.text.isNotEmpty &&
+  //       ctlrStreet.text.isNotEmpty &&
+  //       ctlrZipCode.text.isNotEmpty &&
+  //       ctlrCity.text.isNotEmpty &&
+  //       ctlrEmail.text.isNotEmpty &&
+  //       ctlrSocialSec.text.isNotEmpty &&
+  //       ctlrDischargeResaon.text.isNotEmpty;
+  // }
 
 // Function to show an error message
-  void _showErrorMessage(BuildContext context) {
-    final snackBar = SnackBar(
-      content: Text('Please fill out all required fields.'),
-      backgroundColor: ColorManager.red,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
+
 
   int patientId = 1;
 
@@ -112,21 +106,21 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (showProfileBar) IntakeProfileBar(),
-        SizedBox(height: AppSize.s15),
+        // if (showProfileBar) IntakeProfileBar(),
+         SizedBox(height: AppSize.s15),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40.0),
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Text("Add New Patients",
                 //     style: AllPopupHeadings.customTextStyle(context)
                 //     //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
                 //     ),
-                SizedBox(width:200),
+
                 Container(
-                  width: MediaQuery.of(context).size.width / 4.6,
+                  width: MediaQuery.of(context).size.width / 4.605,
                   height: AppSize.s30,
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -202,99 +196,99 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                   ),
                 ),
                 // SizedBox(width: MediaQuery.of(context).size.width / 5),
-                if (selectedIndex == 0)
-                  Container(
-                    height: AppSize.s26,
-                    width: AppSize.s102,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        final companyId = await TokenManager.getCompanyId();
-                        // String? dateOfDeath = ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text;
-                        ApiData result = await IntakeInfoSave(
-                          context,
-                          ctlrSos.text,
-                          //"2024-08-12",
-                          ctlrMedicalRecord.text,
-                          selectedStatus!.toString() ?? '',
-                          // 'Pending',
-                          ctlrfirstName.text,
-                          ctlrLastName.text,
-                          ctlrMI.text,
-                          ctlrSuffix.text,
-                          statusType ?? '',
-                          //"2024-08-12",
-                          ctlrDate.text,
-                          ctlrStreet.text,
-                          selectedState!.toString(),
-                          // "291000",//
-                          ctlrZipCode.text,
-                          ctlrApartment.text,
-                          selectedcity!.toString(),
-                          selectedCountry.toString() ?? '',
-                          ctlrMajorStreet.text,
-                          ctlrPrimeNo.text,
-                          ctlrSecNo.text,
-                          ctlrEmail.text,
-                          ctlrSocialSec.text,
-                          selectedLanguage.toString() ?? '',
-                          ctlrDischargeResaon.text,
-                          selectedRace.toString() ?? '',
-                          selectedReligion.toString() ?? '',
-                          selectedMaritalStatus.toString() ?? '',
-                          //"2024-08-12",
-                          // ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
-                          ctlrDateOfDeath.text.isEmpty
-                              ? null
-                              : ctlrDateOfDeath.text,
-                          0,
-                          'At Land OSC',
-                          'case',
-                          'Type',
-                          companyId,
-                        );
-
-                        if (result.success) {
-                          patientId = result.patientId!;
-                          widget.onPatientIdGenerated(patientId);
-                          ctlrMedicalRecord.clear();
-                          ctlrfirstName.clear();
-                          ctlrLastName.clear();
-                          ctlrMI.clear();
-                          ctlrSuffix.clear();
-                          ctlrStreet.clear();
-                          ctlrZipCode.clear();
-                          ctlrApartment.clear();
-                          ctlrCity.clear();
-                          ctlrMajorStreet.clear();
-                          ctlrPrimeNo.clear();
-                          ctlrSecNo.clear();
-                          ctlrEmail.clear();
-                          ctlrSocialSec.clear();
-                          ctlrDischargeResaon.clear();
-                        } else {}
-                      },
-                      child: Text(
-                        AppString.save,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 25,
-                          vertical: 10,
-                        ),
-                        backgroundColor: ColorManager.blueprime,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  )
-                else
-                  SizedBox(width: AppSize.s80),
+                // if (selectedIndex == 0)
+                //   Container(
+                //     height: AppSize.s26,
+                //     width: AppSize.s102,
+                //     child: ElevatedButton(
+                //       onPressed: () async {
+                //         final companyId = await TokenManager.getCompanyId();
+                //         // String? dateOfDeath = ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text;
+                //         ApiData result = await IntakeInfoSave(
+                //           context,
+                //           ctlrSos.text,
+                //           //"2024-08-12",
+                //           ctlrMedicalRecord.text,
+                //           selectedStatus!.toString() ?? '',
+                //           // 'Pending',
+                //           ctlrfirstName.text,
+                //           ctlrLastName.text,
+                //           ctlrMI.text,
+                //           ctlrSuffix.text,
+                //           statusType ?? '',
+                //           //"2024-08-12",
+                //           ctlrDate.text,
+                //           ctlrStreet.text,
+                //           selectedState!.toString(),
+                //           // "291000",//
+                //           ctlrZipCode.text,
+                //           ctlrApartment.text,
+                //           selectedcity!.toString(),
+                //           selectedCountry.toString() ?? '',
+                //           ctlrMajorStreet.text,
+                //           ctlrPrimeNo.text,
+                //           ctlrSecNo.text,
+                //           ctlrEmail.text,
+                //           ctlrSocialSec.text,
+                //           selectedLanguage.toString() ?? '',
+                //           ctlrDischargeResaon.text,
+                //           selectedRace.toString() ?? '',
+                //           selectedReligion.toString() ?? '',
+                //           selectedMaritalStatus.toString() ?? '',
+                //           //"2024-08-12",
+                //           // ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
+                //           ctlrDateOfDeath.text.isEmpty
+                //               ? null
+                //               : ctlrDateOfDeath.text,
+                //           0,
+                //           'At Land OSC',
+                //           'case',
+                //           'Type',
+                //           companyId,
+                //         );
+                //
+                //         if (result.success) {
+                //           patientId = result.patientId!;
+                //           widget.onPatientIdGenerated(patientId);
+                //           ctlrMedicalRecord.clear();
+                //           ctlrfirstName.clear();
+                //           ctlrLastName.clear();
+                //           ctlrMI.clear();
+                //           ctlrSuffix.clear();
+                //           ctlrStreet.clear();
+                //           ctlrZipCode.clear();
+                //           ctlrApartment.clear();
+                //           ctlrCity.clear();
+                //           ctlrMajorStreet.clear();
+                //           ctlrPrimeNo.clear();
+                //           ctlrSecNo.clear();
+                //           ctlrEmail.clear();
+                //           ctlrSocialSec.clear();
+                //           ctlrDischargeResaon.clear();
+                //         } else {}
+                //       },
+                //       child: Text(
+                //         AppString.save,
+                //         style: CustomTextStylesCommon.commonStyle(
+                //           fontSize: FontSize.s14,
+                //           fontWeight: FontWeight.w700,
+                //           color: ColorManager.white,
+                //         ),
+                //       ),
+                //       style: ElevatedButton.styleFrom(
+                //         padding: const EdgeInsets.symmetric(
+                //           horizontal: 25,
+                //           vertical: 10,
+                //         ),
+                //         backgroundColor: ColorManager.blueprime,
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(12),
+                //         ),
+                //       ),
+                //     ),
+                //   )
+                // else
+                //   SizedBox(width: AppSize.s80),
               ]),
         ),
         const SizedBox(height: AppSize.s10),
@@ -844,11 +838,12 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                     },
                   ),
                 ),
-                IntakePComplianceScreen(patientId: patientId),
-                // IntakePlanCareScreen(patientId: patientId,),
                 IntakeRelatedPartiesScreen(
                   patientId: patientId,
                 ),
+                IntakePComplianceScreen(patientId: patientId),
+                // IntakePlanCareScreen(patientId: patientId,),
+
                 IntakePatientsStayInfoScreen(
                   patientId: patientId,
                 ),

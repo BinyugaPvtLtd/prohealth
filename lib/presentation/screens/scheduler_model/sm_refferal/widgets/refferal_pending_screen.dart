@@ -175,17 +175,17 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
               Row(
                 children: [
                   Text("Received Date",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
                   SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                    SizedBox(width: AppSize.s50,),
                   Text("Hospitals",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
                   SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   SizedBox(width: AppSize.s50,),
                   Text("PCP",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
                   SizedBox(width: AppSize.s15,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                   ],
@@ -198,7 +198,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 9,),
+                        padding: const EdgeInsets.symmetric(vertical: 7,),
                         child: Container(
                           height: 75,
                           decoration: BoxDecoration(
@@ -315,7 +315,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           textAlign: TextAlign.center,
                                           style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
-                                            color: ColorManager.mediumgrey,),
+                                            color: ColorManager.textBlack,),
                                         ),
                                         SizedBox(height: AppSize.s4,),
                                         Text(
@@ -434,9 +434,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                         Text(
                                           "Sophia Scott",
                                           textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorManager.mediumgrey,),
+                                          style: DocDefineTableData.customTextStyle(context),
                                         ),
                                         SizedBox(width: AppSize.s10),
                                           InkWell(
@@ -449,13 +447,12 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                               }
                                             },
                                             child: Container(
-                                              width: AppSize.s29,
-                                              height: AppSize.s40,
-                                              child: Image.asset(
-                                                'images/eye.png',
+                                              width: AppSize.s20,
+                                              height: AppSize.s25,
+                                              child: SvgPicture.asset(
+                                                'images/sm/sm_refferal/eye.svg', // make sure your file is in assets and listed in pubspec.yaml
                                                 height: AppSize.s15,
                                                 width: AppSize.s22,
-                                                color: ColorManager.bluebottom,
                                               ),
                                             ),
                                           ),

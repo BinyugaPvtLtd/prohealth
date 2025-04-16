@@ -87,3 +87,49 @@ class _CustomRadioListTileSMState extends State<CustomRadioListTileSM> {
     );
   }
 }
+
+
+
+///sm physician info
+class CustomRadioListTileSMp extends StatefulWidget {
+  final String value;
+  final String? groupValue;
+  final ValueChanged<String?> onChanged;
+  final String title;
+  const CustomRadioListTileSMp({super.key, required this.value, this.groupValue, required this.onChanged, required this.title});
+
+  @override
+  State<CustomRadioListTileSMp> createState() => _CustomRadioListTileSMpState();
+}
+
+class _CustomRadioListTileSMpState extends State<CustomRadioListTileSMp> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2,horizontal: 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+           Transform.scale(
+             scale: 1.5,
+            child: Radio<String>(
+              splashRadius: 0,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              value: widget.value,
+              groupValue: widget.groupValue,
+              onChanged: widget.onChanged,
+              activeColor: ColorManager.bluebottom,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            widget.title,
+            style: DocumentTypeDataStyle.customTextStyle(context),
+          ),
+          SizedBox( width: AppSize.s50,)
+        ],
+      ),
+    );
+  }
+}

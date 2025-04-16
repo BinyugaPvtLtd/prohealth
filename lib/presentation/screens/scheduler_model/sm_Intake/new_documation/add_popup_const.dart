@@ -53,6 +53,7 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                 ),
               ),
             ),
+            ///
             HeaderContentConst(
               isAsterisk: false,
               heading: AppString.type_of_the_document,
@@ -117,7 +118,7 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                               icon: Icon(
                                 Icons.file_upload_outlined,
                                 color: ColorManager.black,
-                                size: 17,
+                                size: 20,
                               ),
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
@@ -131,6 +132,8 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                 ),
               ),
             ),
+            SizedBox(height: 60,),
+            SizedBox(height: 20,),
           ],
         ),
         // Visibility(

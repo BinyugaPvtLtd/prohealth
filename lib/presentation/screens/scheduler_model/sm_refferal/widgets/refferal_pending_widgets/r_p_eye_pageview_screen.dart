@@ -509,7 +509,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     SizedBox(height: 12,),
                                     Container(
                                       height: 30,
-                                      padding: EdgeInsets.only(left: 55,right: 20),
+                                      padding: EdgeInsets.only(left: 45,right: 20),
                                       child: Text("Not all visit\ncovered",
                                         style: TextStyle(
                                           fontSize: FontSize.s12,
@@ -529,8 +529,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                   ),
                                   child: Center(
                                     child: Text("A",
+                                     textAlign: TextAlign.center,
                                      style: TextStyle(
-                                       fontSize: FontSize.s16,
+                                       fontSize: FontSize.s12,
                                        fontWeight: FontWeight.w700,
                                        color: ColorManager.white,
                                      ),),

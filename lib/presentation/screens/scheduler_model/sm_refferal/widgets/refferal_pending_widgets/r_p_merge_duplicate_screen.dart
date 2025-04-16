@@ -348,7 +348,9 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                       SizedBox(height: 15),
                                       Row(
                                         children: [
-                                          SMTextfieldAsteric(
+                                          SMTextFConst(
+                                            onlyAllowNumbers: true,
+                                            isAsteric: false,
                                             controller: zipCodeController,
                                             keyboardType: TextInputType.text,
                                             text: "Zip Code",
@@ -993,8 +995,9 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                       SizedBox(height: 15),
                                       Row(
                                         children: [
-                                          SMTextfieldAsteric(
+                                          SMTextFConst(
                                             controller: zipCodeController,
+                                            isAsteric: false,
                                             keyboardType: TextInputType.text,
                                             text: "Zip Code",
                                           ),

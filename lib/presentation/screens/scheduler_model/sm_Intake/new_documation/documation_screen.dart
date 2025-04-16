@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
@@ -25,7 +27,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
   TextEditingController ffpostController = TextEditingController();
   TextEditingController ffappoController = TextEditingController();
 
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -745,22 +747,9 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                 padding: const EdgeInsets.symmetric(horizontal: 35),
                 child: Column(
                   children: [
-                    Container(
-                      height: AppSize.s75,
-                      // decoration: BoxDecoration(
-                      //   color: ColorManager.white,
-                      //   borderRadius: BorderRadius.circular(8.0),
-                      //   boxShadow: [
-                      //     BoxShadow(
-                      //       color: ColorManager.black.withOpacity(0.2),
-                      //       spreadRadius: 1,
-                      //       blurRadius: 5,
-                      //       offset: Offset(0, 4),
-                      //     ),
-                      //   ],
-                      // ),
-                      child:
-                      Row(
+                    Padding(
+                      padding: const EdgeInsets.only(right: 165),
+                      child: Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         // crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -773,7 +762,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                           SizedBox(width: AppSize.s58),
                           Flexible(
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 5),
+                                padding: const EdgeInsets.only(top: 3),
                                 child: CustomDropdownTextFieldsm(
                                     headText: 'Marketer',
                                     items: ['Spouse','Patient',],
@@ -804,8 +793,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                   print("Checkbox value: $val");
                                 },
                               )),
-                          Flexible(
-                              child: SizedBox(width:0)),
+                          // Flexible(
+                          //     child: SizedBox(width:0)),
                           //SizedBox(width: AppSize.s65),
                         ],
                       ),
@@ -813,6 +802,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                   ],
                 ),
               ),
+
               SizedBox(height: AppSize.s10,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 35),
@@ -1319,7 +1309,56 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
               ),
               ///
               ///
-             
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                              Container(
+                                width: 117,
+                                height: 30,
+                                child: ElevatedButton(
+                                  onPressed: (){
+                    },
+                                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: BorderSide(
+                                        color: ColorManager.bluebottom,
+                                        width: 1,
+                                      ),
+                                    ),),
+                                  child: Text('Cancel',
+                                    style: TransparentButtonTextConst.customTextStyle(context),
+                                  ),),
+                              ),
+
+
+                                     const SizedBox(width: AppSize.s30,),
+                    Container(
+                      //color: Colors.white,
+                      width: 117,
+                      height: 30,
+                      child: ElevatedButton(
+                        onPressed: (){},
+                        style: ElevatedButton.styleFrom(backgroundColor:ColorManager.bluebottom,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),),
+                        child: Text('Save',
+                          style:  TextStyle(
+                            fontSize: FontSize.s13,
+                            fontWeight: FontWeight.w600,
+                            color: ColorManager.white,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
