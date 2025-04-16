@@ -160,7 +160,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              SizedBox(height: 35,),
+                              SizedBox(height: 30,),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,7 +190,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15,),
+                              SizedBox(height: 20,),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -423,7 +423,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 25.0),
+                padding: const EdgeInsets.only(left: 30.0,top: 10),
                 child: Text(
                   'Mark as Primary',
                   style: AllPopupHeadings.customTextStyle(context),
@@ -473,7 +473,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     controller: policy,
                                     isAsteric: false,
                                     keyboardType: TextInputType.text,
-                                    text: "Policy # ${index + 1}",
+                                    text: "Policy #",
                                   ),
                                 ),
                                 Expanded(child: Container()),
