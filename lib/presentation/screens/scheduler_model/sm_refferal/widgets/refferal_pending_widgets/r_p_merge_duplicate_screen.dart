@@ -403,6 +403,11 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                     children: [
 
                                       CustomRadioListTileSM(
+                                        style: CustomTextStylesCommon.commonStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: FontSize.s13,
+                                          color: ColorManager.bluebottom,
+                                        ),
                                         value: 'Insurance',
                                         groupValue: selectedType,
                                         onChanged: (value) {
@@ -504,7 +509,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 15,),
+                                      SizedBox(height: 32,),
                                       Row(
                                         children: [
                                           SMTextFConst(
@@ -558,7 +563,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 15,),
+                                      SizedBox(height: 32,),
                                       Row(
                                         children: [
                                           SMTextFConst(
@@ -1049,6 +1054,11 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                     children: [
 
                                       CustomRadioListTileSM(
+                                        style: CustomTextStylesCommon.commonStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: FontSize.s13,
+                                          color: ColorManager.bluebottom,
+                                        ),
                                         value: 'Insurance',
                                         groupValue: selectedType,
                                         onChanged: (value) {
@@ -1150,7 +1160,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 15,),
+                                      SizedBox(height: 32,),
                                       Row(
                                         children: [
                                           SMTextFConst(
@@ -1204,7 +1214,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 15,),
+                                      SizedBox(height:32,),
                                       Row(
                                         children: [
                                           SMTextFConst(

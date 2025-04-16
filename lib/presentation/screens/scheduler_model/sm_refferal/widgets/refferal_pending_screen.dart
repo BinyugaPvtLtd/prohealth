@@ -86,7 +86,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 60,right: 45, top: 10,bottom: 10),
+          padding: const EdgeInsets.only(left: 60,right: 60, top: 10,bottom: 10),
           child: Column(
             children: [
               // Row(
@@ -233,7 +233,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           color:Color(0xFFFFE4E2),
                                           borderRadius: BorderRadius.only(
                                               topRight:
-                                              Radius.circular(12)),),
+                                              Radius.circular(8)),),
                                         child: Center(
                                           child: Text(
                                               'Potential Duplicate',
@@ -251,14 +251,14 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                   Expanded(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 10.0),
+                                      padding: const EdgeInsets.only(left: 20.0),
                                       child: Row(
                                         children: [
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
-                                              width: AppSize.s45,
-                                              height: AppSize.s45,
+                                              width: AppSize.s47,
+                                              height: AppSize.s47,
                                               child: Image.asset(
                                                 'images/1.png', // Replace with your image path
                                                 fit: BoxFit.cover,
@@ -277,7 +277,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                   fontWeight: FontWeight.w700,
                                                   color: ColorManager.mediumgrey,),
                                               ),
-                                              SizedBox(height: AppSize.s3,),
+                                              SizedBox(height: AppSize.s5,),
                                               Text(
                                                 "Received Date :  09/15/2024",
                                                 textAlign: TextAlign.center,
@@ -287,7 +287,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                               ),
                                               SizedBox(height: AppSize.s2,),
                                               Text(
-                                                "7:35 PM",
+                                                "07:35 PM",
                                                 textAlign: TextAlign.center,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s11,
                                                   fontWeight: FontWeight.w400,
@@ -467,12 +467,12 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                         SizedBox(width: AppSize.s7),
                                         Container(
                                           height:33,
-                                          width: 125,
+                                          width: 115,
                                           child: ElevatedButton.icon(
-                                            icon: Image.asset("images/sm/sm_refferal/file.png",height: 20,width: 20,),
+                                            icon: Image.asset("images/sm/sm_refferal/file.png",height: 16,width: 16,),
                                             onPressed: (){},
                                             style: ElevatedButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                              padding: EdgeInsets.symmetric(horizontal: 2, vertical: 10),
                                               backgroundColor: ColorManager.white,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.circular(12),
@@ -486,7 +486,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           ),
                                           ),
                                         ),
-                                        SizedBox(width: AppSize.s6),
+                                        SizedBox(width: AppSize.s3),
                                           PopupMenuButton<String>(
                                             tooltip: '',
                                             splashRadius: 0,
@@ -504,21 +504,31 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                                               PopupMenuItem<String>(
                                                 value: 'Merge Duplicate',
-                                                child: Text('Merge Duplicate'),
+                                                child: Text('Merge Duplicate',
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: FontSize.s12,
+                                                  color: ColorManager.mediumgrey,
+                                                ),),
                                               ),
                                               PopupMenuItem<String>(
                                                 value: 'Archived',
-                                                child: Text('Archived'),
+                                                child: Text('Archived',
+                                                  style: CustomTextStylesCommon.commonStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: FontSize.s12,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),),
                                               ),
                                             ],
-                                            child: Icon(Icons.more_vert),
+                                            child: Icon(Icons.more_vert, color: ColorManager.mediumgrey,),
                                           ),
                                           SizedBox(width: AppSize.s9),
                                         ],
                                   ))
                                 ],
                               ),
-                              Container(height: AppSize.s14,),
+                              Container(height: AppSize.s12,),
                             ],
                           ),
                         ),
@@ -530,8 +540,6 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
             ],
           ),
         ),
-
-        // Sliding Filter Panel
         if (_isFilterOpen)
           GestureDetector(
             onTap: _toggleFilter,
@@ -546,9 +554,9 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
           duration: Duration(milliseconds: 300),
           right: _isFilterOpen ? -0 : -320, // Slide in/out effect
           top: 0,
-          bottom: 10,
+          bottom: 0,
           child: Container(
-            width: 300,
+            width: 250,
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -561,7 +569,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -586,22 +594,22 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   // Example filter fields
                   InkWell(
                     onTap:  toggleContainerM,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text("Marketer",
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Marketer",
                           style: AllHRTableData.customTextStyle(context),),
-                        ),
+                           Icon(
+                              _MContainerVisible
+                                  ? Icons.keyboard_arrow_up
+                                  : Icons.keyboard_arrow_down,
+                             color: ColorManager.mediumgrey,
+                            ),
 
-                         Icon(
-                            _MContainerVisible
-                                ? Icons.keyboard_arrow_up
-                                : Icons.keyboard_arrow_down,
-                          ),
-
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -620,22 +628,23 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerO,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text("Order Received Date",
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Order Received Date",
                               style: AllHRTableData.customTextStyle(context)),
-                        ),
 
-                        Icon(
-                          _OContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _OContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -654,22 +663,23 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerR,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text("Referral Source",
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Referral Source",
                               style: AllHRTableData.customTextStyle(context)),
-                        ),
 
-                        Icon(
-                          _RContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _RContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -864,22 +874,23 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerA,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text("Agency",
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Agency",
                               style: AllHRTableData.customTextStyle(context)),
-                        ),
 
-                        Icon(
-                          _AContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _AContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -898,22 +909,23 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerI,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text("Insurance",
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Insurance",
                               style: AllHRTableData.customTextStyle(context)),
-                        ),
 
-                        Icon(
-                          _IContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _IContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -932,22 +944,23 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerIC,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text("Insurance Category",
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Insurance Category",
                               style: AllHRTableData.customTextStyle(context)),
-                        ),
 
-                        Icon(
-                          _ICContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _ICContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -1163,22 +1176,23 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerP,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text("Potential Discharge Date",
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Potential Discharge Date",
                               style: AllHRTableData.customTextStyle(context)),
-                        ),
 
-                        Icon(
-                          _PContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _PContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -1235,21 +1249,22 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   // Example filter fields
                   InkWell(
                     onTap:  toggleContainerM,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text("Physician",
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Physician",
                               style: AllHRTableData.customTextStyle(context)),
-                        ),
-                        Icon(
-                          _MContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _MContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   Divider(),
@@ -1263,46 +1278,6 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
   }
 }
 
-
-///
-// AnimatedPositioned(
-//   duration: Duration(milliseconds: 300),
-//   right: _isFilterOpen ? 0 : -220, // Slide in/out effect
-//   top: 0,
-//   bottom: 10,
-//   child: Container(
-//     width: 200,
-//
-//     padding: EdgeInsets.all(10),
-//     decoration: BoxDecoration(
-//       color: Colors.white,
-//       boxShadow: [
-//         BoxShadow(color: Colors.black26, blurRadius: 5),
-//       ],
-//     ),
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text("Filter Options", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-//         Divider(),
-//         // Example filter fields
-//         Text("Status"),
-//         DropdownButton<String>(
-//           items: ["All", "Pending", "Approved"]
-//               .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-//               .toList(),
-//           onChanged: (val) {},
-//         ),
-//         SizedBox(height: 10),
-//         Text("Date Range"),
-//         ElevatedButton(
-//           onPressed: () {},
-//           child: Text("Select Date"),
-//         ),
-//       ],
-//     ),
-//   ),
-// ),
 ///
 // SizedBox(height: 30,),
 // Expanded(

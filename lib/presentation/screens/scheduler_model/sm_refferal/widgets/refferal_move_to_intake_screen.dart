@@ -82,7 +82,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 60,right: 45, top: 10,bottom: 10),
+          padding: const EdgeInsets.only(left: 60,right: 60, top: 10,bottom: 10),
           child: Column(
             children: [
               Row(
@@ -129,7 +129,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5,),
+                        padding: const EdgeInsets.symmetric(vertical: 7,),
                         child: Container(
                           height: 75,
                           decoration: BoxDecoration(
@@ -182,14 +182,14 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                   Expanded(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 10.0),
+                                      padding: const EdgeInsets.only(left: 20.0),
                                       child: Row(
                                         children: [
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
-                                              width: AppSize.s45,
-                                              height: AppSize.s45,
+                                              width: AppSize.s47,
+                                              height: AppSize.s47,
                                               child: Image.asset(
                                                 'images/1.png', // Replace with your image path
                                                 fit: BoxFit.cover,
@@ -208,7 +208,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                                   fontWeight: FontWeight.w700,
                                                   color: ColorManager.mediumgrey,),
                                               ),
-                                              SizedBox(height: AppSize.s4,),
+                                              SizedBox(height: AppSize.s5,),
                                               Text(
                                                 "Referral Date : 09/15/2024",
                                                 textAlign: TextAlign.center,
@@ -359,7 +359,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               highlightColor: Colors.transparent,
                                               onPressed: (){},
                                               icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
-                                          SizedBox(width: AppSize.s10),
+                                          SizedBox(width: AppSize.s2),
                                           PopupMenuButton<String>(
                                             tooltip: '',
                                             splashRadius: 0,
@@ -384,14 +384,14 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                                 child: Text('Archived'),
                                               ),
                                             ],
-                                            child: Icon(Icons.more_vert),
+                                            child: Icon(Icons.more_vert,color: ColorManager.mediumgrey,),
                                           ),
                                           SizedBox(width: AppSize.s10),
                                         ],
                                       ))
                                 ],
                               ),
-                              Container(height: AppSize.s10,),
+                              Container(height: AppSize.s8,),
                             ],
                           ),
                         ),
@@ -668,9 +668,9 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
           duration: Duration(milliseconds: 300),
           right: _isFilterOpen ? -0 : -320, // Slide in/out effect
           top: 0,
-          bottom: 10,
+          bottom: 0,
           child: Container(
-            width: 300,
+            width: 250,
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -682,40 +682,48 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: _toggleFilter,
-                        child: Row(
-                          children: [
-                            Icon(Icons.menu_open),
-                            Text(
-                              "Filter Options",
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: _toggleFilter,
+                          child: Row(
+                            children: [
+                              Icon(Icons.menu_open),
+                              SizedBox(width: AppSize.s10),
+                              Text(
+                                "Filters",
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      TextButton(onPressed: (){}, child: Text("CLEAR ALL"))
-                    ],
+                        // TextButton(onPressed: (){}, child: Text("CLEAR ALL"))
+                      ],
+                    ),
                   ),
                   Divider(),
                   // Example filter fields
                   InkWell(
                     onTap:  toggleContainerM,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Marketer"),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Marketer",
+                            style: AllHRTableData.customTextStyle(context),),
+                          Icon(
+                            _MContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                        Icon(
-                          _MContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
-
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -734,18 +742,23 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerO,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Order Received Date"),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Order Received Date",
+                              style: AllHRTableData.customTextStyle(context)),
 
-                        Icon(
-                          _OContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _OContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -764,18 +777,23 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerR,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Referral Source"),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Referral Source",
+                              style: AllHRTableData.customTextStyle(context)),
 
-                        Icon(
-                          _RContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _RContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -837,7 +855,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -857,7 +875,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -877,7 +895,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -897,7 +915,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -917,7 +935,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -937,7 +955,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -957,7 +975,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Lorem Ipsum',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -970,18 +988,23 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerA,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Agency"),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Agency",
+                              style: AllHRTableData.customTextStyle(context)),
 
-                        Icon(
-                          _AContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _AContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -1000,18 +1023,23 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerI,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Insurance"),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Insurance",
+                              style: AllHRTableData.customTextStyle(context)),
 
-                        Icon(
-                          _IContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _IContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -1030,18 +1058,23 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerIC,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Insurance Category"),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Insurance Category",
+                              style: AllHRTableData.customTextStyle(context)),
 
-                        Icon(
-                          _ICContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _ICContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -1103,7 +1136,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Medicare',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1123,7 +1156,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Private Med Advantage',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1143,7 +1176,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Kaiser',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1163,7 +1196,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Medi-Cal',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1183,7 +1216,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Private Commercial',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1203,7 +1236,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'LOA',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1223,7 +1256,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'ProBono',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1243,7 +1276,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                             Text(
                               'Other',
-                              style: onlyFormDataStyle.customTextStyle(context),
+                              style: DocDefineTableDataID.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -1257,18 +1290,23 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                   Divider(),
                   InkWell(
                     onTap:  toggleContainerP,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Potential Discharge Date"),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Potential Discharge Date",
+                              style: AllHRTableData.customTextStyle(context)),
 
-                        Icon(
-                          _PContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                        ),
+                          Icon(
+                            _PContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   AnimatedContainer(
@@ -1322,7 +1360,28 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                         : null,
                   ),
                   Divider(),
+                  // Example filter fields
+                  InkWell(
+                    onTap:  toggleContainerM,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Physician",
+                              style: AllHRTableData.customTextStyle(context)),
+                          Icon(
+                            _MContainerVisible
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: ColorManager.mediumgrey,
+                          ),
 
+                        ],
+                      ),
+                    ),
+                  ),
+                  Divider(),
                 ],
               ),
             ),

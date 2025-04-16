@@ -53,7 +53,8 @@ class CustomRadioListTileSM extends StatefulWidget {
   final String? groupValue;
   final ValueChanged<String?> onChanged;
   final String title;
-  const CustomRadioListTileSM({super.key, required this.value, this.groupValue, required this.onChanged, required this.title});
+  final TextStyle? style;
+  const CustomRadioListTileSM({super.key, required this.value, this.groupValue, required this.onChanged, required this.title, this.style});
 
   @override
   State<CustomRadioListTileSM> createState() => _CustomRadioListTileSMState();
@@ -79,7 +80,7 @@ class _CustomRadioListTileSMState extends State<CustomRadioListTileSM> {
           // const SizedBox(width: 0),
           Text(
             widget.title,
-            style: DocumentTypeDataStyle.customTextStyle(context),
+            style: widget.style ?? DocumentTypeDataStyle.customTextStyle(context),
           ),
           SizedBox( width: AppSize.s40,)
         ],
