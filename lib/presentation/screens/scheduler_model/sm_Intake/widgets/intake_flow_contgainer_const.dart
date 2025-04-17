@@ -6,7 +6,9 @@ import '../../../../../app/resources/value_manager.dart';
 class IntakeFlowContainerConst extends StatelessWidget {
   final double? height;
   final Widget child;
-  const IntakeFlowContainerConst({super.key, this.height, required this.child});
+  final bool? isColorVisible;
+  final Color? dividerColor;
+  const IntakeFlowContainerConst({super.key,this.dividerColor ,this.isColorVisible = false,this.height, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,19 @@ class IntakeFlowContainerConst extends StatelessWidget {
           //   ),
           // ],
         ),
-        child: child,
+        child:
+        // isColorVisible!?Row(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   children: [
+        //     VerticalDivider(
+        //       color: dividerColor,
+        //       thickness: 2,
+        //     ),
+        //     SizedBox(width: 16,),
+        //     child
+        //   ],
+        // ) :
+        child,
       ),
     );
   }

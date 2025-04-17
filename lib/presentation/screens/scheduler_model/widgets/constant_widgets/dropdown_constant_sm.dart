@@ -110,22 +110,25 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-                widget.headText,
-                style: AllPopupHeadings.customTextStyle(context)
-              //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
-            ),
-            Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
-          ],
+        Container(
+          width: widget.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                  widget.headText,
+                  style: AllPopupHeadings.customTextStyle(context)
+                //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+              ),
+              Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
+            ],
+          ),
         ),
         SizedBox(
           height: 5,
         ),
         SizedBox(
-          // width: widget.widthone,
+          width: widget.width ?? null,
           height:widget.height ?? AppSize.s30,
           child: GestureDetector(
             onTap: _showDropdownDialog,
