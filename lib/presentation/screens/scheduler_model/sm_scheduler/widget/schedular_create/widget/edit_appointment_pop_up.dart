@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
 import '../../../../../../../../../app/resources/color.dart';
 import '../../../../widgets/constant_widgets/schedular_success_popup.dart';
 import '../../../../widgets/constant_widgets/textfield_constant.dart';

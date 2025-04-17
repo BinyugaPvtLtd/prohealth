@@ -9,8 +9,10 @@ class CheckboxTile extends StatefulWidget {
   final String title;
   final bool initialValue;
   final Function(bool)? onChanged;
+  final bool? isInfoIconVisible;
 
   CheckboxTile({
+    this.isInfoIconVisible = false,
     required this.title,
     this.initialValue = false,
     this.onChanged,
@@ -58,6 +60,8 @@ class _CheckboxTileState extends State<CheckboxTile> {
           fontSize: AppSize.s12,
           fontWeight: FontWeight.w500,
           color: ColorManager.mediumgrey,),),
+        SizedBox(width: 10,),
+        widget.isInfoIconVisible! ? const Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),) : Offstage()
       ],
 
 

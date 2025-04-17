@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/intake_insurance_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_lab_result/intake_lab_result_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/intake_medications_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/intake_notes_home_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_orders/intake_orders_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/intake_patients_data_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/intake_physician_home_screen.dart';
 import '../../../../../../app/resources/value_manager.dart';
@@ -175,7 +175,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
             DocumationScreenTab(),
             IntakeMedicationScreen(patientId: patientId),
             PhysicianInfoTab(),
-            SMIntakeInsuranceScreen(patientId: patientId),
+            SMIntakeOrdersScreen(patientId: patientId),
             SmIntakeNotesScreen(patientId: patientId),
           ],
         ),
