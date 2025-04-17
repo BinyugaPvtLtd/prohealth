@@ -445,6 +445,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
 
                       ]
                   ),
+
                   Column(
                       crossAxisAlignment:CrossAxisAlignment.start,
                       children:[
