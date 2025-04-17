@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_initial_contact/intake_initial_contact_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/intake_insurance_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_lab_result/intake_lab_result_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/intake_notes_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_orders/intake_orders_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/intake_patients_data_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/intake_physician_home_screen.dart';
@@ -209,7 +208,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               IntakeInsuranceScreen(patientId: patientId),
               PhysicianInfoTab(),
               SMIntakeOrdersScreen(patientId: patientId),
-              SmIntakeNotesScreen(patientId: patientId),
+              SmIntakeInitialContactScreen(patientId: patientId),
             ],
           ),
         ),
