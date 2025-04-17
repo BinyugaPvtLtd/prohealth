@@ -100,7 +100,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                       style: AllPopupHeadings.customTextStyle(context)
                     //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
                   ),
-                  widget.isIconVisible!? Offstage() :Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
+                  widget.isIconVisible!? SizedBox(height:7) :Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
                 ],
               ),
             ),

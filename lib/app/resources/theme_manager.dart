@@ -213,12 +213,14 @@ class CustomTextStylesCommon {
     double? fontSize,
     Color? color,
     FontWeight? fontWeight,
+    FontStyle? fontStyle,
   }) {
     return TextStyle(
       fontSize: fontSize ?? FontSize.s15,
       color: color ?? Color(0xff4B89BA),
       fontWeight: fontWeight ?? FontWeight.w600,
       decoration: TextDecoration.none,
+      fontStyle: fontStyle
     );
   }
 }

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_flow_contgainer_const.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/widgets/intake_medication_profile/intake_medication_profile_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/widgets/intake_pharmacy_vendor/intake_pharmacy_vendor_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/textfield_dropdown_constant/schedular_textfield_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../../../../../../app/resources/color.dart';
@@ -65,9 +63,38 @@ class SMIntakeOrdersScreen extends StatelessWidget {
     bool isRehospicRisk = false;
     bool isEch = false;
     bool isEchSnf = false;
-    return  Scaffold(
-      backgroundColor: ColorManager.white,
-      body: SingleChildScrollView(
+    return
+      // backgroundColor: ColorManager.white,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(right: 90), // Shift left by 10
+      //   child: FloatingActionButton(
+      //     onPressed: () {
+      //       // Your onPressed action here
+      //     },
+      //     backgroundColor: ColorManager.bluebottom,
+      //     child: Padding(
+      //       padding: const EdgeInsets.all(5),
+      //       child: Column(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: [
+      //           Icon(Icons.call,size: 22,),
+      //           SizedBox(height: 3,),
+      //           Text(
+      //             "Contact",
+      //             style: CustomTextStylesCommon.commonStyle(
+      //               fontSize: FontSize.s10,
+      //               fontWeight: FontWeight.w500,
+      //               color: ColorManager.white,
+      //             ),
+      //             textAlign: TextAlign.center,
+      //           )
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
+       SingleChildScrollView(
         child: Column(
           children: [
             Padding(
@@ -77,7 +104,8 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                 children: [
                   Text('Review and confirm the data pulled is correct',style: CustomTextStylesCommon.commonStyle(
                       color:Color(0xFF575757),
-                      fontWeight: FontWeight.w300,fontSize: 12))
+                      fontWeight: FontWeight.w300,fontSize: 12,fontStyle: FontStyle.italic,
+                      ))
                 ],
               ),
             ),
@@ -209,8 +237,6 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                               width:300,
                               headText: 'Marketer',
                               onChanged: (newValue) {
-
-
                               },),
                             SizedBox(height: AppSize.s14,),
                             CustomDropdownTextFieldsm(
@@ -239,7 +265,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.end,
-                      spacing: 10,
+                      spacing: 15,
                       children: [
                         Padding(
                           padding:EdgeInsets.symmetric(vertical: 13),
@@ -247,8 +273,9 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                         SchedularTextField(
                           isIconVisible:true,
                           width: 350,
-                          controller: caseManagerController,
+                          controller: trackingNotesController,
                           labelText: '',
+                          hintText: 'Enter Text',
                         )
                       ],
                     )
@@ -264,6 +291,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
             IntakeFlowContainerConst(
               height: AppSize.s400,
               child: Column(
+                spacing: 16,
                 children: [
                   Container(
                   height: AppSize.s100,
@@ -288,7 +316,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                       children: [
                         VerticalDivider(
                           color: Colors.red,
-                          thickness: 3,
+                          thickness: 4.5,
                         ),
                         SizedBox(width: AppSize.s35),
                             Flexible(
@@ -306,11 +334,14 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                 )),
                             SizedBox(width: AppSize.s35),
                             Flexible(
-                                child: SchedularTextField(
-                                  isIconVisible: true,
-                                  controller: pDGMAcceptController,
-                                  labelText: 'PDGM - Acceptable',
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top:9),
+                                  child: SchedularTextField(
+                                    isIconVisible: true,
+                                    controller: pDGMAcceptController,
+                                    labelText: 'PDGM - Acceptable',
 
+                                  ),
                                 )),
                             SizedBox(width: AppSize.s35),
                             Flexible(child: SizedBox()),
@@ -326,6 +357,70 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                         // )
                       ],
                     ),),
+                  Container(
+                    height: AppSize.s100,
+                    // padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
+                    decoration: BoxDecoration(
+                      color: ColorManager.white,
+                      // borderRadius: BorderRadius.circular(5),
+                      // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
+                      border: Border(
+                        bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey),
+                      ),//all(width: 1, color: Color(0xFFBCBCBC)),
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: ColorManager.black.withOpacity(0.2),
+                      //     spreadRadius: 0,
+                      //     blurRadius: 4,
+                      //     offset: Offset(0, 4),
+                      //   ),
+                      // ],
+                    ),child:Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      VerticalDivider(
+                        color: Colors.green,
+                        thickness: 4.5,
+                      ),
+                      SizedBox(width: AppSize.s35),
+                      Flexible(
+                          child: SchedularTextField(
+                            controller: possibleDiagnosisController,
+                            labelText: 'Possible Diagnosis',
+
+                          )),
+                      SizedBox(width: AppSize.s35),
+                      Flexible(
+                          child: SchedularTextField(
+                            controller: icdCodeController,
+                            labelText: 'ICD Code',
+
+                          )),
+                      SizedBox(width: AppSize.s35),
+                      Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top:9),
+                            child: SchedularTextField(
+                              isIconVisible: true,
+                              controller: pDGMAcceptController,
+                              labelText: 'PDGM - Acceptable',
+
+                            ),
+                          )),
+                      SizedBox(width: AppSize.s35),
+                      Flexible(child: SizedBox()),
+
+
+
+                      // CheckboxTile(
+                      //   title: 'No Emergency Contact',
+                      //   initialValue: noEmergencyData,
+                      //   onChanged: (value) {
+                      //
+                      //   },
+                      // )
+                    ],
+                  ),),
 
                   // Container(
                   //   height:AppSize.s500,
@@ -556,7 +651,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
+
   }
 }

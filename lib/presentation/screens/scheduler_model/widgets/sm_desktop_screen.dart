@@ -183,9 +183,10 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                                         onPressed: () {
                               //companyAll(context);
                               myController.selectButton(0);
-                              _pageController.animateToPage(0,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
+                              _pageController.jumpToPage(0,
+                                  // duration: Duration(milliseconds: 500),
+                                  // curve: Curves.ease
+                              );
                               onPageChanged(0);
                               pgeControllerId = 0;
                                                         },
@@ -208,9 +209,10 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             //companyByIdApi(context,);
                             // companyDetailsApi(context,5);
                             myController.selectButton(1);
-                            _pageController.animateToPage(1,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
+                            _pageController.jumpToPage(1,
+                                // duration: Duration(milliseconds: 500),
+                                // curve: Curves.ease
+                            );
                             onPageChanged(1);
                             pgeControllerId = 1;
                           },
@@ -232,9 +234,10 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             //companyByIdApi(context,);
                             // companyDetailsApi(context,5);
                             myController.selectButton(2);
-                            _pageController.animateToPage(2,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
+                            _pageController.jumpToPage(2,
+                                // duration: Duration(milliseconds: 500),
+                                // curve: Curves.ease
+                            );
                             onPageChanged(2);
                             pgeControllerId = 2;
                           },
@@ -258,9 +261,10 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             //companyByIdApi(context,);
                             // companyDetailsApi(context,5);
                             myController.selectButton(3);
-                            _pageController.animateToPage(3,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
+                            _pageController.jumpToPage(3,
+                                // duration: Duration(milliseconds: 500),
+                                // curve: Curves.ease
+                            );
                             onPageChanged(3);
                             pgeControllerId = 3;
                           },
@@ -282,9 +286,10 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             //companyByIdApi(context,);
                             // companyDetailsApi(context,5);
                             myController.selectButton(4);
-                            _pageController.animateToPage(4,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
+                            _pageController.jumpToPage(4,
+                                // duration: Duration(milliseconds: 500),
+                                // curve: Curves.ease
+                            );
                             onPageChanged(4);
                             pgeControllerId = 4;
                           },
@@ -307,9 +312,10 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             //companyByIdApi(context,);
                             // companyDetailsApi(context,5);
                             myController.selectButton(5);
-                            _pageController.animateToPage(5,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
+                            _pageController.jumpToPage(5,
+                                // duration: Duration(milliseconds: 500),
+                                // curve: Curves.ease
+                            );
                             onPageChanged(5);
                             pgeControllerId = 5;
                           },
@@ -331,9 +337,10 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             //companyByIdApi(context,);
                             // companyDetailsApi(context,5);
                             myController.selectButton(6);
-                            _pageController.animateToPage(6,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
+                            _pageController.jumpToPage(6,
+                                // duration: Duration(milliseconds: 500),
+                                // curve: Curves.ease
+                            );
                             onPageChanged(6);
                             pgeControllerId = 6;
                           },

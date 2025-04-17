@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/intake_insurance_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_lab_result/intake_lab_result_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/intake_medications_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/intake_notes_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_orders/intake_orders_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/intake_patients_data_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/intake_physician_home_screen.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/theme_manager.dart';
 import '../widgets/constant_widgets/page_view_menu_button_const.dart';
 import 'new_documation/documation_screen.dart';
 import 'new_phsician_info/physician_info_tab.dart';
@@ -32,155 +33,188 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
       setState(() {
         _selectedIndex = index;
       });
-      intakePageController.animateToPage(
+      intakePageController.jumpToPage(
         index,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.ease,
+        // duration: const Duration(milliseconds: 500),
+        // curve: Curves.ease,
       );
     }
   }
   @override
   Widget build(BuildContext context) {
 
-    return Column(children: [
-      Material(
-        color: ColorManager.white,
-        elevation:2,
-        child: Container(
-          decoration: BoxDecoration(
-          color: ColorManager.white,
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: ColorManager.black.withOpacity(0.5),
-            //     offset: Offset(0, 4),
-            //     blurRadius: 4,
-            //     spreadRadius: 0,
-            //   ),
-            // ],
-          ),
-          padding: EdgeInsets.only(left: 30, right: 60),
-          //margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
+    return Scaffold(
+      backgroundColor: ColorManager.white,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(right: 90), // Shift left by 10
+        child: FloatingActionButton(
+          onPressed: () {
+            // Your onPressed action here
+          },
+          backgroundColor: ColorManager.bluebottom,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
+            padding: const EdgeInsets.all(5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // InkWell(
-                //     onTap: widget.onGoBackPressed,
-                //     child: Row(
-                //       children: [
-                //         Icon(
-                //           Icons.arrow_back,
-                //           size: IconSize.I16,
-                //           color: ColorManager.mediumgrey,
-                //
-                //         ),
-                //         SizedBox(width: 5,),
-                //         Text(
-                //           'Go Back',
-                //          style:TextStyle(
-                //            fontSize: FontSize.s14,
-                //            fontWeight: FontWeight.w700,
-                //            color: ColorManager.mediumgrey,
-                //          ),
-                //         ),
-                //       ],
-                //     )),
-                PageViewMenuButtonConst(
-                  onTap: (int index) {
-                    intakeSelectButton(index);
-                  },
-                  index: 0,
-                  grpIndex: _selectedIndex,
-                  heading: "Demographics",
-                ),
-                // PageViewMenuButtonConst(
-                //   onTap: (int index) {
-                //     intakeSelectButton(index);
-                //   },
-                //   index: 1,
-                //   grpIndex: _selectedIndex,
-                //   heading: "Referral",
-                //   enabled: patientId != 0,
-                // ),
-                PageViewMenuButtonConst(
-                  onTap: (int index) {
-                    intakeSelectButton(index);
-                  },
-                  index: 1,
-                  grpIndex: _selectedIndex,
-                  heading: "Documentation",
-                  enabled: patientId != 0,
-                ),
-                PageViewMenuButtonConst(
-                  onTap: (int index) {
-                    intakeSelectButton(index);
-                  },
-                  index: 2,
-                  grpIndex: _selectedIndex,
-                  heading: "Insurance",
-                  enabled: patientId != 0,
-                ),
-                PageViewMenuButtonConst(
-                  onTap: (int index) {
-                    intakeSelectButton(index);
-                  },
-                  index: 3,//3,
-                  grpIndex: _selectedIndex,
-                  heading: "Physician Info",
-                  enabled: patientId != 0,
-                ),
-                PageViewMenuButtonConst(
-                  onTap: (int index) {
-                    intakeSelectButton(index);
-                  },
-                  index: 4,
-                  grpIndex: _selectedIndex,
-                  heading: "Orders",
-                  enabled: patientId != 0,
-                ),
-                PageViewMenuButtonConst(
-                  onTap: (int index) {
-                    intakeSelectButton(index);
-                  },
-                  index: 5,
-                  grpIndex: _selectedIndex,
-                  heading: "Initial Contact",
-                  enabled: patientId != 0,
-                ),
+                Icon(Icons.call,size: 22,),
+                SizedBox(height: 3,),
+                Text(
+                  "Contact",
+                  style: CustomTextStylesCommon.commonStyle(
+                    fontSize: FontSize.s10,
+                    fontWeight: FontWeight.w500,
+                    color: ColorManager.white,
+                  ),
+                  textAlign: TextAlign.center,
+                )
               ],
             ),
           ),
         ),
       ),
-      Expanded(
-        flex: 1,
-        child: NonScrollablePageView(
-          controller: intakePageController,
-          onPageChanged: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
+      body: Column(
           children: [
-            SmIntakeDemographicsScreen(
-              onPatientIdGenerated: (int id) {
-                setState(() {
-                  patientId = id;
-                });
-              },
+        Material(
+          color: ColorManager.white,
+          elevation:2,
+          child: Container(
+            decoration: BoxDecoration(
+            color: ColorManager.white,
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: ColorManager.black.withOpacity(0.5),
+              //     offset: Offset(0, 4),
+              //     blurRadius: 4,
+              //     spreadRadius: 0,
+              //   ),
+              // ],
             ),
-            // SMIntakeReferralScreen(patientId: patientId),
-            DocumationScreenTab(),
-            IntakeMedicationScreen(patientId: patientId),
-            PhysicianInfoTab(),
-            SMIntakeOrdersScreen(patientId: patientId),
-            SmIntakeNotesScreen(patientId: patientId),
-          ],
+            padding: EdgeInsets.only(left: 30, right: 60),
+            //margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                children: [
+                  // InkWell(
+                  //     onTap: widget.onGoBackPressed,
+                  //     child: Row(
+                  //       children: [
+                  //         Icon(
+                  //           Icons.arrow_back,
+                  //           size: IconSize.I16,
+                  //           color: ColorManager.mediumgrey,
+                  //
+                  //         ),
+                  //         SizedBox(width: 5,),
+                  //         Text(
+                  //           'Go Back',
+                  //          style:TextStyle(
+                  //            fontSize: FontSize.s14,
+                  //            fontWeight: FontWeight.w700,
+                  //            color: ColorManager.mediumgrey,
+                  //          ),
+                  //         ),
+                  //       ],
+                  //     )),
+                  PageViewMenuButtonConst(
+                    onTap: (int index) {
+                      intakeSelectButton(index);
+                    },
+                    index: 0,
+                    grpIndex: _selectedIndex,
+                    heading: "Demographics",
+                  ),
+                  // PageViewMenuButtonConst(
+                  //   onTap: (int index) {
+                  //     intakeSelectButton(index);
+                  //   },
+                  //   index: 1,
+                  //   grpIndex: _selectedIndex,
+                  //   heading: "Referral",
+                  //   enabled: patientId != 0,
+                  // ),
+                  PageViewMenuButtonConst(
+                    onTap: (int index) {
+                      intakeSelectButton(index);
+                    },
+                    index: 1,
+                    grpIndex: _selectedIndex,
+                    heading: "Documentation",
+                    //enabled: patientId != 0,
+                  ),
+                  PageViewMenuButtonConst(
+                    onTap: (int index) {
+                      intakeSelectButton(index);
+                    },
+                    index: 2,
+                    grpIndex: _selectedIndex,
+                    heading: "Insurance",
+                   // enabled: patientId != 0,
+                  ),
+                  PageViewMenuButtonConst(
+                    onTap: (int index) {
+                      intakeSelectButton(index);
+                    },
+                    index: 3,//3,
+                    grpIndex: _selectedIndex,
+                    heading: "Physician Info",
+                   // enabled: patientId != 0,
+                  ),
+                  PageViewMenuButtonConst(
+                    onTap: (int index) {
+                      intakeSelectButton(index);
+                    },
+                    index: 4,
+                    grpIndex: _selectedIndex,
+                    heading: "Orders",
+                   // enabled: patientId != 0,
+                  ),
+                  PageViewMenuButtonConst(
+                    onTap: (int index) {
+                      intakeSelectButton(index);
+                    },
+                    index: 5,
+                    grpIndex: _selectedIndex,
+                    heading: "Initial Contact",
+                   // enabled: patientId != 0,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
-      ),
-    ]);
+        Expanded(
+          flex: 1,
+          child: NonScrollablePageView(
+            controller: intakePageController,
+            onPageChanged: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            children: [
+              SmIntakeDemographicsScreen(
+                onPatientIdGenerated: (int id) {
+                  setState(() {
+                    patientId = id;
+                  });
+                },
+              ),
+              // SMIntakeReferralScreen(patientId: patientId),
+              DocumationScreenTab(),
+              IntakeInsuranceScreen(patientId: patientId),
+              PhysicianInfoTab(),
+              SMIntakeOrdersScreen(patientId: patientId),
+              SmIntakeNotesScreen(patientId: patientId),
+            ],
+          ),
+        ),
+      ]),
+    );
   }
 }
 

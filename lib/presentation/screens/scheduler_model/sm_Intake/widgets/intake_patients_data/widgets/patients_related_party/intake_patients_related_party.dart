@@ -130,14 +130,13 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                               child: SchedularTextField(
                                 controller: firstNameController,
                                 labelText: 'First Name*',
-                                phoneField:true,
                               )),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
                                   controller: lastNameController,
                                   labelText: 'Last Name*',
-                                  phoneField:true)),
+                                  )),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                             child:FutureBuilder<List<RelationshipData>>(
@@ -380,6 +379,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                           Flexible(
                               child: SchedularTextField(
                                   controller: phoneNumberController,
+                                  phoneField: true,
                                   labelText: "Phone Number*")),
                           SizedBox(width: AppSize.s35),
                           Flexible(

@@ -306,6 +306,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                               Flexible(
                                   child: SchedularTextField(
                                     controller: ctlrSecNo,
+                                    phoneField: true,
                                     labelText: "Secondary Phone #*",
                                   )),
                               SizedBox(width: AppSize.s35),

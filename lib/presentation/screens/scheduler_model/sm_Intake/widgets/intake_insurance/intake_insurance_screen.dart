@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/widgets/intake_medication_profile/intake_medication_profile_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/widgets/intake_pharmacy_vendor/intake_pharmacy_vendor_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_medication_profile/intake_medication_profile_screen.dart' show IntakeMedicationProfileScreen;
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_pharmacy_vendor/intake_pharmacy_vendor_screen.dart' show IntakePrimaryScreen;
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
-class IntakeMedicationScreen extends StatefulWidget {
+class IntakeInsuranceScreen extends StatefulWidget {
   final int patientId;
-  const IntakeMedicationScreen({super.key, required this.patientId,});
+  const IntakeInsuranceScreen({super.key, required this.patientId,});
 
   @override
-  State<IntakeMedicationScreen> createState() => _IntakeMedicationScreenState();
+  State<IntakeInsuranceScreen> createState() => _IntakeInsuranceScreenState();
 }
 
-class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
+class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> {
   int selectedIndex = 0;
   final PageController smIntakePageController = PageController();
 
@@ -70,7 +70,7 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                             : null,
                       ),
                       child: Text(
-                        'Pharmacy Vendor',
+                        'Pharmacy',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: FontSize.s14,
@@ -98,7 +98,7 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                             : null,
                       ),
                       child: Text(
-                        'Medication Profile',
+                        'Secondary',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: FontSize.s14,
@@ -215,7 +215,7 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                 controller: smIntakePageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  IntakePharmacyVendorScreen(patientId: widget.patientId,),
+                  IntakePrimaryScreen(patientId: widget.patientId,),
                   IntakeMedicationProfileScreen(),
                 ]),
           ),
