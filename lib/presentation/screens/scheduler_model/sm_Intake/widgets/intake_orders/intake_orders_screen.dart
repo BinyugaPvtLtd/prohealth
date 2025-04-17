@@ -207,6 +207,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                           children: [
                             CustomDropdownTextFieldsm(
                               width:300,
+                              isIconVisible: false,
                               headText: 'Marketer',
                               onChanged: (newValue) {
 

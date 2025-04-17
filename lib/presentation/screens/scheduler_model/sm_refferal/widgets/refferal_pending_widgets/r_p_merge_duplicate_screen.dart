@@ -1004,6 +1004,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                             controller: zipCodeController,
                                             isAsteric: false,
                                             keyboardType: TextInputType.text,
+                                            onlyAllowNumbers: true,
                                             text: "Zip Code",
                                           ),
                                           SizedBox(width: AppSize.s15,),
