@@ -455,7 +455,6 @@ class IntakeSecondaryScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: AppSize.s25),
-
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 40.0),
                             child: Row(children: [
