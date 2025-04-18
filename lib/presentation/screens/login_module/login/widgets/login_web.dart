@@ -117,8 +117,7 @@ class _LoginWebState extends State<LoginWeb> {
                           AppConfig.version,
                           style: TextStyle(
                             fontSize: 10,
-                          ),
-                                                 ),
+                          ),),
                         ///textfield Email
                         Padding(
                           padding: EdgeInsets.symmetric(
