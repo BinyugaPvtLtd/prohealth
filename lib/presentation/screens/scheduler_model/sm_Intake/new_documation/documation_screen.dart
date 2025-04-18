@@ -29,36 +29,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return
-      // backgroundColor: ColorManager.white,
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.only(right: 85), // Shift left by 10
-      //   child: FloatingActionButton(
-      //     onPressed: () {
-      //       // Your onPressed action here
-      //     },
-      //     backgroundColor: ColorManager.bluebottom,
-      //     child: Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: [
-      //         Icon(Icons.call,size: 22,),
-      //         SizedBox(height: 5,),
-      //         Text(
-      //           "Contact",
-      //           style: CustomTextStylesCommon.commonStyle(
-      //             fontSize: FontSize.s10,
-      //             fontWeight: FontWeight.w400,
-      //             color: ColorManager.white,
-      //           ),
-      //           textAlign: TextAlign.center,
-      //         )
-      //       ],
-      //     ),
-      //   ),
-      // ),
-
-      SingleChildScrollView(
+    return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(right: 80,left: 80,bottom: 5),
           child: Column(

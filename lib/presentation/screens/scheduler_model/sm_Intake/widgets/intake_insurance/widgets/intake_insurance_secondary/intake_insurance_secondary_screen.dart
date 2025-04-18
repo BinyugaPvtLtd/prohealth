@@ -342,7 +342,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                   child: BlueBGHeadConst(HeadText: "Suggested Care & Diagnosis"),
                 ),
                 Container(
-                    height: AppSize.s500,
+                    height: AppSize.s380,
                     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30,vertical: AppPadding.p15 ),
                     //child: SingleChildScrollView(
                     child: Column(

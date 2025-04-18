@@ -231,9 +231,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                         height: AppSize.s16,
                                         decoration: BoxDecoration(
                                           color:Color(0xFFFFE4E2),
-                                          borderRadius: BorderRadius.only(
-                                              topRight:
-                                              Radius.circular(8)),),
+                                          borderRadius: BorderRadius.only(topRight: Radius.circular(8)),),
                                         child: Center(
                                           child: Text(
                                               'Potential Duplicate',
