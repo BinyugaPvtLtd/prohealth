@@ -52,6 +52,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                 height: 190,
                 child: Row(
               children: [
+
                 Expanded(
                   flex: 1,
                     child:   Row(
