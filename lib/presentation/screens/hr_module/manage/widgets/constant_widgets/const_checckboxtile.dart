@@ -36,14 +36,20 @@ class _CheckboxTileState extends State<CheckboxTile> {
     return Row(
       children: [
         Theme(
-          data:Theme.of(context).copyWith(
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      hoverColor: Colors.transparent
-    ),
+          data: Theme.of(context).copyWith(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            unselectedWidgetColor:
+                ColorManager.bluebottom, // border color when unchecked
+            checkboxTheme: CheckboxThemeData(
+              side: BorderSide(
+                  color: ColorManager.bluebottom, width: 2), // border styling
+            ),
+          ),
           child: Checkbox(
             splashRadius: 0,
-            activeColor: ColorManager.blueprime,
+            activeColor: ColorManager.bluebottom,
             value: _value,
             onChanged: (value) {
               setState(() {
@@ -55,16 +61,27 @@ class _CheckboxTileState extends State<CheckboxTile> {
             },
           ),
         ),
-        SizedBox(width: 10,),
-        Text(widget.title,style: CustomTextStylesCommon.commonStyle(
-          fontSize: AppSize.s12,
-          fontWeight: FontWeight.w500,
-          color: ColorManager.mediumgrey,),),
-        SizedBox(width: 10,),
-        widget.isInfoIconVisible! ? const Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),) : Offstage()
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          widget.title,
+          style: CustomTextStylesCommon.commonStyle(
+            fontSize: AppSize.s12,
+            fontWeight: FontWeight.w700,
+            color: ColorManager.greylight,
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        widget.isInfoIconVisible!
+            ? const Icon(
+                Icons.info_outline_rounded,
+                color: Color(0xFF50B5E5),
+              )
+            : Offstage()
       ],
-
-
     );
   }
 }
@@ -111,12 +128,17 @@ class _CheckboxTileDetailsState extends State<CheckboxTileDetails> {
             }
           },
         ),
-        SizedBox(width: 10,),
-        Text(widget.title,style: CustomTextStylesCommon.commonStyle(fontSize: AppSize.s12,
-            fontWeight: FontWeight.w500,color: Colors.white),),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          widget.title,
+          style: CustomTextStylesCommon.commonStyle(
+              fontSize: AppSize.s12,
+              fontWeight: FontWeight.w500,
+              color: Colors.white),
+        ),
       ],
-
-
     );
   }
 }

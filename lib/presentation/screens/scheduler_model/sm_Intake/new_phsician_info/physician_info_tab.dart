@@ -44,39 +44,39 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorManager.white,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 90), // Shift left by 10
-        child: FloatingActionButton(
-          onPressed: () {
-            // Your onPressed action here
-          },
-          backgroundColor: ColorManager.bluebottom,
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.call,size: 22,),
-                SizedBox(height: 3,),
-                Text(
-                  "Contact",
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontSize: FontSize.s10,
-                    fontWeight: FontWeight.w500,
-                    color: ColorManager.white,
-                  ),
-                  textAlign: TextAlign.center,
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
+    return
+      // backgroundColor: ColorManager.white,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(right: 90), // Shift left by 10
+      //   child: FloatingActionButton(
+      //     onPressed: () {
+      //       // Your onPressed action here
+      //     },
+      //     backgroundColor: ColorManager.bluebottom,
+      //     child: Padding(
+      //       padding: const EdgeInsets.all(5),
+      //       child: Column(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: [
+      //           Icon(Icons.call,size: 22,),
+      //           SizedBox(height: 3,),
+      //           Text(
+      //             "Contact",
+      //             style: CustomTextStylesCommon.commonStyle(
+      //               fontSize: FontSize.s10,
+      //               fontWeight: FontWeight.w500,
+      //               color: ColorManager.white,
+      //             ),
+      //             textAlign: TextAlign.center,
+      //           )
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
 
-body: SingleChildScrollView(
+ SingleChildScrollView(
   child: Padding(
     padding: const EdgeInsets.only(right: 80,left: 80,bottom: 5),
     child: Column(
@@ -481,7 +481,7 @@ body: SingleChildScrollView(
       ],
     ),
   ),
-),
-    );
+);
+
   }
 }

@@ -17,6 +17,8 @@ class CustomDropdownTextFieldsm extends StatefulWidget {
   final double? widthone;
   final double? height;
   final String? initialValue;
+  final bool? isIconVisible;
+  final double? borderRadius;
 
   const CustomDropdownTextFieldsm({
     Key? key,
@@ -29,7 +31,7 @@ class CustomDropdownTextFieldsm extends StatefulWidget {
     this.widthone,
     this.height,
     this.initialValue,
-    this.hintText,
+    this.hintText, this.isIconVisible = true, this.borderRadius,
   }) : super(key: key);
 
   @override
@@ -120,7 +122,7 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
                   style: AllPopupHeadings.customTextStyle(context)
                 //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
               ),
-              Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
+              widget.isIconVisible! ? Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),) : Offstage()
             ],
           ),
         ),
@@ -136,7 +138,7 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
               padding: const EdgeInsets.only(bottom: 3, top: 4, left: 4),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

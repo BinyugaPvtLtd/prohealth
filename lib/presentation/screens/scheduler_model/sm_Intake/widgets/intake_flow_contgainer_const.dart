@@ -16,7 +16,7 @@ class IntakeFlowContainerConst extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p30),
       child: Container(
         height: height ?? AppSize.s500,
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30,),
         decoration: BoxDecoration(
           color: ColorManager.white,
           // borderRadius: BorderRadius.circular(5),

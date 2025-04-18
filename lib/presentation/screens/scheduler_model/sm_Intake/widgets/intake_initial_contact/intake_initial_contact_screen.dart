@@ -1,0 +1,258 @@
+import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_flow_contgainer_const.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_initial_contact/widgets/intake_notes_miscellaneous/intake_notes_miscellaneous_screen.dart';
+import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
+import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
+import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';
+import '../../../widgets/constant_widgets/dropdown_constant_sm.dart';
+
+class SmIntakeInitialContactScreen extends StatelessWidget {
+  final int patientId;
+  SmIntakeInitialContactScreen({super.key, required this.patientId});
+
+  @override
+  Widget build(BuildContext context) {
+    bool isDementia = false;
+    bool isCatheterCare = false;
+    bool isWoundCare = false;
+    bool isZenMed = false;
+    bool isOrthoPatient = false;
+    bool isPtInr = false;
+    TextEditingController receivedDateController = TextEditingController();
+    TextEditingController caseManagerController = TextEditingController();
+
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 35),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 30,bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text('Review and confirm the data pulled is correct',
+                      style: CustomTextStylesCommon.commonStyle(
+                      color:Color(0xFF575757),
+                      fontWeight: FontWeight.w300,fontSize: FontSize.s12))
+                ],
+              ),
+            ),
+            BlueBGHeadConst(HeadText: "Call Details"),
+            Container(
+              padding: EdgeInsets.only(top: 60),
+                height: 190,
+                child: Row(
+              children: [
+
+                Expanded(
+                  flex: 1,
+                    child:   Row(
+                      crossAxisAlignment:CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0),
+                          child: FloatingActionButton(
+                            onPressed: () {},
+                            backgroundColor: ColorManager.bluebottom, // Adjust color as needed
+                            shape: CircleBorder(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
+                                //SizedBox(height: 4),
+                                Text(
+                                  'Contact',
+                                  style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                ),
+                Expanded(flex: 2,child: Container(child:  Column(
+                    crossAxisAlignment:CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
+                      CheckboxTile(
+                        title: 'Intro Call Complete',
+                        initialValue: isDementia,
+                        onChanged: (value) {
+
+                        },
+                      ),
+                      CheckboxTile(
+                        title: 'Demographics Confirmed',
+                        initialValue: isCatheterCare,
+                        onChanged: (value) {
+
+                        },
+                      )
+
+                    ]
+                ),)),
+                Expanded(flex: 2,child: Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Column(
+                  crossAxisAlignment:CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  CheckboxTile(
+                    title: 'Patient is home',
+                    initialValue: isWoundCare,
+                    onChanged: (value) {
+
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: SchedularTextField(
+                      width: 203,
+                      isIconVisible: true,
+                      controller: receivedDateController,
+                      labelText: 'Potential DC Date',
+                      showDatePicker:true,
+                    ),
+                  ),
+                ],),)),
+                Expanded(flex: 2,child: Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Column(
+                  crossAxisAlignment:CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  CheckboxTile(
+                    title: 'Consents Needed',
+                    initialValue: isZenMed,
+                    onChanged: (value) {
+
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40),
+                    child: CheckboxTile(
+                      title: 'Patient representative will be present at SOC',
+                      initialValue: isOrthoPatient,
+                      onChanged: (value) {
+
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40),
+                    child: CheckboxTile(
+                      title: 'Send consents for signature',
+                      initialValue: isPtInr,
+                      isInfoIconVisible: true,
+                      onChanged: (value) {
+
+                      },
+                    ),
+                  )
+                ],),)),
+              ],
+            )),
+            SizedBox(height: 10,),
+            Divider(),
+            BlueBGHeadConst(HeadText: "Scheduling Requests"),
+            Container(
+              height: 220,
+              padding: EdgeInsets.only(top: 50,left: 30,bottom: 20),
+              child: Column(children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: CustomDropdownTextFieldsm(
+                        width:210,
+                        isIconVisible: false,
+                        headText: 'User',
+                        onChanged: (newValue) {
+
+
+                        },),
+                    ),
+                    Expanded(child: Container()),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: CustomDropdownTextFieldsm(
+                        width:210,
+                        isIconVisible: false,
+                        headText: 'Gender',
+                        onChanged: (newValue) {
+
+                        },),
+                    ),
+                    Expanded(child: Container()),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: CustomDropdownTextFieldsm(
+                        width:210,
+                        isIconVisible: false,
+                        headText: 'Language',
+                        onChanged: (newValue) {
+
+                        },),
+                    ),
+                    Expanded(child: Container()),
+                    SchedularTextField(
+                      width: 210,
+                      isIconVisible: true,
+                      controller: receivedDateController,
+                      labelText: 'Select Date',
+                      showDatePicker:true,
+                    ),
+                    Expanded(child: Container()),
+                  ],
+                ),
+                SizedBox(height: 20,),
+                Row(children: [
+                  Padding(
+                      padding:EdgeInsets.only(top: 20,right: 20),
+                      child: Text('Notes',style:AllPopupHeadings.customTextStyle(context))),
+                  SchedularTextField(
+                    isIconVisible:true,
+                    width: 375,
+                    controller: caseManagerController,
+                    labelText: '',
+                  )
+                ],)
+              ],),
+            ),
+            Divider(),
+            SizedBox(height: AppSize.s100),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 10,
+              children: [
+                CustomButtonTransparent(
+                  text: "Skip",
+                  onPressed: () {
+
+                  },
+                ),
+                CustomElevatedButton(
+                  width: AppSize.s100,
+                  text: AppString.save,
+                  onPressed: (){},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
