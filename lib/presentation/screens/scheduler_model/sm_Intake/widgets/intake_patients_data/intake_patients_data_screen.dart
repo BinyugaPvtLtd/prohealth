@@ -92,7 +92,6 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
 
 
   int patientId = 1;
-
   String? statustype;
   String? selectedStatus;
   String? selectedCountry;
