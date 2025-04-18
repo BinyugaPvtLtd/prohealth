@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/contactTab/calls_screen.dart' show ContactCallsScreen;
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/contactTab/documents_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/contactTab/e_fax_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/contactTab/logs_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_initial_contact/intake_initial_contact_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/intake_insurance_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_orders/intake_orders_screen.dart';
@@ -8,7 +12,9 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
+import '../../em_module/widgets/button_constant.dart';
 import '../widgets/constant_widgets/page_view_menu_button_const.dart';
+import '../widgets/constant_widgets/sm_dial_pad_const.dart';
 import 'new_documation/documation_screen.dart';
 import 'new_phsician_info/physician_info_tab.dart';
 
@@ -21,10 +27,12 @@ class SMIntakeScreen extends StatefulWidget {
   State<SMIntakeScreen> createState() => _SMIntakeScreenState();
 }
 
-class _SMIntakeScreenState extends State<SMIntakeScreen> {
+class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProviderStateMixin{
 
   final PageController intakePageController = PageController(initialPage: 0);
+  final PageController intakeContactPageController = PageController(initialPage: 0);
   int _selectedIndex = 0;
+  int callerLogSelectIndex = 0;
   int patientId = 51;
 
   void intakeSelectButton(int index) {
@@ -39,6 +47,47 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
       );
     }
   }
+  void intakeContactSelectButton(int index) {
+    if (index == 0 || patientId != 0) {
+      setState(() {
+        callerLogSelectIndex = index;
+      });
+      intakeContactPageController.jumpToPage(
+        index,
+        // duration: const Duration(milliseconds: 500),
+        // curve: Curves.ease,
+      );
+    }
+  }
+  bool isSidebarOpen = false;
+  late AnimationController _animationController;
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+      duration: Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: Offset(1.0, 0.0), // Off-screen to the right
+      end: Offset(0.0, 0.0), // On-screen
+    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+  }
+
+  void toggleSidebar() {
+    setState(() {
+      isSidebarOpen = !isSidebarOpen;
+      if (isSidebarOpen) {
+        _animationController.forward();
+      } else {
+        _animationController.reverse();
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -48,9 +97,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 90), // Shift left by 10
         child: FloatingActionButton(
-          onPressed: () {
-            // Your onPressed action here
-          },
+          onPressed: toggleSidebar,
           backgroundColor: ColorManager.bluebottom,
           child: Padding(
             padding: const EdgeInsets.all(5),
@@ -73,146 +120,309 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
           ),
         ),
       ),
-      body: Column(
-          children: [
-        Material(
-          color: ColorManager.white,
-          elevation:2,
-          child: Container(
-            decoration: BoxDecoration(
-            color: ColorManager.white,
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: ColorManager.black.withOpacity(0.5),
-              //     offset: Offset(0, 4),
-              //     blurRadius: 4,
-              //     spreadRadius: 0,
-              //   ),
-              // ],
-            ),
-            padding: EdgeInsets.only(left: 30, right: 60),
-            //margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Stack(
+        children: [
+          Column(
+              children: [
+            Material(
+              color: ColorManager.white,
+              elevation:2,
+              child: Container(
+                decoration: BoxDecoration(
+                color: ColorManager.white,
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: ColorManager.black.withOpacity(0.5),
+                  //     offset: Offset(0, 4),
+                  //     blurRadius: 4,
+                  //     spreadRadius: 0,
+                  //   ),
+                  // ],
+                ),
+                padding: EdgeInsets.only(left: 30, right: 60),
+                //margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
+                    children: [
+                      // InkWell(
+                      //     onTap: widget.onGoBackPressed,
+                      //     child: Row(
+                      //       children: [
+                      //         Icon(
+                      //           Icons.arrow_back,
+                      //           size: IconSize.I16,
+                      //           color: ColorManager.mediumgrey,
+                      //
+                      //         ),
+                      //         SizedBox(width: 5,),
+                      //         Text(
+                      //           'Go Back',
+                      //          style:TextStyle(
+                      //            fontSize: FontSize.s14,
+                      //            fontWeight: FontWeight.w700,
+                      //            color: ColorManager.mediumgrey,
+                      //          ),
+                      //         ),
+                      //       ],
+                      //     )),
+                      PageViewMenuButtonConst(
+                        onTap: (int index) {
+                          intakeSelectButton(index);
+                        },
+                        index: 0,
+                        grpIndex: _selectedIndex,
+                        heading: "Demographics",
+                      ),
+                      // PageViewMenuButtonConst(
+                      //   onTap: (int index) {
+                      //     intakeSelectButton(index);
+                      //   },
+                      //   index: 1,
+                      //   grpIndex: _selectedIndex,
+                      //   heading: "Referral",
+                      //   enabled: patientId != 0,
+                      // ),
+                      PageViewMenuButtonConst(
+                        onTap: (int index) {
+                          intakeSelectButton(index);
+                        },
+                        index: 1,
+                        grpIndex: _selectedIndex,
+                        heading: "Documentation",
+                        //enabled: patientId != 0,
+                      ),
+                      PageViewMenuButtonConst(
+                        onTap: (int index) {
+                          intakeSelectButton(index);
+                        },
+                        index: 2,
+                        grpIndex: _selectedIndex,
+                        heading: "Insurance",
+                       // enabled: patientId != 0,
+                      ),
+                      PageViewMenuButtonConst(
+                        onTap: (int index) {
+                          intakeSelectButton(index);
+                        },
+                        index: 3,//3,
+                        grpIndex: _selectedIndex,
+                        heading: "Physician Info",
+                       // enabled: patientId != 0,
+                      ),
+                      PageViewMenuButtonConst(
+                        onTap: (int index) {
+                          intakeSelectButton(index);
+                        },
+                        index: 4,
+                        grpIndex: _selectedIndex,
+                        heading: "Orders",
+                       // enabled: patientId != 0,
+                      ),
+                      PageViewMenuButtonConst(
+                        onTap: (int index) {
+                          intakeSelectButton(index);
+                        },
+                        index: 5,
+                        grpIndex: _selectedIndex,
+                        heading: "Initial Contact",
+                       // enabled: patientId != 0,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: NonScrollablePageView(
+                controller: intakePageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
                 children: [
-                  // InkWell(
-                  //     onTap: widget.onGoBackPressed,
-                  //     child: Row(
-                  //       children: [
-                  //         Icon(
-                  //           Icons.arrow_back,
-                  //           size: IconSize.I16,
-                  //           color: ColorManager.mediumgrey,
-                  //
-                  //         ),
-                  //         SizedBox(width: 5,),
-                  //         Text(
-                  //           'Go Back',
-                  //          style:TextStyle(
-                  //            fontSize: FontSize.s14,
-                  //            fontWeight: FontWeight.w700,
-                  //            color: ColorManager.mediumgrey,
-                  //          ),
-                  //         ),
-                  //       ],
-                  //     )),
-                  PageViewMenuButtonConst(
-                    onTap: (int index) {
-                      intakeSelectButton(index);
+                  SmIntakeDemographicsScreen(
+                    onPatientIdGenerated: (int id) {
+                      setState(() {
+                        patientId = id;
+                      });
                     },
-                    index: 0,
-                    grpIndex: _selectedIndex,
-                    heading: "Demographics",
                   ),
-                  // PageViewMenuButtonConst(
-                  //   onTap: (int index) {
-                  //     intakeSelectButton(index);
-                  //   },
-                  //   index: 1,
-                  //   grpIndex: _selectedIndex,
-                  //   heading: "Referral",
-                  //   enabled: patientId != 0,
-                  // ),
-                  PageViewMenuButtonConst(
-                    onTap: (int index) {
-                      intakeSelectButton(index);
-                    },
-                    index: 1,
-                    grpIndex: _selectedIndex,
-                    heading: "Documentation",
-                    //enabled: patientId != 0,
-                  ),
-                  PageViewMenuButtonConst(
-                    onTap: (int index) {
-                      intakeSelectButton(index);
-                    },
-                    index: 2,
-                    grpIndex: _selectedIndex,
-                    heading: "Insurance",
-                   // enabled: patientId != 0,
-                  ),
-                  PageViewMenuButtonConst(
-                    onTap: (int index) {
-                      intakeSelectButton(index);
-                    },
-                    index: 3,//3,
-                    grpIndex: _selectedIndex,
-                    heading: "Physician Info",
-                   // enabled: patientId != 0,
-                  ),
-                  PageViewMenuButtonConst(
-                    onTap: (int index) {
-                      intakeSelectButton(index);
-                    },
-                    index: 4,
-                    grpIndex: _selectedIndex,
-                    heading: "Orders",
-                   // enabled: patientId != 0,
-                  ),
-                  PageViewMenuButtonConst(
-                    onTap: (int index) {
-                      intakeSelectButton(index);
-                    },
-                    index: 5,
-                    grpIndex: _selectedIndex,
-                    heading: "Initial Contact",
-                   // enabled: patientId != 0,
-                  ),
+                  // SMIntakeReferralScreen(patientId: patientId),
+                  DocumationScreenTab(),
+                  IntakeInsuranceScreen(patientId: patientId),
+                  PhysicianInfoTab(),
+                  SMIntakeOrdersScreen(patientId: patientId),
+                  SmIntakeInitialContactScreen(patientId: patientId),
                 ],
               ),
             ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: NonScrollablePageView(
-            controller: intakePageController,
-            onPageChanged: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            children: [
-              SmIntakeDemographicsScreen(
-                onPatientIdGenerated: (int id) {
-                  setState(() {
-                    patientId = id;
-                  });
-                },
+          ]),
+          AnimatedBuilder(
+            animation: _slideAnimation,
+            builder: (context, child) {
+              return SlideTransition(
+                position: _slideAnimation,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    //height: double.infinity,
+                    color: Colors.white,
+                    padding: EdgeInsets.all(16),
+                    child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height,
+                ),
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 350,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              '+44 5989451652',
+                              style: CustomTextStylesCommon.commonStyle(
+                                color: Color(0xFF686464),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 22,
+                              ),
+                            ),
+                            Column(
+                              spacing: 15,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  spacing:20,
+                                  children: [
+                                    SmDialPadConst(dialNumber: '1', onTaped: () {}),
+                                    SmDialPadConst(dialNumber: '2', onTaped: () {}),
+                                    SmDialPadConst(dialNumber: '3', onTaped: () {}),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  spacing:20,
+                                  children: [
+                                    SmDialPadConst(dialNumber: '4', onTaped: () {}),
+                                    SmDialPadConst(dialNumber: '5', onTaped: () {}),
+                                    SmDialPadConst(dialNumber: '6', onTaped: () {}),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  spacing:20,
+                                  children: [
+                                    SmDialPadConst(dialNumber: '7', onTaped: () {}),
+                                    SmDialPadConst(dialNumber: '8', onTaped: () {}),
+                                    SmDialPadConst(dialNumber: '9', onTaped: () {}),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  spacing:20,
+                                  children: [
+                                    SmDialPadConst(dialNumber: '*', onTaped: () {}),
+                                    SmDialPadConst(dialNumber: '0', onTaped: () {}),
+                                    SmDialPadConst(dialNumber: '#', onTaped: () {}),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            CustomElevatedButton(
+                              width: AppSize.s220,
+                              height: AppSize.s31,
+                              text: "Call",
+                              color: Color(0xFF008000),
+                              onPressed: (){},
+                            ),
+
+                          ],
+                        ),
+                      ),
+                      Material(
+                        color: ColorManager.white,
+                        elevation: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              PageViewMenuButtonConst(
+                                onTap: (int index) {
+                                  intakeContactSelectButton(index);
+                                },
+                                index: 0,
+                                grpIndex: callerLogSelectIndex,
+                                heading: "Calls",
+                              ),
+                              PageViewMenuButtonConst(
+                                onTap: (int index) {
+                                  intakeContactSelectButton(index);
+                                },
+                                index: 1,
+                                grpIndex: callerLogSelectIndex,
+                                heading: "Logs",
+                              ),
+                              PageViewMenuButtonConst(
+                                onTap: (int index) {
+                                  intakeContactSelectButton(index);
+                                },
+                                index: 2,
+                                grpIndex: callerLogSelectIndex,
+                                heading: "E-Fax",
+                              ),
+                              PageViewMenuButtonConst(
+                                onTap: (int index) {
+                                  intakeContactSelectButton(index);
+                                },
+                                index: 3,
+                                grpIndex: callerLogSelectIndex,
+                                heading: "Documents",
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        child: NonScrollablePageView(
+                          controller: intakeContactPageController,
+                          onPageChanged: (index) {
+                            setState(() {
+                              callerLogSelectIndex = index;
+                            });
+                          },
+                          children: [
+                            ContactCallsScreen(),
+                            ContactLogsScreen(),
+                            ContactEFaxScreen(),
+                            ContactDocumentScreen(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              // SMIntakeReferralScreen(patientId: patientId),
-              DocumationScreenTab(),
-              IntakeInsuranceScreen(patientId: patientId),
-              PhysicianInfoTab(),
-              SMIntakeOrdersScreen(patientId: patientId),
-              SmIntakeInitialContactScreen(patientId: patientId),
-            ],
+              ),
+
+              ),
+                ),
+              );
+            },
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }
