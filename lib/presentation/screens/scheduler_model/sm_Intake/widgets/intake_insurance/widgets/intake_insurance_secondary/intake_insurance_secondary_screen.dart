@@ -475,7 +475,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                             headText: '',
                                             onChanged: (newValue) {},),
                                         ],),
-                                        SizedBox(height: AppSize.s25),
+                                        SizedBox(height: AppSize.s15),
                                         SchedularTextField(
                                           isIconVisible:true,
                                           width: 205,
@@ -483,7 +483,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           labelText: 'Effective From',
                                           showDatePicker: true,
                                         ),
-                                        SizedBox(height: AppSize.s20),
+                                        SizedBox(height: AppSize.s10),
                                         SchedularTextField(
                                       isIconVisible:true,
                                       width: 205,
@@ -492,118 +492,114 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       showDatePicker: true,
                                     )
                                   ],))),
-                              // Expanded(
-                              //     flex: 3,
-                              //     child: Container(child: Column(children: [
-                              //       Row(children: [
-                              //         Expanded(
-                              //           child: Center(
-                              //             child: Text('Disciplice',
-                              //                 style: DocDefineTableDataID.customTextStyle(context)),
-                              //           ),
-                              //         ),
-                              //         SizedBox(
-                              //           width: 30,
-                              //         ),
-                              //         Expanded(
-                              //           child: Center(
-                              //             child: Text('Authorized',
-                              //                 style: DocDefineTableDataID.customTextStyle(context)),
-                              //           ),
-                              //         ),
-                              //       ],),
-                              //       Row(children: [
-                              //         Column(
-                              //           mainAxisAlignment: MainAxisAlignment.start,
-                              //           crossAxisAlignment: CrossAxisAlignment.center,
-                              //           children: [
-                              //             Text('Disciplice',
-                              //                 style: DocDefineTableDataID.customTextStyle(context)),
-                              //             CustomDropdownTextFieldsm(
-                              //               width:205,
-                              //               borderRadius: 0,
-                              //               isIconVisible: false,
-                              //               headText: '',
-                              //               onChanged: (newValue) {},),
-                              //             SizedBox(height: AppSize.s5,),
-                              //             CustomDropdownTextFieldsm(
-                              //               width:205,
-                              //               borderRadius: 0,
-                              //               isIconVisible: false,
-                              //               headText: '',
-                              //               onChanged: (newValue) {},),
-                              //             SizedBox(height: AppSize.s15,),
-                              //             Text('Add Discipline',
-                              //                 style: TextStyle(
-                              //                   fontWeight: FontWeight.w600,
-                              //                   fontSize: FontSize.s12,
-                              //                   color: ColorManager.blueBorder,
-                              //                   decoration: TextDecoration.underline,
-                              //                 )),
-                              //           ],),
-                              //         SizedBox(width: AppSize.s30,),
-                              //         Column(
-                              //           mainAxisAlignment: MainAxisAlignment.start,
-                              //           crossAxisAlignment: CrossAxisAlignment.center,
-                              //           children: [
-                              //             Text('Authorized',
-                              //                 style: DocDefineTableDataID.customTextStyle(context)),
-                              //             SchedularTextField(
-                              //               isIconVisible:true,
-                              //               width: 205,
-                              //               controller: authorizze1,
-                              //               labelText: '',
-                              //               borderRadius: 0,
-                              //             ),
-                              //             SchedularTextField(
-                              //               isIconVisible:true,
-                              //               width: 205,
-                              //               controller: authorize2,
-                              //               labelText: '',
-                              //               borderRadius: 0,
-                              //             ),
-                              //             SizedBox(height: AppSize.s5,),
-                              //
-                              //           ],),
-                              //       ],),
-                              //     ],))),
+                              Expanded(
+                                  flex: 3,
+                                  child: Container(child: Column(children: [
+                                    Row(children: [
+                                      Expanded(
+                                        child: Center(
+                                          child: Text('Disciplice',
+                                              style: DocDefineTableDataID.customTextStyle(context)),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 55.0),
+                                            child: Text('Authorized',
+                                                style: DocDefineTableDataID.customTextStyle(context)),
+                                          ),
+                                        ),
+                                      ),
+                                    ],),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 40.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                        CustomDropdownTextFieldsm(
+                                          width:205,
+                                          borderRadius: 0,
+                                          isIconVisible: false,
+                                          headText: '',
+                                          onChanged: (newValue) {},),
+                                        SizedBox(
+                                          width: 120,
+                                        ),
+                                        SchedularTextField(
+                                          isIconVisible:true,
+                                          width: 105,
+                                          controller: authorizze1,
+                                          labelText: '',
+                                          borderRadius: 0,
+                                        ),
+                                      ],),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 40.0,bottom: 20),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                        CustomDropdownTextFieldsm(
+                                          width:205,
+                                          borderRadius: 0,
+                                          isIconVisible: false,
+                                          headText: '',
+                                          onChanged: (newValue) {},),
+                                        SizedBox(
+                                          width: 120,
+                                        ),
+                                        SchedularTextField(
+                                          isIconVisible:true,
+                                          width: 105,
+                                          controller: authorize2,
+                                          labelText: '',
+                                          borderRadius: 0,
+                                        ),
+                                      ],),
+                                    ),
+                                  ],))),
+                              Expanded(child: Container()),
                               Expanded(
                                   flex: 1,
                                   child: Container(child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        IconButton(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          onPressed: () {
-                                          },
-                                          icon: Icon(
-                                            Icons.save,
-                                            color: ColorManager.mediumgrey,
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 90.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          IconButton(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            onPressed: () {
+                                            },
+                                            icon: Icon(
+                                              Icons.save,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                            iconSize: IconSize.I22,
                                           ),
-                                          iconSize: IconSize.I22,
-                                        ),
-                                        SizedBox(width: AppSize.s10,),
-                                        IconButton(
-                                          onPressed: () {
-                                          },
-                                          icon: Icon(
-                                            Icons.delete_outline,
-                                            color: ColorManager.mediumgrey,
+                                          SizedBox(width: AppSize.s10,),
+                                          IconButton(
+                                            onPressed: () {
+                                            },
+                                            icon: Icon(
+                                              Icons.delete_outline,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            iconSize:IconSize.I22,
                                           ),
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          iconSize:IconSize.I22,
-                                        ),
-                                        SizedBox(width: AppSize.s30,),
-                                      ],
+                                          SizedBox(width: AppSize.s30,),
+                                        ],
+                                      ),
                                     )
                                   ],))),
                             ],),
