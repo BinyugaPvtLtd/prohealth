@@ -99,7 +99,7 @@ class IntakePrimaryScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 35),
-                child: BlueBGHeadConst(HeadText: "Polic Details"),
+                child: BlueBGHeadConst(HeadText: "Policy Details"),
               ),
               IntakeFlowContainerConst(
                 height: AppSize.s400,

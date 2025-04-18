@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_medication_profile/intake_medication_profile_screen.dart' show IntakeMedicationProfileScreen;
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_secondary/intake_insurance_secondary_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_pharmacy_vendor/intake_pharmacy_vendor_screen.dart' show IntakePrimaryScreen;
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -216,7 +216,7 @@ class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   IntakePrimaryScreen(patientId: widget.patientId,),
-                  IntakeMedicationProfileScreen(),
+                  IntakeSecondaryScreen(patientId: widget.patientId,),
                 ]),
           ),
         ),

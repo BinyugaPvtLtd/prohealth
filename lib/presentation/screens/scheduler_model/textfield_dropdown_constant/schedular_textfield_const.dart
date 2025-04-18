@@ -29,7 +29,7 @@ class SchedularTextField extends StatefulWidget {
   final Widget? prefixWidget;
   final VoidCallback? onChange;
   final bool? isIconVisible;
-
+  final double? borderRadius;
 
    SchedularTextField({
     Key? key,
@@ -46,7 +46,7 @@ class SchedularTextField extends StatefulWidget {
      this.onChange,
      this.enable,
      this.prefixWidget,
-     this.showDatePicker = false, this.hintText,
+     this.showDatePicker = false, this.hintText,this.borderRadius,
   }) : super(key: key);
 
   @override
@@ -116,7 +116,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                 height: 30,
                   decoration: BoxDecoration(
                     border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
                   ),
                 child: TextFormField(
                   focusNode: widget.focusNode,
