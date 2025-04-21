@@ -592,7 +592,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                 SizedBox(height: 30,),
                                 BlueBGHeadConst(HeadText: "Documents"),
                                 Container(
-                                  padding: EdgeInsets.only(left: 15,top: 30),
+                                  padding: EdgeInsets.only(top: 30),
                                   height: 450,
                                   child: ScrollConfiguration(
                                     behavior: ScrollBehavior().copyWith(scrollbars: false),
@@ -638,7 +638,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                             children: [
                                               //SizedBox(height: 5),
                                               Padding(
-                                                padding: const EdgeInsets.only(top: AppPadding.p8, bottom: AppPadding.p8, left: AppPadding.p8, right: AppPadding.p25),
+                                                padding: const EdgeInsets.only(top: AppPadding.p8, bottom: AppPadding.p8, right: AppPadding.p25),
                                                 child: Row(
                                                   children: [
                                                     Expanded(
@@ -659,7 +659,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                                           ),
                                                           height: AppSize.s65,
                                                           child: Padding(
-                                                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30),
+                                                            padding: const EdgeInsets.only(left: AppPadding.p10,right:  AppPadding.p40),
                                                             child: Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [
@@ -1244,7 +1244,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                 SizedBox(height: 30,),
                                 BlueBGHeadConst(HeadText: "Documents"),
                                 Container(
-                                  padding: EdgeInsets.only(left: 15,top: 30),
+                                  padding: EdgeInsets.only(top: 30),
                                   height: 450,
                                   child: ScrollConfiguration(
                                     behavior: ScrollBehavior().copyWith(scrollbars: false),
@@ -1290,7 +1290,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                             children: [
                                               //SizedBox(height: 5),
                                               Padding(
-                                                padding: const EdgeInsets.only(top: AppPadding.p8, bottom: AppPadding.p8, left: AppPadding.p8, right: AppPadding.p25),
+                                                padding: const EdgeInsets.only(top: AppPadding.p8, bottom: AppPadding.p8, right: AppPadding.p25),
                                                 child: Row(
                                                   children: [
                                                     Expanded(
@@ -1311,7 +1311,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                                           ),
                                                           height: AppSize.s65,
                                                           child: Padding(
-                                                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30),
+                                                            padding: const EdgeInsets.only(left: AppPadding.p10,right:  AppPadding.p40),
                                                             child: Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [

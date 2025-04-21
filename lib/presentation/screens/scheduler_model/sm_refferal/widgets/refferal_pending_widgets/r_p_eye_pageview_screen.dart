@@ -230,7 +230,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              SizedBox(height: 35,),
+                              SizedBox(height: 30,),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,7 +260,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15,),
+                              SizedBox(height: 20,),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -295,7 +295,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         )),
                     Expanded(
                         flex:4,
-                        child: Container(child: Row(
+                        child: Container(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: Row(
                           children: [
                             Text("Marketer: ",style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                               fontWeight: FontWeight.w400,
@@ -398,7 +400,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
             children: [
               Row(
                 children: [
-                  SizedBox(width: 15),
+                  SizedBox(width: 18),
                   CustomRadioListTile(
                     value: 'Insurance',
                     groupValue: selectedType,
@@ -423,13 +425,13 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 30.0,top: 10),
+                padding: const EdgeInsets.only(left: 35.0,top: 6),
                 child: Text(
                   'Mark as Primary',
                   style: AllPopupHeadings.customTextStyle(context),
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 10),
               Container(
                 height: 400,
                 child:  ScrollConfiguration(

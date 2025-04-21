@@ -405,9 +405,10 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                     RefferalScreenNewTab(),
                     IntakeMainScreen(intakeFlowSelected: () { setState(() {
                       myController.selectButton(7);
-                      _pageController.animateToPage(7,
-                          duration: Duration(milliseconds: 500),
-                          curve: Curves.ease);
+                      _pageController.jumpToPage(7,
+                          // duration: Duration(milliseconds: 500),
+                          // curve: Curves.ease
+                      );
                       onPageChanged(7);
                       pgeControllerId = 7;
                     }); },),

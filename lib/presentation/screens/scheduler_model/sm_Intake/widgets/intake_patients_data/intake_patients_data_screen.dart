@@ -12,6 +12,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
@@ -91,7 +92,6 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
 
 
   int patientId = 1;
-
   String? statustype;
   String? selectedStatus;
   String? selectedCountry;
@@ -108,189 +108,177 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
       children: [
         // if (showProfileBar) IntakeProfileBar(),
          SizedBox(height: AppSize.s15),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Text("Add New Patients",
-                //     style: AllPopupHeadings.customTextStyle(context)
-                //     //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
-                //     ),
-
+        Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
                 Container(
-                  width: MediaQuery.of(context).size.width / 4.605,
-                  height: AppSize.s30,
-                  decoration: BoxDecoration(
+                height: AppSize.s30,
+                width: AppSize.s315,
+                decoration: BoxDecoration(
                     boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        offset: Offset(0, 4),
-                        blurRadius: 4,
-                        spreadRadius: 0,
-                      ),
-                    ],
-                    color: ColorManager.blueprime,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        child: Container(
-                          height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 9,
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: selectedIndex == 0 ? Colors.white : null,
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            offset: Offset(0, 4),
+                            blurRadius: 4,
+                            spreadRadius: 0,
                           ),
+                        ],
+                  borderRadius: BorderRadius.circular(20),
+                  color: ColorManager.blueprime,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // Shift & Batch Button
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      onTap: () => selectButton(0),
+                      child: Container(
+                        height: AppSize.s30,
+                        width: AppSize.s160,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                          const BorderRadius.all(Radius.circular(20)),
+                          color: selectedIndex == 0
+                              ? Colors.white
+                              : Colors.transparent,
+                        ),
+                        child: Center(
                           child: Text(
                             'Patient Info',
-                            textAlign: TextAlign.center,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w600,
-                              color: selectedIndex == 0
-                                  ? ColorManager.mediumgrey
-                                  : Colors.white,
-                            ),
+                            style: BlueBgTabbar.customTextStyle(
+                                0, selectedIndex),
                           ),
                         ),
-                        onTap: () => selectButton(0),
                       ),
-
-
-                      InkWell(
-                        child: Container(
-                          height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 9.5,
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                selectedIndex == 1 ? ColorManager.white : null,
-                          ),
+                    ),
+                    // Define Holiday Button
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      onTap: () => selectButton(1),
+                      child: Container(
+                        height: AppSize.s30,
+                        width: AppSize.s155,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                          const BorderRadius.all(Radius.circular(20)),
+                          color: selectedIndex == 1
+                              ? Colors.white
+                              : Colors.transparent,
+                        ),
+                        child: Center(
                           child: Text(
                             'Related Parties',
-                            textAlign: TextAlign.center,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w600,
-                              color: patientId == 0
-                                  ? ColorManager.fmediumgrey
-                                  : (selectedIndex == 1
-                                      ? ColorManager.mediumgrey
-                                      : ColorManager.white),
-                            ),
+                            style: BlueBgTabbar.customTextStyle(
+                                1, selectedIndex),
                           ),
                         ),
-                        onTap: patientId != 0 ? () => selectButton(1) : null,
                       ),
-
-
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                // SizedBox(width: MediaQuery.of(context).size.width / 5),
-                // if (selectedIndex == 0)
-                //   Container(
-                //     height: AppSize.s26,
-                //     width: AppSize.s102,
-                //     child: ElevatedButton(
-                //       onPressed: () async {
-                //         final companyId = await TokenManager.getCompanyId();
-                //         // String? dateOfDeath = ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text;
-                //         ApiData result = await IntakeInfoSave(
-                //           context,
-                //           ctlrSos.text,
-                //           //"2024-08-12",
-                //           ctlrMedicalRecord.text,
-                //           selectedStatus!.toString() ?? '',
-                //           // 'Pending',
-                //           ctlrfirstName.text,
-                //           ctlrLastName.text,
-                //           ctlrMI.text,
-                //           ctlrSuffix.text,
-                //           statusType ?? '',
-                //           //"2024-08-12",
-                //           ctlrDate.text,
-                //           ctlrStreet.text,
-                //           selectedState!.toString(),
-                //           // "291000",//
-                //           ctlrZipCode.text,
-                //           ctlrApartment.text,
-                //           selectedcity!.toString(),
-                //           selectedCountry.toString() ?? '',
-                //           ctlrMajorStreet.text,
-                //           ctlrPrimeNo.text,
-                //           ctlrSecNo.text,
-                //           ctlrEmail.text,
-                //           ctlrSocialSec.text,
-                //           selectedLanguage.toString() ?? '',
-                //           ctlrDischargeResaon.text,
-                //           selectedRace.toString() ?? '',
-                //           selectedReligion.toString() ?? '',
-                //           selectedMaritalStatus.toString() ?? '',
-                //           //"2024-08-12",
-                //           // ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
-                //           ctlrDateOfDeath.text.isEmpty
-                //               ? null
-                //               : ctlrDateOfDeath.text,
-                //           0,
-                //           'At Land OSC',
-                //           'case',
-                //           'Type',
-                //           companyId,
-                //         );
-                //
-                //         if (result.success) {
-                //           patientId = result.patientId!;
-                //           widget.onPatientIdGenerated(patientId);
-                //           ctlrMedicalRecord.clear();
-                //           ctlrfirstName.clear();
-                //           ctlrLastName.clear();
-                //           ctlrMI.clear();
-                //           ctlrSuffix.clear();
-                //           ctlrStreet.clear();
-                //           ctlrZipCode.clear();
-                //           ctlrApartment.clear();
-                //           ctlrCity.clear();
-                //           ctlrMajorStreet.clear();
-                //           ctlrPrimeNo.clear();
-                //           ctlrSecNo.clear();
-                //           ctlrEmail.clear();
-                //           ctlrSocialSec.clear();
-                //           ctlrDischargeResaon.clear();
-                //         } else {}
-                //       },
-                //       child: Text(
-                //         AppString.save,
-                //         style: CustomTextStylesCommon.commonStyle(
-                //           fontSize: FontSize.s14,
-                //           fontWeight: FontWeight.w700,
-                //           color: ColorManager.white,
-                //         ),
-                //       ),
-                //       style: ElevatedButton.styleFrom(
-                //         padding: const EdgeInsets.symmetric(
-                //           horizontal: 25,
-                //           vertical: 10,
-                //         ),
-                //         backgroundColor: ColorManager.blueprime,
-                //         shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(12),
-                //         ),
-                //       ),
-                //     ),
-                //   )
-                // else
-                //   SizedBox(width: AppSize.s80),
-              ]),
-        ),
+              ),
+              ///
+              // SizedBox(width: MediaQuery.of(context).size.width / 5),
+              // if (selectedIndex == 0)
+              //   Container(
+              //     height: AppSize.s26,
+              //     width: AppSize.s102,
+              //     child: ElevatedButton(
+              //       onPressed: () async {
+              //         final companyId = await TokenManager.getCompanyId();
+              //         // String? dateOfDeath = ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text;
+              //         ApiData result = await IntakeInfoSave(
+              //           context,
+              //           ctlrSos.text,
+              //           //"2024-08-12",
+              //           ctlrMedicalRecord.text,
+              //           selectedStatus!.toString() ?? '',
+              //           // 'Pending',
+              //           ctlrfirstName.text,
+              //           ctlrLastName.text,
+              //           ctlrMI.text,
+              //           ctlrSuffix.text,
+              //           statusType ?? '',
+              //           //"2024-08-12",
+              //           ctlrDate.text,
+              //           ctlrStreet.text,
+              //           selectedState!.toString(),
+              //           // "291000",//
+              //           ctlrZipCode.text,
+              //           ctlrApartment.text,
+              //           selectedcity!.toString(),
+              //           selectedCountry.toString() ?? '',
+              //           ctlrMajorStreet.text,
+              //           ctlrPrimeNo.text,
+              //           ctlrSecNo.text,
+              //           ctlrEmail.text,
+              //           ctlrSocialSec.text,
+              //           selectedLanguage.toString() ?? '',
+              //           ctlrDischargeResaon.text,
+              //           selectedRace.toString() ?? '',
+              //           selectedReligion.toString() ?? '',
+              //           selectedMaritalStatus.toString() ?? '',
+              //           //"2024-08-12",
+              //           // ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
+              //           ctlrDateOfDeath.text.isEmpty
+              //               ? null
+              //               : ctlrDateOfDeath.text,
+              //           0,
+              //           'At Land OSC',
+              //           'case',
+              //           'Type',
+              //           companyId,
+              //         );
+              //
+              //         if (result.success) {
+              //           patientId = result.patientId!;
+              //           widget.onPatientIdGenerated(patientId);
+              //           ctlrMedicalRecord.clear();
+              //           ctlrfirstName.clear();
+              //           ctlrLastName.clear();
+              //           ctlrMI.clear();
+              //           ctlrSuffix.clear();
+              //           ctlrStreet.clear();
+              //           ctlrZipCode.clear();
+              //           ctlrApartment.clear();
+              //           ctlrCity.clear();
+              //           ctlrMajorStreet.clear();
+              //           ctlrPrimeNo.clear();
+              //           ctlrSecNo.clear();
+              //           ctlrEmail.clear();
+              //           ctlrSocialSec.clear();
+              //           ctlrDischargeResaon.clear();
+              //         } else {}
+              //       },
+              //       child: Text(
+              //         AppString.save,
+              //         style: CustomTextStylesCommon.commonStyle(
+              //           fontSize: FontSize.s14,
+              //           fontWeight: FontWeight.w700,
+              //           color: ColorManager.white,
+              //         ),
+              //       ),
+              //       style: ElevatedButton.styleFrom(
+              //         padding: const EdgeInsets.symmetric(
+              //           horizontal: 25,
+              //           vertical: 10,
+              //         ),
+              //         backgroundColor: ColorManager.blueprime,
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(12),
+              //         ),
+              //       ),
+              //     ),
+              //   )
+              // else
+              //   SizedBox(width: AppSize.s80),
+            ]),
         const SizedBox(height: AppSize.s10),
         Expanded(
           flex: 10,
