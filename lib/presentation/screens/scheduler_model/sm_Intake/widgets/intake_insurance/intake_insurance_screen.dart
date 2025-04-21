@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_secondary/intake_insurance_secondary_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_pharmacy_vendor/intake_pharmacy_vendor_screen.dart' show IntakePrimaryScreen;
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/save_page/insurance_save_page.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -58,7 +57,7 @@ class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> {
        color: Colors.white,
       child: Column(
         children: [
-          SizedBox(height: 15,),
+          SizedBox(height: AppSize.s25,),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
