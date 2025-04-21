@@ -106,10 +106,8 @@ class IntakeSecondaryScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('Review and confirm the data pulled is correct',style: CustomTextStylesCommon.commonStyle(
-                        color:Color(0xFF575757),
-                        fontWeight: FontWeight.w300,fontSize: 12,fontStyle: FontStyle.italic,
-                      ))
+                      Text('Review and confirm the data pulled is correct',
+                          style: SMItalicTextConst.customTextStyle(context))
                     ],
                   ),
                 ),
@@ -342,7 +340,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                   child: BlueBGHeadConst(HeadText: "Suggested Care & Diagnosis"),
                 ),
                 Container(
-                    height: AppSize.s380,
+                    height: AppSize.s400,
                     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30,vertical: AppPadding.p15 ),
                     //child: SingleChildScrollView(
                     child: Column(

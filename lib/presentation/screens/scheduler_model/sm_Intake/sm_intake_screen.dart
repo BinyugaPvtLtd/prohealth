@@ -104,16 +104,19 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.call,size: 22,),
+                Icon(Icons.call,size: 20,),
                 SizedBox(height: 3,),
-                Text(
-                  "Contact",
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontSize: FontSize.s10,
-                    fontWeight: FontWeight.w500,
-                    color: ColorManager.white,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                  child: Text(
+                    "Contact",
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontSize: FontSize.s9,
+                      fontWeight: FontWeight.w500,
+                      color: ColorManager.white,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 )
               ],
             ),

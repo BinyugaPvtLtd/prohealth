@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -76,10 +77,11 @@ class _CheckboxTileState extends State<CheckboxTile> {
           width: 10,
         ),
         widget.isInfoIconVisible!
-            ? const Icon(
-                Icons.info_outline_rounded,
-                color: Color(0xFF50B5E5),
-              )
+            ? SvgPicture.asset(
+          'images/sm/sm_refferal/i_circle.svg',
+          height: IconSize.I20,
+          width: IconSize.I20,
+        )
             : Offstage()
       ],
     );

@@ -11,6 +11,7 @@ import 'dart:ui';
 // }
 
 class FontSize {
+  static const double s9 = 9.0;
   static const double s10 = 10.0;
   static const double s11 = 11.0;
   static const double s13 = 13.0;

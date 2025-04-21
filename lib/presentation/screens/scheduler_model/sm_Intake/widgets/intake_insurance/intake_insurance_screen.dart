@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_secondary/intake_insurance_secondary_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_pharmacy_vendor/intake_pharmacy_vendor_screen.dart' show IntakePrimaryScreen;
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -35,7 +35,7 @@ class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> {
   Widget build(BuildContext context) {
     return  Column(
       children: [
-        SizedBox(height: 15,),
+        SizedBox(height: AppSize.s25,),
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,100 +112,6 @@ class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> {
                 ),
               ),
               ///
-              // SizedBox(width: MediaQuery.of(context).size.width / 5),
-              // if (selectedIndex == 0)
-              //   Container(
-              //     height: AppSize.s26,
-              //     width: AppSize.s102,
-              //     child: ElevatedButton(
-              //       onPressed: () async {
-              //         final companyId = await TokenManager.getCompanyId();
-              //         // String? dateOfDeath = ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text;
-              //         ApiData result = await IntakeInfoSave(
-              //           context,
-              //           ctlrSos.text,
-              //           //"2024-08-12",
-              //           ctlrMedicalRecord.text,
-              //           selectedStatus!.toString() ?? '',
-              //           // 'Pending',
-              //           ctlrfirstName.text,
-              //           ctlrLastName.text,
-              //           ctlrMI.text,
-              //           ctlrSuffix.text,
-              //           statusType ?? '',
-              //           //"2024-08-12",
-              //           ctlrDate.text,
-              //           ctlrStreet.text,
-              //           selectedState!.toString(),
-              //           // "291000",//
-              //           ctlrZipCode.text,
-              //           ctlrApartment.text,
-              //           selectedcity!.toString(),
-              //           selectedCountry.toString() ?? '',
-              //           ctlrMajorStreet.text,
-              //           ctlrPrimeNo.text,
-              //           ctlrSecNo.text,
-              //           ctlrEmail.text,
-              //           ctlrSocialSec.text,
-              //           selectedLanguage.toString() ?? '',
-              //           ctlrDischargeResaon.text,
-              //           selectedRace.toString() ?? '',
-              //           selectedReligion.toString() ?? '',
-              //           selectedMaritalStatus.toString() ?? '',
-              //           //"2024-08-12",
-              //           // ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
-              //           ctlrDateOfDeath.text.isEmpty
-              //               ? null
-              //               : ctlrDateOfDeath.text,
-              //           0,
-              //           'At Land OSC',
-              //           'case',
-              //           'Type',
-              //           companyId,
-              //         );
-              //
-              //         if (result.success) {
-              //           patientId = result.patientId!;
-              //           widget.onPatientIdGenerated(patientId);
-              //           ctlrMedicalRecord.clear();
-              //           ctlrfirstName.clear();
-              //           ctlrLastName.clear();
-              //           ctlrMI.clear();
-              //           ctlrSuffix.clear();
-              //           ctlrStreet.clear();
-              //           ctlrZipCode.clear();
-              //           ctlrApartment.clear();
-              //           ctlrCity.clear();
-              //           ctlrMajorStreet.clear();
-              //           ctlrPrimeNo.clear();
-              //           ctlrSecNo.clear();
-              //           ctlrEmail.clear();
-              //           ctlrSocialSec.clear();
-              //           ctlrDischargeResaon.clear();
-              //         } else {}
-              //       },
-              //       child: Text(
-              //         AppString.save,
-              //         style: CustomTextStylesCommon.commonStyle(
-              //           fontSize: FontSize.s14,
-              //           fontWeight: FontWeight.w700,
-              //           color: ColorManager.white,
-              //         ),
-              //       ),
-              //       style: ElevatedButton.styleFrom(
-              //         padding: const EdgeInsets.symmetric(
-              //           horizontal: 25,
-              //           vertical: 10,
-              //         ),
-              //         backgroundColor: ColorManager.blueprime,
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(12),
-              //         ),
-              //       ),
-              //     ),
-              //   )
-              // else
-              //   SizedBox(width: AppSize.s80),
             ]),
         const SizedBox(
           height: 10,

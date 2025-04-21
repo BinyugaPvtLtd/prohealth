@@ -35,14 +35,12 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 30,bottom: 10),
+              padding: const EdgeInsets.only(top: AppSize.s25,bottom: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text('Review and confirm the data pulled is correct',
-                      style: CustomTextStylesCommon.commonStyle(
-                      color:Color(0xFF575757),
-                      fontWeight: FontWeight.w300,fontSize: FontSize.s12))
+                      style: SMItalicTextConst.customTextStyle(context))
                 ],
               ),
             ),
@@ -123,6 +121,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                       controller: receivedDateController,
                       labelText: 'Potential DC Date',
                       showDatePicker:true,
+                      enable: false,
                     ),
                   ),
                 ],),)),
@@ -210,6 +209,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                     SchedularTextField(
                       width: 210,
                       isIconVisible: true,
+                      enable: false,
                       controller: receivedDateController,
                       labelText: 'Select Date',
                       showDatePicker:true,
@@ -225,6 +225,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                   SchedularTextField(
                     isIconVisible:true,
                     width: 375,
+                    enable: false,
                     controller: caseManagerController,
                     labelText: '',
                   )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
@@ -96,7 +97,11 @@ class _SMTextFConstState extends State<SMTextFConst> {
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: (){},
-                  child: Icon(Icons.info_outline,color: ColorManager.blueprime,size: IconSize.I18,))
+                  child: SvgPicture.asset(
+                    'images/sm/sm_refferal/i_circle.svg',
+                    height: IconSize.I20,
+                    width: IconSize.I20,
+                  ))
                  : SizedBox()
             ],
           ),

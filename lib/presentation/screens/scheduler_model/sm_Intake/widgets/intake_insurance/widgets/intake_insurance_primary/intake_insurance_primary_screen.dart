@@ -90,10 +90,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Review and confirm the data pulled is correct',style: CustomTextStylesCommon.commonStyle(
-                      color:Color(0xFF575757),
-                      fontWeight: FontWeight.w300,fontSize: 12,fontStyle: FontStyle.italic,
-                    ))
+                    Text('Review and confirm the data pulled is correct',
+                        style: SMItalicTextConst.customTextStyle(context))
                   ],
                 ),
               ),

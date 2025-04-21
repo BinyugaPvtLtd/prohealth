@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
@@ -30,6 +32,7 @@ class SchedularTextField extends StatefulWidget {
   final VoidCallback? onChange;
   final bool? isIconVisible;
   final double? borderRadius;
+  final bool? onlyAllowNumbers;
 
    SchedularTextField({
     Key? key,
@@ -47,6 +50,7 @@ class SchedularTextField extends StatefulWidget {
      this.enable,
      this.prefixWidget,
      this.showDatePicker = false, this.hintText,this.borderRadius,
+     this.onlyAllowNumbers = false,
   }) : super(key: key);
 
   @override
@@ -100,7 +104,12 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                       style: AllPopupHeadings.customTextStyle(context)
                     //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
                   ),
-                  widget.isIconVisible!? SizedBox(height:7) :Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
+                  widget.isIconVisible!? SizedBox(height:7) :
+                  SvgPicture.asset(
+                    'images/sm/sm_refferal/i_circle.svg',
+                    height: IconSize.I20,
+                    width: IconSize.I20,
+                  )
                 ],
               ),
             ),
@@ -108,6 +117,9 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
               height: 5,
             ),
             InkWell(
+              hoverColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               onTap:widget.showDatePicker ? ()=> _selectDate(context):null,
               child: AbsorbPointer(
                 absorbing: widget.showDatePicker,
@@ -131,7 +143,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                     suffixIcon: widget.showDatePicker
                         ? GestureDetector(
                       onTap: () => _selectDate(context),
-                      child: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,size: 18,),
+                      child: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,size: IconSize.I20,),
                     )
                         : widget.icon,
                     prefix: widget.prefixWidget,
@@ -139,58 +151,19 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                     hintText: widget.hintText,
                     prefixStyle: AllHRTableData.customTextStyle(context),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.only(bottom:20, left: AppPadding.p15),
+                    contentPadding: EdgeInsets.only(bottom:AppPadding.p20, left: AppPadding.p10),
                   ),
                   style: TableSubHeading.customTextStyle(context),
                   //validator: widget.validator,
                   onTap: widget.onChange,
                   validator: widget.validator,
-                  inputFormatters: widget.phoneField! ? [
-                    PhoneNumberInputFormatter()
-                  ]: [],
+                  inputFormatters: widget.phoneField!
+                      ? [PhoneNumberInputFormatter() ]
+                      : widget.onlyAllowNumbers!
+                      ? [FilteringTextInputFormatter.digitsOnly]
+                     : [],
                   // onTap: widget.onChange,
                 ),
-                // TextFormField(
-                //   textCapitalization: TextCapitalization.sentences,
-                //   controller: _controller,
-                //   cursorHeight: 17,
-                //   style: DocumentTypeDataStyle.customTextStyle(context),
-                //   cursorColor: ColorManager.black,
-                //   decoration: InputDecoration(
-                //     contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
-                //     labelText: widget.labelText,
-                //     labelStyle:  DocumentTypeDataStyle.customTextStyle(context),
-                //     border: const OutlineInputBorder(),
-                //     focusedBorder: OutlineInputBorder(
-                //       borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-                //     ),
-                //     suffixIcon: widget.suffixIcon != null
-                //         ? GestureDetector(
-                //       onTap: () async {
-                //         // Open the date picker when the calendar icon is tapped
-                //         DateTime? pickedDate = await showDatePicker(
-                //           context: context,
-                //           initialDate: DateTime.now(),
-                //           firstDate: DateTime(1900),
-                //           lastDate: DateTime(2101),
-                //         );
-                //
-                //         if (pickedDate != null) {
-                //           // Format the date and set it into the text field
-                //           String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                //           _controller.text = formattedDate;
-                //         }
-                //       },
-                //       child: widget.suffixIcon,
-                //     )
-                //         : null,
-                //     // Do not show any icon if suffixIcon is null
-                // ),
-                //   validator: widget.validator,
-                //   inputFormatters: widget.phoneField! ? [
-                //     PhoneNumberInputFormatter()
-                //   ]: [],
-                // )
                     ),
               ),
             ),
@@ -316,6 +289,9 @@ class _SchedularTextFieldcheckboxState extends State<SchedularTextFieldcheckbox>
           Padding(
             padding: const EdgeInsets.only(left: 25),
             child: InkWell(
+              hoverColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               onTap:widget.showDatePicker ? ()=> _selectDate(context):null,
               child: AbsorbPointer(
                 absorbing: widget.showDatePicker,

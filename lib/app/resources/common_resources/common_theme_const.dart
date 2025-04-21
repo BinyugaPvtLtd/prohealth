@@ -186,3 +186,15 @@ class APIErrorTextConst{
     );
   }
 }
+/// SM Intake Italic text
+class SMItalicTextConst{
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      color:ColorManager.greylight,
+      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.w300,
+      fontSize: FontSize.s12,
+      decoration: TextDecoration.none,
+    );
+  }
+}

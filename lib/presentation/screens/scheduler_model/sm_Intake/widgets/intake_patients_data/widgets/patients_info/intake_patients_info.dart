@@ -3,6 +3,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
@@ -104,9 +105,8 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('Review and confirm the data pulled is correct',style: CustomTextStylesCommon.commonStyle(
-                        color:Color(0xFF575757),
-                          fontWeight: FontWeight.w300,fontSize: 12))
+                      Text('Review and confirm the data pulled is correct',
+                          style: SMItalicTextConst.customTextStyle(context))
                     ],
                   ),
                 ),
@@ -171,13 +171,14 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                       controller: ctlrApartment,
                                       labelText: "Suit/Apt#")),
                               SizedBox(width: AppSize.s35),
-                              Flexible(child: childState),
-                              SizedBox(width: AppSize.s35),
                               Flexible(child: childCity),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(child: childState),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: ctlrZipCode,
+                                      onlyAllowNumbers: true,
                                       labelText: AppString.zip_code)
                                   )
                               // Flexible(
@@ -506,6 +507,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: AppSize.s30),
                 // Padding(
                 //   padding: const EdgeInsets.only(right: 40.0),
                 //   child: Container(
