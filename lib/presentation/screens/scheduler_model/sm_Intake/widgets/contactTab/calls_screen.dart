@@ -190,85 +190,87 @@ class CallTransictionTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: Text('Yesterday',style: CustomTextStylesCommon.commonStyle(
-              color:Color(0xFF2B647F),
-              fontWeight: FontWeight.w500,fontSize: 14,
-            ),),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height / 1.5,
-            child: ListView.builder(
-              itemCount: 5,
-                itemBuilder: (BuildContext,index){
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: IntakeFlowContainerConst(
-                      height: AppSize.s50,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              crossAxisAlignment:CrossAxisAlignment.center,
-                              children: [
-                                Icon(Icons.add_ic_call_outlined,color: Color(0xFF16A34A),),
-                                Column(
-                                  crossAxisAlignment:CrossAxisAlignment.center,
-                                  children: [
-                                    Text('John Smith',style: CustomTextStylesCommon.commonStyle(
-                                      color:Color(0xFF686464),
-                                      fontWeight: FontWeight.w500,fontSize: 12,
-                                    )),
-                                    Container(
-                                      width: 70,
-                                      height: 13,
-                                      decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5)),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.circle,color: Colors.red,size: 6,),
-                                          Text('02:22:50',style:CustomTextStylesCommon.commonStyle(
-                                            color:Color(0xFF686464),
-                                            fontWeight: FontWeight.w400,fontSize: 8,
-                                          ) ,)
-                                        ],
-                                      ),
-                                    )
-
-                                  ],
-                                )
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              spacing: 10,
-                              children: [
-                                Text('12:30 PM',style: CustomTextStylesCommon.commonStyle(
-                                  color:Color(0xFF374151),
-                                  fontWeight: FontWeight.w400,fontSize: 14,
-                                ),),
-                                Text('Follow-Up Added',style: CustomTextStylesCommon.commonStyle(
-                                  color:Color(0xFF9CA3AF),
-                                  fontWeight: FontWeight.w500,fontSize: 12,
-                                ),)
-                              ],
-                            )
-
-                          ],
-                        ),
-                      ),),
-                  );
-                }),
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: Text('Yesterday',style: CustomTextStylesCommon.commonStyle(
+                color:Color(0xFF2B647F),
+                fontWeight: FontWeight.w500,fontSize: 14,
+              ),),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height / 1.5,
+              child: ListView.builder(
+                itemCount: 5,
+                  itemBuilder: (BuildContext,index){
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: IntakeFlowContainerConst(
+                        height: AppSize.s50,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                crossAxisAlignment:CrossAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.add_ic_call_outlined,color: Color(0xFF16A34A),),
+                                  Column(
+                                    crossAxisAlignment:CrossAxisAlignment.center,
+                                    children: [
+                                      Text('John Smith',style: CustomTextStylesCommon.commonStyle(
+                                        color:Color(0xFF686464),
+                                        fontWeight: FontWeight.w500,fontSize: 12,
+                                      )),
+                                      Container(
+                                        width: 70,
+                                        height: 13,
+                                        decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5)),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.circle,color: Colors.red,size: 6,),
+                                            Text('02:22:50',style:CustomTextStylesCommon.commonStyle(
+                                              color:Color(0xFF686464),
+                                              fontWeight: FontWeight.w400,fontSize: 8,
+                                            ) ,)
+                                          ],
+                                        ),
+                                      )
+        
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                spacing: 10,
+                                children: [
+                                  Text('12:30 PM',style: CustomTextStylesCommon.commonStyle(
+                                    color:Color(0xFF374151),
+                                    fontWeight: FontWeight.w400,fontSize: 14,
+                                  ),),
+                                  Text('Follow-Up Added',style: CustomTextStylesCommon.commonStyle(
+                                    color:Color(0xFF9CA3AF),
+                                    fontWeight: FontWeight.w500,fontSize: 12,
+                                  ),)
+                                ],
+                              )
+        
+                            ],
+                          ),
+                        ),),
+                    );
+                  }),
+            ),
+          ],
+        ),
       ),
     );
   }
