@@ -242,7 +242,6 @@ class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> {
                     children: [
                       IntakePrimaryScreen(patientId: widget.patientId,
                         onSave: switchToInsuranceSavePage,
-
                       ),
                       IntakeSecondaryScreen(patientId: widget.patientId,),
                     ]),
