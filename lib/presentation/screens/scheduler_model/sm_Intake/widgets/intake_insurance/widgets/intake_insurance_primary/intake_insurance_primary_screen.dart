@@ -186,7 +186,6 @@ class IntakePrimaryScreen extends StatelessWidget {
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
-
                             child:FutureBuilder<List<StateData>>(
                               future: getStateDropDown(context),
                               builder: (context, snapshot) {
