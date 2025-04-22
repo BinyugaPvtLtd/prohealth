@@ -5,6 +5,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart' show CustomTextStylesCommon;
 import '../../../../em_module/widgets/button_constant.dart';
 import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';

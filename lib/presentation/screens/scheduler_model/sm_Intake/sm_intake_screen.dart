@@ -273,7 +273,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.39,
                     //height: double.infinity,
                     color: Colors.white,
                     padding: EdgeInsets.all(16),
@@ -356,7 +356,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
                         color: ColorManager.white,
                         elevation: 2,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50),
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
