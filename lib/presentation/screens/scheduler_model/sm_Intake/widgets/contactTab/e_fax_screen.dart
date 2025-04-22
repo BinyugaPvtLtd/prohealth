@@ -33,19 +33,18 @@ class ContactEFaxScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
                       child: TabBar(
                         onTap: (index) {
-
                         },
                         indicatorWeight: 3,
                         overlayColor: MaterialStateProperty.all(Colors.transparent),
                         indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
                         indicator: BoxDecoration(
-                          color: Color(0xFF50B5E538), // Background color for selected tab
+                          color: ColorManager.SMFBlue, // Background color for selected tab
                           borderRadius: BorderRadius.circular(8), // Optional
                         ),
                         indicatorSize: TabBarIndicatorSize.label,
                         labelColor: ColorManager.textPrimaryColor,
                         labelStyle: TextStyle(
-                          fontSize: 14,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeight.w700,
                         ),
                         unselectedLabelColor: ColorManager.textPrimaryColor,
