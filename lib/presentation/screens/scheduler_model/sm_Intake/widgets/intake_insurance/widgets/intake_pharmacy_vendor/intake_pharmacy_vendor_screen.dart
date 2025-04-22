@@ -23,7 +23,8 @@ import '../../../intake_patients_data/widgets/patients_info/intake_patients_info
 
 class IntakePrimaryScreen extends StatelessWidget {
   final int patientId;
-  IntakePrimaryScreen({super.key, required this.patientId, });
+  final VoidCallback onSave;
+  IntakePrimaryScreen({super.key, required this.patientId,   required this.onSave,});
 
 
   @override
@@ -462,7 +463,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                   CustomElevatedButton(
                     width: AppSize.s100,
                     text: AppString.save,
-                    onPressed: (){},
+                    onPressed: onSave,
                   ),
                 ],
               ),
