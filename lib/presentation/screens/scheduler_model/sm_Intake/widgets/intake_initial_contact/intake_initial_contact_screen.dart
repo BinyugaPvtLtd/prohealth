@@ -63,15 +63,23 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                             onPressed: () {},
                             backgroundColor: ColorManager.bluebottom, // Adjust color as needed
                             shape: CircleBorder(),
-                            child: Column(
+                            child:Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
-                                //SizedBox(height: 4),
-                                Text(
-                                  'Contact',
-                                  style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
-                                ),
+                                Icon(Icons.call,size: 18,),
+                                SizedBox(height: 2,),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                                  child: Text(
+                                    "Contact",
+                                    style: CustomTextStylesCommon.commonStyle(
+                                      fontSize: FontSize.s9,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -151,6 +159,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 40),
                     child: CheckboxTile(
+                      icon: Image.asset("images/sm/sm_refferal/telegram.png",height: 18,width: 18,),
                       title: 'Send consents for signature',
                       initialValue: isPtInr,
                       isInfoIconVisible: true,
@@ -166,7 +175,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
             Divider(),
             BlueBGHeadConst(HeadText: "Scheduling Requests"),
             Container(
-              height: 220,
+              height: 250,
               padding: EdgeInsets.only(top: 50,left: 30,bottom: 20),
               child: Column(children: [
                 Row(
@@ -217,14 +226,14 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                     Expanded(child: Container()),
                   ],
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 40,),
                 Row(children: [
                   Padding(
                       padding:EdgeInsets.only(top: 20,right: 20),
                       child: Text('Notes',style:AllPopupHeadings.customTextStyle(context))),
                   SchedularTextField(
                     isIconVisible:true,
-                    width: 375,
+                    width: 395,
                     enable: false,
                     controller: caseManagerController,
                     labelText: '',
@@ -251,6 +260,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: AppSize.s30),
           ],
         ),
       ),

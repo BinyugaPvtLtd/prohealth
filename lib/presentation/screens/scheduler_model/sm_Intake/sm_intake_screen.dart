@@ -104,8 +104,8 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.call,size: 20,),
-                SizedBox(height: 3,),
+                Icon(Icons.call,size: 18,),
+                SizedBox(height: 2,),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 1.0),
                   child: Text(
@@ -145,7 +145,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
                 padding: EdgeInsets.only(left: 30, right: 60),
                 //margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  padding: const EdgeInsets.only(left: 50,top: 10,right: 50),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 

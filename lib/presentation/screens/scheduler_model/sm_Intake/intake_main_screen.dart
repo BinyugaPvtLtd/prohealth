@@ -65,7 +65,7 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
         children: [
           /// Tab bar
           Container(
-            margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
+            margin: const EdgeInsets.symmetric(vertical: AppPadding.p10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

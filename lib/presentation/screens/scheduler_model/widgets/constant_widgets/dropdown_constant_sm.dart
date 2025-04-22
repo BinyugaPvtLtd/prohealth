@@ -140,7 +140,7 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
           child: GestureDetector(
             onTap: _showDropdownDialog,
             child: Container(
-              padding: const EdgeInsets.only(bottom: 3, top: 4, left: AppPadding.p10),
+              padding: const EdgeInsets.only(bottom: 3, top: 4, left: AppPadding.p10,right: AppPadding.p7),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),

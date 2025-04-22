@@ -175,63 +175,91 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                height:200,
-                                width:400,
-                                child: Column(
+                                height:100,
+                                width:480,
+                                child: Row(
                                   children: [
-                                    Row(
-                                      //alignment: WrapAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      // spacing: 10,
-                                      // runSpacing: 5,
-                                      children: [
-                                        CheckboxTile(
-                                          title: 'Nursing',
-                                          initialValue: isNursing,
-                                          onChanged: (value) {
+                                    Expanded(
+                                      flex: 3,
+                                      child: Container(
+                                        child: Column(
+                                          //alignment: WrapAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          // spacing: 10,
+                                          // runSpacing: 5,
+                                          children: [
+                                            CheckboxTile(
+                                              title: 'Nursing',
+                                              initialValue: isNursing,
+                                              onChanged: (value) {
 
-                                          },
+                                              },
+                                            ),
+                                            CheckboxTile(
+                                              title: 'Physical Therapy',
+                                              initialValue: isPhysicalThe,
+                                              onChanged: (value) {
+                                              },
+                                            ),
+                                            CheckboxTile(
+                                              title: 'Home Health Aide',
+                                              initialValue: isSpeechThe,
+                                              onChanged: (value) {
+
+                                              },
+                                            ),
+
+
+
+                                          ],
                                         ),
-                                        CheckboxTile(
-                                          title: 'Physical Therapy',
-                                          initialValue: isPhysicalThe,
-                                          onChanged: (value) {
-
-                                          },
-                                        ),
-
-
-                                      ],
+                                      ),
                                     ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        CheckboxTile(
-                                          title: 'Occupational Therapy',
-                                          initialValue: isOccupationalThe,
-                                          onChanged: (value) {
+                                    Expanded(
+                                      flex: 3,
+                                      child: Container(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            CheckboxTile(
+                                              title: 'Speech Therapy',
+                                              initialValue: isOccupationalThe,
+                                              onChanged: (value) {
+                                        
+                                              },
+                                            ),
+                                            CheckboxTile(
+                                              title: 'Medical Social Services',
+                                              initialValue: isSpeechThe,
+                                              onChanged: (value) {
 
-                                          },
+                                              },
+                                            ),
+                                            CheckboxTile(
+                                              title: 'Occupational Therapy',
+                                              initialValue: isPhysicalThe,
+                                              onChanged: (value) {
+                                              },
+                                            ),
+                                          ],
                                         ),
-                                        CheckboxTile(
-                                          title: 'Speech Therapy',
-                                          initialValue: isSpeechThe,
-                                          onChanged: (value) {
-
-                                          },
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        CheckboxTile(
-                                          title: 'Medical Social Services',
-                                          initialValue: isMedicalSocialThe,
-                                          onChanged: (value) {
-                                          },
-                                        )
-                                      ],
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            CheckboxTile(
+                                              title: 'Dietician',
+                                              initialValue: isMedicalSocialThe,
+                                              onChanged: (value) {
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     )
                                   ],
                                 ),
@@ -343,7 +371,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top:9),
+                                    padding: const EdgeInsets.only(top:4),
                                     child: SchedularTextField(
                                       isIconVisible: true,
                                       enable: false,
@@ -368,11 +396,8 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                       ),),
                     Container(
                       height: AppSize.s100,
-                      // padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
                       decoration: BoxDecoration(
                         color: ColorManager.white,
-                        // borderRadius: BorderRadius.circular(5),
-                        // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
                         border: Border(
                           bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey),
                         ),//all(width: 1, color: Color(0xFFBCBCBC)),
@@ -410,7 +435,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: Padding(
-                              padding: const EdgeInsets.only(top:9),
+                              padding: const EdgeInsets.only(top:4),
                               child: SchedularTextField(
                                 isIconVisible: true,
                                 enable: false,
@@ -659,6 +684,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: AppSize.s30),
             ],
           ),
         ),

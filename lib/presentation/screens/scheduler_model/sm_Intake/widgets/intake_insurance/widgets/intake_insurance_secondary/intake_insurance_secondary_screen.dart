@@ -123,9 +123,10 @@ class IntakeSecondaryScreen extends StatelessWidget {
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularTextField(
-                                  controller: pharmaSelectDB,
-                                  labelText: 'Select from Database')),
+                              child: CustomDropdownTextFieldsm(headText: 'Select from Database',
+                      items: ['B','A'],
+                      onChanged: (newValue) {
+                      })),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -235,6 +236,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                           Flexible(
                               child: SchedularTextField(
                                   controller: pharmacyzipcode,
+                                  onlyAllowNumbers: true,
                                   labelText: 'Zip Code*')),
 
 
@@ -301,7 +303,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                               children: [
                                 Text('Insurance Verified',
                                     style:  AllPopupHeadings.customTextStyle(context)),
-                                SizedBox(height: 6),
+                                SizedBox(height: 10),
                                 Row(
                                   children: [
                                     CustomRadioListTileSMp(
