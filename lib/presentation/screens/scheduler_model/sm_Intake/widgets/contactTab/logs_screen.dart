@@ -49,7 +49,7 @@ class ContactLogsScreen extends StatelessWidget {
                       color: ColorManager.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const TabBar(
+                    child: TabBar(
                       labelColor: Colors.white,
                       unselectedLabelColor: Colors.black,
                       indicator: BoxDecoration(
@@ -57,8 +57,13 @@ class ContactLogsScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                       ),
                       tabs: [
-                        Tab(text: 'Call Log'),
-                        Tab(text: 'E-Fax'),
+                        Tab(child: Text('Call Log',  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.mediumgrey,),),),
+
+                        Tab(child: Text('E-Fax',  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.mediumgrey,),),),
                       ],
                     ),
                   ),
@@ -93,6 +98,7 @@ class ContactLogsScreen extends StatelessWidget {
                                             Column(
                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
+                                                SizedBox(height: AppSize.s5),
                                                 Text(
                         'Prohealth',
                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
@@ -127,19 +133,70 @@ class ContactLogsScreen extends StatelessWidget {
                               );
                             }),
                         ),
-                        SingleChildScrollView(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Text("This is Tab 2 content"),
-                                SizedBox(height: 20),
-                                Text("More content..."),
-                                SizedBox(height: 180),
-                                Text("End of Tab 2"),
-                              ],
-                            ),
-                          ),
+                        ///
+                        /// 
+                        /// 
+                        /// 
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child:ListView.builder(
+                              itemCount: 10,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 5,),
+                                    child: Container(
+                                      height: 45,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Image.asset("images/sm/file.png",height: 30,),
+                                                ],
+                                              ),
+                                              SizedBox(width: 20,),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    'eFax sent by Warren. No document \nattached.',
+                                                    style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: ColorManager.mediumgrey,),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: 20),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                //SizedBox(height: AppSize.s5),
+                                                Text(
+                                                  '05/08/24',
+                                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.mediumgrey,),
+                                                ),
+                                                SizedBox(height: AppSize.s2),
+                                                Text(
+                                                  '8:17PM',
+                                                  style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.mediumgrey,),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+
+                                      ),
+                                    )
+                                );
+                              }),
                         ),
                       ],
                     ),
