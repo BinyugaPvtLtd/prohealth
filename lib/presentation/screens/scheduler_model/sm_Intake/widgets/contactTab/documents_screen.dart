@@ -19,39 +19,116 @@ class _ContactDocumentScreenState extends State<ContactDocumentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 10,),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.6,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: const Border(
-                  top: BorderSide(
-                    color: Color(0xFF1696C8),
-                    width: 5,
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.6,
+          padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border(
+            top: BorderSide(color: Color(0xFF1696C8),width: 5)
+        )),
+
+
+
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Checkbox(
+                        splashRadius: 0,
+                        value: isName,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            isName = value ?? false;
+                          });
+                        },
+                        side: const BorderSide(color: Color(0xFF1696C8),width: 2), // 👈 blue border color
+                        activeColor:Color(0xFF1696C8),
+                      ),
+                      SizedBox(width: 3,),
+                      Text("Insurance Claim", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.mediumgrey,),)
+                    ],
                   ),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 2,
-                    spreadRadius: 0,
-                    offset: const Offset(0, 1.2),
-                  ),
+                  Icon(Icons.add,color: ColorManager.bluebottom,)
                 ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 10,),
+          SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            FileThumbnail(
+                              onClose: () {
+                                print("Close icon tapped");
+                              },
+                            ),
+                            SizedBox(height: 8,),
+                            Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,),),
+                    SizedBox(height: 8,),
+                            Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),),
+                          ],
+                        ),
+                        ///
+                        Column(
+                          children: [
+                            FileThumbnail(
+                              onClose: () {
+                                print("Close icon tapped");
+                              },
+                            ),
+                            SizedBox(height: 8,),
+                            Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,),),
+                            SizedBox(height: 8,),
+                            Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),),
+                          ],
+                        ),
+                        ///
+                        Column(
+                          children: [
+                            FileThumbnail(
+                              onClose: () {
+                                print("Close icon tapped");
+                              },
+                            ),
+                            SizedBox(height: 8,),
+                            Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,),),
+                            SizedBox(height: 8,),
+                            Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Divider(),
+                  SizedBox(height: 20,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -59,17 +136,17 @@ class _ContactDocumentScreenState extends State<ContactDocumentScreen> {
                         children: [
                           Checkbox(
                             splashRadius: 0,
-                            value: isName,
+                            value: isubform,
                             onChanged: (bool? value) {
                               setState(() {
-                                isName = value ?? false;
+                                isubform = value ?? false;
                               });
                             },
                             side: const BorderSide(color: Color(0xFF1696C8),width: 2), // 👈 blue border color
                             activeColor:Color(0xFF1696C8),
                           ),
                           SizedBox(width: 3,),
-                          Text("Insurance Claim", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                          Text("UB04 Form", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
                             fontWeight: FontWeight.w700,
                             color: ColorManager.mediumgrey,),)
                         ],
@@ -77,227 +154,135 @@ class _ContactDocumentScreenState extends State<ContactDocumentScreen> {
                       Icon(Icons.add,color: ColorManager.bluebottom,)
                     ],
                   ),
-SizedBox(height: 10,),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+                        ///
+                        Column(
                           children: [
-                            Column(
-                              children: [
-                                FileThumbnail(
-                                  onClose: () {
-                                    print("Close icon tapped");
-                                  },
-                                ),
-                                SizedBox(height: 8,),
-                                Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorManager.mediumgrey,),),
-                        SizedBox(height: 8,),
-                                Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.mediumgrey,),),
-                              ],
+                            FileThumbnail(
+                              onClose: () {
+                                print("Close icon tapped");
+                              },
                             ),
-                            ///
-                            Column(
-                              children: [
-                                FileThumbnail(
-                                  onClose: () {
-                                    print("Close icon tapped");
-                                  },
-                                ),
-                                SizedBox(height: 8,),
-                                Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorManager.mediumgrey,),),
-                                SizedBox(height: 8,),
-                                Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.mediumgrey,),),
-                              ],
-                            ),
-                            ///
-                            Column(
-                              children: [
-                                FileThumbnail(
-                                  onClose: () {
-                                    print("Close icon tapped");
-                                  },
-                                ),
-                                SizedBox(height: 8,),
-                                Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorManager.mediumgrey,),),
-                                SizedBox(height: 8,),
-                                Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.mediumgrey,),),
-                              ],
-                            ),
+                            SizedBox(height: 8,),
+                            Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,),),
+                            SizedBox(height: 8,),
+                            Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),),
                           ],
                         ),
-                      ),
+                        ///
+                        Column(
+                          children: [
+                            FileThumbnail(
+                              onClose: () {
+                                print("Close icon tapped");
+                              },
+                            ),
+                            SizedBox(height: 8,),
+                            Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,),),
+                            SizedBox(height: 8,),
+                            Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),),
+                          ],
+                        ),
 
-                      Divider(),
-                      SizedBox(height: 20,),
+                        ///
+                        SizedBox(width: 80,
+                          height: 80,)
+                      ],
+                    ),
+                  ),
+                  Divider(),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Checkbox(
-                                splashRadius: 0,
-                                value: isubform,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    isubform = value ?? false;
-                                  });
-                                },
-                                side: const BorderSide(color: Color(0xFF1696C8),width: 2), // 👈 blue border color
-                                activeColor:Color(0xFF1696C8),
-                              ),
-                              SizedBox(width: 3,),
-                              Text("UB04 Form", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.mediumgrey,),)
-                            ],
+                          Checkbox(
+                            splashRadius: 0,
+                            value: isra,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isra = value ?? false;
+                              });
+                            },
+                            side: const BorderSide(color: Color(0xFF1696C8),width: 2), // 👈 blue border color
+                            activeColor:Color(0xFF1696C8),
                           ),
-                          Icon(Icons.add,color: ColorManager.bluebottom,)
+                          SizedBox(width: 3,),
+                          Text("Referral & Assessment", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.mediumgrey,),)
                         ],
                       ),
-                      SizedBox(height: 10,),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-
-                            ///
-                            Column(
-                              children: [
-                                FileThumbnail(
-                                  onClose: () {
-                                    print("Close icon tapped");
-                                  },
-                                ),
-                                SizedBox(height: 8,),
-                                Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorManager.mediumgrey,),),
-                                SizedBox(height: 8,),
-                                Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.mediumgrey,),),
-                              ],
-                            ),
-                            ///
-                            Column(
-                              children: [
-                                FileThumbnail(
-                                  onClose: () {
-                                    print("Close icon tapped");
-                                  },
-                                ),
-                                SizedBox(height: 8,),
-                                Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorManager.mediumgrey,),),
-                                SizedBox(height: 8,),
-                                Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.mediumgrey,),),
-                              ],
-                            ),
-
-                            ///
-                            SizedBox(width: 80,
-                              height: 80,)
-                          ],
-                        ),
-                      ),
-                      Divider(),
-                      SizedBox(height: 20,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Checkbox(
-                                splashRadius: 0,
-                                value: isra,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    isra = value ?? false;
-                                  });
-                                },
-                                side: const BorderSide(color: Color(0xFF1696C8),width: 2), // 👈 blue border color
-                                activeColor:Color(0xFF1696C8),
-                              ),
-                              SizedBox(width: 3,),
-                              Text("Referral & Assessment", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.mediumgrey,),)
-                            ],
-                          ),
-                          Icon(Icons.add,color: ColorManager.bluebottom,)
-                        ],
-                      ),
-                      SizedBox(height: 10,),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                FileThumbnail(
-                                  onClose: () {
-                                    print("Close icon tapped");
-                                  },
-                                ),
-                                SizedBox(height: 8,),
-                                Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorManager.mediumgrey,),),
-                                SizedBox(height: 8,),
-                                Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.mediumgrey,),),
-                              ],
-                            ),
-                            ///
-                            Column(
-                              children: [
-                                FileThumbnail(
-                                  onClose: () {
-                                    print("Close icon tapped");
-                                  },
-                                ),
-                                SizedBox(height: 8,),
-                                Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorManager.mediumgrey,),),
-                                SizedBox(height: 8,),
-                                Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.mediumgrey,),),
-                              ],
-                            ),
-                            SizedBox(width: 80,
-                              height: 80,)
-
-                          ],
-                        ),
-                      ),
-                      Divider(),
+                      Icon(Icons.add,color: ColorManager.bluebottom,)
                     ],
                   ),
-                ),
+                  SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            FileThumbnail(
+                              onClose: () {
+                                print("Close icon tapped");
+                              },
+                            ),
+                            SizedBox(height: 8,),
+                            Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,),),
+                            SizedBox(height: 8,),
+                            Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),),
+                          ],
+                        ),
+                        ///
+                        Column(
+                          children: [
+                            FileThumbnail(
+                              onClose: () {
+                                print("Close icon tapped");
+                              },
+                            ),
+                            SizedBox(height: 8,),
+                            Text("untitled.01", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,),),
+                            SizedBox(height: 8,),
+                            Text("5.3MB", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),),
+                          ],
+                        ),
+                        SizedBox(width: 80,
+                          height: 80,)
+
+                      ],
+                    ),
+                  ),
+                  Divider(),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

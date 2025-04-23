@@ -15,7 +15,7 @@ class ContactCallsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(10),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
@@ -28,7 +28,7 @@ class ContactCallsScreen extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                  padding: const EdgeInsets.only(top: 10,bottom: 3,left: 30,right: 30),
                   child: TabBar(
                     onTap: (index) {
 
@@ -211,14 +211,14 @@ class CallTransictionTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Divider(),
             Padding(
-              padding: const EdgeInsets.only(left: 30),
+              padding: const EdgeInsets.only(left: 40,bottom: 20),
               child: Text('Yesterday',style: CustomTextStylesCommon.commonStyle(
                 color:Color(0xFF2B647F),
                 fontWeight: FontWeight.w600,fontSize: FontSize.s16,
@@ -229,24 +229,25 @@ class CallTransictionTab extends StatelessWidget {
               child: ListView.builder(
                 itemCount: 5,
                   itemBuilder: (BuildContext,index){
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: IntakeFlowContainerConst(
-                        height: AppSize.s50,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 30),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            //crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Row(
-                                crossAxisAlignment:CrossAxisAlignment.center,
+                                //crossAxisAlignment:CrossAxisAlignment.center,
                                 children: [
                                   Column(
                                     children: [
-                                      Icon(Icons.phone_callback_outlined,color: Color(0xFF16A34A),size: 25,),
+                                      SizedBox(height: 5,),
+                                      Image.asset("images/sm/outgoing_call.jpg",height: 20,),
+                                     // Icon(Icons.phone_callback_outlined,color: Color(0xFF16A34A),size: 25,),
                                     ],
                                   ),
+                                  SizedBox(width: 3,),
                                   Column(
                                     crossAxisAlignment:CrossAxisAlignment.center,
                                     children: [
@@ -271,7 +272,7 @@ class CallTransictionTab extends StatelessWidget {
                                           ],
                                         ),
                                       )
-        
+
                                     ],
                                   )
                                 ],
@@ -289,11 +290,15 @@ class CallTransictionTab extends StatelessWidget {
                                     fontWeight: FontWeight.w700,fontSize: FontSize.s14,
                                   ),)
                                 ],
-                              )
-        
+                              ),
+
+
                             ],
                           ),
-                        ),),
+                        ),
+                        SizedBox(height: 15,),
+                        Divider()
+                      ],
                     );
                   }),
             ),

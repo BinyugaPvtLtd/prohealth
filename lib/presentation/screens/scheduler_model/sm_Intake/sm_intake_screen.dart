@@ -356,9 +356,9 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
                         color: ColorManager.white,
                         elevation: 2,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               PageViewMenuButtonConst(
                                 onTap: (int index) {
