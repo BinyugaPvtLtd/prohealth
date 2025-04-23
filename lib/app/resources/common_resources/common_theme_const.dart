@@ -109,6 +109,18 @@ class AllPopupHeadings {
   }
 }
 
+///sm textfield heading
+class SMTextfieldHeadings {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s13,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
 ///all menu container heading
 class MenuContainerTextStylling {
   static TextStyle customTextStyle(BuildContext context) {

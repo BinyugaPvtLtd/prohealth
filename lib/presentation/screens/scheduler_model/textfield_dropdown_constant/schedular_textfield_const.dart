@@ -101,8 +101,8 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                 children: [
                   Text(
                       widget.labelText,
-                      style: AllPopupHeadings.customTextStyle(context)
-                    //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+                      style: SMTextfieldHeadings.customTextStyle(context)
+                    //AllPopupHeadings.customTextStyle(context)
                   ),
                   widget.isIconVisible!? SizedBox(height:7) :
                   SvgPicture.asset(
@@ -279,15 +279,15 @@ class _SchedularTextFieldcheckboxState extends State<SchedularTextFieldcheckbox>
               SizedBox(width: 2,),
               Text(
                   widget.labelText,
-                  style: AllPopupHeadings.customTextStyle(context)
-                //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+                  style: SMTextfieldHeadings.customTextStyle(context)
+                //AllPopupHeadings.customTextStyle(context)
               ),
              // Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
             ],
           ),
           SizedBox(height: 2,),
           Padding(
-            padding: const EdgeInsets.only(left: 25),
+            padding: const EdgeInsets.only(left: 33),
             child: InkWell(
               hoverColor: Colors.transparent,
               splashColor: Colors.transparent,
@@ -315,7 +315,7 @@ class _SchedularTextFieldcheckboxState extends State<SchedularTextFieldcheckbox>
                       suffixIcon: widget.showDatePicker
                           ? GestureDetector(
                         onTap: () => _selectDate(context),
-                        child: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,size: 18,),
+                        child: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,size: IconSize.I22,),
                       )
                           : widget.icon,
                       prefix: widget.prefixWidget,
@@ -469,8 +469,8 @@ class _SchedularTextFieldnoState extends State<SchedularTextFieldno> {
               children: [
                 Text(
                     widget.labelText,
-                    style: AllPopupHeadings.customTextStyle(context)
-                  //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+                    style: SMTextfieldHeadings.customTextStyle(context)
+                  //AllPopupHeadings.customTextStyle(context)
                 ),
                 // Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
               ],

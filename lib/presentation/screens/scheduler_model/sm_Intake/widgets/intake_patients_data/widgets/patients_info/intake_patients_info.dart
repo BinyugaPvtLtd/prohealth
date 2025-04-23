@@ -407,7 +407,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                 ),
 
                 IntakeFlowContainerConst(
-                    height: AppSize.s300,
+                    height: AppSize.s180,
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -489,7 +489,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                         ],
                       ),
                     ) ),
-                SizedBox(height: AppSize.s80),
+                SizedBox(height: AppSize.s10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 10,

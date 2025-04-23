@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../em_module/widgets/button_constant.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../textfield_dropdown_constant/schedular_textfield_const.dart';
@@ -171,12 +173,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                  Icons.file_download_outlined,
                                  color: Color(0xff686464),
                                ),
-                               onPressed: () {
-        
-                                 // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
-        
-        
-                               },
+                               onPressed: () { },
                              ),
                              SizedBox(width: 15),
                              IconButton(
@@ -1278,58 +1275,27 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
         
                 ],
               ),
+              SizedBox(height: AppSize.s80),
               ///
               ///
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  CustomButtonTransparent(
+                    text: "Cancel",
+                    onPressed: () {
 
-                              Container(
-                                width: 117,
-                                height: 30,
-                                child: ElevatedButton(
-                                  onPressed: (){
                     },
-                                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
-
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(
-                                        color: ColorManager.bluebottom,
-                                        width: 1,
-                                      ),
-                                    ),),
-                                  child: Text('Cancel',
-                                    style: TransparentButtonTextConst.customTextStyle(context),
-                                  ),),
-                              ),
-
-
-                                     const SizedBox(width: AppSize.s30,),
-                    Container(
-                      //color: Colors.white,
-                      width: 117,
-                      height: 30,
-                      child: ElevatedButton(
-                        onPressed: (){},
-                        style: ElevatedButton.styleFrom(backgroundColor:ColorManager.bluebottom,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),),
-                        child: Text('Save',
-                          style:  TextStyle(
-                            fontSize: FontSize.s13,
-                            fontWeight: FontWeight.w600,
-                            color: ColorManager.white,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),),
-                    ),
-                  ],
-                ),
+                  ),
+                  CustomElevatedButton(
+                    width: AppSize.s100,
+                    text: AppString.save,
+                    onPressed: (){},
+                  ),
+                ],
               ),
+              SizedBox(height: AppSize.s30),
             ],
           ),
         ),

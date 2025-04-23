@@ -120,8 +120,8 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
             children: [
               Text(
                   widget.headText,
-                  style: AllPopupHeadings.customTextStyle(context)
-                //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+                  style: SMTextfieldHeadings.customTextStyle(context)
+                  //AllPopupHeadings.customTextStyle(context)
               ),
               widget.isIconVisible! ? SvgPicture.asset(
                 'images/sm/sm_refferal/i_circle.svg',

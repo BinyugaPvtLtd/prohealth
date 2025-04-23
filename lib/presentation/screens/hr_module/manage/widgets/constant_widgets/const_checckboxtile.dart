@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 
 class CheckboxTile extends StatefulWidget {
@@ -71,11 +72,8 @@ class _CheckboxTileState extends State<CheckboxTile> {
           children: [
             Text(
               widget.title,
-              style: CustomTextStylesCommon.commonStyle(
-                fontSize: AppSize.s12,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.greylight,
-              ),
+              style: SMTextfieldHeadings.customTextStyle(context)
+              //AllPopupHeadings.customTextStyle(context)
             ),
             SizedBox(width: 10,),
             widget.isInfoIconVisible!
