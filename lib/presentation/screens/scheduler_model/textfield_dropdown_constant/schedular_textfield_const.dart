@@ -101,8 +101,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                      widget.labelText,
+                  Text(widget.labelText,
                       style: SMTextfieldHeadings.customTextStyle(context)
                     //AllPopupHeadings.customTextStyle(context)
                   ),
