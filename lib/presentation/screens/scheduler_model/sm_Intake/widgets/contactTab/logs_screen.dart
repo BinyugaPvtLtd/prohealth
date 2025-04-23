@@ -30,7 +30,7 @@ class ContactLogsScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   border: const Border(
                     top: BorderSide(
-                      color: Color(0xFF579EBA),
+                      color: Color(0xFF1696C8),
                       width: 5,
                     ),
                   ),
