@@ -17,11 +17,11 @@ class ContactEFaxScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(10),
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: const Border(
+                border: Border(
                     top: BorderSide(color: Color(0xFF1696C8),width: 5)
                 )),
             child: DefaultTabController(
@@ -31,27 +31,27 @@ class ContactEFaxScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                      padding: const EdgeInsets.only(top: 10,bottom: 3,left: 30,right: 30),
                       child: TabBar(
                         onTap: (index) {
                         },
-                        indicatorWeight: 3,
+                        indicatorWeight: 2,
                         overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        indicatorPadding: const EdgeInsets.symmetric(horizontal: 15),
+                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
                         indicator: BoxDecoration(
                           color: ColorManager.SMFBlue, // Background color for selected tab
                           borderRadius: BorderRadius.circular(8), // Optional
                         ),
                         indicatorSize: TabBarIndicatorSize.label,
                         labelColor: ColorManager.textPrimaryColor,
-                        labelStyle: const TextStyle(
+                        labelStyle: TextStyle(
                           fontSize: FontSize.s14,
                           fontWeight: FontWeight.w700,
                         ),
                         unselectedLabelColor: ColorManager.textPrimaryColor,
                         dividerColor: Colors.black54,
                         tabs: [
-                          const Tab(child: Row(
+                          Tab(child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: 10,
@@ -60,7 +60,7 @@ class ContactEFaxScreen extends StatelessWidget {
                               Text("Send Fax")
                             ],
                           ),),
-                          const Tab(
+                          Tab(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -73,10 +73,14 @@ class ContactEFaxScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Divider(),
+                    ),
                     Container(
                       height: MediaQuery.of(context).size.height / 2, // Adjust height as needed
-                      child: const TabBarView(
-                        physics: NeverScrollableScrollPhysics(),
+                      child: TabBarView(
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
                           SendFaxTab(),
                           FaxHistoryTab()
@@ -105,20 +109,20 @@ class SendFaxTab extends StatelessWidget {
     TextEditingController typeTextController = TextEditingController();
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height:40),
+            SizedBox(height:0),
             Text('Receiver Information',style: CustomTextStylesCommon.commonStyle(
-              color:const Color(0xFF686464),
+              color:Color(0xFF686464),
               fontWeight: FontWeight.w400,fontSize: 14,
             ),),
 
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Container(
-                height: AppSize.s140,
+                height: AppSize.s150,
                 // padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30,),
                 decoration: BoxDecoration(
                   color: ColorManager.white,
@@ -142,7 +146,7 @@ class SendFaxTab extends StatelessWidget {
                             isIconVisible: true,
                           ),
                         ),
-                       const SizedBox(width: 50,),
+                       SizedBox(width: 50,),
                         Flexible(
                           child: SchedularTextField(
                             controller: companyController,
@@ -163,7 +167,7 @@ class SendFaxTab extends StatelessWidget {
                             isIconVisible: true,
                           ),
                         ),
-                        const SizedBox(width: 50,),
+                        SizedBox(width: 50,),
                         Flexible(
                           child: SchedularTextField(
                             controller: phoneController,
@@ -176,32 +180,59 @@ class SendFaxTab extends StatelessWidget {
                   ],
                 ),),
             ),
-            const SizedBox(height:20),
-            CustomIconButtonConst(
-              height: 35,
-                width: 130,
-                text: 'Upload files',
-                icon: Icons.file_upload_outlined,
-                onPressed: () {
-      
-                }),
-            const SizedBox(height:20),
+            SizedBox(height:20),
+            Row(
+              children: [
+                CustomIconButtonConst(
+                  height: 35,
+                    width: 140,
+                    text: 'Upload files',
+                    icon: Icons.file_upload_outlined,
+                    onPressed: () {
+
+                    }),
+SizedBox(width: 40,),
+                Container(
+                  //width:140,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: const Color(
+                            0xffB1B1B1)),
+                    borderRadius:
+                    BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding:
+                    const EdgeInsets
+                        .all(8.0),
+                    child: Text(
+                      'No file chosen'
+                        ,style: CustomTextStylesCommon.commonStyle(
+                    color:Color(0xFF686464),
+                    fontWeight: FontWeight.w400,fontSize: 12,
+                  ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(height:20),
             SchedularTextField(
               width: double.maxFinite,
               controller: typeTextController,
               labelText: 'Type text here',
               isIconVisible: true,
             ),
-            const SizedBox(height:60),
+            SizedBox(height:60),
             Align(
               alignment: Alignment.bottomCenter,
               child: CustomElevatedButton(
                 width: AppSize.s100,
-                text: AppString.save,
+                text:"Send",
                 onPressed: (){},
               ),
             ),
-      
+            SizedBox(height:30),
           ],
         ),
       ),
@@ -235,13 +266,18 @@ class FaxHistoryTab extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           spacing: 25,
                           children: [
-                            const Icon(Icons.contact_page_outlined,color: Color(0xFF686464),),
-                            Container(
-                              width: 250,
-                              child: Text('eFax sent by Warren. No document attached.',style: CustomTextStylesCommon.commonStyle(
-                                color:const Color(0xFF686464),
-                                fontWeight: FontWeight.w400,fontSize: 14,
-                              ),),
+                            Column(
+                              children: [
+                                Image.asset("images/sm/file.png",height: 30,),
+                              ],
+                            ),
+                          //  Icon(Icons.contact_page_outlined,color: Color(0xFF686464),),
+                            SizedBox(
+                              width: 200,
+                              child: Text('eFax sent by Warren. No document attached.',
+                                  style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w500,
+                                    color: ColorManager.mediumgrey,),),
                             )
                           ],
                         ),
@@ -250,11 +286,11 @@ class FaxHistoryTab extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text('05/08/24',style: CustomTextStylesCommon.commonStyle(
-                              color:const Color(0xFF686464),
+                              color:Color(0xFF686464),
                               fontWeight: FontWeight.w400,fontSize: 12,
                             ),),
                             Text('8:17PM',style: CustomTextStylesCommon.commonStyle(
-                              color:const Color(0xFF686464),
+                              color:Color(0xFF686464),
                               fontWeight: FontWeight.w400,fontSize: 12,
                             ),),
                           ],

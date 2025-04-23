@@ -14,79 +14,62 @@ class ContactLogsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: DefaultTabController(
-        length: 2,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 10,),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.6,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: const Border(
-                    top: BorderSide(
-                      color: Color(0xFF579EBA),
-                      width: 5,
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border(
+                  top: BorderSide(color: Color(0xFF1696C8),width: 5)
+              )),
+          child: DefaultTabController(
+            length: 2,
+            child: Column(
+              children: [
+                Container(
+                  width: 250,
+                  decoration: BoxDecoration(
+                    color: ColorManager.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10,bottom: 3),
+                    child: TabBar(
+                      labelColor: Colors.white,
+                      unselectedLabelColor:  ColorManager.textPrimaryColor,
+                      indicator: BoxDecoration(
+                        color: ColorManager.SMFBlue,
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      ),
+                      tabs: [
+                        Tab(child: Text('Call Log',  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                          fontWeight: FontWeight.w700,
+                          color:  ColorManager.textPrimaryColor,),),),
+
+                        Tab(child: Text('E-Fax',  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                          fontWeight: FontWeight.w700,
+                          color:  ColorManager.textPrimaryColor,),),),
+                      ],
                     ),
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 2,
-                      spreadRadius: 0,
-                      offset: const Offset(0, 1.2),
-                    ),
-                  ],
                 ),
-                child: Column(
-                  children: [
-                    Container(
-                      width: 250,
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: TabBar(
-                        labelColor: Colors.white,
-                        unselectedLabelColor:  ColorManager.textPrimaryColor,
-                        indicator: BoxDecoration(
-                          color: ColorManager.SMFBlue,
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-                        tabs: [
-                          Tab(child: Text('Call Log',  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w700,
-                            color:  ColorManager.textPrimaryColor,),),),
-
-                          Tab(child: Text('E-Fax',  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w700,
-                            color:  ColorManager.textPrimaryColor,),),),
-                        ],
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Divider(),
-                    ),
-                     Expanded(
-                      child: TabBarView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          CallLogsTab(),
-                          ///
-                          EFaxTab(),
-                        ],
-                      ),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Divider(),
                 ),
-              ),
-            ],
+                 Expanded(
+                  child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      CallLogsTab(),
+                      ///
+                      EFaxTab(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -115,7 +98,7 @@ class CallLogsTab extends StatelessWidget {
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 5,),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10,),
                 child: Container(
                   height: 50,
                   child: Row(
@@ -192,57 +175,64 @@ class EFaxTab extends StatelessWidget {
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 5,),
-                child: Container(
-                  height: 45,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Column(
-                            children: [
-                              Image.asset("images/sm/file.png",height: 30,),
-                            ],
-                          ),
-                          SizedBox(width: 20,),
-                          Column(
-                            children: [
-                              Text(
-                                'eFax sent by Warren. No document \nattached.',
-                                style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w500,
-                                  color: ColorManager.mediumgrey,),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10,),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      spacing: 25,
+                      children: [
+                        Column(
                           children: [
-                            //SizedBox(height: AppSize.s5),
-                            Text(
-                              '05/08/24',
-                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.mediumgrey,),
-                            ),
-                            SizedBox(height: AppSize.s2),
-                            Text(
-                              '8:17PM',
-                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.mediumgrey,),
-                            ),
+                            Image.asset("images/sm/file.png",height: 30,),
                           ],
                         ),
+                        //SizedBox(width: 20,),
+                        SizedBox(
+                          width: 200,
+                          child: Text('eFax sent by Warren. No document attached.',
+                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w500,
+                              color: ColorManager.mediumgrey,),),
+                        )
+                        // Column(
+                        //   children: [
+                        //     Text(
+                        //       'eFax sent by Warren. No document \nattached.',
+                        //       style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                        //         fontWeight: FontWeight.w500,
+                        //         color: ColorManager.mediumgrey,),
+                        //     ),
+                        //   ],
+                        // )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //SizedBox(height: AppSize.s5),
+                          Text(
+                            '05/08/24',
+                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),
+                          ),
+                          SizedBox(height: AppSize.s2),
+                          Text(
+                            '8:17PM',
+                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                  ],
 
-                  ),
                 )
             );
           }),
