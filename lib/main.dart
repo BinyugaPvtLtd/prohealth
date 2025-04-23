@@ -14,6 +14,7 @@ import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_s
 import 'package:provider/provider.dart';
 
 import 'app/app.dart';
+import 'app/resources/provider/sm_provider/sm_slider_provider.dart';
 import 'oasis_form_builder/services/provider/form_builder_provider.dart';
 import 'presentation/screens/hr_module/hr_home_screen/referesh_provider.dart';
 import 'presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_plan_care/planer_notifier.dart';

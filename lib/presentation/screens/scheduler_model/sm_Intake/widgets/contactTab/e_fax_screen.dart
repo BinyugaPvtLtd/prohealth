@@ -5,6 +5,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart' show CustomTextStylesCommon;
 import '../../../../em_module/widgets/button_constant.dart';
 import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';
@@ -20,7 +21,7 @@ class ContactEFaxScreen extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: Border(
+                border: const Border(
                     top: BorderSide(color: Color(0xFF1696C8),width: 5)
                 )),
             child: DefaultTabController(
@@ -36,21 +37,21 @@ class ContactEFaxScreen extends StatelessWidget {
                         },
                         indicatorWeight: 3,
                         overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                        indicatorPadding: const EdgeInsets.symmetric(horizontal: 15),
                         indicator: BoxDecoration(
                           color: ColorManager.SMFBlue, // Background color for selected tab
                           borderRadius: BorderRadius.circular(8), // Optional
                         ),
                         indicatorSize: TabBarIndicatorSize.label,
                         labelColor: ColorManager.textPrimaryColor,
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                           fontSize: FontSize.s14,
                           fontWeight: FontWeight.w700,
                         ),
                         unselectedLabelColor: ColorManager.textPrimaryColor,
                         dividerColor: Colors.black54,
                         tabs: [
-                          Tab(child: Row(
+                          const Tab(child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: 10,
@@ -59,7 +60,7 @@ class ContactEFaxScreen extends StatelessWidget {
                               Text("Send Fax")
                             ],
                           ),),
-                          Tab(
+                          const Tab(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -74,8 +75,8 @@ class ContactEFaxScreen extends StatelessWidget {
                     ),
                     Container(
                       height: MediaQuery.of(context).size.height / 2, // Adjust height as needed
-                      child: TabBarView(
-                        physics: const NeverScrollableScrollPhysics(),
+                      child: const TabBarView(
+                        physics: NeverScrollableScrollPhysics(),
                         children: [
                           SendFaxTab(),
                           FaxHistoryTab()
@@ -108,9 +109,9 @@ class SendFaxTab extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height:40),
+            const SizedBox(height:40),
             Text('Receiver Information',style: CustomTextStylesCommon.commonStyle(
-              color:Color(0xFF686464),
+              color:const Color(0xFF686464),
               fontWeight: FontWeight.w400,fontSize: 14,
             ),),
 
@@ -141,7 +142,7 @@ class SendFaxTab extends StatelessWidget {
                             isIconVisible: true,
                           ),
                         ),
-                       SizedBox(width: 50,),
+                       const SizedBox(width: 50,),
                         Flexible(
                           child: SchedularTextField(
                             controller: companyController,
@@ -162,7 +163,7 @@ class SendFaxTab extends StatelessWidget {
                             isIconVisible: true,
                           ),
                         ),
-                        SizedBox(width: 50,),
+                        const SizedBox(width: 50,),
                         Flexible(
                           child: SchedularTextField(
                             controller: phoneController,
@@ -175,7 +176,7 @@ class SendFaxTab extends StatelessWidget {
                   ],
                 ),),
             ),
-            SizedBox(height:20),
+            const SizedBox(height:20),
             CustomIconButtonConst(
               height: 35,
                 width: 130,
@@ -184,14 +185,14 @@ class SendFaxTab extends StatelessWidget {
                 onPressed: () {
       
                 }),
-            SizedBox(height:20),
+            const SizedBox(height:20),
             SchedularTextField(
               width: double.maxFinite,
               controller: typeTextController,
               labelText: 'Type text here',
               isIconVisible: true,
             ),
-            SizedBox(height:60),
+            const SizedBox(height:60),
             Align(
               alignment: Alignment.bottomCenter,
               child: CustomElevatedButton(
@@ -234,11 +235,11 @@ class FaxHistoryTab extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           spacing: 25,
                           children: [
-                            Icon(Icons.contact_page_outlined,color: Color(0xFF686464),),
+                            const Icon(Icons.contact_page_outlined,color: Color(0xFF686464),),
                             Container(
                               width: 250,
                               child: Text('eFax sent by Warren. No document attached.',style: CustomTextStylesCommon.commonStyle(
-                                color:Color(0xFF686464),
+                                color:const Color(0xFF686464),
                                 fontWeight: FontWeight.w400,fontSize: 14,
                               ),),
                             )
@@ -249,11 +250,11 @@ class FaxHistoryTab extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text('05/08/24',style: CustomTextStylesCommon.commonStyle(
-                              color:Color(0xFF686464),
+                              color:const Color(0xFF686464),
                               fontWeight: FontWeight.w400,fontSize: 12,
                             ),),
                             Text('8:17PM',style: CustomTextStylesCommon.commonStyle(
-                              color:Color(0xFF686464),
+                              color:const Color(0xFF686464),
                               fontWeight: FontWeight.w400,fontSize: 12,
                             ),),
                           ],

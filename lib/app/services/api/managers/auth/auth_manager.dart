@@ -153,7 +153,7 @@ class AuthManager {
             message: response.data['message'] ?? "");
       }
     } catch (e) {
-      return ApiData(statusCode: 404, success: false, message: "Envalid OTP");
+      return ApiData(statusCode: 404, success: false, message: "Invalid OTP");
     }
   }
 
