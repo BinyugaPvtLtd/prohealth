@@ -207,7 +207,6 @@ class LiveCallTab extends StatelessWidget {
 /// Call logs
 class CallTransictionTab extends StatelessWidget {
   const CallTransictionTab({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Padding(
