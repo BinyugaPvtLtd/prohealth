@@ -43,6 +43,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
   final Widget childCountry;
   final Widget childMaritalStatus;
   final Widget childStatus;
+  final VoidCallback isIButtonPressed;
 
   IntakePatientsDatatInfo(
       {super.key,
@@ -70,7 +71,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
       required this.childRace,
       required this.childLanguage,
 
-      required this.childMaritalStatus, required this.childCountry, required this.childStatus});
+      required this.childMaritalStatus, required this.childCountry, required this.childStatus, required this.isIButtonPressed});
   @override
   Widget build(BuildContext context) {
     String? status = '';
@@ -126,6 +127,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                             children: [
                               Flexible(
                                   child: SchedularTextField(
+                                    isIClicked: isIButtonPressed,
                                 controller: ctlrfirstName,
                                 labelText: 'First Name*',
                                       //showDatePicker:true

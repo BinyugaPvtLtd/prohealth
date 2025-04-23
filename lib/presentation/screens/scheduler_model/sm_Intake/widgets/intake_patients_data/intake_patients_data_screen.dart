@@ -22,7 +22,8 @@ import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 
 class SmIntakeDemographicsScreen extends StatefulWidget {
   final Function(int) onPatientIdGenerated;
-  SmIntakeDemographicsScreen({super.key, required this.onPatientIdGenerated});
+  final VoidCallback iButtonClickd;
+  SmIntakeDemographicsScreen({super.key, required this.onPatientIdGenerated, required this.iButtonClickd});
 
   @override
   State<SmIntakeDemographicsScreen> createState() => _SmIntakeDemographicsScreenState();
@@ -729,7 +730,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         return const Offstage();
                       }
                     },
-                  ),
+                  ), isIButtonPressed: widget.iButtonClickd,
                 ),
                 IntakeRelatedPartiesScreen(
                   patientId: patientId,

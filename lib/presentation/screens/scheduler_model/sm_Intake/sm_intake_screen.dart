@@ -13,6 +13,7 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../em_module/widgets/button_constant.dart';
+import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../widgets/constant_widgets/page_view_menu_button_const.dart';
 import '../widgets/constant_widgets/sm_dial_pad_const.dart';
 import 'new_documation/documation_screen.dart';
@@ -27,7 +28,7 @@ class SMIntakeScreen extends StatefulWidget {
   State<SMIntakeScreen> createState() => _SMIntakeScreenState();
 }
 
-class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProviderStateMixin{
+class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStateMixin{
 
   final PageController intakePageController = PageController(initialPage: 0);
   final PageController intakeContactPageController = PageController(initialPage: 0);
@@ -60,14 +61,21 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
     }
   }
   bool isSidebarOpen = false;
+  bool isSidebarLeftOpen = false;
   late AnimationController _animationController;
-  late Animation<Offset> _slideAnimation;
+   late Animation<Offset> _slideAnimation;
+
+  late AnimationController _animationLeftController;
+  late Animation<Offset> _slideLeftAnimation;
 
   @override
   void initState() {
     super.initState();
 
     _animationController = AnimationController(
+      duration: Duration(milliseconds: 300), vsync: this,
+    );
+    _animationLeftController = AnimationController(
       duration: Duration(milliseconds: 300),
       vsync: this,
     );
@@ -76,15 +84,33 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
       begin: Offset(1.0, 0.0), // Off-screen to the right
       end: Offset(0.0, 0.0), // On-screen
     ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+
+    _slideLeftAnimation = Tween<Offset>(
+      begin: Offset(-1.0, 0.0), // Off-screen to the right
+      end: Offset(0.0, 0.0), // On-screen
+    ).animate(CurvedAnimation(parent: _animationLeftController, curve: Curves.easeInOut));
   }
 
   void toggleSidebar() {
     setState(() {
       isSidebarOpen = !isSidebarOpen;
-      if (isSidebarOpen) {
+      if (isSidebarOpen ) {
+        isSidebarLeftOpen = false;
         _animationController.forward();
       } else {
         _animationController.reverse();
+      }
+    });
+  }
+
+  void toggleLeftSidebar() {
+    setState(() {
+      isSidebarLeftOpen = !isSidebarLeftOpen;
+      if (isSidebarLeftOpen ) {
+        isSidebarOpen = false;
+        _animationLeftController.forward();
+      } else {
+        _animationLeftController.reverse();
       }
     });
   }
@@ -125,6 +151,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
       ),
       body: Stack(
         children: [
+
           Column(
               children: [
             Material(
@@ -253,7 +280,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
                       setState(() {
                         patientId = id;
                       });
-                    },
+                    }, iButtonClickd: toggleLeftSidebar,
                   ),
                   // SMIntakeReferralScreen(patientId: patientId),
                   DocumationScreenTab(),
@@ -265,6 +292,156 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
               ),
             ),
           ]),
+          isSidebarLeftOpen==true ?  GestureDetector(
+            onTap: (){
+              toggleLeftSidebar();
+            },
+            child: Container(
+              color: Colors.transparent, // Make this transparent so it's invisible
+            ),
+          ): Offstage(),
+          AnimatedBuilder(
+            animation: _slideLeftAnimation,
+            builder: (context, child) {
+              return SlideTransition(
+                position: _slideLeftAnimation,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    //height: double.infinity,
+                    color: Colors.white,
+                    padding: EdgeInsets.all(16),
+                    child: SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: MediaQuery.of(context).size.height,
+                        ),
+                        child: IntrinsicHeight(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Text('Records for Others Duplicates',style: CustomTextStylesCommon.commonStyle(
+                                    color:Color(0xFF51B5E6),
+                                    fontWeight: FontWeight.w700,fontSize: 12)),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      spacing: 10,
+                                      children: [
+                                        Text('First Name*',style: CustomTextStylesCommon.commonStyle(
+                                            color:Color(0xFF575757),
+                                            fontWeight: FontWeight.w700,fontSize: 12)),
+                                        Text('Erica',style: CustomTextStylesCommon.commonStyle(
+                                            color:Color(0xFF7F7F7F),
+                                            fontWeight: FontWeight.w400,fontSize: 12))
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      spacing: 10,
+                                      children: [
+                                        Text('Last Name*',style: CustomTextStylesCommon.commonStyle(
+                                        color:Color(0xFF575757),
+                                                            fontWeight: FontWeight.w700,fontSize: 12)),
+                                        Text('Erica2',style: CustomTextStylesCommon.commonStyle(
+                                            color:Color(0xFF7F7F7F),
+                                            fontWeight: FontWeight.w400,fontSize: 12))
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  spacing: 10,
+                                  children: [
+                                    CustomButtonTransparent(
+                                      width: AppSize.s120,
+                                      height: 23,
+                                      //borderRadius: 12,
+                                      text: "Accept Theirs",
+                                      onPressed: () {
+
+                                      },
+                                    ),
+                                    CustomElevatedButton(
+                                      width: AppSize.s120,
+                                      height: 23,
+                                      borderRadius: 12,
+                                      text: "Keep Yours",
+                                      style: TextStyle(fontSize: 10),
+                                      onPressed: (){},
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 15),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: 'Referred from ',
+                                     style: CustomTextStylesCommon.commonStyle(
+                                        color:Color(0xFF686464),
+                                      fontWeight: FontWeight.w700,fontSize: 12),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: 'Abc.pdf. ',
+                                          style: CustomTextStylesCommon.commonStyle(
+                                              color:Color(0xFF51B5E6),
+                                              fontWeight: FontWeight.w700,fontSize: 12),
+                                        ),
+                                        TextSpan(
+                                          text: '(Page No.24)',
+                                          style: CustomTextStylesCommon.commonStyle(
+                                              color:Color(0xFF51B5E6),
+                                              fontWeight: FontWeight.w700,fontSize: 12),
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
+                                  child: Container(
+                                    color: Colors.white,
+                                    padding: EdgeInsets.all(10),
+                                    child: Text('''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        ''',style: CustomTextStylesCommon.commonStyle(
+                                        color:Color(0xFF686464),
+                                        fontWeight: FontWeight.w400,fontSize: 12),),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  ),
+                ),
+              );
+            },
+          ),
           AnimatedBuilder(
             animation: _slideAnimation,
             builder: (context, child) {
