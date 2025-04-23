@@ -107,10 +107,16 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                     //AllPopupHeadings.customTextStyle(context)
                   ),
                   widget.isIconVisible!? SizedBox(height:7) :
-                  SvgPicture.asset(
-                    'images/sm/sm_refferal/i_circle.svg',
-                    height: IconSize.I20,
-                    width: IconSize.I20,
+                  InkWell(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: widget.isIClicked,
+                    child: SvgPicture.asset(
+                      'images/sm/sm_refferal/i_circle.svg',
+                      height: IconSize.I20,
+                      width: IconSize.I20,
+                    ),
                   )
                 ],
               ),
