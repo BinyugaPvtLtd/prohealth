@@ -31,21 +31,19 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(right: 80,left: 80,bottom: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 35),
           child: Column(
             children: [
-              SizedBox(height: AppSize.s10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                Text(
-                  'Review and confirm the data pulled is correct',
-            style: TextStyle(fontSize: FontSize.s12,
-            fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
-            color: ColorManager.granitegray,),)
-        
-              ],),
-              SizedBox(height: AppSize.s5,),
+              Padding(
+                padding: const EdgeInsets.only(top: AppSize.s25,bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('Review and confirm the data pulled is correct',
+                        style: SMItalicTextConst.customTextStyle(context))
+                  ],
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -57,7 +55,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
         
                 ],),
               SizedBox(height: AppSize.s10,),
-              BlueBGHeadConst(HeadText: "Clinical Attachments"),
+              BlueBGHeadConst(HeadText: "Clinical Attachments*"),
               SizedBox(height: AppSize.s10,),
              Padding(
                padding: const EdgeInsets.symmetric(horizontal: 35),
@@ -385,7 +383,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
         
               ///
               SizedBox(height: AppSize.s30,),
-              BlueBGHeadConst(HeadText: "Billing Attachments"),
+              BlueBGHeadConst(HeadText: "Billing Attachments*"),
               SizedBox(height: AppSize.s10,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 35),
@@ -727,6 +725,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                               child: SchedularTextField(
                                   controller:ffdateController ,
                                   labelText: 'F2F Date:',
+                                  enable: false,
                                   showDatePicker:true
                               )),
                           SizedBox(width: AppSize.s58),
@@ -744,6 +743,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                           SizedBox(width: AppSize.s58),
                           Flexible(
                               child: SchedularTextFieldcheckbox(
+                                enable: false,
                                   controller: ffpostController,
                                   labelText: 'Post-op Visit Note Needed',
                                   showDatePicker:true,
@@ -755,6 +755,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                           SizedBox(width: AppSize.s58),
                           Flexible(
                               child: SchedularTextFieldcheckbox(
+                                enable: false,
                                   controller: ffappoController,
                                   labelText: 'F2F Appointment Needed',
                                   showDatePicker:true,

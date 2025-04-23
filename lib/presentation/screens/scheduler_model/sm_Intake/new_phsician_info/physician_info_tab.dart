@@ -45,56 +45,24 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
   @override
   Widget build(BuildContext context) {
     return
-      // backgroundColor: ColorManager.white,
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.only(right: 90), // Shift left by 10
-      //   child: FloatingActionButton(
-      //     onPressed: () {
-      //       // Your onPressed action here
-      //     },
-      //     backgroundColor: ColorManager.bluebottom,
-      //     child: Padding(
-      //       padding: const EdgeInsets.all(5),
-      //       child: Column(
-      //         mainAxisAlignment: MainAxisAlignment.center,
-      //         children: [
-      //           Icon(Icons.call,size: 22,),
-      //           SizedBox(height: 3,),
-      //           Text(
-      //             "Contact",
-      //             style: CustomTextStylesCommon.commonStyle(
-      //               fontSize: FontSize.s10,
-      //               fontWeight: FontWeight.w500,
-      //               color: ColorManager.white,
-      //             ),
-      //             textAlign: TextAlign.center,
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
-
  SingleChildScrollView(
   child: Padding(
-    padding: const EdgeInsets.only(right: 80,left: 80,bottom: 5),
+    padding: const EdgeInsets.symmetric(horizontal: 35),
     child: Column(
       children: [
-        SizedBox(height: AppSize.s10,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              'Review and confirm the data pulled is correct',
-              style: TextStyle(fontSize: FontSize.s12,
-                fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
-                color: ColorManager.granitegray,),)
+        Padding(
+          padding: const EdgeInsets.only(top: AppSize.s25,bottom: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                'Review and confirm the data pulled is correct',
+                style: SMItalicTextConst.customTextStyle(context))
 
-          ],),
-        SizedBox(height: AppSize.s5,),
+            ],),
+        ),
 
-        BlueBGHeadConst(HeadText: "Certifying F2F Physician or allowed practitioner"),
+        BlueBGHeadConst(HeadText: "Certifying F2F Physician Or Allowed Practitioner"),
         SizedBox(height: AppSize.s10,),
 
         Padding(
@@ -204,6 +172,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                   Flexible(
                       child: SchedularTextField(
                           controller: zipcodeController,
+                          onlyAllowNumbers: true,
                           labelText: "Zip Code*")
                   )
 
@@ -225,8 +194,9 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                 //  SizedBox(width: AppSize.s35),
                   Flexible(
                       child: SchedularTextField(
+                        phoneField: true,
                         controller: phonenumberController,
-                        labelText: "Primary Name*",
+                        labelText: "Phone Number*",
                       )),
                   SizedBox(width: AppSize.s35),
                   Flexible(
@@ -313,7 +283,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                       children: [
                         Text('Physician Verified',
                             style:  AllPopupHeadings.customTextStyle(context)),
-                        SizedBox(height: 1),
+                        SizedBox(height: 10),
                         Row(
                           children: [
                             CustomRadioListTileSMp(
@@ -388,7 +358,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
           padding: const EdgeInsets.symmetric(vertical: 40),
           child: Divider(),
         ),
-        BlueBGHeadConst(HeadText: "Other Physicians or allowed practitioner"),
+        BlueBGHeadConst(HeadText: "Other Physicians Or Allowed Practitioner"),
         SizedBox(height: AppSize.s20,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

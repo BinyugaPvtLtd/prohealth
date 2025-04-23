@@ -701,7 +701,11 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: (){},
-                              child: Icon(Icons.info_outline,color: ColorManager.blueprime,size: IconSize.I18,))
+                              child: SvgPicture.asset(
+                                'images/sm/sm_refferal/i_circle.svg',
+                                height: IconSize.I20,
+                                width: IconSize.I20,
+                              ))
                         ],),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,

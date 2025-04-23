@@ -13,7 +13,7 @@ class BlueBGHeadConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 32,
+      height: AppSize.s33,
       decoration: BoxDecoration(
         color: ColorManager.SMFBlue,
       ),

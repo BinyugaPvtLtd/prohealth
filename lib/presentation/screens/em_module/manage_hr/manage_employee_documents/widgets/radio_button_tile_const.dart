@@ -113,14 +113,19 @@ class _CustomRadioListTileSMpState extends State<CustomRadioListTileSMp> {
         children: [
            Transform.scale(
              scale: 1.5,
-            child: Radio<String>(
-              splashRadius: 0,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              value: widget.value,
-              groupValue: widget.groupValue,
-              onChanged: widget.onChanged,
-              activeColor: ColorManager.bluebottom,
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                unselectedWidgetColor: ColorManager.bluebottom, // border color when not selected
+              ),
+              child: Radio<String>(
+                splashRadius: 0,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                value: widget.value,
+                groupValue: widget.groupValue,
+                onChanged: widget.onChanged,
+                activeColor: ColorManager.bluebottom,
+              ),
             ),
           ),
           const SizedBox(width: 8),

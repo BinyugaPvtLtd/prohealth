@@ -91,10 +91,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Review and confirm the data pulled is correct',style: CustomTextStylesCommon.commonStyle(
-                      color:Color(0xFF575757),
-                      fontWeight: FontWeight.w300,fontSize: 12,fontStyle: FontStyle.italic,
-                    ))
+                    Text('Review and confirm the data pulled is correct',
+                        style: SMItalicTextConst.customTextStyle(context))
                   ],
                 ),
               ),
@@ -110,9 +108,13 @@ class IntakePrimaryScreen extends StatelessWidget {
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularTextField(
-                                  controller: pharmaSelectDB,
-                                  labelText: 'Select from Database')),
+                              child: CustomDropdownTextFieldsm(headText: 'Select from Database',items: ["A",'B'],
+                      onChanged: (newValue) {
+                      })),
+
+                              // SchedularTextField(
+                              //     controller: pharmaSelectDB,
+                              //     labelText: 'Select from Database')),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -184,7 +186,6 @@ class IntakePrimaryScreen extends StatelessWidget {
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
-
                             child:FutureBuilder<List<StateData>>(
                               future: getStateDropDown(context),
                               builder: (context, snapshot) {
@@ -222,6 +223,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                           Flexible(
                               child: SchedularTextField(
                                   controller: pharmacyzipcode,
+                                  onlyAllowNumbers: true,
                                   labelText: 'Zip Code*')),
 
 
@@ -288,7 +290,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                               children: [
                                 Text('Insurance Verified',
                                     style:  AllPopupHeadings.customTextStyle(context)),
-                                SizedBox(height: 1),
+                                SizedBox(height: 10),
                                 Row(
                                   children: [
                                     CustomRadioListTileSMp(
@@ -467,6 +469,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: AppSize.s30),
                   ],
                 )
                 ),
