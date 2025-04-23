@@ -333,6 +333,7 @@ class FileThumbnail extends StatelessWidget {
     required this.onClose,
   }) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
