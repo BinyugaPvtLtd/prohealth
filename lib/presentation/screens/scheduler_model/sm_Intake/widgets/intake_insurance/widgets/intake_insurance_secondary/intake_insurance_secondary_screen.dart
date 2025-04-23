@@ -106,10 +106,8 @@ class IntakeSecondaryScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('Review and confirm the data pulled is correct',style: CustomTextStylesCommon.commonStyle(
-                        color:Color(0xFF575757),
-                        fontWeight: FontWeight.w300,fontSize: 12,fontStyle: FontStyle.italic,
-                      ))
+                      Text('Review and confirm the data pulled is correct',
+                          style: SMItalicTextConst.customTextStyle(context))
                     ],
                   ),
                 ),
@@ -125,9 +123,10 @@ class IntakeSecondaryScreen extends StatelessWidget {
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularTextField(
-                                  controller: pharmaSelectDB,
-                                  labelText: 'Select from Database')),
+                              child: CustomDropdownTextFieldsm(headText: 'Select from Database',
+                      items: ['B','A'],
+                      onChanged: (newValue) {
+                      })),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -237,6 +236,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                           Flexible(
                               child: SchedularTextField(
                                   controller: pharmacyzipcode,
+                                  onlyAllowNumbers: true,
                                   labelText: 'Zip Code*')),
 
 
@@ -303,7 +303,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                               children: [
                                 Text('Insurance Verified',
                                     style:  AllPopupHeadings.customTextStyle(context)),
-                                SizedBox(height: 6),
+                                SizedBox(height: 10),
                                 Row(
                                   children: [
                                     CustomRadioListTileSMp(
@@ -342,7 +342,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                   child: BlueBGHeadConst(HeadText: "Suggested Care & Diagnosis"),
                 ),
                 Container(
-                    height: AppSize.s380,
+                    height: AppSize.s400,
                     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30,vertical: AppPadding.p15 ),
                     //child: SingleChildScrollView(
                     child: Column(

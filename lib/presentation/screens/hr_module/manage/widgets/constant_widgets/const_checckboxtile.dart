@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -10,12 +11,13 @@ class CheckboxTile extends StatefulWidget {
   final bool initialValue;
   final Function(bool)? onChanged;
   final bool? isInfoIconVisible;
+  final Image? icon;
 
   CheckboxTile({
     this.isInfoIconVisible = false,
     required this.title,
     this.initialValue = false,
-    this.onChanged,
+    this.onChanged, this.icon,
   });
 
   @override
@@ -64,23 +66,30 @@ class _CheckboxTileState extends State<CheckboxTile> {
         SizedBox(
           width: 10,
         ),
-        Text(
-          widget.title,
-          style: CustomTextStylesCommon.commonStyle(
-            fontSize: AppSize.s12,
-            fontWeight: FontWeight.w700,
-            color: ColorManager.greylight,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.title,
+              style: CustomTextStylesCommon.commonStyle(
+                fontSize: AppSize.s12,
+                fontWeight: FontWeight.w700,
+                color: ColorManager.greylight,
+              ),
+            ),
+            SizedBox(width: 10,),
+            widget.isInfoIconVisible!
+                ? widget.icon ??
+                SvgPicture.asset(
+              'images/sm/sm_refferal/i_circle.svg',
+              height: IconSize.I20,
+              width: IconSize.I20,
+            )
+                : Offstage()
+          ],
         ),
-        SizedBox(
-          width: 10,
-        ),
-        widget.isInfoIconVisible!
-            ? const Icon(
-                Icons.info_outline_rounded,
-                color: Color(0xFF50B5E5),
-              )
-            : Offstage()
+       //
+
       ],
     );
   }

@@ -107,7 +107,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
     return Column(
       children: [
         // if (showProfileBar) IntakeProfileBar(),
-         SizedBox(height: AppSize.s15),
+         SizedBox(height: AppSize.s25),
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -183,101 +183,6 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                   ],
                 ),
               ),
-              ///
-              // SizedBox(width: MediaQuery.of(context).size.width / 5),
-              // if (selectedIndex == 0)
-              //   Container(
-              //     height: AppSize.s26,
-              //     width: AppSize.s102,
-              //     child: ElevatedButton(
-              //       onPressed: () async {
-              //         final companyId = await TokenManager.getCompanyId();
-              //         // String? dateOfDeath = ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text;
-              //         ApiData result = await IntakeInfoSave(
-              //           context,
-              //           ctlrSos.text,
-              //           //"2024-08-12",
-              //           ctlrMedicalRecord.text,
-              //           selectedStatus!.toString() ?? '',
-              //           // 'Pending',
-              //           ctlrfirstName.text,
-              //           ctlrLastName.text,
-              //           ctlrMI.text,
-              //           ctlrSuffix.text,
-              //           statusType ?? '',
-              //           //"2024-08-12",
-              //           ctlrDate.text,
-              //           ctlrStreet.text,
-              //           selectedState!.toString(),
-              //           // "291000",//
-              //           ctlrZipCode.text,
-              //           ctlrApartment.text,
-              //           selectedcity!.toString(),
-              //           selectedCountry.toString() ?? '',
-              //           ctlrMajorStreet.text,
-              //           ctlrPrimeNo.text,
-              //           ctlrSecNo.text,
-              //           ctlrEmail.text,
-              //           ctlrSocialSec.text,
-              //           selectedLanguage.toString() ?? '',
-              //           ctlrDischargeResaon.text,
-              //           selectedRace.toString() ?? '',
-              //           selectedReligion.toString() ?? '',
-              //           selectedMaritalStatus.toString() ?? '',
-              //           //"2024-08-12",
-              //           // ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
-              //           ctlrDateOfDeath.text.isEmpty
-              //               ? null
-              //               : ctlrDateOfDeath.text,
-              //           0,
-              //           'At Land OSC',
-              //           'case',
-              //           'Type',
-              //           companyId,
-              //         );
-              //
-              //         if (result.success) {
-              //           patientId = result.patientId!;
-              //           widget.onPatientIdGenerated(patientId);
-              //           ctlrMedicalRecord.clear();
-              //           ctlrfirstName.clear();
-              //           ctlrLastName.clear();
-              //           ctlrMI.clear();
-              //           ctlrSuffix.clear();
-              //           ctlrStreet.clear();
-              //           ctlrZipCode.clear();
-              //           ctlrApartment.clear();
-              //           ctlrCity.clear();
-              //           ctlrMajorStreet.clear();
-              //           ctlrPrimeNo.clear();
-              //           ctlrSecNo.clear();
-              //           ctlrEmail.clear();
-              //           ctlrSocialSec.clear();
-              //           ctlrDischargeResaon.clear();
-              //         } else {}
-              //       },
-              //       child: Text(
-              //         AppString.save,
-              //         style: CustomTextStylesCommon.commonStyle(
-              //           fontSize: FontSize.s14,
-              //           fontWeight: FontWeight.w700,
-              //           color: ColorManager.white,
-              //         ),
-              //       ),
-              //       style: ElevatedButton.styleFrom(
-              //         padding: const EdgeInsets.symmetric(
-              //           horizontal: 25,
-              //           vertical: 10,
-              //         ),
-              //         backgroundColor: ColorManager.blueprime,
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(12),
-              //         ),
-              //       ),
-              //     ),
-              //   )
-              // else
-              //   SizedBox(width: AppSize.s80),
             ]),
         const SizedBox(height: AppSize.s10),
         Expanded(
@@ -589,7 +494,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         return SchedularTextField(
                             width: 350,
                             controller: dummyCtrl,
-                            labelText: 'State');
+                            labelText: 'State*');
                       }
                       if (snapshot.hasData) {
                         List<DropdownMenuItem<String>> dropDownList = [];
@@ -601,7 +506,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         }
 
                         return CustomDropdownTextFieldsm(
-                            headText: 'State',
+                            headText: 'State*',
                             dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
@@ -622,7 +527,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return SchedularTextField(
-                            controller: dummyCtrl, labelText: 'County');
+                            controller: dummyCtrl, labelText: 'Country*');
                       }
                       if (snapshot.hasData) {
                         List<DropdownMenuItem<String>> dropDownList = [];
@@ -634,7 +539,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         }
 
                         return CustomDropdownTextFieldsm(
-                            headText: 'Country',
+                            headText: 'Country*',
                             dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
@@ -693,7 +598,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         return SchedularTextField(
                           width: 400,
                           controller: dummyCtrl,
-                          labelText: 'City',
+                          labelText: 'City*',
                         );
                       }
                       if (snapshot.hasData) {
@@ -706,7 +611,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         }
 
                         return CustomDropdownTextFieldsm(
-                            headText: 'City',
+                            headText: 'City*',
                             dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
@@ -727,7 +632,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return SchedularTextField(
-                            controller: dummyCtrl, labelText: 'Race');
+                            controller: dummyCtrl, labelText: 'Residence Type');
                       }
                       if (snapshot.hasData) {
                         List<DropdownMenuItem<String>> dropDownList = [];
@@ -739,7 +644,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         }
 
                         return CustomDropdownTextFieldsm(
-                            headText: 'Race  / Ethnicity',
+                            headText: 'Residence Type',
                             dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {

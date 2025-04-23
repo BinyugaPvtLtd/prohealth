@@ -8,6 +8,7 @@ import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_da
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
@@ -95,9 +96,8 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Review and confirm the data pulled is correct',style: CustomTextStylesCommon.commonStyle(
-                        color:Color(0xFF575757),
-                        fontWeight: FontWeight.w300,fontSize: 12))
+                    Text('Review and confirm the data pulled is correct',
+                        style: SMItalicTextConst.customTextStyle(context))
                   ],
                 ),
               ),
@@ -207,7 +207,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ConnectionState.waiting) {
                                   return CustomDropdownTextFieldsm(
                                     initialValue: 'Select',
-                                    headText: 'City',items: [],
+                                    headText: 'City*',items: [],
                                     onChanged: (newValue) {
                               
                                     },);
@@ -221,7 +221,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ));
                                   }
                               
-                                  return CustomDropdownTextFieldsm(headText: 'City',dropDownMenuList: dropDownList,
+                                  return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
                                     onChanged: (newValue) {
                                       for (var a in snapshot.data!) {
                                         if (a.cityName == newValue) {
@@ -313,7 +313,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ConnectionState.waiting) {
                                   return CustomDropdownTextFieldsm(
                                     initialValue: 'Select',
-                                    headText: 'State',items: [],
+                                    headText: 'State*',items: [],
                                     onChanged: (newValue) {
                               
                                     },);
@@ -327,7 +327,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ));
                                   }
                               
-                                  return CustomDropdownTextFieldsm(headText: 'State',dropDownMenuList: dropDownList,
+                                  return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
                                     onChanged: (newValue) {
                                       for (var a in snapshot.data!) {
                                         if (a.name == newValue) {
@@ -369,6 +369,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                           Flexible(
                               child: SchedularTextField(
                                   controller: zipCodeController,
+                                  onlyAllowNumbers: true,
                                   labelText: "Zip Code*")),
                               
                         ],
@@ -385,7 +386,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                           Flexible(
                               child: SchedularTextField(
                                   controller: emailController,
-                                  labelText: "Email*")),
+                                  labelText: "Email")),
                            // Empty container for alignment
                           SizedBox(width: AppSize.s35),
                           Flexible(child: Container()),
@@ -397,7 +398,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                       ),
                       SizedBox(height: AppSize.s16),
                       CustomIconButtonConst(
-                          width: 200,
+                          width:  AppSize.s200,
                           text: 'Add Emergency Contact',
                           icon: Icons.add,
                           onPressed: () {
@@ -539,7 +540,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ConnectionState.waiting) {
                                   return CustomDropdownTextFieldsm(
                                     initialValue: 'Select',
-                                    headText: 'City',items: [],
+                                    headText: 'City*',items: [],
                                     onChanged: (newValue) {
                   
                                     },);
@@ -553,7 +554,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ));
                                   }
                   
-                                  return CustomDropdownTextFieldsm(headText: 'City',dropDownMenuList: dropDownList,
+                                  return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
                                     onChanged: (newValue) {
                                       for (var a in snapshot.data!) {
                                         if (a.cityName == newValue) {
@@ -645,7 +646,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ConnectionState.waiting) {
                                   return CustomDropdownTextFieldsm(
                                     initialValue: 'Select',
-                                    headText: 'State',items: [],
+                                    headText: 'State*',items: [],
                                     onChanged: (newValue) {
                   
                                     },);
@@ -659,7 +660,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ));
                                   }
                   
-                                  return CustomDropdownTextFieldsm(headText: 'State',dropDownMenuList: dropDownList,
+                                  return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
                                     onChanged: (newValue) {
                                       for (var a in snapshot.data!) {
                                         if (a.name == newValue) {
@@ -701,6 +702,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                           Flexible(
                               child: SchedularTextField(
                                   controller: zipCodePCController,
+                                  onlyAllowNumbers: true,
                                   labelText: "Zip Code*")),
                   
                         ],
@@ -717,7 +719,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                           Flexible(
                               child: SchedularTextField(
                                   controller: emailPCController,
-                                  labelText: "Email*")),
+                                  labelText: "Email")),
                           // Empty container for alignment
                           SizedBox(width: AppSize.s35),
                           Flexible(child: Container()),
@@ -729,7 +731,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                       ),
                       SizedBox(height: AppSize.s16),
                       CustomIconButtonConst(
-                          width: 160,
+                          width: AppSize.s140,
                           text: 'Add Caregiver',
                           icon: Icons.add,
                           onPressed: () {
@@ -878,7 +880,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ConnectionState.waiting) {
                                   return CustomDropdownTextFieldsm(
                                     initialValue: 'Select',
-                                    headText: 'City',items: [],
+                                    headText: 'City*',items: [],
                                     onChanged: (newValue) {
                   
                                     },);
@@ -892,7 +894,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ));
                                   }
                   
-                                  return CustomDropdownTextFieldsm(headText: 'City',dropDownMenuList: dropDownList,
+                                  return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
                                     onChanged: (newValue) {
                                       for (var a in snapshot.data!) {
                                         if (a.cityName == newValue) {
@@ -922,7 +924,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ConnectionState.waiting) {
                                   return CustomDropdownTextFieldsm(
                                     initialValue: 'Select',
-                                    headText: 'State',items: [],
+                                    headText: 'State*',items: [],
                                     onChanged: (newValue) {
                   
                                     },);
@@ -936,7 +938,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     ));
                                   }
                   
-                                  return CustomDropdownTextFieldsm(headText: 'State',dropDownMenuList: dropDownList,
+                                  return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
                                     onChanged: (newValue) {
                                       for (var a in snapshot.data!) {
                                         if (a.name == newValue) {
@@ -958,6 +960,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                           Flexible(
                               child: SchedularTextField(
                                   controller: zipCodePRController,
+                                  onlyAllowNumbers: true,
                                   labelText: "Zip Code*")),
                   
                         ],
@@ -974,7 +977,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                           Flexible(
                               child: SchedularTextField(
                                   controller: emailPRController,
-                                  labelText: "Email*")),
+                                  labelText: "Email")),
                           // Empty container for alignment
                           SizedBox(width: AppSize.s35),
                           Flexible(child: Container()),
@@ -986,7 +989,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                       ),
                       SizedBox(height: AppSize.s16),
                       CustomIconButtonConst(
-                          width: 200,
+                          width:  AppSize.s170,
                           text: 'Add Representative',
                           icon: Icons.add,
                           onPressed: () {
@@ -1015,6 +1018,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: AppSize.s30),
 
             ],
           ),

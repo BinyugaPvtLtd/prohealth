@@ -104,16 +104,19 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.call,size: 22,),
-                SizedBox(height: 3,),
-                Text(
-                  "Contact",
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontSize: FontSize.s10,
-                    fontWeight: FontWeight.w500,
-                    color: ColorManager.white,
+                Icon(Icons.call,size: 18,),
+                SizedBox(height: 2,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                  child: Text(
+                    "Contact",
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontSize: FontSize.s9,
+                      fontWeight: FontWeight.w500,
+                      color: ColorManager.white,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 )
               ],
             ),
@@ -142,7 +145,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
                 padding: EdgeInsets.only(left: 30, right: 60),
                 //margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  padding: const EdgeInsets.only(left: 50,top: 10,right: 50),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
@@ -270,7 +273,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.39,
                     //height: double.infinity,
                     color: Colors.white,
                     padding: EdgeInsets.all(16),
@@ -353,7 +356,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with SingleTickerProvid
                         color: ColorManager.white,
                         elevation: 2,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50),
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [

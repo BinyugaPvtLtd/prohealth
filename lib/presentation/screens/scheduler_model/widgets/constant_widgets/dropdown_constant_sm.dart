@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -69,7 +70,7 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
                   constraints: BoxConstraints(
                     maxHeight: 250, // Restrict height for scroll
                   ),
-                  child: Scrollbar(
+                  child: SingleChildScrollView(
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: widget.items?.length ?? widget.dropDownMenuList?.length ?? 0,
@@ -122,7 +123,11 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
                   style: AllPopupHeadings.customTextStyle(context)
                 //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
               ),
-              widget.isIconVisible! ? Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),) : Offstage()
+              widget.isIconVisible! ? SvgPicture.asset(
+                'images/sm/sm_refferal/i_circle.svg',
+                height: IconSize.I20,
+                width: IconSize.I20,
+              ) : Offstage()
             ],
           ),
         ),
@@ -135,7 +140,7 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
           child: GestureDetector(
             onTap: _showDropdownDialog,
             child: Container(
-              padding: const EdgeInsets.only(bottom: 3, top: 4, left: 4),
+              padding: const EdgeInsets.only(bottom: 3, top: 4, left: AppPadding.p10,right: AppPadding.p7),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
@@ -145,7 +150,7 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
                 children: [
                   Text(
                     _selectedValue ?? widget.hintText ?? 'Select',
-                    style: DocumentTypeDataStyle.customTextStyle(context),
+                    style: TableSubHeading.customTextStyle(context),//DocumentTypeDataStyle.customTextStyle(context),
                   ),
                   Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime,),
                 ],

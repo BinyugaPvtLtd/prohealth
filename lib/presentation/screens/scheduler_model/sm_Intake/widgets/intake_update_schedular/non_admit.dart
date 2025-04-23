@@ -103,7 +103,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onPressed: _toggleFilter,
-                      icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 15,)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                      icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: AppSize.s18,width: AppSize.s16)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                   ),
                 ],
               ),

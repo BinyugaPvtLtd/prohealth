@@ -72,7 +72,7 @@ class InformationUpdateScreen extends StatelessWidget {
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onPressed: (){},
-                          icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: 15,)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                          icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: AppSize.s18,width: AppSize.s16)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                       ),
                     ],
                   ),
@@ -429,7 +429,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                           child:Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              Icon(Icons.block,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
+                                              Icon(Icons.block_flipped,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
                                               SizedBox(height: 8,),
                                               Text("Non-Admit",
                                                 style: TextStyle(
