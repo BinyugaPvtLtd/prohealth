@@ -198,6 +198,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                         ],
                                       ),
                                     ),
+
                                     childBody: Padding(
                                       padding: const EdgeInsets.only(bottom: 5.0),
                                       child: SfCartesianChart(
