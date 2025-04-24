@@ -488,6 +488,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           PopupMenuButton<String>(
                                             tooltip: '',
                                             splashRadius: 0,
+                                            offset: Offset(0, 40), // Show below the button
                                             onSelected: (value) {
                                               if (value == 'Merge Duplicate') {
                                                 Future.microtask(() {
@@ -502,24 +503,34 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                                               PopupMenuItem<String>(
                                                 value: 'Merge Duplicate',
-                                                child: Text('Merge Duplicate',
-                                                style: CustomTextStylesCommon.commonStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: FontSize.s12,
-                                                  color: ColorManager.mediumgrey,
-                                                ),),
+                                                child: Container(
+                                                  width: 90, // 🎯 Set desired width here
+                                                  child: Text(
+                                                    'Merge Duplicate',
+                                                    style: CustomTextStylesCommon.commonStyle(
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize: FontSize.s12,
+                                                      color: ColorManager.mediumgrey,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                               PopupMenuItem<String>(
                                                 value: 'Archived',
-                                                child: Text('Archived',
-                                                  style: CustomTextStylesCommon.commonStyle(
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: FontSize.s12,
-                                                    color: ColorManager.mediumgrey,
-                                                  ),),
+                                                child: Container(
+                                                  width:90, // 🎯 Same width for consistency
+                                                  child: Text(
+                                                    'Archived',
+                                                    style: CustomTextStylesCommon.commonStyle(
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize: FontSize.s12,
+                                                      color: ColorManager.mediumgrey,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ],
-                                            child: Icon(Icons.more_vert, color: ColorManager.mediumgrey,),
+                                            child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
                                           ),
                                           SizedBox(width: AppSize.s9),
                                         ],

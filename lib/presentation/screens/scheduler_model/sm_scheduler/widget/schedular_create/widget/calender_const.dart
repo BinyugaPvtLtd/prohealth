@@ -571,6 +571,63 @@ class _CalenderConstantState extends State<CalenderConstant> {
                       ],
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 35),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        spacing: 50,
+                        children:[
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            spacing: 10,
+                            children: [
+                              CircleAvatar(
+                                radius: 25,
+                                child: Image.asset('images/bg.jpg',fit: BoxFit.cover,),
+                              ),
+                              Text('John',style: CustomTextStylesCommon.commonStyle(
+                                  color:Color(0xFF686464),
+                                  fontWeight: FontWeight.w600,fontSize: 12),),
+                              Container(
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(3),color: Color(0xFF527FB9)),
+                                padding: EdgeInsets.symmetric(horizontal: 6,vertical: 3),
+                                child: Center(
+                                  child: Text('ST',style: CustomTextStylesCommon.commonStyle(
+                                      color:Colors.white,
+                                      fontWeight: FontWeight.w400,fontSize: 9)),
+                                ),
+                              ),
+                              Icon(Icons.circle,size: 9,color: Color(0xFFF6928A),)
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            spacing: 10,
+                            children: [
+                              CircleAvatar(
+                                radius: 25,
+                                child: Image.asset('images/bg.jpg',fit: BoxFit.fill,),
+                              ),
+                              Text('Thomas',style: CustomTextStylesCommon.commonStyle(
+                                  color:Color(0xFF686464),
+                                  fontWeight: FontWeight.w600,fontSize: 12)),
+                              Container(
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(3),color: Color(0xFFFEBD4D)),
+                                padding: EdgeInsets.symmetric(horizontal: 6,vertical: 3),
+                                child: Center(
+                                  child: Text('OT',style: CustomTextStylesCommon.commonStyle(
+                                      color:Colors.white,
+                                      fontWeight: FontWeight.w400,fontSize: 9)),
+                                ),
+                              ),
+                              Icon(Icons.circle,size: 9,color: Colors.black,)
+                            ],
+                          )
+
+                      ]
+                    ),
+                  ),
                   Expanded(
                     child: Container(
                       color: Colors.redAccent,
