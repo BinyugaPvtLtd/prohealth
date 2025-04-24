@@ -776,7 +776,6 @@ class _SocPageViewState extends State<SocPageView> {
             height: 460,
             width: 550,
 
-
             child: ChatBotContainer(
               onClose: _toggleChatbotVisibility,
             ),
