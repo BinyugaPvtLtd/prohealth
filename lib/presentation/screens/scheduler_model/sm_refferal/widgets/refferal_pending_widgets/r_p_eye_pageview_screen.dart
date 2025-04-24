@@ -445,7 +445,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Insurance  #1',
+                              'Insurance #${index + 1}',
                               style: AllPopupHeadings.customTextStyle(context),
                             ),
                             Row(mainAxisAlignment: MainAxisAlignment.start,
@@ -566,7 +566,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                             ),
                             SizedBox(height: 10,),
                             Divider(
-                              color: ColorManager.containerBorderGrey,
+                             // color: ColorManager.containerBorderGrey,
                               thickness: 1,
                               height: 30,
                             ),
