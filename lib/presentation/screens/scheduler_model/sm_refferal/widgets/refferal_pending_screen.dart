@@ -406,7 +406,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                     child: Row(
                                       children: [
 
-                                        Image.asset('images/logo_login.png',width: 100,),
+                                        Image.asset('images/logo_login.png',width: 110,),
                                        // Text("Manual",style: DocDefineTableData.customTextStyle(context),),
                                       ],
                                     ),
@@ -414,9 +414,10 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                   Expanded(
                                       flex: 3,
                                       child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                         Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
-                                         SizedBox(width: AppSize.s28),
+                                         SizedBox(width: AppSize.s25),
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(60),
                                           child: SizedBox(
@@ -434,7 +435,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           textAlign: TextAlign.center,
                                           style: DocDefineTableData.customTextStyle(context),
                                         ),
-                                        SizedBox(width: AppSize.s10),
+                                        SizedBox(width: AppSize.s15),
                                           InkWell(
                                             onTap: () async {
                                               try {

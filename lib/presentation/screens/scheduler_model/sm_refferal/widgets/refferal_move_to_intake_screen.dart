@@ -304,7 +304,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                     child: Row(
                                       children: [
 
-                                        Image.asset('images/logo_login.png',width: 100,),
+                                        Image.asset('images/logo_login.png',width: 110,),
                                         // Text("Manual",style: DocDefineTableData.customTextStyle(context),),
                                       ],
                                     ),
@@ -314,7 +314,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                       child: Row(
                                         children: [
                                           Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
-                                          SizedBox(width: AppSize.s30),
+                                          SizedBox(width: AppSize.s28),
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(60),
                                             child: SizedBox(
@@ -332,7 +332,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                             textAlign: TextAlign.center,
                                             style: DocDefineTableData.customTextStyle(context),
                                           ),
-                                          SizedBox(width: AppSize.s15),
+                                          SizedBox(width: AppSize.s20),
                                           InkWell(
                                             onTap: () async {
                                               try {
