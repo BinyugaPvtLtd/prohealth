@@ -332,74 +332,71 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                 Column(
                   children: [
                     Container(
-                      height: 400,
-                      child:  ScrollConfiguration(
-                        behavior: ScrollBehavior().copyWith(scrollbars: false),
-                        child: ListView.builder(
-                          itemCount: 4, // Adjust as needed
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 0.0,vertical: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(height: 90,width: 5,color: ColorManager.greenDark,),
-                                      SizedBox(width: AppSize.s30,),
-                                      Expanded(
-                                        child: SchedularTextField(
-                                          controller: possibleDiagnosisController,
-                                          labelText: 'Possible Diagnosis',
-                                          enable: false,
-                                        )
-                                      ),
-                                      SizedBox(width: AppSize.s60,),
-                                      Expanded(
-                                        child: SchedularTextField(
-                                          controller: icdCodeController,
-                                          labelText: 'ICD Code',
-                                          enable: false,
+                      child:  ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 4, // Adjust as needed
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 0.0,vertical: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(height: 90,width: 5,color: ColorManager.greenDark,),
+                                    SizedBox(width: AppSize.s30,),
+                                    Expanded(
+                                      child: SchedularTextField(
+                                        controller: possibleDiagnosisController,
+                                        labelText: 'Possible Diagnosis',
+                                        enable: false,
+                                      )
+                                    ),
+                                    SizedBox(width: AppSize.s60,),
+                                    Expanded(
+                                      child: SchedularTextField(
+                                        controller: icdCodeController,
+                                        labelText: 'ICD Code',
+                                        enable: false,
 
-                                        )
+                                      )
+                                    ),
+                                    SizedBox(width: AppSize.s60,),
+                                    Expanded(
+                                      child: SchedularTextField(
+                                        isIconVisible: true,
+                                        enable: false,
+                                        controller: pDGMAcceptController,
+                                        labelText: 'PDGM - Acceptable',
                                       ),
-                                      SizedBox(width: AppSize.s60,),
-                                      Expanded(
-                                        child: SchedularTextField(
-                                          isIconVisible: true,
-                                          enable: false,
-                                          controller: pDGMAcceptController,
-                                          labelText: 'PDGM - Acceptable',
-                                        ),
+                                    ),
+                                    SizedBox(width: AppSize.s30,),
+                                    Expanded(
+                                      child: Container(
+                                        height: 30,
+                                        width: AppSize.s354,
                                       ),
-                                      SizedBox(width: AppSize.s30,),
-                                      Expanded(
-                                        child: Container(
-                                          height: 30,
-                                          width: AppSize.s354,
-                                        ),
+                                    ),
+                                    SizedBox(width: AppSize.s30,),
+                                    Expanded(
+                                      child: Container(
+                                        height: 30,
+                                        width: AppSize.s354,
                                       ),
-                                      SizedBox(width: AppSize.s30,),
-                                      Expanded(
-                                        child: Container(
-                                          height: 30,
-                                          width: AppSize.s354,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Divider(),
-                                  // Divider(
-                                  //   color: ColorManager.containerBorderGrey,
-                                  //   thickness: 1,
-                                  //   height: 1,
-                                  // ),
-                                  SizedBox(height: AppSize.s15,),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                // Divider(
+                                //   color: ColorManager.containerBorderGrey,
+                                //   thickness: 1,
+                                //   height: 1,
+                                // ),
+                                SizedBox(height: AppSize.s15,),
+                              ],
+                            ),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(height: AppSize.s16),
