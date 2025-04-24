@@ -158,7 +158,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
+                                padding: const EdgeInsets.only(left: 7.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
 
@@ -215,8 +215,9 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                    SizedBox(width: 8,),
                                     Expanded(
-                                      flex: 3,
+                                      flex: 4,
                                       child: Container(
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -306,7 +307,10 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding:EdgeInsets.symmetric(vertical: 13),
-                              child: Text('Tracking Notes',style:AllPopupHeadings.customTextStyle(context))),
+                              child: Text('Tracking Notes',style: SMTextfieldHeadings.customTextStyle(context)
+                                //AllPopupHeadings.customTextStyle(context)
+                              )),
+                          SizedBox(width: AppSize.s10,),
                           SchedularTextField(
                             isIconVisible:true,
                             enable: false,
@@ -323,346 +327,242 @@ class SMIntakeOrdersScreen extends StatelessWidget {
               ),
               SizedBox(height: AppSize.s40),
               BlueBGHeadConst(HeadText: "Primary Diagnosis"),
-              IntakeFlowContainerConst(
-                height: AppSize.s400,
-                child: Column(
-                  spacing: 16,
-                  children: [
-                    Container(
-                    height: AppSize.s100,
-                   // padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
-                    decoration: BoxDecoration(
-                      color: ColorManager.white,
-                      // borderRadius: BorderRadius.circular(5),
-                      // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
-                      border: Border(
-                        bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey),
-                      ),//all(width: 1, color: Color(0xFFBCBCBC)),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: ColorManager.black.withOpacity(0.2),
-                      //     spreadRadius: 0,
-                      //     blurRadius: 4,
-                      //     offset: Offset(0, 4),
-                      //   ),
-                      // ],
-                    ),child:Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          VerticalDivider(
-                            color: Colors.red,
-                            thickness: 4.5,
-                          ),
-                          SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                    controller: possibleDiagnosisController,
-                                    labelText: 'Possible Diagnosis',
-                                    enable: false,
-                                  )),
-                              SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                    controller: icdCodeController,
-                                    labelText: 'ICD Code',
-                                    enable: false,
-
-                                  )),
-                              SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top:4),
-                                    child: SchedularTextField(
-                                      isIconVisible: true,
-                                      enable: false,
-                                      controller: pDGMAcceptController,
-                                      labelText: 'PDGM - Acceptable',
-
+              Column(
+                children: [
+                  Container(
+                    height: 400,
+                    child:  ScrollConfiguration(
+                      behavior: ScrollBehavior().copyWith(scrollbars: false),
+                      child: ListView.builder(
+                        itemCount: 4, // Adjust as needed
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 0.0,vertical: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(height: 90,width: 5,color: ColorManager.greenDark,),
+                                    SizedBox(width: AppSize.s30,),
+                                    Expanded(
+                                      child: SchedularTextField(
+                                        controller: possibleDiagnosisController,
+                                        labelText: 'Possible Diagnosis',
+                                        enable: false,
+                                      )
                                     ),
-                                  )),
-                              SizedBox(width: AppSize.s35),
-                              Flexible(child: SizedBox()),
+                                    SizedBox(width: AppSize.s60,),
+                                    Expanded(
+                                      child: SchedularTextField(
+                                        controller: icdCodeController,
+                                        labelText: 'ICD Code',
+                                        enable: false,
 
+                                      )
+                                    ),
+                                    SizedBox(width: AppSize.s60,),
+                                    Expanded(
+                                      child: SchedularTextField(
+                                        isIconVisible: true,
+                                        enable: false,
+                                        controller: pDGMAcceptController,
+                                        labelText: 'PDGM - Acceptable',
+                                      ),
+                                    ),
+                                    SizedBox(width: AppSize.s30,),
+                                    Expanded(
+                                      child: Container(
+                                        height: 30,
+                                        width: AppSize.s354,
+                                      ),
+                                    ),
+                                    SizedBox(width: AppSize.s30,),
+                                    Expanded(
+                                      child: Container(
+                                        height: 30,
+                                        width: AppSize.s354,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                // Divider(
+                                //   color: ColorManager.containerBorderGrey,
+                                //   thickness: 1,
+                                //   height: 1,
+                                // ),
+                                SizedBox(height: AppSize.s15,),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: AppSize.s16),
+                  CustomIconButtonConst(
+                      width: 150,
+                      text: 'Add Diagnosis',
+                      icon: Icons.add,
+                      onPressed: () {
 
-
-                          // CheckboxTile(
-                          //   title: 'No Emergency Contact',
-                          //   initialValue: noEmergencyData,
-                          //   onChanged: (value) {
-                          //
-                          //   },
-                          // )
-                        ],
-                      ),),
-                    Container(
-                      height: AppSize.s100,
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        border: Border(
-                          bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey),
-                        ),//all(width: 1, color: Color(0xFFBCBCBC)),
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //     color: ColorManager.black.withOpacity(0.2),
-                        //     spreadRadius: 0,
-                        //     blurRadius: 4,
-                        //     offset: Offset(0, 4),
-                        //   ),
-                        // ],
-                      ),child:Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        VerticalDivider(
-                          color: Colors.green,
-                          thickness: 4.5,
-                        ),
-                        SizedBox(width: AppSize.s35),
-                        Flexible(
-                            child: SchedularTextField(
-                              controller: possibleDiagnosisController,
-                              labelText: 'Possible Diagnosis',
-                              enable: false,
-
-                            )),
-                        SizedBox(width: AppSize.s35),
-                        Flexible(
-                            child: SchedularTextField(
-                              controller: icdCodeController,
-                              labelText: 'ICD Code',
-                              enable: false,
-
-                            )),
-                        SizedBox(width: AppSize.s35),
-                        Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top:4),
-                              child: SchedularTextField(
-                                isIconVisible: true,
-                                enable: false,
-                                controller: pDGMAcceptController,
-                                labelText: 'PDGM - Acceptable',
-
-                              ),
-                            )),
-                        SizedBox(width: AppSize.s35),
-                        Flexible(child: SizedBox()),
-
-
-
-                        // CheckboxTile(
-                        //   title: 'No Emergency Contact',
-                        //   initialValue: noEmergencyData,
-                        //   onChanged: (value) {
-                        //
-                        //   },
-                        // )
-                      ],
-                    ),),
-
-                    // Container(
-                    //   height:AppSize.s500,
-                    //   child: ListView.builder(
-                    //     itemCount: 4,
-                    //     itemBuilder: (context,index) {
-                    //       return IntakeFlowContainerConst(
-                    //         isColorVisible: true,
-                    //         dividerColor: Colors.red,
-                    //         height: AppSize.s250,
-                    //         child: Row(
-                    //                 mainAxisAlignment: MainAxisAlignment.end,
-                    //                 children: [
-                    //                   Column(
-                    //                     children: [
-                    //                       Flexible(
-                    //                           child: SchedularTextField(
-                    //                             controller: possibleDiagnosisController,
-                    //                             labelText: 'Possible Diagnosis',
-                    //
-                    //                           )),
-                    //                       SizedBox(height: AppSize.s14,),
-                    //                       Flexible(
-                    //                           child: SchedularTextField(
-                    //                             controller: icdCodeController,
-                    //                             labelText: 'ICD Code',
-                    //
-                    //                           )),
-                    //                       SizedBox(height: AppSize.s14,),
-                    //                       Flexible(
-                    //                           child: SchedularTextField(
-                    //                             controller: pDGMAcceptController,
-                    //                             labelText: 'PDGM - Acceptable',
-                    //
-                    //                           )),
-                    //                       SizedBox(height: AppSize.s14,),
-                    //                       Flexible(
-                    //                           child: SizedBox()),
-                    //
-                    //                     ],
-                    //                   ),
-                    //
-                    //                   // CheckboxTile(
-                    //                   //   title: 'No Emergency Contact',
-                    //                   //   initialValue: noEmergencyData,
-                    //                   //   onChanged: (value) {
-                    //                   //
-                    //                   //   },
-                    //                   // )
-                    //                 ],
-                    //               ),
-                    //       );
-                    //     }
-                    //   ),
-                    // ),
-                    SizedBox(height: AppSize.s16),
-                    CustomIconButtonConst(
-                        width: 150,
-                        text: 'Add Diagnosis',
-                        icon: Icons.add,
-                        onPressed: () {
-
-                        }),
-                  ],
-                ),
+                      }),
+                  SizedBox(height: AppSize.s16),
+                  Divider()
+                ],
               ),
               SizedBox(height: AppSize.s40),
               BlueBGHeadConst(HeadText: "Special Orders"),
               IntakeFlowContainerConst(
                 height: AppSize.s200,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
                   children: [
-                    Column(
-                      crossAxisAlignment:CrossAxisAlignment.start,
-                        children:[
-                          CheckboxTile(
-                            title: 'Dementia',
-                            initialValue: isDementia,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
+                    Row(children: [
+                      Padding(
+                          padding:EdgeInsets.only(top: 20,),
+                          child: Text('Flags',style: SMTextfieldHeadings.customTextStyle(context)
+                            //AllPopupHeadings.customTextStyle(context)
+                          )),
+                    ],),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment:CrossAxisAlignment.start,
+                            children:[
+                              CheckboxTile(
+                                title: 'Dementia',
+                                initialValue: isDementia,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
 
-                            },
-                          ),
-                          CheckboxTile(
-                            title: 'Catheter Care',
-                            initialValue: isCatheterCare,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
+                                },
+                              ),
+                              CheckboxTile(
+                                title: 'Catheter Care',
+                                initialValue: isCatheterCare,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
 
-                            },
-                          )
+                                },
+                              )
 
-                        ]
+                            ]
+                        ),
+                        Column(
+                            crossAxisAlignment:CrossAxisAlignment.start,
+                            children:[
+                              CheckboxTile(
+                                title: 'Wound Care',
+                                initialValue: isWoundCare,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
+
+                                },
+                              ),
+                              CheckboxTile(
+                                title: 'Zen Med',
+                                initialValue: isZenMed,
+                                onChanged: (value) {
+
+                                },
+                              )
+
+                            ]
+                        ),
+
+                        Column(
+                            crossAxisAlignment:CrossAxisAlignment.start,
+                            children:[
+                              CheckboxTile(
+                                title: 'Ortho Patient',
+                                initialValue: isOrthoPatient,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
+
+                                },
+                              ),
+                              CheckboxTile(
+                                title: 'PT/INR',
+                                initialValue: isPtInr,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
+
+                                },
+                              )
+
+                            ]
+                        ),
+                        Column(
+                            crossAxisAlignment:CrossAxisAlignment.start,
+                            children:[
+                              CheckboxTile(
+                                title: 'Labs Ordered',
+                                initialValue: isLabsOrder,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
+
+                                },
+                              ),
+                              CheckboxTile(
+                                title: 'Infusion/IV',
+                                initialValue: isInfusionIv,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
+
+                                },
+                              )
+
+                            ]
+                        ),
+                        Column(
+                            crossAxisAlignment:CrossAxisAlignment.start,
+                            children:[
+                              CheckboxTile(
+                                title: 'Ostomy Care',
+                                initialValue: isOstomyCare,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
+
+                                },
+                              ),
+                              CheckboxTile(
+                                title: 'Rehospitalization Risk',
+                                initialValue: isRehospicRisk,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
+
+                                },
+                              )
+
+                            ]
+                        ),
+                        Column(
+                            crossAxisAlignment:CrossAxisAlignment.start,
+                            children:[
+                              CheckboxTile(
+                                title: 'ECH',
+                                initialValue: isEch,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
+
+                                },
+                              ),
+                              CheckboxTile(
+                                title: 'ECH SNF',
+                                initialValue: isEchSnf,
+                                isInfoIconVisible: true,
+                                onChanged: (value) {
+
+                                },
+                              )
+
+                            ]
+                        )
+                      ],
                     ),
-                    Column(
-                        crossAxisAlignment:CrossAxisAlignment.start,
-                        children:[
-                          CheckboxTile(
-                            title: 'Wound Care',
-                            initialValue: isWoundCare,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
-
-                            },
-                          ),
-                          CheckboxTile(
-                            title: 'Zen Med',
-                            initialValue: isZenMed,
-                            onChanged: (value) {
-
-                            },
-                          )
-
-                        ]
-                    ),
-
-                    Column(
-                        crossAxisAlignment:CrossAxisAlignment.start,
-                        children:[
-                          CheckboxTile(
-                            title: 'Ortho Patient',
-                            initialValue: isOrthoPatient,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
-
-                            },
-                          ),
-                          CheckboxTile(
-                            title: 'PT/INR',
-                            initialValue: isPtInr,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
-
-                            },
-                          )
-
-                        ]
-                    ),
-                    Column(
-                        crossAxisAlignment:CrossAxisAlignment.start,
-                        children:[
-                          CheckboxTile(
-                            title: 'Labs Ordered',
-                            initialValue: isLabsOrder,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
-
-                            },
-                          ),
-                          CheckboxTile(
-                            title: 'Infusion/IV',
-                            initialValue: isInfusionIv,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
-
-                            },
-                          )
-
-                        ]
-                    ),
-                    Column(
-                        crossAxisAlignment:CrossAxisAlignment.start,
-                        children:[
-                          CheckboxTile(
-                            title: 'Ostomy Care',
-                            initialValue: isOstomyCare,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
-
-                            },
-                          ),
-                          CheckboxTile(
-                            title: 'Rehospitalization Risk',
-                            initialValue: isRehospicRisk,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
-
-                            },
-                          )
-
-                        ]
-                    ),
-                    Column(
-                        crossAxisAlignment:CrossAxisAlignment.start,
-                        children:[
-                          CheckboxTile(
-                            title: 'ECH',
-                            initialValue: isEch,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
-
-                            },
-                          ),
-                          CheckboxTile(
-                            title: 'ECH SNF',
-                            initialValue: isEchSnf,
-                            isInfoIconVisible: true,
-                            onChanged: (value) {
-
-                            },
-                          )
-
-                        ]
-                    )
                   ],
                 ),
               ),

@@ -80,8 +80,8 @@ class CustomButtonTransparent extends StatefulWidget {
    CustomButtonTransparent({
     required this.text,
     required this.onPressed,
-     this.height,
-     this.width,
+     this.height = AppSize.s35,
+     this.width = AppSize.s100,
     Key? key,
   }) : super(key: key);
 
@@ -96,7 +96,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
   Widget build(BuildContext context) {
     return isLoading
         ? CircularProgressIndicator( color: ColorManager.blueprime,)
-        :SizedBox(height: AppSize.s35,width: AppSize.s100,
+        :SizedBox(height: widget.height,width: widget.width,
 
           child: ElevatedButton(
                 onPressed: () async{

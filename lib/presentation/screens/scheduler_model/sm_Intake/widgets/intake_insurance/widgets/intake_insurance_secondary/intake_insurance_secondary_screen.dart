@@ -302,7 +302,9 @@ class IntakeSecondaryScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Insurance Verified',
-                                    style:  AllPopupHeadings.customTextStyle(context)),
+                                    style:  SMTextfieldHeadings.customTextStyle(context)
+                                  //AllPopupHeadings.customTextStyle(context)
+                                ),
                                 SizedBox(height: 10),
                                 Row(
                                   children: [
@@ -348,7 +350,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                     child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 55.0),
                             child: Container(
                               height: AppSize.s88,
                               padding: const EdgeInsets.only(right: AppPadding.p30, ),
@@ -420,43 +422,46 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           style: DocDefineTableDataID.customTextStyle(context)),
                                     ],),
                                   ],),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      IconButton(
-                                        splashColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        onPressed: () {
-                                        },
-                                        icon: Icon(
-                                          Icons.edit_outlined,
-                                          color: ColorManager.mediumgrey,
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 70.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        IconButton(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          onPressed: () {
+                                          },
+                                          icon: Icon(
+                                            Icons.edit_outlined,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                          iconSize: IconSize.I22,
                                         ),
-                                        iconSize: IconSize.I22,
-                                      ),
-                                      SizedBox(width: AppSize.s10,),
-                                      IconButton(
-                                        onPressed: () {
-                                        },
-                                        icon: Icon(
-                                          Icons.delete_outline,
-                                          color: ColorManager.mediumgrey,
+                                        SizedBox(width: AppSize.s10,),
+                                        IconButton(
+                                          onPressed: () {
+                                          },
+                                          icon: Icon(
+                                            Icons.delete_outline,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          iconSize:IconSize.I22,
                                         ),
-                                        splashColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        iconSize:IconSize.I22,
-                                      ),
-                                    ],
-                                  )
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
                           ),
                           SizedBox(height: AppSize.s25),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 59.0),
                             child: Row(children: [
                               Expanded(
                                   flex: 2,
@@ -468,7 +473,9 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                         Row(children: [
                                           Padding(
                                               padding:EdgeInsets.only(top: 20,right: 20),
-                                              child: Text('Authorization #2',style:AllPopupHeadings.customTextStyle(context))),
+                                              child: Text('Authorization #2',style:SMTextfieldHeadings.customTextStyle(context)
+                                                //AllPopupHeadings.customTextStyle(context)
+                                              )),
                                           CustomDropdownTextFieldsm(
                                             width:205,
                                             isIconVisible: false,
@@ -498,14 +505,17 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                     Row(children: [
                                       Expanded(
                                         child: Center(
-                                          child: Text('Disciplice',
-                                              style: DocDefineTableDataID.customTextStyle(context)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 5.0),
+                                            child: Text('Disciplice',
+                                                style: DocDefineTableDataID.customTextStyle(context)),
+                                          ),
                                         ),
                                       ),
                                       Expanded(
                                         child: Center(
                                           child: Padding(
-                                            padding: const EdgeInsets.only(right: 55.0),
+                                            padding: const EdgeInsets.only(right: 50.0),
                                             child: Text('Authorized',
                                                 style: DocDefineTableDataID.customTextStyle(context)),
                                           ),
@@ -567,7 +577,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 90.0),
+                                      padding: const EdgeInsets.only(bottom: 90.0,right: 60),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -619,7 +629,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                 ),
                 Container(
                     height: AppSize.s200,
-                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30,vertical: AppPadding.p15 ),
+                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p40,vertical: AppPadding.p15 ),
                     //child: SingleChildScrollView(
                     child: Column(
                         children: [

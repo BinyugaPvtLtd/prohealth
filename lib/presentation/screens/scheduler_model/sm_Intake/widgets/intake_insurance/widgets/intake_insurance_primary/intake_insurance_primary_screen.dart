@@ -289,7 +289,9 @@ class IntakePrimaryScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Insurance Verified',
-                                    style:  AllPopupHeadings.customTextStyle(context)),
+                                    style:  SMTextfieldHeadings.customTextStyle(context)
+                                    //AllPopupHeadings.customTextStyle(context)
+                                    ),
                                 SizedBox(height: 10),
                                 Row(
                                   children: [

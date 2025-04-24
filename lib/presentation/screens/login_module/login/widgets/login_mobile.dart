@@ -82,9 +82,9 @@ class _LoginMobileState extends State<LoginMobile> {
                     if (value == null || value.isEmpty) {
                       return AppString.enteremail;
                     }
-                    // if (!emailRegex.hasMatch(value)) {
-                    //   return AppString.entervalidemail;
-                    // }
+                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                      return AppString.entervalidemail;
+                    }
                     return null;
                   },
                   onFieldSubmitted: (_) async {

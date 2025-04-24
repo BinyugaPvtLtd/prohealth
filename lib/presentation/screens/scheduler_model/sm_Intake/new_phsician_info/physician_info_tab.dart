@@ -282,7 +282,9 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Physician Verified',
-                            style:  AllPopupHeadings.customTextStyle(context)),
+                            style:  SMTextfieldHeadings.customTextStyle(context)
+                          //AllPopupHeadings.customTextStyle(context)
+                        ),
                         SizedBox(height: 10),
                         Row(
                           children: [

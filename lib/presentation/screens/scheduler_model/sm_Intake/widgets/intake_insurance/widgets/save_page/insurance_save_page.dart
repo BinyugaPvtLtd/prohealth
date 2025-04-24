@@ -51,7 +51,7 @@ class InsuranceSavePage extends StatelessWidget {
             ),
             BlueBGHeadConst(HeadText: "Policy Details"),
             Container(
-              height: 300,
+              height: 320,
               child: Column(
                 children: [
                   SizedBox(
@@ -105,40 +105,36 @@ class InsuranceSavePage extends StatelessWidget {
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
                               const SizedBox(
-                                height: AppSize.s10,
+                                height: AppSize.s15,
                               ),
                               Text('Code:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Street:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Street:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('Suite/Apt#:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('City:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('State:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Zip Code:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Phone Number:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
@@ -154,41 +150,39 @@ class InsuranceSavePage extends StatelessWidget {
                               Text('Medicare Home Health',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('60001',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
                               SizedBox(
-                                height: AppSize.s10,
+                                height: AppSize.s15,
                               ),
                               Text('P.O. Box 7149',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
                               SizedBox(
-                                height: AppSize.s10,
+                                height: AppSize.s15,
                               ),
                               Text('Indianapolis',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('IN',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('46207',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
@@ -205,41 +199,35 @@ class InsuranceSavePage extends StatelessWidget {
                               Text('Category:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              const SizedBox(height: AppSize.s15,),
                               Text('Type:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Policy/HIC Number:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Group Number:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('Group Name:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('Effective From:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Effective To:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDark.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
@@ -255,41 +243,35 @@ class InsuranceSavePage extends StatelessWidget {
                               Text('Medicare - Episodic',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('Not Applicable',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('1234567890',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('01/01/2025',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('12/31/2025',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
@@ -310,7 +292,7 @@ class InsuranceSavePage extends StatelessWidget {
                                     style: DocDefineTableData.customTextStyle(
                                         context)),
                                 const SizedBox(
-                                  height: AppSize.s10,
+                                  height: AppSize.s15,
                                 ),
                                 Text('Eligibility Status:',
                                     style: DocDefineTableData.customTextStyle(
@@ -331,9 +313,7 @@ class InsuranceSavePage extends StatelessWidget {
                                       fontWeight: FontWeight.w700,
                                       color: Color(0xff04BF00),
                                     )),
-                                SizedBox(
-                                  height: AppSize.s10,
-                                ),
+                                SizedBox(height: AppSize.s15,),
                                 Text('Active Coverage',
                                     style: ThemeManagerDarkFont.customTextStyle(context)),
                               ],
@@ -381,7 +361,7 @@ class InsuranceSavePage extends StatelessWidget {
             BlueBGHeadConst(HeadText: "Attachments"),
 
             SizedBox(
-              height: 30,
+              height: 50,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -400,7 +380,7 @@ class InsuranceSavePage extends StatelessWidget {
             ),
             BlueBGHeadConst(HeadText: "Policy Details"),
             Container(
-              height: 300,
+              height: 320,
               child: Column(
                 children: [
                   SizedBox(
@@ -453,41 +433,35 @@ class InsuranceSavePage extends StatelessWidget {
                               Text('Name:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              const SizedBox(height: AppSize.s15,),
                               Text('Code:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Street:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Street:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('Suite/Apt#:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('City:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('State:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Zip Code:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Phone Number:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
@@ -503,41 +477,35 @@ class InsuranceSavePage extends StatelessWidget {
                               Text('Medicare Home Health',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('60001',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('P.O. Box 7149',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('Indianapolis',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('IN',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('46207',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
@@ -554,41 +522,35 @@ class InsuranceSavePage extends StatelessWidget {
                               Text('Category:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              const SizedBox(height: AppSize.s15,),
                               Text('Type:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Policy/HIC Number:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Group Number:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('Group Name:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('Effective From:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('Effective To:',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDark.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
@@ -604,41 +566,35 @@ class InsuranceSavePage extends StatelessWidget {
                               Text('Medicare - Episodic',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('Not Applicable',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('1234567890',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(height: AppSize.s15,),
                               Text('01/01/2025',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('12/31/2025',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: ThemeManagerDarkFont.customTextStyle(
                                       context)),
-                              const SizedBox(height: AppSize.s10),
+                              const SizedBox(height: AppSize.s15),
                               Text('',
                                   style: DocDefineTableData.customTextStyle(
                                       context)),
@@ -659,7 +615,7 @@ class InsuranceSavePage extends StatelessWidget {
                                     style: DocDefineTableData.customTextStyle(
                                         context)),
                                 const SizedBox(
-                                  height: AppSize.s10,
+                                  height: AppSize.s15,
                                 ),
                                 Text('Eligibility Status:',
                                     style: DocDefineTableData.customTextStyle(
@@ -681,7 +637,7 @@ class InsuranceSavePage extends StatelessWidget {
                                       color: Color(0xff04BF00),
                                     )),
                                 SizedBox(
-                                  height: AppSize.s10,
+                                  height: AppSize.s15,
                                 ),
                                 Text('Active Coverage',
                                     style: ThemeManagerDarkFont.customTextStyle(context)),

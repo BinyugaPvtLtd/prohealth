@@ -33,9 +33,11 @@ class SchedularTextField extends StatefulWidget {
   final bool? isIconVisible;
   final double? borderRadius;
   final bool? onlyAllowNumbers;
+  final VoidCallback? isIClicked;
 
    SchedularTextField({
     Key? key,
+     this.isIClicked,
      this.isIconVisible = false,
     this.phoneField = false,
     required this.labelText,
@@ -99,16 +101,21 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                      widget.labelText,
-                      style: AllPopupHeadings.customTextStyle(context)
-                    //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+                  Text(widget.labelText,
+                      style: SMTextfieldHeadings.customTextStyle(context)
+                    //AllPopupHeadings.customTextStyle(context)
                   ),
                   widget.isIconVisible!? SizedBox(height:7) :
-                  SvgPicture.asset(
-                    'images/sm/sm_refferal/i_circle.svg',
-                    height: IconSize.I20,
-                    width: IconSize.I20,
+                  InkWell(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: widget.isIClicked,
+                    child: SvgPicture.asset(
+                      'images/sm/sm_refferal/i_circle.svg',
+                      height: IconSize.I20,
+                      width: IconSize.I20,
+                    ),
                   )
                 ],
               ),
@@ -279,15 +286,15 @@ class _SchedularTextFieldcheckboxState extends State<SchedularTextFieldcheckbox>
               SizedBox(width: 2,),
               Text(
                   widget.labelText,
-                  style: AllPopupHeadings.customTextStyle(context)
-                //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+                  style: SMTextfieldHeadings.customTextStyle(context)
+                //AllPopupHeadings.customTextStyle(context)
               ),
              // Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
             ],
           ),
           SizedBox(height: 2,),
           Padding(
-            padding: const EdgeInsets.only(left: 25),
+            padding: const EdgeInsets.only(left: 33),
             child: InkWell(
               hoverColor: Colors.transparent,
               splashColor: Colors.transparent,
@@ -315,7 +322,7 @@ class _SchedularTextFieldcheckboxState extends State<SchedularTextFieldcheckbox>
                       suffixIcon: widget.showDatePicker
                           ? GestureDetector(
                         onTap: () => _selectDate(context),
-                        child: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,size: 18,),
+                        child: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,size: IconSize.I22,),
                       )
                           : widget.icon,
                       prefix: widget.prefixWidget,
@@ -469,8 +476,8 @@ class _SchedularTextFieldnoState extends State<SchedularTextFieldno> {
               children: [
                 Text(
                     widget.labelText,
-                    style: AllPopupHeadings.customTextStyle(context)
-                  //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+                    style: SMTextfieldHeadings.customTextStyle(context)
+                  //AllPopupHeadings.customTextStyle(context)
                 ),
                 // Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
               ],

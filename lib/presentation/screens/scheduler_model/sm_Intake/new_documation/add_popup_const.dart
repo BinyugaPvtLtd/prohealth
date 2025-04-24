@@ -21,8 +21,8 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-      width: AppSize.s420,
-      height: AppSize.s500,
+      width: AppSize.s400,
+      height: AppSize.s430,
       body: [
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -80,7 +80,6 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                 ),
               ),
             ),
-
             /// upload  doc
             HeaderContentConst(
               isAsterisk: false,
@@ -132,8 +131,7 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                 ),
               ),
             ),
-            SizedBox(height: 60,),
-            SizedBox(height: 20,),
+            SizedBox(height: 50,),
           ],
         ),
         // Visibility(
@@ -201,17 +199,7 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
         //   ),
         // ),
       ],
-      bottomButtons:
-      // editDocProvider.load
-      //     ? SizedBox(
-      //   height: AppSize.s30,
-      //   width: AppSize.s30,
-      //   child: CircularProgressIndicator(
-      //     color: ColorManager.blueprime,
-      //   ),
-      // )
-      //     :
-      CustomElevatedButton(
+      bottomButtons: CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
         text: AppStringEM.submit,

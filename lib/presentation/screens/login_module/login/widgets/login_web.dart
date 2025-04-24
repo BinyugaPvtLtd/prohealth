@@ -145,8 +145,11 @@ class _LoginWebState extends State<LoginWeb> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return AppString.enteremail;
+                              }if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                                return AppString.entervalidemail;
                               }
-                               SizedBox(height: AppSize.s12,);
+                              return null;
+                              // SizedBox(height: AppSize.s12,);
                             },
                             onFieldSubmitted: (_) {
                               _getOtpByEmail();

@@ -136,7 +136,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
-                                        flex: 2,
+                                        flex: 3,
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -201,7 +201,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 1,
+                                        flex: 2,
                                         child:  SizedBox(
                                                       width: 100,
                                                       child:Text("Apollo Hospital, Washington DC",
@@ -229,9 +229,9 @@ class InformationUpdateScreen extends StatelessWidget {
                                         //   ],
                                        // ),
                                       ),
-                                      // SizedBox(width: 10,),
+                                      SizedBox(width: 20),
                                       Expanded(
-                                        flex: 4,
+                                        flex: 5,
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.center,

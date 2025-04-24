@@ -1668,7 +1668,6 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                                                 ),
                                                                 Text(
                                                                   "Document 1",
-                                                                  //policiesdata.fileName.toString(),
                                                                   textAlign:
                                                                       TextAlign
                                                                           .center,

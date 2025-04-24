@@ -122,7 +122,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                     },
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding: const EdgeInsets.only(left: 8.0,top: 5),
                     child: SchedularTextField(
                       width: 203,
                       isIconVisible: true,
@@ -176,7 +176,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
             BlueBGHeadConst(HeadText: "Scheduling Requests"),
             Container(
               height: 250,
-              padding: EdgeInsets.only(top: 50,left: 30,bottom: 20),
+              padding: EdgeInsets.only(top: 50,left: 28,bottom: 20),
               child: Column(children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,7 +230,9 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                 Row(children: [
                   Padding(
                       padding:EdgeInsets.only(top: 20,right: 20),
-                      child: Text('Notes',style:AllPopupHeadings.customTextStyle(context))),
+                      child: Text('Notes',style: SMTextfieldHeadings.customTextStyle(context)
+                        //AllPopupHeadings.customTextStyle(context)
+                      )),
                   SchedularTextField(
                     isIconVisible:true,
                     width: 395,

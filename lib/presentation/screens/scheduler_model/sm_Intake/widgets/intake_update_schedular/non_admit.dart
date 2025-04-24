@@ -163,7 +163,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                             SizedBox(height: AppSize.s5),
                             Container(
                               height: AppSize.s90,
-                              padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                              padding: EdgeInsets.only(left: AppPadding.p20),
                               // margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
                               decoration: BoxDecoration(
                                 color: ColorManager.white,
@@ -181,305 +181,329 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                   ),
                                 ],
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                              child: Column(
                                 children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(50),
-                                            child: SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.asset(
-                                                'images/hr_dashboard/man.png', // Replace with your image path
-                                                fit: BoxFit.cover,
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children:[
+                                        Container(
+                                            width: AppSize.s105,
+                                            height: AppSize.s16,
+                                            decoration: BoxDecoration(
+                                              color: ColorManager.bluebottom.withOpacity(0.12),
+                                              borderRadius: BorderRadius.only(topRight: Radius.circular(8)),),
+                                            child: Center(
+                                              child: Text(
+                                                  'Chart #2',
+                                                  textAlign: TextAlign.center,
+                                                  style: CustomTextStylesCommon.commonStyle(
+                                                      color: ColorManager.bluebottom,
+                                                      fontSize: FontSize.s11,
+                                                      fontWeight: FontWeight.w400)),
+                                            )),
+                                      ]
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(50),
+                                                child: SizedBox(
+                                                  width: 50,
+                                                  height: 50,
+                                                  child: Image.asset(
+                                                    'images/hr_dashboard/man.png', // Replace with your image path
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                        SizedBox(width: 12,),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "John Smith",
-                                              textAlign: TextAlign.center,
-                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w700,
-                                                color: ColorManager.mediumgrey,),
-                                            ),
-                                            SizedBox(height: 5,),
-                                            Text(
-                                              "Intake Date: 09/15/2024",
-                                              textAlign: TextAlign.center,
-                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorManager.mediumgrey,),
-                                            ),
-                                            SizedBox(height: 3,),
-                                            Row(
+                                            SizedBox(width: 20,),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "Potential DC Date :",
+                                                  "John Smith",
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontWeight: FontWeight.w700,
                                                     color: ColorManager.mediumgrey,),
                                                 ),
+                                                SizedBox(height: 5,),
                                                 Text(
-                                                  " 11/26/2024",
+                                                  "Intake Date: 09/15/2024",
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w400,
                                                     color: ColorManager.mediumgrey,),
                                                 ),
+                                                SizedBox(height: 3,),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      "Potential DC Date :",
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: ColorManager.mediumgrey,),
+                                                    ),
+                                                    Text(
+                                                      " 11/26/2024",
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w400,
+                                                        color: ColorManager.mediumgrey,),
+                                                    ),
 
+                                                  ],
+                                                ),
                                               ],
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: 15,),
-                                  Expanded(
-                                    flex: 1,
-                                    child:  Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: SizedBox(
-                                        width: 100,
-                                        child:Text("Apollo Hospital, Washington DC",
-                                          textAlign: TextAlign.start,
-                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w500,
-                                            color: ColorManager.textBlack,),
-                                        ) ,
                                       ),
-                                    ),
-
-                                  ),
-                                SizedBox(width: 10,),
-                                  Expanded(
-                                    flex: 5,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-
-                                        Padding(
-                                          padding: const EdgeInsets.only(top:30.0,left: 15),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              SMDashboardMenuButtons(
-                                                  onTap: (int index) {
-                                                    //_selectButton(index);
-                                                  },
-                                                  index: 0,
-                                                  grpIndex: 0,
-                                                  heading: "Demographics"),
-                                              SizedBox(width: 20,),
-                                              SMDashboardMenuButtons(
-                                                  onTap: (int index) {
-                                                    //_selectButton(index);
-                                                  },
-                                                  index: 0,
-                                                  grpIndex: 0,
-                                                  heading: "Documentation"),
-                                              SizedBox(width: 20,),
-                                              SMDashboardMenuButtons(
-                                                  onTap: (int index) {
-                                                    //_selectButton(index);
-                                                  },
-                                                  index: 0,
-                                                  grpIndex: 0,
-                                                  heading: "Insurance"),
-                                              SizedBox(width: 20,),
-                                              SMDashboardMenuButtons(
-                                                  onTap: (int index) {
-                                                    //_selectButton(index);
-                                                  },
-                                                  index: 0,
-                                                  grpIndex: 0,
-                                                  heading: "Physician Info"),
-                                              SizedBox(width: 20,),
-                                              SMDashboardMenuButtons(
-                                                  onTap: (int index) {
-                                                    //_selectButton(index);
-                                                  },
-                                                  index: 0,
-                                                  grpIndex: 0,
-                                                  heading: "Orders"),
-                                              SizedBox(width: 20,),
-                                              SMDashboardMenuButtons(
-                                                  onTap: (int index) {
-                                                    //_selectButton(index);
-                                                  },
-                                                  index: 0,
-                                                  grpIndex: 0,
-                                                  heading: "Initial Contact"),
-
-                                            ],
-
+                                      Expanded(
+                                        flex: 2,
+                                        child:  Padding(
+                                          padding: const EdgeInsets.only(left: 10),
+                                          child: SizedBox(
+                                            width: 100,
+                                            child:Text("Apollo Hospital, Washington DC",
+                                              textAlign: TextAlign.start,
+                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorManager.textBlack,),
+                                            ) ,
                                           ),
                                         ),
-                                        // SizedBox(width: 15,),
-                                        // InkWell(
-                                        //   child: SvgPicture.asset("images/sm/contact_sv.svg",
-                                        //     height: 30,width: 20,
-                                        //   ),
-                                        //   onTap: provider._toggleChatbotVisibility,
-                                        // )
-                                        ///
-                                        ///
-                                        // Column(
-                                        //   mainAxisAlignment: MainAxisAlignment.center,
-                                        //   children: [
-                                        //     Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
-                                        //     SizedBox(height: 8,),
-                                        //     Text("Update",
-                                        //       style: TextStyle(
-                                        //         fontSize: FontSize.s11,
-                                        //         fontWeight: FontWeight.w600,
-                                        //         color: Color(0xFF2F6D8A),
-                                        //       ),)
-                                        //   ],
-                                        // ),
-                                        // SizedBox(width: AppSize.s20,),
-                                        // Column(
-                                        //   mainAxisAlignment: MainAxisAlignment.center,
-                                        //   children: [
-                                        //     SizedBox(height: 3,),
-                                        //     Image.asset("images/sm/move_to_s.png",height: 20,width: 20,),
-                                        //     SizedBox(height: 8,),
-                                        //     Text(" Move to\nScheduler",
-                                        //       style: TextStyle(
-                                        //         fontSize: FontSize.s11,
-                                        //         fontWeight: FontWeight.w600,
-                                        //         color: Color(0xFF2F6D8A),
-                                        //       ),)
-                                        //   ],
-                                        // ),
-                                        // SizedBox(width: AppSize.s20,),
-                                        // Column(
-                                        //   mainAxisAlignment: MainAxisAlignment.center,
-                                        //   children: [
-                                        //     Icon(Icons.block,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
-                                        //     SizedBox(height: 8,),
-                                        //     Text("Non-Admit",
-                                        //       style: TextStyle(
-                                        //         fontSize: FontSize.s11,
-                                        //         fontWeight: FontWeight.w600,
-                                        //          color: Color(0xFF2F6D8A),
-                                        //       ),)
-                                        //   ],
-                                        // )
 
-                                      ],
-                                    ),
-                                  ),
-                                  // SizedBox(width: 20,),
+                                      ),
+                                    SizedBox(width: 10,),
+                                      Expanded(
+                                        flex: 6,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
 
-                                  // Expanded(
-                                  //   flex: 1,
-                                  //   child:SizedBox()
-                                  //   // InkWell(
-                                  //   //   onTap: (){},
-                                  //   //   child:Column(
-                                  //   //     mainAxisAlignment: MainAxisAlignment.center,
-                                  //   //     children: [
-                                  //   //       Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
-                                  //   //       SizedBox(height: 8,),
-                                  //   //       Text("Update",
-                                  //   //         style: TextStyle(
-                                  //   //           fontSize: FontSize.s11,
-                                  //   //           fontWeight: FontWeight.w600,
-                                  //   //           color: Color(0xFF2F6D8A),
-                                  //   //         ),)
-                                  //   //     ],
-                                  //   //   ),
-                                  //   // ),
-                                  // ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Row(
-                                      children: [
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                           onTap: _toggleChatbotVisibility,
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                             // SizedBox(height: 3,),
-                                              Image.asset("images/sm/contact_icon.png",height:25),
-                                              SizedBox(height: 6,),
-                                              Text("Contact",
-                                                style: TextStyle(
-                                                  fontSize: FontSize.s11,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(0xFF2F6D8A),
-                                                ),)
-                                            ],
-                                          ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top:5.0,left: 15),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Demographics"),
+                                                  SizedBox(width: 20,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Documentation"),
+                                                  SizedBox(width: 20,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Insurance"),
+                                                  SizedBox(width: 20,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Physician Info"),
+                                                  SizedBox(width: 20,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Orders"),
+                                                  SizedBox(width: 20,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Initial Contact"),
+
+                                                ],
+
+                                              ),
+                                            ),
+                                            // SizedBox(width: 15,),
+                                            // InkWell(
+                                            //   child: SvgPicture.asset("images/sm/contact_sv.svg",
+                                            //     height: 30,width: 20,
+                                            //   ),
+                                            //   onTap: provider._toggleChatbotVisibility,
+                                            // )
+                                            ///
+                                            ///
+                                            // Column(
+                                            //   mainAxisAlignment: MainAxisAlignment.center,
+                                            //   children: [
+                                            //     Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
+                                            //     SizedBox(height: 8,),
+                                            //     Text("Update",
+                                            //       style: TextStyle(
+                                            //         fontSize: FontSize.s11,
+                                            //         fontWeight: FontWeight.w600,
+                                            //         color: Color(0xFF2F6D8A),
+                                            //       ),)
+                                            //   ],
+                                            // ),
+                                            // SizedBox(width: AppSize.s20,),
+                                            // Column(
+                                            //   mainAxisAlignment: MainAxisAlignment.center,
+                                            //   children: [
+                                            //     SizedBox(height: 3,),
+                                            //     Image.asset("images/sm/move_to_s.png",height: 20,width: 20,),
+                                            //     SizedBox(height: 8,),
+                                            //     Text(" Move to\nScheduler",
+                                            //       style: TextStyle(
+                                            //         fontSize: FontSize.s11,
+                                            //         fontWeight: FontWeight.w600,
+                                            //         color: Color(0xFF2F6D8A),
+                                            //       ),)
+                                            //   ],
+                                            // ),
+                                            // SizedBox(width: AppSize.s20,),
+                                            // Column(
+                                            //   mainAxisAlignment: MainAxisAlignment.center,
+                                            //   children: [
+                                            //     Icon(Icons.block,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
+                                            //     SizedBox(height: 8,),
+                                            //     Text("Non-Admit",
+                                            //       style: TextStyle(
+                                            //         fontSize: FontSize.s11,
+                                            //         fontWeight: FontWeight.w600,
+                                            //          color: Color(0xFF2F6D8A),
+                                            //       ),)
+                                            //   ],
+                                            // )
+
+                                          ],
                                         ),
-                                        SizedBox(width: 50,),
-                                        InkWell(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            onTap: (){},
-                                            child:Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Image.asset("images/sm/left_bottom.png",height: 20,width: 20,),
-                                                SizedBox(height: 8,),
-                                                Text("Restore",
-                                                  style: TextStyle(
-                                                    fontSize: FontSize.s11,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xFF2F6D8A),
-                                                  ),)
-                                              ],
-                                            )
+                                      ),
+                                      // SizedBox(width: 20,),
+
+                                      // Expanded(
+                                      //   flex: 1,
+                                      //   child:SizedBox()
+                                      //   // InkWell(
+                                      //   //   onTap: (){},
+                                      //   //   child:Column(
+                                      //   //     mainAxisAlignment: MainAxisAlignment.center,
+                                      //   //     children: [
+                                      //   //       Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
+                                      //   //       SizedBox(height: 8,),
+                                      //   //       Text("Update",
+                                      //   //         style: TextStyle(
+                                      //   //           fontSize: FontSize.s11,
+                                      //   //           fontWeight: FontWeight.w600,
+                                      //   //           color: Color(0xFF2F6D8A),
+                                      //   //         ),)
+                                      //   //     ],
+                                      //   //   ),
+                                      //   // ),
+                                      // ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Row(
+                                          children: [
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              highlightColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                               onTap: _toggleChatbotVisibility,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                 // SizedBox(height: 3,),
+                                                  Image.asset("images/sm/contact_icon.png",height:25),
+                                                  SizedBox(height: 6,),
+                                                  Text("Contact",
+                                                    style: TextStyle(
+                                                      fontSize: FontSize.s11,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: Color(0xFF2F6D8A),
+                                                    ),)
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(width: 50,),
+                                            InkWell(
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                onTap: (){},
+                                                child:Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Image.asset("images/sm/left_bottom.png",height: 20,width: 20,),
+                                                    SizedBox(height: 8,),
+                                                    Text("Restore",
+                                                      style: TextStyle(
+                                                        fontSize: FontSize.s11,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: Color(0xFF2F6D8A),
+                                                      ),)
+                                                  ],
+                                                )
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  //SizedBox(width: 20,),
-                                  // Expanded(
-                                  //   flex: 1,
-                                  //   child: InkWell(
-                                  //       onTap: (){},
-                                  //       child:Column(
-                                  //         mainAxisAlignment: MainAxisAlignment.center,
-                                  //         children: [
-                                  //           Image.asset("images/sm/left_bottom.png",height: 20,width: 20,),
-                                  //           SizedBox(height: 8,),
-                                  //           Text("Restore",
-                                  //             style: TextStyle(
-                                  //               fontSize: FontSize.s11,
-                                  //               fontWeight: FontWeight.w600,
-                                  //               color: Color(0xFF2F6D8A),
-                                  //             ),)
-                                  //         ],
-                                  //       )
-                                  //   ),
-                                  // ),
+                                      ),
+                                      //SizedBox(width: 20,),
+                                      // Expanded(
+                                      //   flex: 1,
+                                      //   child: InkWell(
+                                      //       onTap: (){},
+                                      //       child:Column(
+                                      //         mainAxisAlignment: MainAxisAlignment.center,
+                                      //         children: [
+                                      //           Image.asset("images/sm/left_bottom.png",height: 20,width: 20,),
+                                      //           SizedBox(height: 8,),
+                                      //           Text("Restore",
+                                      //             style: TextStyle(
+                                      //               fontSize: FontSize.s11,
+                                      //               fontWeight: FontWeight.w600,
+                                      //               color: Color(0xFF2F6D8A),
+                                      //             ),)
+                                      //         ],
+                                      //       )
+                                      //   ),
+                                      // ),
 
 
-                                ],),
+                                    ],),
+                                ],
+                              ),
                             ),
                             SizedBox(height: AppSize.s5),
                           ],
