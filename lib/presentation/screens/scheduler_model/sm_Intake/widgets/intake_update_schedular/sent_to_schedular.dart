@@ -487,9 +487,14 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
-                                      color: Color(0xFFE2F2F8),
-                                      width: 19,
-                                      height: 19,
+                                     // color: Color(0xFFE2F2F8),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFFE2F2F8),
+                                          borderRadius:
+                                          BorderRadius.circular(5)),
+
+                                      width: 22,
+                                      height: 20,
                                       child: Center(
                                         child: Text(
                                           "A",

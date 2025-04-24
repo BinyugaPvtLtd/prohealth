@@ -50,14 +50,11 @@ class borderSchedularContainerConst extends StatelessWidget {
       height: height ?? 62,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border(left: BorderSide(
-          color: Color(0xFF579EBA),
-          width: 5,
-        ),),
+        border: Border(left: BorderSide(color: Color(0xFFB50101), width: 5,),),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.6),
+            color: Colors.grey.withOpacity(0.4),
             spreadRadius: 0,
             blurRadius: 4,
             offset: const Offset(0, 2),
