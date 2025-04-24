@@ -17,19 +17,37 @@ class SMDashboardContainerConst extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height ?? AppSize.s120,
-      padding: EdgeInsets.all(AppPadding.p10),
+      padding: EdgeInsets.only(left: AppPadding.p15, right: AppPadding.p10, top: AppPadding.p10, bottom: AppPadding.p15),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(6),
-        // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
-        boxShadow: [
-          BoxShadow(
-            color: ColorManager.black.withOpacity(0.2),
-            blurRadius: 2,
-            spreadRadius: 0,
-            offset: const Offset(0, 1.2), // Downward shadow
+        borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(6),
+        bottomRight: Radius.circular(6),
+        topLeft: Radius.circular(6),
+        topRight: Radius.circular(6),),
+        border: Border(
+          bottom: BorderSide(
+            color: ColorManager.black.withOpacity(0.1),
+            width: 2,
           ),
-        ],
+          left: BorderSide(
+            color: ColorManager.black.withOpacity(0.1),
+            width: 1,
+          ),
+          right: BorderSide(
+            color: ColorManager.black.withOpacity(0.1),
+            width: 1,
+          ),
+        ),
+        // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: ColorManager.black.withOpacity(0.2),
+        //     blurRadius: 2,
+        //     spreadRadius: 0,
+        //     offset: const Offset(0, 1.2), // Downward shadow
+        //   ),
+        // ],
       ),
       child: child,);
   }
@@ -190,13 +208,13 @@ class SMSmallContainerData extends StatelessWidget {
               child: Image.asset(
                 fit: BoxFit.fill,
                 imagePath,
-                height: 40, // Adjust the size as needed
+                height: 34,
               ),
             )
           ],
         ),
         ClipRRect(
-          borderRadius: BorderRadius.circular(4), // Add rounded corners if needed
+          borderRadius: BorderRadius.circular(4),
           child: ShaderMask(
             shaderCallback: (bounds) {
               return LinearGradient(
@@ -283,7 +301,7 @@ class TypeOfVisitsConst extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(height: 30,width: 80,
+        Container(height: 24,width: 62,
         color: ContainerColor,),
         SizedBox(width: 30,),
         Text(

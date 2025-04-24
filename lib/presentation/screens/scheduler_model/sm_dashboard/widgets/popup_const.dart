@@ -183,7 +183,7 @@ class MissedVisitPopup extends StatelessWidget {
                                         child: Center(
                                           child: Text("ST",style: TextStyle(
                                             // fontWeight: FontWeight.w600,
-                                            // fontSize: FontSize.s13,
+                                            fontSize: FontSize.s10,
                                             color: ColorManager.white,
                                             decoration: TextDecoration.none,
                                           ),),

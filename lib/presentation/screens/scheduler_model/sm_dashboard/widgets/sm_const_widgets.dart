@@ -33,7 +33,7 @@ class AllVisitsUpdate extends StatelessWidget {
                     imagePath: 'images/sm/sm_dashboard/clinician_work.png', totalValue: 75, flex: 4,
                     indicatorGradientColors: [Color(0xFF834D9B), Color(0xFFD04ED6)],TextColor: ColorManager.greenDark,),
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(height: 12,),
                 ///Employee Ratio
                 GestureDetector(
                   onTap: (){
@@ -62,7 +62,7 @@ class AllVisitsUpdate extends StatelessWidget {
                       indicatorGradientColors: [Color(0xFFFC5286), Color(0xFFFBAAA2)],TextColor: ColorManager.greenDark,),
                   ),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 12,),
                 ///hiring ratio
                 SMDashboardContainerConst(
                   child: SMSmallContainerData(headingText: 'Todays Completed Visits', totalCount: '17/30',
@@ -89,7 +89,7 @@ class ScheduledToBeScheduledPatients extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 10.0,left: 20),
+                  padding: const EdgeInsets.only(right: 10.0,left: 20,top: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -127,10 +127,12 @@ class ScheduledToBeScheduledPatients extends StatelessWidget {
                       children: [
                         Text("Scheduled",
                           style: TextStyle(fontSize: FontSize.s13,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
+                        SizedBox(height: 3,),
                         Container(
                           width: 100,
                           child: Divider(),
                         ),
+                        SizedBox(height: 10,),
                         Text("112",
                           style: TextStyle(fontSize: FontSize.s30,color: ColorManager.fGrey,fontWeight: FontWeight.w700),),
                       ],),
@@ -138,10 +140,12 @@ class ScheduledToBeScheduledPatients extends StatelessWidget {
                     Column(children: [
                       Text("To Be Scheduled",
                         style: TextStyle(fontSize: FontSize.s13,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
+                      SizedBox(height: 3,),
                       Container(
                         width: 100,
                         child: Divider(),
                       ),
+                      SizedBox(height: 10,),
                       Text("78",
                         style: TextStyle(fontSize: FontSize.s30,color: ColorManager.fGrey,fontWeight: FontWeight.w700),),
                     ],),
@@ -160,7 +164,7 @@ class ScheduledPatientsList extends StatelessWidget {
     return Expanded(
         flex: 7,
         child: JointContainerConst(
-          height: 225,
+          height: 220,
           childHeading: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
             child: Row(
@@ -1060,7 +1064,7 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
                                   child: Center(
                                     child: Text("ST",style: TextStyle(
                                       fontWeight: FontWeight.w400,
-                                      fontSize: FontSize.s10,
+                                      fontSize: FontSize.s9,
                                       color: ColorManager.white,
                                       decoration: TextDecoration.none,
                                     ),),
@@ -1138,7 +1142,7 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
                                 child: Center(
                                   child: Text("ST",style: TextStyle(
                                     fontWeight: FontWeight.w400,
-                                    fontSize: FontSize.s10,
+                                    fontSize: FontSize.s9,
                                     color: ColorManager.white,
                                     decoration: TextDecoration.none,
                                   ),),

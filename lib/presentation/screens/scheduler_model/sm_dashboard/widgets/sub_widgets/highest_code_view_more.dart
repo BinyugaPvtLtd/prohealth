@@ -17,7 +17,7 @@ class HigestCaseViewMoreScreen extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                SizedBox(width: AppSize.s25,),
+                SizedBox(width: AppSize.s70,),
                 Icon(
                   Icons.arrow_back,
                   size: IconSize.I16,
@@ -169,12 +169,11 @@ class HigestCaseClinicianTypeViewScreen extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                SizedBox(width: AppSize.s25,),
+                SizedBox(width: AppSize.s70,),
                 Icon(
                   Icons.arrow_back,
                   size: IconSize.I16,
                   color: ColorManager.mediumgrey,
-
                 ),
                 SizedBox(width: AppSize.s5,),
                 InkWell(
@@ -183,7 +182,7 @@ class HigestCaseClinicianTypeViewScreen extends StatelessWidget {
                   focusColor: Colors.transparent,
                   onTap: () {
                     if (onGoBackClinicianType != null) {
-                      onGoBackClinicianType!(); // Trigger the callback to notify parent
+                      onGoBackClinicianType!();
                     }},
                   child: Text(
                     'Go Back',

@@ -52,6 +52,8 @@ dependencies:
   shimmer: any
   js: ^0.6.4
   open_file: any
+  flutter_switch: ^0.3.2
+
 
 
   #http: ^0.13.3
