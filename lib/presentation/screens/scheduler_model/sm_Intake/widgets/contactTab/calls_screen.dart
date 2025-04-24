@@ -241,7 +241,7 @@ class CallTransictionTab extends StatelessWidget {
                                 children: [
                                   Column(
                                     children: [
-                                      SizedBox(height: 5,),
+                                     // SizedBox(height: 5,),
                                       Image.asset("images/sm/outgoing_call.jpg",height: 20,),
                                      // Icon(Icons.phone_callback_outlined,color: Color(0xFF16A34A),size: 25,),
                                     ],

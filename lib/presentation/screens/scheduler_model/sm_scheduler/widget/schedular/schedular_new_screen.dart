@@ -31,10 +31,10 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
     setState(() {
       _selectedIndex = index;
     });
-    _tabPageController.animateToPage(
+    _tabPageController.jumpToPage(
       index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
+      // duration: Duration(milliseconds: 100),
+      // curve: Curves.ease,
     );
   }
   bool _showAutoScreen = false;

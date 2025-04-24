@@ -32,7 +32,6 @@ class _ContactDocumentScreenState extends State<ContactDocumentScreen> {
         )),
 
 
-
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: SingleChildScrollView(
