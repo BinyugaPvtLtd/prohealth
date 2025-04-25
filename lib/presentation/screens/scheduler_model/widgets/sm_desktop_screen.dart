@@ -12,6 +12,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_live_view/sm_l
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/refferal_screen_new_tab.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/app_bar/app_bar.dart';
 import '../../../widgets/widgets/const_appbar/controller.dart';
@@ -156,6 +157,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
@@ -189,6 +191,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               );
                               onPageChanged(0);
                               pgeControllerId = 0;
+                              providerContact.toogleContactProviderclear();
                                                         },
                                                         text: 'Dashboard',
                                                         isSelected: myController.selectedIndex.value == 0,
@@ -215,6 +218,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             );
                             onPageChanged(1);
                             pgeControllerId = 1;
+                            providerContact.toogleContactProviderclear();
                           },
                           text: 'Referrals',
                           isSelected: myController.selectedIndex.value == 1,
@@ -240,6 +244,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             );
                             onPageChanged(2);
                             pgeControllerId = 2;
+                            providerContact.toogleContactProviderclear();
                           },
                           text: 'Intake',
                           isSelected: myController.selectedIndex.value == 2||myController.selectedIndex.value == 7,
@@ -267,6 +272,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             );
                             onPageChanged(3);
                             pgeControllerId = 3;
+                            providerContact.toogleContactProviderclear();
                           },
                           text: 'Scheduler',
                           isSelected: myController.selectedIndex.value == 3,
@@ -292,6 +298,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             );
                             onPageChanged(4);
                             pgeControllerId = 4;
+                            providerContact.toogleContactProviderclear();
                           },
                           text: 'Calender',
                           isSelected: myController.selectedIndex.value == 4,
@@ -318,6 +325,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             );
                             onPageChanged(5);
                             pgeControllerId = 5;
+                            providerContact.toogleContactProviderclear();
                           },
                           text: 'Live View',
                           isSelected: myController.selectedIndex.value == 5,
@@ -343,6 +351,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             );
                             onPageChanged(6);
                             pgeControllerId = 6;
+                            providerContact.toogleContactProviderclear();
                           },
                           text: 'Requests',
                           isSelected: myController.selectedIndex.value == 6,
