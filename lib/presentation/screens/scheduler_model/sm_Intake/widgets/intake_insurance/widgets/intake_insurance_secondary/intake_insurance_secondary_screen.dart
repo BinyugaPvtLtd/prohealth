@@ -127,7 +127,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                           Row(
                             children: [
                               Flexible(
-                                  child: CustomDropdownTextFieldsm(headText: providerState.isContactTrue ? 'Select from Data..' : 'Select from Database',
+                                  child: CustomDropdownTextFieldsm(headText: providerState.isContactTrue ? 'Select from\nDatabase' : 'Select from Database',
                           items: ['B','A'],
                           onChanged: (newValue) {
                           })),
@@ -306,7 +306,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Insurance Verified',
-                                        style:  SMTextfieldHeadings.customTextStyle(context)
+                                        style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :  SMTextfieldHeadings.customTextStyle(context)
                                       //AllPopupHeadings.customTextStyle(context)
                                     ),
                                     SizedBox(height: 10),

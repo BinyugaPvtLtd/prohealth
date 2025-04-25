@@ -339,7 +339,6 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
                       Padding(
                         padding:  EdgeInsets.only(left:providerState.isContactTrue?25 :50),
                         child: SchedularTextFieldno(

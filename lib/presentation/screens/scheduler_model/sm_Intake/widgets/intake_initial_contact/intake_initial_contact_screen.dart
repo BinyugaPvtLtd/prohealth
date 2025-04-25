@@ -107,12 +107,12 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CheckboxTile(
-                                      title: 'Intro Call Complete',
+                                      title:'Intro Call Complete',
                                       initialValue: isDementia,
                                       onChanged: (value) {},
                                     ),
                                     CheckboxTile(
-                                      title: 'Demographics Confirmed',
+                                      title:providerState.isContactTrue?'Demographics\nConfirmed' :'Demographics Confirmed',
                                       initialValue: isCatheterCare,
                                       onChanged: (value) {},
                                     )
@@ -163,7 +163,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(left: 40),
                                     child: CheckboxTile(
                                       title:
-                                          'Patient representative will be present at SOC',
+                                      providerState.isContactTrue?'Patient representative will be\npresent at SOC':'Patient representative will be present at SOC',
                                       initialValue: isOrthoPatient,
                                       onChanged: (value) {},
                                     ),

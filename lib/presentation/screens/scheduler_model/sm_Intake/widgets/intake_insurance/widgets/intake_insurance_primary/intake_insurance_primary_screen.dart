@@ -112,7 +112,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                           Row(
                             children: [
                               Flexible(
-                                  child: CustomDropdownTextFieldsm(headText: providerstate.isContactTrue ? 'Select from Data..' : 'Select from Database',items: ["A",'B'],
+                                  child: CustomDropdownTextFieldsm(headText: providerstate.isContactTrue ? 'Select from\nDatabase' : 'Select from Database',items: ["A",'B'],
                           onChanged: (newValue) {
                           })),
 

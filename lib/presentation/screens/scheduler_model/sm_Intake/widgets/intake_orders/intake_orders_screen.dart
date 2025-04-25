@@ -103,7 +103,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
              padding: const EdgeInsets.only(top: 5),
              child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 35),
+                padding:  EdgeInsets.symmetric(horizontal: providerState.isContactTrue?30 :35),
                 child: Column(
                   children: [
                     Padding(
@@ -170,7 +170,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
 
                                         spacing: 5,
                                         children: [
-                                          Text('Disciplines',style: AllPopupHeadings.customTextStyle(context),),
+                                          Text('Disciplines',style: providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) :AllPopupHeadings.customTextStyle(context),),
                                           SizedBox(width: AppSize.s10,),
                                           SvgPicture.asset(
                                             'images/sm/sm_refferal/i_circle.svg',
@@ -182,7 +182,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                     ),
                                     Container(
                                       height:providerState.isContactTrue ? AppSize.s150 :AppSize.s100,
-                                      width:providerState.isContactTrue ? AppSize.s330 :AppSize.s480,
+                                      width:providerState.isContactTrue ? AppSize.s280 :AppSize.s480,
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -202,13 +202,13 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                                     },
                                                   ),
                                                   CheckboxTile(
-                                                    title: 'Physical Therapy',
+                                                    title:providerState.isContactTrue ?'Physical\nTherapy' :'Physical Therapy',
                                                     initialValue: isPhysicalThe,
                                                     onChanged: (value) {
                                                     },
                                                   ),
                                                   CheckboxTile(
-                                                    title: 'Home Health Aide',
+                                                    title:providerState.isContactTrue ?'Home Health\nAide' :'Home Health Aide',
                                                     initialValue: isSpeechThe,
                                                     onChanged: (value) {
 
@@ -235,21 +235,21 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   CheckboxTile(
-                                                    title: 'Speech Therapy',
+                                                    title: providerState.isContactTrue ?'Speech\nTherapy' :'Speech Therapy',
                                                     initialValue: isOccupationalThe,
                                                     onChanged: (value) {
 
                                                     },
                                                   ),
                                                   CheckboxTile(
-                                                    title: 'Medical Social Services',
+                                                    title:  providerState.isContactTrue ?'Medical Social\nServices' : 'Medical Social Services',
                                                     initialValue: isSpeechThe,
                                                     onChanged: (value) {
 
                                                     },
                                                   ),
                                                   CheckboxTile(
-                                                    title: 'Occupational Therapy',
+                                                    title: providerState.isContactTrue ?'Occupational\nTherapy' :'Occupational Therapy',
                                                     initialValue: isPhysicalThe,
                                                     onChanged: (value) {
                                                     },
@@ -320,7 +320,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding:EdgeInsets.symmetric(vertical: 13),
-                                    child: Text('Tracking Notes',style: SMTextfieldHeadings.customTextStyle(context)
+                                    child: Text('Tracking Notes',style:providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
                                       //AllPopupHeadings.customTextStyle(context)
                                     )),
                                 SizedBox(width: AppSize.s10,),
@@ -389,12 +389,12 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                           ),
                                         ),
                                         SizedBox(width: AppSize.s30,),
-                                        Expanded(
+                                        providerState.isContactTrue?SizedBox()  :Expanded(
                                           child: Container(
                                             height: 30,
                                             width: AppSize.s354,
                                           ),
-                                        ),
+                                        )
                                       ],
                                     ),
                                     Divider(),
@@ -431,11 +431,129 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                           Row(children: [
                             Padding(
                                 padding:EdgeInsets.only(top: 20,),
-                                child: Text('Flags',style: SMTextfieldHeadings.customTextStyle(context)
+                                child: Text('Flags',style: providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) :SMTextfieldHeadings.customTextStyle(context)
                                   //AllPopupHeadings.customTextStyle(context)
                                 )),
                           ],),
                           SizedBox(height: 10,),
+                        providerState.isContactTrue?  Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                                crossAxisAlignment:CrossAxisAlignment.start,
+                                children:[
+                                  CheckboxTile(
+                                    title: 'Dementia',
+                                    initialValue: isDementia,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  ),
+                                  CheckboxTile(
+                                    title: 'Catheter Care',
+                                    initialValue: isCatheterCare,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  ),
+                                  CheckboxTile(
+                                    title: 'Labs Ordered',
+                                    initialValue: isLabsOrder,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  ),
+                                  CheckboxTile(
+                                    title: 'Infusion/IV',
+                                    initialValue: isInfusionIv,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  )
+
+                                ]
+                            ),
+                            Column(
+                                crossAxisAlignment:CrossAxisAlignment.start,
+                                children:[
+                                  CheckboxTile(
+                                    title: 'Wound Care',
+                                    initialValue: isWoundCare,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  ),
+                                  CheckboxTile(
+                                    title: 'Zen Med',
+                                    initialValue: isZenMed,
+                                    onChanged: (value) {
+
+                                    },
+                                  ),
+                                  CheckboxTile(
+                                    title: 'Ostomy Care',
+                                    initialValue: isOstomyCare,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  ),
+                                  CheckboxTile(
+                                    title: 'Rehospitalization Risk',
+                                    initialValue: isRehospicRisk,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  )
+
+                                ]
+                            ),
+                            Column(
+                                crossAxisAlignment:CrossAxisAlignment.start,
+                                children:[
+                                  CheckboxTile(
+                                    title: 'Ortho Patient',
+                                    initialValue: isOrthoPatient,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  ),
+                                  CheckboxTile(
+                                    title: 'PT/INR',
+                                    initialValue: isPtInr,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  ),
+                                  CheckboxTile(
+                                    title: 'ECH',
+                                    initialValue: isEch,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  ),
+                                  CheckboxTile(
+                                    title: 'ECH SNF',
+                                    initialValue: isEchSnf,
+                                    isInfoIconVisible: true,
+                                    onChanged: (value) {
+
+                                    },
+                                  )
+
+                                ]
+                            ),
+                          ],
+                        ):
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
