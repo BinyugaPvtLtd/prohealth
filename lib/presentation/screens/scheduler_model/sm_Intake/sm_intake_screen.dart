@@ -128,7 +128,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
     return Scaffold(
       backgroundColor: ColorManager.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: _selectedIndex == 5 ? Offstage() : isSidebarOpen==true ? Offstage() :Padding(
+      floatingActionButton: _selectedIndex == 5 ? Offstage() : isSidebarOpen==true ? Offstage() : isSidebarLeftOpen == true ? Offstage():Padding(
         padding: const EdgeInsets.only(right: 90), // Shift left by 10
         child: FloatingActionButton(
           onPressed: (){

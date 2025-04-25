@@ -34,10 +34,11 @@ class ContactLogsScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10,bottom: 3),
+                    padding: const EdgeInsets.only(top: 10,bottom: 3,),
                     child: TabBar(
                       labelColor: Colors.white,
                       unselectedLabelColor:  ColorManager.textPrimaryColor,
+                      indicatorPadding:  EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                       indicator: BoxDecoration(
                         color: ColorManager.SMFBlue,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
