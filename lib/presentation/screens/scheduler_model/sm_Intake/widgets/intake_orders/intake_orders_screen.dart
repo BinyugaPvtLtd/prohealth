@@ -180,6 +180,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
+                                    SizedBox(height: 10),
                                     Container(
                                       height:providerState.isContactTrue ? AppSize.s150 :AppSize.s100,
                                       width:providerState.isContactTrue ? AppSize.s280 :AppSize.s480,
