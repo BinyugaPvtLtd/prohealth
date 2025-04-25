@@ -53,38 +53,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
     String? pharmacydd;
     String? pharmacystate;
     String? pharmacycity;
-    return
-      // backgroundColor: ColorManager.white,
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.only(right: 90), // Shift left by 10
-      //   child: FloatingActionButton(
-      //     onPressed: () {
-      //       // Your onPressed action here
-      //     },
-      //     backgroundColor: ColorManager.bluebottom,
-      //     child: Padding(
-      //       padding: const EdgeInsets.all(5),
-      //       child: Column(
-      //         mainAxisAlignment: MainAxisAlignment.center,
-      //         children: [
-      //           Icon(Icons.call,size: 22,),
-      //           SizedBox(height: 3,),
-      //           Text(
-      //             "Contact",
-      //             style: CustomTextStylesCommon.commonStyle(
-      //               fontSize: FontSize.s10,
-      //               fontWeight: FontWeight.w500,
-      //               color: ColorManager.white,
-      //             ),
-      //             textAlign: TextAlign.center,
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
-      Consumer<SmIntakeProviderManager>(
+    return Consumer<SmIntakeProviderManager>(
         builder: (context,providerState,child) {
           return Center(
             child: SingleChildScrollView(
@@ -428,7 +397,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                         ],),
                                       ],),
                                       Padding(
-                                        padding: const EdgeInsets.only(right: 70.0),
+                                        padding: EdgeInsets.only(right:  providerState.isContactTrue? 0 : 70.0),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
@@ -465,124 +434,100 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: AppSize.s25),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 59.0),
-                                child: Row(children: [
+                              Padding(padding:  EdgeInsets.symmetric(horizontal: 59.0),
+                              child: Row(
+                                children: [
                                   Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                            Row(children: [
-                                              Padding(
-                                                  padding:EdgeInsets.only(top: 20,right: 20),
-                                                  child: Text('Authorization #2',style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :SMTextfieldHeadings.customTextStyle(context)
-                                                    //AllPopupHeadings.customTextStyle(context)
-                                                  )),
-                                              CustomDropdownTextFieldsm(
-                                                width:205,
-                                                isIconVisible: false,
-                                                headText: '',
-                                                onChanged: (newValue) {},),
-                                            ],),
-                                            SizedBox(height: AppSize.s15),
-                                            SchedularTextField(
-                                              isIconVisible:true,
-                                              width: 205,
-                                              controller: effectivefromController,
-                                              labelText: 'Effective From',
-                                              showDatePicker: true,
-                                            ),
-                                            SizedBox(height: AppSize.s10),
-                                            SchedularTextField(
+                                    flex:2,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(children: [
+                                          Padding(
+                                              padding:EdgeInsets.only(top: 20,right: 20),
+                                              child: Text('Authorization #2',style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :SMTextfieldHeadings.customTextStyle(context)
+                                                //AllPopupHeadings.customTextStyle(context)
+                                              )),
+                                          CustomDropdownTextFieldsm(
+                                            width: providerState.isContactTrue? 150 : 205,
+                                            isIconVisible: false,
+                                            headText: '',
+                                            onChanged: (newValue) {},),
+                                        ],),
+                                        SizedBox(height: AppSize.s15),
+                                        SchedularTextField(
                                           isIconVisible:true,
-                                          width: 205,
+                                          width: providerState.isContactTrue? 150 :205,
+                                          controller: effectivefromController,
+                                          labelText: 'Effective From',
+                                          showDatePicker: true,
+                                        ),
+                                        SizedBox(height: AppSize.s10),
+                                        SchedularTextField(
+                                          isIconVisible:true,
+                                          width: providerState.isContactTrue? 150 :205,
                                           controller: effectivetoController,
                                           labelText: 'Effective To',
                                           showDatePicker: true,
                                         )
-                                      ],))),
+                                      ],),
+                                  ),
                                   Expanded(
-                                      flex: 3,
-                                      child: Container(child: Column(children: [
-                                        Row(children: [
-                                          Expanded(
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(right: 5.0),
-                                                child: Text('Disciplice',
-                                                    style: DocDefineTableDataID.customTextStyle(context)),
-                                              ),
-                                            ),
+                                   flex: 2,
+                                    child: Row(
+                                      children: [
+                                        Column(children: [
+                                          Center(
+                                            child: Text('Disciplice',
+                                                style: DocDefineTableDataID.customTextStyle(context)),
                                           ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(right: 50.0),
-                                                child: Text('Authorized',
-                                                    style: DocDefineTableDataID.customTextStyle(context)),
-                                              ),
-                                            ),
+                                          CustomDropdownTextFieldsm(
+                                            width:providerState.isContactTrue? 150 :205,
+                                            borderRadius: 0,
+                                            isIconVisible: false,
+                                            headText: '',
+                                            onChanged: (newValue) {},),
+                                          SizedBox(height: AppSize.s5),
+                                          CustomDropdownTextFieldsm(
+                                            width:providerState.isContactTrue? 150 :205,
+                                            borderRadius: 0,
+                                            isIconVisible: false,
+                                            headText: '',
+                                            onChanged: (newValue) {},),
+                                        ],),
+                                        SizedBox(width: AppSize.s25),
+                                        Column(children: [
+                                          Center(
+                                            child: Text('Authorized',
+                                                style: DocDefineTableDataID.customTextStyle(context)),
+                                          ),
+                                          SchedularTextField(
+                                            isIconVisible:true,
+                                            width:providerState.isContactTrue? 60 : 105,
+                                            controller: authorizze1,
+                                            labelText: '',
+                                            borderRadius: 0,
+                                          ),
+                                          SchedularTextField(
+                                            isIconVisible:true,
+                                            width: providerState.isContactTrue? 60 : 105,
+                                            controller: authorize2,
+                                            labelText: '',
+                                            borderRadius: 0,
                                           ),
                                         ],),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 40.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                            CustomDropdownTextFieldsm(
-                                              width:205,
-                                              borderRadius: 0,
-                                              isIconVisible: false,
-                                              headText: '',
-                                              onChanged: (newValue) {},),
-                                            SizedBox(
-                                              width: 120,
-                                            ),
-                                            SchedularTextField(
-                                              isIconVisible:true,
-                                              width: 105,
-                                              controller: authorizze1,
-                                              labelText: '',
-                                              borderRadius: 0,
-                                            ),
-                                          ],),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 40.0,bottom: 20),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                            CustomDropdownTextFieldsm(
-                                              width:205,
-                                              borderRadius: 0,
-                                              isIconVisible: false,
-                                              headText: '',
-                                              onChanged: (newValue) {},),
-                                            SizedBox(
-                                              width: 120,
-                                            ),
-                                            SchedularTextField(
-                                              isIconVisible:true,
-                                              width: 105,
-                                              controller: authorize2,
-                                              labelText: '',
-                                              borderRadius: 0,
-                                            ),
-                                          ],),
-                                        ),
-                                      ],))),
-                                  Expanded(child: Container()),
+                                      ],
+                                    ),
+                                  ),
                                   Expanded(
-                                      flex: 1,
-                                      child: Container(child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
+                                    flex: 1,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(bottom: 90.0,right: 60),
+                                          padding: EdgeInsets.only(bottom: 90.0,right: providerState.isContactTrue? 30 :60),
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.end,
                                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -597,7 +542,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                                   Icons.save,
                                                   color: ColorManager.mediumgrey,
                                                 ),
-                                                iconSize: IconSize.I22,
+                                                iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
                                               ),
                                               SizedBox(width: AppSize.s10,),
                                               IconButton(
@@ -610,15 +555,170 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                                 splashColor: Colors.transparent,
                                                 highlightColor: Colors.transparent,
                                                 hoverColor: Colors.transparent,
-                                                iconSize:IconSize.I22,
+                                                iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
                                               ),
-                                              SizedBox(width: AppSize.s30,),
+                                              SizedBox(width: providerState.isContactTrue? 0 : AppSize.s30,),
                                             ],
                                           ),
                                         )
-                                      ],))),
-                                ],),
-                              ),
+                                      ],),
+                                  )
+                                ],
+                              ),),
+                              // Padding(
+                              //   padding: const EdgeInsets.symmetric(horizontal: 59.0),
+                              //   child: Row(children: [
+                              //     Expanded(
+                              //         flex: 2,
+                              //         child: Container(
+                              //             child: Column(
+                              //               mainAxisAlignment: MainAxisAlignment.start,
+                              //               crossAxisAlignment: CrossAxisAlignment.start,
+                              //               children: [
+                              //               Row(children: [
+                              //                 Padding(
+                              //                     padding:EdgeInsets.only(top: 20,right: 20),
+                              //                     child: Text('Authorization #2',style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :SMTextfieldHeadings.customTextStyle(context)
+                              //                       //AllPopupHeadings.customTextStyle(context)
+                              //                     )),
+                              //                 CustomDropdownTextFieldsm(
+                              //                   width:205,
+                              //                   isIconVisible: false,
+                              //                   headText: '',
+                              //                   onChanged: (newValue) {},),
+                              //               ],),
+                              //               SizedBox(height: AppSize.s15),
+                              //               SchedularTextField(
+                              //                 isIconVisible:true,
+                              //                 width: 205,
+                              //                 controller: effectivefromController,
+                              //                 labelText: 'Effective From',
+                              //                 showDatePicker: true,
+                              //               ),
+                              //               SizedBox(height: AppSize.s10),
+                              //               SchedularTextField(
+                              //             isIconVisible:true,
+                              //             width: 205,
+                              //             controller: effectivetoController,
+                              //             labelText: 'Effective To',
+                              //             showDatePicker: true,
+                              //           )
+                              //         ],))),
+                              //     Expanded(
+                              //         flex: 3,
+                              //         child: Container(child: Column(children: [
+                              //           Row(children: [
+                              //             Expanded(
+                              //               child: Center(
+                              //                 child: Padding(
+                              //                   padding: const EdgeInsets.only(right: 5.0),
+                              //                   child: Text('Disciplice',
+                              //                       style: DocDefineTableDataID.customTextStyle(context)),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //             Expanded(
+                              //               child: Center(
+                              //                 child: Padding(
+                              //                   padding: const EdgeInsets.only(right: 50.0),
+                              //                   child: Text('Authorized',
+                              //                       style: DocDefineTableDataID.customTextStyle(context)),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ],),
+                              //           Padding(
+                              //             padding: const EdgeInsets.only(left: 40.0),
+                              //             child: Row(
+                              //               mainAxisAlignment: MainAxisAlignment.start,
+                              //               children: [
+                              //               CustomDropdownTextFieldsm(
+                              //                 width:205,
+                              //                 borderRadius: 0,
+                              //                 isIconVisible: false,
+                              //                 headText: '',
+                              //                 onChanged: (newValue) {},),
+                              //               SizedBox(
+                              //                 width: 120,
+                              //               ),
+                              //               SchedularTextField(
+                              //                 isIconVisible:true,
+                              //                 width: 105,
+                              //                 controller: authorizze1,
+                              //                 labelText: '',
+                              //                 borderRadius: 0,
+                              //               ),
+                              //             ],),
+                              //           ),
+                              //           Padding(
+                              //             padding: const EdgeInsets.only(left: 40.0,bottom: 20),
+                              //             child: Row(
+                              //               mainAxisAlignment: MainAxisAlignment.start,
+                              //               children: [
+                              //               CustomDropdownTextFieldsm(
+                              //                 width:205,
+                              //                 borderRadius: 0,
+                              //                 isIconVisible: false,
+                              //                 headText: '',
+                              //                 onChanged: (newValue) {},),
+                              //               SizedBox(
+                              //                 width: 120,
+                              //               ),
+                              //               SchedularTextField(
+                              //                 isIconVisible:true,
+                              //                 width: 105,
+                              //                 controller: authorize2,
+                              //                 labelText: '',
+                              //                 borderRadius: 0,
+                              //               ),
+                              //             ],),
+                              //           ),
+                              //         ],))),
+                              //     Expanded(child: Container()),
+                              //     Expanded(
+                              //         flex: 1,
+                              //         child: Container(child: Column(
+                              //           mainAxisAlignment: MainAxisAlignment.start,
+                              //           crossAxisAlignment: CrossAxisAlignment.start,
+                              //           children: [
+                              //           Padding(
+                              //             padding: const EdgeInsets.only(bottom: 90.0,right: 60),
+                              //             child: Row(
+                              //               mainAxisAlignment: MainAxisAlignment.end,
+                              //               crossAxisAlignment: CrossAxisAlignment.end,
+                              //               children: [
+                              //                 IconButton(
+                              //                   splashColor: Colors.transparent,
+                              //                   highlightColor: Colors.transparent,
+                              //                   hoverColor: Colors.transparent,
+                              //                   onPressed: () {
+                              //                   },
+                              //                   icon: Icon(
+                              //                     Icons.save,
+                              //                     color: ColorManager.mediumgrey,
+                              //                   ),
+                              //                   iconSize: IconSize.I22,
+                              //                 ),
+                              //                 SizedBox(width: AppSize.s10,),
+                              //                 IconButton(
+                              //                   onPressed: () {
+                              //                   },
+                              //                   icon: Icon(
+                              //                     Icons.delete_outline,
+                              //                     color: ColorManager.mediumgrey,
+                              //                   ),
+                              //                   splashColor: Colors.transparent,
+                              //                   highlightColor: Colors.transparent,
+                              //                   hoverColor: Colors.transparent,
+                              //                   iconSize:IconSize.I22,
+                              //                 ),
+                              //                 SizedBox(width: AppSize.s30,),
+                              //               ],
+                              //             ),
+                              //           )
+                              //         ],))),
+                              //   ],),
+                              // ),
                               SizedBox(height: AppSize.s25),
                               CustomIconButtonConst(
                                   width: 170,
