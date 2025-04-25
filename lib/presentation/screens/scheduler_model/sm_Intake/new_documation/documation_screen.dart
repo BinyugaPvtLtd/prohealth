@@ -104,6 +104,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                                    padding: const EdgeInsets.all(10),
                                                    child: Image.asset("images/sm/eye_outline.png",),
                                                  )
+
                                                // Icon(
                                                //   Icons.remove_red_eye_outlined,
                                                //   color: ColorManager.white,

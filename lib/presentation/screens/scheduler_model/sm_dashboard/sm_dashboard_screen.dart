@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/chart.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sm_const_widgets.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sm_dash_graph_data.dart';
@@ -54,11 +54,11 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: AppPadding.p20,vertical: AppPadding.p10),
+        padding:  EdgeInsets.symmetric(horizontal: AppPadding.p30,),
           child: Column(
             children: [
               Container(
-                  height: 1080,
+                  height: 840,
                   //width: 200,
                   //color: ColorManager.red,
                   child: Column(
@@ -79,12 +79,12 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                     style: TextStyle(fontSize: FontSize.s14,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                                 ),
                                 CustomDropdownTextField(
-                                  width: 180,
+                                  width: 200,
                                   iconColor: ColorManager.bluebottom,
                                   icon: Icons.keyboard_arrow_down_outlined,
                                   isAstric:false,
                                   fontwight: FontWeight.w700,
-                                  fontsize:  FontSize.s16,
+                                  fontsize:  FontSize.s17,
                                   // Adjust headText based on depId
                                   initialValue: 'Sacremento Office',
                                   headText: "", // Default fallback if depId doesn't match any of the expected values
@@ -123,14 +123,14 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                         SizedBox(width: AppPadding.p20,),
                         ScheduledPatientsList(),
                       ],),
-                      SizedBox(height: AppPadding.p20,),
+                      SizedBox(height: AppPadding.p30,),
                       ///row 3
-                      Row(children: [
-                        PatientsToBeScheduledList(onAutoTap: widget.onAutoTap,),
-                        SizedBox(width: AppPadding.p20,),
-                        AllAvailableClinician(),
-                      ],),
-                      SizedBox(height: AppPadding.p20,),
+                      // Row(children: [
+                      //   PatientsToBeScheduledList(onAutoTap: widget.onAutoTap,),
+                      //   SizedBox(width: AppPadding.p20,),
+                      //   AllAvailableClinician(),
+                      // ],),
+                      // SizedBox(height: AppPadding.p20,),
                       ///row 4
                       Row(children: [
                         Expanded(
@@ -155,25 +155,42 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 padding: const EdgeInsets.only(right: 10),
                                                 child: Text("Monthly"),
                                               ),
-                                              Container(
-                                                child: Switch(
-                                                  focusColor: Colors.transparent,
-                                                  splashRadius: 5,
-                                                  hoverColor: Colors.transparent,
-                                                  value: isSwitched,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      isSwitched = value;
-                                                      print(isSwitched);
-                                                    });
-                                                  },
-                                                  activeTrackColor: ColorManager.bluebottom,
-                                                  inactiveTrackColor:ColorManager.bluebottom ,
-                                                  activeColor: ColorManager.white,
-                                                ),
+                                              FlutterSwitch(
+                                                width: 40.0,
+                                                height: 20.0,
+                                                toggleSize: 18.0, // smaller white toggler
+                                                value: isSwitched,
+                                                borderRadius: 20.0,
+                                                padding: 4.0,
+                                                activeColor: ColorManager.bluebottom,
+                                                inactiveColor: ColorManager.bluebottom,
+                                                toggleColor: ColorManager.white,
+                                                onToggle: (value) {
+                                                  setState(() {
+                                                    isSwitched = value;
+                                                    print(isSwitched);
+                                                  });
+                                                },
                                               ),
+                                              // Container(
+                                              //   child: Switch(
+                                              //     focusColor: Colors.transparent,
+                                              //     splashRadius: 5,
+                                              //     hoverColor: Colors.transparent,
+                                              //     value: isSwitched,
+                                              //     onChanged: (value) {
+                                              //       setState(() {
+                                              //         isSwitched = value;
+                                              //         print(isSwitched);
+                                              //       });
+                                              //     },
+                                              //     activeTrackColor: ColorManager.bluebottom,
+                                              //     inactiveTrackColor:ColorManager.bluebottom ,
+                                              //     activeColor: ColorManager.white,
+                                              //   ),
+                                              // ),
                                               Padding(
-                                                padding: const EdgeInsets.only(right: 10),
+                                                padding: const EdgeInsets.only(left: 10,right: 10),
                                                 child: Text("Weekly"),
                                               ),
                                             ],
@@ -181,6 +198,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                         ],
                                       ),
                                     ),
+
                                     childBody: Padding(
                                       padding: const EdgeInsets.only(bottom: 5.0),
                                       child: SfCartesianChart(

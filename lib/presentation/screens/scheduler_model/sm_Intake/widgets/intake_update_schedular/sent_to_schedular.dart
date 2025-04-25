@@ -280,10 +280,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                           color: ColorManager.white,
                           borderRadius: BorderRadius.circular(12),
                           border: const Border(
-                            left: BorderSide(
-                              color: Color(0xFFC30909),
-                              width: 5,
-                            ),
+                            left: BorderSide(color: Color(0xFFC30909), width: 5,),
                           ),
                           boxShadow: [
                             BoxShadow(
@@ -403,8 +400,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                             Expanded(
                               flex: 4,
                               child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Icon(
@@ -427,13 +423,14 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(width: AppSize.s35),
                                   Stack(
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(60),
                                         child: SizedBox(
                                           width: AppSize.s45,
-                                          height: AppSize.s50,
+                                          height: AppSize.s40,
                                           child: Image.asset(
                                             'images/1.png', // Replace with your image path
                                             fit: BoxFit.cover,
@@ -477,103 +474,112 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                 ],
                               ),
                             ),
+                           // SizedBox(width: AppSize.s12),
                             Expanded(
                               flex: 4,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      color: Color(0xFFE2F2F8),
-                                      width: 19,
-                                      height: 19,
-                                      child: Center(
-                                        child: Text(
-                                          "A",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: FontSize.s12,
-                                            color: Color(0xFF1696C8),
-                                            decoration: TextDecoration.none,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                       // color: Color(0xFFE2F2F8),
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFE2F2F8),
+                                            borderRadius:
+                                            BorderRadius.circular(5)),
+
+                                        width: 22,
+                                        height: 20,
+                                        child: Center(
+                                          child: Text(
+                                            "A",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: FontSize.s12,
+                                              color: Color(0xFF1696C8),
+                                              decoration: TextDecoration.none,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  // SizedBox(width: 20,),
-                                  Text(
-                                    "Scheduled",
-                                    textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w600,
-                                      color: ColorManager.Violet,
+                                    // SizedBox(width: 20,),
+                                    Text(
+                                      "Scheduled",
+                                      textAlign: TextAlign.start,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w600,
+                                        color: ColorManager.Violet,
+                                      ),
                                     ),
-                                  ),
-                                  //  SizedBox(width: 40,),
-                                  Text(
-                                    "SOC Completed",
-                                    textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w600,
-                                      color: ColorManager.greenDark,
+                                    //  SizedBox(width: 40,),
+                                    Text(
+                                      "SOC Completed",
+                                      textAlign: TextAlign.start,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w600,
+                                        color: ColorManager.greenDark,
+                                      ),
                                     ),
-                                  ),
-                                  // ///dont delete these r conditional text
-                                  // // Text(
-                                  // //   "SMissed on 13/05/2022",
-                                  // //   textAlign: TextAlign.start,
-                                  // //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                  // //     fontWeight: FontWeight.w500,
-                                  // //     color: ColorManager.tangerine,),
-                                  // // ),
-                                  // // Text(
-                                  // //   "Rescheduled on 15/08/2022",
-                                  // //   textAlign: TextAlign.start,
-                                  // //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                  // //     fontWeight: FontWeight.w500,
-                                  // //     color: ColorManager.mediumgrey,),
-                                  // // ),
-                                  // // Text(
-                                  // //   "SOC Pending",
-                                  // //   textAlign: TextAlign.start,
-                                  // //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                  // //     fontWeight: FontWeight.w500,
-                                  // //     color: ColorManager.EMbrightred,),
-                                  // // ),
-                                  //
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    onTap: _toggleChatbotVisibility,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        // SizedBox(height: 3,),
-                                        Image.asset(
-                                            "images/sm/contact_icon.png",
-                                            height: 25),
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                        Text(
-                                          "Contact",
-                                          style: TextStyle(
-                                            fontSize: FontSize.s11,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFF2F6D8A),
+                                    // ///dont delete these r conditional text
+                                    // // Text(
+                                    // //   "SMissed on 13/05/2022",
+                                    // //   textAlign: TextAlign.start,
+                                    // //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                    // //     fontWeight: FontWeight.w500,
+                                    // //     color: ColorManager.tangerine,),
+                                    // // ),
+                                    // // Text(
+                                    // //   "Rescheduled on 15/08/2022",
+                                    // //   textAlign: TextAlign.start,
+                                    // //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                    // //     fontWeight: FontWeight.w500,
+                                    // //     color: ColorManager.mediumgrey,),
+                                    // // ),
+                                    // // Text(
+                                    // //   "SOC Pending",
+                                    // //   textAlign: TextAlign.start,
+                                    // //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                    // //     fontWeight: FontWeight.w500,
+                                    // //     color: ColorManager.EMbrightred,),
+                                    // // ),
+                                    //
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      onTap: _toggleChatbotVisibility,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          // SizedBox(height: 3,),
+                                          Image.asset(
+                                              "images/sm/contact_icon.png",
+                                              height: 25),
+                                          SizedBox(
+                                            height: 6,
                                           ),
-                                        )
-                                      ],
+                                          Text(
+                                            "Contact",
+                                            style: TextStyle(
+                                              fontSize: FontSize.s11,
+                                              fontWeight: FontWeight.w600,
+                                              color: Color(0xFF2F6D8A),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],

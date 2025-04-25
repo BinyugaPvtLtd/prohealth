@@ -564,7 +564,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           ),
                           SizedBox(height: 10,),
                           Divider(
-                            color: ColorManager.containerBorderGrey,
+                          //  color: ColorManager.containerBorderGrey,
                             thickness: 1,
                             height: 30,
                           ),
