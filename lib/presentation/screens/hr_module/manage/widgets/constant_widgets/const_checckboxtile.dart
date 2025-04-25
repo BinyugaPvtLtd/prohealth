@@ -3,8 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 
 class CheckboxTile extends StatefulWidget {
@@ -36,59 +38,63 @@ class _CheckboxTileState extends State<CheckboxTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Theme(
-          data: Theme.of(context).copyWith(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            unselectedWidgetColor:
-                ColorManager.bluebottom, // border color when unchecked
-            checkboxTheme: CheckboxThemeData(
-              side: BorderSide(
-                  color: ColorManager.bluebottom, width: 2), // border styling
-            ),
-          ),
-          child: Checkbox(
-            splashRadius: 0,
-            activeColor: ColorManager.bluebottom,
-            value: _value,
-            onChanged: (value) {
-              setState(() {
-                _value = value!;
-              });
-              if (widget.onChanged != null) {
-                widget.onChanged!(_value);
-              }
-            },
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Consumer<SmIntakeProviderManager>(
+      builder: (context,providerState,child) {
+        return Row(
           children: [
-            Text(
-              widget.title,
-              style: SMTextfieldHeadings.customTextStyle(context)
-              //AllPopupHeadings.customTextStyle(context)
+            Theme(
+              data: Theme.of(context).copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                unselectedWidgetColor:
+                    ColorManager.bluebottom, // border color when unchecked
+                checkboxTheme: CheckboxThemeData(
+                  side: BorderSide(
+                      color: ColorManager.bluebottom, width: 2), // border styling
+                ),
+              ),
+              child: Checkbox(
+                splashRadius: 0,
+                activeColor: ColorManager.bluebottom,
+                value: _value,
+                onChanged: (value) {
+                  setState(() {
+                    _value = value!;
+                  });
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(_value);
+                  }
+                },
+              ),
             ),
-            SizedBox(width: 10,),
-            widget.isInfoIconVisible!
-                ? widget.icon ??
-                SvgPicture.asset(
-              'images/sm/sm_refferal/i_circle.svg',
-              height: IconSize.I20,
-              width: IconSize.I20,
-            )
-                : Offstage()
-          ],
-        ),
-       //
+            SizedBox(
+              width: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.title,
+                  style:  providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
+                  //AllPopupHeadings.customTextStyle(context)
+                ),
+                SizedBox(width: 10,),
+                widget.isInfoIconVisible!
+                    ? widget.icon ??
+                    SvgPicture.asset(
+                  'images/sm/sm_refferal/i_circle.svg',
+                  height: IconSize.I20,
+                  width: IconSize.I20,
+                )
+                    : Offstage()
+              ],
+            ),
+           //
 
-      ],
+          ],
+        );
+      }
     );
   }
 }

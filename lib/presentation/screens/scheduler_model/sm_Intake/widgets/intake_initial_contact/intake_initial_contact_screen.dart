@@ -16,7 +16,8 @@ import '../../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
 class SmIntakeInitialContactScreen extends StatelessWidget {
   final int patientId;
-  SmIntakeInitialContactScreen({super.key, required this.patientId});
+  final VoidCallback onOpenContact;
+  SmIntakeInitialContactScreen({super.key, required this.patientId, required this.onOpenContact});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 30.0),
                           child: FloatingActionButton(
-                            onPressed: () {},
+                            onPressed: onOpenContact,
                             backgroundColor: ColorManager.bluebottom, // Adjust color as needed
                             shape: CircleBorder(),
                             child:Column(

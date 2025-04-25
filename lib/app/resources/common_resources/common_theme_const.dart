@@ -120,6 +120,16 @@ class SMTextfieldHeadings {
     );
   }
 }
+class SMTextfieldResponsiveHeadings {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s10,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
 
 ///all menu container heading
 class MenuContainerTextStylling {
