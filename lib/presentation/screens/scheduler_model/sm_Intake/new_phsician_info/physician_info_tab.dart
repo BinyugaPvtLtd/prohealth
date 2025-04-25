@@ -80,7 +80,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                     children: [
                       Flexible(
                         child: CustomDropdownTextFieldsm(
-                            headText: providerState.isContactTrue ? 'Select from Data..' : 'Select from Database',
+                            headText: providerState.isContactTrue ? 'Select from\nDatabase' : 'Select from Database',
                             items: ['Spouse','Patient',],
                             //dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
@@ -341,15 +341,17 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                     children: [
                       Padding(
                         padding:  EdgeInsets.only(left:providerState.isContactTrue?25 :50),
-                        child: SchedularTextFieldno(
+                        child: SchedularTextField(
                             width: providerState.isContactTrue?200 :400,
                             controller: verificationController,
+                            isIconVisible: true,
                             labelText: "Verification Details"),
                       ),
                       SizedBox(width: AppSize.s35),
-                      SchedularTextFieldno(
+                      SchedularTextField(
                         width:  providerState.isContactTrue?200 :400,
                           controller: trakingController,
+                          isIconVisible: true,
                           labelText: "Tracking Notes"),
                       // Flexible(
                       //     child: SizedBox(width:0)),
