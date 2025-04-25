@@ -33,7 +33,7 @@ class AllVisitsUpdate extends StatelessWidget {
                     imagePath: 'images/sm/sm_dashboard/clinician_work.png', totalValue: 75, flex: 4,
                     indicatorGradientColors: [Color(0xFF834D9B), Color(0xFFD04ED6)],TextColor: ColorManager.greenDark,),
                 ),
-                const SizedBox(height: 12,),
+                const SizedBox(height: 17,),
                 ///Employee Ratio
                 GestureDetector(
                   onTap: (){
@@ -62,7 +62,7 @@ class AllVisitsUpdate extends StatelessWidget {
                       indicatorGradientColors: [Color(0xFFFC5286), Color(0xFFFBAAA2)],TextColor: ColorManager.greenDark,),
                   ),
                 ),
-                SizedBox(height: 12,),
+                SizedBox(height: 17,),
                 ///hiring ratio
                 SMDashboardContainerConst(
                   child: SMSmallContainerData(headingText: 'Todays Completed Visits', totalCount: '17/30',

@@ -156,12 +156,12 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 child: Text("Monthly"),
                                               ),
                                               FlutterSwitch(
-                                                width: 40.0,
-                                                height: 20.0,
-                                                toggleSize: 18.0, // smaller white toggler
+                                                width: 30.0,
+                                                height: 18.0,
+                                                toggleSize: 15.0, // smaller white toggler
                                                 value: isSwitched,
                                                 borderRadius: 20.0,
-                                                padding: 4.0,
+                                                padding: 2.0,
                                                 activeColor: ColorManager.bluebottom,
                                                 inactiveColor: ColorManager.bluebottom,
                                                 toggleColor: ColorManager.white,
