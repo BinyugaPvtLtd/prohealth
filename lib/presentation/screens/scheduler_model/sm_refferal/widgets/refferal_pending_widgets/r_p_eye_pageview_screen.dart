@@ -83,7 +83,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                   border: Border(
                     top: BorderSide(
-                      color: ColorManager.bluebottom,
+                      color: ColorManager.blueprime,
                       width: 3,
                     ),
                   ),

@@ -489,7 +489,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           PopupMenuButton<String>(
                                             tooltip: '',
                                             splashRadius: 0,
-                                            offset: Offset(0, 40), // Show below the button
+                                            offset: Offset(25, 42), // Show below the button
                                             onSelected: (value) {
                                               if (value == 'Merge Duplicate') {
                                                 Future.microtask(() {

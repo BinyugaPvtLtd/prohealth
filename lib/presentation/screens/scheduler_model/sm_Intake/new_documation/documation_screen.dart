@@ -726,11 +726,11 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                     BlueBGHeadConst(HeadText: "Face to Face Encounter"),
                     SizedBox(height: AppSize.s10,),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      padding: const EdgeInsets.only(left: 40),
                       child:providerState.isContactTrue ? Column(
                         children: [
                           Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Flexible(
@@ -741,6 +741,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                       showDatePicker:true
                                   )),
                               SizedBox(width: AppSize.s58),
+                              Flexible(
+                                  child: SizedBox(width:1)),
                               Flexible(
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 3),
@@ -757,6 +759,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                               // SizedBox(width: AppSize.s65),
                             ],
                           ),
+                          Flexible(
+                              child: SizedBox(width:100)),
                           Row(
                             children: [
                               Flexible(
@@ -771,6 +775,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                     },
                                   )),
                               SizedBox(width: AppSize.s58),
+                              Flexible(
+                                  child: SizedBox(width:1)),
                               Flexible(
                                   child: SchedularTextFieldcheckbox(
                                     enable: false,
@@ -790,7 +796,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                       ) :Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(right: 0),
+                            padding: const EdgeInsets.only(right: 100),
                             child: Row(
                               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               // crossAxisAlignment: CrossAxisAlignment.center,
@@ -838,9 +844,9 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                         print("Checkbox value: $val");
                                       },
                                     )),
-                                Flexible(
-                                    child: SizedBox(width:0)),
-                               // SizedBox(width: AppSize.s65),
+                                // Flexible(
+                                //     child: SizedBox(width:0)),
+                             SizedBox(width: AppSize.s105),
                               ],
                             ),
                           ),

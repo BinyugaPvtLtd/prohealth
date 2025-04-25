@@ -78,28 +78,31 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                   child: Text("Scheduled Patients",
                                     style: TextStyle(fontSize: FontSize.s14,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                                 ),
-                                CustomDropdownTextField(
-                                  width: 200,
-                                  iconColor: ColorManager.bluebottom,
-                                  icon: Icons.keyboard_arrow_down_outlined,
-                                  isAstric:false,
-                                  fontwight: FontWeight.w700,
-                                  fontsize:  FontSize.s17,
-                                  // Adjust headText based on depId
-                                  initialValue: 'Sacremento Office',
-                                  headText: "", // Default fallback if depId doesn't match any of the expected values
-                                  items: ["Sacremento Office", "SanFrancisco", "Los Angles"],
-                                  onChanged: (newValue) {
-                                    // for (var a in snapshot.data!) {
-                                    //   if (a.empType == newValue) {
-                                    //     clinicialName = a.empType!;
-                                    //     clinicalId = a.employeeTypesId!;
-                                    //     print("Dept ID'''''' ${clinicalId}");
-                                    //     print("';';';''''''''Dept ID ${clinicialName}");
-                                    //     // Do something with docType
-                                    //   }
-                                    // }
-                                  },
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 100),
+                                  child: CustomDropdownTextField(
+                                    width: 200,
+                                    iconColor: ColorManager.bluebottom,
+                                    icon: Icons.keyboard_arrow_down_outlined,
+                                    isAstric:false,
+                                    fontwight: FontWeight.w700,
+                                    fontsize:  FontSize.s17,
+                                    // Adjust headText based on depId
+                                    initialValue: 'Sacremento Office',
+                                    headText: "", // Default fallback if depId doesn't match any of the expected values
+                                    items: ["Sacremento Office", "SanFrancisco", "Los Angles"],
+                                    onChanged: (newValue) {
+                                      // for (var a in snapshot.data!) {
+                                      //   if (a.empType == newValue) {
+                                      //     clinicialName = a.empType!;
+                                      //     clinicalId = a.employeeTypesId!;
+                                      //     print("Dept ID'''''' ${clinicalId}");
+                                      //     print("';';';''''''''Dept ID ${clinicialName}");
+                                      //     // Do something with docType
+                                      //   }
+                                      // }
+                                    },
+                                  ),
                                 ),
                               ],
                             )),

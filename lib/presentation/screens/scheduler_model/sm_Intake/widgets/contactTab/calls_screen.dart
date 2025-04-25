@@ -136,7 +136,7 @@ class LiveCallTab extends StatelessWidget {
                 child: Icon(Icons.keyboard_arrow_up_outlined,color: Color(0xFF1696C8),)),
           ),
           Container(
-            height:200,
+            height:160,
             color:Color(0xFF1696C8).withOpacity(0.1),
             child:Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 10),

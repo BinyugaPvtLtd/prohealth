@@ -176,6 +176,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
+                                SizedBox(height: 10,),
                                 Container(
                                   height:100,
                                   width:480,
@@ -344,7 +345,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                 Row(
                                   children: [
                                     Container(height: 90,width: 5,color: ColorManager.greenDark,),
-                                    SizedBox(width: AppSize.s30,),
+                                    SizedBox(width: AppSize.s40,),
                                     Expanded(
                                       child: SchedularTextField(
                                         controller: possibleDiagnosisController,
@@ -352,7 +353,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                         enable: false,
                                       )
                                     ),
-                                    SizedBox(width: AppSize.s60,),
+                                    SizedBox(width: AppSize.s70,),
                                     Expanded(
                                       child: SchedularTextField(
                                         controller: icdCodeController,
@@ -361,7 +362,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
 
                                       )
                                     ),
-                                    SizedBox(width: AppSize.s60,),
+                                    SizedBox(width: AppSize.s70,),
                                     Expanded(
                                       child: SchedularTextField(
                                         isIconVisible: true,
