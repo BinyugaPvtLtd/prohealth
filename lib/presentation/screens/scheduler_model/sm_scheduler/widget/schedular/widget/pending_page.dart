@@ -688,7 +688,6 @@ class _PendingPageViewState extends State<PendingPageView> {
           height: 420,
           width: 550,
 
-
               child: ChatBotContainer(
                 onClose: _toggleChatbotVisibility,
               ),
