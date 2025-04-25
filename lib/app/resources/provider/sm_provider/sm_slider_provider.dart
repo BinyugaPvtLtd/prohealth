@@ -8,4 +8,8 @@ class SmIntakeProviderManager extends ChangeNotifier{
     _isContactTrue = !_isContactTrue;
     notifyListeners();
   }
+  void toogleContactProviderclear(){
+    _isContactTrue = false;
+    notifyListeners();
+  }
 }

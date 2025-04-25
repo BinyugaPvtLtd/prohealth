@@ -35,7 +35,7 @@ class ContactCallsScreen extends StatelessWidget {
                     },
                     indicatorWeight: 3,
                     overlayColor: MaterialStateProperty.all(Colors.transparent),
-                    indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                    indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                     indicator: BoxDecoration(
                       color: ColorManager.SMFBlue, // Background color for selected tab
                       borderRadius: BorderRadius.circular(8), // Optional
@@ -54,8 +54,8 @@ class ContactCallsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         spacing: 10,
                         children: [
-                          Icon(Icons.send_to_mobile_outlined),
-                          Text("Live Call")
+                          Icon(Icons.content_paste_search_outlined),
+                          Text("Transcripts")
                         ],
                       ),),
                       Tab(

@@ -39,7 +39,7 @@ class ContactEFaxScreen extends StatelessWidget {
                         },
                         indicatorWeight: 2,
                         overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                         indicator: BoxDecoration(
                           color: ColorManager.SMFBlue, // Background color for selected tab
                           borderRadius: BorderRadius.circular(8), // Optional
