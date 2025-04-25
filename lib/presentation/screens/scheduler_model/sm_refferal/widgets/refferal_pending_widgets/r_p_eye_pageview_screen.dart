@@ -443,7 +443,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Insurance  #1',
+                            'Insurance  #${index + 1}',
+                           // 'Insurance  #1',
                             style: AllPopupHeadings.customTextStyle(context),
                           ),
                           Row(mainAxisAlignment: MainAxisAlignment.start,
