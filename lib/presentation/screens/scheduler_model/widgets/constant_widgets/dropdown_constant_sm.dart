@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../app/resources/value_manager.dart';
 
 class CustomDropdownTextFieldsm extends StatefulWidget {
@@ -110,55 +112,59 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: widget.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                  widget.headText,
-                  style: SMTextfieldHeadings.customTextStyle(context)
-                  //AllPopupHeadings.customTextStyle(context)
-              ),
-              widget.isIconVisible! ? SvgPicture.asset(
-                'images/sm/sm_refferal/i_circle.svg',
-                height: IconSize.I20,
-                width: IconSize.I20,
-              ) : Offstage()
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        SizedBox(
-          width: widget.width ?? null,
-          height:widget.height ?? AppSize.s30,
-          child: GestureDetector(
-            onTap: _showDropdownDialog,
-            child: Container(
-              padding: const EdgeInsets.only(bottom: 3, top: 4, left: AppPadding.p10,right: AppPadding.p7),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
-              ),
+    return Consumer<SmIntakeProviderManager>(
+      builder: (context,providerState,child) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: widget.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    _selectedValue ?? widget.hintText ?? 'Select',
-                    style: TableSubHeading.customTextStyle(context),//DocumentTypeDataStyle.customTextStyle(context),
+                      widget.headText,
+                      style: providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
+                    //AllPopupHeadings.customTextStyle(context)
                   ),
-                  Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime,),
+                  widget.isIconVisible! ? SvgPicture.asset(
+                    'images/sm/sm_refferal/i_circle.svg',
+                    height: IconSize.I20,
+                    width: IconSize.I20,
+                  ) : Offstage()
                 ],
               ),
             ),
-          ),
-        ),
-      ],
+            SizedBox(
+              height: 5,
+            ),
+            SizedBox(
+              width: widget.width ?? null,
+              height:widget.height ?? AppSize.s30,
+              child: GestureDetector(
+                onTap: _showDropdownDialog,
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 3, top: 4, left: AppPadding.p10,right: AppPadding.p7),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        _selectedValue ?? widget.hintText ?? 'Select',
+                        style: TableSubHeading.customTextStyle(context),//DocumentTypeDataStyle.customTextStyle(context),
+                      ),
+                      Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime,),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      }
     );
   }
 }

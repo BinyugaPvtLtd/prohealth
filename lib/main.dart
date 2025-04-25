@@ -71,6 +71,7 @@ Future<void> main() async {
           ChangeNotifierProvider(create: (_) => HrOnboardingProvider()),
           ChangeNotifierProvider(create: (_) => FormBuilderProvider()),
           ChangeNotifierProvider(create: (_) => HrProgressMultiStape()),
+          ChangeNotifierProvider(create: (_) => SmIntakeProviderManager()),
           ChangeNotifierProvider(
               create: (context) => AddressProvider(
                   controller: '' as TextEditingController,

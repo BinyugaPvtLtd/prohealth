@@ -9,8 +9,10 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_orders/intake_orders_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/intake_patients_data_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/intake_physician_home_screen.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../em_module/widgets/button_constant.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -122,14 +124,17 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
   }
   @override
   Widget build(BuildContext context) {
-
+    final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     return Scaffold(
       backgroundColor: ColorManager.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: _selectedIndex == 5 ? Offstage() : isSidebarOpen==true ? Offstage() :Padding(
         padding: const EdgeInsets.only(right: 90), // Shift left by 10
         child: FloatingActionButton(
-          onPressed: toggleSidebar,
+          onPressed: (){
+            toggleSidebar();
+            providerContact.toogleContactProvider();
+          },
           backgroundColor: ColorManager.bluebottom,
           child: Padding(
             padding: const EdgeInsets.all(5),
@@ -469,7 +474,10 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                             IntakeInsuranceScreen(patientId: patientId),
                             PhysicianInfoTab(),
                             SMIntakeOrdersScreen(patientId: patientId),
-                            SmIntakeInitialContactScreen(patientId: patientId),
+                            SmIntakeInitialContactScreen(patientId: patientId, onOpenContact: () {
+                              toggleSidebar();
+                              providerContact.toogleContactProvider();
+                            },),
                           ],
                         ),
                       ),
@@ -484,6 +492,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                 ): isSidebarOpen==true ? GestureDetector(
                   onTap: (){
                     toggleSidebar();
+                    providerContact.toogleContactProvider();
                   },
                   child: Container(
                     color: Colors.transparent, // Make this transparent so it's invisible
