@@ -339,6 +339,26 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
           Flexible(
             child: Stack(
               children: [
+                isSidebarLeftOpen==true ?  Positioned.fill(
+                  child: GestureDetector(
+                    onTap: (){
+                      toggleLeftSidebar();
+                    },
+                    child: Container(
+                      color: Colors.transparent, // Make this transparent so it's invisible
+                    ),
+                  ),
+                ): isSidebarOpen==true ? Positioned.fill(
+                  child: GestureDetector(
+                    onTap: (){
+                      toggleSidebar();
+                      providerContact.toogleContactProvider();
+                    },
+                    child: Container(
+                      color: Colors.transparent, // Make this transparent so it's invisible
+                    ),
+                  ),
+                ):Offstage(),
                 Column(
                     children: [
                       Material(
@@ -386,7 +406,11 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                 //       ],
                                 //     )),
                                 PageViewMenuButtonConst(
-                                  onTap: (int index) {
+                                  onTap: isSidebarOpen==true ?(int index){
+                                    intakeSelectButton(index);
+                                    toggleSidebar();
+                                    providerContact.toogleContactProvider();
+                                  } :(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 0,
@@ -403,7 +427,11 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                 //   enabled: patientId != 0,
                                 // ),
                                 PageViewMenuButtonConst(
-                                  onTap: (int index) {
+                                  onTap: isSidebarOpen==true ?(int index){
+                                    intakeSelectButton(index);
+                                    toggleSidebar();
+                                    providerContact.toogleContactProvider();
+                                  } :(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 1,
@@ -412,7 +440,11 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                   //enabled: patientId != 0,
                                 ),
                                 PageViewMenuButtonConst(
-                                  onTap: (int index) {
+                                  onTap: isSidebarOpen==true ?(int index){
+                                    intakeSelectButton(index);
+                                    toggleSidebar();
+                                    providerContact.toogleContactProvider();
+                                  } :(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 2,
@@ -421,7 +453,11 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                   // enabled: patientId != 0,
                                 ),
                                 PageViewMenuButtonConst(
-                                  onTap: (int index) {
+                                  onTap: isSidebarOpen==true ?(int index){
+                                    intakeSelectButton(index);
+                                    toggleSidebar();
+                                    providerContact.toogleContactProvider();
+                                  } :(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 3,//3,
@@ -430,7 +466,11 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                   // enabled: patientId != 0,
                                 ),
                                 PageViewMenuButtonConst(
-                                  onTap: (int index) {
+                                  onTap: isSidebarOpen==true ?(int index){
+                                    intakeSelectButton(index);
+                                    toggleSidebar();
+                                    providerContact.toogleContactProvider();
+                                  } :(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 4,
@@ -439,7 +479,11 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                   // enabled: patientId != 0,
                                 ),
                                 PageViewMenuButtonConst(
-                                  onTap: (int index) {
+                                  onTap: isSidebarOpen==true ?(int index){
+                                    intakeSelectButton(index);
+                                    toggleSidebar();
+                                    providerContact.toogleContactProvider();
+                                  } :(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 5,
@@ -467,7 +511,9 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                 setState(() {
                                   patientId = id;
                                 });
-                              }, iButtonClickd: toggleLeftSidebar,
+                              }, iButtonClickd: (){
+                                toggleLeftSidebar();
+                                providerContact.toogleContactProvider();},
                             ),
                             // SMIntakeReferralScreen(patientId: patientId),
                             DocumationScreenTab(),
@@ -482,22 +528,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                         ),
                       ),
                     ]),
-                isSidebarLeftOpen==true ?  GestureDetector(
-                  onTap: (){
-                    toggleLeftSidebar();
-                  },
-                  child: Container(
-                    color: Colors.transparent, // Make this transparent so it's invisible
-                  ),
-                ): isSidebarOpen==true ? GestureDetector(
-                  onTap: (){
-                    toggleSidebar();
-                    providerContact.toogleContactProvider();
-                  },
-                  child: Container(
-                    color: Colors.transparent, // Make this transparent so it's invisible
-                  ),
-                ):Offstage(),
+
               ],
             ),
           ),

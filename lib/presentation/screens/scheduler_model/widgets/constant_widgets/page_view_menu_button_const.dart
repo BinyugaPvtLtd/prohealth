@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 typedef void OnManuButtonTapCallBack(int index);
 
 class PageViewMenuButtonConst extends StatelessWidget {
@@ -23,36 +25,40 @@ class PageViewMenuButtonConst extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: enabled ? () => onTap(index) : null,  // Only trigger onTap if enabled
-      child: Opacity(
-        opacity: enabled ? 1.0 : 0.5,  // Dim the button if disabled
-        child: Column(
-          children: [
-            Text(
-              heading,
-              style: TextStyle(
-                fontSize: FontSize.s14,
-                fontWeight: FontWeight.w700,
-                color: grpIndex == index
-                    ? ColorManager.blueprime
-                    : const Color(0xff686464),
-              ),
+    return Consumer<SmIntakeProviderManager>(
+      builder: (context,providerState,child) {
+        return GestureDetector(
+          onTap: enabled ? () => onTap(index) : null,  // Only trigger onTap if enabled
+          child: Opacity(
+            opacity: enabled ? 1.0 : 0.5,  // Dim the button if disabled
+            child: Column(
+              children: [
+                Text(
+                  heading,
+                  style: TextStyle(
+                    fontSize: providerState.isContactTrue ?FontSize.s11:FontSize.s14,
+                    fontWeight: FontWeight.w700,
+                    color: grpIndex == index
+                        ? ColorManager.blueprime
+                        : const Color(0xff686464),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  height: AppSize.s5,
+                  width:providerState.isContactTrue ?AppSize.s90  :AppSize.s120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(13.0),
+                    color: grpIndex == index
+                        ? ColorManager.blueprime
+                        : Colors.transparent,
+                  ),
+                ),
+              ],
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              height: AppSize.s5,
-              width: AppSize.s120,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(13.0),
-                color: grpIndex == index
-                    ? ColorManager.blueprime
-                    : Colors.transparent,
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }
