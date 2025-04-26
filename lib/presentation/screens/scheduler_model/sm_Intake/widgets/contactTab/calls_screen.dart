@@ -28,14 +28,15 @@ class ContactCallsScreen extends StatelessWidget {
               )),
               child: DefaultTabController(
                 length: 2,
-                initialIndex: 0,
+                initialIndex: providerState.initialIndex,
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 10,bottom: 3,left: 30,right: 30),
+                      padding:  EdgeInsets.only(top: 10,bottom: 3,left: providerState.initialIndex == 1 ? 40 : 70,right: providerState.initialIndex == 1 ? 40 : 70),
                       child: TabBar(
                         padding: const EdgeInsets.symmetric(horizontal: 50),
                         onTap: (index) {
+                          providerState.indexChnage(index);
 
                     },
                     indicatorWeight: 3,
