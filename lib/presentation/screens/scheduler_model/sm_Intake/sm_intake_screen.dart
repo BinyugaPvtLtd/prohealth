@@ -610,7 +610,10 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                                   highlightColor: Colors.transparent,
                                                   hoverColor: Colors.transparent,
                                                   splashColor: Colors.transparent,
-                                                  onTap:toggleCall,
+                                                  onTap:(){
+                                                    toggleCall();
+                                                    providerContact.toogleContactCallLiveProvider();
+                                                  },
                                                   child: Container(
                                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Colors.red),
                                                     padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
@@ -695,7 +698,10 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                         height: AppSize.s31,
                                         text: "Call",
                                         color: Color(0xFF008000),
-                                        onPressed: toggleCall,
+                                        onPressed: (){
+                                          toggleCall();
+                                          providerContact.toogleContactCallLiveProvider();
+                                        },
                                       ),
 
                                     ],
