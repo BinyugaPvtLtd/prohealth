@@ -111,111 +111,114 @@ class LiveCallTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isName = false;
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const Divider(),
-          const SizedBox(height:40),
-          Container(
-            height: 31,
-            width: double.maxFinite,
-            decoration: BoxDecoration(
-              color: Color(0xFFFFE1AD),
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight: Radius.circular(5))
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Intake Script', style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w700,
-                    color:  ColorManager.textPrimaryColor,),),
-                  Row(
-                    spacing: 5,
-                    children: [
-                      const Icon(Icons.play_circle_outline_outlined),
-                      Text('Play', style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                      fontWeight: FontWeight.w400,
-                      color:  ColorManager.textPrimaryColor,),)
-                    ],
-                  )
-                ],
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Divider(),
+            const SizedBox(height:40),
+            Container(
+              height: 31,
+              width: double.maxFinite,
+              decoration: BoxDecoration(
+                color: Color(0xFFFFE1AD),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight: Radius.circular(5))
               ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Align(
-              alignment: Alignment.center,
-                child: Icon(Icons.keyboard_arrow_up_outlined,color: Color(0xFF1696C8),)),
-          ),
-          Container(
-            height:160,
-            color:const Color(0xFF1696C8).withOpacity(0.1),
-            child:Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children:[
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Intake Script', style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                      fontWeight: FontWeight.w700,
+                      color:  ColorManager.textPrimaryColor,),),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      spacing: 10,
+                      spacing: 5,
                       children: [
-                        CheckboxTile(
-                          title: 'What is Your First Name?',
-                          initialValue: isName,
-                          onChanged: (value) {
-      
-                          },
-                        ),
-                        const CircleAvatar(
-                          radius: 25,
-                            backgroundImage:
-                            AssetImage('images/temp.jpg'),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      spacing: 10,
-                      children: [
-                        const CircleAvatar(
-                          radius: 25,
-                            backgroundImage:
-                            AssetImage('images/tmp2.jpg'),
-                        ),
-                        Text('My First Name is Erica', style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
+                        const Icon(Icons.play_circle_outline_outlined),
+                        Text('Play', style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                        fontWeight: FontWeight.w400,
                         color:  ColorManager.textPrimaryColor,),)
                       ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10,top: 5),
-                      child: Row(
+                    )
+                  ],
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Align(
+                alignment: Alignment.center,
+                  child: Icon(Icons.keyboard_arrow_up_outlined,color: Color(0xFF1696C8),)),
+            ),
+            Container(
+              height:160,
+              color:const Color(0xFF1696C8).withOpacity(0.1),
+              child:Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children:[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        spacing: 10,
                         children: [
-                          Image.asset("images/sm/aii.png",height: 20,),
-                          const SizedBox(width: 2,),
-                          Text(" : Erica ",style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFF008000),),),
-                          const SizedBox(width: 2,),
-                          Icon(Icons.copy,color: ColorManager.textPrimaryColor ,),
+                          CheckboxTile(
+                            title: 'What is Your First Name?',
+                            initialValue: isName,
+                            onChanged: (value) {
+
+                            },
+                          ),
+                          const CircleAvatar(
+                            radius: 25,
+                              backgroundImage:
+                              AssetImage('images/temp.jpg'),
+                          )
                         ],
                       ),
-                    )
-                  ]
-              ),
-            )
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Align(
-                alignment: Alignment.center,
-                child: Icon(Icons.keyboard_arrow_down_outlined,color: Color(0xFF1696C8),)),
-          ),
-      
-        ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        spacing: 10,
+                        children: [
+                          const CircleAvatar(
+                            radius: 25,
+                              backgroundImage:
+                              AssetImage('images/tmp2.jpg'),
+                          ),
+                          Text('My First Name is Erica', style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color:  ColorManager.textPrimaryColor,),)
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10,top: 5),
+                        child: Row(
+                          children: [
+                            Image.asset("images/sm/aii.png",height: 20,),
+                            const SizedBox(width: 2,),
+                            Text(" : Erica ",style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFF008000),),),
+                            const SizedBox(width: 2,),
+                            Icon(Icons.copy,color: ColorManager.textPrimaryColor ,),
+                          ],
+                        ),
+                      )
+                    ]
+                ),
+              )
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Icon(Icons.keyboard_arrow_down_outlined,color: Color(0xFF1696C8),)),
+            ),
+
+          ],
+        ),
       ),
     );
   }
