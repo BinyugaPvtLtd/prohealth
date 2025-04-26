@@ -32,9 +32,9 @@ class ContactCallsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 10,bottom: 3,left: 30,right: 30),
+                      padding: const EdgeInsets.only(top: 10,bottom: 3,left: 70,right: 70),
                       child: TabBar(
-                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                       // padding: const EdgeInsets.symmetric(horizontal: 50),
                         onTap: (index) {
 
                     },
