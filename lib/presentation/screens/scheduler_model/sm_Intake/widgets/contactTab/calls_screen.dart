@@ -34,7 +34,7 @@ class ContactCallsScreen extends StatelessWidget {
                     Padding(
                       padding:  EdgeInsets.only(top: 10,bottom: 3,left: providerState.initialIndex == 1 ? 40 : 70,right: providerState.initialIndex == 1 ? 40 : 70),
                       child: TabBar(
-                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                       // padding: const EdgeInsets.symmetric(horizontal: 50),
                         onTap: (index) {
                           providerState.indexChnage(index);
 
@@ -281,7 +281,7 @@ class CallTransictionTab extends StatelessWidget {
                                       Container(
                                         width: 70,
                                         height: 18,
-                                        decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color: Color(0xFFB0BEC5)),
+                                        decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color: Color(0xFFE9E9FA)),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment: CrossAxisAlignment.center,
