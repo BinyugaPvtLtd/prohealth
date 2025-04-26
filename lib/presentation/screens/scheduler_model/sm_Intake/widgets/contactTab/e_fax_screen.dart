@@ -39,7 +39,7 @@ class ContactEFaxScreen extends StatelessWidget {
                         },
                         indicatorWeight: 2,
                         overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 1),
                         indicator: BoxDecoration(
                           color: ColorManager.SMFBlue, // Background color for selected tab
                           borderRadius: BorderRadius.circular(8), // Optional
@@ -191,6 +191,7 @@ class SendFaxTab extends StatelessWidget {
             Row(
               children: [
                 CustomIconButtonConst(
+                 color:    ColorManager.bluebottom,
                   height: 35,
                     width: 140,
                     text: 'Upload files',
@@ -234,6 +235,7 @@ SizedBox(width: 40,),
             Align(
               alignment: Alignment.bottomCenter,
               child: CustomElevatedButton(
+                color:  ColorManager.bluebottom,
                 width: AppSize.s100,
                 text:"Send",
                 onPressed: (){},

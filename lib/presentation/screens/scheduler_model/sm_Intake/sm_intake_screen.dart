@@ -576,26 +576,31 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                       padding: const EdgeInsets.symmetric(horizontal: 15,),
                                       child: Row(
                                         crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          Icon(Icons.wifi_calling_3_outlined,size: 19,color: Color(0xFF686464),),
-                                          Text('Albert Flores',style: CustomTextStylesCommon.commonStyle(
-                                            color: Color(0xFF686464),
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                          ),),
+                                          Row(
+                                            children: [
+                                              Image.asset("images/sm/wifi_call.png",height: 20,),
+                                              SizedBox(width: 20,),
+                                              Text('Albert Flores',style: CustomTextStylesCommon.commonStyle(
+                                                color: Color(0xFF686464),
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 16,
+                                              ),),
+                                            ],
+                                          ),
                                           Container(
-                                            width: 80,
-                                            height: 18,
-                                            decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color: ColorManager.faintGrey),
+                                            width: 90,
+                                            height: 22,
+                                            decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color:Color(0xFFB0BEC5)),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
-                                                Icon(Icons.circle,color: Colors.red,size:8 ,),
+                                                Icon(Icons.circle,color: Colors.red,size:10 ,),
                                                 Text('02:22:50',style:CustomTextStylesCommon.commonStyle(
                                                   color:Color(0xFF686464),
-                                                  fontWeight: FontWeight.w400,fontSize: FontSize.s10,
+                                                  fontWeight: FontWeight.w400,fontSize: FontSize.s12,
                                                 ) ,)
                                               ],
                                             ),
@@ -604,7 +609,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                             padding: const EdgeInsets.symmetric(vertical: 13),
                                             child: Row(
                                               crossAxisAlignment: CrossAxisAlignment.center,
-                                              spacing: 10,
+                                              spacing: 12,
                                               children: [
                                                 InkWell(
                                                   highlightColor: Colors.transparent,
@@ -613,17 +618,17 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                                   onTap:toggleCall,
                                                   child: Container(
                                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Colors.red),
-                                                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                                                    padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                                                     child: Center(
-                                                      child: Icon(Icons.call,size: 15,color: Colors.white,),
+                                                      child: Icon(Icons.call,size: 16,color: Colors.white,),
                                                     ),
                                                   ),
                                                 ),
                                                 Container(
                                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFFF4F5F8)),
-                                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                                                  padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                                                   child: Center(
-                                                    child: Icon(Icons.mic_off_outlined,size: 15,),
+                                                    child: Icon(Icons.mic_off_outlined,size: 16,),
                                                   ),
                                                 )
 
