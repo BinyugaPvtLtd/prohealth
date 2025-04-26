@@ -14,12 +14,14 @@ class CustomIconButtonConst extends StatelessWidget {
   final double? width;
   final double? height;
   final bool? enabled;
+  final Color? color;
 
   const CustomIconButtonConst({
     this.text,
     this.icon,
     required this.onPressed,
     this.width,
+    this.color,
     Key? key, this.enabled, this.height,
   }) : super(key: key);
 
@@ -38,7 +40,7 @@ class CustomIconButtonConst extends StatelessWidget {
           height: height ?? 32,
           // padding: EdgeInsets.symmetric(horizontal: AppPadding.p15, vertical: AppPadding.p5),
           decoration: BoxDecoration(
-            color: ColorManager.blueprime,
+            color:color ?? ColorManager.blueprime,
             borderRadius: BorderRadius.circular(12),
           ),
           child:
