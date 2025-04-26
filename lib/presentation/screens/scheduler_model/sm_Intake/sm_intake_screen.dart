@@ -710,7 +710,6 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                             providerContact.toogleContactCallLiveProvider();
                                           },
                                         ),
-
                                       ],
                                     ),
                                   ),
