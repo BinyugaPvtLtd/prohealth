@@ -4,8 +4,10 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widge
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
+import 'package:provider/provider.dart';
 //import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
 
+import '../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../sm_Intake/intake_main_screen.dart';
 
@@ -56,10 +58,14 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
   }
   @override
   Widget build(BuildContext context) {
+    final providerState = Provider.of<SmIntakeProviderManager>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: isShowingReferalEyePageview ?
-      ReferalPendingEyePageview(onGoBackPressed: goBackToInitialScreen,) :
+      ReferalPendingEyePageview(onGoBackPressed: (){
+        goBackToInitialScreen();
+        providerState.toogleEyeScreenProvider();
+        },) :
       isShowingMergeDuplicatePageview ?
           RPMergeDuplicateScreen(onMergeBackPressed: goBackToInitialRPendingScreen) :
       Column(
@@ -112,9 +118,15 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                 });
               },
               children: [
-                RefferalPendingScreen(onEyeButtonPressed: switchToEyePageviweScreen,
+                RefferalPendingScreen(onEyeButtonPressed: (){
+                  switchToEyePageviweScreen();
+                  providerState.toogleEyeScreenProvider();
+                },
                   onMergeDuplicatePressed: switchToMergeDuplicateScreen,),
-                RefferalMoveToIntakeScreen(onEyeButtonPressed: switchToEyePageviweScreen,onMergeDuplicatePressed: switchToMergeDuplicateScreen,),
+                RefferalMoveToIntakeScreen(onEyeButtonPressed: (){
+                  switchToEyePageviweScreen();
+                  providerState.toogleEyeScreenProvider();
+                },onMergeDuplicatePressed: switchToMergeDuplicateScreen,),
                 RefferalArchievedScreen(onEyeButtonPressed: switchToEyePageviweScreen,)
               ],
             ),
