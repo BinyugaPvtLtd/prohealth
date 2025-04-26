@@ -37,24 +37,24 @@ class ContactCallsScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 50),
                         onTap: (index) {
 
-                        },
-                        indicatorWeight: 3,
-                        overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        indicatorPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-                        indicator: BoxDecoration(
-                          color: ColorManager.SMFBlue, // Background color for selected tab
-                          borderRadius: BorderRadius.circular(8), // Optional
-                        ),
-                        indicatorSize: TabBarIndicatorSize.label,
-                        labelColor: ColorManager.textPrimaryColor,
-                        labelStyle: const TextStyle(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        unselectedLabelColor: ColorManager.textPrimaryColor,
-                        dividerColor: Colors.black54,
-                        tabs: [
-                        providerState.isContactCallLive?const Tab(child: Row(
+                    },
+                    indicatorWeight: 3,
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 1),
+                    indicator: BoxDecoration(
+                      color: ColorManager.SMFBlue, // Background color for selected tab
+                      borderRadius: BorderRadius.circular(8), // Optional
+                    ),
+                    indicatorSize: TabBarIndicatorSize.label,
+                    labelColor: ColorManager.textPrimaryColor,
+                    labelStyle: TextStyle(
+                      fontSize: FontSize.s14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    unselectedLabelColor: ColorManager.textPrimaryColor,
+                    dividerColor: Colors.black54,
+                    tabs: [
+                    providerState.isContactCallLive?  Tab(child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         spacing: 10,
@@ -107,6 +107,7 @@ class ContactCallsScreen extends StatelessWidget {
 
 class LiveCallTab extends StatelessWidget {
   const LiveCallTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     bool isName = false;
@@ -119,8 +120,8 @@ class LiveCallTab extends StatelessWidget {
             height: 31,
             width: double.maxFinite,
             decoration: BoxDecoration(
-              color: const Color(0xFFFFE1AD).withOpacity(0.2),
-              borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight: Radius.circular(5))
+              color: Color(0xFFFFE1AD),
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight: Radius.circular(5))
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -233,7 +234,7 @@ class CallTransictionTab extends StatelessWidget {
           children: [
             const Divider(),
             Padding(
-              padding: const EdgeInsets.only(left: 40,bottom: 20),
+              padding: const EdgeInsets.only(left: 40,bottom: 20,top: 20),
               child: Text('Yesterday',style: CustomTextStylesCommon.commonStyle(
                 color:const Color(0xFF2B647F),
                 fontWeight: FontWeight.w600,fontSize: FontSize.s16,
@@ -256,25 +257,27 @@ class CallTransictionTab extends StatelessWidget {
                                 //crossAxisAlignment:CrossAxisAlignment.center,
                                 children: [
                                   Column(
+                                    crossAxisAlignment:CrossAxisAlignment.start,
                                     children: [
                                      // SizedBox(height: 5,),
                                       Image.asset("images/sm/outgoing_call.jpg",height: 20,),
                                      // Icon(Icons.phone_callback_outlined,color: Color(0xFF16A34A),size: 25,),
                                     ],
                                   ),
-                                  const SizedBox(width: 3,),
+                                  SizedBox(width: 5,),
                                   Column(
                                     crossAxisAlignment:CrossAxisAlignment.center,
                                     children: [
+                                      SizedBox(height: 5,),
                                       Text('John Smith',style: CustomTextStylesCommon.commonStyle(
-                                        color:const Color(0xFF686464),
+                                        color:Color(0xFF686464),
                                         fontWeight: FontWeight.w700,fontSize: FontSize.s14,
                                       )),
-                                      const SizedBox(height: 5,),
+                                      SizedBox(height: 5,),
                                       Container(
                                         width: 70,
                                         height: 18,
-                                        decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color: ColorManager.faintGrey),
+                                        decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color: Color(0xFFB0BEC5)),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -437,5 +440,3 @@ class CallTranscriptTab extends StatelessWidget {
     );
   }
 }
-
-
