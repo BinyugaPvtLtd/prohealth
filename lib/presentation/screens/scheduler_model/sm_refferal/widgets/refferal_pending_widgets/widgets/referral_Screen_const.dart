@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 
@@ -12,31 +14,35 @@ class BlueBGHeadConst extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: AppSize.s33,
-      decoration: BoxDecoration(
-        color: ColorManager.SMFBlue,
-      ),
-      padding: EdgeInsets.only(left: 25, right: 30),
-      // margin: EdgeInsets.symmetric(vertical: AppPadding.p8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            HeadText,
-            style:TextStyle(
-              fontSize: FontSize.s16,
-              fontWeight: FontWeight.w700,
-              color: ColorManager.mediumgrey,
-            ),
+    return Consumer<SmIntakeProviderManager>(
+      builder: (context,providerState,child) {
+        return Container(
+          height: AppSize.s33,
+          decoration: BoxDecoration(
+            color: ColorManager.SMFBlue,
           ),
-          Icon(
-            Icons.arrow_drop_up_outlined,
-            size: IconSize.I24,
-            color: ColorManager.mediumgrey,
+          padding: EdgeInsets.only(left: 25, right: 30),
+          // margin: EdgeInsets.symmetric(vertical: AppPadding.p8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                HeadText,
+                style:TextStyle(
+                  fontSize: providerState.isContactTrue? FontSize.s13 :FontSize.s16,
+                  fontWeight: FontWeight.w700,
+                  color: ColorManager.mediumgrey,
+                ),
+              ),
+              Icon(
+                Icons.arrow_drop_up_outlined,
+                size: IconSize.I24,
+                color: ColorManager.mediumgrey,
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      }
     );
   }
 }

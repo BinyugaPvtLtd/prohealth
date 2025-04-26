@@ -23,14 +23,14 @@ class _RequestlogState extends State<Requestlog> {
       ),
       backgroundColor: Colors.white,
       child: Container(
-        width: 400,
+        width: 450,
         height: 400,
         child: Column(
           children: [
             Container(
               height: 40,
               decoration: const BoxDecoration(
-                color: Color(0xff50B5E5),
+                color: Color(0xff1696C8),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(13),
                   topRight: Radius.circular(13),
@@ -69,7 +69,7 @@ class _RequestlogState extends State<Requestlog> {
             Container(child:
 
             Padding(
-              padding: const EdgeInsets.only(right: 40,left: 10),
+              padding: const EdgeInsets.only(right: 50,left: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -141,38 +141,165 @@ class _RequestlogState extends State<Requestlog> {
             Divider(),
 
 
-            // Expanded(
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: Container(
-            //       width: double.infinity, // Ensure full width
-            //       height: 300, // Adjust height as needed
-            //       child: Timeline(
-            //         children: <Widget>[
-            //           Container(height: 30, color: Colors.blue),
-            //           Container(height: 30, color: Colors.green),
-            //           Container(height: 30, color: Colors.red),
-            //           Container(height: 30, color: Colors.orange),
-            //         ],
-            //         indicators: <Widget>[
-            //           Icon(Icons.access_alarm),
-            //           Icon(Icons.backup),
-            //           Icon(Icons.accessibility_new),
-            //           Icon(Icons.access_alarm),
-            //         ],
-            //         isLeftAligned: true,
-            //         itemGap: 20.0,
-            //         lineColor: Colors.blueAccent,
-            //         indicatorSize: 20.0,
-            //         indicatorColor: Colors.blue,
-            //         strokeWidth: 3.0,
-            //       ),
-            //     ),
-            //   ),
-            // )
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  spacing: 20,
+                  children: [
+                    Column(
+                      spacing: 20,
+                      children: [
+                      Icon(Icons.add,size: 15,color: Color(0xff1595C7),),
+                      Icon(Icons.send_outlined,size: 15,color: Color(0xff1595C7),),
+                      Icon(Icons.mail_outline_outlined,size: 15,color: Color(0xffFEBD4D),),
+                      Icon(Icons.close,size:15,color: Color(0xffC40606),),
+                      Icon(Icons.add_alert_rounded,size: 15,color: Color(0xff1595C7),)
+                    ],),
+                    Column(
+                      spacing: 21,
+                      children: [
+                        Text(
+                          "04:49 PM Mar 3",
+                          textAlign: TextAlign.center,
+                          style:
+                          CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w600,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                        Text(
+                          "04:49 PM Mar 3",
+                          textAlign: TextAlign.center,
+                          style:
+                          CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w600,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                        Text(
+                          "04:49 PM Mar 3",
+                          textAlign: TextAlign.center,
+                          style:
+                          CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w600,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                        Text(
+                          "04:49 PM Mar 3",
+                          textAlign: TextAlign.center,
+                          style:
+                          CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w600,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                        Text(
+                          "04:49 PM Mar 3",
+                          textAlign: TextAlign.center,
+                          style:
+                          CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w600,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+
+                    ],),
+                    Column(
+                      spacing: 21,
+                      children: [
+                        Text(
+                          "Request created by Geraldine Cayetano",
+                          textAlign: TextAlign.center,
+                          style:
+                          CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                        Text(
+                          "Request created by Geraldine Cayetano",
+                          textAlign: TextAlign.center,
+                          style:
+                          CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                        Text(
+                          "Request created by Geraldine Cayetano",
+                          textAlign: TextAlign.center,
+                          style:
+                          CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                        Text(
+                          "Request created by Geraldine Cayetano",
+                          textAlign: TextAlign.center,
+                          style:
+                          CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                        Text(
+                          "Request created by Geraldine Cayetano",
+                          textAlign: TextAlign.center,
+                          style:
+                          CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
 
 
+                      ],),
+                  ],
+                )
+              ),
+            )
 
+
+//Container(
+//                   width: double.infinity, // Ensure full width
+//                   height: 300, // Adjust height as needed
+//                   child: Timeline(
+//                     children: <Widget>[
+//                       Container(height: 20, color: Colors.blue),
+//                       Container(height: 20, color: Colors.green),
+//                       Container(height: 20, color: Colors.red),
+//                       Container(height: 20, color: Colors.orange),
+//                      // Container(height: 20, color: Colors.pink),
+//                     ],
+//                     indicators: <Widget>[
+//                       Icon(Icons.access_alarm,size: 10,),
+//                       Icon(Icons.backup,size: 10,),
+//                       Icon(Icons.accessibility_new,size: 10,),
+//                       Icon(Icons.access_alarm,size: 10,),
+//                     ],
+//                     isLeftAligned: true,
+//                     itemGap: 2.0,
+//                     lineColor: Colors.blueAccent,
+//                     indicatorSize: 20.0,
+//                     indicatorColor: Colors.blue,
+//                     strokeWidth: 3.0,
+//                   ),
+//                 ),
 
           ],
         ),

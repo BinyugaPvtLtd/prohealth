@@ -27,17 +27,19 @@ class ContactEFaxScreen extends StatelessWidget {
             child: DefaultTabController(
               length: 2,
               initialIndex: 0,
-              child: SingleChildScrollView(
+              child: ScrollConfiguration(
+    behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+    child:SingleChildScrollView(
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 10,bottom: 3,left: 30,right: 30),
+                      padding: const EdgeInsets.only(top: 10,bottom: 3,left: 100,right: 100),
                       child: TabBar(
                         onTap: (index) {
                         },
                         indicatorWeight: 2,
                         overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                         indicator: BoxDecoration(
                           color: ColorManager.SMFBlue, // Background color for selected tab
                           borderRadius: BorderRadius.circular(8), // Optional
@@ -56,7 +58,7 @@ class ContactEFaxScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: 10,
                             children: [
-                              Icon(Icons.fax_rounded),
+                              Icon(Icons.fax_rounded,size: 25,),
                               Text("Send Fax")
                             ],
                           ),),
@@ -93,6 +95,7 @@ class ContactEFaxScreen extends StatelessWidget {
             ),
           ),
         )
+        )
     );
   }
 }
@@ -107,7 +110,9 @@ class SendFaxTab extends StatelessWidget {
     TextEditingController faxController = TextEditingController();
     TextEditingController phoneController = TextEditingController();
     TextEditingController typeTextController = TextEditingController();
-    return SingleChildScrollView(
+    return ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+    child:SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 10),
         child: Column(
@@ -234,10 +239,11 @@ SizedBox(width: 40,),
                 onPressed: (){},
               ),
             ),
-            SizedBox(height:30),
+            SizedBox(height:40),
           ],
         ),
       ),
+    ),
     );
   }
 }

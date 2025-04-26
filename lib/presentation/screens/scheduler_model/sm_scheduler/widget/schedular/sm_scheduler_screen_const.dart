@@ -665,7 +665,7 @@ class CustomButtonRowPop extends StatelessWidget {
         // Next Button
         Row(
           children: [
-            InkWell(
+            GestureDetector(
               onTap: onNextPressed,
               child: Container(
                 width: AppSize.s40,
