@@ -229,7 +229,6 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                       )),
                                 ]
                             ),
-
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,

@@ -363,28 +363,63 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                           PopupMenuButton<String>(
                                             tooltip: '',
                                             splashRadius: 0,
-                                            onSelected: (value) {
-                                              if (value == 'Merge Duplicate') {
-                                                Future.microtask(() {
-                                                  widget.onMergeDuplicatePressed();
-                                                });
-                                              } else if (value == 'Archived') {
-                                                Future.microtask(() {
-                                                  print('Option 2 Selected');
-                                                });
-                                              }
-                                            },
-                                            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                                            color: Colors.white,
+                                            offset: Offset(25, 42),
+                                            itemBuilder: (BuildContext context) => [
                                               PopupMenuItem<String>(
                                                 value: 'Merge Duplicate',
-                                                child: Text('Merge Duplicate'),
+                                                padding: EdgeInsets.zero, // Remove padding
+                                                child: InkWell(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  onTap: () {
+                                                    Navigator.pop(context); // Important: manually close the popup
+                                                    widget.onMergeDuplicatePressed();
+                                                  },
+                                                  child: Container(
+                                                    alignment: Alignment.centerLeft,
+                                                    padding: EdgeInsets.only(left: 12, top: 5),
+                                                    width: 100,
+                                                    child: Text(
+                                                      'Merge Duplicate',
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: FontSize.s12,
+                                                        color: ColorManager.mediumgrey,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                               PopupMenuItem<String>(
                                                 value: 'Archived',
-                                                child: Text('Archived'),
+                                                padding: EdgeInsets.zero,
+                                                child: InkWell(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                    print('Option 2 Selected');
+                                                  },
+                                                  child: Container(
+                                                    alignment: Alignment.centerLeft,
+                                                    padding: EdgeInsets.only(left: 12, top: 5),
+                                                    width: 100,
+                                                    child: Text(
+                                                      'Archived',
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: FontSize.s12,
+                                                        color: ColorManager.mediumgrey,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ],
-                                            child: Icon(Icons.more_vert,color: ColorManager.mediumgrey,),
+                                            child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
                                           ),
                                           SizedBox(width: AppSize.s10),
                                         ],
