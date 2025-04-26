@@ -4,6 +4,8 @@ class SmIntakeProviderManager extends ChangeNotifier{
   bool _isContactTrue = false;
   bool _isContactCallLive = false;
   bool _isEyeScreenVisible = false;
+  int _initialIndex = 0;
+  int get initialIndex => _initialIndex;
   bool get isContactTrue => _isContactTrue;
   bool get isContactCallLive => _isContactCallLive;
   bool get isEyeScreenVisible => _isEyeScreenVisible;
@@ -22,6 +24,10 @@ class SmIntakeProviderManager extends ChangeNotifier{
   }
   void toogleEyeScreenProvider(){
     _isEyeScreenVisible = !_isEyeScreenVisible;
+    notifyListeners();
+  }
+  void indexChnage(int index){
+    _initialIndex = index;
     notifyListeners();
   }
 }
