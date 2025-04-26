@@ -28,7 +28,7 @@ class ContactLogsScreen extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  width: 250,
+                  width: 270,
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -38,7 +38,7 @@ class ContactLogsScreen extends StatelessWidget {
                     child: TabBar(
                       labelColor: Colors.white,
                       unselectedLabelColor:  ColorManager.textPrimaryColor,
-                      indicatorPadding:  EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                      indicatorPadding:  EdgeInsets.symmetric(horizontal: 15,vertical: 1),
                       indicator: BoxDecoration(
                         color: ColorManager.SMFBlue,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
