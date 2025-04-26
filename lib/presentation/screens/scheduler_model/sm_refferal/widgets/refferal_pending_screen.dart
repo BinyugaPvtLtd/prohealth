@@ -712,6 +712,67 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                               ],
                                               child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
                                             ),
+                                            // PopupMenuButton<String>(
+                                            //   tooltip: '',
+                                            //   splashRadius: 0,
+                                            //   color: Colors.white,
+                                            //   offset: Offset(25, 42),
+                                            //   itemBuilder: (BuildContext context) => [
+                                            //     PopupMenuItem<String>(
+                                            //       value: 'Merge Duplicate',
+                                            //       padding: EdgeInsets.zero, // Remove padding
+                                            //       child: InkWell(
+                                            //         splashColor: Colors.transparent,
+                                            //         highlightColor: Colors.transparent,
+                                            //         hoverColor: Colors.transparent,
+                                            //         onTap: () {
+                                            //           Navigator.pop(context); // Important: manually close the popup
+                                            //           widget.onMergeDuplicatePressed();
+                                            //         },
+                                            //         child: Container(
+                                            //           alignment: Alignment.centerLeft,
+                                            //           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                            //           width: 100,
+                                            //           child: Text(
+                                            //             'Merge Duplicate',
+                                            //             style: CustomTextStylesCommon.commonStyle(
+                                            //               fontWeight: FontWeight.w700,
+                                            //               fontSize: FontSize.s12,
+                                            //               color: ColorManager.mediumgrey,
+                                            //             ),
+                                            //           ),
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //     PopupMenuItem<String>(
+                                            //       value: 'Archived',
+                                            //       padding: EdgeInsets.zero,
+                                            //       child: InkWell(
+                                            //         splashColor: Colors.transparent,
+                                            //         highlightColor: Colors.transparent,
+                                            //         hoverColor: Colors.transparent,
+                                            //         onTap: () {
+                                            //           Navigator.pop(context);
+                                            //           print('Option 2 Selected');
+                                            //         },
+                                            //         child: Container(
+                                            //           alignment: Alignment.centerLeft,
+                                            //           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                            //           width: 100,
+                                            //           child: Text(
+                                            //             'Archived',
+                                            //             style: CustomTextStylesCommon.commonStyle(
+                                            //               fontWeight: FontWeight.w700,
+                                            //               fontSize: FontSize.s12,
+                                            //               color: ColorManager.mediumgrey,
+                                            //             ),
+                                            //           ),
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            //   child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
+                                            // ),
                                             SizedBox(width: AppSize.s9),
                                           ],
                                         ))
