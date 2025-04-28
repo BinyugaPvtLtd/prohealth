@@ -442,7 +442,6 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                 SizedBox(
                                                   height: AppSize.s4,
                                                 ),
-
                                                 Text(
                                                   "Migraine",
                                                   textAlign: TextAlign.center,
