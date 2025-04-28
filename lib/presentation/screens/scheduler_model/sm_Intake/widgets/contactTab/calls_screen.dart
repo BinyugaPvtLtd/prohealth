@@ -19,13 +19,24 @@ class ContactCallsScreen extends StatelessWidget {
       builder: (context,providerState,child) {
         return Center(
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 10),
             child: Container(
               decoration: BoxDecoration(
+                color: ColorManager.white,
                 borderRadius: BorderRadius.circular(8),
                   border: const Border(
                 top: BorderSide(color: Color(0xFF1696C8),width: 5)
-              )),
+              ),
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorManager.black.withOpacity(0.2),
+                    blurRadius: 2,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 2), // Downward shadow
+                  ),
+                ],
+              ),
+
               child: DefaultTabController(
                 length: 2,
                 initialIndex: providerState.initialIndex,
@@ -284,7 +295,7 @@ class CallTransictionTab extends StatelessWidget {
                                       Container(
                                         width: 70,
                                         height: 18,
-                                        decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color: Color(0xFFB0BEC5)),
+                                        decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color: Color(0xFFE9E9FA)),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment: CrossAxisAlignment.center,

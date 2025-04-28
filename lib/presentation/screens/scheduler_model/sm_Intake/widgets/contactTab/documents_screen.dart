@@ -21,25 +21,27 @@ class _ContactDocumentScreenState extends State<ContactDocumentScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 10),
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.6,
+         // height: MediaQuery.of(context).size.height * 0.6,
           padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white, // Important to have a background color for shadow to show properly
-            borderRadius: BorderRadius.circular(8),
-            border: Border(
-              top: BorderSide(color: Color(0xFF1696C8), width: 5),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5), // shadow color
-                spreadRadius: 1, // how much the shadow spreads
-                blurRadius: 4, // how soft the shadow is
-                offset: Offset(0, 3), // x and y offset
-              ),
-            ],
-          ),
+                decoration:BoxDecoration(
+                  color: ColorManager.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: const Border(
+                      top: BorderSide(color: Color(0xFF1696C8),width: 5)
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: ColorManager.black.withOpacity(0.2),
+                      blurRadius: 2,
+                      spreadRadius: 1,
+                      offset: const Offset(0, 2), // Downward shadow
+                    ),
+                  ],
+                ),
+
+
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: SingleChildScrollView(
