@@ -136,7 +136,8 @@ class _CustomRadioListTileSMpState extends State<CustomRadioListTileSMp> {
               providerState.isContactTrue? SizedBox(width: 4):SizedBox(width: 8),
               Text(
                 widget.title,
-                style: providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :DocumentTypeDataStyle.customTextStyle(context),
+                style: // providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :
+                DocumentTypeDataStyle.customTextStyle(context),
               ),
               //SizedBox( width: AppSize.s50,)
             ],

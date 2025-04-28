@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/office_location_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../app/resources/color.dart';
@@ -51,7 +52,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
    builder: (context,providerState,child) {
      return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 35),
+        padding:  EdgeInsets.only(right: providerState.isContactTrue ? 0 : 35, left:  35),
         child: Column(
           children: [
             Padding(
@@ -70,11 +71,9 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
             SizedBox(height: AppSize.s10,),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
+              padding: EdgeInsets.symmetric(horizontal:  providerState.isContactTrue ? 0 : 25),
               child: Column(
                 children: [
-
-
                   SizedBox(height: AppSize.s16),
                   Row(
                     children: [
@@ -99,50 +98,13 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                               controller: lastController,
                               labelText: "Last Name*")),
                       SizedBox(width: AppSize.s35),
-                      Flexible(
+                     providerState.isContactTrue ? Offstage() : Flexible(
                           child: SchedularTextField(
                               controller: suffixController,
                               labelText: "Suffix")),
-                      SizedBox(width: AppSize.s35),
-                      Flexible(
+                      providerState.isContactTrue ? Offstage() :  SizedBox(width: AppSize.s35),
+                      providerState.isContactTrue ? Offstage() : Flexible(
                           child: SizedBox(width:0)),
-                    //  SizedBox(width: AppSize.s35),
-                      //Flexible(child: widget.childCity),
-
-                      // Flexible(
-                      //   child: Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       Text('Status',
-                      //           style: AllPopupHeadings.customTextStyle(context)),
-                      //       SizedBox(height: 1),
-                      //       Row(
-                      //         children: [
-                      //           CustomRadioListTile(
-                      //             title: 'Active',
-                      //             value: 'active',
-                      //             groupValue: statustype,
-                      //             onChanged: (value) {
-                      //               setState(() {
-                      //                 statustype = value;
-                      //               });
-                      //             },
-                      //           ),
-                      //           CustomRadioListTile(
-                      //             title: 'Trainee',
-                      //             value: 'trainee',
-                      //             groupValue: statustype,
-                      //             onChanged: (value) {
-                      //               setState(() {
-                      //                 statustype = value;
-                      //               });
-                      //             },
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                   SizedBox(height: AppSize.s16),
@@ -166,37 +128,23 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                             labelText: 'City*',
                           )),
                       SizedBox(width: AppSize.s35),
-                      Flexible(
-                          child: SchedularTextField(
+                      providerState.isContactTrue ?Offstage() : Flexible(child: SchedularTextField(
                             controller: stateController,
                             labelText: 'State*',
                           )),
-
-                      SizedBox(width: AppSize.s35),
-                      Flexible(
+                      providerState.isContactTrue ?Offstage() :  SizedBox(width: AppSize.s35),
+                      providerState.isContactTrue ?Offstage() :  Flexible(
                           child: SchedularTextField(
                               controller: zipcodeController,
                               onlyAllowNumbers: true,
                               labelText: "Zip Code*")
                       )
-
-                      /// Remove code
-
                     ],
                   ),
                   SizedBox(height: AppSize.s16),
                   Row(
                     children: [
-                      // Flexible(
-                      //     child: CustomDropdownTextFieldsm(
-                      //         headText: 'Primary Contact*',
-                      //         items: ['Spouse','Patient',],
-                      //         //dropDownMenuList: dropDownList,
-                      //         onChanged: (newValue) {
-                      //
-                      //         })),
-                    //  SizedBox(width: AppSize.s35),
-                      Flexible(
+                    Flexible(
                           child: SchedularTextField(
                             phoneField: true,
                             controller: phonenumberController,
@@ -215,31 +163,15 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                               labelText: "Email")),
                     //  SizedBox(width: AppSize.s35),
                       SizedBox(width: AppSize.s35),
-                      Flexible(
+                      providerState.isContactTrue ?Offstage() :  Flexible(
                           child: SizedBox(child: Image.asset("images/sm/contact_text.png",height: 60,),)),
-                      SizedBox(width: AppSize.s35),
-                      Flexible(
-                          child: SizedBox(width:0)),
-                      // Flexible(
-                      //     child: SchedularTextField(
-                      //         controller: cahpsContactController,
-                      //         labelText: "CAHPS Contact")),
-
-
+                      providerState.isContactTrue ?Offstage() : SizedBox(width: AppSize.s35),
+                      providerState.isContactTrue ?Offstage() :  Flexible(child: SizedBox(width:0)),
                     ],
                   ),
                   SizedBox(height: AppSize.s16),
                   Row(
                     children: [
-                      // Flexible(
-                      //     child: CustomDropdownTextFieldsm(
-                      //         headText: 'Secondary Contact*',
-                      //         items: ['Spouse','Patient',],
-                      //         //dropDownMenuList: dropDownList,
-                      //         onChanged: (newValue) {
-                      //
-                      //         })),
-                     // SizedBox(width: AppSize.s35),
                       Flexible(
                           child: SchedularTextField(
                             controller: npiController,
@@ -259,6 +191,46 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                             isIconVisible: true,
                           )),
                       SizedBox(width: AppSize.s35),
+                      providerState.isContactTrue ?Offstage() :  Flexible(
+                          child: SchedularTextField(
+                            controller: noteController,
+                            labelText: "Notes",
+                            isIconVisible: true,
+                          )),
+                      providerState.isContactTrue ?Offstage() :  SizedBox(width: AppSize.s35),
+                      providerState.isContactTrue ?Offstage() :  Flexible(child: SizedBox(width:0)),
+                    ],
+                  ),
+                  SizedBox(height: AppSize.s25),
+                  providerState.isContactTrue ?  Padding(
+                    padding: const EdgeInsets.only(right: 35.0),
+                    child: Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                                controller: suffixController,
+                                labelText: "Suffix")),
+                        SizedBox(width: AppSize.s35),
+                        Flexible(
+                            child: SchedularTextField(
+                              controller: stateController,
+                              labelText: 'State*',
+                            )),
+
+                        SizedBox(width: AppSize.s35),
+                        Flexible(
+                            child: SchedularTextField(
+                                controller: zipcodeController,
+                                onlyAllowNumbers: true,
+                                labelText: "Zip Code*")
+                        )
+                      ],
+                    ),
+                  ) : Offstage(),
+                  SizedBox(height: AppSize.s25,),
+                  providerState.isContactTrue ?
+                  Row(
+                    children: [
                       Flexible(
                           child: SchedularTextField(
                             controller: noteController,
@@ -267,10 +239,17 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                           )),
                       SizedBox(width: AppSize.s35),
                       Flexible(
-                          child: SizedBox(width:0)),
+                          child: SizedBox(child: Image.asset("images/sm/contact_text.png",height: 60,),)),
+                      SizedBox(width: AppSize.s35),
+                      providerState.isContactTrue ?Offstage() : Flexible(
+                          child: SchedularTextField(
+                              controller: suffixController,
+                              labelText: "Suffix")),
+                      providerState.isContactTrue ?Offstage() :  SizedBox(width: AppSize.s35),
+
                     ],
-                  ),
-                  SizedBox(height: AppSize.s25),
+                  ) : SizedBox(),
+                  SizedBox(height: AppSize.s25,),
                   Row(
                     children: [
                       Text("Check PECOS Eligibility Status",style: CustomTextStylesCommon.commonStyle(

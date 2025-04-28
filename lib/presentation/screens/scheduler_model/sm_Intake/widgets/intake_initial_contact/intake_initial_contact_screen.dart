@@ -100,7 +100,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                               ],
                             )),
                         Expanded(
-                            flex:  providerState.isContactTrue ? 1 :2,
+                            flex: 2,
                             child: Container(
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,7 +119,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                                   ]),
                             )),
                         Expanded(
-                            flex: providerState.isContactTrue ? 1 : 2,
+                            flex: 2,
                             child: Container(
                               padding: EdgeInsets.only(top: 20),
                               child: Column(
@@ -135,7 +135,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                                     padding:
                                         const EdgeInsets.only(left: 8.0, top: 5),
                                     child: SchedularTextField(
-                                      width: 203,
+                                      width: 215,
                                       isIconVisible: true,
                                       controller: receivedDateController,
                                       labelText: 'Potential DC Date',
@@ -147,7 +147,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                               ),
                             )),
                         Expanded(
-                            flex:  2,
+                            flex: providerState.isContactTrue ? 3 : 2,
                             child: Container(
                               padding: EdgeInsets.only(top: 20),
                               child: Column(
@@ -197,69 +197,89 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                   padding: EdgeInsets.only(top: 50, left: 28, bottom: 20),
                   child: Column(
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: CustomDropdownTextFieldsm(
-                              width:  providerState.isContactTrue ? AppSize.s150 :AppSize.s210,
-                              isIconVisible: false,
-                              headText: 'User',
-                              onChanged: (newValue) {},
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: CustomDropdownTextFieldsm(
+                               // width:  providerState.isContactTrue ? AppSize.s150 :AppSize.s210,
+                                isIconVisible: false,
+                                headText: 'User',
+                                onChanged: (newValue) {},
+                              ),
                             ),
-                          ),
-                          Expanded(child: Container()),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: CustomDropdownTextFieldsm(
-                              width: providerState.isContactTrue ? AppSize.s150 :AppSize.s210,
-                              isIconVisible: false,
-                              headText: 'Gender',
-                              onChanged: (newValue) {},
+                            SizedBox(width: providerState.isContactTrue ? AppSize.s35 : AppSize.s70),
+                            Flexible(
+                              child: CustomDropdownTextFieldsm(
+                               // width: providerState.isContactTrue ? AppSize.s150 :AppSize.s210,
+                                isIconVisible: false,
+                                headText: 'Gender',
+                                onChanged: (newValue) {},
+                              ),
                             ),
-                          ),
-                          Expanded(child: Container()),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: CustomDropdownTextFieldsm(
-                              width: providerState.isContactTrue ? AppSize.s150 :AppSize.s210,
-                              isIconVisible: false,
-                              headText: 'Language',
-                              onChanged: (newValue) {},
+                            SizedBox(width: providerState.isContactTrue ? AppSize.s35 : AppSize.s70),
+                            Flexible(
+                              child: CustomDropdownTextFieldsm(
+                                //width: providerState.isContactTrue ? AppSize.s150 :AppSize.s210,
+                                isIconVisible: false,
+                                headText: 'Language',
+                                onChanged: (newValue) {},
+                              ),
                             ),
-                          ),
-                          Expanded(child: Container()),
-                          SchedularTextField(
-                            width: providerState.isContactTrue ? AppSize.s150 :AppSize.s210,
-                            isIconVisible: true,
-                            enable: false,
-                            controller: receivedDateController,
-                            labelText: 'Select Date',
-                            showDatePicker: true,
-                          ),
-                          Expanded(child: Container()),
-                        ],
+                            providerState.isContactTrue ?Offstage() : SizedBox(width: providerState.isContactTrue ? AppSize.s35 : AppSize.s70),
+                            providerState.isContactTrue ? Offstage() : Flexible(
+                              child: SchedularTextField(
+                              //  width: providerState.isContactTrue ? AppSize.s150 :AppSize.s210,
+                                isIconVisible: true,
+                                enable: false,
+                                controller: receivedDateController,
+                                labelText: 'Select Date',
+                                showDatePicker: true,
+                              ),
+                            ),
+                            SizedBox(width: providerState.isContactTrue ? AppSize.s35 : AppSize.s70),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 40,
                       ),
                       Row(
                         children: [
-                          Padding(
-                              padding: EdgeInsets.only(top: 20, right: 20),
-                              child: Text('Notes',
-                                  style:
-                                      SMTextfieldHeadings.customTextStyle(context)
-                                  //AllPopupHeadings.customTextStyle(context)
-                                  )),
-                          SchedularTextField(
-                            isIconVisible: true,
-                            width: 395,
-                            enable: false,
-                            controller: caseManagerController,
-                            labelText: '',
+                          providerState.isContactTrue
+                              ? Flexible(
+                            child: SchedularTextField(
+                              width: AppSize.s240,
+                              isIconVisible: true,
+                              enable: false,
+                              controller: receivedDateController,
+                              labelText: 'Select Date',
+                              showDatePicker: true,
+                            ),
                           )
+                              : Offstage(),
+                          SizedBox(width: AppSize.s35,),
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(top: 20, right: 20),
+                                  child: Text('Notes',
+                                      style:
+                                          SMTextfieldHeadings.customTextStyle(context)
+                                      //AllPopupHeadings.customTextStyle(context)
+                                      )),
+                              SchedularTextField(
+                                isIconVisible: true,
+                                width: 395,
+                                enable: false,
+                                controller: caseManagerController,
+                                labelText: '',
+                              )
+                            ],
+                          ),
+
                         ],
                       )
                     ],

@@ -69,14 +69,18 @@ class _CheckboxTileState extends State<CheckboxTile> {
               ),
             ),
             SizedBox(
-              width: 10,
+              width: 8,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   widget.title,
-                  style:  providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
+                  style:
+                  // providerState.isContactTrue ?
+                  // SMTextfieldResponsiveHeadings.customTextStyle(context)
+                  //     :
+                  SMTextfieldHeadings.customTextStyle(context)
                   //AllPopupHeadings.customTextStyle(context)
                 ),
                 SizedBox(width: 10,),
