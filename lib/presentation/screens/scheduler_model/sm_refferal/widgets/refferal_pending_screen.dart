@@ -385,10 +385,12 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           ],
                                         ),
                                       ),
+                                      SizedBox(width: 20,),
                                       Expanded(
                                         flex: 2,
                                         child: Row(
                                           children: [
+                                            SizedBox(width: 25,),
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -421,7 +423,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                               ],
                                             ),
                                             SizedBox(
-                                              width: 70,
+                                              width: 50,
                                             ),
                                             Column(
                                               crossAxisAlignment:
