@@ -36,7 +36,6 @@ class ContactCallsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-
               child: DefaultTabController(
                 length: 2,
                 initialIndex: providerState.initialIndex,
@@ -357,41 +356,90 @@ class CallTranscriptTab extends StatelessWidget {
       {'text': 'What is your First name?', 'isMe': false,'time':'14:00 PM'},
       {'text': 'My first name is Erica', 'isMe': true,'time':'14:10 PM'},
     ];
-    return  Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Divider(),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical:10),
-          child: Text('Yesterday',style:CustomTextStylesCommon.commonStyle(
-            color:const Color(0xFF686464),
-            fontWeight: FontWeight.w700,fontSize: FontSize.s12,
-          ),),
-        ),
-        Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 25),
-            itemCount: messages.length,
-            itemBuilder: (context, index) {
-              final message = messages[index];
-              return Align(
-                alignment: message['isMe']
-                    ? Alignment.centerRight
-                    : Alignment.centerLeft,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: message['isMe']
-                      ? MainAxisAlignment.end
-                      : MainAxisAlignment.start,
-                  children: [
-                    if (!message['isMe'])
-                      Column(
+    return  Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Divider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical:10),
+            child: Text('Yesterday',style:CustomTextStylesCommon.commonStyle(
+              color:const Color(0xFF686464),
+              fontWeight: FontWeight.w700,fontSize: FontSize.s12,
+            ),),
+          ),
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 25),
+              itemCount: messages.length,
+              itemBuilder: (context, index) {
+                final message = messages[index];
+                return Align(
+                  alignment: message['isMe']
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: message['isMe']
+                        ? MainAxisAlignment.end
+                        : MainAxisAlignment.start,
+                    children: [
+                      if (!message['isMe'])
+                        Column(
+                          children: [
+                            const CircleAvatar(
+                              backgroundImage:
+                              AssetImage('images/tmp2.jpg'), // Replace with your asset
+                              radius: 23,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Text(message['time'],style: CustomTextStylesCommon.commonStyle(
+                                color:const Color(0xFF727272),
+                                fontWeight: FontWeight.w500,fontSize: FontSize.s10,
+                              ),),
+                            )
+                          ],
+                        ),
+                      const SizedBox(width: 8),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if (message['isMe']) const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              child: Icon(Icons.copy,size: 20,)),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 4),
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            decoration: BoxDecoration(
+                              color: message['isMe']
+                                  ? Colors.blue[100]
+                                  : Colors.grey[300],
+                              borderRadius: const BorderRadius.only(topRight: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
+                            ),
+                            child: Text(message['text'],style: message['isMe'] ? CustomTextStylesCommon.commonStyle(
+                              color:Colors.white,
+                              fontWeight: FontWeight.w600,fontSize: FontSize.s12,
+                            ):CustomTextStylesCommon.commonStyle(
+                              color:const Color(0xFF686464),
+                              fontWeight: FontWeight.w600,fontSize: FontSize.s12,
+                            ),),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(width: 8),
+                      if (message['isMe'])  Column(
                         children: [
                           const CircleAvatar(
                             backgroundImage:
-                            AssetImage('images/tmp2.jpg'), // Replace with your asset
+                            AssetImage('images/temp.jpg'), // Replace with your asset
                             radius: 23,
                           ),
+
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Text(message['time'],style: CustomTextStylesCommon.commonStyle(
@@ -401,60 +449,14 @@ class CallTranscriptTab extends StatelessWidget {
                           )
                         ],
                       ),
-                    const SizedBox(width: 8),
-
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        if (message['isMe']) const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            child: Icon(Icons.copy,size: 20,)),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 10),
-                          margin: const EdgeInsets.symmetric(vertical: 4),
-                          constraints: const BoxConstraints(maxWidth: 250),
-                          decoration: BoxDecoration(
-                            color: message['isMe']
-                                ? Colors.blue[100]
-                                : Colors.grey[300],
-                            borderRadius: const BorderRadius.only(topRight: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
-                          ),
-                          child: Text(message['text'],style: message['isMe'] ? CustomTextStylesCommon.commonStyle(
-                            color:Colors.white,
-                            fontWeight: FontWeight.w600,fontSize: FontSize.s12,
-                          ):CustomTextStylesCommon.commonStyle(
-                            color:const Color(0xFF686464),
-                            fontWeight: FontWeight.w600,fontSize: FontSize.s12,
-                          ),),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 8),
-                    if (message['isMe'])  Column(
-                      children: [
-                        const CircleAvatar(
-                          backgroundImage:
-                          AssetImage('images/temp.jpg'), // Replace with your asset
-                          radius: 23,
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Text(message['time'],style: CustomTextStylesCommon.commonStyle(
-                            color:const Color(0xFF727272),
-                            fontWeight: FontWeight.w500,fontSize: FontSize.s10,
-                          ),),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            },
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
