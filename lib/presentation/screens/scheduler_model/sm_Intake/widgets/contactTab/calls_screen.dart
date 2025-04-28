@@ -36,7 +36,6 @@ class ContactCallsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-
               child: DefaultTabController(
                 length: 2,
                 initialIndex: providerState.initialIndex,
