@@ -8,6 +8,7 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/hr_resources/string_manager.dart';
+import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../widgets/app_clickable_widget.dart';
@@ -49,6 +50,7 @@ class InformationUpdateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     TextEditingController _searchController = TextEditingController();
     int fetchedPatientId = 0; // Replace this with your actual patientId
     //handlePatientId(fetchedPatientId);
@@ -71,7 +73,7 @@ class InformationUpdateScreen extends StatelessWidget {
                           hoverColor: Colors.transparent,
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          onPressed: (){},
+                          onPressed: providerContact.toggleFilter,
                           icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: AppSize.s18,width: AppSize.s16)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                       ),
                     ],

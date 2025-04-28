@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/provider/em_provider/em_main_provider.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -90,144 +91,156 @@ class EMDesktopScreen extends StatelessWidget {
     }
     return true; // Allow the back navigation to exit the app
   }
-  var selectedItem =  EmDashboardStringManager.selectModule.obs;
+  var selectedItem =  EmDashboardStringManager.selectModule;
   //final int companyId = await TokenManager.getCompanyId();
   @override
   Widget build(BuildContext context) {
     // RoutesManager routesManager = RoutesManager();
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(children: [
-          Column(
-            children: [
-              const ApplicationAppBar(headingText: EmDashboardStringManager.em),
-              ///2nd  buttons
-              Container(
-                margin: const EdgeInsets.only(
-                    top: AppPadding.p20,bottom: AppPadding.p20, right: AppPadding.p20,left: AppPadding.p20,),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+    return Consumer<EmMainProvider>(
+      builder: (context,providerEmState,child) {
+        return WillPopScope(
+          onWillPop: _onWillPop,
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            body: Stack(children: [
+              Column(
+                children: [
+                  const ApplicationAppBar(headingText: EmDashboardStringManager.em),
+                  ///2nd  buttons
+                  Container(
+                    margin: const EdgeInsets.only(
+                        top: AppPadding.p20,bottom: AppPadding.p20, right: AppPadding.p20,left: AppPadding.p20,),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Obx(
-                          () => CustomTitleButton(
-                            height: AppSize.s30,
-                            width: AppSize.s100,
-                            onPressed: () {
-                              myController.selectButton(0);
-                              _pageController.animateToPage(0,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-                              pgeControllerId = 0;
-                            },
-                            text: EmDashboardStringManager.dashboard,
-                            isSelected: myController.selectedIndex.value == 0,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Obx(
+                              () => CustomTitleButton(
+                                height: AppSize.s30,
+                                width: AppSize.s100,
+                                onPressed: () {
+                                  myController.selectButton(0);
+                                  _pageController.animateToPage(0,
+                                      duration: Duration(milliseconds: 500),
+                                      curve: Curves.ease);
+                                  providerEmState.selectModuleScreen(0);
+                                  providerEmState.selectModuleNameScreen("Select a Module");
+                                  pgeControllerId = 0;
+                                },
+                                text: EmDashboardStringManager.dashboard,
+                                isSelected: myController.selectedIndex.value == 0,
+                              ),
+                            ),
+                            SizedBox(
+                              width: AppSize.s10,
+                            ),
+                            Obx(
+                              () => CustomTitleButton(
+                                height: AppSize.s30,
+                                width: AppSize.s140,
+                                onPressed: () {
+                                  // uploadCompanyLogoApi(context, 5, "employ");
+                                  companyByIdApi(
+                                    context,
+                                  );
+                                  myController.selectButton(1);
+                                  _pageController.animateToPage(1, duration: Duration(milliseconds: 500),
+                                      curve: Curves.ease);
+                                  providerEmState.selectModuleScreen(1);
+                                  providerEmState.selectModuleNameScreen("Select a Module");
+                                  pgeControllerId = 1;
+                                },
+                                text: EmDashboardStringManager.companyIdentity,
+                                isSelected: myController.selectedIndex.value == 1,
+                              ),
+                            ),
+                            SizedBox(width: AppSize.s15,),
+                            Material(
+                                elevation: 4,
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                                child: CustomDropdownButton(
+                                  height: AppSize.s30,
+                                  width: AppSize.s170,
+                                  initialItem: providerEmState.pageNmaeValue,
+                                  items: [
+                                    DropdownItem(title: "User Management", isHeading: true),
+                                    DropdownItem(title: "Users", index: 2),
+                                    DropdownItem(title: "Role Manager", index: 3),
+
+                                    DropdownItem(title: "Clinical", isHeading: true),
+                                    DropdownItem(title: "Visits", index: 4),
+
+                                    DropdownItem(title: "HR", isHeading: true),
+                                    DropdownItem(title: "Designation Settings", index: 5),
+                                    DropdownItem(title: "Work Schedule", index: 6),
+                                    DropdownItem(title: "Employee Documents", index: 7),
+
+                                    DropdownItem(title: "Finance", isHeading: true),
+                                    DropdownItem(title: "Pay Rate", index: 8),
+
+                                    DropdownItem(title: "Org Document", isHeading: true),
+                                    DropdownItem(title: "Document Definition", index: 9),
+                                  ],
+                                  onItemSelected: (selectedValue, pageIndex) {
+                                    myController.selectButton(pageIndex);
+                                    _pageController.animateToPage(
+                                      pageIndex,
+                                      duration: Duration(milliseconds: 300),
+                                      curve: Curves.ease,
+                                    );
+                                    providerEmState.selectModuleScreen(pageIndex);
+                                    providerEmState.selectModuleNameScreen(selectedValue);
+                                    print('Page index ${pageIndex}');
+                                    print('Page Value ${selectedValue}');
+                                  },
+                                )
+                              ),
+                            SizedBox(width: AppSize.s15,),
+                          ],
                         ),
-                        SizedBox(
-                          width: AppSize.s10,
-                        ),
-                        Obx(
-                          () => CustomTitleButton(
-                            height: AppSize.s30,
-                            width: AppSize.s140,
-                            onPressed: () {
-                              // uploadCompanyLogoApi(context, 5, "employ");
-                              companyByIdApi(
-                                context,
-                              );
-                              myController.selectButton(1);
-                              _pageController.animateToPage(1, duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-                              pgeControllerId = 1;
-                            },
-                            text: EmDashboardStringManager.companyIdentity,
-                            isSelected: myController.selectedIndex.value == 1,
-                          ),
-                        ),
-                        SizedBox(width: AppSize.s15,),
-                        Material(
-                            elevation: 4,
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                            child: Obx(()=>CustomDropdownButton(
-                              height: AppSize.s30,
-                              width: AppSize.s170,
-                              initialItem: myController.selectedIndex.value == 1 || myController.selectedIndex.value == 0 ? selectedItem.toString() : '',
-                              items: [
-                                DropdownItem(title: "User Management", isHeading: true),
-                                DropdownItem(title: "Users", index: 2),
-                                DropdownItem(title: "Role Manager", index: 3),
-
-                                DropdownItem(title: "Clinical", isHeading: true),
-                                DropdownItem(title: "Visits", index: 4),
-
-                                DropdownItem(title: "HR", isHeading: true),
-                                DropdownItem(title: "Designation Settings", index: 5),
-                                DropdownItem(title: "Work Schedule", index: 6),
-                                DropdownItem(title: "Employee Documents", index: 7),
-
-                                DropdownItem(title: "Finance", isHeading: true),
-                                DropdownItem(title: "Pay Rate", index: 8),
-
-                                DropdownItem(title: "Org Document", isHeading: true),
-                                DropdownItem(title: "Document Definition", index: 9),
-                              ],
-                              onItemSelected: (selectedValue, pageIndex) {
-                                myController.selectButton(pageIndex);
-                                _pageController.animateToPage(
-                                  pageIndex,
-                                  duration: Duration(milliseconds: 300),
-                                  curve: Curves.ease,
-                                );
-                              },
-                            ) )
-                          ),
-                        SizedBox(width: AppSize.s15,),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    flex: 8,
+                    child: PageView(
+                      controller: _pageController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children:
+                      [
+                        DashboardMainButtonScreen(),
+                        CompanyIdentity(),
+                        ChangeNotifierProvider(
+                          create: (_) => SeeAllProvider(),
+                          child: SeeAllScreen(),
+                        ),
+                        CiRoleManager(),
+                        CiVisitScreen(),
+                        ChangeNotifierProvider(
+                            create: (_) => HrScreenProvider(),
+                            child: HrScreen()),
+                        ChangeNotifierProvider(
+                            create: (_) => WorkScheduleProvider(),
+                            child: WorkSchedule()),
+                        ChangeNotifierProvider(
+                            create: (_) => ManageEmployDocumentProvider(),
+                            child: ManageEmployDocument()),
+                        ChangeNotifierProvider(
+                            create: (_) => FinanceProvider(),
+                            child: FinanceScreen()),
+                        CiOrgDocument(),
+                      ],
+                                  ),
+                  ),
+                  BottomBarRow()
+                ],
               ),
-              Expanded(
-                flex: 8,
-                child: PageView(
-                  controller: _pageController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children:
-                  [
-                    DashboardMainButtonScreen(),
-                    CompanyIdentity(),
-                    ChangeNotifierProvider(
-                      create: (_) => SeeAllProvider(),
-                      child: SeeAllScreen(),
-                    ),
-                    CiRoleManager(),
-                    CiVisitScreen(),
-                    ChangeNotifierProvider(
-                        create: (_) => HrScreenProvider(),
-                        child: HrScreen()),
-                    ChangeNotifierProvider(
-                        create: (_) => WorkScheduleProvider(),
-                        child: WorkSchedule()),
-                    ChangeNotifierProvider(
-                        create: (_) => ManageEmployDocumentProvider(),
-                        child: ManageEmployDocument()),
-                    ChangeNotifierProvider(
-                        create: (_) => FinanceProvider(),
-                        child: FinanceScreen()),
-                    CiOrgDocument(),
-                  ],
-                              ),
-              ),
-              BottomBarRow()
-            ],
+            ]),
           ),
-        ]),
-      ),
+        );
+      }
     );
   }
 }
@@ -252,9 +265,9 @@ class CustomDropdownButton extends StatefulWidget {
   final double width;
   final  List<DropdownItem> items;
   final void Function(String, int)? onItemSelected;
-  final String initialItem;
+  String initialItem;
 
-  const CustomDropdownButton({
+   CustomDropdownButton({
     required this.height,
     required this.width,
     required this.items,
@@ -464,7 +477,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
           width: 200,
           padding: const EdgeInsets.symmetric(horizontal: 15),
           height: widget.height + 5,
-          decoration: _selectedItem != EmDashboardStringManager.selectModule
+          decoration: widget.initialItem != EmDashboardStringManager.selectModule
               ? BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               gradient: const LinearGradient(
@@ -480,15 +493,15 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                _selectedItem,
+                widget.initialItem,
                 style: TextStyle(
                   fontSize: FontSize.s14,
                   fontWeight: FontWeight.w700,
-                  color: _selectedItem == EmDashboardStringManager.selectModule
+                  color: widget.initialItem == EmDashboardStringManager.selectModule
                       ? ColorManager.textPrimaryColor
                       :  Colors.white),
                 ),
-              Icon(Icons.arrow_drop_down, color: _selectedItem == EmDashboardStringManager.selectModule
+              Icon(Icons.arrow_drop_down, color: widget.initialItem == EmDashboardStringManager.selectModule
                   ? ColorManager.textPrimaryColor
                   :  Colors.white),
             ],

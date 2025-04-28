@@ -594,7 +594,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                             Container(
                                               width: 90,
                                               height: 22,
-                                              decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color:Color(0xFFB0BEC5)),
+                                              decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color:Color(0xFFE9E9FA)),
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
