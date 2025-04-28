@@ -280,6 +280,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                                   value: 'No',
                                   groupValue: statustype,
                                   onChanged: (value) {
+
                                     setState(() {
                                       statustype = value;
                                     });
