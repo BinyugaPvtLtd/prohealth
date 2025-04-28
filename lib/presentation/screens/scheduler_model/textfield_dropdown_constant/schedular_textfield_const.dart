@@ -106,7 +106,8 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(widget.labelText,
-                          style: providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
+                          style:SMTextfieldHeadings.customTextStyle(context),
+                          //providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
                         //AllPopupHeadings.customTextStyle(context)
                       ),
                       widget.isIconVisible!? SizedBox(height:7) :

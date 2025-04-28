@@ -93,10 +93,29 @@ class IntakeSecondaryScreen extends StatelessWidget {
                       //child: SingleChildScrollView(
                       child: Column(
                         children: [
+                        providerState.isContactTrue ?   Row(
+                            children: [
+                              Flexible(
+                                  child: CustomDropdownTextFieldsm(headText: 'Select from Database',
+                                      items: ['B','A'],
+                                      onChanged: (newValue) {
+                                      })),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: pharmaName, labelText: 'Name*')),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: pharmaType,
+                                    labelText: 'Type*',
+                                  )),
+                            ],
+                          ) :
                           Row(
                             children: [
                               Flexible(
-                                  child: CustomDropdownTextFieldsm(headText: providerState.isContactTrue ? 'Select from\nDatabase' : 'Select from Database',
+                                  child: CustomDropdownTextFieldsm(headText: 'Select from Database',
                           items: ['B','A'],
                           onChanged: (newValue) {
                           })),

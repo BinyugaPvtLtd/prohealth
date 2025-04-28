@@ -124,7 +124,8 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
                 children: [
                   Text(
                       widget.headText,
-                      style: providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
+                      style:SMTextfieldHeadings.customTextStyle(context),
+                      //providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
                     //AllPopupHeadings.customTextStyle(context)
                   ),
                   widget.isIconVisible! ? SvgPicture.asset(
