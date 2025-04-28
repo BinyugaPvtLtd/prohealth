@@ -282,453 +282,441 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                               //     ]
                               // ),
                               Container(height: AppSize.s12,),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 20.0),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 4,
                                       child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(60),
-                                            child: SizedBox(
-                                              width: AppSize.s47,
-                                              height: AppSize.s47,
-                                              child: Image.asset(
-                                                'images/1.png', // Replace with your image path
-                                                fit: BoxFit.cover,
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(60),
+                                                child: SizedBox(
+                                                  width: AppSize.s47,
+                                                  height: AppSize.s47,
+                                                  child: Image.asset(
+                                                    'images/1.png', // Replace with your image path
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
                                               ),
+                                              SizedBox(width: AppSize.s15),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "John smith",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon
+                                                        .commonStyle(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w700,
+                                                      color:
+                                                      ColorManager.mediumgrey,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: AppSize.s5,),
+                                                  Text(
+                                                    "Referral Date: 09/15/2024",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon.commonStyle(
+                                                      fontSize: FontSize.s11,
+                                                      fontWeight: FontWeight.w400,
+                                                      color:
+                                                      ColorManager.mediumgrey,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: AppSize.s2,
+                                                  ),
+                                                  Text(
+                                                    "08/05/24  |  04:20 PM",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon
+                                                        .commonStyle(
+                                                      fontSize: FontSize.s11,
+                                                      fontWeight: FontWeight.w400,
+                                                      color:
+                                                      ColorManager.mediumgrey,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+
+                                         // SizedBox(width: AppSize.s35),
+                                          Text(
+                                            "By Ross Geller",
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w500,
+                                              color: ColorManager.textBlack,
                                             ),
                                           ),
-                                          SizedBox(width: AppSize.s12),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "John smith",
-                                                textAlign: TextAlign.center,
-                                                style: CustomTextStylesCommon
-                                                    .commonStyle(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color:
-                                                      ColorManager.mediumgrey,
-                                                ),
-                                              ),
-                                              SizedBox(height: AppSize.s5,),
-                                              Text(
-                                                "Referral Date: 09/15/2024",
-                                                textAlign: TextAlign.center,
-                                                style: CustomTextStylesCommon
-                                                    .commonStyle(
-                                                  fontSize: FontSize.s11,
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                      ColorManager.mediumgrey,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: AppSize.s2,
-                                              ),
-                                              Text(
-                                                "08/05/24  |  04:20 PM",
-                                                textAlign: TextAlign.center,
-                                                style: CustomTextStylesCommon
-                                                    .commonStyle(
-                                                  fontSize: FontSize.s11,
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                      ColorManager.mediumgrey,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(width: AppSize.s35),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "By Ross Geller",
-                                                style: CustomTextStylesCommon
-                                                    .commonStyle(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: ColorManager.textBlack,
-                                                ),
-                                              ),
-                                              SizedBox(width: AppSize.s35),
-                                              Text(
-                                                "Ch #1",
-                                                style: DocDefineTableData
-                                                    .customTextStyle(context),
-                                              ),
-                                            ],
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: 35.0),
+                                            child: Text(
+                                              "Ch #1",
+                                              style: DocDefineTableData.customTextStyle(context),
+                                            ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 50,
-                                  ),
-
-                                  // Expanded(
-                                  //   flex: 2,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       Text("By Ross Geller",style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                  //         fontWeight: FontWeight.w600,
-                                  //         color: ColorManager.mediumgrey,),),
-                                  //       Text("Ch #1",style: DocDefineTableData.customTextStyle(context),),
-                                  //     ],
-                                  //   ),
-                                  // ),
-
-                                  Expanded(
-                                    flex: 1,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Referral Source: ",
-                                          textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w400,
-                                            color: ColorManager.textBlack,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: AppSize.s4,
-                                        ),
-                                        Text(
-                                          "Sunshine Hospital",
-                                          textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "PCP: ",
-                                          textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w400,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: AppSize.s4,
-                                        ),
-                                        Text(
-                                          "Sam Johnson",
-                                          textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: AppSize.s15),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Primary Diagnosis: ",
-                                          textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w400,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: AppSize.s4,
-                                        ),
-                                        Text(
-                                          "Migraine",
-                                          textAlign: TextAlign.center,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: AppSize.s15),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          "images/logo.png",
-                                          width: 105,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                      flex: 3,
-                                      child: Row(
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Marketer: ",
-                                            style: DocDefineTableData.customTextStyle(context),
-                                          ),
-                                          SizedBox(width: AppSize.s30),
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(60),
-                                            child: SizedBox(
-                                              width: AppSize.s45,
-                                              height: AppSize.s45,
-                                              child: Image.asset(
-                                                'images/1.png', // Replace with your image path
-                                                fit: BoxFit.cover,
-                                              ),
+                                            "Referral Source: ",
+                                            textAlign: TextAlign.center,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.textBlack,
                                             ),
                                           ),
-                                          SizedBox(width: AppSize.s15),
-                                          Text(
-                                            "Sophia Scott",
-                                            textAlign: TextAlign.center,
-                                            style: DocDefineTableData.customTextStyle(context),
+                                          SizedBox(
+                                            height: AppSize.s4,
                                           ),
-                                          SizedBox(width: AppSize.s15),
-                                          InkWell(
-                                            onTap: () async {
-                                              try {
-                                                widget.onEyeButtonPressed();
-                                              } catch (e) {
-                                                print("Error: $e");
-                                              }
-                                            },
-                                            child:Container(
-                                              width: AppSize.s20,
-                                              height: AppSize.s25,
-                                              child: SvgPicture.asset(
-                                                'images/sm/sm_refferal/eye.svg',
-                                                height: AppSize.s15,
-                                                width: AppSize.s22,
-                                                color: ColorManager.bluebottom,
-                                              ),
+                                          Text(
+                                            "Sunshine Hospital",
+                                            textAlign: TextAlign.center,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(width: AppSize.s40,),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "PCP: ",
+                                            textAlign: TextAlign.center,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: AppSize.s4,
+                                          ),
+                                          Text(
+                                            "Sam Johnson",
+                                            textAlign: TextAlign.center,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(width: AppSize.s15),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Primary Diagnosis: ",
+                                            textAlign: TextAlign.center,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: AppSize.s4,
+                                          ),
+                                          Text(
+                                            "Migraine",
+                                            textAlign: TextAlign.center,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(width: AppSize.s15),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            "images/logo.png",
+                                            width: 105,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                        flex: 4,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          //crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              "Marketer: ",
+                                              style: DocDefineTableData.customTextStyle(context),
+                                            ),
+                                           // SizedBox(width: AppSize.s30),
+                                            Row(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(60),
+                                                  child: SizedBox(
+                                                    width: AppSize.s45,
+                                                    height: AppSize.s45,
+                                                    child: Image.asset(
+                                                      'images/1.png', // Replace with your image path
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(width: AppSize.s15),
+                                                Text(
+                                                  "Sophia Scott",
+                                                  textAlign: TextAlign.center,
+                                                  style: DocDefineTableData.customTextStyle(context),
+                                                ),
+                                              ],
                                             ),
 
-                                          ),
-                                          SizedBox(width: AppSize.s15),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              InkWell(
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () {},
-                                                  child: Icon(
-                                                    Icons.phone,
+                                           // SizedBox(width: AppSize.s15),
+                                            InkWell(
+                                              onTap: () async {
+                                                try {
+                                                  widget.onEyeButtonPressed();
+                                                } catch (e) {
+                                                  print("Error: $e");
+                                                }
+                                              },
+                                              child:Container(
+                                                width: AppSize.s20,
+                                                height: AppSize.s25,
+                                                child: SvgPicture.asset(
+                                                  'images/sm/sm_refferal/eye.svg',
+                                                  height: AppSize.s15,
+                                                  width: AppSize.s22,
+                                                  color: ColorManager.bluebottom,
+                                                ),
+                                              ),
+
+                                            ),
+                                           // SizedBox(width: AppSize.s15),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () {},
+                                                    child: Icon(
+                                                      Icons.phone,
+                                                      color:
+                                                          ColorManager.bluebottom,
+                                                      size: IconSize.I18,
+                                                    )),
+                                                SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Text(
+                                                  "Call",
+                                                  style: CustomTextStylesCommon
+                                                      .commonStyle(
+                                                    fontSize: FontSize.s10,
+                                                    fontWeight: FontWeight.w700,
                                                     color:
                                                         ColorManager.bluebottom,
-                                                    size: IconSize.I18,
-                                                  )),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
-                                              Text(
-                                                "Call",
-                                                style: CustomTextStylesCommon
-                                                    .commonStyle(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color:
-                                                      ColorManager.bluebottom,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                           // SizedBox(width: AppSize.s20),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  "images/sm/sm_refferal/Restore.png",
+                                                  height: 16,
+                                                  width: 18,
+                                                  color: ColorManager.bluebottom,
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(width: AppSize.s20),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                "images/sm/sm_refferal/Restore.png",
-                                                height: 16,
-                                                width: 18,
-                                                color: ColorManager.bluebottom,
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                "Restore",
-                                                style: CustomTextStylesCommon
-                                                    .commonStyle(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color:
-                                                      ColorManager.bluebottom,
+                                                SizedBox(
+                                                  height: 10,
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(width: AppSize.s18),
-                                        ],
-                                      ))
+                                                Text(
+                                                  "Restore",
+                                                  style: CustomTextStylesCommon
+                                                      .commonStyle(
+                                                    fontSize: FontSize.s10,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                        ColorManager.bluebottom,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            //SizedBox(width: AppSize.s18),
+                                          ],
+                                        ))
 
-                                  // Expanded(
-                                  //   flex: 3,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I20,),
-                                  //       SizedBox(width: AppSize.s15,),
-                                  //       Container(
-                                  //         child:Text("132 My Street,Kingston, New York 12401",
-                                  //           textAlign: TextAlign.start,
-                                  //           style:DocDefineTableDataID.customTextStyle(context),
-                                  //         ) ,
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  //
-                                  // Expanded(
-                                  //   flex: 1,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       Container(
-                                  //         width: 25,
-                                  //         height: 15,
-                                  //         decoration: BoxDecoration(
-                                  //             color: Color(0xFFE3F2F8),
-                                  //             borderRadius: BorderRadius.circular(3)
-                                  //         ),
-                                  //         child: Center(
-                                  //           child: Text("ST",style: TextStyle(
-                                  //             fontWeight: FontWeight.w700,
-                                  //             fontSize: 12,
-                                  //             color: ColorManager.bluebottom,
-                                  //             decoration: TextDecoration.none,
-                                  //           ),),
-                                  //         ),
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  // Expanded(
-                                  //   flex: 2,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                  //       // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                  //       Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-                                  //
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  // Expanded(
-                                  //   flex: 1,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,),
-                                  //     ],
-                                  //   ),
-                                  // ),
+                                    // Expanded(
+                                    //   flex: 3,
+                                    //   child: Row(
+                                    //     children: [
+                                    //       Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I20,),
+                                    //       SizedBox(width: AppSize.s15,),
+                                    //       Container(
+                                    //         child:Text("132 My Street,Kingston, New York 12401",
+                                    //           textAlign: TextAlign.start,
+                                    //           style:DocDefineTableDataID.customTextStyle(context),
+                                    //         ) ,
+                                    //       )
+                                    //     ],
+                                    //   ),
+                                    // ),
+                                    //
+                                    // Expanded(
+                                    //   flex: 1,
+                                    //   child: Row(
+                                    //     children: [
+                                    //       Container(
+                                    //         width: 25,
+                                    //         height: 15,
+                                    //         decoration: BoxDecoration(
+                                    //             color: Color(0xFFE3F2F8),
+                                    //             borderRadius: BorderRadius.circular(3)
+                                    //         ),
+                                    //         child: Center(
+                                    //           child: Text("ST",style: TextStyle(
+                                    //             fontWeight: FontWeight.w700,
+                                    //             fontSize: 12,
+                                    //             color: ColorManager.bluebottom,
+                                    //             decoration: TextDecoration.none,
+                                    //           ),),
+                                    //         ),
+                                    //       )
+                                    //     ],
+                                    //   ),
+                                    // ),
+                                    // Expanded(
+                                    //   flex: 2,
+                                    //   child: Row(
+                                    //     children: [
+                                    //       Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
+                                    //       // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                    //       Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
+                                    //
+                                    //     ],
+                                    //   ),
+                                    // ),
+                                    // Expanded(
+                                    //   flex: 1,
+                                    //   child: Row(
+                                    //     children: [
+                                    //       SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,),
+                                    //     ],
+                                    //   ),
+                                    // ),
 
-                                  ///dont delete
-                                  // Expanded(
-                                  //   flex: 1,
-                                  //   child: Row(
-                                  //     children: [
-                                  //       GestureDetector(
-                                  //         onTap: () => _makeCall(phoneNumber),
-                                  //         child: SvgPicture.asset(
-                                  //           "images/sm/contact_s.svg",
-                                  //           height: 30,
-                                  //           width: 20,
-                                  //         ),
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  //
-                                  // Expanded(
-                                  //   flex: 2,
-                                  //   child: Column(
-                                  //     mainAxisAlignment: MainAxisAlignment.center,
-                                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                                  //     children: [
-                                  //       Row(
-                                  //         // mainAxisAlignment: MainAxisAlignment.start, // Aligns items in the row to the start (left)
-                                  //         // crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text("Auto assigned on 2024/12/08 |",style: DocDefineTableData.customTextStyle(context),),
-                                  //           // Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                  //         ],
-                                  //       ),
-                                  //       Row(
-                                  //         // mainAxisAlignment: MainAxisAlignment.start, // Aligns items in the row to the start (left)
-                                  //         // crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text("10:00 AM ",style: DocDefineTableData.customTextStyle(context),),
-                                  //
-                                  //         ],
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                ],
+                                    ///dont delete
+                                    // Expanded(
+                                    //   flex: 1,
+                                    //   child: Row(
+                                    //     children: [
+                                    //       GestureDetector(
+                                    //         onTap: () => _makeCall(phoneNumber),
+                                    //         child: SvgPicture.asset(
+                                    //           "images/sm/contact_s.svg",
+                                    //           height: 30,
+                                    //           width: 20,
+                                    //         ),
+                                    //       ),
+                                    //     ],
+                                    //   ),
+                                    // ),
+                                    //
+                                    // Expanded(
+                                    //   flex: 2,
+                                    //   child: Column(
+                                    //     mainAxisAlignment: MainAxisAlignment.center,
+                                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                                    //     children: [
+                                    //       Row(
+                                    //         // mainAxisAlignment: MainAxisAlignment.start, // Aligns items in the row to the start (left)
+                                    //         // crossAxisAlignment: CrossAxisAlignment.start,
+                                    //         children: [
+                                    //           Text("Auto assigned on 2024/12/08 |",style: DocDefineTableData.customTextStyle(context),),
+                                    //           // Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                    //         ],
+                                    //       ),
+                                    //       Row(
+                                    //         // mainAxisAlignment: MainAxisAlignment.start, // Aligns items in the row to the start (left)
+                                    //         // crossAxisAlignment: CrossAxisAlignment.start,
+                                    //         children: [
+                                    //           Text("10:00 AM ",style: DocDefineTableData.customTextStyle(context),),
+                                    //
+                                    //         ],
+                                    //       ),
+                                    //     ],
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
                               ),
                               Container(height: AppSize.s12,),
                             ],
