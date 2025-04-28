@@ -207,9 +207,7 @@ class _RPMergeDuplicateScreenState extends State<RPMergeDuplicateScreen> {
                                               context)),
                                   Text("Sync 05/08/2024  | 6:35 PM",
                                       textAlign: TextAlign.center,
-                                      style:
-                                          DocDefineTableDataID.customTextStyle(
-                                              context)),
+                                      style: DocDefineTableDataID.customTextStyle(context)),
                                   SizedBox(
                                     height: 10,
                                   ),
