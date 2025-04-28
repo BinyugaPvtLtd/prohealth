@@ -566,10 +566,10 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                         borderRadius: BorderRadius.circular(12),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.grey.withOpacity(0.6),
+                                            color: Colors.grey.withOpacity(0.2),
                                             spreadRadius: 0,
-                                            blurRadius: 4,
-                                            offset: const Offset(0, 2),
+                                            blurRadius: 1,
+                                            offset: const Offset(0, 0.2),
                                           ),
                                         ],
 
@@ -594,7 +594,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                             Container(
                                               width: 90,
                                               height: 22,
-                                              decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color:Color(0xFFB0BEC5)),
+                                              decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color:Color(0xFFE9E9FA)),
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -623,18 +623,14 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                                     },
                                                     child: Container(
                                                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Colors.red),
-                                                      padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                                                      child: Center(
-                                                        child: Icon(Icons.call,size: 16,color: Colors.white,),
-                                                      ),
+                                                      padding: EdgeInsets.symmetric(horizontal: 15,vertical: 0),
+                                                      child: Center(child: Icon(Icons.call,color: Colors.white,)),
                                                     ),
                                                   ),
                                                   Container(
                                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFFF4F5F8)),
-                                                    padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                                                    child: Center(
-                                                      child: Icon(Icons.mic_off_outlined,size: 16,),
-                                                    ),
+                                                    padding: EdgeInsets.symmetric(horizontal: 15,vertical: 0),
+                                                    child: Center(child: Icon(Icons.mic_off_outlined,)),
                                                   )
 
                                                 ],
@@ -659,6 +655,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                             fontSize: 22,
                                           ),
                                         ),
+                                        SizedBox(height: 8,),
                                         Column(
                                           spacing: 15,
                                           children: [
@@ -700,6 +697,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                             ),
                                           ],
                                         ),
+                                        SizedBox(height: 8,),
                                         CustomElevatedButton(
                                           width: AppSize.s220,
                                           height: AppSize.s31,
@@ -710,14 +708,17 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                             providerContact.toogleContactCallLiveProvider();
                                           },
                                         ),
+
+                                        SizedBox(height: 25,),
                                       ],
                                     ),
                                   ),
-                                  Material(
+                                  Container(
+                                    height: 30,
                                     color: ColorManager.white,
-                                    elevation: 2,
+                                   // elevation: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.only(right: 20,left: 20),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
