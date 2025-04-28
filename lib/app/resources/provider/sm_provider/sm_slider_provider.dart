@@ -4,6 +4,7 @@ class SmIntakeProviderManager extends ChangeNotifier{
   bool _isContactTrue = false;
   bool _isContactCallLive = false;
   bool _isEyeScreenVisible = false;
+  bool _isLeftSidebarOpen = false;
   int _initialIndex = 0;
 
   // Referal filter
@@ -21,6 +22,7 @@ class SmIntakeProviderManager extends ChangeNotifier{
   bool get isContactTrue => _isContactTrue;
   bool get isContactCallLive => _isContactCallLive;
   bool get isEyeScreenVisible => _isEyeScreenVisible;
+  bool get isLeftSidebarOpen => _isLeftSidebarOpen;
 
   // Referal filter
   bool get isFilterOpen => _isFilterOpen;
@@ -46,6 +48,10 @@ class SmIntakeProviderManager extends ChangeNotifier{
   }
   void toogleEyeScreenProvider(){
     _isEyeScreenVisible = !_isEyeScreenVisible;
+    notifyListeners();
+  }
+  void toogleLeftSidebarProvider(){
+    _isLeftSidebarOpen = !_isLeftSidebarOpen;
     notifyListeners();
   }
   void indexChnage(int index){

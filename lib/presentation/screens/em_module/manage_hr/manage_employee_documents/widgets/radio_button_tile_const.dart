@@ -117,7 +117,7 @@ class _CustomRadioListTileSMpState extends State<CustomRadioListTileSMp> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
                Transform.scale(
-                 scale:providerState.isContactTrue? 1.0:1.5,
+                 scale:1.5,
                 child: Theme(
                   data: Theme.of(context).copyWith(
                     unselectedWidgetColor: ColorManager.bluebottom, // border color when not selected
@@ -133,11 +133,11 @@ class _CustomRadioListTileSMpState extends State<CustomRadioListTileSMp> {
                   ),
                 ),
               ),
-              providerState.isContactTrue? SizedBox(width: 4):SizedBox(width: 8),
+             SizedBox(width: 8),
               Text(
                 widget.title,
-                style: // providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :
-                DocumentTypeDataStyle.customTextStyle(context),
+                style: DocumentTypeDataStyle.customTextStyle(context)
+                //providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :DocumentTypeDataStyle.customTextStyle(context),
               ),
               //SizedBox( width: AppSize.s50,)
             ],

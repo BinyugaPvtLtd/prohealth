@@ -89,7 +89,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                       child: BlueBGHeadConst(HeadText: "Policy Details"),
                     ),
                     IntakeFlowContainerConst(
-                      height: AppSize.s360,
+                      height: providerState.isContactTrue ? AppSize.s540  :AppSize.s360,
                       //child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -140,6 +140,24 @@ class IntakeSecondaryScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: AppSize.s16),
+                          providerState.isContactTrue ?  Row(
+                            children: [
+                              Flexible(
+                                  child: SchedularTextField(
+                                      isIconVisible: true,
+                                      controller: pharmaCategory, labelText: 'Category')),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: pharmacyaddress,
+                                      labelText: 'Street*')),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: pharmaSuitApt,
+                                      labelText: 'Suite/Apt#')),
+                            ],
+                          ):
                           Row(
                             children: [
                               Flexible(
@@ -235,6 +253,88 @@ class IntakeSecondaryScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: AppSize.s16),
+                          providerState.isContactTrue ?    Row(
+                            children: [
+                              Flexible(
+                                child: FutureBuilder<List<CityData>>(
+                                  future: getCityDropDown(context),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return SchedularTextField(
+                                        controller: dummyCtrl,
+                                        labelText: 'City',);
+                                    }
+                                    if (snapshot.hasData) {
+                                      List<DropdownMenuItem<String>> dropDownList = [];
+                                      for (var i in snapshot.data!) {
+                                        dropDownList.add(DropdownMenuItem<String>(
+                                          child: Text(i.cityName!),
+                                          value: i.cityName,
+                                        ));
+                                      }
+                                      return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
+                                          onChanged: (newValue) {
+                                            for (var a in snapshot.data!) {
+                                              if (a.cityName == newValue) {
+                                                pharmacycity = a.cityName!;
+                                                //country = a
+                                                // int? docType = a.companyOfficeID;
+                                              }
+                                            }
+                                          });
+                                    } else {
+                                      return const Offstage();
+                                    }
+                                  },
+                                ),
+                                // child: SchedularTextField(
+                                //     controller: pharmacycity, labelText: 'City'),
+                              ),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+
+                                child:FutureBuilder<List<StateData>>(
+                                  future: getStateDropDown(context),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return SchedularTextField(
+                                          controller: dummyCtrl,
+                                          labelText: 'State');
+                                    }
+                                    if (snapshot.hasData) {
+                                      List<DropdownMenuItem<String>> dropDownList = [];
+                                      for (var i in snapshot.data!) {
+                                        dropDownList.add(DropdownMenuItem<String>(
+                                          child: Text(i.name),
+                                          value: i.name,
+                                        ));
+                                      }
+                                      return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
+                                          onChanged: (newValue) {
+                                            for (var a in snapshot.data!) {
+                                              if (a.name == newValue) {
+                                                pharmacystate = a.name;
+                                                //country = a
+                                                // int? docType = a.companyOfficeID;
+                                              }
+                                            }
+                                          });
+                                    } else {
+                                      return const Offstage();
+                                    }
+                                  },
+                                ),
+                              ),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: pharmacyzipcode,
+                                      onlyAllowNumbers: true,
+                                      labelText: 'Zip Code*')),
+                            ],
+                          ):
                           Row(
                             children: [
                               Flexible(
@@ -266,6 +366,26 @@ class IntakeSecondaryScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: AppSize.s16),
+                          providerState.isContactTrue ?   Row(
+                            children: [
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: pharmaphone,
+                                      phoneField:true,
+                                      labelText: 'Phone Number*')),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: pharmaAuth,
+                                    labelText: 'Auth Status',
+                                  )),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: pharmaEftDateForm, labelText: 'Effective From',
+                                    showDatePicker: true,)),
+                            ],
+                          ):
                           Row(
                             children: [
                               Flexible(
@@ -327,6 +447,87 @@ class IntakeSecondaryScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                          SizedBox(height: AppSize.s16),
+                          providerState.isContactTrue ?  Row(
+                            children: [
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: pharmaEftDateFormTo, labelText: 'Effective to',
+                                    showDatePicker: true,)),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: CustomDropdownTextFieldsm(headText: 'Eligibility Status',items: ['Santa Clara','A'],
+                                      onChanged: (newValue) {
+                                      })),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                      controller: pharmaPolicyHicNo,
+                                      labelText: 'Policy/HIC Number')),
+                            ],
+                          ) : Offstage(),
+                          SizedBox(height: AppSize.s16),
+                          providerState.isContactTrue ? Row(
+                            children: [
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: pharmaGrpNo,
+                                    labelText: 'Group Number',
+                                  )),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: pharmaGrpName, labelText: 'Group Name',
+                                  )),
+                              SizedBox(width: AppSize.s35),
+                              Flexible(
+                                  child: SchedularTextField(
+                                    controller: pharmaEmail, labelText: 'Primary Email',
+                                  )),
+                            ],
+                          ) : Offstage(),
+                          SizedBox(height: AppSize.s16),
+                          providerState.isContactTrue ?Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Insurance Verified',
+                                        style:SMTextfieldHeadings.customTextStyle(context)
+                                      //AllPopupHeadings.customTextStyle(context)
+                                    ),
+                                    SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        CustomRadioListTileSMp(
+                                          title: 'Yes',
+                                          value: 'Yes',
+                                          groupValue: statustype,
+                                          onChanged: (value) {
+                                            // setState(() {
+                                            statustype = value;
+                                            // });
+                                          },
+                                        ),
+                                        CustomRadioListTileSMp(
+                                          title: 'No',
+                                          value: 'No',
+                                          groupValue: statustype,
+                                          onChanged: (value) {
+                                            // setState(() {
+                                            statustype = value;
+                                            // });
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ):Offstage(),
                         ],
                       ),
                       // ),
