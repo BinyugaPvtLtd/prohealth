@@ -202,7 +202,8 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                     ],
                   ),
                   SizedBox(height: AppSize.s25),
-                  providerState.isContactTrue ?  Padding(
+                  providerState.isContactTrue
+                      ?  Padding(
                     padding: const EdgeInsets.only(right: 35.0),
                     child: Row(
                       children: [
