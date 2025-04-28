@@ -52,11 +52,11 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
    builder: (context,providerState,child) {
      return SingleChildScrollView(
       child: Padding(
-        padding:  EdgeInsets.only(right: providerState.isContactTrue ? 0 : 35, left:  35),
+        padding:  EdgeInsets.only(right: 35, left:  35),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: AppSize.s25,bottom: 10),
+              padding: EdgeInsets.only(top: AppSize.s25,bottom: 10,),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -280,7 +280,6 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                                   value: 'No',
                                   groupValue: statustype,
                                   onChanged: (value) {
-
                                     setState(() {
                                       statustype = value;
                                     });

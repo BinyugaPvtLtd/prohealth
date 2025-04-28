@@ -105,7 +105,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: AppSize.s25,bottom: 10),
+                    padding: const EdgeInsets.only(top: AppSize.s25,bottom: 10,right: 35,),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -345,7 +345,9 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             children: [
                               Padding(
                                 padding:const EdgeInsets.symmetric(vertical: 13),
-                                  child: Text('Tracking Notes',style:providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
+                                  child: Text('Tracking Notes',style:
+                                  //providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) :
+                                  SMTextfieldHeadings.customTextStyle(context)
                                     //AllPopupHeadings.customTextStyle(context)
                                   )),
                               const SizedBox(width: AppSize.s10,),
