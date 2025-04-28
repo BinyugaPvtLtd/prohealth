@@ -71,7 +71,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
             SizedBox(height: AppSize.s10,),
 
             Padding(
-              padding: EdgeInsets.symmetric(horizontal:  providerState.isContactTrue ? 0 : 25),
+              padding: EdgeInsets.only(left: 25, right: providerState.isContactTrue ? 0 : 25),
               child: Column(
                 children: [
                   SizedBox(height: AppSize.s16),
@@ -79,7 +79,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                     children: [
                       Flexible(
                         child: CustomDropdownTextFieldsm(
-                            headText: providerState.isContactTrue ? 'Select from\nDatabase' : 'Select from Database',
+                            headText: 'Select from Database',
                             items: ['Spouse','Patient',],
                             //dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
@@ -250,7 +250,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
 
                     ],
                   ) : SizedBox(),
-                  SizedBox(height: AppSize.s25,),
+                  providerState.isContactTrue ?   SizedBox(height: AppSize.s25,) : Offstage(),
                   Row(
                     children: [
                       Text("Check PECOS Eligibility Status",style: CustomTextStylesCommon.commonStyle(
@@ -268,7 +268,8 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('Physician Verified',
-                                style:  providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :SMTextfieldHeadings.customTextStyle(context)
+                                style: // providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :
+                                SMTextfieldHeadings.customTextStyle(context)
                               //AllPopupHeadings.customTextStyle(context)
                             ),
                             SizedBox(height: 10),
