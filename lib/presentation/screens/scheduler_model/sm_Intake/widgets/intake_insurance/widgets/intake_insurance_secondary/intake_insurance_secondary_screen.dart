@@ -317,7 +317,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                       child: BlueBGHeadConst(HeadText: "Suggested Care & Diagnosis"),
                     ),
                     Container(
-                        height: AppSize.s400,
+                        height: AppSize.s410,
                         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30,vertical: AppPadding.p15 ),
                         //child: SingleChildScrollView(
                         child: Column(
@@ -361,6 +361,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           )
                                         ],
                                       ),
+
                                       Row(children: [
                                         Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
@@ -378,7 +379,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           Text('OT',
                                               style: DocDefineTableDataID.customTextStyle(context)),
                                         ],),
-                                        SizedBox(width: AppSize.s30,),
+                                        SizedBox(width: AppSize.s60,),
                                         Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -396,6 +397,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                               style: DocDefineTableDataID.customTextStyle(context)),
                                         ],),
                                       ],),
+                                      SizedBox(width: AppSize.s70,),
                                       Padding(
                                         padding: EdgeInsets.only(right:  providerState.isContactTrue? 0 : 70.0),
                                         child: Row(
@@ -436,6 +438,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                               SizedBox(height: AppSize.s25),
                               Padding(padding:  EdgeInsets.symmetric(horizontal: 59.0),
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
                                     flex:2,
@@ -478,6 +481,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Column(children: [
+                                          SizedBox(height: 20,),
                                           Center(
                                             child: Text('Disciplice',
                                                 style: DocDefineTableDataID.customTextStyle(context)),
@@ -496,8 +500,9 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                             headText: '',
                                             onChanged: (newValue) {},),
                                         ],),
-                                        SizedBox(width: AppSize.s25),
+                                        SizedBox(width: AppSize.s50),
                                         Column(children: [
+                                          SizedBox(height: 30,),
                                           Center(
                                             child: Text('Authorized',
                                                 style: DocDefineTableDataID.customTextStyle(context)),
@@ -517,6 +522,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                             borderRadius: 0,
                                           ),
                                         ],),
+                                       // SizedBox(width: AppSize.s100),
                                       ],
                                     ),
                                   ),
@@ -526,6 +532,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
+                                        SizedBox(height: 20,),
                                         Padding(
                                           padding: EdgeInsets.only(bottom: 90.0,right: providerState.isContactTrue? 30 :60),
                                           child: Row(
@@ -539,7 +546,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                                 onPressed: () {
                                                 },
                                                 icon: Icon(
-                                                  Icons.save,
+                                                  Icons.save_outlined,
                                                   color: ColorManager.mediumgrey,
                                                 ),
                                                 iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
@@ -719,7 +726,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                               //         ],))),
                               //   ],),
                               // ),
-                              SizedBox(height: AppSize.s25),
+                              SizedBox(height: AppSize.s40),
                               CustomIconButtonConst(
                                   width: 170,
                                   text: 'Add Authorization',
@@ -727,7 +734,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   onPressed: () {
 
                                   }),])),
-                    SizedBox(height: AppSize.s40),
+                    SizedBox(height: AppSize.s25),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 35),
                       child: BlueBGHeadConst(HeadText: "Attachments"),
@@ -766,10 +773,14 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                           children: [
                                             Text('Eligibility.pdf',
-                                                style: DocDefineTableData.customTextStyle(context)),
+                                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w600,
+                                                color: ColorManager.mediumgrey,),),
                                             SizedBox(height: AppSize.s8,),
                                             Text("Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca",
-                                                style:  DocDefineTableDataID.customTextStyle(context)),
+                                              style:  TextStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
+                                                color: ColorManager.granitegray,),),
                                           ],
                                         )
                                       ],
@@ -778,19 +789,25 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                       MainAxisAlignment.center,
                                       children: [
-                                        IconButton(
+                                        InkWell(
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
-                                          onPressed: () {
-                                          },
-                                          icon: Icon(
-                                            Icons.near_me_outlined,
-                                            color: Color(0xFF686464),
-                                          ),
-                                          iconSize: IconSize.I22,
-                                        ),
-                                        SizedBox(width: AppSize.s10,),
+                                          child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ?15 :22,)
+                                          ,onTap:(){},),
+                                        // IconButton(
+                                        //   splashColor: Colors.transparent,
+                                        //   highlightColor: Colors.transparent,
+                                        //   hoverColor: Colors.transparent,
+                                        //   onPressed: () {
+                                        //   },
+                                        //   icon: Icon(
+                                        //     Icons.near_me_outlined,
+                                        //     color: Color(0xFF686464),
+                                        //   ),
+                                        //   iconSize: IconSize.I22,
+                                        // ),
+                                        SizedBox(width: AppSize.s13,),
                                         IconButton(
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,

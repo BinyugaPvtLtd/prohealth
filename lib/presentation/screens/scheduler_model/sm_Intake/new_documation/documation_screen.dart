@@ -841,6 +841,9 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                             ),
                                             providerState.isContactTrue ?SizedBox(width: 3) :  SizedBox(width: 20),
                                             InkWell(
+                                              splashColor: Colors.transparent,
+                                              highlightColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
                                               child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ?15 :25,)
                                               ,onTap:(){},),
                                             providerState.isContactTrue ?SizedBox(width: 3) :  SizedBox(width: 20),
