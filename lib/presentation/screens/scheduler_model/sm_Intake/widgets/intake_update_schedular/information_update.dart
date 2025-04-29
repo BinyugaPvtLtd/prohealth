@@ -59,13 +59,15 @@ class InformationUpdateScreen extends StatelessWidget {
         provider.handlePatientId(fetchedPatientId);
         return  Stack(
             children:[ Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 75),
+              padding: const EdgeInsets.symmetric(horizontal: 75,),
               child: Column(
                 children: [
+                  SizedBox(height: 25,),
                   ///button
                   Row(
                     children: [
                       CustomSearchFieldSM(
+                        width: 430,
                         onPressed: (){},
                       ),
                       SizedBox(width: 20,),
@@ -153,7 +155,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.end,
                                           children:[
                                             Container(
-                                                width: AppSize.s105,
+                                                width: AppSize.s60,
                                                 height: AppSize.s16,
                                                 decoration: BoxDecoration(
                                                   color: ColorManager.bluebottom.withOpacity(0.12),
@@ -167,6 +169,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                           fontSize: FontSize.s11,
                                                           fontWeight: FontWeight.w400)),
                                                 )),
+
                                           ]
                                       ),
                                       Padding(

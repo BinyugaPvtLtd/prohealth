@@ -43,10 +43,12 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
           padding: const EdgeInsets.symmetric(horizontal: 75),
           child: Column(
             children: [
+              SizedBox(height: 25,),
               ///button
               Row(
                 children: [
                   CustomSearchFieldSM(
+                    width: 430,
                     onPressed: (){},
                   ),
                   SizedBox(width: 20,),
@@ -136,7 +138,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                           crossAxisAlignment: CrossAxisAlignment.end,
                                           children:[
                                             Container(
-                                                width: AppSize.s105,
+                                                width: AppSize.s60,
                                                 height: AppSize.s16,
                                                 decoration: BoxDecoration(
                                                   color: ColorManager.bluebottom.withOpacity(0.12),

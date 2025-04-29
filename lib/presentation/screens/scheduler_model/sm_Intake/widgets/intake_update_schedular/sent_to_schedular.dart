@@ -47,10 +47,12 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 75),
         child: Column(
           children: [
+            SizedBox(height: 25,),
             ///button
             Row(
               children: [
                 CustomSearchFieldSM(
+                  width: 430,
                   onPressed: () {},
                 ),
                 SizedBox(

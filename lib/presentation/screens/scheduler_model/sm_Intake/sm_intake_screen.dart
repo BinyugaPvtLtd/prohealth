@@ -128,11 +128,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
     return Scaffold(
       backgroundColor: ColorManager.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: _selectedIndex == 5 ? Offstage() : isSidebarOpen==true ? Offstage() : isSidebarLeftOpen == true ? Offstage():Padding(
+      floatingActionButton: _selectedIndex == 5 ? Offstage() : isSidebarOpen==true ? Offstage() : providerContact.isLeftSidebarOpen == true ? Offstage():Padding(
         padding: const EdgeInsets.only(right: 90), // Shift left by 10
         child: FloatingActionButton(
           onPressed: (){
             toggleSidebar();
+            providerContact.toogleRightSliderProvider();
             providerContact.toogleContactProvider();
           },
           backgroundColor: ColorManager.bluebottom,
@@ -205,7 +206,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                           padding: EdgeInsets.only(left: 30, right: 60),
                           //margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 50,top: 10,right: 50),
+                            padding: isSidebarOpen==true ?EdgeInsets.only(left: 10,top: 10,right: 10):  EdgeInsets.only(left: 50,top: 10,right: 50),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
@@ -236,7 +237,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 0,
@@ -257,7 +263,13 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+
+                                  } : providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 1,
@@ -270,7 +282,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 2,
@@ -283,7 +300,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 3,//3,
@@ -296,7 +318,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 4,
@@ -309,7 +336,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 5,
@@ -358,7 +390,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
               ],
             ),
           ),
-          isSidebarOpen == true ? Flexible(
+          isSidebarOpen == true && providerContact.isLeftSidebarOpen == false ? Flexible(
             flex: 0,
             child: AnimatedBuilder(
               animation: _slideAnimation,
