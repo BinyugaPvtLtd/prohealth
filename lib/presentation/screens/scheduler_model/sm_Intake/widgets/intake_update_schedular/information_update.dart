@@ -169,6 +169,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                           fontSize: FontSize.s11,
                                                           fontWeight: FontWeight.w400)),
                                                 )),
+
                                           ]
                                       ),
                                       Padding(
