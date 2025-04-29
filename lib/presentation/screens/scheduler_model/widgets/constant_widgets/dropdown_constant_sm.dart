@@ -332,7 +332,10 @@ class _SmDropdownConstState extends State<SmDropdownConst> {
                         ),
                       ),
                     ),
-                    Icon(widget.icon ?? Icons.arrow_drop_down_sharp, color: widget.iconColor ?? ColorManager.mediumgrey,size: IconSize.I22,),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Icon(widget.icon ?? Icons.arrow_drop_down_sharp, color: widget.iconColor ?? ColorManager.mediumgrey,size: IconSize.I22,),
+                    ),
                   ],
                 ),
               ),

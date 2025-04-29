@@ -500,547 +500,578 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
   @override
   Widget build(BuildContext context) {
 
-    return isAssigned
-        ? Container(
-      height: 500,
-      width: 200,
-     // color: Colors.red,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return  Column(
+      children: [
+        isAssigned
+            ? Container(
+          height: 700,
+          width: 200,
+          // color: Colors.red,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomRadioListTile(value: "Auto-assign",
-                  groupValue: selectedType,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedType = value!;
-                    });
-                  }, title: "Auto-assign"),
-              CustomRadioListTile(value: "Sent Request",
-                  groupValue: selectedType,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedType = value!;
-                    });
-                  }, title: "Sent Request"),
-              CustomRadioListTile(value: "Mark as Confirm",
-                  groupValue: selectedType,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedType = value!;
-                    });
-                  }, title: "Mark as Confirm"),
-            ],
-          ),
-          SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  width: 250,
-                  margin: EdgeInsets.only(right: 20),
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: ColorManager.bluebottom,width: 2),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
+              Row(
+                children: [
+                  CustomRadioListTile(value: "Auto-assign",
+                      groupValue: selectedType,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedType = value!;
+                        });
+                      }, title: "Auto-assign"),
+                  CustomRadioListTile(value: "Sent Request",
+                      groupValue: selectedType,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedType = value!;
+                        });
+                      }, title: "Sent Request"),
+                  CustomRadioListTile(value: "Mark as Confirm",
+                      groupValue: selectedType,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedType = value!;
+                        });
+                      }, title: "Mark as Confirm"),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      width: 250,
+                      margin: EdgeInsets.only(right: 20),
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: ColorManager.bluebottom,width: 2),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "In Zone",
+                                    style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
+                                        fontSize: FontSize.s12, fontWeight: FontWeight.w700),
+                                  ),
+                                ],),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(60),
+                                        child: SizedBox(
+                                          width: AppSize.s45,
+                                          height: AppSize.s50,
+                                          child: Image.asset(
+                                            'images/1.png', // Replace with your image path
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 2,),
+                                      Text('Salaried', style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
+                                          fontSize: FontSize.s12, fontWeight: FontWeight.w700),)
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Adam Johnson",
+                                        style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
+                                            fontSize: FontSize.s12, fontWeight: FontWeight.w700),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text("Available (22/25)",
+                                        style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
+                                            fontSize: FontSize.s12, fontWeight: FontWeight.w600),),
+                                      SizedBox(height: 10,),
+                                      Text("Sacramento Z1 (2.4 Miles Away)",
+                                        style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
+                                            fontSize: FontSize.s12, fontWeight: FontWeight.w400),),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(
-                                "In Zone",
-                                style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
-                                    fontSize: FontSize.s12, fontWeight: FontWeight.w700),
+                              InkWell(
+                                child: Image.asset("images/sm/contact_text.png",height: 35,)
+                                ,onTap: (){},),
+                              SizedBox(width: 50,),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: ColorManager.bluebottom,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isAssigned = true;
+                                    });
+                                  },
+                                  child: Text("Assign"),
+                                ),
                               ),
-                            ],),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(60),
-                                    child: SizedBox(
-                                      width: AppSize.s45,
-                                      height: AppSize.s50,
-                                      child: Image.asset(
-                                        'images/1.png', // Replace with your image path
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 2,),
-                                  Text('Salaried', style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
-                                      fontSize: FontSize.s12, fontWeight: FontWeight.w700),)
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Adam Johnson",
-                                    style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
-                                        fontSize: FontSize.s12, fontWeight: FontWeight.w700),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text("Available (22/25)",
-                                    style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
-                                        fontSize: FontSize.s12, fontWeight: FontWeight.w600),),
-                                  SizedBox(height: 10,),
-                                  Text("Sacramento Z1 (2.4 Miles Away)",
-                                    style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
-                                        fontSize: FontSize.s12, fontWeight: FontWeight.w400),),
-                                ],
-                              )
                             ],
                           ),
                         ],
                       ),
-                
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            child: Image.asset("images/sm/contact_text.png",height: 35,)
-                            ,onTap: (){},),
-                          SizedBox(width: 50,),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: ColorManager.bluebottom,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  isAssigned = true;
-                                });
-                              },
-                              child: Text("Assign"),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Week 1",
-                        style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w700),),
-                        SizedBox(height: 20,),
-                        Text("2024-12-1  (Tuesday) , 01:00 PM",
-                        style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w400),),
-                        SizedBox(height: 15,),
-                        Text("2024-12-2  (Wednesday) , 01:00 PM",
-                        style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w400),),
-                      ],
                     ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 90, // Adjust height as needed
-                child: VerticalDivider(
-                  color: ColorManager.mediumgrey, // Change color as needed
-                  thickness: 2, // Adjust thickness as needed
-                  width: 20, // Space between columns
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Week 1",
-                      style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.mediumgrey,
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700),),
-                      SizedBox(height: 20,),
-                      Text("2024-12-1  (Tuesday) , 01:00 PM",
-                      style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.mediumgrey,
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w400),),
-                      SizedBox(height: 15,),
-                      Text("2024-12-2  (Wednesday) , 01:00 PM",
-                      style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.mediumgrey,
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w400),),
-                    ],
+                  Expanded(
+                    child: Container(
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Week 1",
+                              style: CustomTextStylesCommon.commonStyle(
+                                  color: ColorManager.mediumgrey,
+                                  fontSize: FontSize.s14,
+                                  fontWeight: FontWeight.w700),),
+                            SizedBox(height: 20,),
+                            Text("2024-12-1  (Tuesday) , 01:00 PM",
+                              style: CustomTextStylesCommon.commonStyle(
+                                  color: ColorManager.mediumgrey,
+                                  fontSize: FontSize.s14,
+                                  fontWeight: FontWeight.w400),),
+                            SizedBox(height: 15,),
+                            Text("2024-12-2  (Wednesday) , 01:00 PM",
+                              style: CustomTextStylesCommon.commonStyle(
+                                  color: ColorManager.mediumgrey,
+                                  fontSize: FontSize.s14,
+                                  fontWeight: FontWeight.w400),),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 90, // Adjust height as needed
-                child: VerticalDivider(
-                  color: ColorManager.mediumgrey, // Change color as needed
-                  thickness: 2, // Adjust thickness as needed
-                  width: 20, // Space between columns
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text("Week 1",
-                        style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w700),),
-                      SizedBox(height: 20,),
-                      Text("2024-12-1  (Tuesday) , 01:00 PM",
-                        style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w400),),
-                      SizedBox(height: 15,),
-                      Text("2024-12-2  (Wednesday) , 01:00 PM",
-                        style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w400),),
-                    ],
+                  SizedBox(
+                    height: 90, // Adjust height as needed
+                    child: VerticalDivider(
+                      color: ColorManager.mediumgrey, // Change color as needed
+                      thickness: 2, // Adjust thickness as needed
+                      width: 20, // Space between columns
+                    ),
                   ),
+                  Expanded(
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Week 1",
+                            style: CustomTextStylesCommon.commonStyle(
+                                color: ColorManager.mediumgrey,
+                                fontSize: FontSize.s14,
+                                fontWeight: FontWeight.w700),),
+                          SizedBox(height: 20,),
+                          Text("2024-12-1  (Tuesday) , 01:00 PM",
+                            style: CustomTextStylesCommon.commonStyle(
+                                color: ColorManager.mediumgrey,
+                                fontSize: FontSize.s14,
+                                fontWeight: FontWeight.w400),),
+                          SizedBox(height: 15,),
+                          Text("2024-12-2  (Wednesday) , 01:00 PM",
+                            style: CustomTextStylesCommon.commonStyle(
+                                color: ColorManager.mediumgrey,
+                                fontSize: FontSize.s14,
+                                fontWeight: FontWeight.w400),),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 90, // Adjust height as needed
+                    child: VerticalDivider(
+                      color: ColorManager.mediumgrey, // Change color as needed
+                      thickness: 2, // Adjust thickness as needed
+                      width: 20, // Space between columns
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text("Week 1",
+                            style: CustomTextStylesCommon.commonStyle(
+                                color: ColorManager.mediumgrey,
+                                fontSize: FontSize.s14,
+                                fontWeight: FontWeight.w700),),
+                          SizedBox(height: 20,),
+                          Text("2024-12-1  (Tuesday) , 01:00 PM",
+                            style: CustomTextStylesCommon.commonStyle(
+                                color: ColorManager.mediumgrey,
+                                fontSize: FontSize.s14,
+                                fontWeight: FontWeight.w400),),
+                          SizedBox(height: 15,),
+                          Text("2024-12-2  (Wednesday) , 01:00 PM",
+                            style: CustomTextStylesCommon.commonStyle(
+                                color: ColorManager.mediumgrey,
+                                fontSize: FontSize.s14,
+                                fontWeight: FontWeight.w400),),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: IconButton(
+                          hoverColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onPressed: (){
+                            setState(() {
+                              isAssigned = false;
+                            });
+                          }, icon: Icon(Icons.close,color: ColorManager.faintOrange,))
+                  )
+                ],
+              ),
+              SizedBox(height: 30),
+              Text(
+                "Notes to Clinician",
+                style: CustomTextStylesCommon.commonStyle(
+                    color: ColorManager.mediumgrey,
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(height: 10),
+              Container(
+                width:  AppSize.s400,
+                height: AppSize.s45,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: TextFormField(
+                  autofocus: true,
+                  enabled: true ,
+                  controller: firstNameController,
+                  cursorColor: Colors.black,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: InputDecoration(
+                    hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 10),
+                  ),
+                  style: TableSubHeading.customTextStyle(context),
+                  //validator: widget.validator,
+                  onTap: (){},
+                  //validator: widget.validator,
+                  // onTap: widget.onChange,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: IconButton(
-                hoverColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onPressed: (){
-                  setState(() {
-                    isAssigned = false;
-                  });
-                }, icon: Icon(Icons.close,color: ColorManager.faintOrange,))
-              )
-            ],
-          ),
-          SizedBox(height: 30),
-          Text(
-            "Notes to Clinician",
-            style: CustomTextStylesCommon.commonStyle(
-                color: ColorManager.mediumgrey,
-                fontSize: FontSize.s14,
-                fontWeight: FontWeight.w600),
-          ),
-          SizedBox(height: 10),
-          Container(
-            width:  AppSize.s400,
-            height: AppSize.s45,
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: TextFormField(
-              autofocus: true,
-              enabled: true ,
-              controller: firstNameController,
-              cursorColor: Colors.black,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: InputDecoration(
-                hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 10),
+              SizedBox(height: 10),
+              CustomeTransparentAddShift(
+                  width: 130,
+                  height: 30,
+                  text: "Add Clinician", onPressed: (){}),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {},
+                    backgroundColor: ColorManager.bluebottom, // Adjust color as needed
+                    shape: CircleBorder(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
+                        //SizedBox(height: 4),
+                        Text(
+                          'Contact',
+                          style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-              style: TableSubHeading.customTextStyle(context),
-              //validator: widget.validator,
-              onTap: (){},
-              //validator: widget.validator,
-              // onTap: widget.onChange,
-            ),
-          ),
-          SizedBox(height: 10),
-          CustomeTransparentAddShift(
-              width: 130,
-              height: 30,
-              text: "Add Clinician", onPressed: (){}),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FloatingActionButton(
-                onPressed: () {},
-                backgroundColor: ColorManager.bluebottom, // Adjust color as needed
-                shape: CircleBorder(),
-                child: Column(
+              Divider(),
+              Spacer(),
+              Center(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
-                    //SizedBox(height: 4),
-                    Text(
-                      'Contact',
-                      style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
+                    CustomElevatedButton(
+                      width: AppSize.s105,
+                      height: AppSize.s30,
+                      text: "Submit",
+                      color: ColorManager.bluebottom,
+                      onPressed: () {},
                     ),
                   ],
                 ),
               )
             ],
           ),
-          Divider(),
-          Spacer(),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: "Submit",
-                  color: ColorManager.bluebottom,
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    )
-        : Container(
-      height: 500,
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomSearchFieldSM(
-                onPressed: () {},
-              ),
-              SizedBox(width: 50,),
-              SmDropdownConst(
-                height: 36,
-                width: 150,
-                isAstric: false,
-                initialValue: 'Filter by',
-                headText: "",
-                items: ['Filter by', 'Referral App', 'E-Fax', 'E-Referrals', 'Manual'],
-                onChanged: (newValue) {},
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          Text(
-            "Suggestions",
-            style: CustomTextStylesCommon.commonStyle(
-                color: ColorManager.mediumgrey,
-                fontSize: FontSize.s14,
-                fontWeight: FontWeight.w600),
-          ),
-          SizedBox(height: 10),
-          SizedBox(
-            height: 140,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return Container(
-                  width: 250,
-                  margin: EdgeInsets.only(right: 20),
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: ColorManager.bluebottom,width: 2),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                            Text(
-                              "In Zone",
-                              style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
-                                  fontSize: FontSize.s12, fontWeight: FontWeight.w700),
-                            ),
-                          ],),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        )
+            : Expanded(
+              child: Container(
+                       // height: 500,
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: SingleChildScrollView(
+                          child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(height: 20),
+                                          Text(
+                                            "Clinician Preference",
+                                            style: CustomTextStylesCommon.commonStyle(
+                                                color: ColorManager.mediumgrey,
+                                                fontSize: FontSize.s14,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          SizedBox(height: 40),
+                                          Row(
+                                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              CustomSearchFieldSM(
+                                                onPressed: () {},
+                                              ),
+                                              SizedBox(width: 50,),
+                                              SmDropdownConst(
+                                                height: 36,
+                                                width: 150,
+                                                isAstric: false,
+                                                initialValue: 'Filter by',
+                                                headText: "",
+                                                items: ['Filter by', 'Referral App', 'E-Fax', 'E-Referrals', 'Manual'],
+                                                onChanged: (newValue) {},
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 20),
+                                          Text(
+                                            "Suggestions",
+                                            style: CustomTextStylesCommon.commonStyle(
+                                                color: ColorManager.mediumgrey,
+                                                fontSize: FontSize.s14,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          SizedBox(height: 20),
+                                          SizedBox(
+                                            height: 140,
+                                            child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: 4,
+                                              itemBuilder: (context, index) {
+                                                return Container(
+                          width: 250,
+                          margin: EdgeInsets.only(right: 20),
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: ColorManager.bluebottom,width: 2),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(60),
-                                    child: SizedBox(
-                                      width: AppSize.s45,
-                                      height: AppSize.s50,
-                                      child: Image.asset(
-                                        'images/1.png', // Replace with your image path
-                                        fit: BoxFit.cover,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "In Zone",
+                                        style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
+                                            fontSize: FontSize.s12, fontWeight: FontWeight.w700),
                                       ),
-                                    ),
+                                    ],),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(60),
+                                            child: SizedBox(
+                                              width: AppSize.s45,
+                                              height: AppSize.s50,
+                                              child: Image.asset(
+                                                'images/1.png', // Replace with your image path
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 2,),
+                                          Text('Salaried', style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
+                                              fontSize: FontSize.s12, fontWeight: FontWeight.w700),)
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Adam Johnson",
+                                            style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
+                                                fontSize: FontSize.s12, fontWeight: FontWeight.w700),
+                                          ),
+                                          SizedBox(height: 10,),
+                                          Text("Available (22/25)",
+                                            style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
+                                                fontSize: FontSize.s12, fontWeight: FontWeight.w600),),
+                                          SizedBox(height: 10,),
+                                          Text("Sacramento Z1 (2.4 Miles Away)",
+                                            style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
+                                                fontSize: FontSize.s12, fontWeight: FontWeight.w400),),
+                                        ],
+                                      )
+                                        
+                                    ],
                                   ),
-                                  SizedBox(height: 2,),
-                                  Text('Salaried', style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
-                                      fontSize: FontSize.s12, fontWeight: FontWeight.w700),)
                                 ],
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Adam Johnson",
-                                    style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
-                                        fontSize: FontSize.s12, fontWeight: FontWeight.w700),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text("Available (22/25)",
-                                    style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
-                                        fontSize: FontSize.s12, fontWeight: FontWeight.w600),),
-                                  SizedBox(height: 10,),
-                                  Text("Sacramento Z1 (2.4 Miles Away)",
-                                    style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
-                                        fontSize: FontSize.s12, fontWeight: FontWeight.w400),),
-                                ],
-                              )
-
+                                        
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      child: Image.asset("images/sm/contact_text.png",height: 35,)
+                                      ,onTap: (){},),
+                                    //SizedBox(width: 50,),
+                                    Text(
+                                      "Accepted",
+                                      style: CustomTextStylesCommon.commonStyle(
+                                          color: ColorManager.greenDark,
+                                          fontSize: FontSize.s14,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          isAssigned = true;
+                                        });
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: ColorManager.bluebottom,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12), // optional
+                                      ),
+                                      child: Text("Assign",  style: CustomTextStylesCommon.commonStyle(
+                                          color: ColorManager.white,
+                                          fontSize: FontSize.s14,
+                                          fontWeight: FontWeight.w600),),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                        ],
-                      ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            child: Image.asset("images/sm/contact_text.png",height: 35,)
-                            ,onTap: (){},),
-                          SizedBox(width: 50,),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: ColorManager.bluebottom,
-                              borderRadius: BorderRadius.circular(12),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            "Notes to Clinician",
+                                            style: CustomTextStylesCommon.commonStyle(
+                                                color: ColorManager.mediumgrey,
+                                                fontSize: FontSize.s14,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Container(
+                                            width:  AppSize.s400,
+                                            height: AppSize.s50,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+                                              borderRadius: BorderRadius.circular(5),
+                                            ),
+                                            child: TextFormField(
+                                              autofocus: true,
+                                              enabled: true ,
+                                              controller: firstNameController,
+                                              cursorColor: Colors.black,
+                                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                                              decoration: InputDecoration(
+                                                hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
+                                                border: InputBorder.none,
+                                                contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 10),
+                                              ),
+                                              style: TableSubHeading.customTextStyle(context),
+                                              //validator: widget.validator,
+                                              onTap: (){},
+                                              //validator: widget.validator,
+                                              // onTap: widget.onChange,
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          CustomeTransparentAddShift(
+                                              width: 130,
+                                              height: 30,
+                                              text: "Add Clinician", onPressed: (){}),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              FloatingActionButton(
+                                                onPressed: () {},
+                                                backgroundColor: ColorManager.bluebottom, // Adjust color as needed
+                                                shape: CircleBorder(),
+                                                child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
+                            //SizedBox(height: 4),
+                            Text(
+                              'Contact',
+                              style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
                             ),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  isAssigned = true;
-                                });
-                              },
-                              child: Text("Assign"),
-                            ),
+                          ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Divider(),
+                                          // Spacer(),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              CustomElevatedButton(
+                                                width: AppSize.s105,
+                                                height: AppSize.s30,
+                                                text: "Submit",
+                                                color: ColorManager.bluebottom,
+                                                onPressed: () {},
+                                              ),
+                                            ],
+                                          )
+                                        ],
                           ),
-                        ],
+                        ),
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            "Notes to Clinician",
-            style: CustomTextStylesCommon.commonStyle(
-                color: ColorManager.mediumgrey,
-                fontSize: FontSize.s14,
-                fontWeight: FontWeight.w600),
-          ),
-          SizedBox(height: 10),
-          Container(
-            width:  AppSize.s400,
-            height: AppSize.s45,
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: TextFormField(
-              autofocus: true,
-              enabled: true ,
-              controller: firstNameController,
-              cursorColor: Colors.black,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: InputDecoration(
-                hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 10),
-              ),
-              style: TableSubHeading.customTextStyle(context),
-              //validator: widget.validator,
-              onTap: (){},
-              //validator: widget.validator,
-              // onTap: widget.onChange,
-            ),
-          ),
-          SizedBox(height: 10),
-          CustomeTransparentAddShift(
-            width: 130,
-              height: 30,
-              text: "Add Clinician", onPressed: (){}),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FloatingActionButton(
-              onPressed: () {},
-                  backgroundColor: ColorManager.bluebottom, // Adjust color as needed
-                  shape: CircleBorder(),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
-                      //SizedBox(height: 4),
-                      Text(
-                        'Contact',
-                        style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                )
-            ],
-          ),
-          Divider(),
-          Spacer(),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: "Submit",
-                  color: ColorManager.bluebottom,
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+            )
+      ],
     );
+
+
   }
 }
 
