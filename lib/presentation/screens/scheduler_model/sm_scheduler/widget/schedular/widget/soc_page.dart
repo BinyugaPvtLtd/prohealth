@@ -61,6 +61,7 @@ class _SocPageViewState extends State<SocPageView> {
                     children: [
 
                       CustomSearchFieldSM(
+                        width: 490,
                         onPressed: (){},
                       ),
                       SizedBox(width: AppSize.s20,),
@@ -165,44 +166,41 @@ class _SocPageViewState extends State<SocPageView> {
                 //     ),
                 //     Text("Discipline",style: DocumentTypeDataStyle.customTextStyle(context),),
                 //     SizedBox(width: 10,),
-                Padding(
-                  padding: const EdgeInsets.only(right: 40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        width: 125,
-                        height: 35,
-                        child: ElevatedButton.icon(onPressed: () {
-                          setState(() {
-                            _isBulkAssignActive = !_isBulkAssignActive; // Toggle the button state
-                          });
-                        },
-                          label: Text(
-                              _isBulkAssignActive ? "Save" : "Bulk Assign",
-                              style: TextStyle(
-                                fontSize:_isBulkAssignActive ? FontSize.s14:FontSize.s12,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.white,
-                                decoration: TextDecoration.none,
-                              )//BlueButtonTextConst.customTextStyle(context),
-                          ),
-                          icon: _isBulkAssignActive
-                              ? null // Hide the icon when it's in "Save" state
-                              : SvgPicture.asset(
-                            "images/sm/bulk_assign.svg",
-                            height: 13,
-                            width: 18,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:  ColorManager.bluebottom,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
-                            ),),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: 125,
+                      height: 35,
+                      child: ElevatedButton.icon(onPressed: () {
+                        setState(() {
+                          _isBulkAssignActive = !_isBulkAssignActive; // Toggle the button state
+                        });
+                      },
+                        label: Text(
+                            _isBulkAssignActive ? "Save" : "Bulk Assign",
+                            style: TextStyle(
+                              fontSize:_isBulkAssignActive ? FontSize.s14:FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white,
+                              decoration: TextDecoration.none,
+                            )//BlueButtonTextConst.customTextStyle(context),
                         ),
-                      )
+                        icon: _isBulkAssignActive
+                            ? null // Hide the icon when it's in "Save" state
+                            : SvgPicture.asset(
+                          "images/sm/bulk_assign.svg",
+                          height: 13,
+                          width: 18,
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:  ColorManager.bluebottom,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+                          ),),
+                      ),
+                    )
 
-                    ],
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -243,8 +241,8 @@ class _SocPageViewState extends State<SocPageView> {
                                     children:[
 
                                       Container(
-                                          width: AppSize.s88,
-                                          height: AppSize.s18,
+                                          width: AppSize.s56,
+                                          height: AppSize.s16,
                                           decoration: BoxDecoration(
                                             color:Color(0xFF4FB4F4),
                                             borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),),
@@ -255,7 +253,7 @@ class _SocPageViewState extends State<SocPageView> {
                                                 style: CustomTextStylesCommon.commonStyle(
                                                     color: ColorManager.white,
                                                     fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w600)),
+                                                    fontWeight: FontWeight.w400)),
                                           )),
                                     ]
                                 ),

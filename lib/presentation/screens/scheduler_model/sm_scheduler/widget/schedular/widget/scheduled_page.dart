@@ -56,6 +56,7 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                     children: [
 
                       CustomSearchFieldSM(
+                        width: 490,
                         onPressed: (){},
                       ),
                       SizedBox(width: AppSize.s20,),
@@ -164,8 +165,8 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children:[
                                   Container(
-                                      width: AppSize.s88,
-                                      height: AppSize.s18,
+                                      width: AppSize.s56,
+                                      height: AppSize.s16,
                                       decoration: BoxDecoration(
                                         color:Color(0xFF4FB4F4),
                                         borderRadius: BorderRadius.only(topLeft: Radius.circular(8)),),
@@ -174,9 +175,9 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                             'Wound',
                                             textAlign: TextAlign.center,
                                             style: CustomTextStylesCommon.commonStyle(
-                                                color:  ColorManager.white,
+                                                color: ColorManager.white,
                                                 fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w600)),
+                                                fontWeight: FontWeight.w400)),
                                       )),
                                 ]
                             ),

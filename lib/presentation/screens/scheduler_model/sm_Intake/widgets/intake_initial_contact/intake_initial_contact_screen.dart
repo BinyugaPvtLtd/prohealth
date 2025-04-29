@@ -260,7 +260,8 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                             ),
                           )
                               : Offstage(),
-                          SizedBox(width: AppSize.s35,),
+                          providerState.isContactTrue
+                              ?  SizedBox(width: AppSize.s35,)   : Offstage(),
                           Row(
                             children: [
                               Padding(

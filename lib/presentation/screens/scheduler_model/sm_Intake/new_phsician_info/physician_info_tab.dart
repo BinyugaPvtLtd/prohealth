@@ -272,7 +272,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                                 SMTextfieldHeadings.customTextStyle(context)
                               //AllPopupHeadings.customTextStyle(context)
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(height: 5),
                             Row(
                               children: [
                                 CustomRadioListTileSMp(
@@ -285,6 +285,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                                     });
                                   },
                                 ),
+                                providerState.isContactTrue ? SizedBox(width: 15,) : Offstage(),
                                 CustomRadioListTileSMp(
                                   title: 'Yes',
                                   value: 'Yes',
@@ -300,43 +301,47 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                           ],
                         ),
                       ),
-                      SizedBox(width: AppSize.s35),
-                      Flexible(
-                          child: SchedularTextField(
-                              controller: pecosController,
-                              labelText: "PECOS Status")),
-                      SizedBox(width: AppSize.s35),
-                      Flexible(
-                          child: SizedBox(width:0)),
-                      SizedBox(width: AppSize.s35),
-                      Flexible(
-                          child: SizedBox(width:0)),
-                      SizedBox(width: AppSize.s35),
-                      Flexible(
-                          child: SizedBox(width:0)),
+                      SizedBox(width: providerState.isContactTrue ? AppSize.s90 : AppSize.s35),
+                      Padding(
+                        padding: EdgeInsets.only(right: providerState.isContactTrue ?140 :0),
+                        child: Container(
+                          child: Flexible(
+                              child: SchedularTextField(
+                                width: 250 ,
+                                  controller: pecosController,
+                                  labelText: "PECOS Status")),
+                        ),
+                      ),
+                      providerState.isContactTrue ?Offstage() : SizedBox(width: AppSize.s35),
+                      providerState.isContactTrue ?Offstage() : Flexible(child: SizedBox(width:0)),
+                      providerState.isContactTrue ?Offstage() :  SizedBox(width: AppSize.s35),
+                      Flexible(child: SizedBox(width:0)),
+                      providerState.isContactTrue ?Offstage() : SizedBox(width: AppSize.s35),
+                      providerState.isContactTrue ?Offstage() : Flexible(child: SizedBox(width:0)),
                     ],
                   ),
                   SizedBox(height: AppSize.s16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding:  EdgeInsets.only(left:providerState.isContactTrue?25 :50),
-                        child: SchedularTextField(
-                            width: providerState.isContactTrue?200 :400,
+                  Padding(
+                    padding:  EdgeInsets.only(left: providerState.isContactTrue
+                        ?230 :0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SchedularTextField(
+                            width: providerState.isContactTrue?250 :400,
                             controller: verificationController,
                             isIconVisible: true,
                             labelText: "Verification Details"),
-                      ),
-                      SizedBox(width: AppSize.s35),
-                      SchedularTextField(
-                        width:  providerState.isContactTrue?200 :400,
-                          controller: trakingController,
-                          isIconVisible: true,
-                          labelText: "Tracking Notes"),
-                      // Flexible(
-                      //     child: SizedBox(width:0)),
-                    ],
+                        SizedBox(width: AppSize.s35),
+                        SchedularTextField(
+                          width:  providerState.isContactTrue?250 :400,
+                            controller: trakingController,
+                            isIconVisible: true,
+                            labelText: "Tracking Notes"),
+                        // Flexible(
+                        //     child: SizedBox(width:0)),
+                      ],
+                    ),
                   ),
 
 
