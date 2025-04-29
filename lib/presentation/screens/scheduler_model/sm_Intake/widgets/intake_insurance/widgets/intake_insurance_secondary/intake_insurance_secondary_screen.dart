@@ -90,6 +90,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                     ),
                     IntakeFlowContainerConst(
                       height: providerState.isContactTrue ? AppSize.s540  :AppSize.s360,
+                      containerPadding: providerState.isContactTrue ? EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) : null,
                       //child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -511,6 +512,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                             // });
                                           },
                                         ),
+                                        providerState.isContactTrue ? SizedBox(width: 20,):SizedBox(width: 0,),
                                         CustomRadioListTileSMp(
                                           title: 'No',
                                           value: 'No',
