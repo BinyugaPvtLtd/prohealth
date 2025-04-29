@@ -106,6 +106,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                   ),
                   IntakeFlowContainerConst(
                     height: providerstate.isContactTrue ?AppSize.s550 :AppSize.s400,
+                    containerPadding: providerstate.isContactTrue ? EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) : null,
                     //child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -447,6 +448,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                             // });
                                           },
                                         ),
+
                                         CustomRadioListTileSMp(
                                           title: 'No',
                                           value: 'No',
@@ -528,6 +530,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                             // });
                                           },
                                         ),
+                                        providerstate.isContactTrue ? SizedBox(width: 20,) : SizedBox(width: 0,),
                                         CustomRadioListTileSMp(
                                           title: 'No',
                                           value: 'No',
@@ -560,6 +563,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                   ),
                   IntakeFlowContainerConst(
                     height: AppSize.s200,
+                      containerPadding: providerstate.isContactTrue ? EdgeInsets.symmetric(horizontal: AppPadding.p0, vertical: AppPadding.p30) : null,
                     //child: SingleChildScrollView(
                     child: Column(
                       children: [

@@ -36,7 +36,7 @@ class PageViewMenuButtonConst extends StatelessWidget {
                 Text(
                   heading,
                   style: TextStyle(
-                    fontSize: providerState.isContactTrue && providerState.isLeftSidebarOpen == false ? FontSize.s11:FontSize.s14,
+                    fontSize: providerState.isContactTrue && providerState.isLeftSidebarOpen == false ? FontSize.s13:FontSize.s14,
                     fontWeight: FontWeight.w700,
                     color: grpIndex == index
                         ? ColorManager.blueprime

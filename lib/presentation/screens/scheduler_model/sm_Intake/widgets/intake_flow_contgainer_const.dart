@@ -8,12 +8,16 @@ class IntakeFlowContainerConst extends StatelessWidget {
   final Widget child;
   final bool? isColorVisible;
   final Color? dividerColor;
-  const IntakeFlowContainerConst({super.key,this.dividerColor ,this.isColorVisible = false,this.height, required this.child});
+   EdgeInsetsGeometry? containerPadding;
+   IntakeFlowContainerConst({super.key,
+     this.containerPadding,
+     this.dividerColor ,
+     this.isColorVisible = false,this.height, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p30),
+      padding:containerPadding ?? const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p30),
       child: Container(
         height: height ?? AppSize.s500,
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30,),

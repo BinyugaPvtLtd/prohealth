@@ -20,6 +20,7 @@ import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
+import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../em_module/widgets/button_constant.dart';
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';
@@ -150,205 +151,260 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                 position: _slideLeftAnimation,
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.26,
-                    //height: double.infinity,
-                    color: Colors.white,
-                    padding: EdgeInsets.all(16),
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                      child: SingleChildScrollView(
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                              minHeight: MediaQuery.of(context).size.height,
-                              minWidth: MediaQuery.of(context).size.height
-                          ),
-                          child: IntrinsicHeight(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Text('Records for Others Duplicates',style: CustomTextStylesCommon.commonStyle(
-                                      color:Color(0xFF51B5E6),
-                                      fontWeight: FontWeight.w700,fontSize: 12)),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        width:150,
-                                        height: 32,
-                                        child: DropdownButtonFormField<String>(
-                                          value: selectedValue,
-                                          decoration: InputDecoration(
-                                            border: UnderlineInputBorder(), // Only underline
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.grey),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Color(0xFF686464)),
-                                            ),
-                                          ),
-                                          style: TextStyle(fontSize: 10),
-                                          icon: Icon(Icons.arrow_drop_down), // Down arrow icon
-                                          items: items.map((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                          onChanged: (String? newValue) {
-                                            setState(() {
-                                              selectedValue = newValue;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                      Text('You',style: CustomTextStylesCommon.commonStyle(
-                                          color:Color(0xFF7F7F7F),
-                                          fontWeight: FontWeight.w400,fontSize: 14),)
-                                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.24,
+                      //height: double.infinity,
+                      color: Colors.white,
+                      padding: EdgeInsets.all(16),
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                        child: SingleChildScrollView(
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                                minHeight: MediaQuery.of(context).size.height,
+                                minWidth: MediaQuery.of(context).size.height
+                            ),
+                            child: IntrinsicHeight(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 20,),
+                                  Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Text('Records for Others Duplicates',style: CustomTextStylesCommon.commonStyle(
+                                        color:Color(0xFF51B5E6),
+                                        fontWeight: FontWeight.w700,fontSize: 12)),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 20),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        spacing: 15,
-                                        children: [
-                                          Text('First Name*',style: CustomTextStylesCommon.commonStyle(
-                                              color:Color(0xFF575757),
-                                              fontWeight: FontWeight.w700,fontSize: 12)),
-                                          Text('Erica',style: CustomTextStylesCommon.commonStyle(
-                                              color:Color(0xFF7F7F7F),
-                                              fontWeight: FontWeight.w400,fontSize: 12))
-                                        ],
-                                      ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        spacing: 15,
-                                        children: [
-                                          Text('Last Name*',style: CustomTextStylesCommon.commonStyle(
-                                              color:Color(0xFF575757),
-                                              fontWeight: FontWeight.w700,fontSize: 12)),
-                                          Text('Erica2',style: CustomTextStylesCommon.commonStyle(
-                                              color:Color(0xFF7F7F7F),
-                                              fontWeight: FontWeight.w400,fontSize: 12))
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    spacing: 10,
-                                    children: [
-                                      CustomButtonTransparent(
-                                        width: AppSize.s120,
-                                        height: 23,
-                                        //borderRadius: 12,
-                                        text: "Accept Theirs",
-                                        onPressed: () {
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 15),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
 
-                                        },
-                                      ),
-                                      CustomElevatedButton(
-                                        width: AppSize.s120,
-                                        height: 23,
-                                        borderRadius: 12,
-                                        text: "Keep Yours",
-                                        style: TextStyle(fontSize: 10),
-                                        onPressed: (){},
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 5),
-                                  child: Divider(color: Color(0xFFD9D9D9),thickness: 1,),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: RichText(
-                                      text: TextSpan(
-                                        text: 'Referred from ',
-                                        style: CustomTextStylesCommon.commonStyle(
-                                            color:Color(0xFF686464),
-                                            fontWeight: FontWeight.w700,fontSize: 12),
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: 'Abc.pdf. ',
-                                            style: CustomTextStylesCommon.commonStyle(
-                                                color:Color(0xFF51B5E6),
-                                                fontWeight: FontWeight.w700,fontSize: 12),
-                                          ),
-                                          TextSpan(
-                                            text: '(Page No.24)',
-                                            style: CustomTextStylesCommon.commonStyle(
-                                                color:Color(0xFF51B5E6),
-                                                fontWeight: FontWeight.w700,fontSize: 12),
+                                        CustomDropdownsmi(
+
+                                            width:150,
+                                            isAstric:false,
+                                            iconColor: ColorManager.mediumgrey,
+                                            initialValue: selectedValue,
+                                            headText: "", // Default fallback if depId doesn't match any of the expected values
+                                            items: items,
+
+                                            onChanged: (newValue) {
+                                              // for (var a in snapshot.data!) {
+                                              //   if (a.empType == newValue) {
+                                              //     clinicialName = a.empType!;
+                                              //     clinicalId = a.employeeTypesId!;
+                                              //     print("Dept ID'''''' ${clinicalId}");
+                                              //     print("';';';''''''''Dept ID ${clinicialName}");
+                                              //     // Do something with docType
+                                              //   }
+                                              // }
+                                            },
                                           ),
 
-                                        ],
-                                      ),
+
+                                        ///
+                                        // Container(
+                                        //   width:150,
+                                        //   height: 32,
+                                        //   child: DropdownButtonFormField<String>(
+                                        //     value: selectedValue,
+                                        //     decoration: InputDecoration(
+                                        //       border: UnderlineInputBorder(), // Only underline
+                                        //       enabledBorder: UnderlineInputBorder(
+                                        //         borderSide: BorderSide(color: Colors.grey),
+                                        //       ),
+                                        //       focusedBorder: UnderlineInputBorder(
+                                        //         borderSide: BorderSide(color: Color(0xFF686464)),
+                                        //       ),
+                                        //     ),
+                                        //     style: TextStyle(fontSize: 10),
+                                        //     icon: Icon(Icons.arrow_drop_down), // Down arrow icon
+                                        //     items: items.map((String value) {
+                                        //       return DropdownMenuItem<String>(
+                                        //         value: value,
+                                        //         child: Text(value),
+                                        //       );
+                                        //     }).toList(),
+                                        //     onChanged: (String? newValue) {
+                                        //       setState(() {
+                                        //         selectedValue = newValue;
+                                        //       });
+                                        //     },
+                                        //   ),
+                                        // ),
+                                        Text('You',style: CustomTextStylesCommon.commonStyle(
+                                            color:Color(0xFF7F7F7F),
+                                            fontWeight: FontWeight.w400,fontSize: 14),)
+                                      ],
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                    borderRadius: BorderRadius.circular(8),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 8),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      spacing: 15,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          spacing: 15,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 10),
+                                              child: Text('First Name*',style: CustomTextStylesCommon.commonStyle(
+                                                  color:Color(0xFF575757),
+                                                  fontWeight: FontWeight.w700,fontSize: 12)),
+                                            ),
+                                            Container(
+                                              width: 130,
+                                              height: 60,
+                                              padding: const EdgeInsets.all(8),
+                                            // padding: EdgeInsets.symmetric(vertical: 10,horizontal: 25),
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFFEEEEEE),
+                                                borderRadius: BorderRadius.circular(2),
+                                              ),
+                                              child: Text('Erica',style: CustomTextStylesCommon.commonStyle(
+                                                  color:Color(0xFF7F7F7F),
+                                                  fontWeight: FontWeight.w400,fontSize: 12)),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          spacing: 15,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 10),
+                                              child: Text('Last Name*',style: CustomTextStylesCommon.commonStyle(
+                                                  color:Color(0xFF575757),
+                                                  fontWeight: FontWeight.w700,fontSize: 12)),
+                                            ),
+                                            Container(
+                                              width:130,
+                                              height: 60,
+                                              padding: const EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFFEEEEEE),
+                                                borderRadius: BorderRadius.circular(2),
+                                              ),
+                                              child: Text('Erica2',style: CustomTextStylesCommon.commonStyle(
+                                                  color:Color(0xFF7F7F7F),
+                                                  fontWeight: FontWeight.w400,fontSize: 12)),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.all(10),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      spacing: 10,
+                                      children: [
+                                        CustomButtonTransparent(
+                                          width: AppSize.s120,
+                                          height: 23,
+                                          //borderRadius: 12,
+                                          text: "Accept Theirs",
+                                          onPressed: () {
+
+                                          },
+                                        ),
+                                        CustomElevatedButton(
+                                          width: AppSize.s120,
+                                          height: 23,
+                                          borderRadius: 12,
+                                          text: "Keep Yours",
+                                          style: TextStyle(fontSize: 10),
+                                          onPressed: (){},
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 5),
+                                    child: Divider(color: Color(0xFFD9D9D9),thickness: 1,),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5,bottom: 5,left: 20),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
                                       child: RichText(
                                         text: TextSpan(
-                                          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n',
+                                          text: 'Referred from ',
                                           style: CustomTextStylesCommon.commonStyle(
-                                            color:Color(0xFF686464),
-                                            fontWeight: FontWeight.w400,fontSize: 12,),
+                                              color:Color(0xFF686464),
+                                              fontWeight: FontWeight.w700,fontSize: 12),
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n',
-                                              style: TextStyle(
-                                                color:Color(0xFF686464),
-                                                fontWeight: FontWeight.w400,fontSize: 12,
-                                                backgroundColor: Colors.yellow,),
+                                              text: 'Abc.pdf. ',
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                  color:Color(0xFF51B5E6),
+                                                  fontWeight: FontWeight.w700,fontSize: 12),
                                             ),
                                             TextSpan(
-                                              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                                              text: '(Page No.24)',
                                               style: CustomTextStylesCommon.commonStyle(
-                                                  color:Color(0xFF686464),
-                                                  fontWeight: FontWeight.w400,fontSize: 12),
+                                                  color:Color(0xFF51B5E6),
+                                                  fontWeight: FontWeight.w700,fontSize: 12),
                                             ),
 
                                           ],
                                         ),
                                       ),
-
                                     ),
                                   ),
-                                )
-                              ],
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFEEEEEE),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: Container(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.all(10),
+                                        child: RichText(
+                                          text: TextSpan(
+                                            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              color:Color(0xFF686464),
+                                              fontWeight: FontWeight.w400,fontSize: 12,),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n',
+                                                style: TextStyle(
+                                                  color:Color(0xFF686464),
+                                                  fontWeight: FontWeight.w400,fontSize: 12,
+                                                  backgroundColor: Colors.yellow,),
+                                              ),
+                                              TextSpan(
+                                                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                    color:Color(0xFF686464),
+                                                    fontWeight: FontWeight.w400,fontSize: 12),
+                                              ),
+
+                                            ],
+                                          ),
+                                        ),
+
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
 
+                    ),
                   ),
                 ),
               );
@@ -751,7 +807,12 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                               return const Offstage();
                             }
                           },
-                        ), isIButtonPressed:(){
+                        ), isIButtonPressed: providerContact.isRightSliderOpen == true ? (){
+                        // toggleLeftSidebar();
+                        // //providerContact.toogleContactProvider();
+                        // providerContact.toogleLeftSidebarProvider();
+                        // providerContact.toogleRightSliderProvider();
+                      }:(){
                         toggleLeftSidebar();
                         providerContact.toogleContactProvider();
                         providerContact.toogleLeftSidebarProvider();
