@@ -251,7 +251,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                         spacing: 15,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(left: 8),
+                                            padding: const EdgeInsets.only(left: 10),
                                             child: Text('First Name*',style: CustomTextStylesCommon.commonStyle(
                                                 color:Color(0xFF575757),
                                                 fontWeight: FontWeight.w700,fontSize: 12)),
@@ -276,7 +276,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                         spacing: 15,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(left: 8),
+                                            padding: const EdgeInsets.only(left: 10),
                                             child: Text('Last Name*',style: CustomTextStylesCommon.commonStyle(
                                                 color:Color(0xFF575757),
                                                 fontWeight: FontWeight.w700,fontSize: 12)),

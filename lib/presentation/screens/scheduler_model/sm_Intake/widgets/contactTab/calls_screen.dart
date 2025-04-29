@@ -43,8 +43,8 @@ class ContactCallsScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding:  EdgeInsets.only(top: 10,bottom: 3,
-                          left: 35,//providerState.initialIndex == 1 ? 40 : 70,
-                          right: 35,// providerState.initialIndex == 1 ? 40 : 70
+                          left: 25,//providerState.initialIndex == 1 ? 40 : 70,
+                          right: 25,// providerState.initialIndex == 1 ? 40 : 70
                    ),
                       child: TabBar(
                         //padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -244,7 +244,7 @@ class CallTransictionTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+      padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 5),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

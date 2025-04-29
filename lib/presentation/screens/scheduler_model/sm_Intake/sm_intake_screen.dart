@@ -540,7 +540,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     ),
                                   ),
                                   Container(
-                                    height: 30,
+                                    height: 32,
                                     color: ColorManager.white,
                                    // elevation: 2,
                                     child: Padding(
