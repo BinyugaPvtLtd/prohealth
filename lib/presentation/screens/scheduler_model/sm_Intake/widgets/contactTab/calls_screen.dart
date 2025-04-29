@@ -403,7 +403,6 @@ class CallTranscriptTab extends StatelessWidget {
                           ],
                         ),
                       const SizedBox(width: 8),
-
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
