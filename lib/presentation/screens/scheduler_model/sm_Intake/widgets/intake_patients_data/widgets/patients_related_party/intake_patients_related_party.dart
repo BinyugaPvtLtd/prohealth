@@ -105,6 +105,34 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(height: 20,),
+                  // InkWell(
+                  //     splashColor: Colors.transparent,
+                  //     highlightColor: Colors.transparent,
+                  //     hoverColor: Colors.transparent,
+                  //     onTap:(){},
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 10),
+                  //       child: Row(
+                  //         children: [
+                  //           Icon(
+                  //             Icons.arrow_back,
+                  //             size: IconSize.I16,
+                  //             color: ColorManager.mediumgrey,
+                  //
+                  //           ),
+                  //           SizedBox(width: 5,),
+                  //           Text(
+                  //             'Go Back',
+                  //            style:TextStyle(
+                  //              fontSize: FontSize.s14,
+                  //              fontWeight: FontWeight.w700,
+                  //              color: ColorManager.mediumgrey,
+                  //            ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     )),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: BlueBGHeadConst(HeadText: "Emergency Contact*"),

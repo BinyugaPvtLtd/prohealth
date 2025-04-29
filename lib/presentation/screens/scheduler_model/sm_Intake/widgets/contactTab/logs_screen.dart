@@ -135,7 +135,7 @@ class CallLogsTab extends StatelessWidget {
                               ),
                               SizedBox(height: AppSize.s2),
                               Text(
-                                '05/08/2024 ',
+                                '2024/08/05',
                                 style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                   fontWeight: FontWeight.w400,
                                   color: ColorManager.mediumgrey,),
@@ -227,7 +227,7 @@ class EFaxTab extends StatelessWidget {
                         children: [
                           //SizedBox(height: AppSize.s5),
                           Text(
-                            '05/08/24',
+                            '2024/08/05',
                             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                               fontWeight: FontWeight.w400,
                               color: ColorManager.mediumgrey,),

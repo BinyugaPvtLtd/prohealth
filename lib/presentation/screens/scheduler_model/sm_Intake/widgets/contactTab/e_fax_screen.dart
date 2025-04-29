@@ -305,7 +305,7 @@ class FaxHistoryTab extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('05/08/24',style: CustomTextStylesCommon.commonStyle(
+                            Text('2024/08/05',style: CustomTextStylesCommon.commonStyle(
                               color:Color(0xFF686464),
                               fontWeight: FontWeight.w400,fontSize: 12,
                             ),),
