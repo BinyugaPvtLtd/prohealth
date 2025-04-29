@@ -831,11 +831,12 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomSearchFieldSM(
                 onPressed: () {},
               ),
+              SizedBox(width: 50,),
               SmDropdownConst(
                 height: 36,
                 width: 150,
