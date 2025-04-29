@@ -236,6 +236,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
                                   } :(int index) {
                                     intakeSelectButton(index);
                                   },
@@ -257,6 +258,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
                                   } :(int index) {
                                     intakeSelectButton(index);
                                   },

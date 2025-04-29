@@ -52,6 +52,7 @@ class SmIntakeProviderManager extends ChangeNotifier{
   }
   void toogleLeftSidebarProvider(){
     _isLeftSidebarOpen = !_isLeftSidebarOpen;
+    _isContactTrue = !_isContactTrue;
     notifyListeners();
   }
   void indexChnage(int index){

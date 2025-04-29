@@ -753,7 +753,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                           },
                         ), isIButtonPressed:(){
                         toggleLeftSidebar();
-                        providerContact.toogleContactProvider();
+                       // providerContact.toogleContactProvider();
                         providerContact.toogleLeftSidebarProvider();
                       },
                       ),
