@@ -538,7 +538,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                     ),
                     Container(
                         height: AppSize.s410,
-                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30,vertical: AppPadding.p15 ),
+                        padding: providerState.isContactTrue ? const EdgeInsets.symmetric(horizontal: AppPadding.p0,vertical: AppPadding.p15 ) :const EdgeInsets.symmetric(horizontal: AppPadding.p30,vertical: AppPadding.p15 ),
                         //child: SingleChildScrollView(
                         child: Column(
                             children: [

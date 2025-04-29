@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class SmIntakeProviderManager extends ChangeNotifier{
   bool _isContactTrue = false;
+  bool _isRightSliderOpen = false;
   bool _isContactCallLive = false;
   bool _isEyeScreenVisible = false;
   bool _isLeftSidebarOpen = false;
@@ -20,6 +21,7 @@ class SmIntakeProviderManager extends ChangeNotifier{
 
   int get initialIndex => _initialIndex;
   bool get isContactTrue => _isContactTrue;
+  bool get isRightSliderOpen => _isRightSliderOpen;
   bool get isContactCallLive => _isContactCallLive;
   bool get isEyeScreenVisible => _isEyeScreenVisible;
   bool get isLeftSidebarOpen => _isLeftSidebarOpen;
@@ -38,8 +40,16 @@ class SmIntakeProviderManager extends ChangeNotifier{
     _isContactTrue = !_isContactTrue;
     notifyListeners();
   }
+  void toogleRightSliderProvider(){
+    _isRightSliderOpen = !_isRightSliderOpen;
+    notifyListeners();
+  }
   void toogleContactProviderclear(){
     _isContactTrue = false;
+    notifyListeners();
+  }
+  void toogleContactProviderTrue(){
+    _isContactTrue = true;
     notifyListeners();
   }
   void toogleContactCallLiveProvider(){
@@ -52,7 +62,6 @@ class SmIntakeProviderManager extends ChangeNotifier{
   }
   void toogleLeftSidebarProvider(){
     _isLeftSidebarOpen = !_isLeftSidebarOpen;
-    _isContactTrue = !_isContactTrue;
     notifyListeners();
   }
   void indexChnage(int index){
