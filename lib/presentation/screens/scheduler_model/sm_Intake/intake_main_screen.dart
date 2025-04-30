@@ -6,14 +6,10 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:provider/provider.dart';
 
 import '../../../../app/resources/color.dart';
-import '../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/app_clickable_widget.dart';
-import '../../em_module/company_identity/company_identity_screen.dart';
-
-
 
 class IntakeMainScreen extends StatefulWidget {
   final VoidCallback intakeFlowSelected;

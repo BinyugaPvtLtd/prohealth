@@ -56,7 +56,6 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                     children: [
 
                       CustomSearchFieldSM(
-                        width: 490,
                         onPressed: (){},
                       ),
                       SizedBox(width: AppSize.s20,),

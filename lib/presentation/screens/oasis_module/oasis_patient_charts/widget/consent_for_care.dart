@@ -258,11 +258,11 @@ class _ConsentForCareState extends State<ConsentForCare> {
                               style: Normalfontstyle.customTextStyle(context),
                             ),
                             TextSpan(
-                              text: "health insurance, ",
+                              text: "health refferals_manager, ",
                               style: BoldfontStyle.customTextStyle(context),
                             ),
                             TextSpan(
-                              text: "I may be responsible for the co-payments and any charges that my insurance will not cover. Those costs will be itemized and explained to me on a separateClient Service Agreement.",
+                              text: "I may be responsible for the co-payments and any charges that my refferals_manager will not cover. Those costs will be itemized and explained to me on a separateClient Service Agreement.",
                               style: Normalfontstyle.customTextStyle(context),
                             ),
                           ],

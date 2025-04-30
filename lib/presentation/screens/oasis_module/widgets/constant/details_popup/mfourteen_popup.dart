@@ -231,10 +231,10 @@ class MFourty extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              "• The data sources/resources for this item include, the patient's Medicare card, private insurance card, HMO identification card, etc\n"
+              "• The data sources/resources for this item include, the patient's Medicare card, private refferals_manager card, HMO identification card, etc\n"
               "• Enter all letters of the first and last names, the middle initial, and the abbreviated suffix. Correct spelling is important.\n"
               "• If no suffix, leave blank. If middle initial is not known, leave blank.  \n"
-              "• The name entered should be exactly as it appears on the patient’s Medicare or other insurance card.\n"
+              "• The name entered should be exactly as it appears on the patient’s Medicare or other refferals_manager card.\n"
               "• The name entered should be the patient’s legal name, even if the patient consistently uses a nickname.\n"
               "• The sequence of the names may be reordered (that is, last name, first name, etc.) in agency forms, if desired.\n"
               ,style: Normalfontstyle.customTextStyle(context),
@@ -492,9 +492,9 @@ class MOneFifty extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(left: 10),
         child: BulletList([
-              "Review referral information and health insurance identification cards.",
+              "Review referral information and health refferals_manager identification cards.",
               "Exclude" "pending" "payment sources.",
-              "If the patient's care is being reimbursed by multiple payers (for example, Medicare and Medicaid; private insurance and self-pay; etc.), include all sources.",
+              "If the patient's care is being reimbursed by multiple payers (for example, Medicare and Medicaid; private refferals_manager and self-pay; etc.), include all sources.",
               "If one or more payment sources are known but additional sources are uncertain, mark only those that are known.",
               "Do not consider any equipment, medications, or supplies being paid for by the patient in part or in full.",
 

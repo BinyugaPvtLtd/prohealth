@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/pending_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/roc_page.dart';
 
 import '../../../../../../../../app/resources/color.dart';
-import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
-import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../widgets/app_clickable_widget.dart';
 import '../../../../../../em_module/company_identity/widgets/ci_tab_widget/widget/upper_menu_buttons.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
-import '../../../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../../../sm_Intake/intake_main_screen.dart';
-import '../../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../sm_scheduler_screen_const.dart';
 
 class SchedularPendingPatientDetails extends StatefulWidget {
@@ -44,7 +38,7 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 50, right: 70),
+      padding: EdgeInsets.only(left: 60, right: 70),
       child: ScrollConfiguration(
           behavior: ScrollBehavior().copyWith(scrollbars: false),
           child: SingleChildScrollView(
@@ -221,21 +215,18 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.7, // Adjust height as needed
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 70),
-                        child: NonScrollablePageView(
-                          controller: _tabPageController,
-                          onPageChanged: (index) {
-                            setState(() {
-                              _selectedIndex = index;
-                            });
-                          },
-                          children: [
-                            RNSOCPageview(),
-                                  PTPageview(),
-                                OTPageview(),
-                          ],
-                        ),
+                      child: NonScrollablePageView(
+                        controller: _tabPageController,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _selectedIndex = index;
+                          });
+                        },
+                        children: [
+                          RNSOCPageview(),
+                                PTPageview(),
+                              OTPageview(),
+                        ],
                       ),
                     ),
 
