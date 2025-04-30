@@ -171,119 +171,129 @@ class _SmAppBarState extends State<SmAppBar> with SingleTickerProviderStateMixin
               //   },
               // ),
               ////
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  MouseRegion(
-                    onEnter: (_) {},
-                    onExit: (_) {},
-                    child: FutureBuilder<UserAppBar>(
-                      future: getAppBarDetails(context),
-                      builder: (context, snapshot) {
-                        Widget avatar = CircleAvatar(
-                          backgroundColor: Colors.grey[100],
-                          radius: 40,
-                          backgroundImage: AssetImage("images/profilepic.png"),
-                        );
-
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return GestureDetector(child: avatar, onTap: () {});
-                        } else if (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty) {
-                          avatar = CircleAvatar(
-                            backgroundColor: Colors.transparent,
+              Padding(
+                padding: const EdgeInsets.only(right: 16.0), // Adjust right padding as needed
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    MouseRegion(
+                      onEnter: (_) {},
+                      onExit: (_) {},
+                      child: FutureBuilder<UserAppBar>(
+                        future: getAppBarDetails(context),
+                        builder: (context, snapshot) {
+                          Widget avatar = CircleAvatar(
+                            backgroundColor: Colors.grey[100],
                             radius: 40,
-                            backgroundImage: NetworkImage(snapshot.data!.imgUrl),
+                            backgroundImage: AssetImage("images/profilepic.png"),
                           );
+
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return GestureDetector(child: avatar, onTap: () {});
+                          } else if (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty) {
+                            avatar = CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              radius: 40,
+                              backgroundImage: NetworkImage(snapshot.data!.imgUrl),
+                            );
+                          }
+
+                          return GestureDetector(
+                            child: avatar,
+                            onTap: () {
+                              print("userid appbar: ${snapshot.data?.userId}");
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 3),
+                    FutureBuilder(
+                      future: user(),
+                      builder: (context, snap) {
+                        if (snap.connectionState == ConnectionState.waiting) {
+                          return SizedBox();
                         }
 
-                        return GestureDetector(
-                          child: avatar,
-                          onTap: () {
-                            print("userid appbar: ${snapshot.data?.userId}");
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  FutureBuilder(
-                    future: user(),
-                    builder: (context, snap) {
-                      if (snap.connectionState == ConnectionState.waiting) {
-                        return SizedBox();
-                      }
-
-                      return MouseRegion(
-                        onEnter: (_) {
-                          showMenu(
-                            context: context,
-                            position: RelativeRect.fromLTRB(70, 70, 0, 0),
-                            items: [
-                              PopupMenuItem(
-                                padding: EdgeInsets.zero,
-                                height: 30,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (isLoggedIn) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => DeletePopup(
-                                          onCancel: () => Navigator.pop(context),
-                                          onDelete: () {
-                                            TokenManager.removeAccessToken();
-                                            Navigator.pushNamedAndRemoveUntil(
-                                              context,
-                                              LoginScreen.routeName,
-                                                  (route) => false,
-                                            );
-                                          },
-                                          btnText: "Log Out",
-                                          title: "Log Out",
-                                          text: "Do you really want to logout?",
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: Container(
-                                    height: 25,
-                                    width: 90,
-                                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.logout, size: 12, color: Colors.black),
-                                        Text(
-                                          'Log Out',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
+                        return MouseRegion(
+                          onEnter: (_) {
+                            showMenu(
+                              context: context,
+                              position: RelativeRect.fromLTRB(70, 70, 0, 0),
+                              items: [
+                                PopupMenuItem(
+                                  padding: EdgeInsets.zero,
+                                  height: 30,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      if (isLoggedIn) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => DeletePopup(
+                                            onCancel: () => Navigator.pop(context),
+                                            onDelete: () {
+                                              TokenManager.removeAccessToken();
+                                              Navigator.pushNamedAndRemoveUntil(
+                                                context,
+                                                LoginScreen.routeName,
+                                                    (route) => false,
+                                              );
+                                            },
+                                            btnText: "Log Out",
+                                            title: "Log Out",
+                                            text: "Do you really want to logout?",
                                           ),
-                                        ),
-                                      ],
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 25,
+                                      width: 90,
+                                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.logout, size: 12, color: Colors.black),
+                                          Text(
+                                            'Log Out',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
+                              ],
+                            );
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                loginName!,
+                                style: TextStyle(
+                                  color: ColorManager.bluebottom,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
+                              const SizedBox(width: 4),
+                              Icon(Icons.keyboard_arrow_down_outlined, color: ColorManager.bluebottom),
                             ],
-                          );
-                        },
-                        child: Text(
-                          loginName!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: ColorManager.bluebottom,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
+
 
 
               ///
