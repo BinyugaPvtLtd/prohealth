@@ -602,7 +602,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                             children: [
                               Text(
                                 'Insurance  #${index + 1}',
-                               // 'Insurance  #1',
                                 style: TextStyle(
                                   fontSize: FontSize.s14,
                                   fontWeight: FontWeight.w500,
