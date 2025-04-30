@@ -43,7 +43,7 @@ Future<ApiData> addVendors(
   }
 }
 
-/// get vendor /insurance-vendor/{CompanyId}/{officeId}/{pageNbr}/{NbrofRows}
+/// get vendor /refferals_manager-vendor/{CompanyId}/{officeId}/{pageNbr}/{NbrofRows}
 Future<List<ManageVendorData>> companyVendorGet(BuildContext context,
     String officeId, int pageNo, int rowNo,) async {
   List<ManageVendorData> itemsList = [];
@@ -225,7 +225,7 @@ Future<ApiData> addVendorContract(
   }
 }
 
-/// get contract /insurance-vendor-contract/{CompanyId}/{officeId}/{insuranceVendorId}/{pageNbr}/{NbrofRows}
+/// get contract /refferals_manager-vendor-contract/{CompanyId}/{officeId}/{insuranceVendorId}/{pageNbr}/{NbrofRows}
 Future<List<ManageInsuranceContractData>> companyContractGetByVendorId(BuildContext context,
     String officeId, int insuranceVendorId ,int pageNo, int rowNo,) async {
   List<ManageInsuranceContractData> itemsList = [];

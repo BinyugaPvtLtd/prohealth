@@ -1,8 +1,8 @@
 class Insuranceclass{
 
 
-  static String primary ="/intake-insurance-primary/add";
-  static String secondary ="/intake-insurance-secondary/add";
+  static String primary ="/intake-refferals_manager-primary/add";
+  static String secondary ="/intake-refferals_manager-secondary/add";
 
 
 

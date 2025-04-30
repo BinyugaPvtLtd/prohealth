@@ -45,9 +45,9 @@ class EstablishmentManagerRepository {
   static String addAppRoleModule = "/app-role-module";
   static String companyDetail = "/CompanyDetail";
   static String vendors = "/vendors";
-  static String insurancevendors = "/insurance-vendor";
-  static String insuranceVendorsContractPatch = "/insurance-vendor-contract";
-  static String insurancevendorsContract = "/insurance-vendor-contract";
+  static String insurancevendors = "/refferals_manager-vendor";
+  static String insuranceVendorsContractPatch = "/refferals_manager-vendor-contract";
+  static String insurancevendorsContract = "/refferals_manager-vendor-contract";
   static String zonedropdown = "/zoneDropdownByCompany";
   static String zonezipcodedropdown = "/zoneDropdown";
   static String addPayrates = "/payrates/add";
@@ -150,18 +150,18 @@ class EstablishmentManagerRepository {
     return "$companServiceMetaData";
   }
 
-  ///insurance-vendor/add
+  ///refferals_manager-vendor/add
   static String companyOfficeVendorPost() {
     return "$insurancevendors/$add";
   }
 
-  ///manage insurance-vendor /insurance-vendor/{CompanyId}/{officeId}/{pageNbr}/{NbrofRows}
+  ///manage refferals_manager-vendor /refferals_manager-vendor/{CompanyId}/{officeId}/{pageNbr}/{NbrofRows}
   static String companyOfficeVendorGet(
       {required int companyId, required String officeId, required int pageNo, required int rowNo}) {
     return "$insurancevendors/$companyId/$officeId/$pageNo/$rowNo";
   }
 
-  ///insurance-vendor/{insuranceVendorId}
+  ///refferals_manager-vendor/{insuranceVendorId}
   static String companyOfficeVendorPatchDelete(
       {required int insuranceVendorContracId}) {
     return "$insuranceVendorsContractPatch/$insuranceVendorContracId";
@@ -171,18 +171,18 @@ class EstablishmentManagerRepository {
     return "$insurancevendors/$insuranceVendorId";
   }
 
-  ///insurance-vendor-contract/add
+  ///refferals_manager-vendor-contract/add
   static String companyOfficeContractPost() {
     return "$insurancevendorsContract/$add";
   }
 
-  ///insurance-vendor-contract/{CompanyId}/{officeId}/{insuranceVendorId}/{pageNbr}/{NbrofRows}
+  ///refferals_manager-vendor-contract/{CompanyId}/{officeId}/{insuranceVendorId}/{pageNbr}/{NbrofRows}
   static String companyOfficeContractGet(
       {required int companyId, required String officeId, required int insuranceVendorId, required int pageNo, required int rowNo}) {
     return "$insurancevendorsContract/$companyId/$officeId/$insuranceVendorId/$pageNo/$rowNo";
   }
 
-  ///insurance-vendor-contract/{insuranceVendorContracId}
+  ///refferals_manager-vendor-contract/{insuranceVendorContracId}
   static String companyOfficeContractPatchDeleteprefill(
       {required int insuranceVendorContracId}) {
     return "$insurancevendorsContract/$insuranceVendorContracId";

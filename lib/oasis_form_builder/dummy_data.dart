@@ -162,7 +162,7 @@ class OasisDummyData {
           },
           {
             "index": 1,
-            "label": "<p><b>5</b> - Private insurance<p/>",
+            "label": "<p><b>5</b> - Private refferals_manager<p/>",
             "value": "5",
             "selected": false
           },
@@ -255,7 +255,7 @@ class OasisDummyData {
           },
           {
             "index": 1,
-            "label": "<p><b>5</b> - Private insurance<p/>",
+            "label": "<p><b>5</b> - Private refferals_manager<p/>",
             "value": "5",
             "selected": false
           },

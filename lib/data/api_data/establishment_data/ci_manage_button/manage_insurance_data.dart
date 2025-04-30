@@ -35,7 +35,7 @@ class ManageVendorPrefill{
     this.zone, this.vendorName});
 }
 
-///insurance-vendor-contract
+///refferals_manager-vendor-contract
 class ManageInsuranceContractData{
   final int insuranceVendorContracId;
   final int insuranceVendorId;

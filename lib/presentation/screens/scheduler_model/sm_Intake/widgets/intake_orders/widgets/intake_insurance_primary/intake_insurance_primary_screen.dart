@@ -5,7 +5,6 @@ import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
-import '../../../../../../../../app/services/api/managers/sm_module_manager/insurance/primary_mamager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -771,34 +770,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                     width: 117,
                     height: 30,
                     onPressed: () async {
-                      await postIPrimaryScreen(
-                        context,
-                        widget.patientId,
-                        primaryinsuranceController.text,
-                        prnameController.text,
-                        prstreetController.text,
-                        prcodeController.text,
-                        suiteAptController.text,
-                        selectedCity.toString(),
-                        selectedState.toString(),
-                        zipcodeController.text,
-                        typeController.text,
-                        phoneController.text,
-                        selectedCategory.toString(),
-                        authorisationController.text,
-                        //"2024-08-09",
-                        effectiveFromController.text,
-                        //"2024-08-09",
-                        effectiveToController.text,
-                        groupNbrController.text,
-                        groupNameController.text,
-                        policyHICNbrController.text,
-                        eligiblityStatus.toString(),
-                        varifiedinsurance.toString(),
-                        commentController.text,
 
-
-                      );
                       print("${effectiveFromController.text}");
                       print("${effectiveToController.text}");
 

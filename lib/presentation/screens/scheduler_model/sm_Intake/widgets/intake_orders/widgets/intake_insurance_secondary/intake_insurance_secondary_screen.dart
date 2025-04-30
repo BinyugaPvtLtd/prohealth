@@ -7,7 +7,6 @@ import '../../../../../../../../app/resources/common_resources/common_theme_cons
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../../../app/services/api/managers/sm_module_manager/insurance/secondary_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -926,32 +925,6 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                     width: 117,
                     height: 30,
                     onPressed: () async {
-                      await postISecondaryScreen(
-                        context,
-                        widget.patientId,
-                        secondaryinsuranceController.text,
-                        srnameController.text,
-                        srstreetController.text,
-                        srcodeController.text,
-                        suiteAptController.text,
-                        selectedCity.toString(),
-                        selectedState.toString(),
-                        zipcodeController.text,
-                        typeController.text,
-                        phoneController.text,
-                        selectedCategory.toString(),
-                        authorisationController.text,
-                        effectiveFromController.text,
-                        effectiveToController.text,
-                        groupNbrController.text,
-                        groupNameController.text,
-                        policyHICNbrController.text,
-                        eligiblityStatus.toString(),
-                        varifiedinsurance.toString(),
-                        commentController.text,
-
-
-                      );
                     },
                     child: Text(
                       AppString.save,
