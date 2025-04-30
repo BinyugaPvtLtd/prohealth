@@ -17,13 +17,23 @@ class ContactEFaxScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 10),
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border(
-                    top: BorderSide(color: Color(0xFF1696C8),width: 5)
-                )),
+              color: ColorManager.white,
+              borderRadius: BorderRadius.circular(8),
+              border: const Border(
+                  top: BorderSide(color: Color(0xFF1696C8),width: 5)
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: ColorManager.black.withOpacity(0.2),
+                  blurRadius: 2,
+                  spreadRadius: 1,
+                  offset: const Offset(0, 2), // Downward shadow
+                ),
+              ],
+            ),
             child: DefaultTabController(
               length: 2,
               initialIndex: 0,
@@ -33,13 +43,13 @@ class ContactEFaxScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 10,bottom: 3,left: 100,right: 100),
+                      padding: const EdgeInsets.only(top: 10,bottom: 3,left: 90,right: 90),
                       child: TabBar(
                         onTap: (index) {
                         },
                         indicatorWeight: 2,
                         overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 1),
                         indicator: BoxDecoration(
                           color: ColorManager.SMFBlue, // Background color for selected tab
                           borderRadius: BorderRadius.circular(8), // Optional
@@ -58,7 +68,7 @@ class ContactEFaxScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: 10,
                             children: [
-                              Icon(Icons.fax_rounded,size: 25,),
+                              Icon(Icons.fax_rounded,size: 30,),
                               Text("Send Fax")
                             ],
                           ),),
@@ -191,6 +201,7 @@ class SendFaxTab extends StatelessWidget {
             Row(
               children: [
                 CustomIconButtonConst(
+                 color:    ColorManager.bluebottom,
                   height: 35,
                     width: 140,
                     text: 'Upload files',
@@ -234,6 +245,7 @@ SizedBox(width: 40,),
             Align(
               alignment: Alignment.bottomCenter,
               child: CustomElevatedButton(
+                color:  ColorManager.bluebottom,
                 width: AppSize.s100,
                 text:"Send",
                 onPressed: (){},
@@ -293,7 +305,7 @@ class FaxHistoryTab extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('05/08/24',style: CustomTextStylesCommon.commonStyle(
+                            Text('2024/08/05',style: CustomTextStylesCommon.commonStyle(
                               color:Color(0xFF686464),
                               fontWeight: FontWeight.w400,fontSize: 12,
                             ),),

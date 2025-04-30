@@ -128,11 +128,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
     return Scaffold(
       backgroundColor: ColorManager.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: _selectedIndex == 5 ? Offstage() : isSidebarOpen==true ? Offstage() : isSidebarLeftOpen == true ? Offstage():Padding(
+      floatingActionButton: _selectedIndex == 5 ? Offstage() : isSidebarOpen==true ? Offstage() : providerContact.isLeftSidebarOpen == true ? Offstage():Padding(
         padding: const EdgeInsets.only(right: 90), // Shift left by 10
         child: FloatingActionButton(
           onPressed: (){
             toggleSidebar();
+            providerContact.toogleRightSliderProvider();
             providerContact.toogleContactProvider();
           },
           backgroundColor: ColorManager.bluebottom,
@@ -162,180 +163,6 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
       ),
       body: Row(
         children: [
-          isSidebarLeftOpen==true ? Flexible(
-            flex: 0,
-            child: AnimatedBuilder(
-              animation: _slideLeftAnimation,
-              builder: (context, child) {
-                return SlideTransition(
-                  position: _slideLeftAnimation,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.26,
-                      //height: double.infinity,
-                      color: Colors.white,
-                      padding: EdgeInsets.all(16),
-                      child: ScrollConfiguration(
-                        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                        child: SingleChildScrollView(
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minHeight: MediaQuery.of(context).size.height,
-                              minWidth: MediaQuery.of(context).size.height
-                            ),
-                            child: IntrinsicHeight(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Text('Records for Others Duplicates',style: CustomTextStylesCommon.commonStyle(
-                                        color:Color(0xFF51B5E6),
-                                        fontWeight: FontWeight.w700,fontSize: 12)),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 20),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          spacing: 15,
-                                          children: [
-                                            Text('First Name*',style: CustomTextStylesCommon.commonStyle(
-                                                color:Color(0xFF575757),
-                                                fontWeight: FontWeight.w700,fontSize: 12)),
-                                            Text('Erica',style: CustomTextStylesCommon.commonStyle(
-                                                color:Color(0xFF7F7F7F),
-                                                fontWeight: FontWeight.w400,fontSize: 12))
-                                          ],
-                                        ),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          spacing: 15,
-                                          children: [
-                                            Text('Last Name*',style: CustomTextStylesCommon.commonStyle(
-                                                color:Color(0xFF575757),
-                                                fontWeight: FontWeight.w700,fontSize: 12)),
-                                            Text('Erica2',style: CustomTextStylesCommon.commonStyle(
-                                                color:Color(0xFF7F7F7F),
-                                                fontWeight: FontWeight.w400,fontSize: 12))
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      spacing: 10,
-                                      children: [
-                                        CustomButtonTransparent(
-                                          width: AppSize.s120,
-                                          height: 23,
-                                          //borderRadius: 12,
-                                          text: "Accept Theirs",
-                                          onPressed: () {
-
-                                          },
-                                        ),
-                                        CustomElevatedButton(
-                                          width: AppSize.s120,
-                                          height: 23,
-                                          borderRadius: 12,
-                                          text: "Keep Yours",
-                                          style: TextStyle(fontSize: 10),
-                                          onPressed: (){},
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 5),
-                                    child: Divider(color: Color(0xFFD9D9D9),thickness: 1,),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 5),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: RichText(
-                                        text: TextSpan(
-                                          text: 'Referred from ',
-                                          style: CustomTextStylesCommon.commonStyle(
-                                              color:Color(0xFF686464),
-                                              fontWeight: FontWeight.w700,fontSize: 12),
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: 'Abc.pdf. ',
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                  color:Color(0xFF51B5E6),
-                                                  fontWeight: FontWeight.w700,fontSize: 12),
-                                            ),
-                                            TextSpan(
-                                              text: '(Page No.24)',
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                  color:Color(0xFF51B5E6),
-                                                  fontWeight: FontWeight.w700,fontSize: 12),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFEEEEEE),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                                      child: Container(
-                                        color: Colors.white,
-                                        padding: EdgeInsets.all(10),
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n',
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              color:Color(0xFF686464),
-                                              fontWeight: FontWeight.w400,fontSize: 12,),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n',
-                                                style: TextStyle(
-                                                  color:Color(0xFF686464),
-                                                  fontWeight: FontWeight.w400,fontSize: 12,
-                                                  backgroundColor: Colors.yellow,),
-                                              ),
-                                              TextSpan(
-                                                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                                                style: CustomTextStylesCommon.commonStyle(
-                                                    color:Color(0xFF686464),
-                                                    fontWeight: FontWeight.w400,fontSize: 12),
-                                              ),
-
-                                            ],
-                                          ),
-                                        ),
-
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                    ),
-                  ),
-                );
-              },
-            ),
-          ) : Offstage(),
           Flexible(
             child: Stack(
               children: [
@@ -379,7 +206,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                           padding: EdgeInsets.only(left: 30, right: 60),
                           //margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 50,top: 10,right: 50),
+                            padding: isSidebarOpen==true ?EdgeInsets.only(left: 10,top: 10,right: 10):  EdgeInsets.only(left: 50,top: 10,right: 50),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
@@ -410,7 +237,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 0,
@@ -431,7 +263,13 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+
+                                  } : providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 1,
@@ -444,7 +282,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 2,
@@ -457,7 +300,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 3,//3,
@@ -470,7 +318,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 4,
@@ -483,7 +336,12 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                     intakeSelectButton(index);
                                     toggleSidebar();
                                     providerContact.toogleContactProvider();
-                                  } :(int index) {
+                                    providerContact.toogleRightSliderProvider();
+                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                                    intakeSelectButton(index);
+                                    providerContact.toogleContactProvider();
+                                    providerContact.toogleLeftSidebarProvider();
+                                  }:(int index) {
                                     intakeSelectButton(index);
                                   },
                                   index: 5,
@@ -532,7 +390,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
               ],
             ),
           ),
-          isSidebarOpen == true ? Flexible(
+          isSidebarOpen == true && providerContact.isLeftSidebarOpen == false ? Flexible(
             flex: 0,
             child: AnimatedBuilder(
               animation: _slideAnimation,
@@ -546,223 +404,237 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                       //height: double.infinity,
                       color: Colors.white,
                       padding: EdgeInsets.all(16),
-                      child: SingleChildScrollView(
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            minHeight: MediaQuery.of(context).size.height,
-                          ),
-                          child: IntrinsicHeight(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                isCallactive ? Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 30),
-                                  child: Container(
-                                    height:59,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(12),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.6),
-                                          spreadRadius: 0,
-                                          blurRadius: 4,
-                                          offset: const Offset(0, 2),
-                                        ),
-                                      ],
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                        child: SingleChildScrollView(
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: MediaQuery.of(context).size.height,
+                            ),
+                            child: IntrinsicHeight(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  isCallactive ? Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 30),
+                                    child: Container(
+                                      height:59,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(12),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.2),
+                                            spreadRadius: 0,
+                                            blurRadius: 1,
+                                            offset: const Offset(0, 0.2),
+                                          ),
+                                        ],
 
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15,),
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Icon(Icons.wifi_calling_3_outlined,size: 19,color: Color(0xFF686464),),
-                                          Text('Albert Flores',style: CustomTextStylesCommon.commonStyle(
-                                            color: Color(0xFF686464),
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                          ),),
-                                          Container(
-                                            width: 80,
-                                            height: 18,
-                                            decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color: ColorManager.faintGrey),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 15,),
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Row(
                                               children: [
-                                                Icon(Icons.circle,color: Colors.red,size:8 ,),
-                                                Text('02:22:50',style:CustomTextStylesCommon.commonStyle(
-                                                  color:Color(0xFF686464),
-                                                  fontWeight: FontWeight.w400,fontSize: FontSize.s10,
-                                                ) ,)
+                                                Image.asset("images/sm/wifi_call.png",height: 20,),
+                                                SizedBox(width: 20,),
+                                                Text('Albert Flores',style: CustomTextStylesCommon.commonStyle(
+                                                  color: Color(0xFF686464),
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 16,
+                                                ),),
                                               ],
                                             ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(vertical: 13),
-                                            child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              spacing: 10,
-                                              children: [
-                                                InkWell(
-                                                  highlightColor: Colors.transparent,
-                                                  hoverColor: Colors.transparent,
-                                                  splashColor: Colors.transparent,
-                                                  onTap:toggleCall,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Colors.red),
-                                                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                                    child: Center(
-                                                      child: Icon(Icons.call,size: 15,color: Colors.white,),
+                                            Container(
+                                              width: 90,
+                                              height: 22,
+                                              decoration: BoxDecoration(border: Border.all(color: Colors.red),borderRadius: BorderRadius.circular(5),color:Color(0xFFE9E9FA)),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Icon(Icons.circle,color: Colors.red,size:10 ,),
+                                                  Text('02:22:50',style:CustomTextStylesCommon.commonStyle(
+                                                    color:Color(0xFF686464),
+                                                    fontWeight: FontWeight.w400,fontSize: FontSize.s12,
+                                                  ) ,)
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 13),
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                spacing: 12,
+                                                children: [
+                                                  InkWell(
+                                                    highlightColor: Colors.transparent,
+                                                    hoverColor: Colors.transparent,
+                                                    splashColor: Colors.transparent,
+                                                    onTap:(){
+                                                      toggleCall();
+                                                      providerContact.toogleContactCallLiveProvider();
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Colors.red),
+                                                      padding: EdgeInsets.symmetric(horizontal: 15,vertical: 0),
+                                                      child: Center(child: Icon(Icons.call,color: Colors.white,)),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFFF4F5F8)),
-                                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                                  child: Center(
-                                                    child: Icon(Icons.mic_off_outlined,size: 15,),
-                                                  ),
-                                                )
+                                                  Container(
+                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFFF4F5F8)),
+                                                    padding: EdgeInsets.symmetric(horizontal: 15,vertical: 0),
+                                                    child: Center(child: Icon(Icons.mic_off_outlined,)),
+                                                  )
 
-                                              ],
-                                            ),
-                                          )
-                                        ],
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ) :
-                                Container(
-                                  height: 350,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        '+44 5989451652',
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          color: Color(0xFF686464),
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 22,
-                                        ),
-                                      ),
-                                      Column(
-                                        spacing: 15,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            spacing:20,
-                                            children: [
-                                              SmDialPadConst(dialNumber: '1', onTaped: () {}),
-                                              SmDialPadConst(dialNumber: '2', onTaped: () {}),
-                                              SmDialPadConst(dialNumber: '3', onTaped: () {}),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            spacing:20,
-                                            children: [
-                                              SmDialPadConst(dialNumber: '4', onTaped: () {}),
-                                              SmDialPadConst(dialNumber: '5', onTaped: () {}),
-                                              SmDialPadConst(dialNumber: '6', onTaped: () {}),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            spacing:20,
-                                            children: [
-                                              SmDialPadConst(dialNumber: '7', onTaped: () {}),
-                                              SmDialPadConst(dialNumber: '8', onTaped: () {}),
-                                              SmDialPadConst(dialNumber: '9', onTaped: () {}),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            spacing:20,
-                                            children: [
-                                              SmDialPadConst(dialNumber: '*', onTaped: () {}),
-                                              SmDialPadConst(dialNumber: '0', onTaped: () {}),
-                                              SmDialPadConst(dialNumber: '#', onTaped: () {}),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      CustomElevatedButton(
-                                        width: AppSize.s220,
-                                        height: AppSize.s31,
-                                        text: "Call",
-                                        color: Color(0xFF008000),
-                                        onPressed: toggleCall,
-                                      ),
-
-                                    ],
-                                  ),
-                                ),
-                                Material(
-                                  color: ColorManager.white,
-                                  elevation: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  ) :
+                                  Container(
+                                    height: 350,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        PageViewMenuButtonConst(
-                                          onTap: (int index) {
-                                            intakeContactSelectButton(index);
-                                          },
-                                          index: 0,
-                                          grpIndex: callerLogSelectIndex,
-                                          heading: "Calls",
+                                        Text(
+                                          '+44 5989451652',
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            color: Color(0xFF686464),
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 22,
+                                          ),
                                         ),
-                                        PageViewMenuButtonConst(
-                                          onTap: (int index) {
-                                            intakeContactSelectButton(index);
-                                          },
-                                          index: 1,
-                                          grpIndex: callerLogSelectIndex,
-                                          heading: "Logs",
+                                        SizedBox(height: 8,),
+                                        Column(
+                                          spacing: 15,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              spacing:20,
+                                              children: [
+                                                SmDialPadConst(dialNumber: '1', onTaped: () {}),
+                                                SmDialPadConst(dialNumber: '2', onTaped: () {}),
+                                                SmDialPadConst(dialNumber: '3', onTaped: () {}),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              spacing:20,
+                                              children: [
+                                                SmDialPadConst(dialNumber: '4', onTaped: () {}),
+                                                SmDialPadConst(dialNumber: '5', onTaped: () {}),
+                                                SmDialPadConst(dialNumber: '6', onTaped: () {}),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              spacing:20,
+                                              children: [
+                                                SmDialPadConst(dialNumber: '7', onTaped: () {}),
+                                                SmDialPadConst(dialNumber: '8', onTaped: () {}),
+                                                SmDialPadConst(dialNumber: '9', onTaped: () {}),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              spacing:20,
+                                              children: [
+                                                SmDialPadConst(dialNumber: '*', onTaped: () {}),
+                                                SmDialPadConst(dialNumber: '0', onTaped: () {}),
+                                                SmDialPadConst(dialNumber: '#', onTaped: () {}),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                        PageViewMenuButtonConst(
-                                          onTap: (int index) {
-                                            intakeContactSelectButton(index);
+                                        SizedBox(height: 8,),
+                                        CustomElevatedButton(
+                                          width: AppSize.s220,
+                                          height: AppSize.s31,
+                                          text: "Call",
+                                          color: Color(0xFF008000),
+                                          onPressed: (){
+                                            toggleCall();
+                                            providerContact.toogleContactCallLiveProvider();
                                           },
-                                          index: 2,
-                                          grpIndex: callerLogSelectIndex,
-                                          heading: "E-Fax",
                                         ),
-                                        PageViewMenuButtonConst(
-                                          onTap: (int index) {
-                                            intakeContactSelectButton(index);
-                                          },
-                                          index: 3,
-                                          grpIndex: callerLogSelectIndex,
-                                          heading: "Documents",
-                                        ),
+
+                                        SizedBox(height: 25,),
                                       ],
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.6,
-                                  child: NonScrollablePageView(
-                                    controller: intakeContactPageController,
-                                    onPageChanged: (index) {
-                                      setState(() {
-                                        callerLogSelectIndex = index;
-                                      });
-                                    },
-                                    children: [
-                                      ContactCallsScreen(),
-                                      ContactLogsScreen(),
-                                      ContactEFaxScreen(),
-                                      ContactDocumentScreen(),
-                                    ],
+                                  Container(
+                                    height: 32,
+                                    color: ColorManager.white,
+                                   // elevation: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 20,left: 20),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          PageViewMenuButtonConst(
+                                            onTap: (int index) {
+                                              intakeContactSelectButton(index);
+                                            },
+                                            index: 0,
+                                            grpIndex: callerLogSelectIndex,
+                                            heading: "Calls",
+                                          ),
+                                          PageViewMenuButtonConst(
+                                            onTap: (int index) {
+                                              intakeContactSelectButton(index);
+                                            },
+                                            index: 1,
+                                            grpIndex: callerLogSelectIndex,
+                                            heading: "Logs",
+                                          ),
+                                          PageViewMenuButtonConst(
+                                            onTap: (int index) {
+                                              intakeContactSelectButton(index);
+                                            },
+                                            index: 2,
+                                            grpIndex: callerLogSelectIndex,
+                                            heading: "E-Fax",
+                                          ),
+                                          PageViewMenuButtonConst(
+                                            onTap: (int index) {
+                                              intakeContactSelectButton(index);
+                                            },
+                                            index: 3,
+                                            grpIndex: callerLogSelectIndex,
+                                            heading: "Documents",
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.6,
+                                    child: NonScrollablePageView(
+                                      controller: intakeContactPageController,
+                                      onPageChanged: (index) {
+                                        setState(() {
+                                          callerLogSelectIndex = index;
+                                        });
+                                      },
+                                      children: [
+                                        ContactCallsScreen(),
+                                        ContactLogsScreen(),
+                                        ContactEFaxScreen(),
+                                        ContactDocumentScreen(),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

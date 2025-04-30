@@ -50,18 +50,41 @@ class borderSchedularContainerConst extends StatelessWidget {
       height: height ?? 62,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border(left: BorderSide(color: Color(0xFFB50101), width: 5,),),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.4),
-            spreadRadius: 0,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
+        borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(12),
+            bottomRight: Radius.circular(12),
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12)),
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey.shade300,
+            width: 3,
           ),
-        ],
+          left: BorderSide(
+            color: Colors.grey.shade300,
+            width: 1,
+          ),
+          right: BorderSide(
+            color: Colors.grey.shade300,
+            width: 1,
+          ),
+        ),
       ),
-      child: child,);
+      child: Container(  //padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+          decoration: BoxDecoration(
+            border:  Border(
+              left: BorderSide(
+                color: Color(0xFFC30909),
+                width: 6,
+              ),
+            ),
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                // bottomRight: Radius.circular(12),
+                // topRight: Radius.circular(12),
+                topLeft: Radius.circular(12)),
+          ),
+          child: child),);
   }
 }
 

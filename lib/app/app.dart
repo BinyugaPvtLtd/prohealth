@@ -39,7 +39,7 @@ class _App extends State<App> {
     //     _navigateToSplashScreen();
     //   });
     // }
-    _checkAndCompareVersion();
+    // _checkAndCompareVersion();
     _initializeVersion();
     _timer = Timer.periodic(Duration(minutes: 1), (timer) => _checkForUpdate());
   }
@@ -58,15 +58,15 @@ class _App extends State<App> {
     _checkForUpdate();
   }
 
-  void _checkAndCompareVersion() async{
-    print('Inside version compare method');
-    VersionData versionData = await getApplicationVersion(context);
-    if(AppConfig.version == versionData.versionName){
-      print('Version Stable');
-    }else{
-      _reloadPage();
-    }
-  }
+  // void _checkAndCompareVersion() async{
+  //   print('Inside version compare method');
+  //   VersionData versionData = await getApplicationVersion(context);
+  //   if(AppConfig.version == versionData.versionName){
+  //     print('Version Stable');
+  //   }else{
+  //     _reloadPage();
+  //   }
+  // }
 
   void _checkForUpdate() {
     final currentVersion = html.document
@@ -81,7 +81,7 @@ class _App extends State<App> {
           providerState.getVersionManager(context);
           providerState.refreshText();
         });
-        //_reloadPage();
+        _reloadPage();
         _showUpdateDialog();
       }
     }else{

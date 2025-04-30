@@ -14,6 +14,7 @@ import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_s
 import 'package:provider/provider.dart';
 
 import 'app/app.dart';
+import 'app/resources/provider/em_provider/em_main_provider.dart';
 import 'app/resources/provider/sm_provider/sm_slider_provider.dart';
 import 'oasis_form_builder/services/provider/form_builder_provider.dart';
 import 'presentation/screens/hr_module/hr_home_screen/referesh_provider.dart';
@@ -40,6 +41,9 @@ Future<void> main() async {
     runApp(
       MultiProvider(
         providers: [
+          ChangeNotifierProvider(
+            create: (context) => EmMainProvider(),
+          ),
           ChangeNotifierProvider(
             create: (context) => DateProvider(),
           ),

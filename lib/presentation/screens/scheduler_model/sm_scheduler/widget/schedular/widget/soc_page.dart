@@ -2,11 +2,13 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/request_log.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
@@ -28,58 +30,7 @@ class _SocPageViewState extends State<SocPageView> {
   bool _isBulkAssignActive = false;
 
   bool _isChecked = false;
-  bool _isFilterOpen = false;
-  void _toggleFilter() {
-    setState(() {
-      _isFilterOpen = !_isFilterOpen; // Toggle panel visibility
-    });
-  }
 
-  bool _MContainerVisible = false;
-  bool _OContainerVisible = false;
-  bool _RContainerVisible = false;
-  bool _AContainerVisible = false;
-  bool _IContainerVisible = false;
-  bool _ICContainerVisible = false;
-  bool _PContainerVisible = false;
-
-  TextEditingController assigndatecontroller = TextEditingController();
-
-  void toggleContainerM() {
-    setState(() {
-      _MContainerVisible = !_MContainerVisible;
-    });
-  }
-  void toggleContainerO() {
-    setState(() {
-      _OContainerVisible = !_OContainerVisible;
-    });
-  }
-  void toggleContainerR() {
-    setState(() {
-      _RContainerVisible = !_RContainerVisible;
-    });
-  }
-  void toggleContainerA() {
-    setState(() {
-      _AContainerVisible = !_AContainerVisible;
-    });
-  }
-  void toggleContainerI() {
-    setState(() {
-      _IContainerVisible = !_IContainerVisible;
-    });
-  }
-  void toggleContainerIC() {
-    setState(() {
-      _ICContainerVisible = !_ICContainerVisible;
-    });
-  }
-  void toggleContainerP() {
-    setState(() {
-      _PContainerVisible = !_PContainerVisible;
-    });
-  }
 
 
   bool _isChatbotVisible = false;
@@ -92,6 +43,7 @@ class _SocPageViewState extends State<SocPageView> {
   String _selectedValue = 'Sort';
   @override
   Widget build(BuildContext context) {
+    final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body:  Stack(
@@ -109,6 +61,7 @@ class _SocPageViewState extends State<SocPageView> {
                     children: [
 
                       CustomSearchFieldSM(
+                        width: 490,
                         onPressed: (){},
                       ),
                       SizedBox(width: AppSize.s20,),
@@ -116,7 +69,7 @@ class _SocPageViewState extends State<SocPageView> {
                           hoverColor: Colors.transparent,
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          onPressed: _toggleFilter,
+                          onPressed: providerContact.toggleFilter,
                           icon: Image.asset("images/sm/sm_refferal/filter_icon.png",height: AppSize.s18,width: AppSize.s16)//Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
                       ),
                     ],
@@ -213,44 +166,41 @@ class _SocPageViewState extends State<SocPageView> {
                 //     ),
                 //     Text("Discipline",style: DocumentTypeDataStyle.customTextStyle(context),),
                 //     SizedBox(width: 10,),
-                Padding(
-                  padding: const EdgeInsets.only(right: 40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        width: 125,
-                        height: 35,
-                        child: ElevatedButton.icon(onPressed: () {
-                          setState(() {
-                            _isBulkAssignActive = !_isBulkAssignActive; // Toggle the button state
-                          });
-                        },
-                          label: Text(
-                              _isBulkAssignActive ? "Save" : "Bulk Assign",
-                              style: TextStyle(
-                                fontSize:_isBulkAssignActive ? FontSize.s14:FontSize.s12,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.white,
-                                decoration: TextDecoration.none,
-                              )//BlueButtonTextConst.customTextStyle(context),
-                          ),
-                          icon: _isBulkAssignActive
-                              ? null // Hide the icon when it's in "Save" state
-                              : SvgPicture.asset(
-                            "images/sm/bulk_assign.svg",
-                            height: 13,
-                            width: 18,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:  ColorManager.bluebottom,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
-                            ),),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: 125,
+                      height: 35,
+                      child: ElevatedButton.icon(onPressed: () {
+                        setState(() {
+                          _isBulkAssignActive = !_isBulkAssignActive; // Toggle the button state
+                        });
+                      },
+                        label: Text(
+                            _isBulkAssignActive ? "Save" : "Bulk Assign",
+                            style: TextStyle(
+                              fontSize:_isBulkAssignActive ? FontSize.s14:FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white,
+                              decoration: TextDecoration.none,
+                            )//BlueButtonTextConst.customTextStyle(context),
                         ),
-                      )
+                        icon: _isBulkAssignActive
+                            ? null // Hide the icon when it's in "Save" state
+                            : SvgPicture.asset(
+                          "images/sm/bulk_assign.svg",
+                          height: 13,
+                          width: 18,
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:  ColorManager.bluebottom,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+                          ),),
+                      ),
+                    )
 
-                    ],
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -291,8 +241,8 @@ class _SocPageViewState extends State<SocPageView> {
                                     children:[
 
                                       Container(
-                                          width: AppSize.s88,
-                                          height: AppSize.s18,
+                                          width: AppSize.s56,
+                                          height: AppSize.s16,
                                           decoration: BoxDecoration(
                                             color:Color(0xFF4FB4F4),
                                             borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),),
@@ -303,7 +253,7 @@ class _SocPageViewState extends State<SocPageView> {
                                                 style: CustomTextStylesCommon.commonStyle(
                                                     color: ColorManager.white,
                                                     fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w600)),
+                                                    fontWeight: FontWeight.w400)),
                                           )),
                                     ]
                                 ),
@@ -783,740 +733,6 @@ class _SocPageViewState extends State<SocPageView> {
           ) ),
       ///
       ///
-
-      if (_isFilterOpen)
-        GestureDetector(
-          onTap: _toggleFilter,
-          behavior: HitTestBehavior.translucent,
-          child: Container(
-            color: Colors.black.withOpacity(0.0), // Invisible but catches taps
-            width: double.infinity,
-            height: double.infinity,
-          ),
-        ),
-      AnimatedPositioned(
-        duration: Duration(milliseconds: 300),
-        right: _isFilterOpen ? -0 : -320, // Slide in/out effect
-        top: 0,
-        bottom: 0,
-        child: Container(
-          width: 250,
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(color: Colors.black26, blurRadius: 5),
-            ],
-          ),
-          child: SingleChildScrollView(// Wrap the Column inside SingleChildScrollView
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: _toggleFilter,
-                        child: Row(
-                          children: [
-                            Icon(Icons.menu_open),
-                            SizedBox(width: AppSize.s10),
-                            Text(
-                              "Filters",
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                      // TextButton(onPressed: (){}, child: Text("CLEAR ALL"))
-                    ],
-                  ),
-                ),
-                Divider(),
-                // Example filter fields
-                InkWell(
-                  onTap:  toggleContainerM,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Marketer",
-                          style: AllHRTableData.customTextStyle(context),),
-                        Icon(
-                          _MContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                          color: ColorManager.mediumgrey,
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 30),
-                  height: _MContainerVisible ? 0 : 0,
-                  width: 300,
-                  color: Colors.blue,
-                  alignment: Alignment.center,
-                  child: _MContainerVisible
-                      ? Text(
-                    'Container is Open',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  )
-                      : null,
-                ),
-                Divider(),
-                InkWell(
-                  onTap:  toggleContainerO,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Order Received Date",
-                            style: AllHRTableData.customTextStyle(context)),
-
-                        Icon(
-                          _OContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                          color: ColorManager.mediumgrey,
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 30),
-                  height: _OContainerVisible ? 0 : 0,
-                  width: 300,
-                  color: Colors.blue,
-                  alignment: Alignment.center,
-                  child: _OContainerVisible
-                      ? Text(
-                    'Container is Open',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  )
-                      : null,
-                ),
-                Divider(),
-                InkWell(
-                  onTap:  toggleContainerR,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Referral Source",
-                            style: AllHRTableData.customTextStyle(context)),
-
-                        Icon(
-                          _RContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                          color: ColorManager.mediumgrey,
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 30),
-                  height: _RContainerVisible ? 300 : 0,
-                  width: 300,
-                  // color: Colors.grey,
-                  // alignment: Alignment.center,
-                  child: _RContainerVisible
-                      ?Column(
-                    children: [
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search...',
-                          prefixIcon: Icon(Icons.search,size: 20,color: Colors.grey),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey), // Set the color of the bottom border
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey), // Set the color when focused
-                          ),
-                          //  contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                        ),
-                        onChanged: (value) {
-                          // Handle search logic here (e.g., filtering options)
-                        },
-                      ),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     setState(() {
-                      //       _isChecked = !_isChecked;  // Toggle checkbox state
-                      //     });
-                      //   },
-                      //   child: Container(
-                      //     decoration: BoxDecoration(
-                      //    //   shape: BoxShape.,
-                      //       color:  Colors.transparent, // Checked or unchecked background color
-                      //       border: Border.all(color: Colors.blue), // Border color of the circle
-                      //     ),
-                      //     padding: EdgeInsets.all(10),
-                      //     child: _isChecked
-                      //         ? Icon(Icons.clear, color: Colors.white)  // Use 'clear' icon instead of 'check'
-                      //         : Icon(Icons.check_box_outline_blank, color: ColorManager.grey),  // Unchecked state icon
-                      //   ),
-                      // ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Lorem Ipsum',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Lorem Ipsum',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Lorem Ipsum',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Lorem Ipsum',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Lorem Ipsum',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Lorem Ipsum',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Lorem Ipsum',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-
-
-                    ],
-                  )
-                      : null,
-                ),
-                Divider(),
-                InkWell(
-                  onTap:  toggleContainerA,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Agency",
-                            style: AllHRTableData.customTextStyle(context)),
-
-                        Icon(
-                          _AContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                          color: ColorManager.mediumgrey,
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 30),
-                  height: _AContainerVisible ? 0 : 0,
-                  width: 300,
-                  color: Colors.blue,
-                  alignment: Alignment.center,
-                  child: _AContainerVisible
-                      ? Text(
-                    'Container is Open',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  )
-                      : null,
-                ),
-                Divider(),
-                InkWell(
-                  onTap:  toggleContainerI,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Insurance",
-                            style: AllHRTableData.customTextStyle(context)),
-
-                        Icon(
-                          _IContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                          color: ColorManager.mediumgrey,
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 30),
-                  height: _IContainerVisible ? 0 : 0,
-                  width: 300,
-                  color: Colors.blue,
-                  alignment: Alignment.center,
-                  child: _IContainerVisible
-                      ? Text(
-                    'Container is Open',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  )
-                      : null,
-                ),
-                Divider(),
-                InkWell(
-                  onTap:  toggleContainerIC,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Insurance Category",
-                            style: AllHRTableData.customTextStyle(context)),
-
-                        Icon(
-                          _ICContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                          color: ColorManager.mediumgrey,
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 30),
-                  height: _ICContainerVisible ? 310 : 0,
-                  width: 300,
-                  // color: Colors.blue,
-                  // alignment: Alignment.center,
-                  child: _ICContainerVisible
-                      ?Column(
-                    children: [
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search...',
-                          prefixIcon: Icon(Icons.search,size: 20,color: Colors.grey),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey), // Set the color of the bottom border
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey), // Set the color when focused
-                          ),
-                          //  contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                        ),
-                        onChanged: (value) {
-                          // Handle search logic here (e.g., filtering options)
-                        },
-                      ),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     setState(() {
-                      //       _isChecked = !_isChecked;  // Toggle checkbox state
-                      //     });
-                      //   },
-                      //   child: Container(
-                      //     decoration: BoxDecoration(
-                      //    //   shape: BoxShape.,
-                      //       color:  Colors.transparent, // Checked or unchecked background color
-                      //       border: Border.all(color: Colors.blue), // Border color of the circle
-                      //     ),
-                      //     padding: EdgeInsets.all(10),
-                      //     child: _isChecked
-                      //         ? Icon(Icons.clear, color: Colors.white)  // Use 'clear' icon instead of 'check'
-                      //         : Icon(Icons.check_box_outline_blank, color: ColorManager.grey),  // Unchecked state icon
-                      //   ),
-                      // ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Medicare',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Private Med Advantage',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Kaiser',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Medi-Cal',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Private Commercial',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'LOA',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'ProBono',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-
-                          Checkbox(
-                            splashRadius: 0,
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-
-                          Text(
-                            'Other',
-                            style: DocDefineTableDataID.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-
-
-                    ],
-                  )
-                      : null,
-                ),
-
-                Divider(),
-                InkWell(
-                  onTap:  toggleContainerP,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Potential Discharge Date",
-                            style: AllHRTableData.customTextStyle(context)),
-
-                        Icon(
-                          _PContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                          color: ColorManager.mediumgrey,
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 30),
-                  height: _PContainerVisible ? 100 : 0,
-                  width: 300,
-                  // color: Colors.blue,
-                  // alignment: Alignment.center,
-                  child: _PContainerVisible
-                      ? Column(
-                      children: [
-                        TextField(
-                          controller: assigndatecontroller,style: TextStyle(
-                            fontSize: 14
-                        ),
-
-                          decoration: InputDecoration(
-                            hintText: 'Date Range',
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Icon(Icons.calendar_month_outlined,size: 18,color: Colors.grey,),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey), // Set the color of the bottom border
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey), // Set the color when focused
-                            ),
-                            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                          ),
-                          onChanged: (value) {
-                            // Handle search logic here (e.g., filtering options)
-                          },
-
-                          onTap: ()async {
-                            DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1901),
-                              lastDate: DateTime(2101),
-                            );
-                            if (pickedDate != null) {
-                              assigndatecontroller.text =
-                              "${pickedDate.toLocal()}".split(' ')[0];
-
-                            }
-                          },
-                        ),
-                      ]
-                  )
-                      : null,
-                ),
-                Divider(),
-                // Example filter fields
-                InkWell(
-                  onTap:  toggleContainerM,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p13),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Physician",
-                            style: AllHRTableData.customTextStyle(context)),
-                        Icon(
-                          _MContainerVisible
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                          color: ColorManager.mediumgrey,
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-                Divider(),
-              ],
-            ),
-          ),
-        ),
-      ),
 
     ] ,
 

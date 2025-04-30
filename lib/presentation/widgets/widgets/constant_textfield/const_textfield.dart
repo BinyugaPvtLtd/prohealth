@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../app/resources/theme_manager.dart';
 
 ///textfield constant widget
 ///todo prachi
@@ -1580,6 +1581,212 @@ class _SuffixDropDownState extends State<SuffixDropDown> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class CustomDropdownsmi extends StatefulWidget {
+  final String? value;
+  final List<String>? items;
+  final List<DropdownMenuItem<String>>? dropDownMenuList;
+  final String? hintText;
+  final String headText;
+  final void Function(String?)? onChanged;
+  final double? width;
+  final double? height;
+  final FontWeight? fontwight;
+  final double? fontsize;
+  final String? initialValue;
+  final bool? isAstric;
+  final IconData? icon;
+  final Color? iconColor;
+
+  const CustomDropdownsmi({
+    Key? key,
+    this.isAstric = true,
+    this.dropDownMenuList,
+    required this.headText,
+    this.value,
+    this.items,
+    this.onChanged,
+    this.width,
+    this.height,
+    this.initialValue,
+    this.hintText,
+    this.fontsize,
+    this.icon,
+    this.iconColor,
+    this.fontwight,
+  }) : super(key: key);
+
+  @override
+  _CustomDropdownsmiState createState() => _CustomDropdownsmiState();
+}
+
+class _CustomDropdownsmiState extends State<CustomDropdownsmi> {
+  String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.value ?? widget.initialValue;
+  }
+
+  void _showDropdownDialog() async {
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+
+    final result = await showDialog<String>(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Positioned(
+              left: offset.dx,
+              top: offset.dy + size.height,
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  width: widget.width ?? size.width,
+                  constraints: const BoxConstraints(maxHeight: 250),
+                  child: SingleChildScrollView(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: widget.items?.length ?? widget.dropDownMenuList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final item = widget.items != null
+                            ? widget.items![index]
+                            : widget.dropDownMenuList![index].value;
+                        return ListTile(
+                          title: Text(
+                            item!,
+                            style: DocumentTypeDataStyle.customTextStyle(context),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pop(item);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result != null) {
+      setState(() {
+        _selectedValue = result;
+        widget.onChanged?.call(result);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Label with optional asterisk
+        widget.isAstric!
+            ? Padding(
+          padding: const EdgeInsets.only(left: 5.0, bottom: 2),
+          child: RichText(
+            text: TextSpan(
+              text: widget.headText,
+              style: AllPopupHeadings.customTextStyle(context),
+              children: [
+                TextSpan(
+                  text: ' *',
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: ColorManager.red,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+            : const Offstage(),
+
+        // Dropdown field with underline
+        SizedBox(
+          width: widget.width ?? AppSize.s250,
+          height: AppSize.s40,
+          child: GestureDetector(
+            onTap: _showDropdownDialog,
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey, // Underline color
+                    width: 1.0,
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 3),
+                      child: Text(
+                        _selectedValue ?? widget.hintText ?? 'Select',
+                          style: CustomTextStylesCommon.commonStyle(
+                              color:Color(0xFF7F7F7F),
+                              fontWeight: FontWeight.w400,fontSize: 12)
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    widget.icon ?? Icons.arrow_drop_down_sharp,
+                    color: widget.iconColor ?? Colors.grey,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///todo prachi
 ///Human Resource screen textField email only

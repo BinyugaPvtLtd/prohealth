@@ -16,19 +16,29 @@ class ContactLogsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 10),
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border(
-                  top: BorderSide(color: Color(0xFF1696C8),width: 5)
-              )),
+            color: ColorManager.white,
+            borderRadius: BorderRadius.circular(8),
+            border: const Border(
+                top: BorderSide(color: Color(0xFF1696C8),width: 5)
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: ColorManager.black.withOpacity(0.2),
+                blurRadius: 2,
+                spreadRadius: 1,
+                offset: const Offset(0, 2), // Downward shadow
+              ),
+            ],
+          ),
           child: DefaultTabController(
             length: 2,
             child: Column(
               children: [
                 Container(
-                  width: 250,
+                  width: 270,
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -38,7 +48,7 @@ class ContactLogsScreen extends StatelessWidget {
                     child: TabBar(
                       labelColor: Colors.white,
                       unselectedLabelColor:  ColorManager.textPrimaryColor,
-                      indicatorPadding:  EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                      indicatorPadding:  EdgeInsets.symmetric(horizontal: 15,vertical: 1),
                       indicator: BoxDecoration(
                         color: ColorManager.SMFBlue,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -125,7 +135,7 @@ class CallLogsTab extends StatelessWidget {
                               ),
                               SizedBox(height: AppSize.s2),
                               Text(
-                                '05/08/2024 ',
+                                '2024/08/05',
                                 style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                   fontWeight: FontWeight.w400,
                                   color: ColorManager.mediumgrey,),
@@ -217,7 +227,7 @@ class EFaxTab extends StatelessWidget {
                         children: [
                           //SizedBox(height: AppSize.s5),
                           Text(
-                            '05/08/24',
+                            '2024/08/05',
                             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                               fontWeight: FontWeight.w400,
                               color: ColorManager.mediumgrey,),

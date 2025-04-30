@@ -66,7 +66,7 @@ class SMDashboadGraphContainer extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border(top: BorderSide(
-          color: Color(0xFF579EBA),
+          color: ColorManager.bluebottom,
           width: 5,
         ),),
         // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
