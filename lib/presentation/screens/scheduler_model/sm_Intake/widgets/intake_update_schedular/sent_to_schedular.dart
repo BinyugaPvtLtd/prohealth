@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/information_update.dart';
-import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../app/resources/color.dart';
-import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
-import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../textfield_dropdown_constant/chatbotContainer.dart';
 
@@ -52,7 +47,6 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
             Row(
               children: [
                 CustomSearchFieldSM(
-                  width: 430,
                   onPressed: () {},
                 ),
                 SizedBox(

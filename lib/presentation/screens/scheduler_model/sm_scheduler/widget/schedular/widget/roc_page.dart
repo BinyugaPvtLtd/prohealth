@@ -542,7 +542,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                     child: Container(
                       width: 250,
                       margin: EdgeInsets.only(right: 20),
-                      padding: EdgeInsets.all(5),
+                      padding: EdgeInsets.only(left: 5,right: 8,top: 5,bottom: 5),
                       decoration: BoxDecoration(
                         border: Border.all(color: ColorManager.bluebottom,width: 2),
                         borderRadius: BorderRadius.circular(12),
@@ -594,7 +594,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                             fontSize: FontSize.s12, fontWeight: FontWeight.w700),
                                       ),
                                       SizedBox(height: 10,),
-                                      Text("Available (22/25)",
+                                      Text("Available (22 / 25)",
                                         style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
                                             fontSize: FontSize.s12, fontWeight: FontWeight.w600),),
                                       SizedBox(height: 10,),
@@ -612,6 +612,9 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               InkWell(
+                                hoverColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 child: Image.asset("images/sm/contact_text.png",height: 35,)
                                 ,onTap: (){},),
                               SizedBox(width: 50,),
@@ -828,8 +831,6 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
         )
             : Expanded(
               child: Container(
-                       // height: 500,
-                        padding: EdgeInsets.symmetric(horizontal: 16),
                         child: SingleChildScrollView(
                           child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -879,7 +880,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                                 return Container(
                           width: 270,
                           margin: EdgeInsets.only(right: 20),
-                          padding: EdgeInsets.all(5),
+                          padding: EdgeInsets.only(left: 5, right: 8, top: 5,bottom: 5),
                           decoration: BoxDecoration(
                             border: Border.all(color: ColorManager.bluebottom,width: 2),
                             borderRadius: BorderRadius.circular(12),
@@ -952,7 +953,6 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 4,),
                                           Text('Salaried', style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
                                               fontSize: FontSize.s12, fontWeight: FontWeight.w700),)
                                         ],
@@ -988,6 +988,9 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     InkWell(
+                                      hoverColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       child: Image.asset("images/sm/contact_icon.png",height: 20,)
                                       ,onTap: (){},),
                                    SizedBox(width: 20,),
@@ -998,6 +1001,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                           fontSize: FontSize.s14,
                                           fontWeight: FontWeight.w600),
                                     ),
+                                  //  SizedBox(width: 20,),
                                     Container(
                                       height: 25,
                                       width:100,

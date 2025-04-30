@@ -17,7 +17,8 @@ import '../../../../textfield_dropdown_constant/chatbotContainer.dart';
 import '../sm_scheduler_screen_const.dart';
 
 class SocPageView extends StatefulWidget {
-  const SocPageView({super.key});
+  final VoidCallback onAutoTap;
+  const SocPageView({super.key, required this.onAutoTap});
 
   @override
   State<SocPageView> createState() => _SocPageViewState();
@@ -61,7 +62,6 @@ class _SocPageViewState extends State<SocPageView> {
                     children: [
 
                       CustomSearchFieldSM(
-                        width: 490,
                         onPressed: (){},
                       ),
                       SizedBox(width: AppSize.s20,),
@@ -322,10 +322,8 @@ class _SocPageViewState extends State<SocPageView> {
                                        // mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           CustomButtonRow(
-                                            onSaveClosePressed: () {
-                                              // Action for Save and Close button
-                                              print('Save and Close pressed');
-                                            },
+                                            onSaveClosePressed: widget.onAutoTap,
+
                                             onSubmitPressed: () {
                                               // Action for Submit button
                                               print('Submit pressed');
