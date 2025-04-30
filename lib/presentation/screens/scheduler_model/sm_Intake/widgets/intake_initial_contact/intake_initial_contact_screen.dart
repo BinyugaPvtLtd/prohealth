@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_flow_contgainer_const.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_initial_contact/widgets/intake_notes_miscellaneous/intake_notes_miscellaneous_screen.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';

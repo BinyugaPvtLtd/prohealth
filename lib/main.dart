@@ -11,6 +11,7 @@ import 'package:prohealth/app/resources/provider/version_provider.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_demographics/widgets/patients_plan_care/planer_notifier.dart';
 import 'package:provider/provider.dart';
 
 import 'app/app.dart';
@@ -18,7 +19,6 @@ import 'app/resources/provider/em_provider/em_main_provider.dart';
 import 'app/resources/provider/sm_provider/sm_slider_provider.dart';
 import 'oasis_form_builder/services/provider/form_builder_provider.dart';
 import 'presentation/screens/hr_module/hr_home_screen/referesh_provider.dart';
-import 'presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_plan_care/planer_notifier.dart';
 
 Future<void> main() async {
   bool token = await checkToken();

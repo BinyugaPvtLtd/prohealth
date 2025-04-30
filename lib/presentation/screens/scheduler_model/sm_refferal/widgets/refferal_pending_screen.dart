@@ -46,7 +46,7 @@ class RefferalPendingScreen extends StatelessWidget {
       children: [
         Padding(
           padding:
-              const EdgeInsets.only(left: 60, right: 60, top: 10, bottom: 10),
+              const EdgeInsets.only(left: 60, right: 60, top: 10, bottom: 30),
           child: Column(
             children: [
               // Row(
