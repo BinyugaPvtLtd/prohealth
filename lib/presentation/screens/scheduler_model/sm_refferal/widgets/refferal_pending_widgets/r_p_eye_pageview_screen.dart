@@ -348,7 +348,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                   ),
                   SizedBox(width: AppSize.s30,),
                   Expanded(
-                    child: SMTextFConst(controller: patientsController,
+                    child: SMTextFConstPhone(controller: patientsController,
                         isAsteric: false,
                         keyboardType: TextInputType.text, text: "Patient or Caregiver Phone Number"),
                   ),
