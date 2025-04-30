@@ -21,24 +21,13 @@ import '../../../../../app/services/api/managers/sm_module_manager/refferals_man
 import '../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
-class RefferalPendingScreen extends StatefulWidget {
+class RefferalPendingScreen extends StatelessWidget {
   final VoidCallback onEyeButtonPressed;
   final VoidCallback onMergeDuplicatePressed;
-  const RefferalPendingScreen(
+   RefferalPendingScreen(
       {super.key,
       required this.onEyeButtonPressed,
       required this.onMergeDuplicatePressed});
-
-  @override
-  _RefferalPendingScreenState createState() => _RefferalPendingScreenState();
-}
-
-class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
-
-
-
-
-
 
   List<String> hardcodedItems = [
     'All',
@@ -47,6 +36,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
     'E-Referrals',
     'Manual',
   ];
+
   final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
 
   @override
@@ -204,14 +194,14 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
               StreamBuilder<List<PatientModel>>(
                 stream: _streamController.stream,
                 builder: (context,snapshot) {
-                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10).then((data) {
+                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'false', isArchived: 'false').then((data) {
                     _streamController.add(data);
                   }).catchError((error) {
                     // Handle error
                   });
                   if(snapshot.connectionState == ConnectionState.waiting){
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 50),
+                      padding: const EdgeInsets.symmetric(vertical: 76),
                       child: Center(
                         child: CircularProgressIndicator(
                           color: ColorManager.blueprime,
@@ -222,7 +212,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                         child: Padding(
-                          padding:const EdgeInsets.symmetric(vertical: 50),
+                          padding:const EdgeInsets.symmetric(vertical: 76),
                           child: Text(
                             AppStringSMModule.pendingReferNoData,
                             style: AllNoDataAvailable.customTextStyle(context),
@@ -667,7 +657,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                     InkWell(
                                                       onTap: () async {
                                                         try {
-                                                          widget.onEyeButtonPressed();
+                                                          onEyeButtonPressed();
                                                         } catch (e) {
                                                           print("Error: $e");
                                                         }
@@ -745,7 +735,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                             hoverColor: Colors.transparent,
                                                             onTap: () {
                                                               Navigator.pop(context); // Important: manually close the popup
-                                                              widget.onMergeDuplicatePressed();
+                                                              onMergeDuplicatePressed();
                                                             },
                                                             child: Container(
                                                               alignment: Alignment.centerLeft,

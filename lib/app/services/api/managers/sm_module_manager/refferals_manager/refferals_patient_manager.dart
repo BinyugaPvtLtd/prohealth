@@ -9,6 +9,8 @@ Future<List<PatientModel>> getPatientReffrealsData({
   required BuildContext context,
   required int pageNo,
   required int nbrOfRows,
+  required String isIntake,
+  required String isArchived
 }) async {
   List<PatientModel> itemsData = [];
   String convertIsoToDayMonthYear(String isoDate) {
@@ -26,7 +28,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
 
   try {
     final response = await Api(context).get(
-      path: PatientRefferalsRepo.getPatientRefferals(pageNo: pageNo, nbrOfRows: nbrOfRows),
+      path: PatientRefferalsRepo.getPatientRefferals(pageNo: pageNo, nbrOfRows: nbrOfRows, isIntake: isIntake, isArchived: isArchived),
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
