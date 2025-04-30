@@ -1,20 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/sm_intake_screen.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../app/resources/color.dart';
-import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../widgets/app_clickable_widget.dart';
-import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../../hr_module/dashboard/widgets/view_details_popup.dart';
-import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../textfield_dropdown_constant/chatbotContainer.dart';
 
@@ -67,7 +58,6 @@ class InformationUpdateScreen extends StatelessWidget {
                   Row(
                     children: [
                       CustomSearchFieldSM(
-                        width: 430,
                         onPressed: (){},
                       ),
                       SizedBox(width: 20,),

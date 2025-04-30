@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/completed_page.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/history_page.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/overdue_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/pending_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/scheduled_page.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/roc_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/soc_page.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/schedular_pending_patient_details.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -106,7 +101,9 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
                   PendingPageView(
                     onAutoTap: switchToPatientsDetailsPageviweScreen,
                   ),
-                  SocPageView(),
+                  SocPageView(
+                    onAutoTap: switchToPatientsDetailsPageviweScreen,
+                  ),
                   DisciplinePageView(),
                 ],
               ),
