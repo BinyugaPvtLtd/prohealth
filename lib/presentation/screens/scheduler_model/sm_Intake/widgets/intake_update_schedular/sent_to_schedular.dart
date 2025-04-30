@@ -371,27 +371,36 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                       SizedBox(width: AppSize.s35),
                                       Stack(
                                         children: [
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(60),
-                                            child: SizedBox(
-                                              width: AppSize.s45,
-                                              height: AppSize.s40,
-                                              child: Image.asset(
-                                                'images/1.png', // Replace with your image path
-                                                fit: BoxFit.cover,
+                                          Container(
+                                            width: AppSize.s60, // Larger than image
+                                            height: AppSize.s60, // Slightly larger height
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                             // color: Colors.grey[200], // Optional background color
+                                              borderRadius: BorderRadius.circular(60),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(60),
+                                              child: SizedBox(
+                                                width: AppSize.s45,
+                                                height: AppSize.s45,
+                                                child: Image.asset(
+                                                  'images/1.png',
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                           ),
                                           Positioned(
-                                            left: 22,
-                                            bottom: 1,
+                                            left: 40, // Adjusted to fit new container size
+                                            bottom: 5,
                                             child: Container(
                                               width: 19,
                                               height: 19,
                                               decoration: BoxDecoration(
-                                                  color: Color(0xFF527FB9),
-                                                  borderRadius:
-                                                  BorderRadius.circular(3)),
+                                                color: Color(0xFF527FB9),
+                                                borderRadius: BorderRadius.circular(3),
+                                              ),
                                               child: Center(
                                                 child: Text(
                                                   "ST",
@@ -404,9 +413,49 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                                 ),
                                               ),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
+
+
+                                      // Stack(
+                                      //   children: [
+                                      //     ClipRRect(
+                                      //       borderRadius: BorderRadius.circular(60),
+                                      //       child: SizedBox(
+                                      //         width: AppSize.s45,
+                                      //         height: AppSize.s40,
+                                      //         child: Image.asset(
+                                      //           'images/1.png', // Replace with your image path
+                                      //           fit: BoxFit.cover,
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //     Positioned(
+                                      //       left: 22,
+                                      //       bottom: 1,
+                                      //       child: Container(
+                                      //         width: 19,
+                                      //         height: 19,
+                                      //         decoration: BoxDecoration(
+                                      //             color: Color(0xFF527FB9),
+                                      //             borderRadius:
+                                      //             BorderRadius.circular(3)),
+                                      //         child: Center(
+                                      //           child: Text(
+                                      //             "ST",
+                                      //             style: TextStyle(
+                                      //               fontWeight: FontWeight.w400,
+                                      //               fontSize: 10,
+                                      //               color: ColorManager.white,
+                                      //               decoration: TextDecoration.none,
+                                      //             ),
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     )
+                                      //   ],
+                                      // ),
                                       SizedBox(width: AppSize.s12),
                                       Text(
                                         'James',
