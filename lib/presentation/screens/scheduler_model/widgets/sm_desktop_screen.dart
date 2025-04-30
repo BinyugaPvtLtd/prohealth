@@ -174,12 +174,13 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
             body: Stack(children: [
               Column(
                 children: [
-                    ApplicationSMAppBar(headingText: "Scheduling Manager",body: [
+                    ApplicationSMAppBar(headingText: "Scheduling Manager",
+                      body: [
                      Expanded(
                        child: Obx(
                              () => Padding(
                            padding: const EdgeInsets.only(left:27),
-                           child: CustomTitleButton(
+                           child: CustomTitleButtonsm(
                              height: AppSize.s30,
                              width: AppSize.s100,
                              onPressed: () {
@@ -204,7 +205,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                      // ),
                      Expanded(
                        child: Obx(
-                             () => CustomTitleButton(
+                             () => CustomTitleButtonsm(
                            height: AppSize.s30,
                            width: AppSize.s140,
                            onPressed: () {
@@ -230,7 +231,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                      // ),
                      Expanded(
                        child: Obx(
-                             () => CustomTitleButton(
+                             () => CustomTitleButtonsm(
                            height: AppSize.s30,
                            width: AppSize.s140,
                            onPressed: () {
@@ -258,7 +259,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
                      Expanded(
                        child: Obx(
-                             () => CustomTitleButton(
+                             () => CustomTitleButtonsm(
                            height: AppSize.s30,
                            width: AppSize.s140,
                            onPressed: () {
@@ -284,7 +285,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                      // ),
                      Expanded(
                        child: Obx(
-                             () => CustomTitleButton(
+                             () => CustomTitleButtonsm(
                            height: AppSize.s30,
                            width: AppSize.s140,
                            onPressed: () {
@@ -311,7 +312,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
                      Expanded(
                        child: Obx(
-                             () => CustomTitleButton(
+                             () => CustomTitleButtonsm(
                            height: AppSize.s30,
                            width: AppSize.s140,
                            onPressed: () {
@@ -337,7 +338,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                      // ),
                      Expanded(
                        child: Obx(
-                             () => CustomTitleButton(
+                             () => CustomTitleButtonsm(
                            height: AppSize.s30,
                            width: AppSize.s140,
                            onPressed: () {

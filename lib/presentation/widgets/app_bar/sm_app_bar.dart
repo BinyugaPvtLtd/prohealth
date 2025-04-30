@@ -144,155 +144,131 @@ class _SmAppBarState extends State<SmAppBar> with SingleTickerProviderStateMixin
               ),
 
               /// Right section: Profile Image + Name
-              // FutureBuilder<UserAppBar>(
-              //   future: getAppBarDetails(context),
-              //   builder: (context, snapshot) {
-              //     final image = (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty)
-              //         ? NetworkImage(snapshot.data!.imgUrl)
-              //         : AssetImage("images/profilepic.png") as ImageProvider;
+              const UserAppBarWidget(),
+
+
+              // Padding(
+              //   padding: const EdgeInsets.only(right: 16.0), // Adjust right padding as needed
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.end,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       MouseRegion(
+              //         onEnter: (_) {},
+              //         onExit: (_) {},
+              //         child: FutureBuilder<UserAppBar>(
+              //           future: getAppBarDetails(context),
+              //           builder: (context, snapshot) {
+              //             Widget avatar = CircleAvatar(
+              //               backgroundColor: Colors.grey[100],
+              //               radius: 40,
+              //               backgroundImage: AssetImage("images/profilepic.png"),
+              //             );
               //
-              //     return Row(
-              //       children: [
-              //         CircleAvatar(
-              //           radius: 40,
-              //           backgroundImage: image,
+              //             if (snapshot.connectionState == ConnectionState.waiting) {
+              //               return GestureDetector(child: avatar, onTap: () {});
+              //             } else if (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty) {
+              //               avatar = CircleAvatar(
+              //                 backgroundColor: Colors.transparent,
+              //                 radius: 40,
+              //                 backgroundImage: NetworkImage(snapshot.data!.imgUrl),
+              //               );
+              //             }
+              //
+              //             return GestureDetector(
+              //               child: avatar,
+              //               onTap: () {
+              //                 print("userid appbar: ${snapshot.data?.userId}");
+              //               },
+              //             );
+              //           },
               //         ),
-              //         const SizedBox(width: 8),
-              //         Text(
-              //           loginName ?? 'AAAA', // Ensure userName is correct
-              //           style:  TextStyle(
-              //             color: ColorManager.bluebottom,
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w500,
-              //           ),
-              //         ),
-              //       ],
-              //     );
-              //   },
+              //       ),
+              //       const SizedBox(width: 3),
+              //       FutureBuilder(
+              //         future: user(),
+              //         builder: (context, snap) {
+              //           if (snap.connectionState == ConnectionState.waiting) {
+              //             return SizedBox();
+              //           }
+              //
+              //           return MouseRegion(
+              //             onEnter: (_) {
+              //               showMenu(
+              //                 context: context,
+              //                 position: RelativeRect.fromLTRB(70, 70, 0, 0),
+              //                 items: [
+              //                   PopupMenuItem(
+              //                     padding: EdgeInsets.zero,
+              //                     height: 30,
+              //                     child: GestureDetector(
+              //                       onTap: () {
+              //                         if (isLoggedIn) {
+              //                           showDialog(
+              //                             context: context,
+              //                             builder: (context) => DeletePopup(
+              //                               onCancel: () => Navigator.pop(context),
+              //                               onDelete: () {
+              //                                 TokenManager.removeAccessToken();
+              //                                 Navigator.pushNamedAndRemoveUntil(
+              //                                   context,
+              //                                   LoginScreen.routeName,
+              //                                       (route) => false,
+              //                                 );
+              //                               },
+              //                               btnText: "Log Out",
+              //                               title: "Log Out",
+              //                               text: "Do you really want to logout?",
+              //                             ),
+              //                           );
+              //                         }
+              //                       },
+              //                       child: Container(
+              //                         height: 25,
+              //                         width: 90,
+              //                         padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              //                         child: Row(
+              //                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //                           crossAxisAlignment: CrossAxisAlignment.center,
+              //                           children: [
+              //                             Icon(Icons.logout, size: 12, color: Colors.black),
+              //                             Text(
+              //                               'Log Out',
+              //                               style: TextStyle(
+              //                                 fontSize: 12,
+              //                                 color: Colors.black,
+              //                                 fontWeight: FontWeight.w600,
+              //                               ),
+              //                             ),
+              //                           ],
+              //                         ),
+              //                       ),
+              //                     ),
+              //                   ),
+              //                 ],
+              //               );
+              //             },
+              //             child: Row(
+              //               mainAxisSize: MainAxisSize.min,
+              //               children: [
+              //                 Text(
+              //                   loginName!,
+              //                   style: TextStyle(
+              //                     color: ColorManager.bluebottom,
+              //                     fontSize: 14,
+              //                     fontWeight: FontWeight.w600,
+              //                   ),
+              //                 ),
+              //                 const SizedBox(width: 4),
+              //                 Icon(Icons.keyboard_arrow_down_outlined, color: ColorManager.bluebottom),
+              //               ],
+              //             ),
+              //           );
+              //         },
+              //       ),
+              //     ],
+              //   ),
               // ),
-              ////
-              Padding(
-                padding: const EdgeInsets.only(right: 16.0), // Adjust right padding as needed
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    MouseRegion(
-                      onEnter: (_) {},
-                      onExit: (_) {},
-                      child: FutureBuilder<UserAppBar>(
-                        future: getAppBarDetails(context),
-                        builder: (context, snapshot) {
-                          Widget avatar = CircleAvatar(
-                            backgroundColor: Colors.grey[100],
-                            radius: 40,
-                            backgroundImage: AssetImage("images/profilepic.png"),
-                          );
-
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return GestureDetector(child: avatar, onTap: () {});
-                          } else if (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty) {
-                            avatar = CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              radius: 40,
-                              backgroundImage: NetworkImage(snapshot.data!.imgUrl),
-                            );
-                          }
-
-                          return GestureDetector(
-                            child: avatar,
-                            onTap: () {
-                              print("userid appbar: ${snapshot.data?.userId}");
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 3),
-                    FutureBuilder(
-                      future: user(),
-                      builder: (context, snap) {
-                        if (snap.connectionState == ConnectionState.waiting) {
-                          return SizedBox();
-                        }
-
-                        return MouseRegion(
-                          onEnter: (_) {
-                            showMenu(
-                              context: context,
-                              position: RelativeRect.fromLTRB(70, 70, 0, 0),
-                              items: [
-                                PopupMenuItem(
-                                  padding: EdgeInsets.zero,
-                                  height: 30,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (isLoggedIn) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => DeletePopup(
-                                            onCancel: () => Navigator.pop(context),
-                                            onDelete: () {
-                                              TokenManager.removeAccessToken();
-                                              Navigator.pushNamedAndRemoveUntil(
-                                                context,
-                                                LoginScreen.routeName,
-                                                    (route) => false,
-                                              );
-                                            },
-                                            btnText: "Log Out",
-                                            title: "Log Out",
-                                            text: "Do you really want to logout?",
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    child: Container(
-                                      height: 25,
-                                      width: 90,
-                                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.logout, size: 12, color: Colors.black),
-                                          Text(
-                                            'Log Out',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                loginName!,
-                                style: TextStyle(
-                                  color: ColorManager.bluebottom,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const SizedBox(width: 4),
-                              Icon(Icons.keyboard_arrow_down_outlined, color: ColorManager.bluebottom),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
 
 
 
@@ -930,6 +906,174 @@ class _SmAppBarState extends State<SmAppBar> with SingleTickerProviderStateMixin
         //     ),
         //   ],
         // ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+class UserAppBarWidget extends StatefulWidget {
+  const UserAppBarWidget({Key? key}) : super(key: key);
+
+  @override
+  State<UserAppBarWidget> createState() => _UserAppBarWidgetState();
+}
+
+class _UserAppBarWidgetState extends State<UserAppBarWidget> {
+  // late final Future<UserAppBar> _appBarFuture;
+  // late final Future<UserModel> _userFuture; // Replace `UserDataType` with the correct return type of `user()`
+
+  @override
+  void initState() {
+    super.initState();
+    // _appBarFuture = getAppBarDetails(context);
+    // _userFuture = user();
+  }
+
+  String? loginName = '';
+  String? loginEmail = '';
+  //int loginUserId = 0;
+  bool isLoggedIn = true;
+  Future<String> user() async {
+    loginName = await TokenManager.getUserName();
+    //loginName = userName;
+    print("UserName login ${loginName}");
+    return loginName!;
+  }
+  Future<String> email() async {
+    loginEmail = await TokenManager.getEmail();
+    //loginName = userName;
+    print("loginEmail login ${loginEmail}");
+    return loginEmail!;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          MouseRegion(
+            onEnter: (_) {},
+            onExit: (_) {},
+            child: FutureBuilder<UserAppBar>(
+              future: getAppBarDetails(context),
+              builder: (context, snapshot) {
+                Widget avatar = CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  radius: 40,
+                  backgroundImage: const AssetImage("images/profilepic.png"),
+                );
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return GestureDetector(child: avatar, onTap: () {});
+                } else if (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty) {
+                  avatar = CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 40,
+                    backgroundImage: NetworkImage(snapshot.data!.imgUrl),
+                  );
+                }
+
+                return GestureDetector(
+                  child: avatar,
+                  onTap: () {
+                    print("userid appbar: ${snapshot.data?.userId}");
+                  },
+                );
+              },
+            ),
+          ),
+          const SizedBox(width: 3),
+          FutureBuilder(
+            future: user(),
+            builder: (context, snap) {
+              if (snap.connectionState == ConnectionState.waiting) {
+                return const SizedBox();
+              }
+
+              return MouseRegion(
+                onEnter: (_) {
+                  showMenu(
+                    context: context,
+                    position: const RelativeRect.fromLTRB(70, 70, 0, 0),
+                    items: [
+                      PopupMenuItem(
+                        padding: EdgeInsets.zero,
+                        height: 30,
+                        child: GestureDetector(
+                          onTap: () {
+                            if (isLoggedIn) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => DeletePopup(
+                                  onCancel: () => Navigator.pop(context),
+                                  onDelete: () {
+                                    TokenManager.removeAccessToken();
+                                    Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      LoginScreen.routeName,
+                                          (route) => false,
+                                    );
+                                  },
+                                  btnText: "Log Out",
+                                  title: "Log Out",
+                                  text: "Do you really want to logout?",
+                                ),
+                              );
+                            }
+                          },
+                          child: Container(
+                            height: 25,
+                            width: 90,
+                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Icon(Icons.logout, size: 12, color: Colors.black),
+                                Text(
+                                  'Log Out',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      loginName ?? "",
+                      style: TextStyle(
+                        color: ColorManager.bluebottom,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(Icons.keyboard_arrow_down_outlined, color: ColorManager.bluebottom),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
