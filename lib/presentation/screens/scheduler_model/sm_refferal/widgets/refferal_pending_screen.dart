@@ -201,7 +201,7 @@ class RefferalPendingScreen extends StatelessWidget {
                   });
                   if(snapshot.connectionState == ConnectionState.waiting){
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 76),
+                      padding: const EdgeInsets.symmetric(vertical: 60),
                       child: Center(
                         child: CircularProgressIndicator(
                           color: ColorManager.blueprime,
