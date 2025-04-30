@@ -402,4 +402,5 @@ class AppStringLegalDocument {
 
 class AppStringSMModule{
   static const String addressSM = 'Address';
+  static const String pendingReferNoData = 'No available pending referrals!';
 }
