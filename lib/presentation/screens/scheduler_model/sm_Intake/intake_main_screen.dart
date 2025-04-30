@@ -11,7 +11,6 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/app_clickable_widget.dart';
 
-
 class IntakeMainScreen extends StatefulWidget {
   final VoidCallback intakeFlowSelected;
   const IntakeMainScreen({super.key, required this.intakeFlowSelected});
