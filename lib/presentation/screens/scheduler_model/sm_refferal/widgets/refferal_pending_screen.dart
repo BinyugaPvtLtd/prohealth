@@ -13,6 +13,7 @@ import '../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../../../app/resources/provider/sm_provider/sm_integration_provider.dart';
 import '../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
@@ -42,6 +43,7 @@ class RefferalPendingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
+    final providerReferrals = Provider.of<SmIntegrationProviderManager>(context,listen: false);
     return Stack(
       children: [
         Padding(
@@ -658,6 +660,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                       onTap: () async {
                                                         try {
                                                           onEyeButtonPressed();
+                                                          providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
                                                         } catch (e) {
                                                           print("Error: $e");
                                                         }
