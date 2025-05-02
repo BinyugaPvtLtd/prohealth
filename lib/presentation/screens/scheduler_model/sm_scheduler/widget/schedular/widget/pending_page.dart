@@ -266,7 +266,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       ]
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
