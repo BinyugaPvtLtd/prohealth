@@ -261,7 +261,8 @@ class RefferalPendingScreen extends StatelessWidget {
                                   ),
                                 ),
                                 child:
-                                Container(height: 75,width: 6,
+                                Container(
+                                  height: 75,width: 6,
                                   decoration: BoxDecoration(
                                     border:  Border(
                                       left: BorderSide(
@@ -306,6 +307,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
+                                            /// Include image to Referral Source
                                             Expanded(
                                               flex: 3,
                                               child: Row(
@@ -317,7 +319,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                         child: snapshot.data![index].ptImgUrl == 'imgurl' ||
                                                             snapshot.data![index].ptImgUrl == null
                                                             ? CircleAvatar(
-                                                          radius: 30,
+                                                          radius: 25,
                                                           backgroundColor: Colors.transparent,
                                                           child: Image.asset("images/profilepic.png"),
                                                         )
@@ -339,14 +341,14 @@ class RefferalPendingScreen extends StatelessWidget {
                                                           },
                                                           errorBuilder: (context, error, stackTrace) {
                                                             return CircleAvatar(
-                                                              radius: 25,
+                                                              radius: 23,
                                                               backgroundColor: Colors.transparent,
                                                               child: Image.asset("images/profilepic.png"),
                                                             );
                                                           },
                                                           fit: BoxFit.cover,
-                                                          height: 43,
-                                                          width: 43,
+                                                          height: 40,
+                                                          width: 40,
                                                         ),
                                                       ),
                                                       // ClipRRect(
@@ -413,7 +415,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   ),
 
                                                   // SizedBox(width: AppSize.s30),
-                                                  Text("Ch #1",
+                                                  Text("Ch #${snapshot.data![index].ptChartNo.toString()}",
                                                       style: CustomTextStylesCommon
                                                           .commonStyle(
                                                         fontSize: FontSize.s12,
@@ -455,6 +457,8 @@ class RefferalPendingScreen extends StatelessWidget {
                                               ),
                                             ),
                                             SizedBox(width: 20,),
+
+                                            /// PCP and primary diagnosis
                                             Expanded(
                                               flex: 2,
                                               child: Row(
@@ -553,39 +557,40 @@ class RefferalPendingScreen extends StatelessWidget {
                                             //     ],
                                             //   ),
                                             // ),
+
+                                            /// company image
                                             Expanded(
                                               flex: 1,
                                               child: Row(
                                                 children: [
-                                                  Image.network(
-                                                    snapshot.data![index].referralSource.referralSourceImgUrl,
-                                                    loadingBuilder: (context, child, loadingProgress) {
-                                                      if (loadingProgress == null) {
-                                                        return child;
-                                                      } else {
-                                                        return Center(
-                                                          child: CircularProgressIndicator(
-                                                            value: loadingProgress.expectedTotalBytes != null
-                                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                                (loadingProgress.expectedTotalBytes ?? 1)
-                                                                : null,
-                                                          ),
-                                                        );
-                                                      }
-                                                    },
-                                                    errorBuilder: (context, error, stackTrace) {
-                                                      return Image.asset('images/logo_login.png',width: 100,);
-                                                    },
-                                                    width: 100,
-                                                  ),
                                                   // Image.network(
                                                   //   snapshot.data![index].referralSource.referralSourceImgUrl,
-                                                  //   width: 110,
+                                                  //   loadingBuilder: (context, child, loadingProgress) {
+                                                  //     if (loadingProgress == null) {
+                                                  //       return child;
+                                                  //     } else {
+                                                  //       return Center(
+                                                  //         child: CircularProgressIndicator(
+                                                  //           value: loadingProgress.expectedTotalBytes != null
+                                                  //               ? loadingProgress.cumulativeBytesLoaded /
+                                                  //               (loadingProgress.expectedTotalBytes ?? 1)
+                                                  //               : null,
+                                                  //         ),
+                                                  //       );
+                                                  //     }
+                                                  //   },
+                                                  //   errorBuilder: (context, error, stackTrace) {
+                                                  //     return Image.asset('images/logo_login.png',width: 100,);
+                                                  //   },
+                                                  //   width: 100,
                                                   // ),
+                                                Image.asset('images/logo_login.png',width: 90,),
                                                   // Text("Manual",style: DocDefineTableData.customTextStyle(context),),
                                                 ],
                                               ),
                                             ),
+
+                                            /// Marketer
                                             Expanded(
                                                 flex: 4,
                                                 child: Row(
@@ -603,7 +608,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                           child: snapshot.data![index].ptImgUrl == 'imgurl' ||
                                                               snapshot.data![index].ptImgUrl == null
                                                               ? CircleAvatar(
-                                                            radius: 30,
+                                                            radius: 25,
                                                             backgroundColor: Colors.transparent,
                                                             child: Image.asset("images/profilepic.png"),
                                                           )
@@ -625,14 +630,14 @@ class RefferalPendingScreen extends StatelessWidget {
                                                             },
                                                             errorBuilder: (context, error, stackTrace) {
                                                               return CircleAvatar(
-                                                                radius: 25,
+                                                                radius: 23,
                                                                 backgroundColor: Colors.transparent,
                                                                 child: Image.asset("images/profilepic.png"),
                                                               );
                                                             },
                                                             fit: BoxFit.cover,
-                                                            height: 45,
-                                                            width: 41,
+                                                            height: 40,
+                                                            width: 40,
                                                           ),
                                                         ),
                                                         // ClipRRect(

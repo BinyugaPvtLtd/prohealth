@@ -13,9 +13,9 @@ class ScreenSizeController extends GetxController {
 
   /// Method to check and set the screen type
   void checkScreenType(double screenWidth) {
-    isTabletScreen.value = screenWidth < 712 && screenWidth > 414;
+    isTabletScreen.value = screenWidth < 800 && screenWidth > 414;
     isMobileScreen.value = screenWidth <= 414;
-    isDesktopScreen.value = screenWidth >= 712;
+    isDesktopScreen.value = screenWidth > 800;
   }
 }
 

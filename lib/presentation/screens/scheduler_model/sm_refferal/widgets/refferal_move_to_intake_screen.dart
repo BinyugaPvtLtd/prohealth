@@ -178,7 +178,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                       child: snapshot.data![index].ptImgUrl == 'imgurl' ||
                                                           snapshot.data![index].ptImgUrl == null
                                                           ? CircleAvatar(
-                                                        radius: 30,
+                                                        radius: 25,
                                                         backgroundColor: Colors.transparent,
                                                         child: Image.asset("images/profilepic.png"),
                                                       )
@@ -200,14 +200,14 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                         },
                                                         errorBuilder: (context, error, stackTrace) {
                                                           return CircleAvatar(
-                                                            radius: 25,
+                                                            radius: 22,
                                                             backgroundColor: Colors.transparent,
                                                             child: Image.asset("images/profilepic.png"),
                                                           );
                                                         },
                                                         fit: BoxFit.cover,
-                                                        height: 43,
-                                                        width: 43,
+                                                        height: 40,
+                                                        width: 40,
                                                       ),
                                                     ),
                                                     SizedBox(width: AppSize.s15),
@@ -237,7 +237,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
 
                                                 //SizedBox(width: AppSize.s40),
                                                 Text(
-                                                  "Ch #1",
+                                                  "Ch #${snapshot.data![index].ptChartNo.toString()}",
                                                   style: DocDefineTableData.customTextStyle(context),
                                                 ),
                                                 Padding(
@@ -359,7 +359,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                         child: snapshot.data![index].ptImgUrl == 'imgurl' ||
                                                             snapshot.data![index].ptImgUrl == null
                                                             ? CircleAvatar(
-                                                          radius: 30,
+                                                          radius: 25,
                                                           backgroundColor: Colors.transparent,
                                                           child: Image.asset("images/profilepic.png"),
                                                         )
@@ -381,14 +381,14 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                           },
                                                           errorBuilder: (context, error, stackTrace) {
                                                             return CircleAvatar(
-                                                              radius: 25,
+                                                              radius: 22,
                                                               backgroundColor: Colors.transparent,
                                                               child: Image.asset("images/profilepic.png"),
                                                             );
                                                           },
                                                           fit: BoxFit.cover,
-                                                          height: 45,
-                                                          width: 41,
+                                                          height: 40,
+                                                          width: 40,
                                                         ),
                                                       ),
                                                       SizedBox(width: AppSize.s15),
