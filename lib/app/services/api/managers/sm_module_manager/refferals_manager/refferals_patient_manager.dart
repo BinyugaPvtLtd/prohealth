@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
+import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/sm_repository/refferals/patient_refferal_repo.dart';
 
@@ -343,6 +345,42 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
   } catch (e) {
     print("error: $e");
     return itemsData;
+  }
+}
+
+/// referal patient patch
+Future<ApiData> updateReferralPatient(
+{
+    required BuildContext context,
+    required int patientId,
+    required bool isIntake,
+    required bool isArchived}) async {
+  try {
+    var response = await Api(context).patch(
+      path: PatientRefferalsRepo.getPatientRefferalsWithId(id: patientId),
+      data: {
+        "is_intake": isIntake,
+        "is_archieved": isArchived
+      },
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Patient updated ");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
 

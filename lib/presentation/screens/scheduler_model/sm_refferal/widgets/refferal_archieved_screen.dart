@@ -477,7 +477,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                          SizedBox(width: AppSize.s15),
+                                          // SizedBox(width: AppSize.s15),
                                           Expanded(
                                             flex: 1,
                                             child: Row(
@@ -499,9 +499,9 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                     }
                                                   },
                                                   errorBuilder: (context, error, stackTrace) {
-                                                    return Image.asset('images/logo_login.png',width: 110,);
+                                                    return Image.asset('images/logo_login.png',width: 88,);
                                                   },
-                                                  width: 110,
+                                                  width: 88,
                                                 ),
                                               ],
                                             ),
@@ -548,7 +548,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                           },
                                                           errorBuilder: (context, error, stackTrace) {
                                                             return CircleAvatar(
-                                                              radius: 25,
+                                                              radius: 24,
                                                               backgroundColor: Colors.transparent,
                                                               child: Image.asset("images/profilepic.png"),
                                                             );

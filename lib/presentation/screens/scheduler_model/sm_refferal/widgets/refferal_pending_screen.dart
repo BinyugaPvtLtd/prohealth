@@ -20,15 +20,17 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
 import '../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 import '../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
+import '../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
 class RefferalPendingScreen extends StatelessWidget {
   final VoidCallback onEyeButtonPressed;
   final VoidCallback onMergeDuplicatePressed;
+  final VoidCallback onMoveToIntake;
    RefferalPendingScreen(
       {super.key,
       required this.onEyeButtonPressed,
-      required this.onMergeDuplicatePressed});
+      required this.onMergeDuplicatePressed, required this.onMoveToIntake});
 
   List<String> hardcodedItems = [
     'All',
@@ -490,7 +492,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                     ],
                                                   ),
                                                   SizedBox(
-                                                    width: 50,
+                                                    width: 30,
                                                   ),
                                                   Column(
                                                     crossAxisAlignment:
@@ -499,7 +501,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                     MainAxisAlignment.center,
                                                     children: [
                                                       Text(
-                                                        "Primary Diagnosis: ",
+                                                        "Primary Diagnosis:",
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon
                                                             .commonStyle(
@@ -572,9 +574,9 @@ class RefferalPendingScreen extends StatelessWidget {
                                                       }
                                                     },
                                                     errorBuilder: (context, error, stackTrace) {
-                                                      return Image.asset('images/logo_login.png',width: 110,);
+                                                      return Image.asset('images/logo_login.png',width: 100,);
                                                     },
-                                                    width: 110,
+                                                    width: 100,
                                                   ),
                                                   // Image.network(
                                                   //   snapshot.data![index].referralSource.referralSourceImgUrl,
@@ -697,7 +699,24 @@ class RefferalPendingScreen extends StatelessWidget {
                                                           height: 16,
                                                           width: 16,
                                                         ),
-                                                        onPressed: () {},
+                                                        onPressed: () async{
+
+                                                        var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: true, isArchived: false);
+                                                        if(response.statusCode == 200 || response.statusCode == 201){
+                                                          //onMoveToIntake();
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext context) {
+                                                              return AddSuccessPopup(
+                                                                message: 'Data Updated Successfully',
+                                                              );
+                                                            },
+                                                          );
+                                                        }else{
+                                                          print('Api error');
+                                                        }
+
+                                                        },
                                                         style: ElevatedButton.styleFrom(
                                                           padding: EdgeInsets.symmetric(
                                                               horizontal: 2,
@@ -762,9 +781,21 @@ class RefferalPendingScreen extends StatelessWidget {
                                                             splashColor: Colors.transparent,
                                                             highlightColor: Colors.transparent,
                                                             hoverColor: Colors.transparent,
-                                                            onTap: () {
-                                                              Navigator.pop(context);
-                                                              print('Option 2 Selected');
+                                                            onTap: () async{
+                                                              var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
+                                                              if(response.statusCode == 200 || response.statusCode == 201){
+                                                               Navigator.pop(context);
+                                                               showDialog(
+                                                                 context: context,
+                                                                 builder: (BuildContext context) {
+                                                                   return AddSuccessPopup(
+                                                                     message: 'Data Updated Successfully',
+                                                                   );
+                                                                 },
+                                                               );
+                                                              }else{
+                                                                print('Api error');
+                                                              }
                                                             },
                                                             child: Container(
                                                               alignment: Alignment.centerLeft,

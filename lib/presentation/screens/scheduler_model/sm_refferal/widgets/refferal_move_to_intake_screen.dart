@@ -336,9 +336,9 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                     }
                                                   },
                                                   errorBuilder: (context, error, stackTrace) {
-                                                    return Image.asset('images/logo_login.png',width: 110,);
+                                                    return Image.asset('images/logo_login.png',width: 100,);
                                                   },
-                                                  width: 110,
+                                                  width: 100,
                                                 ),
                                                 // Text("Manual",style: DocDefineTableData.customTextStyle(context),),
                                               ],
