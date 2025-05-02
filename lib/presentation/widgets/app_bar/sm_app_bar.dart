@@ -105,7 +105,7 @@ class _SmAppBarState extends State<SmAppBar> with SingleTickerProviderStateMixin
                             style: TextStyle(
                               fontSize: FontSize.s14,
                               fontWeight: FontWeight.w700,
-                              color:  ColorManager.black,
+                              color: Color(0xff3E3B3B),
                               decoration: TextDecoration.none,
                             ),
                           ),
@@ -1061,13 +1061,13 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
                     Text(
                       loginName ?? "",
                       style: TextStyle(
-                        color: ColorManager.bluebottom,
-                        fontSize: 14,
+                        color: Color(0xFF2EA3D4),
+                        fontSize: 13,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(width: 4),
-                    Icon(Icons.keyboard_arrow_down_outlined, color: ColorManager.bluebottom),
+                    Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xFF2EA3D4)),
                   ],
                 ),
               );

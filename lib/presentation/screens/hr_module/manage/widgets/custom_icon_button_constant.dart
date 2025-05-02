@@ -421,7 +421,7 @@ class CustomTitleButtonsm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: isSelected ? 4 : 0,
+      elevation: isSelected ? 3 : 0,
       borderRadius: BorderRadius.circular(12),
       color: ColorManager.white,
       child: AppClickableWidget(
@@ -448,7 +448,7 @@ class CustomTitleButtonsm extends StatelessWidget {
             style: CustomTextStylesCommon.commonStyle(
               fontSize: FontSize.s13,
               fontWeight: FontWeight.w600,
-              color: isSelected ? ColorManager.white : ColorManager.bluebottom,
+              color: isSelected ? ColorManager.white :  Color(0xFF2EA3D4),
             ),
           ),
         ),
