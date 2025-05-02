@@ -610,7 +610,18 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             });
                           },
                         ),
-                        RefferalScreenNewTab(),
+                        RefferalScreenNewTab(onPressedMoveTointake: () {
+                          //companyByIdApi(context,);
+                          // companyDetailsApi(context,5);
+                          myController.selectButton(2);
+                          _pageController.jumpToPage(2,
+                            // duration: Duration(milliseconds: 500),
+                            // curve: Curves.ease
+                          );
+                          onPageChanged(2);
+                          pgeControllerId = 2;
+                          providerContact.toogleContactProviderclear();
+                        },),
                         IntakeMainScreen(intakeFlowSelected: () { setState(() {
                           myController.selectButton(7);
                           _pageController.jumpToPage(7,

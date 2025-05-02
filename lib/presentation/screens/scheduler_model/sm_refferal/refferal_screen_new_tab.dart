@@ -13,7 +13,8 @@ import '../../../../app/resources/value_manager.dart';
 import '../sm_Intake/intake_main_screen.dart';
 
 class RefferalScreenNewTab extends StatefulWidget {
-  const RefferalScreenNewTab({super.key});
+  final VoidCallback onPressedMoveTointake;
+  const RefferalScreenNewTab({super.key, required this.onPressedMoveTointake});
 
   @override
   State<RefferalScreenNewTab> createState() => _RefferalScreenNewTabState();
@@ -128,7 +129,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                   switchToEyePageviweScreen();
                   providerState.toogleEyeScreenProvider();
                 },
-                  onMergeDuplicatePressed: switchToMergeDuplicateScreen,),
+                  onMergeDuplicatePressed: switchToMergeDuplicateScreen, onMoveToIntake: widget.onPressedMoveTointake,),
                 RefferalMoveToIntakeScreen(onEyeButtonPressed: (){
                   switchToEyePageviweScreen();
                   providerState.toogleEyeScreenProvider();

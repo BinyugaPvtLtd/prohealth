@@ -188,7 +188,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 7,),
                               child: Container(
-                                height: 79,
+
                                 // decoration:  BoxDecoration(
                                 //   color: ColorManager.white,
                                 //   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12),topLeft: Radius.circular(12),topRight: Radius.circular(12)),
@@ -259,122 +259,117 @@ class RefferalArchievedScreen extends StatelessWidget {
                                     // ),
                                     Container(height: AppSize.s12,),
                                     Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p15),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
+                                          ClipOval(
+                                            child: snapshot.data![index].ptImgUrl == 'imgurl' ||
+                                                snapshot.data![index].ptImgUrl == null
+                                                ? CircleAvatar(
+                                              radius: 22,
+                                              backgroundColor: Colors.transparent,
+                                              child: Image.asset("images/profilepic.png"),
+                                            )
+                                                : Image.network(
+                                              snapshot.data![index].ptImgUrl,
+                                              loadingBuilder: (context, child, loadingProgress) {
+                                                if (loadingProgress == null) {
+                                                  return child;
+                                                } else {
+                                                  return Center(
+                                                    child: CircularProgressIndicator(
+                                                      value: loadingProgress.expectedTotalBytes != null
+                                                          ? loadingProgress.cumulativeBytesLoaded /
+                                                          (loadingProgress.expectedTotalBytes ?? 1)
+                                                          : null,
+                                                    ),
+                                                  );
+                                                }
+                                              },
+                                              errorBuilder: (context, error, stackTrace) {
+                                                return CircleAvatar(
+                                                  radius: 21,
+                                                  backgroundColor: Colors.transparent,
+                                                  child: Image.asset("images/profilepic.png"),
+                                                );
+                                              },
+                                              fit: BoxFit.cover,
+                                              height: 40,
+                                              width: 40,
+                                            ),
+                                          ),
+                                          SizedBox(width: AppSize.s15),
                                           Expanded(
-                                            flex: 4,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            flex: 5,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    ClipOval(
-                                                      child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                                          snapshot.data![index].ptImgUrl == null
-                                                          ? CircleAvatar(
-                                                        radius: 30,
-                                                        backgroundColor: Colors.transparent,
-                                                        child: Image.asset("images/profilepic.png"),
-                                                      )
-                                                          : Image.network(
-                                                        snapshot.data![index].ptImgUrl,
-                                                        loadingBuilder: (context, child, loadingProgress) {
-                                                          if (loadingProgress == null) {
-                                                            return child;
-                                                          } else {
-                                                            return Center(
-                                                              child: CircularProgressIndicator(
-                                                                value: loadingProgress.expectedTotalBytes != null
-                                                                    ? loadingProgress.cumulativeBytesLoaded /
-                                                                    (loadingProgress.expectedTotalBytes ?? 1)
-                                                                    : null,
-                                                              ),
-                                                            );
-                                                          }
-                                                        },
-                                                        errorBuilder: (context, error, stackTrace) {
-                                                          return CircleAvatar(
-                                                            radius: 25,
-                                                            backgroundColor: Colors.transparent,
-                                                            child: Image.asset("images/profilepic.png"),
-                                                          );
-                                                        },
-                                                        fit: BoxFit.cover,
-                                                        height: 43,
-                                                        width: 43,
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: AppSize.s15),
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        Text(
-                                                          "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
-                                                          textAlign: TextAlign.center,
-                                                          style: CustomTextStylesCommon
-                                                              .commonStyle(
-                                                            fontSize: FontSize.s12,
-                                                            fontWeight: FontWeight.w700,
-                                                            color:
-                                                            ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                        SizedBox(height: AppSize.s5,),
-                                                        Text(
-                                                          "Referral Date:  ${snapshot.data![index].ptRefferalDate}",
-                                                          textAlign: TextAlign.center,
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                            fontSize: FontSize.s11,
-                                                            fontWeight: FontWeight.w400,
-                                                            color:
-                                                            ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: AppSize.s2,
-                                                        ),
-                                                        Text(
-                                                          snapshot.data![index].ptTime,
-                                                          textAlign: TextAlign.center,
-                                                          style: CustomTextStylesCommon
-                                                              .commonStyle(
-                                                            fontSize: FontSize.s11,
-                                                            fontWeight: FontWeight.w400,
-                                                            color:
-                                                            ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-
-                                                // SizedBox(width: AppSize.s35),
                                                 Text(
-                                                  "By Ross Geller",
-                                                  style: CustomTextStylesCommon.commonStyle(
+                                                  "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
+                                                  textAlign: TextAlign.center,
+                                                  style: CustomTextStylesCommon
+                                                      .commonStyle(
                                                     fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: ColorManager.textBlack,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                    ColorManager.mediumgrey,
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsets.only(right: 35.0),
-                                                  child: Text(
-                                                    "Ch #1",
-                                                    style: DocDefineTableData.customTextStyle(context),
+                                                SizedBox(height: AppSize.s5,),
+                                                Text(
+                                                  "Referral Date:  ${snapshot.data![index].ptRefferalDate}",
+                                                  textAlign: TextAlign.center,
+                                                  style: CustomTextStylesCommon.commonStyle(
+                                                    fontSize: FontSize.s11,
+                                                    fontWeight: FontWeight.w400,
+                                                    color:
+                                                    ColorManager.mediumgrey,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: AppSize.s2,
+                                                ),
+                                                Text(
+                                                  snapshot.data![index].ptTime,
+                                                  textAlign: TextAlign.center,
+                                                  style: CustomTextStylesCommon
+                                                      .commonStyle(
+                                                    fontSize: FontSize.s11,
+                                                    fontWeight: FontWeight.w400,
+                                                    color:
+                                                    ColorManager.mediumgrey,
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
+
+                                          // SizedBox(width: AppSize.s35),
                                           Expanded(
-                                            flex: 1,
+                                            flex: 4,
+                                            child: Text(
+                                              "By Ross Geller",
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorManager.textBlack,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 3,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(right: 35.0),
+                                              child: Text(
+                                                "Ch #1",
+                                                style: DocDefineTableData.customTextStyle(context),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 4,
                                             child: Column(
                                               crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -407,9 +402,9 @@ class RefferalArchievedScreen extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                          SizedBox(width: AppSize.s40,),
+                                          //SizedBox(width: AppSize.s40,),
                                           Expanded(
-                                            flex: 1,
+                                            flex: 3,
                                             child: Column(
                                               crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -442,9 +437,9 @@ class RefferalArchievedScreen extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                          SizedBox(width: AppSize.s15),
+                                          //SizedBox(width: AppSize.s15),
                                           Expanded(
-                                            flex: 1,
+                                            flex: 4,
                                             child: Column(
                                               crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -477,185 +472,177 @@ class RefferalArchievedScreen extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                          SizedBox(width: AppSize.s15),
+                                          // SizedBox(width: AppSize.s15),
                                           Expanded(
-                                            flex: 1,
-                                            child: Row(
-                                              children: [
-                                                Image.network(
-                                                  snapshot.data![index].referralSource.referralSourceImgUrl,
-                                                  loadingBuilder: (context, child, loadingProgress) {
-                                                    if (loadingProgress == null) {
-                                                      return child;
-                                                    } else {
-                                                      return Center(
-                                                        child: CircularProgressIndicator(
-                                                          value: loadingProgress.expectedTotalBytes != null
-                                                              ? loadingProgress.cumulativeBytesLoaded /
-                                                              (loadingProgress.expectedTotalBytes ?? 1)
-                                                              : null,
-                                                        ),
-                                                      );
-                                                    }
-                                                  },
-                                                  errorBuilder: (context, error, stackTrace) {
-                                                    return Image.asset('images/logo_login.png',width: 110,);
-                                                  },
-                                                  width: 110,
-                                                ),
-                                              ],
+                                            flex: 2,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(right: 10),
+                                              child: Image.network(
+                                                snapshot.data![index].referralSource.referralSourceImgUrl,
+                                                loadingBuilder: (context, child, loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  } else {
+                                                    return Center(
+                                                      child: CircularProgressIndicator(
+                                                        value: loadingProgress.expectedTotalBytes != null
+                                                            ? loadingProgress.cumulativeBytesLoaded /
+                                                            (loadingProgress.expectedTotalBytes ?? 1)
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  }
+                                                },
+                                                errorBuilder: (context, error, stackTrace) {
+                                                  return Image.asset('images/logo_login.png',width: 88,);
+                                                },
+                                                width: 88,
+                                              ),
                                             ),
                                           ),
+                                          // SizedBox(
+                                          //   width: 10,
+                                          // ),
                                           Expanded(
-                                              flex: 4,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                //crossAxisAlignment: CrossAxisAlignment.end,
-                                                children: [
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    "Marketer: ",
-                                                    style: DocDefineTableData.customTextStyle(context),
-                                                  ),
-                                                  // SizedBox(width: AppSize.s30),
-                                                  Row(
-                                                    children: [
-                                                      ClipOval(
-                                                        child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                                            snapshot.data![index].ptImgUrl == null
-                                                            ? CircleAvatar(
-                                                          radius: 30,
-                                                          backgroundColor: Colors.transparent,
-                                                          child: Image.asset("images/profilepic.png"),
-                                                        )
-                                                            : Image.network(
-                                                          snapshot.data![index].marketer.imgurl,
-                                                          loadingBuilder: (context, child, loadingProgress) {
-                                                            if (loadingProgress == null) {
-                                                              return child;
-                                                            } else {
-                                                              return Center(
-                                                                child: CircularProgressIndicator(
-                                                                  value: loadingProgress.expectedTotalBytes != null
-                                                                      ? loadingProgress.cumulativeBytesLoaded /
-                                                                      (loadingProgress.expectedTotalBytes ?? 1)
-                                                                      : null,
-                                                                ),
-                                                              );
-                                                            }
-                                                          },
-                                                          errorBuilder: (context, error, stackTrace) {
-                                                            return CircleAvatar(
-                                                              radius: 25,
-                                                              backgroundColor: Colors.transparent,
-                                                              child: Image.asset("images/profilepic.png"),
-                                                            );
-                                                          },
-                                                          fit: BoxFit.cover,
-                                                          height: 45,
-                                                          width: 41,
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: AppSize.s15),
-                                                      Text(
-                                                        "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
-                                                        textAlign: TextAlign.center,
-                                                        style: DocDefineTableData.customTextStyle(context),
-                                                      ),
-                                                    ],
-                                                  ),
-
-                                                  // SizedBox(width: AppSize.s15),
-                                                  InkWell(
-                                                    onTap: () async {
-                                                      try {
-                                                        onEyeButtonPressed();
-                                                        providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
-                                                      } catch (e) {
-                                                        print("Error: $e");
-                                                      }
-                                                    },
-                                                    child:Container(
-                                                      width: AppSize.s20,
-                                                      height: AppSize.s25,
-                                                      child: SvgPicture.asset(
-                                                        'images/sm/sm_refferal/eye.svg',
-                                                        height: AppSize.s15,
-                                                        width: AppSize.s22,
-                                                        color: ColorManager.bluebottom,
-                                                      ),
+                                            flex: 2,
+                                            child: Text(
+                                              "Marketer: ",
+                                              style: DocDefineTableData.customTextStyle(context),
+                                            ),
+                                          ),
+                                          // SizedBox(width: AppSize.s30),
+                                          ClipOval(
+                                            child: snapshot.data![index].ptImgUrl == 'imgurl' ||
+                                                snapshot.data![index].ptImgUrl == null
+                                                ? CircleAvatar(
+                                              radius: 23,
+                                              backgroundColor: Colors.transparent,
+                                              child: Image.asset("images/profilepic.png"),
+                                            )
+                                                : Image.network(
+                                              snapshot.data![index].marketer.imgurl,
+                                              loadingBuilder: (context, child, loadingProgress) {
+                                                if (loadingProgress == null) {
+                                                  return child;
+                                                } else {
+                                                  return Center(
+                                                    child: CircularProgressIndicator(
+                                                      value: loadingProgress.expectedTotalBytes != null
+                                                          ? loadingProgress.cumulativeBytesLoaded /
+                                                          (loadingProgress.expectedTotalBytes ?? 1)
+                                                          : null,
                                                     ),
+                                                  );
+                                                }
+                                              },
+                                              errorBuilder: (context, error, stackTrace) {
+                                                return CircleAvatar(
+                                                  radius: 21,
+                                                  backgroundColor: Colors.transparent,
+                                                  child: Image.asset("images/profilepic.png"),
+                                                );
+                                              },
+                                              fit: BoxFit.cover,
+                                              height: 40,
+                                              width: 40,
+                                            ),
+                                          ),
+                                         // SizedBox(width: AppSize.s15),
+                                          Expanded(
+                                            flex: 3,
+                                            child: Text(
+                                              "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
+                                              textAlign: TextAlign.center,
+                                              style: DocDefineTableData.customTextStyle(context),
+                                            ),
+                                          ),
 
-                                                  ),
-                                                  // SizedBox(width: AppSize.s15),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    children: [
-                                                      InkWell(
-                                                          hoverColor:
-                                                          Colors.transparent,
-                                                          splashColor:
-                                                          Colors.transparent,
-                                                          highlightColor:
-                                                          Colors.transparent,
-                                                          onTap: () {},
-                                                          child: Icon(
-                                                            Icons.phone,
-                                                            color:
-                                                            ColorManager.bluebottom,
-                                                            size: IconSize.I18,
-                                                          )),
-                                                      SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      Text(
-                                                        "Call",
-                                                        style: CustomTextStylesCommon
-                                                            .commonStyle(
-                                                          fontSize: FontSize.s10,
-                                                          fontWeight: FontWeight.w700,
-                                                          color:
-                                                          ColorManager.bluebottom,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  // SizedBox(width: AppSize.s20),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    children: [
-                                                      Image.asset(
-                                                        "images/sm/sm_refferal/Restore.png",
-                                                        height: 16,
-                                                        width: 18,
-                                                        color: ColorManager.bluebottom,
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        "Restore",
-                                                        style: CustomTextStylesCommon
-                                                            .commonStyle(
-                                                          fontSize: FontSize.s10,
-                                                          fontWeight: FontWeight.w700,
-                                                          color:
-                                                          ColorManager.bluebottom,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  //SizedBox(width: AppSize.s18),
-                                                ],
-                                              ))
+                                          // SizedBox(width: AppSize.s15),
+                                          InkWell(
+                                            onTap: () async {
+                                              try {
+                                                onEyeButtonPressed();
+                                                providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
+                                              } catch (e) {
+                                                print("Error: $e");
+                                              }
+                                            },
+                                            child:Container(
+                                              width: AppSize.s20,
+                                              height: AppSize.s25,
+                                              child: SvgPicture.asset(
+                                                'images/sm/sm_refferal/eye.svg',
+                                                height: AppSize.s15,
+                                                width: AppSize.s22,
+                                                color: ColorManager.bluebottom,
+                                              ),
+                                            ),
+
+                                          ),
+                                          SizedBox(width: AppSize.s15),
+                                          Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                  hoverColor:
+                                                  Colors.transparent,
+                                                  splashColor:
+                                                  Colors.transparent,
+                                                  highlightColor:
+                                                  Colors.transparent,
+                                                  onTap: () {},
+                                                  child: Icon(
+                                                    Icons.phone,
+                                                    color:
+                                                    ColorManager.bluebottom,
+                                                    size: IconSize.I18,
+                                                  )),
+                                              SizedBox(
+                                                height: 8,
+                                              ),
+                                              Text(
+                                                "Call",
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight: FontWeight.w700,
+                                                  color:
+                                                  ColorManager.bluebottom,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(width: AppSize.s20),
+                                          Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                "images/sm/sm_refferal/Restore.png",
+                                                height: 16,
+                                                width: 18,
+                                                color: ColorManager.bluebottom,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                "Restore",
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight: FontWeight.w700,
+                                                  color:
+                                                  ColorManager.bluebottom,
+                                                ),
+                                              )
+                                            ],
+                                          )
 
                                           // Expanded(
                                           //   flex: 3,
