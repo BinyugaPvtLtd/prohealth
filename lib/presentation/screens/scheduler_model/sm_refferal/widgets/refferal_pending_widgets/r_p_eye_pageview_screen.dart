@@ -1294,26 +1294,26 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
-                                                        IconButton(
-                                                          onPressed: () {},
-                                                          // {
-                                                          //   showDialog(
-                                                          //     context: context,
-                                                          //     builder: (context) =>
-                                                          //         ManageHistoryPopup(
-                                                          //           docHistory: 'new',//policiesdata.docHistory,
-                                                          //         ),
-                                                          //   );
-                                                          // },
-                                                          icon: Icon(
-                                                            Icons.history,
-                                                            size:IconSize.I22,color: IconColorManager.bluebottom,
-                                                          ),
-                                                          splashColor: Colors.transparent,
-                                                          highlightColor: Colors.transparent,
-                                                          hoverColor: Colors.transparent,
-                                                        ),
-                                                        SizedBox(width: AppSize.s10,),
+                                                        // IconButton(
+                                                        //   onPressed: () {},
+                                                        //   // {
+                                                        //   //   showDialog(
+                                                        //   //     context: context,
+                                                        //   //     builder: (context) =>
+                                                        //   //         ManageHistoryPopup(
+                                                        //   //           docHistory: 'new',//policiesdata.docHistory,
+                                                        //   //         ),
+                                                        //   //   );
+                                                        //   // },
+                                                        //   icon: Icon(
+                                                        //     Icons.history,
+                                                        //     size:IconSize.I22,color: IconColorManager.bluebottom,
+                                                        //   ),
+                                                        //   splashColor: Colors.transparent,
+                                                        //   highlightColor: Colors.transparent,
+                                                        //   hoverColor: Colors.transparent,
+                                                        // ),
+                                                        // SizedBox(width: AppSize.s10,),
                                                         ///print
                                                         IconButton(
                                                           onPressed: () {
@@ -1342,91 +1342,91 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                             iconsize: IconSize.I22,
                                                             documentName: "",//policiesdata.docName!
                                                         ),
-                                                        SizedBox(width: AppSize.s10,),
-                                                        ///edit
-                                                        IconButton(
-                                                          onPressed: (){},
-                                                          //     () {
-                                                          //   showDialog(
-                                                          //     context: context,
-                                                          //     builder: (context) {
-                                                          //       return FutureBuilder<
-                                                          //           MCorporateCompliancePreFillModal>(
-                                                          //         future: getPrefillNewOrgOfficeDocument(
-                                                          //             context,
-                                                          //             policiesdata
-                                                          //                 .orgOfficeDocumentId),
-                                                          //         builder: (context,
-                                                          //             snapshotPrefill) {
-                                                          //           if (snapshotPrefill
-                                                          //               .connectionState ==
-                                                          //               ConnectionState
-                                                          //                   .waiting) {
-                                                          //             return Center(
-                                                          //               child:
-                                                          //               CircularProgressIndicator(
-                                                          //                 color: ColorManager
-                                                          //                     .blueprime,
-                                                          //               ),
-                                                          //             );
-                                                          //           }
-                                                          //
-                                                          //           var calender =
-                                                          //               snapshotPrefill
-                                                          //                   .data!
-                                                          //                   .expiry_date;
-                                                          //           calenderController =
-                                                          //               TextEditingController(
-                                                          //                 text: snapshotPrefill
-                                                          //                     .data!
-                                                          //                     .expiry_date,
-                                                          //               );
-                                                          //           return StatefulBuilder(
-                                                          //             builder: (BuildContext
-                                                          //             context,
-                                                          //                 void Function(void Function())
-                                                          //                 setState) {
-                                                          //               return VCScreenPopupEditConst(
-                                                          //                 fileName: snapshotPrefill
-                                                          //                     .data!
-                                                          //                     .fileName,
-                                                          //                 url: snapshotPrefill.data!.url,
-                                                          //                 expiryDate: snapshotPrefill.data!.expiry_date,
-                                                          //                 title: EditPopupString.editPolicy,
-                                                          //                 loadingDuration: _isLoading,
-                                                          //                 officeId: widget.officeId,
-                                                          //                 docTypeMetaIdCC: widget.docID,
-                                                          //                 selectedSubDocId: widget.subDocID,
-                                                          //                 //orgDocId: manageCCADR.orgOfficeDocumentId,
-                                                          //                 orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
-                                                          //                 orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
-                                                          //                 docName: snapshotPrefill.data!.docName,
-                                                          //                 selectedExpiryType: snapshotPrefill.data!.expType,
-                                                          //                 documentType: AppStringEM.policiesAndProcedures,
-                                                          //                 documentSubType: '',
-                                                          //                 isOthersDocs: snapshotPrefill.data!.isOthersDocs,
-                                                          //                 idOfDoc: snapshotPrefill.data!.idOfDocument,
-                                                          //                 expiryType: snapshotPrefill.data!.expType,
-                                                          //                 threshhold: snapshotPrefill.data!.threshould,
-                                                          //               );
-                                                          //             },
-                                                          //           );
-                                                          //         },
-                                                          //       );
-                                                          //     },
-                                                          //   );
-                                                          // },
-                                                          icon: Icon(
-                                                            Icons.edit_outlined,
-                                                            size:IconSize.I22,color: IconColorManager.bluebottom,
-                                                          ),
-                                                          splashColor:
-                                                          Colors.transparent,
-                                                          highlightColor:
-                                                          Colors.transparent,
-                                                          hoverColor:
-                                                          Colors.transparent,
-                                                        ),
+                                                        // SizedBox(width: AppSize.s10,),
+                                                        // ///edit
+                                                        // IconButton(
+                                                        //   onPressed: (){},
+                                                        //   //     () {
+                                                        //   //   showDialog(
+                                                        //   //     context: context,
+                                                        //   //     builder: (context) {
+                                                        //   //       return FutureBuilder<
+                                                        //   //           MCorporateCompliancePreFillModal>(
+                                                        //   //         future: getPrefillNewOrgOfficeDocument(
+                                                        //   //             context,
+                                                        //   //             policiesdata
+                                                        //   //                 .orgOfficeDocumentId),
+                                                        //   //         builder: (context,
+                                                        //   //             snapshotPrefill) {
+                                                        //   //           if (snapshotPrefill
+                                                        //   //               .connectionState ==
+                                                        //   //               ConnectionState
+                                                        //   //                   .waiting) {
+                                                        //   //             return Center(
+                                                        //   //               child:
+                                                        //   //               CircularProgressIndicator(
+                                                        //   //                 color: ColorManager
+                                                        //   //                     .blueprime,
+                                                        //   //               ),
+                                                        //   //             );
+                                                        //   //           }
+                                                        //   //
+                                                        //   //           var calender =
+                                                        //   //               snapshotPrefill
+                                                        //   //                   .data!
+                                                        //   //                   .expiry_date;
+                                                        //   //           calenderController =
+                                                        //   //               TextEditingController(
+                                                        //   //                 text: snapshotPrefill
+                                                        //   //                     .data!
+                                                        //   //                     .expiry_date,
+                                                        //   //               );
+                                                        //   //           return StatefulBuilder(
+                                                        //   //             builder: (BuildContext
+                                                        //   //             context,
+                                                        //   //                 void Function(void Function())
+                                                        //   //                 setState) {
+                                                        //   //               return VCScreenPopupEditConst(
+                                                        //   //                 fileName: snapshotPrefill
+                                                        //   //                     .data!
+                                                        //   //                     .fileName,
+                                                        //   //                 url: snapshotPrefill.data!.url,
+                                                        //   //                 expiryDate: snapshotPrefill.data!.expiry_date,
+                                                        //   //                 title: EditPopupString.editPolicy,
+                                                        //   //                 loadingDuration: _isLoading,
+                                                        //   //                 officeId: widget.officeId,
+                                                        //   //                 docTypeMetaIdCC: widget.docID,
+                                                        //   //                 selectedSubDocId: widget.subDocID,
+                                                        //   //                 //orgDocId: manageCCADR.orgOfficeDocumentId,
+                                                        //   //                 orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
+                                                        //   //                 orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                        //   //                 docName: snapshotPrefill.data!.docName,
+                                                        //   //                 selectedExpiryType: snapshotPrefill.data!.expType,
+                                                        //   //                 documentType: AppStringEM.policiesAndProcedures,
+                                                        //   //                 documentSubType: '',
+                                                        //   //                 isOthersDocs: snapshotPrefill.data!.isOthersDocs,
+                                                        //   //                 idOfDoc: snapshotPrefill.data!.idOfDocument,
+                                                        //   //                 expiryType: snapshotPrefill.data!.expType,
+                                                        //   //                 threshhold: snapshotPrefill.data!.threshould,
+                                                        //   //               );
+                                                        //   //             },
+                                                        //   //           );
+                                                        //   //         },
+                                                        //   //       );
+                                                        //   //     },
+                                                        //   //   );
+                                                        //   // },
+                                                        //   icon: Icon(
+                                                        //     Icons.edit_outlined,
+                                                        //     size:IconSize.I22,color: IconColorManager.bluebottom,
+                                                        //   ),
+                                                        //   splashColor:
+                                                        //   Colors.transparent,
+                                                        //   highlightColor:
+                                                        //   Colors.transparent,
+                                                        //   hoverColor:
+                                                        //   Colors.transparent,
+                                                        // ),
                                                         SizedBox(width: AppSize.s10,),
                                                         ///delete
                                                         IconButton(

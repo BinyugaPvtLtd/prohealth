@@ -429,7 +429,7 @@ class CustomTitleButtonsm extends StatelessWidget {
         onHover: (bool val) {},
         child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           decoration: isSelected
               ? BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -446,8 +446,8 @@ class CustomTitleButtonsm extends StatelessWidget {
           child: Text(
             text,
             style: CustomTextStylesCommon.commonStyle(
-              fontSize: FontSize.s14,
-              fontWeight: FontWeight.w700,
+              fontSize: FontSize.s13,
+              fontWeight: FontWeight.w600,
               color: isSelected ? ColorManager.white : ColorManager.bluebottom,
             ),
           ),
