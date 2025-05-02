@@ -968,7 +968,7 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
               builder: (context, snapshot) {
                 Widget avatar = CircleAvatar(
                   backgroundColor: Colors.grey[100],
-                  radius: 40,
+                  radius: 20,
                   backgroundImage: const AssetImage("images/profilepic.png"),
                 );
 
@@ -977,7 +977,7 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
                 } else if (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty) {
                   avatar = CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    radius: 40,
+                    radius: 20,
                     backgroundImage: NetworkImage(snapshot.data!.imgUrl),
                   );
                 }

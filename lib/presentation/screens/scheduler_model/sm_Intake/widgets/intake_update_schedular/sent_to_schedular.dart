@@ -41,6 +41,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 75),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 25,),
             ///button
@@ -67,7 +68,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
             SizedBox(
               height: AppSize.s20,
             ),
-            Row(
+            Wrap(
               children: [
                 Text(
                   "Referral Received",
@@ -213,7 +214,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                     padding: const EdgeInsets.only(top: 7.0),
                     child: IntakeContainer(
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                       // padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
                         decoration: BoxDecoration(
                           border:  Border(
                             left: BorderSide(
@@ -229,247 +230,248 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                         ),
                         child: Column(
                           children: [
-                            SizedBox(height: AppSize.s5),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 5.0),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(50),
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: Image.asset(
-                                              'images/hr_dashboard/man.png', // Replace with your image path
-                                              fit: BoxFit.cover,
+                            SizedBox(height: AppSize.s16),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5.0),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(50),
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: Image.asset(
+                                                'images/hr_dashboard/man.png', // Replace with your image path
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 12,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "John Smith",
-                                            textAlign: TextAlign.center,
-                                            style:
-                                                CustomTextStylesCommon.commonStyle(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w600,
-                                              color: ColorManager.mediumgrey,
+                                        SizedBox(
+                                          width: 12,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "John Smith",
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  CustomTextStylesCommon.commonStyle(
+                                                fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w600,
+                                                color: ColorManager.mediumgrey,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            "Intake Date: 09/15/2024",
-                                            textAlign: TextAlign.center,
-                                            style:
-                                                CustomTextStylesCommon.commonStyle(
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              "Intake Date: 09/15/2024",
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  CustomTextStylesCommon.commonStyle(
+                                                fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorManager.mediumgrey,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 3,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "Potential DC Date :",
+                                                  textAlign: TextAlign.center,
+                                                  style: CustomTextStylesCommon
+                                                      .commonStyle(
+                                                    fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  " 11/26/2024",
+                                                  textAlign: TextAlign.center,
+                                                  style: CustomTextStylesCommon
+                                                      .commonStyle(
+                                                    fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child:  Center(
+                                      child: SizedBox(
+                                        width: 120,
+                                        child:Text("Apollo Hospital, Washington DC",
+                                          textAlign: TextAlign.start,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w400,
+                                            color: ColorManager.textBlack,),
+                                        ) ,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.location_on_outlined,
+                                          color: ColorManager.bluebottom,
+                                          size: IconSize.I20,
+                                        ),
+                                       SizedBox(width: 10,),
+                                        Flexible(
+                                          child: Text(
+                                            "132 My Street,Kingston, New York 12401",
+                                           // overflow: TextOverflow.ellipsis,
+                                            style: CustomTextStylesCommon.commonStyle(
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w400,
                                               color: ColorManager.mediumgrey,
                                             ),
                                           ),
-                                          SizedBox(
-                                            height: 3,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "Potential DC Date :",
-                                                textAlign: TextAlign.center,
-                                                style: CustomTextStylesCommon
-                                                    .commonStyle(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: ColorManager.mediumgrey,
-                                                ),
-                                              ),
-                                              Text(
-                                                " 11/26/2024",
-                                                textAlign: TextAlign.center,
-                                                style: CustomTextStylesCommon
-                                                    .commonStyle(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: ColorManager.mediumgrey,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: SizedBox(
-                                    width: 100,
-                                    child: Text(
-                                      "Apollo Hospital, Washington DC",
-                                      textAlign: TextAlign.start,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w500,
-                                        color: ColorManager.textBlack,
-                                      ),
+                                        ),
+                                       // SizedBox(width: AppSize.s35),
+
+                                      ],
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  flex: 4,
-                                  child: Row(
-                                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.location_on_outlined,
-                                        color: ColorManager.bluebottom,
-                                        size: IconSize.I20,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        width: 200,
-                                        child: Text(
-                                          "132 My Street,Kingston, New York 12401",
-                                          textAlign: TextAlign.start,
-                                          style: CustomTextStylesCommon.commonStyle(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w400,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: AppSize.s35),
-                                      Stack(
-                                        children: [
-                                          Container(
-                                            width: AppSize.s60, // Larger than image
-                                            height: AppSize.s60, // Slightly larger height
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                             // color: Colors.grey[200], // Optional background color
-                                              borderRadius: BorderRadius.circular(60),
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(60),
-                                              child: SizedBox(
-                                                width: AppSize.s45,
-                                                height: AppSize.s45,
-                                                child: Image.asset(
-                                                  'images/1.png',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            left: 40, // Adjusted to fit new container size
-                                            bottom: 5,
-                                            child: Container(
-                                              width: 19,
-                                              height: 19,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF527FB9),
-                                                borderRadius: BorderRadius.circular(3),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "ST",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 10,
-                                                    color: ColorManager.white,
-                                                    decoration: TextDecoration.none,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                  Expanded(
+                                    flex: 2,
+                                   child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                                     children: [
+                                       Stack(
+                                         children: [
+                                           Container(
+                                             width: AppSize.s60, // Larger than image
+                                             height: AppSize.s60, // Slightly larger height
+                                             alignment: Alignment.center,
+                                             decoration: BoxDecoration(
+                                               // color: Colors.grey[200], // Optional background color
+                                               borderRadius: BorderRadius.circular(60),
+                                             ),
+                                             child: ClipRRect(
+                                               borderRadius: BorderRadius.circular(60),
+                                               child: SizedBox(
+                                                 width: AppSize.s45,
+                                                 height: AppSize.s45,
+                                                 child: Image.asset(
+                                                   'images/1.png',
+                                                   fit: BoxFit.cover,
+                                                 ),
+                                               ),
+                                             ),
+                                           ),
+                                           Positioned(
+                                             left: 40, // Adjusted to fit new container size
+                                             bottom: 5,
+                                             child: Container(
+                                               width: 19,
+                                               height: 19,
+                                               decoration: BoxDecoration(
+                                                 color: Color(0xFF527FB9),
+                                                 borderRadius: BorderRadius.circular(3),
+                                               ),
+                                               child: Center(
+                                                 child: Text(
+                                                   "ST",
+                                                   style: TextStyle(
+                                                     fontWeight: FontWeight.w400,
+                                                     fontSize: 10,
+                                                     color: ColorManager.white,
+                                                     decoration: TextDecoration.none,
+                                                   ),
+                                                 ),
+                                               ),
+                                             ),
+                                           ),
+                                         ],
+                                       ),
 
 
-                                      // Stack(
-                                      //   children: [
-                                      //     ClipRRect(
-                                      //       borderRadius: BorderRadius.circular(60),
-                                      //       child: SizedBox(
-                                      //         width: AppSize.s45,
-                                      //         height: AppSize.s40,
-                                      //         child: Image.asset(
-                                      //           'images/1.png', // Replace with your image path
-                                      //           fit: BoxFit.cover,
-                                      //         ),
-                                      //       ),
-                                      //     ),
-                                      //     Positioned(
-                                      //       left: 22,
-                                      //       bottom: 1,
-                                      //       child: Container(
-                                      //         width: 19,
-                                      //         height: 19,
-                                      //         decoration: BoxDecoration(
-                                      //             color: Color(0xFF527FB9),
-                                      //             borderRadius:
-                                      //             BorderRadius.circular(3)),
-                                      //         child: Center(
-                                      //           child: Text(
-                                      //             "ST",
-                                      //             style: TextStyle(
-                                      //               fontWeight: FontWeight.w400,
-                                      //               fontSize: 10,
-                                      //               color: ColorManager.white,
-                                      //               decoration: TextDecoration.none,
-                                      //             ),
-                                      //           ),
-                                      //         ),
-                                      //       ),
-                                      //     )
-                                      //   ],
-                                      // ),
-                                      SizedBox(width: AppSize.s12),
-                                      Text(
-                                        'James',
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.textBlack,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                               // SizedBox(width: AppSize.s12),
-                                Expanded(
-                                  flex: 4,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                       // Stack(
+                                       //   children: [
+                                       //     ClipRRect(
+                                       //       borderRadius: BorderRadius.circular(60),
+                                       //       child: SizedBox(
+                                       //         width: AppSize.s45,
+                                       //         height: AppSize.s40,
+                                       //         child: Image.asset(
+                                       //           'images/1.png', // Replace with your image path
+                                       //           fit: BoxFit.cover,
+                                       //         ),
+                                       //       ),
+                                       //     ),
+                                       //     Positioned(
+                                       //       left: 22,
+                                       //       bottom: 1,
+                                       //       child: Container(
+                                       //         width: 19,
+                                       //         height: 19,
+                                       //         decoration: BoxDecoration(
+                                       //             color: Color(0xFF527FB9),
+                                       //             borderRadius:
+                                       //             BorderRadius.circular(3)),
+                                       //         child: Center(
+                                       //           child: Text(
+                                       //             "ST",
+                                       //             style: TextStyle(
+                                       //               fontWeight: FontWeight.w400,
+                                       //               fontSize: 10,
+                                       //               color: ColorManager.white,
+                                       //               decoration: TextDecoration.none,
+                                       //             ),
+                                       //           ),
+                                       //         ),
+                                       //       ),
+                                       //     )
+                                       //   ],
+                                       // ),
+                                       SizedBox(width: AppSize.s12),
+                                       Text(
+                                         'James',
+                                         style: CustomTextStylesCommon.commonStyle(
+                                           fontSize: FontSize.s12,
+                                           fontWeight: FontWeight.w400,
+                                           color: ColorManager.textBlack,
+                                         ),
+                                       ),
+                                     ],
+                                   ),
+                                 ),
+                                 // SizedBox(width: AppSize.s12),
+                                  Expanded(
+                                    flex: 4,
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Padding(
@@ -539,38 +541,41 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                         // //     color: ColorManager.EMbrightred,),
                                         // // ),
                                         //
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          onTap: _toggleChatbotVisibility,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              // SizedBox(height: 3,),
-                                              Image.asset(
-                                                  "images/sm/contact_icon.png",
-                                                  height: 25),
-                                              SizedBox(
-                                                height: 6,
-                                              ),
-                                              Text(
-                                                "Contact",
-                                                style: TextStyle(
-                                                  fontSize: FontSize.s11,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(0xFF2F6D8A),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            onTap: _toggleChatbotVisibility,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                // SizedBox(height: 3,),
+                                                Image.asset(
+                                                    "images/sm/contact_icon.png",
+                                                    height: 25),
+                                                SizedBox(
+                                                  height: 6,
                                                 ),
-                                              )
-                                            ],
+                                                Text(
+                                                  "Contact",
+                                                  style: TextStyle(
+                                                    fontSize: FontSize.s11,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Color(0xFF2F6D8A),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             SizedBox(height: AppSize.s5),
                           ],

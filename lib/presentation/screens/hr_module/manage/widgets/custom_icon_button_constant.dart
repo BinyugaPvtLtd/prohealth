@@ -429,7 +429,7 @@ class CustomTitleButtonsm extends StatelessWidget {
         onHover: (bool val) {},
         child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           decoration: isSelected
               ? BoxDecoration(
             borderRadius: BorderRadius.circular(12),

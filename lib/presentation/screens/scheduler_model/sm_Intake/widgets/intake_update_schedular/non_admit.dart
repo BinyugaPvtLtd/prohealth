@@ -40,6 +40,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
           Padding(
           padding: const EdgeInsets.symmetric(horizontal: 75),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 25,),
               ///button
@@ -59,7 +60,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                 ],
               ),
               SizedBox(height: AppSize.s20,),
-              Row(
+              Wrap(
                 children: [
                   Text("Referral Received", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
                   SizedBox(width: AppSize.s10,),
@@ -224,163 +225,258 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                             ),
                                             Expanded(
                                               flex: 2,
-                                              child:  Padding(
-                                                padding: const EdgeInsets.only(left: 10),
-                                                child: SizedBox(
-                                                  width: 100,
-                                                  child:Text("Apollo Hospital, Washington DC",
-                                                    textAlign: TextAlign.start,
-                                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: ColorManager.textBlack,),
-                                                  ) ,
-                                                ),
-                                              ),
+                                              child:  Center(
+                                              child: SizedBox(
+                                              width: 120,
+                                              child:Text("Apollo Hospital, Washington DC",
+                                                textAlign: TextAlign.start,
+                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: ColorManager.textBlack,),
+                                              ) ,
+                                            ),
+                                      ),
 
                                             ),
-                                          SizedBox(width: 10,),
+                                        //  SizedBox(width: 10,),
                                             Expanded(
-                                              flex: 6,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                              flex: 5,
+                                              child:  Wrap(
+                                                spacing: 15,
+
                                                 children: [
-
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(top:5.0,left: 15),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      children: [
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Demographics"),
-                                                        SizedBox(width: 20,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Documentation"),
-                                                        SizedBox(width: 20,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Insurance"),
-                                                        SizedBox(width: 20,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Physician Info"),
-                                                        SizedBox(width: 20,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Orders"),
-                                                        SizedBox(width: 20,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Initial Contact"),
-
-                                                      ],
-
-                                                    ),
-                                                  ),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Demographics"),
                                                   // SizedBox(width: 15,),
-                                                  // InkWell(
-                                                  //   child: SvgPicture.asset("images/sm/contact_sv.svg",
-                                                  //     height: 30,width: 20,
-                                                  //   ),
-                                                  //   onTap: provider._toggleChatbotVisibility,
-                                                  // )
-                                                  ///
-                                                  ///
-                                                  // Column(
-                                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                                  //   children: [
-                                                  //     Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
-                                                  //     SizedBox(height: 8,),
-                                                  //     Text("Update",
-                                                  //       style: TextStyle(
-                                                  //         fontSize: FontSize.s11,
-                                                  //         fontWeight: FontWeight.w600,
-                                                  //         color: Color(0xFF2F6D8A),
-                                                  //       ),)
-                                                  //   ],
-                                                  // ),
-                                                  // SizedBox(width: AppSize.s20,),
-                                                  // Column(
-                                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                                  //   children: [
-                                                  //     SizedBox(height: 3,),
-                                                  //     Image.asset("images/sm/move_to_s.png",height: 20,width: 20,),
-                                                  //     SizedBox(height: 8,),
-                                                  //     Text(" Move to\nScheduler",
-                                                  //       style: TextStyle(
-                                                  //         fontSize: FontSize.s11,
-                                                  //         fontWeight: FontWeight.w600,
-                                                  //         color: Color(0xFF2F6D8A),
-                                                  //       ),)
-                                                  //   ],
-                                                  // ),
-                                                  // SizedBox(width: AppSize.s20,),
-                                                  // Column(
-                                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                                  //   children: [
-                                                  //     Icon(Icons.block,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
-                                                  //     SizedBox(height: 8,),
-                                                  //     Text("Non-Admit",
-                                                  //       style: TextStyle(
-                                                  //         fontSize: FontSize.s11,
-                                                  //         fontWeight: FontWeight.w600,
-                                                  //          color: Color(0xFF2F6D8A),
-                                                  //       ),)
-                                                  //   ],
-                                                  // )
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Documentation"),
+                                                  //  SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Insurance"),
+                                                  // SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Physician Info"),
+                                                  //  SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Orders"),
+                                                  // SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Initial Contact"),
 
                                                 ],
-                                              ),
-                                            ),
-                                            // SizedBox(width: 20,),
 
-                                            // Expanded(
-                                            //   flex: 1,
-                                            //   child:SizedBox()
-                                            //   // InkWell(
-                                            //   //   onTap: (){},
-                                            //   //   child:Column(
-                                            //   //     mainAxisAlignment: MainAxisAlignment.center,
-                                            //   //     children: [
-                                            //   //       Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
-                                            //   //       SizedBox(height: 8,),
-                                            //   //       Text("Update",
-                                            //   //         style: TextStyle(
-                                            //   //           fontSize: FontSize.s11,
-                                            //   //           fontWeight: FontWeight.w600,
-                                            //   //           color: Color(0xFF2F6D8A),
-                                            //   //         ),)
-                                            //   //     ],
-                                            //   //   ),
-                                            //   // ),
-                                            // ),
+                                                // children: [
+                                                //   Padding(
+                                                //     padding: const EdgeInsets.only(top:30.0),
+                                                //     child: Row(
+                                                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                //       crossAxisAlignment: CrossAxisAlignment.center,
+                                                //       children: [
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Demographics"),
+                                                //        // SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Documentation"),
+                                                //       //  SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Insurance"),
+                                                //        // SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Physician Info"),
+                                                //       //  SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Orders"),
+                                                //        // SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Initial Contact"),
+                                                //
+                                                //       ],
+                                                //
+                                                //     ),
+                                                //   ),
+                                                // ],
+                                              ),
+                                              // Row(
+                                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              //   crossAxisAlignment: CrossAxisAlignment.center,
+                                              //   children: [
+                                              //
+                                              //     Padding(
+                                              //       padding: const EdgeInsets.only(top:5.0,left: 15),
+                                              //       child: Row(
+                                              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              //         crossAxisAlignment: CrossAxisAlignment.center,
+                                              //         children: [
+                                              //           SMDashboardMenuButtons(
+                                              //               onTap: (int index) {
+                                              //                 //_selectButton(index);
+                                              //               },
+                                              //               index: 0,
+                                              //               grpIndex: 0,
+                                              //               heading: "Demographics"),
+                                              //           SizedBox(width: 20,),
+                                              //           SMDashboardMenuButtons(
+                                              //               onTap: (int index) {
+                                              //                 //_selectButton(index);
+                                              //               },
+                                              //               index: 0,
+                                              //               grpIndex: 0,
+                                              //               heading: "Documentation"),
+                                              //           SizedBox(width: 20,),
+                                              //           SMDashboardMenuButtons(
+                                              //               onTap: (int index) {
+                                              //                 //_selectButton(index);
+                                              //               },
+                                              //               index: 0,
+                                              //               grpIndex: 0,
+                                              //               heading: "Insurance"),
+                                              //           SizedBox(width: 20,),
+                                              //           SMDashboardMenuButtons(
+                                              //               onTap: (int index) {
+                                              //                 //_selectButton(index);
+                                              //               },
+                                              //               index: 0,
+                                              //               grpIndex: 0,
+                                              //               heading: "Physician Info"),
+                                              //           SizedBox(width: 20,),
+                                              //           SMDashboardMenuButtons(
+                                              //               onTap: (int index) {
+                                              //                 //_selectButton(index);
+                                              //               },
+                                              //               index: 0,
+                                              //               grpIndex: 0,
+                                              //               heading: "Orders"),
+                                              //           SizedBox(width: 20,),
+                                              //           SMDashboardMenuButtons(
+                                              //               onTap: (int index) {
+                                              //                 //_selectButton(index);
+                                              //               },
+                                              //               index: 0,
+                                              //               grpIndex: 0,
+                                              //               heading: "Initial Contact"),
+                                              //
+                                              //         ],
+                                              //
+                                              //       ),
+                                              //     ),
+                                              //     // SizedBox(width: 15,),
+                                              //     // InkWell(
+                                              //     //   child: SvgPicture.asset("images/sm/contact_sv.svg",
+                                              //     //     height: 30,width: 20,
+                                              //     //   ),
+                                              //     //   onTap: provider._toggleChatbotVisibility,
+                                              //     // )
+                                              //     ///
+                                              //     ///
+                                              //     // Column(
+                                              //     //   mainAxisAlignment: MainAxisAlignment.center,
+                                              //     //   children: [
+                                              //     //     Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
+                                              //     //     SizedBox(height: 8,),
+                                              //     //     Text("Update",
+                                              //     //       style: TextStyle(
+                                              //     //         fontSize: FontSize.s11,
+                                              //     //         fontWeight: FontWeight.w600,
+                                              //     //         color: Color(0xFF2F6D8A),
+                                              //     //       ),)
+                                              //     //   ],
+                                              //     // ),
+                                              //     // SizedBox(width: AppSize.s20,),
+                                              //     // Column(
+                                              //     //   mainAxisAlignment: MainAxisAlignment.center,
+                                              //     //   children: [
+                                              //     //     SizedBox(height: 3,),
+                                              //     //     Image.asset("images/sm/move_to_s.png",height: 20,width: 20,),
+                                              //     //     SizedBox(height: 8,),
+                                              //     //     Text(" Move to\nScheduler",
+                                              //     //       style: TextStyle(
+                                              //     //         fontSize: FontSize.s11,
+                                              //     //         fontWeight: FontWeight.w600,
+                                              //     //         color: Color(0xFF2F6D8A),
+                                              //     //       ),)
+                                              //     //   ],
+                                              //     // ),
+                                              //     // SizedBox(width: AppSize.s20,),
+                                              //     // Column(
+                                              //     //   mainAxisAlignment: MainAxisAlignment.center,
+                                              //     //   children: [
+                                              //     //     Icon(Icons.block,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
+                                              //     //     SizedBox(height: 8,),
+                                              //     //     Text("Non-Admit",
+                                              //     //       style: TextStyle(
+                                              //     //         fontSize: FontSize.s11,
+                                              //     //         fontWeight: FontWeight.w600,
+                                              //     //          color: Color(0xFF2F6D8A),
+                                              //     //       ),)
+                                              //     //   ],
+                                              //     // )
+                                              //
+                                              //   ],
+                                              // ),
+                                            ),
+
+
+
                                             Expanded(
                                               flex: 2,
                                               child: Row(
@@ -428,26 +524,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                 ],
                                               ),
                                             ),
-                                            //SizedBox(width: 20,),
-                                            // Expanded(
-                                            //   flex: 1,
-                                            //   child: InkWell(
-                                            //       onTap: (){},
-                                            //       child:Column(
-                                            //         mainAxisAlignment: MainAxisAlignment.center,
-                                            //         children: [
-                                            //           Image.asset("images/sm/left_bottom.png",height: 20,width: 20,),
-                                            //           SizedBox(height: 8,),
-                                            //           Text("Restore",
-                                            //             style: TextStyle(
-                                            //               fontSize: FontSize.s11,
-                                            //               fontWeight: FontWeight.w600,
-                                            //               color: Color(0xFF2F6D8A),
-                                            //             ),)
-                                            //         ],
-                                            //       )
-                                            //   ),
-                                            // ),
+
 
 
                                           ],),
