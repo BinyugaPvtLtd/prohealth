@@ -168,7 +168,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                          children: [
                                            IconButton(
                                              icon: Icon(
-                                                 size:  providerState.isContactTrue ?15 :25,
+                                                 size:  providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
                                                  Icons.history,
                                                  color: ColorManager.granitegray
                                              ),
@@ -176,12 +176,12 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                            ),
                                            providerState.isContactTrue ?SizedBox(width: 3) :  SizedBox(width: 20),
                                            InkWell(
-                                             child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ?15 :25,)
+                                             child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ?IconSize.I18 :IconSize.I24,)
                                              ,onTap:(){},),
                                            providerState.isContactTrue ?SizedBox(width: 3) :  SizedBox(width: 20),
                                            IconButton(
                                                icon: Icon(
-                                                   size: providerState.isContactTrue ?15 :25,
+                                                   size: providerState.isContactTrue ?IconSize.I18 :IconSize.I24,
                                                    Icons.print_outlined,
                                                    color:  ColorManager.granitegray
                                                ),
@@ -191,7 +191,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                            //SizedBox(width: MediaQuery.of(context).size.width / 120),
                                            IconButton(
                                              icon: Icon(
-                                               size: providerState.isContactTrue ?15 :25,
+                                               size: providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
                                                Icons.file_download_outlined,
                                                color: Color(0xff686464),
                                              ),
@@ -204,7 +204,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                              },
                                              icon: Icon(
                                                Icons.delete_outline,
-                                               size: providerState.isContactTrue ? 15 :25,
+                                               size: providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
                                                color: Color(0xff686464),
                                              ),
                                            ),
@@ -364,7 +364,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                           children: [
                                             IconButton(
                                               icon: Icon(
-                                                  size:  providerState.isContactTrue ?15 :25,
+                                                  size:  providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
                                                   Icons.history,
                                                   color: ColorManager.granitegray
                                               ),
@@ -372,12 +372,12 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                             ),
                                             providerState.isContactTrue ?SizedBox(width: 3) :  SizedBox(width: 20),
                                             InkWell(
-                                              child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ?15 :25,)
+                                              child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ? IconSize.I18 :IconSize.I24,)
                                               ,onTap:(){},),
                                             providerState.isContactTrue ?SizedBox(width: 3) :  SizedBox(width: 20),
                                             IconButton(
                                                 icon: Icon(
-                                                    size: providerState.isContactTrue ?15 :25,
+                                                    size: providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
                                                     Icons.print_outlined,
                                                     color:  ColorManager.granitegray
                                                 ),
@@ -387,7 +387,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                             //SizedBox(width: MediaQuery.of(context).size.width / 120),
                                             IconButton(
                                               icon: Icon(
-                                                size: providerState.isContactTrue ?15 :25,
+                                                size: providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
                                                 Icons.file_download_outlined,
                                                 color: Color(0xff686464),
                                               ),
@@ -400,7 +400,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                               },
                                               icon: Icon(
                                                 Icons.delete_outline,
-                                                size: providerState.isContactTrue ? 15 :25,
+                                                size: providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
                                                 color: Color(0xff686464),
                                               ),
                                             ),

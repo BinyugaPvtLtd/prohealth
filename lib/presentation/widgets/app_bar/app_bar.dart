@@ -23,8 +23,9 @@ class ApplicationAppBar extends StatelessWidget {
 
 /// Sm App Bar
 class ApplicationSMAppBar extends StatelessWidget {
-  const ApplicationSMAppBar({super.key, required this.headingText});
+  const ApplicationSMAppBar({super.key, required this.headingText,required this.body,});
   final String headingText;
+  final List<Widget> body;
 
 
   @override
@@ -32,7 +33,8 @@ class ApplicationSMAppBar extends StatelessWidget {
     return ResponsiveAppBar(
         mobile: const AppBarMobile(),
         web: SmAppBar(
-          headingText: headingText,
+          headingText: headingText, body: body,
+
         ),
         tablet: const AppBarTab());
   }

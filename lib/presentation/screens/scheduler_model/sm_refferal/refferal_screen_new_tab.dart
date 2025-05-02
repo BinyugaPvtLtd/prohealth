@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widge
 import 'package:provider/provider.dart';
 //import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
 
+import '../../../../app/resources/provider/sm_provider/sm_integration_provider.dart';
 import '../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../sm_Intake/intake_main_screen.dart';
@@ -59,15 +60,20 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
   @override
   Widget build(BuildContext context) {
     final providerState = Provider.of<SmIntakeProviderManager>(context, listen: false);
+    final providerReferrals = Provider.of<SmIntegrationProviderManager>(context,listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: isShowingReferalEyePageview ?
       ReferalPendingEyePageview(onGoBackPressed: (){
         goBackToInitialScreen();
+        providerReferrals.passPatientIdClear();
         providerState.toogleEyeScreenProvider();
         },) :
       isShowingMergeDuplicatePageview ?
-          RPMergeDuplicateScreen(onMergeBackPressed: goBackToInitialRPendingScreen) :
+          RPMergeDuplicateScreen(onMergeBackPressed: (){
+            goBackToInitialRPendingScreen();
+            providerReferrals.passPatientIdClear();
+          }) :
       Column(
         children: [
           /// Tab bar

@@ -387,74 +387,9 @@ class _CalenderConstantState extends State<CalenderConstant> {
   @override
   void initState() {
     super.initState();
-    fetchAndSetEvents(context, 134); // Assuming clinicianId is 134 for demonstration purposes
   }
   List<CalendarEventData> allEvents = [];
   Map<CalendarEventData, int> eventSchedulerMap = {}; // Map to store the event and schedulerId
-  Future<void> fetchAndSetEvents(BuildContext context, int clinicianId) async {
-    SchedularData schedularData = await getSchedularByClinitian(context: context, clinicialId: 134);
-    if (schedularData != null && schedularData.calender != null) {
-      var assignedDate;
-      DateTime staticStartTime1 = DateTime(2024, 8, 29, 01, 00); // August 20, 2024, 10:00 AM
-      //DateTime staticEndTime = DateTime(2024, 8, 29, 02, 30);
-
-      for (var calendarItem in schedularData.calender) {
-        var date = DateTime.parse(calendarItem.assignDate);
-        assignedDate =  DateFormat('yyyy, MM, dd').format(date);
-        DateTime startTime = DateTime.parse(calendarItem.startTime);
-        DateTime endTime = DateTime.parse(calendarItem.endTime);
-        DateTime assignStartTime = DateTime(date.year, date.month, date.day, startTime.hour,startTime.minute);
-        DateTime assignendTime = DateTime(date.year, date.month, date.day, endTime.hour,endTime.minute);
-        var formatedStartTime = DateFormat('yyyy, MM, dd, HH, mm').format(assignStartTime);
-        var formatedEndTime = DateFormat('yyyy, MM, dd, HH, mm').format(assignendTime);
-        List<String> endTimeParts = formatedEndTime.split(', ');
-        List<String> startTimeParts = formatedStartTime.split(', ');
-        int startTimeYear = int.parse(startTimeParts[0]);
-        int startTimeMonth = int.parse(startTimeParts[1]);
-        int startTimeDay = int.parse(startTimeParts[2]);
-        int startTimeHour = int.parse(startTimeParts[3]);
-        int startTimeMinute = int.parse(startTimeParts[4]);
-
-        int endTimeYear = int.parse(endTimeParts[0]);
-        int endTimeMonth = int.parse(endTimeParts[1]);
-        int endTimeDay = int.parse(endTimeParts[2]);
-        int endTimeHour = int.parse(endTimeParts[3]);
-        int endTimeMinute = int.parse(endTimeParts[4]);
-        DateTime staticStartTime = DateTime(startTimeYear, startTimeMonth, startTimeDay, startTimeHour, startTimeMinute);
-        DateTime staticendTime = DateTime(endTimeYear, endTimeMonth, endTimeDay, endTimeHour, endTimeMinute);
-        print("Formated Date ${staticendTime}");
-        print('static date ${staticStartTime1}');
-
-        // Create CalendarEventData for each event
-        CalendarEventData event = CalendarEventData(
-          title: calendarItem.visitType,
-          description: calendarItem.details,
-          date: date,
-          startTime: staticStartTime,
-          endTime: staticendTime,
-        );
-
-        eventController.add(event);
-        eventSchedulerMap[event] = calendarItem.schedulerCreateId;
-        print('EventController ${eventController}');
-        print('Event ${event.title} has schedulerId ${calendarItem.schedulerCreateId}');
-
-        print("Event ${eventController.allEvents}");
-        try{
-          //CalendarControllerProvider.of(context).controller.add(eventData);
-          print(allEvents.length);
-          //allEvents.add(eventData);
-        }catch(e){
-          print(e);
-        }
-      }
-      print("Eventes ${allEvents}");
-
-     
-    } else {
-      print("No events found or data is null.");
-    }
-  }
   TextEditingController ctlrdetails = TextEditingController();
   TextEditingController ctlrassignedate = TextEditingController();
   TextEditingController ctlrstarttime = TextEditingController();
@@ -1022,76 +957,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
             return const SizedBox();
           },
         ),
-        onPressed: () async {
-          print('Assign Date  ${ctlrassignedate.text}');
-          print('Assign Start Time ${ctlrstarttime.text}');
-          print('Assign End Time ${ctlrendtime.text}');
-          var response = await SchedulerCreate(
-              context: context,
-              patientId: 1,
-              clinicianId: 134,
-              visitType: docAddVisitType.toString(),
-              assignDate: ctlrassignedate.text,
-              startTime: ctlrstarttime.text,
-              endTime: ctlrendtime.text,
-              details: ctlrdetails.text
-          );
-          if(response.statusCode == 200 || response.statusCode == 201){
-            fetchAndSetEvents(context, 134);
-            Navigator.pop(context);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0), // Rounded corners
-                  ),
-                  child: Container(
-                    height: 270,
-                    width: 300,
-                    padding: EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0), // Rounded corners
-                      color: Colors.white, // Background color
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Icon(
-                          Icons.check_circle_outline,
-                          color: Color(0xFF50B5E5),
-                          size: 80.0,
-                        ),
-                        SizedBox(height: 20.0),
-                        Text(
-                          "Successfully Add !",
-                          style: CustomTextStylesCommon.commonStyle(
-                              fontSize: 16.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: 30.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            CustomButton(
-                                height: 30,
-                                width: 130,
-                                text: 'Continue',
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                })
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          }
-        }, );
+        onPressed: (){});
       },
     );
   }

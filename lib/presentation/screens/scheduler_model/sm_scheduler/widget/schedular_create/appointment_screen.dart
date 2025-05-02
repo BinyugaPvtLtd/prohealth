@@ -1,17 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/sm_module_manager/scheduler/scheduler_create_manager.dart';
 import 'package:prohealth/data/api_data/sm_data/scheduler_create_data/schedular_data.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular_create/widget/calender_const.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/button_constant.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../app/resources/color.dart';
-import '../schedular/sm_scheduler_screen_const.dart';
 
 class SmProfileBar extends StatefulWidget {
   final VoidCallback onBack;
@@ -30,11 +24,6 @@ StreamController<SchedularData>();
       child: StreamBuilder<SchedularData>(
         stream: _schedulerController.stream,
         builder: (context,snapshot) {
-          getSchedularByClinitian(context: context, clinicialId: 134).then((data) {
-            _schedulerController.add(data);
-          }).catchError((error) {
-// Handle error
-          });
           if(snapshot.connectionState == ConnectionState.waiting){
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 150),

@@ -21,7 +21,6 @@ import '../../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/refe
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../intake_flow_contgainer_const.dart';
-import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakePrimaryScreen extends StatelessWidget {
   final int patientId;

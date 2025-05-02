@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../../../app/resources/color.dart';
-import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -48,7 +46,6 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
               Row(
                 children: [
                   CustomSearchFieldSM(
-                    width: 430,
                     onPressed: (){},
                   ),
                   SizedBox(width: 20,),

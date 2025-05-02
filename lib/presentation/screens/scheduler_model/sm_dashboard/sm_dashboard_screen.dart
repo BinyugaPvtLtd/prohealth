@@ -2,21 +2,15 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/chart.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sm_const_widgets.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sm_dash_graph_data.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sm_dashboard_const.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
-import '../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../app/resources/font_manager.dart';
-import '../../../../app/resources/hr_resources/hr_theme_manager.dart';
-import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
-import '../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
-import '../sm_Intake/widgets/intake_update_schedular/information_update.dart';
 import '../widgets/sm_desktop_screen.dart';
 
 class SMDashboardScreen extends StatefulWidget {

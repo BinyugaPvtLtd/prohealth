@@ -399,3 +399,60 @@ class DZoneButton extends StatelessWidget {
   }
 }
 
+
+
+
+///sm
+class CustomTitleButtonsm extends StatelessWidget {
+  final double height;
+  final double width;
+  final VoidCallback onPressed;
+  final String text;
+  final bool isSelected;
+
+  CustomTitleButtonsm({
+    required this.height,
+    required this.width,
+    required this.onPressed,
+    required this.text,
+    required this.isSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: isSelected ? 4 : 0,
+      borderRadius: BorderRadius.circular(12),
+      color: ColorManager.white,
+      child: AppClickableWidget(
+        onTap: onPressed,
+        onHover: (bool val) {},
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: isSelected
+              ? BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xff51B5E6),
+                Color(0xff008ABD),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          )
+              : null,
+          child: Text(
+            text,
+            style: CustomTextStylesCommon.commonStyle(
+              fontSize: FontSize.s14,
+              fontWeight: FontWeight.w700,
+              color: isSelected ? ColorManager.white : ColorManager.bluebottom,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1431,7 +1431,7 @@ SizedBox(width: AppSize.s10,),
                                 ),
                                 CustomCheckBoxListTile(
                                   bold: false,
-                                  title: '8 - Private insurance',
+                                  title: '8 - Private refferals_manager',
                                   isChecked: admincheckboxController.eight,
                                   onChanged: (value) {
                                     admincheckboxController.toggleCheckeight(value);

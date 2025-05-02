@@ -542,7 +542,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                     child: Container(
                       width: 250,
                       margin: EdgeInsets.only(right: 20),
-                      padding: EdgeInsets.all(5),
+                      padding: EdgeInsets.only(left: 5,right: 8,top: 5,bottom: 5),
                       decoration: BoxDecoration(
                         border: Border.all(color: ColorManager.bluebottom,width: 2),
                         borderRadius: BorderRadius.circular(12),
@@ -594,7 +594,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                             fontSize: FontSize.s12, fontWeight: FontWeight.w700),
                                       ),
                                       SizedBox(height: 10,),
-                                      Text("Available (22/25)",
+                                      Text("Available (22 / 25)",
                                         style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
                                             fontSize: FontSize.s12, fontWeight: FontWeight.w600),),
                                       SizedBox(height: 10,),
@@ -612,6 +612,9 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               InkWell(
+                                hoverColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 child: Image.asset("images/sm/contact_text.png",height: 35,)
                                 ,onTap: (){},),
                               SizedBox(width: 50,),
@@ -828,8 +831,6 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
         )
             : Expanded(
               child: Container(
-                       // height: 500,
-                        padding: EdgeInsets.symmetric(horizontal: 16),
                         child: SingleChildScrollView(
                           child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -877,9 +878,9 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               itemCount: 4,
                                               itemBuilder: (context, index) {
                                                 return Container(
-                          width: 250,
+                          width: 270,
                           margin: EdgeInsets.only(right: 20),
-                          padding: EdgeInsets.all(5),
+                          padding: EdgeInsets.only(left: 5, right: 8, top: 5,bottom: 5),
                           decoration: BoxDecoration(
                             border: Border.all(color: ColorManager.bluebottom,width: 2),
                             borderRadius: BorderRadius.circular(12),
@@ -905,18 +906,53 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                       Column(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(60),
-                                            child: SizedBox(
-                                              width: AppSize.s45,
-                                              height: AppSize.s50,
-                                              child: Image.asset(
-                                                'images/1.png', // Replace with your image path
-                                                fit: BoxFit.cover,
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: AppSize.s60, // Larger than image
+                                                height: AppSize.s60, // Slightly larger height
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  // color: Colors.grey[200], // Optional background color
+                                                  borderRadius: BorderRadius.circular(60),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(60),
+                                                  child: SizedBox(
+                                                    width: AppSize.s45,
+                                                    height: AppSize.s45,
+                                                    child: Image.asset(
+                                                      'images/1.png',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                              Positioned(
+                                                left: 40, // Adjusted to fit new container size
+                                                bottom: 5,
+                                                child: Container(
+                                                  width: 19,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFF527FB9),
+                                                    borderRadius: BorderRadius.circular(3),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "ST",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 10,
+                                                        color: ColorManager.white,
+                                                        decoration: TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          SizedBox(height: 2,),
                                           Text('Salaried', style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
                                               fontSize: FontSize.s12, fontWeight: FontWeight.w700),)
                                         ],
@@ -945,16 +981,19 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                   ),
                                 ],
                               ),
-                                        
+                                      SizedBox(height: 4,),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 8,),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     InkWell(
-                                      child: Image.asset("images/sm/contact_text.png",height: 35,)
+                                      hoverColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      child: Image.asset("images/sm/contact_icon.png",height: 20,)
                                       ,onTap: (){},),
-                                    //SizedBox(width: 50,),
+                                   SizedBox(width: 20,),
                                     Text(
                                       "Accepted",
                                       style: CustomTextStylesCommon.commonStyle(
@@ -962,23 +1001,28 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                           fontSize: FontSize.s14,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          isAssigned = true;
-                                        });
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: ColorManager.bluebottom,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20),
+                                  //  SizedBox(width: 20,),
+                                    Container(
+                                      height: 25,
+                                      width:100,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            isAssigned = true;
+                                          });
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: ColorManager.bluebottom,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                          ),
+                                        //  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12), // optional
                                         ),
-                                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12), // optional
+                                        child: Text("Assign",  style: CustomTextStylesCommon.commonStyle(
+                                            color: ColorManager.white,
+                                            fontSize: FontSize.s14,
+                                            fontWeight: FontWeight.w600),),
                                       ),
-                                      child: Text("Assign",  style: CustomTextStylesCommon.commonStyle(
-                                          color: ColorManager.white,
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeight.w600),),
                                     ),
                                   ],
                                 ),
@@ -989,13 +1033,16 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               },
                                             ),
                                           ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            "Notes to Clinician",
-                                            style: CustomTextStylesCommon.commonStyle(
-                                                color: ColorManager.mediumgrey,
-                                                fontSize: FontSize.s14,
-                                                fontWeight: FontWeight.w600),
+                                          SizedBox(height:20),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10),
+                                            child: Text(
+                                              "Notes to Clinician",
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                  color: ColorManager.mediumgrey,
+                                                  fontSize: FontSize.s14,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
                                           ),
                                           SizedBox(height: 10),
                                           Container(
@@ -1006,15 +1053,15 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               borderRadius: BorderRadius.circular(5),
                                             ),
                                             child: TextFormField(
-                                              autofocus: true,
-                                              enabled: true ,
+                                              autofocus: false,
+                                              enabled: false ,
                                               controller: firstNameController,
                                               cursorColor: Colors.black,
                                               autovalidateMode: AutovalidateMode.onUserInteraction,
                                               decoration: InputDecoration(
                                                 hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
                                                 border: InputBorder.none,
-                                                contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 10),
+                                                contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
                                               ),
                                               style: TableSubHeading.customTextStyle(context),
                                               //validator: widget.validator,
@@ -1023,7 +1070,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               // onTap: widget.onChange,
                                             ),
                                           ),
-                                          SizedBox(height: 10),
+                                          SizedBox(height: 20),
                                           CustomeTransparentAddShift(
                                               width: 130,
                                               height: 30,

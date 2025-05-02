@@ -1,24 +1,16 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/request_log.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../../app/resources/color.dart';
-import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
-import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
-import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../../textfield_dropdown_constant/chatbotContainer.dart';
-import '../../../../widgets/constant_widgets/button_constant.dart';
 import '../sm_scheduler_screen_const.dart';
 
 class PendingPageView extends StatefulWidget {
@@ -78,7 +70,6 @@ class _PendingPageViewState extends State<PendingPageView> {
                       children: [
 
                         CustomSearchFieldSM(
-                          width: 490,
                           onPressed: (){},
                         ),
                         SizedBox(width: AppSize.s20,),
@@ -419,6 +410,9 @@ class _PendingPageViewState extends State<PendingPageView> {
                                         child: Column(
                                           children: [
                                             InkWell(
+                                              hoverColor: Colors.transparent,
+                                              splashColor: Colors.transparent,
+                                              highlightColor: Colors.transparent,
                                               child: Image.asset("images/sm/contact_text.png",height: 55,)
                                               ,onTap: _toggleChatbotVisibility,),
                                           ],
