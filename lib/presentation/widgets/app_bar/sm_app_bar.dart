@@ -1064,7 +1064,7 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
                       style: TextStyle(
                         color: Color(0xFF2EA3D4),
                         fontSize: 13,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(width: 4),
