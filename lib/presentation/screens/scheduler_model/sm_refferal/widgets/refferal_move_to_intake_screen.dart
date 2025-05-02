@@ -17,6 +17,7 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 import '../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
+import '../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
@@ -466,9 +467,21 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                           splashColor: Colors.transparent,
                                                           highlightColor: Colors.transparent,
                                                           hoverColor: Colors.transparent,
-                                                          onTap: () {
-                                                            Navigator.pop(context);
-                                                            print('Option 2 Selected');
+                                                          onTap: () async{
+                                                            var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
+                                                            if(response.statusCode == 200 || response.statusCode == 201){
+                                                              Navigator.pop(context);
+                                                              showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context) {
+                                                                  return AddSuccessPopup(
+                                                                    message: 'Data Updated Successfully',
+                                                                  );
+                                                                },
+                                                              );
+                                                            }else{
+                                                              print('Api error');
+                                                            }
                                                           },
                                                           child: Container(
                                                             alignment: Alignment.centerLeft,
