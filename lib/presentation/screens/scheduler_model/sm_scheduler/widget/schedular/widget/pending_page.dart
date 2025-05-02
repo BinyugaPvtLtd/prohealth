@@ -266,7 +266,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       ]
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
@@ -343,7 +343,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(width: 10,),
+                                     // SizedBox(width: 10,),
 
                                       Expanded(
                                         flex: 1,
@@ -357,6 +357,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                           ],
                                         ),
                                       ),
+
                                       Expanded(
                                         flex: 1,
                                         child: Column(
@@ -376,7 +377,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                         ),
                                       ),
 
-                                                SizedBox(width: 5,),
+                                               // SizedBox(width: 5,),
 
                                       Expanded(
                                         flex: 2,
@@ -418,6 +419,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                           ],
                                         ),
                                       ),
+
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
@@ -441,6 +443,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                             )
                                         ),
                                       ),
+
                                       Expanded(
                                         flex: 1,
                                         child: Padding(
@@ -466,6 +469,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                           ),
                                         ),
                                       ),
+
                                       Expanded(
                                         flex: 2,
                                         // child: Row(

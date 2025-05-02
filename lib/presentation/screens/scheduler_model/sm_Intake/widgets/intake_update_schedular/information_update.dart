@@ -228,7 +228,6 @@ class InformationUpdateScreen extends StatelessWidget {
                                                               fontWeight: FontWeight.w400,
                                                               color: ColorManager.mediumgrey,),
                                                           ),
-
                                                         ],
                                                       ),
                                                     ],
