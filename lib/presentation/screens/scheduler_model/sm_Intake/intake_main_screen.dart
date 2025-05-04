@@ -44,11 +44,16 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
     setState(() {
       _selectedIndex = index;
     });
-    _tabPageController.animateToPage(
+    _tabPageController.jumpToPage(
       index,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.ease,
+      // duration: Duration(milliseconds: 100),
+      // curve: Curves.ease,
     );
+    // _tabPageController.animateToPage(
+    //   index,
+    //   duration: const Duration(milliseconds: 500),
+    //   curve: Curves.ease,
+    // );
   }
 
   @override

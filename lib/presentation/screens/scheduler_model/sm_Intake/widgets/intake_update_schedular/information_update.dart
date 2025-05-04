@@ -52,6 +52,8 @@ class InformationUpdateScreen extends StatelessWidget {
             children:[ Padding(
               padding: const EdgeInsets.symmetric(horizontal: 75,),
               child: Column(
+                //mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 25,),
                   ///button
@@ -71,7 +73,8 @@ class InformationUpdateScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: AppSize.s20,),
-                  Row(
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.start,
                     children: [
                       Text("Referral Received", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
                       SizedBox(width: AppSize.s10,),
@@ -225,7 +228,6 @@ class InformationUpdateScreen extends StatelessWidget {
                                                               fontWeight: FontWeight.w400,
                                                               color: ColorManager.mediumgrey,),
                                                           ),
-
                                                         ],
                                                       ),
                                                     ],
@@ -235,15 +237,17 @@ class InformationUpdateScreen extends StatelessWidget {
                                             ),
                                             Expanded(
                                               flex: 2,
-                                              child:  SizedBox(
-                                                            width: 100,
-                                                            child:Text("Apollo Hospital, Washington DC",
-                                                              textAlign: TextAlign.start,
-                                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: ColorManager.textBlack,),
-                                                            ) ,
-                                                          ),
+                                              child:  Center(
+                                                child: SizedBox(
+                                                              width: 120,
+                                                              child:Text("Apollo Hospital, Washington DC",
+                                                                textAlign: TextAlign.start,
+                                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: ColorManager.textBlack,),
+                                                              ) ,
+                                                            ),
+                                              ),
                                               // child: Row(
                                               //   children: [
                                               //     Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
@@ -265,143 +269,120 @@ class InformationUpdateScreen extends StatelessWidget {
                                             SizedBox(width: 20),
                                             Expanded(
                                               flex: 5,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                              child: Wrap(
+                                                spacing: 15,
+
                                                 children: [
-                                                  // Column(
-                                                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                                  //   children: [
-                                                  //     Text(
-                                                  //       "Refferal :",
-                                                  //       textAlign: TextAlign.start,
-                                                  //       style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                                  //         fontWeight: FontWeight.w400,
-                                                  //         color: ColorManager.textBlack,),
-                                                  //     ),
-                                                  //     // SizedBox(width: 25,),
-                                                  //     Text(
-                                                  //       "Prohealth App",
-                                                  //       textAlign: TextAlign.start,
-                                                  //       style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                                  //         fontWeight: FontWeight.w400,
-                                                  //         color: ColorManager.textBlack,),
-                                                  //     ),
-                                                  //   ],
-                                                  // ),
-                                                  // SizedBox(width: 10,),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(top:30.0),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      children: [
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Demographics"),
-                                                        SizedBox(width: 15,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Documentation"),
-                                                        SizedBox(width: 15,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Insurance"),
-                                                        SizedBox(width: 15,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Physician Info"),
-                                                        SizedBox(width: 15,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Orders"),
-                                                        SizedBox(width: 15,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Initial Contact"),
-
-                                                      ],
-
-                                                    ),
-                                                  ),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Demographics"),
                                                   // SizedBox(width: 15,),
-                                                  // InkWell(
-                                                  //   child: SvgPicture.asset("images/sm/contact_sv.svg",
-                                                  //     height: 30,width: 20,
-                                                  //   ),
-                                                  //   onTap: provider._toggleChatbotVisibility,
-                                                  // )
-                                                  ///
-                                                  ///
-                                                  // Column(
-                                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                                  //   children: [
-                                                  //     Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
-                                                  //     SizedBox(height: 8,),
-                                                  //     Text("Update",
-                                                  //       style: TextStyle(
-                                                  //         fontSize: FontSize.s11,
-                                                  //         fontWeight: FontWeight.w600,
-                                                  //         color: Color(0xFF2F6D8A),
-                                                  //       ),)
-                                                  //   ],
-                                                  // ),
-                                                  // SizedBox(width: AppSize.s20,),
-                                                  // Column(
-                                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                                  //   children: [
-                                                  //     SizedBox(height: 3,),
-                                                  //     Image.asset("images/sm/move_to_s.png",height: 20,width: 20,),
-                                                  //     SizedBox(height: 8,),
-                                                  //     Text(" Move to\nScheduler",
-                                                  //       style: TextStyle(
-                                                  //         fontSize: FontSize.s11,
-                                                  //         fontWeight: FontWeight.w600,
-                                                  //         color: Color(0xFF2F6D8A),
-                                                  //       ),)
-                                                  //   ],
-                                                  // ),
-                                                  // SizedBox(width: AppSize.s20,),
-                                                  // Column(
-                                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                                  //   children: [
-                                                  //     Icon(Icons.block,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
-                                                  //     SizedBox(height: 8,),
-                                                  //     Text("Non-Admit",
-                                                  //       style: TextStyle(
-                                                  //         fontSize: FontSize.s11,
-                                                  //         fontWeight: FontWeight.w600,
-                                                  //          color: Color(0xFF2F6D8A),
-                                                  //       ),)
-                                                  //   ],
-                                                  // )
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Documentation"),
+                                                  //  SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Insurance"),
+                                                  // SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Physician Info"),
+                                                  //  SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Orders"),
+                                                  // SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Initial Contact"),
 
                                                 ],
+
+                                                // children: [
+                                                //   Padding(
+                                                //     padding: const EdgeInsets.only(top:30.0),
+                                                //     child: Row(
+                                                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                //       crossAxisAlignment: CrossAxisAlignment.center,
+                                                //       children: [
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Demographics"),
+                                                //        // SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Documentation"),
+                                                //       //  SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Insurance"),
+                                                //        // SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Physician Info"),
+                                                //       //  SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Orders"),
+                                                //        // SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Initial Contact"),
+                                                //
+                                                //       ],
+                                                //
+                                                //     ),
+                                                //   ),
+                                                // ],
                                               ),
                                             ),
                                             // SizedBox(width: 20,),
@@ -673,7 +654,7 @@ class SMDashboardMenuButtons extends StatelessWidget {
               return Container(
                 margin: const EdgeInsets.only(top: 10),
                 height: 6,
-                width: 70,// textWidth + 10,
+                width: 70,  //textWidth + 10,
                 decoration: BoxDecoration(
                     color: ColorManager.greenDark,
                     borderRadius: BorderRadius.circular(12)

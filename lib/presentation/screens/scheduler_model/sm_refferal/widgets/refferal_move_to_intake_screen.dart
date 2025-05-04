@@ -17,6 +17,7 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 import '../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
+import '../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
@@ -177,7 +178,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                       child: snapshot.data![index].ptImgUrl == 'imgurl' ||
                                                           snapshot.data![index].ptImgUrl == null
                                                           ? CircleAvatar(
-                                                        radius: 30,
+                                                        radius: 25,
                                                         backgroundColor: Colors.transparent,
                                                         child: Image.asset("images/profilepic.png"),
                                                       )
@@ -199,14 +200,14 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                         },
                                                         errorBuilder: (context, error, stackTrace) {
                                                           return CircleAvatar(
-                                                            radius: 25,
+                                                            radius: 22,
                                                             backgroundColor: Colors.transparent,
                                                             child: Image.asset("images/profilepic.png"),
                                                           );
                                                         },
                                                         fit: BoxFit.cover,
-                                                        height: 43,
-                                                        width: 43,
+                                                        height: 40,
+                                                        width: 40,
                                                       ),
                                                     ),
                                                     SizedBox(width: AppSize.s15),
@@ -236,7 +237,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
 
                                                 //SizedBox(width: AppSize.s40),
                                                 Text(
-                                                  "Ch #1",
+                                                  "Ch #${snapshot.data![index].ptChartNo.toString()}",
                                                   style: DocDefineTableData.customTextStyle(context),
                                                 ),
                                                 Padding(
@@ -336,9 +337,9 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                     }
                                                   },
                                                   errorBuilder: (context, error, stackTrace) {
-                                                    return Image.asset('images/logo_login.png',width: 110,);
+                                                    return Image.asset('images/logo_login.png',width: 100,);
                                                   },
-                                                  width: 110,
+                                                  width: 100,
                                                 ),
                                                 // Text("Manual",style: DocDefineTableData.customTextStyle(context),),
                                               ],
@@ -358,7 +359,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                         child: snapshot.data![index].ptImgUrl == 'imgurl' ||
                                                             snapshot.data![index].ptImgUrl == null
                                                             ? CircleAvatar(
-                                                          radius: 30,
+                                                          radius: 25,
                                                           backgroundColor: Colors.transparent,
                                                           child: Image.asset("images/profilepic.png"),
                                                         )
@@ -380,14 +381,14 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                           },
                                                           errorBuilder: (context, error, stackTrace) {
                                                             return CircleAvatar(
-                                                              radius: 25,
+                                                              radius: 22,
                                                               backgroundColor: Colors.transparent,
                                                               child: Image.asset("images/profilepic.png"),
                                                             );
                                                           },
                                                           fit: BoxFit.cover,
-                                                          height: 45,
-                                                          width: 41,
+                                                          height: 40,
+                                                          width: 40,
                                                         ),
                                                       ),
                                                       SizedBox(width: AppSize.s15),
@@ -466,9 +467,21 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                           splashColor: Colors.transparent,
                                                           highlightColor: Colors.transparent,
                                                           hoverColor: Colors.transparent,
-                                                          onTap: () {
-                                                            Navigator.pop(context);
-                                                            print('Option 2 Selected');
+                                                          onTap: () async{
+                                                            var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
+                                                            if(response.statusCode == 200 || response.statusCode == 201){
+                                                              Navigator.pop(context);
+                                                              showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context) {
+                                                                  return AddSuccessPopup(
+                                                                    message: 'Data Updated Successfully',
+                                                                  );
+                                                                },
+                                                              );
+                                                            }else{
+                                                              print('Api error');
+                                                            }
                                                           },
                                                           child: Container(
                                                             alignment: Alignment.centerLeft,

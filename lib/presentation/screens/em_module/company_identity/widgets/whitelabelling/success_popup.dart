@@ -280,7 +280,7 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 1), () {
+    Timer(Duration(seconds: 2), () {
       if (Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
       }
