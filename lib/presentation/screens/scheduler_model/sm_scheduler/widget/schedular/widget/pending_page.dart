@@ -326,10 +326,10 @@ class _PendingPageViewState extends State<PendingPageView> {
 
                                       Expanded(
                                         flex: 3,
-                                        child:  Row(
-                                         // mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            CustomButtonRow(
+                                        child:  SizedBox(
+                                          width:300,
+                                          child: Center(
+                                            child: CustomButtonRow(
                                               onSaveClosePressed: widget.onAutoTap,
                                               onSubmitPressed: () {
                                                 // Action for Submit button
@@ -339,8 +339,8 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                 // Action for Next button
                                                 print('Next pressed');
                                               },
-                                            )
-                                          ],
+                                            ),
+                                          ),
                                         ),
                                       ),
                                      // SizedBox(width: 10,),
