@@ -124,7 +124,6 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                 borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(10),
                                     // bottomRight: Radius.circular(12),
-                                    // topRight: Radius.circular(12),
                                     topLeft: Radius.circular(12)),
                               ),
                               child: Column(
