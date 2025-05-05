@@ -248,7 +248,6 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                           style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),),
-
                                       ],
                                     ),
                                   ),
