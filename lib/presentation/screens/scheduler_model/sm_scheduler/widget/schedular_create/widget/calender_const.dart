@@ -518,8 +518,8 @@ class _CalenderConstantState extends State<CalenderConstant> {
                             spacing: 10,
                             children: [
                               CircleAvatar(
-                                radius: 25,
-                                child: Image.asset('images/bg.jpg',fit: BoxFit.cover,),
+                                radius: 20,
+                                backgroundImage: AssetImage('images/bg.jpg',),
                               ),
                               Text('John',style: CustomTextStylesCommon.commonStyle(
                                   color:Color(0xFF686464),
@@ -541,8 +541,8 @@ class _CalenderConstantState extends State<CalenderConstant> {
                             spacing: 10,
                             children: [
                               CircleAvatar(
-                                radius: 25,
-                                child: Image.asset('images/bg.jpg',fit: BoxFit.fill,),
+                                radius: 20,
+                                backgroundImage: AssetImage('images/bg.jpg',),
                               ),
                               Text('Thomas',style: CustomTextStylesCommon.commonStyle(
                                   color:Color(0xFF686464),

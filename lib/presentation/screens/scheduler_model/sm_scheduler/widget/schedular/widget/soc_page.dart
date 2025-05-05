@@ -315,15 +315,13 @@ class _SocPageViewState extends State<SocPageView> {
                                         ),
                                       ),
                                     ),
-
                                     Expanded(
                                       flex: 3,
-                                      child:  Row(
-                                       // mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          CustomButtonRow(
+                                      child:  SizedBox(
+                                        width:300,
+                                        child: Center(
+                                          child: CustomButtonRow(
                                             onSaveClosePressed: widget.onAutoTap,
-
                                             onSubmitPressed: () {
                                               // Action for Submit button
                                               print('Submit pressed');
@@ -332,8 +330,8 @@ class _SocPageViewState extends State<SocPageView> {
                                               // Action for Next button
                                               print('Next pressed');
                                             },
-                                          )
-                                        ],
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     SizedBox(width: 10,),

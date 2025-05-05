@@ -506,8 +506,28 @@ class RefferalArchievedScreen extends StatelessWidget {
                                           Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(right: 5),
-                                              child: Center(child: SizedBox(child: Image.asset('images/logo_login.png',width: 90,))),
+                                              padding: const EdgeInsets.only(right: 10),
+                                              child: Image.network(
+                                                snapshot.data![index].referralSource.referralSourceImgUrl,
+                                                loadingBuilder: (context, child, loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  } else {
+                                                    return Center(
+                                                      child: CircularProgressIndicator(
+                                                        value: loadingProgress.expectedTotalBytes != null
+                                                            ? loadingProgress.cumulativeBytesLoaded /
+                                                            (loadingProgress.expectedTotalBytes ?? 1)
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  }
+                                                },
+                                                errorBuilder: (context, error, stackTrace) {
+                                                  return Image.asset('images/logo_login.png',width: 88,);
+                                                },
+                                                width: 88,
+                                              ),
                                             ),
                                           ),
                                           // SizedBox(

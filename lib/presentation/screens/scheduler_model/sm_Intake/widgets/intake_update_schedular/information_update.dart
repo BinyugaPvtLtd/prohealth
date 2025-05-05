@@ -149,7 +149,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                           children:[
                                             Container(
                                                 width: AppSize.s60,
-                                                height: AppSize.s16,
+                                                height: AppSize.s15,
                                                 decoration: BoxDecoration(
                                                   color: ColorManager.bluebottom.withOpacity(0.12),
                                                   borderRadius: BorderRadius.only(topRight: Radius.circular(8)),),
@@ -166,69 +166,67 @@ class InformationUpdateScreen extends StatelessWidget {
                                           ]
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                        padding: EdgeInsets.only(left: AppPadding.p20),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(50),
+                                                child: SizedBox(
+                                                  width: 50,
+                                                  height: 50,
+                                                  child: Image.asset(
+                                                    'images/hr_dashboard/man.png', // Replace with your image path
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: 10,),
                                             Expanded(
-                                              flex: 3,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                              flex: 2,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                                    child: ClipRRect(
-                                                      borderRadius: BorderRadius.circular(50),
-                                                      child: SizedBox(
-                                                        width: 50,
-                                                        height: 50,
-                                                        child: Image.asset(
-                                                          'images/hr_dashboard/man.png', // Replace with your image path
-                                                          fit: BoxFit.cover,
+                                                  Text(
+                                                    "John Smith",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: ColorManager.mediumgrey,),
+                                                  ),
+                                                  SizedBox(height: 5,),
+                                                  Text(
+                                                    "Intake Date: 09/15/2024",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: ColorManager.mediumgrey,),
+                                                  ),
+                                                  SizedBox(height: 3,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          "Potential DC Date :",
+                                                          textAlign: TextAlign.center,
+                                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w600,
+                                                            color: ColorManager.mediumgrey,),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 12,),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Text(
-                                                        "John Smith",
-                                                        textAlign: TextAlign.center,
-                                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: ColorManager.mediumgrey,),
-                                                      ),
-                                                      SizedBox(height: 5,),
-                                                      Text(
-                                                        "Intake Date: 09/15/2024",
-                                                        textAlign: TextAlign.center,
-                                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: ColorManager.mediumgrey,),
-                                                      ),
-                                                      SizedBox(height: 3,),
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            "Potential DC Date :",
-                                                            textAlign: TextAlign.center,
-                                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                              fontWeight: FontWeight.w600,
-                                                              color: ColorManager.mediumgrey,),
-                                                          ),
-                                                          Text(
-                                                            " 11/26/2024",
-                                                            textAlign: TextAlign.center,
-                                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorManager.mediumgrey,),
-                                                          ),
-                                                        ],
+                                                      Flexible(
+                                                        child: Text(
+                                                          " 11/26/2024",
+                                                          textAlign: TextAlign.center,
+                                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: ColorManager.mediumgrey,),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -238,15 +236,12 @@ class InformationUpdateScreen extends StatelessWidget {
                                             Expanded(
                                               flex: 2,
                                               child:  Center(
-                                                child: SizedBox(
-                                                              width: 120,
-                                                              child:Text("Apollo Hospital, Washington DC",
-                                                                textAlign: TextAlign.start,
-                                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  color: ColorManager.textBlack,),
-                                                              ) ,
-                                                            ),
+                                                child: Text("Apollo Hospital, Washington DC",
+                                                  textAlign: TextAlign.start,
+                                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.textBlack,),
+                                                ),
                                               ),
                                               // child: Row(
                                               //   children: [
@@ -270,8 +265,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                             Expanded(
                                               flex: 5,
                                               child: Wrap(
-                                                spacing: 15,
-
+                                                spacing: 5,
                                                 children: [
                                                   SMDashboardMenuButtons(
                                                       onTap: (int index) {
@@ -539,7 +533,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                             // ),
                                           ],),
                                       ),
-                                      SizedBox(height: AppSize.s5),
+                                     SizedBox(height: AppSize.s5),
                                     ],
                                   ),
                                 ),
@@ -672,15 +666,12 @@ class SMDashboardMenuButtons extends StatelessWidget {
 
 class IntakeContainer extends StatelessWidget {
   final Widget child;
-  final double? height;
-  const IntakeContainer({super.key, required this.child, this.height});
+  const IntakeContainer({super.key, required this.child,});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? AppSize.s90,
-        // margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
-        decoration: BoxDecoration(
+      decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(12),

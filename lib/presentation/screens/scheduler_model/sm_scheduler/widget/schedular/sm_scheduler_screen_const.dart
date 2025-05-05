@@ -105,72 +105,78 @@ class CustomButtonRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+     // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // Save and Close Button
-        Container(
+        Expanded(
+          child: SizedBox(
           width: AppSize.s80,
-          height: AppSize.s25,
-          child: ElevatedButton(
-            onPressed: onSaveClosePressed,
-            style: ElevatedButton.styleFrom(
-              backgroundColor:Color(0xffB4DB4C),
+            height: AppSize.s25,
+            child: ElevatedButton(
+              onPressed: onSaveClosePressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor:Color(0xffB4DB4C),
 
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
               ),
-            ),
-            child: Text(
-              'RN SOC',
-              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.white,),
+              child: Text(
+                'RN SOC',
+                style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                  fontWeight: FontWeight.w400,
+                  color: ColorManager.white,),
+              ),
             ),
           ),
         ),
-        SizedBox(width: AppSize.s20),
+        SizedBox(width: AppSize.s8),
 
         // Submit Button
-        Container(
-          width: AppSize.s80,
-          height: AppSize.s25,
-          child: ElevatedButton(
-            onPressed: onSubmitPressed,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xffF6928A),
+        Expanded(
+          child: SizedBox(
+            width: AppSize.s40,
+            height: AppSize.s25,
+            child: ElevatedButton(
+              onPressed: onSubmitPressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xffF6928A),
 
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
               ),
-            ),
-            child: Text(
-              'PT',
-              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.white,),
+              child: Text(
+                'PT',
+                style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                  fontWeight: FontWeight.w400,
+                  color: ColorManager.white,),
+              ),
             ),
           ),
         ),
-        SizedBox(width: AppSize.s20),
+        SizedBox(width: AppSize.s8),
 
         // Next Button
-        Container(
-          width: AppSize.s80,
-          height: AppSize.s25,
-          child: ElevatedButton(
-            onPressed: onNextPressed,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xffFEBD4D),
+        Expanded(
+          child: SizedBox(
+            width: AppSize.s60,
+            height: AppSize.s25,
+            child: ElevatedButton(
+              onPressed: onNextPressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xffFEBD4D),
 
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
               ),
-            ),
-            child: Text(
-              'OT',
-              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.white,),
+              child: Text(
+                'OT',
+                style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                  fontWeight: FontWeight.w400,
+                  color: ColorManager.white,),
+              ),
             ),
           ),
         ),

@@ -124,7 +124,6 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                 borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(10),
                                     // bottomRight: Radius.circular(12),
-                                    // topRight: Radius.circular(12),
                                     topLeft: Radius.circular(12)),
                               ),
                               child: Column(
@@ -158,66 +157,64 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(50),
+                                                child: SizedBox(
+                                                  width: 50,
+                                                  height: 50,
+                                                  child: Image.asset(
+                                                    'images/hr_dashboard/man.png', // Replace with your image path
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: 10,),
                                             Expanded(
-                                              flex: 3,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                              flex: 2,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                                    child: ClipRRect(
-                                                      borderRadius: BorderRadius.circular(50),
-                                                      child: SizedBox(
-                                                        width: 50,
-                                                        height: 50,
-                                                        child: Image.asset(
-                                                          'images/hr_dashboard/man.png', // Replace with your image path
-                                                          fit: BoxFit.cover,
+                                                  Text(
+                                                    "John Smith",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: ColorManager.mediumgrey,),
+                                                  ),
+                                                  SizedBox(height: 5,),
+                                                  Text(
+                                                    "Intake Date: 09/15/2024",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: ColorManager.mediumgrey,),
+                                                  ),
+                                                  SizedBox(height: 3,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          "Potential DC Date :",
+                                                          textAlign: TextAlign.center,
+                                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w600,
+                                                            color: ColorManager.mediumgrey,),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 20,),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Text(
-                                                        "John Smith",
-                                                        textAlign: TextAlign.center,
-                                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: ColorManager.mediumgrey,),
+                                                      Flexible(
+                                                        child: Text(
+                                                          " 11/26/2024",
+                                                          textAlign: TextAlign.center,
+                                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: ColorManager.mediumgrey,),
+                                                        ),
                                                       ),
-                                                      SizedBox(height: 5,),
-                                                      Text(
-                                                        "Intake Date: 09/15/2024",
-                                                        textAlign: TextAlign.center,
-                                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: ColorManager.mediumgrey,),
-                                                      ),
-                                                      SizedBox(height: 3,),
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            "Potential DC Date :",
-                                                            textAlign: TextAlign.center,
-                                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                              fontWeight: FontWeight.w600,
-                                                              color: ColorManager.mediumgrey,),
-                                                          ),
-                                                          Text(
-                                                            " 11/26/2024",
-                                                            textAlign: TextAlign.center,
-                                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: ColorManager.mediumgrey,),
-                                                          ),
 
-                                                        ],
-                                                      ),
                                                     ],
                                                   ),
                                                 ],
@@ -226,19 +223,16 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                             Expanded(
                                               flex: 2,
                                               child:  Center(
-                                              child: SizedBox(
-                                              width: 120,
-                                              child:Text("Apollo Hospital, Washington DC",
+                                              child: Text("Apollo Hospital, Washington DC",
                                                 textAlign: TextAlign.start,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                   fontWeight: FontWeight.w400,
                                                   color: ColorManager.textBlack,),
-                                              ) ,
-                                            ),
+                                              ),
                                       ),
 
                                             ),
-                                        //  SizedBox(width: 10,),
+                                            SizedBox(width: 10,),
                                             Expanded(
                                               flex: 5,
                                               child:  Wrap(
@@ -474,59 +468,51 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                               //   ],
                                               // ),
                                             ),
-
-
-
                                             Expanded(
-                                              flex: 2,
-                                              child: Row(
-                                                children: [
-                                                  InkWell(
-                                                    splashColor: Colors.transparent,
-                                                    highlightColor: Colors.transparent,
-                                                    hoverColor: Colors.transparent,
-                                                     onTap: _toggleChatbotVisibility,
-                                                    child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                       // SizedBox(height: 3,),
-                                                        Image.asset("images/sm/contact_icon.png",height:25),
-                                                        SizedBox(height: 6,),
-                                                        Text("Contact",
-                                                          style: TextStyle(
-                                                            fontSize: FontSize.s11,
-                                                            fontWeight: FontWeight.w600,
-                                                            color: Color(0xFF2F6D8A),
-                                                          ),)
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 50,),
-                                                  InkWell(
-                                                      splashColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      onTap: (){},
-                                                      child:Column(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Image.asset("images/sm/left_bottom.png",height: 20,width: 20,),
-                                                          SizedBox(height: 8,),
-                                                          Text("Restore",
-                                                            style: TextStyle(
-                                                              fontSize: FontSize.s11,
-                                                              fontWeight: FontWeight.w600,
-                                                              color: Color(0xFF2F6D8A),
-                                                            ),)
-                                                        ],
-                                                      )
-                                                  ),
-                                                ],
+                                              flex: 1,
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                 onTap: _toggleChatbotVisibility,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                   // SizedBox(height: 3,),
+                                                    Image.asset("images/sm/contact_icon.png",height:25),
+                                                    SizedBox(height: 6,),
+                                                    Text("Contact",
+                                                      style: TextStyle(
+                                                        fontSize: FontSize.s11,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: Color(0xFF2F6D8A),
+                                                      ),)
+                                                  ],
+                                                ),
                                               ),
                                             ),
-
-
-
+                                            Expanded(
+                                              flex: 1,
+                                              child: InkWell(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  onTap: (){},
+                                                  child:Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Image.asset("images/sm/left_bottom.png",height: 20,width: 20,),
+                                                      SizedBox(height: 8,),
+                                                      Text("Restore",
+                                                        style: TextStyle(
+                                                          fontSize: FontSize.s11,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: Color(0xFF2F6D8A),
+                                                        ),)
+                                                    ],
+                                                  )
+                                              ),
+                                            ),
                                           ],),
                                       ),
                                     ],
