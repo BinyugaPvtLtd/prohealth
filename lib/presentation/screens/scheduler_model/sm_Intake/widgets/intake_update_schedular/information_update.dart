@@ -262,6 +262,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                              // ),
                                             ),
                                             SizedBox(width: 20),
+                                            SizedBox(width: MediaQuery.of(context).size.width/35,),
                                             Expanded(
                                               flex: 5,
                                               child: Wrap(

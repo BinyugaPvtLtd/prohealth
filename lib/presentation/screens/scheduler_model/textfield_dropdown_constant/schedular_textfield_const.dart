@@ -105,10 +105,12 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(widget.labelText,
-                          style:SMTextfieldHeadings.customTextStyle(context),
-                          //providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
-                        //AllPopupHeadings.customTextStyle(context)
+                      Flexible(
+                        child: Text(widget.labelText,
+                            style:SMTextfieldHeadings.customTextStyle(context),
+                            //providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
+                          //AllPopupHeadings.customTextStyle(context)
+                        ),
                       ),
                       widget.isIconVisible!? SizedBox(height:7) :
                       InkWell(
@@ -293,10 +295,12 @@ class _SchedularTextFieldcheckboxState extends State<SchedularTextFieldcheckbox>
                     },
                   ),
                   SizedBox(width: 2,),
-                  Text(
-                      widget.labelText,
-                      style: providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
-                    //AllPopupHeadings.customTextStyle(context)
+                  Flexible(
+                    child: Text(
+                        widget.labelText,
+                        style: providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
+                      //AllPopupHeadings.customTextStyle(context)
+                    ),
                   ),
                  // Icon(Icons.info_outline_rounded,color: Color(0xFF50B5E5),)
                 ],

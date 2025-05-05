@@ -39,7 +39,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
           padding: const EdgeInsets.only(top: 5),
           child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 35),
+                padding: EdgeInsets.symmetric(horizontal: 35),
                 child: Column(
                   children: [
                     Padding(
@@ -75,7 +75,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                              child: Column(
                                children: [
                                  Container(
-                                   height: AppSize.s75 ,
+                                  // height: AppSize.s75 ,
+                                   padding: EdgeInsets.symmetric(vertical: 8),
                                    decoration: BoxDecoration(
                                      color: ColorManager.white,
                                      borderRadius: BorderRadius.circular(8.0),
@@ -113,39 +114,36 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                              ),
                                            ),
                                            SizedBox(width: 10),
-                                           Padding(
-                                             padding: const EdgeInsets.only(bottom: 4,top: 4),
-                                             child: Column(
-                                               crossAxisAlignment: CrossAxisAlignment.start,
-                                               mainAxisAlignment: MainAxisAlignment.center,
-                                               children: [
-                                                 Text(
-                                                   "Erica Thompson REF.pdf",
-                                                   style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                     fontWeight: FontWeight.w600,
-                                                     color: ColorManager.mediumgrey,),
-                                                 ),
-                                                 SizedBox(height:AppSize.s3 ),
+                                           Column(
+                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                             mainAxisAlignment: MainAxisAlignment.center,
+                                             children: [
+                                               Text(
+                                                 "Erica Thompson REF.pdf",
+                                                 style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                   fontWeight: FontWeight.w600,
+                                                   color: ColorManager.mediumgrey,),
+                                               ),
+                                               SizedBox(height:AppSize.s3 ),
 
-                                                 //SizedBox(height: AppSize.s1),
-                                                 providerState.isContactTrue ?Text(
-                                                   "Uploaded 1/26/2025, 8:17:00\nAM PST by Henry, Rebecca", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
-                                                   style:  TextStyle(fontSize: FontSize.s12,
-                                                     fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
-                                                     color: ColorManager.granitegray,),
-                                                 ) :Text(
-                                                   "Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
-                                                   style:  TextStyle(fontSize: FontSize.s12,
-                                                     fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
-                                                     color: ColorManager.granitegray,),
-                                                 ),
-                                               ],
-                                             ),
+                                               //SizedBox(height: AppSize.s1),
+                                               providerState.isContactTrue ?Text(
+                                                 "Uploaded 1/26/2025, 8:17:00\nAM PST by Henry, Rebecca", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
+                                                 style:  TextStyle(fontSize: FontSize.s12,
+                                                   fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
+                                                   color: ColorManager.granitegray,),
+                                               ) :Text(
+                                                 "Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
+                                                 style:  TextStyle(fontSize: FontSize.s11,
+                                                   fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
+                                                   color: ColorManager.granitegray,),
+                                               ),
+                                             ],
                                            ),
                                          ],
                                        ),
-                                       Padding(
-                                         padding: const EdgeInsets.only(right: 20),
+                                       Expanded(
+                                        flex: 2,
                                          child: Container(
                                            child: Center(
                                              child: providerState.isContactTrue ?Text(
@@ -162,56 +160,66 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                            ),
                                          ),
                                        ),
-                                       Row(
-                                         crossAxisAlignment: CrossAxisAlignment.center,
-                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                         children: [
-                                           IconButton(
-                                             icon: Icon(
-                                                 size:  providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
-                                                 Icons.history,
-                                                 color: ColorManager.granitegray
-                                             ),
-                                             onPressed: () {},
-                                           ),
-                                           providerState.isContactTrue ?SizedBox(width: 3) :  SizedBox(width: 20),
-                                           InkWell(
-                                             child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ?IconSize.I18 :IconSize.I24,)
-                                             ,onTap:(){},),
-                                           providerState.isContactTrue ?SizedBox(width: 3) :  SizedBox(width: 20),
-                                           IconButton(
-                                               icon: Icon(
-                                                   size: providerState.isContactTrue ?IconSize.I18 :IconSize.I24,
-                                                   Icons.print_outlined,
-                                                   color:  ColorManager.granitegray
+                                       Expanded(
+                                         child: Row(
+                                           crossAxisAlignment: CrossAxisAlignment.center,
+                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                           children: [
+                                             Expanded(
+                                               child: IconButton(
+                                                 icon: Icon(
+                                                     size:  providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
+                                                     Icons.history,
+                                                     color: ColorManager.granitegray
+                                                 ),
+                                                 onPressed: () {},
                                                ),
-                                               onPressed: () {}
-                                           ),
-                                           providerState.isContactTrue ?SizedBox(width: 0) :  SizedBox(width: 20),
-                                           //SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                           IconButton(
-                                             icon: Icon(
-                                               size: providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
-                                               Icons.file_download_outlined,
-                                               color: Color(0xff686464),
                                              ),
-                                             onPressed: () { },
-                                           ),
-                                           providerState.isContactTrue ?SizedBox(width: 0) : SizedBox(width: 15),
-                                           IconButton(
-                                             onPressed: () {
+                                            // providerState.isContactTrue ?SizedBox(width: 3) :  SizedBox(width: 20),
+                                             Expanded(
+                                               child: InkWell(
+                                                 child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ?IconSize.I18 :IconSize.I24,)
+                                                 ,onTap:(){},),
+                                             ),
+                                             //providerState.isContactTrue ?SizedBox(width: 3) :  SizedBox(width: 20),
+                                             Expanded(
+                                               child: IconButton(
+                                                   icon: Icon(
+                                                       size: providerState.isContactTrue ?IconSize.I18 :IconSize.I24,
+                                                       Icons.print_outlined,
+                                                       color:  ColorManager.granitegray
+                                                   ),
+                                                   onPressed: () {}
+                                               ),
+                                             ),
+                                             //providerState.isContactTrue ?SizedBox(width: 0) :  SizedBox(width: 20),
+                                             Expanded(
+                                               child: IconButton(
+                                                 icon: Icon(
+                                                   size: providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
+                                                   Icons.file_download_outlined,
+                                                   color: Color(0xff686464),
+                                                 ),
+                                                 onPressed: () { },
+                                               ),
+                                             ),
+                                             //providerState.isContactTrue ?SizedBox(width: 0) : SizedBox(width: 15),
+                                             Expanded(
+                                               child: IconButton(
+                                                 onPressed: () {
 
-                                             },
-                                             icon: Icon(
-                                               Icons.delete_outline,
-                                               size: providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
-                                               color: Color(0xff686464),
+                                                 },
+                                                 icon: Icon(
+                                                   Icons.delete_outline,
+                                                   size: providerState.isContactTrue ? IconSize.I18 :IconSize.I24,
+                                                   color: Color(0xff686464),
+                                                 ),
+                                               ),
                                              ),
-                                           ),
-                                           SizedBox(width: 10),
-                                           //
-                                           // SizedBox(width: 20),
-                                         ],
+                                             //
+                                             // SizedBox(width: 20),
+                                           ],
+                                         ),
                                        ),
                                      ],
                                    ),
