@@ -60,7 +60,6 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                           style: TextStyle(fontSize: FontSize.s12,
                             fontWeight: FontWeight.w300,
                             color: Color(0xFFC30909)),)
-
                       ],),
                     SizedBox(height: AppSize.s10,),
                     BlueBGHeadConst(HeadText: "Clinical Attachments*"),
