@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:provider/provider.dart';
 
@@ -361,7 +362,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                             // )
                                   ///
                                   Expanded(
-                                    flex: 2,
+                                    flex: 3,
                                     child: Padding(
                                       padding: const EdgeInsets.only(right: 5),
                                       child: Center(child: SizedBox(child: Image.asset('images/logo_login.png',width: 90,))),
@@ -490,9 +491,21 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
                                                       hoverColor: Colors.transparent,
-                                                      onTap: () {
-                                                        Navigator.pop(context);
-                                                        print('Option 2 Selected');
+                                                      onTap: () async{
+                                                        var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
+                                                        if(response.statusCode == 200 || response.statusCode == 201){
+                                                          Navigator.pop(context);
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext context) {
+                                                              return AddSuccessPopup(
+                                                                message: 'Data Updated Successfully',
+                                                               );
+                                                            },
+                                                          );
+                                                        }else{
+                                                          print('Api error');
+                                                        }
                                                       },
                                                       child: Container(
                                                         alignment: Alignment.centerLeft,
