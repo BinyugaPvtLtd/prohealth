@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
+import '../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
+import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
@@ -381,6 +383,36 @@ Future<ApiData> updateReferralPatient(
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+/// Services master
+Future<List<ServicePatientReffralsData>> getReferealsServiceList({
+  required BuildContext context,
+}) async {
+  List<ServicePatientReffralsData> itemsData = [];
+
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getReffrealsServiceData(),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(ServicePatientReffralsData(
+            serviceId: item['srv_id']??0,
+            serviceName: item['srv_name']??'',
+            serviceCode: item['srv_code']??''));
+      }
+    } else {
+      print("patient referrals Services error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
   }
 }
 

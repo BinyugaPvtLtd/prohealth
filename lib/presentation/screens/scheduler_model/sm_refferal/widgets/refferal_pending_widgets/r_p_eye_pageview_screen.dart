@@ -17,9 +17,12 @@ import '../../../../../../app/resources/provider/sm_provider/sm_integration_prov
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
+import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../../em_module/company_identity/widgets/manage_history_version.dart';
 import '../../../../em_module/widgets/button_constant.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
+import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';
+import '../../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
 class ReferalPendingEyePageview extends StatefulWidget {
   final VoidCallback onGoBackPressed;
@@ -113,10 +116,12 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
             patientsSummary = TextEditingController(text:snapshot.data!.ptSummary);
             icd = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnCode);
             possible = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnName);
-            List<DisciplineModel> desciplineModel = [];
-            for(var a in snapshot.data!.disciplines){
-              desciplineModel.add(a);
-            }
+           // referredfor = TextEditingController(text: snapshot.data!.service.srvName);
+            List<String> desciplineModel = [];
+            // for(var a in snapshot.data!.disciplines){
+            //   desciplineModel.add(a.employeeType);
+            // }
+            bool isChecked(String name) => desciplineModel.contains(name);
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 30),
               child:  ScrollConfiguration(
@@ -465,9 +470,45 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         children: [
                           SizedBox(width: AppSize.s25,),
                           Expanded(
-                            child: SMTextFConst(controller: referredfor,
-                                isAsteric: false,
-                                keyboardType: TextInputType.text, text: "Referred for"),
+                            child: FutureBuilder<List<ServicePatientReffralsData>>(
+                              future: getReferealsServiceList(context: context),
+                              builder: (context, snapshotService) {
+                                if (snapshotService.connectionState == ConnectionState.waiting) {
+                                  return SchedularTextField(
+                                    isIconVisible: true,
+                                    controller: referredfor = TextEditingController(text: snapshot.data!.service.srvName),
+                                    labelText: 'Referred for',
+                                  );
+                                }
+
+                                if (snapshotService.hasData) {
+                                  List<DropdownMenuItem<String>> dropDownList = [];
+                                  for (var i in snapshotService.data!) {
+                                    dropDownList.add(DropdownMenuItem<String>(
+                                      child: Text(i.serviceName!),
+                                      value: i.serviceName,
+                                    ));
+                                  }
+                                  // List<String> statusList = [];
+                                  // for (var i in snapshot.data!) {
+                                  //   statusList.add(i.patientStatus);
+                                  // }
+
+                                  return CustomDropdownTextFieldsm(
+                                      isIconVisible: false,
+                                      headText: 'Referred for',
+                                      initialValue: snapshot.data!.service.srvName,
+                                      dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+                                        for (var a in snapshotService.data!) {
+
+                                        }
+                                      });
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
                           ),
                           SizedBox(width: AppSize.s30,),
                           Expanded(
@@ -498,31 +539,34 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          SizedBox(width: 15),
-                          CustomRadioListTile(
-                            value: 'Insurance',
-                            groupValue: selectedType,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedType = value!;
-                              });
-                            },
-                            title: 'Insurance',
-                          ),
-                          SizedBox(width: 110,),
-                          CustomRadioListTile(
-                            value: 'Self Pay',
-                            groupValue: selectedType,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedType = value!;
-                              });
-                            },
-                            title: 'Self Pay',
-                          ),
-                        ],
+                      StatefulBuilder(
+                          builder: (BuildContext context, StateSetter setState){
+                        return Row(
+                          children: [
+                            SizedBox(width: 15),
+                            CustomRadioListTile(
+                              value: 'Insurance',
+                              groupValue: selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedType = value!;
+                                });
+                              },
+                              title: 'Insurance',
+                            ),
+                            SizedBox(width: 110,),
+                            CustomRadioListTile(
+                              value: 'Self Pay',
+                              groupValue: selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedType = value!;
+                                });
+                              },
+                              title: 'Self Pay',
+                            ),
+                          ],
+                        );}
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 25, top: 6),
@@ -823,7 +867,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                               ],
                                             ),
                                           )
-
                                         ],
                                       ),
                                       SizedBox(height: 10,),
@@ -840,7 +883,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                       SizedBox(height: AppSize.s20,),
@@ -928,7 +970,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           )
                         ],
                       ),
-
                       SizedBox(height: AppSize.s40,),
                       ///Suggested Plan of Care
                       BlueBGHeadConst(HeadText: "Disciplines Ordered"),
@@ -972,12 +1013,12 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment : CrossAxisAlignment.start,
                                     children: [
-                                    buildCheckbox('Nursing', nursing, (value) {
+                                    buildCheckbox('Nursing', isChecked('Nursing'), (value) {
                                       setState(() {
                                         nursing = value!;
                                       });
                                     },desciplineModel),
-                                    buildCheckbox('Speech Therapy', speechTherapy, (value) {
+                                    buildCheckbox('Speech Therapist', isChecked('Speech Therapist'), (value) {
                                       setState(() {
                                         speechTherapy = value!;
                                       });
@@ -1198,7 +1239,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               behavior: ScrollBehavior().copyWith(scrollbars: false),
                               child: ListView.builder(
                                   scrollDirection: Axis.vertical,
-                                  itemCount: 2,//paginatedData.length,
+                                  itemCount: 0,//paginatedData.length,
                                   itemBuilder: (context, index) {
                                   //  int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                                    // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
@@ -1461,7 +1502,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
       }
     );
   }
-  Widget buildCheckbox(String title, bool value, Function(bool?) onChanged, List<DisciplineModel> prefillData) {
+  Widget buildCheckbox(String title, bool value, Function(bool?) onChanged, List<String> prefillData) {
     return Container(
       width: 170,
       child: Row(
@@ -1469,7 +1510,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
           Checkbox(
             splashRadius: 0,
             hoverColor: Colors.transparent,
-            value: prefillData.contains(title) ? true :value,
+            value: value,
             activeColor: ColorManager.bluebottom,
             onChanged: onChanged,
           ),
