@@ -238,7 +238,6 @@ class _DisciplinePageViewState extends State<DisciplinePageView> {
                                     ),
                                   ),
                                 ),
-
                                 Expanded(
                                   flex: 3,
                                   child:  Row(
