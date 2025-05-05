@@ -226,8 +226,7 @@ class RefferalPendingScreen extends StatelessWidget {
                   if(snapshot.hasData){
                     return Expanded(
                       child: ScrollConfiguration(
-                        behavior: ScrollConfiguration.of(context)
-                            .copyWith(scrollbars: false),
+                        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                         child: ListView.builder(
                           itemCount: snapshot.data!.length,
                           itemBuilder: (BuildContext context, int index) {
@@ -236,7 +235,6 @@ class RefferalPendingScreen extends StatelessWidget {
                                 vertical: 7,
                               ),
                               child: Container(
-
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.only(
@@ -381,12 +379,10 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   Text(
                                                     "Received Date :  ${snapshot.data![index].ptRefferalDate}",
                                                     textAlign: TextAlign.center,
-                                                    style: CustomTextStylesCommon
-                                                        .commonStyle(
+                                                    style: CustomTextStylesCommon.commonStyle(
                                                       fontSize: FontSize.s11,
                                                       fontWeight: FontWeight.w400,
-                                                      color:
-                                                      ColorManager.mediumgrey,
+                                                      color: ColorManager.mediumgrey,
                                                     ),
                                                   ),
                                                   SizedBox(
@@ -395,12 +391,10 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   Text(
                                                     snapshot.data![index].ptTime,
                                                     textAlign: TextAlign.center,
-                                                    style: CustomTextStylesCommon
-                                                        .commonStyle(
+                                                    style: CustomTextStylesCommon.commonStyle(
                                                       fontSize: FontSize.s11,
                                                       fontWeight: FontWeight.w400,
-                                                      color:
-                                                      ColorManager.mediumgrey,
+                                                      color: ColorManager.mediumgrey,
                                                     ),
                                                   ),
                                                 ],
@@ -412,8 +406,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                               flex: 2,
                                               child: Text("Ch #${snapshot.data![index].ptChartNo.toString()}",
                                                   textAlign: TextAlign.left,
-                                                  style: CustomTextStylesCommon
-                                                      .commonStyle(
+                                                  style: CustomTextStylesCommon.commonStyle(
                                                     fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w700,
                                                     color: ColorManager.textBlack,
@@ -505,8 +498,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   Text(
                                                     "Primary Diagnosis:",
                                                     textAlign: TextAlign.center,
-                                                    style: CustomTextStylesCommon
-                                                        .commonStyle(
+                                                    style: CustomTextStylesCommon.commonStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w400,
                                                       color: ColorManager.mediumgrey,
