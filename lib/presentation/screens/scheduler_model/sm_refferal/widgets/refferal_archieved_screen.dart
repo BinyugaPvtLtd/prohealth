@@ -131,24 +131,24 @@ class RefferalArchievedScreen extends StatelessWidget {
               //   ],
               // ),
               SizedBox(height: AppSize.s20,),
-              Row(
-                children: [
-                  Text("Received Date",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12,fontWeight: FontWeight.w400)),
-                  SizedBox(width: AppSize.s15,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s50,),
-                  Text("Hospitals",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
-                  SizedBox(width: AppSize.s15,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s50,),
-                  Text("PCP",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
-                  SizedBox(width: AppSize.s15,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Text("Received Date",
+              //         style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12,fontWeight: FontWeight.w400)),
+              //     SizedBox(width: AppSize.s15,),
+              //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+              //     SizedBox(width: AppSize.s50,),
+              //     Text("Hospitals",
+              //         style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
+              //     SizedBox(width: AppSize.s15,),
+              //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+              //     SizedBox(width: AppSize.s50,),
+              //     Text("PCP",
+              //         style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
+              //     SizedBox(width: AppSize.s15,),
+              //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+              //   ],
+              // ),
               SizedBox(height: AppSize.s20,),
               StreamBuilder<List<PatientModel>>(
                 stream: _streamController.stream,
@@ -474,31 +474,40 @@ class RefferalArchievedScreen extends StatelessWidget {
                                             ),
                                           ),
                                           // SizedBox(width: AppSize.s15),
+                                          ///
+                                          // Expanded(
+                                          //   flex: 2,
+                                          //   child: Padding(
+                                          //     padding: const EdgeInsets.only(right: 10),
+                                          //     child: Image.network(
+                                          //       snapshot.data![index].referralSource.referralSourceImgUrl,
+                                          //       loadingBuilder: (context, child, loadingProgress) {
+                                          //         if (loadingProgress == null) {
+                                          //           return child;
+                                          //         } else {
+                                          //           return Center(
+                                          //             child: CircularProgressIndicator(
+                                          //               value: loadingProgress.expectedTotalBytes != null
+                                          //                   ? loadingProgress.cumulativeBytesLoaded /
+                                          //                   (loadingProgress.expectedTotalBytes ?? 1)
+                                          //                   : null,
+                                          //             ),
+                                          //           );
+                                          //         }
+                                          //       },
+                                          //       errorBuilder: (context, error, stackTrace) {
+                                          //         return Image.asset('images/logo_login.png',width: 88,);
+                                          //       },
+                                          //       width: 88,
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                          ///
                                           Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(right: 10),
-                                              child: Image.network(
-                                                snapshot.data![index].referralSource.referralSourceImgUrl,
-                                                loadingBuilder: (context, child, loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  } else {
-                                                    return Center(
-                                                      child: CircularProgressIndicator(
-                                                        value: loadingProgress.expectedTotalBytes != null
-                                                            ? loadingProgress.cumulativeBytesLoaded /
-                                                            (loadingProgress.expectedTotalBytes ?? 1)
-                                                            : null,
-                                                      ),
-                                                    );
-                                                  }
-                                                },
-                                                errorBuilder: (context, error, stackTrace) {
-                                                  return Image.asset('images/logo_login.png',width: 88,);
-                                                },
-                                                width: 88,
-                                              ),
+                                              padding: const EdgeInsets.only(right: 5),
+                                              child: Center(child: SizedBox(child: Image.asset('images/logo_login.png',width: 90,))),
                                             ),
                                           ),
                                           // SizedBox(

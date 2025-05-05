@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:provider/provider.dart';
 
@@ -59,24 +60,24 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: AppSize.s20,),
-              Row(
-                children: [
-                  Text("Received Date",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
-                  SizedBox(width: AppSize.s15,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s50,),
-                  Text("Hospitals",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
-                  SizedBox(width: AppSize.s15,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s50,),
-                  Text("PCP",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
-                  SizedBox(width: AppSize.s15,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Text("Received Date",
+              //         style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
+              //     SizedBox(width: AppSize.s15,),
+              //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+              //     SizedBox(width: AppSize.s50,),
+              //     Text("Hospitals",
+              //         style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
+              //     SizedBox(width: AppSize.s15,),
+              //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+              //     SizedBox(width: AppSize.s50,),
+              //     Text("PCP",
+              //         style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
+              //     SizedBox(width: AppSize.s15,),
+              //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+              //   ],
+              // ),
               SizedBox(height: AppSize.s20,),
               StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
@@ -288,40 +289,48 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                             ),),
 
                                             ///company Img
-                                            Expanded(
-                                              flex: 2,
-                                              child: Center(
-                                                child: SizedBox(
-                                                  width: 110,
-                                                  child: Image.network(
-                                                    snapshot.data![index].referralSource.referralSourceImgUrl,
-                                                    fit: BoxFit.contain, // or BoxFit.cover if you like
-                                                    loadingBuilder: (context, child, loadingProgress) {
-                                                      if (loadingProgress == null) {
-                                                        return child;
-                                                      } else {
-                                                        return Center(
-                                                          child: CircularProgressIndicator(
-                                                            value: loadingProgress.expectedTotalBytes != null
-                                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                                (loadingProgress.expectedTotalBytes ?? 1)
-                                                                : null,
-                                                          ),
-                                                        );
-                                                      }
-                                                    },
-                                                    errorBuilder: (context, error, stackTrace) {
-                                                      return Image.asset(
-                                                        'images/logo_login.png',
-                                                        width: 110,
-                                                        fit: BoxFit.contain,
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-,
+                                            // Expanded(
+                                            //   flex: 2,
+                                            //   child: Center(
+                                            //     child: SizedBox(
+                                            //       width: 110,
+                                            //       child: Image.network(
+                                            //         snapshot.data![index].referralSource.referralSourceImgUrl,
+                                            //         fit: BoxFit.contain, // or BoxFit.cover if you like
+                                            //         loadingBuilder: (context, child, loadingProgress) {
+                                            //           if (loadingProgress == null) {
+                                            //             return child;
+                                            //           } else {
+                                            //             return Center(
+                                            //               child: CircularProgressIndicator(
+                                            //                 value: loadingProgress.expectedTotalBytes != null
+                                            //                     ? loadingProgress.cumulativeBytesLoaded /
+                                            //                     (loadingProgress.expectedTotalBytes ?? 1)
+                                            //                     : null,
+                                            //               ),
+                                            //             );
+                                            //           }
+                                            //         },
+                                            //         errorBuilder: (context, error, stackTrace) {
+                                            //           return Image.asset(
+                                            //             'images/logo_login.png',
+                                            //             width: 110,
+                                            //             fit: BoxFit.contain,
+                                            //           );
+                                            //         },
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                            // )
+                                  ///
+                                  Expanded(
+                                    flex: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 5),
+                                      child: Center(child: SizedBox(child: Image.asset('images/logo_login.png',width: 90,))),
+                                    ),
+                                  ),
+
 
                                             ///marketer
                                             Expanded(child: Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),)),
@@ -455,9 +464,21 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                         splashColor: Colors.transparent,
                                                         highlightColor: Colors.transparent,
                                                         hoverColor: Colors.transparent,
-                                                        onTap: () {
-                                                          Navigator.pop(context);
-                                                          print('Option 2 Selected');
+                                                        onTap: () async{
+                                                          var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
+                                                          if(response.statusCode == 200 || response.statusCode == 201){
+                                                            Navigator.pop(context);
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) {
+                                                                return AddSuccessPopup(
+                                                                  message: 'Data Updated Successfully',
+                                                                );
+                                                              },
+                                                            );
+                                                          }else{
+                                                            print('Api error');
+                                                          }
                                                         },
                                                         child: Container(
                                                           alignment: Alignment.centerLeft,
