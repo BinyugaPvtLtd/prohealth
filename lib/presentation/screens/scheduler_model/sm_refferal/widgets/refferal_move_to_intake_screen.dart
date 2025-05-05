@@ -172,7 +172,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                               child: snapshot.data![index].ptImgUrl == 'imgurl' ||
                                                   snapshot.data![index].ptImgUrl == null
                                                   ? CircleAvatar(
-                                                radius: 30,
+                                                radius: 22,
                                                 backgroundColor: Colors.transparent,
                                                 child: Image.asset("images/profilepic.png"),
                                               )
@@ -194,31 +194,65 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                 },
                                                 errorBuilder: (context, error, stackTrace) {
                                                   return CircleAvatar(
-                                                    radius: 25,
+                                                    radius: 21,
                                                     backgroundColor: Colors.transparent,
                                                     child: Image.asset("images/profilepic.png"),
                                                   );
                                                 },
                                                 fit: BoxFit.cover,
-                                                height: 43,
-                                                width: 43,
+                                                height: 40,
+                                                width: 40,
                                               ),
                                             ),
+                                            SizedBox(width: AppSize.s15),
                                             ///Name
-                                            Expanded(child:  Text(
-                                              "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
-                                              textAlign: TextAlign.center,
-                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w700,
-                                                color: ColorManager.mediumgrey,),
-                                            ),),
+                                            Expanded(
+                                              flex: 4,
+                                              child:  Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon
+                                                        .commonStyle(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w700,
+                                                      color:
+                                                      ColorManager.mediumgrey,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: AppSize.s5,
+                                                  ),
+                                                  Text(
+                                                    "Received Date :  ${snapshot.data![index].ptRefferalDate}",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon
+                                                        .commonStyle(
+                                                      fontSize: FontSize.s11,
+                                                      fontWeight: FontWeight.w400,
+                                                      color:
+                                                      ColorManager.mediumgrey,
+                                                    ),
+                                                  ),
+
+                                                ],
+                                              ),),
                                             ///ch
-                                            Expanded(child:  Text(
+                                            Expanded(
+                                              flex: 2,
+                                              child:  Text(
                                               "Ch #${snapshot.data![index].ptChartNo.toString()}",
                                               style: DocDefineTableData.customTextStyle(context),
                                             ),),
                                             ///Referral source
-                                            Expanded(child:  Column(
+                                            Expanded(
+                                              flex: 3,
+                                              child:  Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
@@ -239,9 +273,10 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                 ),
                                               ],
                                             ),),
-
                                             ///PCP
-                                            Expanded(child: Column(
+                                            Expanded(
+                                              flex: 2,
+                                              child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
@@ -262,10 +297,10 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                 ),
                                               ],
                                             ),),
-
-
                                             ///Primary diagnosis
-                                            Expanded(child: Column(
+                                            Expanded(
+                                              flex: 3,
+                                              child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
@@ -289,536 +324,182 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
 
                                             ///company Img
                                             Expanded(
-                                              flex: 2,
+                                              flex: 3,
                                               child: Center(
-                                                child: SizedBox(
-                                                  width: 110,
-                                                  child: Image.network(
-                                                    snapshot.data![index].referralSource.referralSourceImgUrl,
-                                                    fit: BoxFit.contain, // or BoxFit.cover if you like
-                                                    loadingBuilder: (context, child, loadingProgress) {
-                                                      if (loadingProgress == null) {
-                                                        return child;
-                                                      } else {
-                                                        return Center(
-                                                          child: CircularProgressIndicator(
-                                                            value: loadingProgress.expectedTotalBytes != null
-                                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                                (loadingProgress.expectedTotalBytes ?? 1)
-                                                                : null,
-                                                          ),
-                                                        );
-                                                      }
-                                                    },
-                                                    errorBuilder: (context, error, stackTrace) {
-                                                      return Image.asset(
-                                                        'images/logo_login.png',
-                                                        width: 110,
-                                                        fit: BoxFit.contain,
+                                                child: Image.network(
+                                                  snapshot.data![index].referralSource.referralSourceImgUrl,
+                                                  fit: BoxFit.contain, // or BoxFit.cover if you like
+                                                  loadingBuilder: (context, child, loadingProgress) {
+                                                    if (loadingProgress == null) {
+                                                      return child;
+                                                    } else {
+                                                      return Center(
+                                                        child: CircularProgressIndicator(
+                                                          value: loadingProgress.expectedTotalBytes != null
+                                                              ? loadingProgress.cumulativeBytesLoaded /
+                                                              (loadingProgress.expectedTotalBytes ?? 1)
+                                                              : null,
+                                                        ),
                                                       );
-                                                    },
-                                                  ),
+                                                    }
+                                                  },
+                                                  errorBuilder: (context, error, stackTrace) {
+                                                    return Image.asset(
+                                                      'images/logo_login.png',
+                                                      width: 90,
+                                                      fit: BoxFit.contain,
+                                                    );
+                                                  },
                                                 ),
                                               ),
-                                            )
-,
-
+                                            ),
                                             ///marketer
-                                            Expanded(child: Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),)),
+                                            Expanded(
+                                              flex: 2,
+                                                child: Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),)),
                                             // SizedBox(width: 10),
                                             ///Img
-                                            Expanded(
-                                              child: Container(
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(color: Colors.grey.shade300, width: 1),
-                                                ),
-                                                child: ClipOval(
-
-                                                  child: SizedBox(
-                                                    height: 43, // control the circle size here
-                                                    width: 43,
-                                                    child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                                        snapshot.data![index].ptImgUrl == null
-                                                        ? Image.asset(
-
-                                                      "images/profilepic.png",
-                                                      fit: BoxFit.cover,
-                                                    )
-                                                        : Image.network(
-
-                                                      snapshot.data![index].marketer.imgurl,
-                                                      fit: BoxFit.cover,
-                                                      loadingBuilder: (context, child, loadingProgress) {
-                                                        if (loadingProgress == null) {
-                                                          return child;
-                                                        } else {
-                                                          return Center(
-                                                            child: CircularProgressIndicator(
-                                                              value: loadingProgress.expectedTotalBytes != null
-                                                                  ? loadingProgress.cumulativeBytesLoaded /
-                                                                  (loadingProgress.expectedTotalBytes ?? 1)
-                                                                  : null,
-                                                            ),
-                                                          );
-                                                        }
-                                                      },
-                                                      errorBuilder: (context, error, stackTrace) {
-                                                        return Image.asset(
-                                                          "images/profilepic.png",
-                                                          fit: BoxFit.cover,
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-,
+                                  ClipOval(
+                                    child: snapshot.data![index].ptImgUrl == 'imgurl' ||
+                                        snapshot.data![index].ptImgUrl == null
+                                        ? CircleAvatar(
+                                      radius: 23,
+                                      backgroundColor: Colors.transparent,
+                                      child: Image.asset("images/profilepic.png"),
+                                    )
+                                        : Image.network(
+                                      snapshot.data![index].marketer.imgurl,
+                                      loadingBuilder: (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress.expectedTotalBytes != null
+                                                  ? loadingProgress.cumulativeBytesLoaded /
+                                                  (loadingProgress.expectedTotalBytes ?? 1)
+                                                  : null,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return CircleAvatar(
+                                          radius: 21,
+                                          backgroundColor: Colors.transparent,
+                                          child: Image.asset("images/profilepic.png"),
+                                        );
+                                      },
+                                      fit: BoxFit.cover,
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                  ),
                                             ///Name
-                                            Expanded(child:  Text(
+                                            Expanded(
+                                              flex: 2,
+                                              child:  Text(
                                               "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
                                               textAlign: TextAlign.center,
                                               style: DocDefineTableData.customTextStyle(context),
                                             ),),
                                             ///4 Icons
-                                            Expanded(child:
-                                            Expanded(
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                InkWell(
-                                                  onTap: () async {
-                                                    try {
-                                                      onEyeButtonPressed();
-                                                      providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
-                                                    }
-                                                    catch (e){
-                                                      print("Error: $e");
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    width: AppSize.s20,
-                                                    height: AppSize.s25,
-                                                    child: SvgPicture.asset(
-                                                      'images/sm/sm_refferal/eye.svg', // make sure your file is in assets and listed in pubspec.yaml
-                                                      height: AppSize.s15,
-                                                      width: AppSize.s22,
-                                                    ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                              InkWell(
+                                                onTap: () async {
+                                                  try {
+                                                    onEyeButtonPressed();
+                                                    providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
+                                                  }
+                                                  catch (e){
+                                                    print("Error: $e");
+                                                  }
+                                                },
+                                                child: Container(
+                                                  width: AppSize.s20,
+                                                  height: AppSize.s25,
+                                                  child: SvgPicture.asset(
+                                                    'images/sm/sm_refferal/eye.svg', // make sure your file is in assets and listed in pubspec.yaml
+                                                    height: AppSize.s15,
+                                                    width: AppSize.s22,
                                                   ),
                                                 ),
-                                                //  SizedBox(width: AppSize.s10),
-                                                IconButton(
-                                                    hoverColor: Colors.transparent,
-                                                    splashColor: Colors.transparent,
-                                                    highlightColor: Colors.transparent,
-                                                    onPressed: (){},
-                                                    icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
-                                                // SizedBox(width: AppSize.s2),
-                                                PopupMenuButton<String>(
-                                                  tooltip: '',
-                                                  splashRadius: 0,
-                                                  color: Colors.white,
-                                                  offset: Offset(25, 42),
-                                                  itemBuilder: (BuildContext context) => [
-                                                    PopupMenuItem<String>(
-                                                      value: 'Merge Duplicate',
-                                                      padding: EdgeInsets.zero, // Remove padding
-                                                      child: InkWell(
-                                                        splashColor: Colors.transparent,
-                                                        highlightColor: Colors.transparent,
-                                                        hoverColor: Colors.transparent,
-                                                        onTap: () {
-                                                          Navigator.pop(context); // Important: manually close the popup
-                                                          onMergeDuplicatePressed();
-                                                        },
-                                                        child: Container(
-                                                          alignment: Alignment.centerLeft,
-                                                          padding: EdgeInsets.only(left: 12, top: 5),
-                                                          width: 100,
-                                                          child: Text(
-                                                            'Merge Duplicate',
-                                                            style: CustomTextStylesCommon.commonStyle(
-                                                              fontWeight: FontWeight.w700,
-                                                              fontSize: FontSize.s12,
-                                                              color: ColorManager.mediumgrey,
-                                                            ),
+                                              ),
+                                              //  SizedBox(width: AppSize.s10),
+                                              IconButton(
+                                                  hoverColor: Colors.transparent,
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  onPressed: (){},
+                                                  icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
+                                              // SizedBox(width: AppSize.s2),
+                                              PopupMenuButton<String>(
+                                                tooltip: '',
+                                                splashRadius: 0,
+                                                color: Colors.white,
+                                                offset: Offset(25, 42),
+                                                itemBuilder: (BuildContext context) => [
+                                                  PopupMenuItem<String>(
+                                                    value: 'Merge Duplicate',
+                                                    padding: EdgeInsets.zero, // Remove padding
+                                                    child: InkWell(
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      onTap: () {
+                                                        Navigator.pop(context); // Important: manually close the popup
+                                                        onMergeDuplicatePressed();
+                                                      },
+                                                      child: Container(
+                                                        alignment: Alignment.centerLeft,
+                                                        padding: EdgeInsets.only(left: 12, top: 5),
+                                                        width: 100,
+                                                        child: Text(
+                                                          'Merge Duplicate',
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: FontSize.s12,
+                                                            color: ColorManager.mediumgrey,
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                    PopupMenuItem<String>(
-                                                      value: 'Archived',
-                                                      padding: EdgeInsets.zero,
-                                                      child: InkWell(
-                                                        splashColor: Colors.transparent,
-                                                        highlightColor: Colors.transparent,
-                                                        hoverColor: Colors.transparent,
-                                                        onTap: () {
-                                                          Navigator.pop(context);
-                                                          print('Option 2 Selected');
-                                                        },
-                                                        child: Container(
-                                                          alignment: Alignment.centerLeft,
-                                                          padding: EdgeInsets.only(left: 12, top: 5),
-                                                          width: 100,
-                                                          child: Text(
-                                                            'Archived',
-                                                            style: CustomTextStylesCommon.commonStyle(
-                                                              fontWeight: FontWeight.w700,
-                                                              fontSize: FontSize.s12,
-                                                              color: ColorManager.mediumgrey,
-                                                            ),
+                                                  ),
+                                                  PopupMenuItem<String>(
+                                                    value: 'Archived',
+                                                    padding: EdgeInsets.zero,
+                                                    child: InkWell(
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                        print('Option 2 Selected');
+                                                      },
+                                                      child: Container(
+                                                        alignment: Alignment.centerLeft,
+                                                        padding: EdgeInsets.only(left: 12, top: 5),
+                                                        width: 100,
+                                                        child: Text(
+                                                          'Archived',
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: FontSize.s12,
+                                                            color: ColorManager.mediumgrey,
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ],
-                                                  child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
-                                                ),
-                                              ],),
-                                            )),
+                                                  ),
+                                                ],
+                                                child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
+                                              ),
+                                            ],),
                                           ],
                                         )
-
-
-
-
-
-
                                       ),
-                                      // Row(
-                                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      //   children: [
-                                      //     Expanded(
-                                      //       flex: 4,
-                                      //       child: Row(
-                                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      //         children: [
-                                      //           Row(
-                                      //             children: [
-                                      //               ClipOval(
-                                      //                 child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                      //                     snapshot.data![index].ptImgUrl == null
-                                      //                     ? CircleAvatar(
-                                      //                   radius: 30,
-                                      //                   backgroundColor: Colors.transparent,
-                                      //                   child: Image.asset("images/profilepic.png"),
-                                      //                 )
-                                      //                     : Image.network(
-                                      //                   snapshot.data![index].ptImgUrl,
-                                      //                   loadingBuilder: (context, child, loadingProgress) {
-                                      //                     if (loadingProgress == null) {
-                                      //                       return child;
-                                      //                     } else {
-                                      //                       return Center(
-                                      //                         child: CircularProgressIndicator(
-                                      //                           value: loadingProgress.expectedTotalBytes != null
-                                      //                               ? loadingProgress.cumulativeBytesLoaded /
-                                      //                               (loadingProgress.expectedTotalBytes ?? 1)
-                                      //                               : null,
-                                      //                         ),
-                                      //                       );
-                                      //                     }
-                                      //                   },
-                                      //                   errorBuilder: (context, error, stackTrace) {
-                                      //                     return CircleAvatar(
-                                      //                       radius: 25,
-                                      //                       backgroundColor: Colors.transparent,
-                                      //                       child: Image.asset("images/profilepic.png"),
-                                      //                     );
-                                      //                   },
-                                      //                   fit: BoxFit.cover,
-                                      //                   height: 43,
-                                      //                   width: 43,
-                                      //                 ),
-                                      //               ),
-                                      //               SizedBox(width: AppSize.s15),
-                                      //               Column(
-                                      //                 crossAxisAlignment: CrossAxisAlignment.start,
-                                      //                 mainAxisAlignment: MainAxisAlignment.center,
-                                      //                 children: [
-                                      //                   Text(
-                                      //                     "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
-                                      //                     textAlign: TextAlign.center,
-                                      //                     style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //                       fontWeight: FontWeight.w700,
-                                      //                       color: ColorManager.mediumgrey,),
-                                      //                   ),
-                                      //                   SizedBox(height: AppSize.s5,),
-                                      //                   Text(
-                                      //                     "Referral Date : ${snapshot.data![index].ptRefferalDate}",
-                                      //                     textAlign: TextAlign.center,
-                                      //                     style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //                       fontWeight: FontWeight.w400,
-                                      //                       color: ColorManager.mediumgrey,),
-                                      //                   ),
-                                      //                 ],
-                                      //               ),
-                                      //             ],
-                                      //           ),
-                                      //
-                                      //           //SizedBox(width: AppSize.s40),
-                                      //           Text(
-                                      //             "Ch #1",
-                                      //             style: DocDefineTableData.customTextStyle(context),
-                                      //           ),
-                                      //           Padding(
-                                      //             padding: const EdgeInsets.only(right: 70.0),
-                                      //             child: Column(
-                                      //               crossAxisAlignment: CrossAxisAlignment.start,
-                                      //               mainAxisAlignment: MainAxisAlignment.center,
-                                      //               children: [
-                                      //                 Text(
-                                      //                   "Referral Source: ",
-                                      //                   textAlign: TextAlign.center,
-                                      //                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //                     fontWeight: FontWeight.w400,
-                                      //                     color: ColorManager.textBlack,),
-                                      //                 ),
-                                      //                 SizedBox(height: AppSize.s4,),
-                                      //                 Text(
-                                      //                   snapshot.data![index].referralSource.sourceName,
-                                      //                   textAlign: TextAlign.center,
-                                      //                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //                     fontWeight: FontWeight.w700,
-                                      //                     color: ColorManager.mediumgrey,),
-                                      //                 ),
-                                      //               ],
-                                      //             ),
-                                      //           ),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     Expanded(
-                                      //       flex: 1,
-                                      //       child:  Column(
-                                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                                      //         mainAxisAlignment: MainAxisAlignment.center,
-                                      //         children: [
-                                      //           Text(
-                                      //             "PCP: ",
-                                      //             textAlign: TextAlign.center,
-                                      //             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //               fontWeight: FontWeight.w400,
-                                      //               color: ColorManager.mediumgrey,),
-                                      //           ),
-                                      //           SizedBox(height: AppSize.s4,),
-                                      //           Text(
-                                      //             "${snapshot.data![index].pcp.phyFirstName} ${snapshot.data![index].pcp.phyLastName}",
-                                      //             textAlign: TextAlign.center,
-                                      //             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //               fontWeight: FontWeight.w700,
-                                      //               color: ColorManager.mediumgrey,),
-                                      //           ),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     Expanded(
-                                      //       flex: 1,
-                                      //       child:  Column(
-                                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                                      //         mainAxisAlignment: MainAxisAlignment.center,
-                                      //         children: [
-                                      //           Text(
-                                      //             "Primary Diagnosis: ",
-                                      //             textAlign: TextAlign.center,
-                                      //             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //               fontWeight: FontWeight.w400,
-                                      //               color: ColorManager.mediumgrey,),
-                                      //           ),
-                                      //           SizedBox(height: AppSize.s4,),
-                                      //           Text(
-                                      //             snapshot.data![index].primaryDiagnosis.dgnName,
-                                      //             textAlign: TextAlign.center,
-                                      //             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //               fontWeight: FontWeight.w700,
-                                      //               color: ColorManager.mediumgrey,),
-                                      //           ),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     SizedBox(width: 20,),
-                                      //     Expanded(
-                                      //       flex: 1,
-                                      //       child: Row(
-                                      //         children: [
-                                      //           Image.network(
-                                      //             snapshot.data![index].referralSource.referralSourceImgUrl,
-                                      //             loadingBuilder: (context, child, loadingProgress) {
-                                      //               if (loadingProgress == null) {
-                                      //                 return child;
-                                      //               } else {
-                                      //                 return Center(
-                                      //                   child: CircularProgressIndicator(
-                                      //                     value: loadingProgress.expectedTotalBytes != null
-                                      //                         ? loadingProgress.cumulativeBytesLoaded /
-                                      //                         (loadingProgress.expectedTotalBytes ?? 1)
-                                      //                         : null,
-                                      //                   ),
-                                      //                 );
-                                      //               }
-                                      //             },
-                                      //             errorBuilder: (context, error, stackTrace) {
-                                      //               return Image.asset('images/logo_login.png',width: 110,);
-                                      //             },
-                                      //             width: 110,
-                                      //           ),
-                                      //           // Text("Manual",style: DocDefineTableData.customTextStyle(context),),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     Expanded(
-                                      //         flex: 3,
-                                      //         child: Row(
-                                      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      //           children: [
-                                      //             SizedBox(width: AppSize.s10),
-                                      //             Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
-                                      //             // SizedBox(width: AppSize.s28),
-                                      //             Row(
-                                      //               children: [
-                                      //                 ClipOval(
-                                      //                   child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                      //                       snapshot.data![index].ptImgUrl == null
-                                      //                       ? CircleAvatar(
-                                      //                     radius: 30,
-                                      //                     backgroundColor: Colors.transparent,
-                                      //                     child: Image.asset("images/profilepic.png"),
-                                      //                   )
-                                      //                       : Image.network(
-                                      //                     snapshot.data![index].marketer.imgurl,
-                                      //                     loadingBuilder: (context, child, loadingProgress) {
-                                      //                       if (loadingProgress == null) {
-                                      //                         return child;
-                                      //                       } else {
-                                      //                         return Center(
-                                      //                           child: CircularProgressIndicator(
-                                      //                             value: loadingProgress.expectedTotalBytes != null
-                                      //                                 ? loadingProgress.cumulativeBytesLoaded /
-                                      //                                 (loadingProgress.expectedTotalBytes ?? 1)
-                                      //                                 : null,
-                                      //                           ),
-                                      //                         );
-                                      //                       }
-                                      //                     },
-                                      //                     errorBuilder: (context, error, stackTrace) {
-                                      //                       return CircleAvatar(
-                                      //                         radius: 25,
-                                      //                         backgroundColor: Colors.transparent,
-                                      //                         child: Image.asset("images/profilepic.png"),
-                                      //                       );
-                                      //                     },
-                                      //                     fit: BoxFit.cover,
-                                      //                     height: 45,
-                                      //                     width: 41,
-                                      //                   ),
-                                      //                 ),
-                                      //                 SizedBox(width: AppSize.s15),
-                                      //                 Text(
-                                      //                   "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
-                                      //                   textAlign: TextAlign.center,
-                                      //                   style: DocDefineTableData.customTextStyle(context),
-                                      //                 ),
-                                      //               ],
-                                      //             ),
-                                      //             // SizedBox(width: AppSize.s20),
-                                      //             InkWell(
-                                      //               onTap: () async {
-                                      //                 try {
-                                      //                   onEyeButtonPressed();
-                                      //                   providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
-                                      //                 }
-                                      //                 catch (e){
-                                      //                   print("Error: $e");
-                                      //                 }
-                                      //               },
-                                      //               child: Container(
-                                      //                 width: AppSize.s20,
-                                      //                 height: AppSize.s25,
-                                      //                 child: SvgPicture.asset(
-                                      //                   'images/sm/sm_refferal/eye.svg', // make sure your file is in assets and listed in pubspec.yaml
-                                      //                   height: AppSize.s15,
-                                      //                   width: AppSize.s22,
-                                      //                 ),
-                                      //               ),
-                                      //             ),
-                                      //             //  SizedBox(width: AppSize.s10),
-                                      //             IconButton(
-                                      //                 hoverColor: Colors.transparent,
-                                      //                 splashColor: Colors.transparent,
-                                      //                 highlightColor: Colors.transparent,
-                                      //                 onPressed: (){},
-                                      //                 icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
-                                      //             // SizedBox(width: AppSize.s2),
-                                      //             PopupMenuButton<String>(
-                                      //               tooltip: '',
-                                      //               splashRadius: 0,
-                                      //               color: Colors.white,
-                                      //               offset: Offset(25, 42),
-                                      //               itemBuilder: (BuildContext context) => [
-                                      //                 PopupMenuItem<String>(
-                                      //                   value: 'Merge Duplicate',
-                                      //                   padding: EdgeInsets.zero, // Remove padding
-                                      //                   child: InkWell(
-                                      //                     splashColor: Colors.transparent,
-                                      //                     highlightColor: Colors.transparent,
-                                      //                     hoverColor: Colors.transparent,
-                                      //                     onTap: () {
-                                      //                       Navigator.pop(context); // Important: manually close the popup
-                                      //                       onMergeDuplicatePressed();
-                                      //                     },
-                                      //                     child: Container(
-                                      //                       alignment: Alignment.centerLeft,
-                                      //                       padding: EdgeInsets.only(left: 12, top: 5),
-                                      //                       width: 100,
-                                      //                       child: Text(
-                                      //                         'Merge Duplicate',
-                                      //                         style: CustomTextStylesCommon.commonStyle(
-                                      //                           fontWeight: FontWeight.w700,
-                                      //                           fontSize: FontSize.s12,
-                                      //                           color: ColorManager.mediumgrey,
-                                      //                         ),
-                                      //                       ),
-                                      //                     ),
-                                      //                   ),
-                                      //                 ),
-                                      //                 PopupMenuItem<String>(
-                                      //                   value: 'Archived',
-                                      //                   padding: EdgeInsets.zero,
-                                      //                   child: InkWell(
-                                      //                     splashColor: Colors.transparent,
-                                      //                     highlightColor: Colors.transparent,
-                                      //                     hoverColor: Colors.transparent,
-                                      //                     onTap: () {
-                                      //                       Navigator.pop(context);
-                                      //                       print('Option 2 Selected');
-                                      //                     },
-                                      //                     child: Container(
-                                      //                       alignment: Alignment.centerLeft,
-                                      //                       padding: EdgeInsets.only(left: 12, top: 5),
-                                      //                       width: 100,
-                                      //                       child: Text(
-                                      //                         'Archived',
-                                      //                         style: CustomTextStylesCommon.commonStyle(
-                                      //                           fontWeight: FontWeight.w700,
-                                      //                           fontSize: FontSize.s12,
-                                      //                           color: ColorManager.mediumgrey,
-                                      //                         ),
-                                      //                       ),
-                                      //                     ),
-                                      //                   ),
-                                      //                 ),
-                                      //               ],
-                                      //               child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
-                                      //             ),
-                                      //             // SizedBox(width: AppSize.s10),
-                                      //           ],
-                                      //         ))
-                                      //   ],
-                                      // ),
-                                      Expanded(child: Container(height: AppSize.s8,)),
                                     ],
                                   ),
                                 ),

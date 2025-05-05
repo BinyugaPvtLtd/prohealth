@@ -730,7 +730,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: 20,),
+                                          //SizedBox(width: 20,),
                                           Expanded(
                                             flex: 2,
                                             child: SMTextFConst(
@@ -760,7 +760,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                               text: "Insurance Plan :",
                                             ),
                                           ),
-                                          SizedBox(width: 10,),
+                                         // SizedBox(width: 10,),
                                           Expanded(
                                             flex: 2,
                                             child: Column(
@@ -783,7 +783,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                               )
                                             ],),
                                           ),
-                                          SizedBox(width: 20,),
+                                          //SizedBox(width: 20,),
                                           Container(
                                             width: 30,
                                             height: 30,
@@ -938,9 +938,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         return Container(height: 150,
                         child: Row(
                           children: [
-
                             Expanded(
-                              flex: 2,
+                              flex: 3,
                               child: Container(
                                 padding: EdgeInsets.only(left: 25),
                                 child: Column(
@@ -1028,7 +1027,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 ],),
                               ),
                             ),
-                          Expanded(child: Container()),
                           Expanded(
                             flex: 2,
                             child: Container(
