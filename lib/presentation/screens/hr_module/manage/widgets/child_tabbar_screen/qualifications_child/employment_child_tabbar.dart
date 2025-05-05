@@ -1,329 +1,849 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
+import 'package:prohealth/app/services/api/managers/post_html_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/employeement_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/add_employee_popup_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_employeement_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 
 ///done by saloni
 class EmploymentContainerConstant extends StatelessWidget {
+  final int employeeId;
+  EmploymentContainerConstant({required this.employeeId});
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width / 80,
-            vertical: MediaQuery.of(context).size.height / 100),
-        child: TwoContainersRow(
-            child1: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Row(children: [
-                  Text('Employment #1',
-                    style: TextStyle(
-                      fontFamily: 'FiraSans',
-                      fontSize: 13,
-                      color: Color(0xFF333333),
-                      fontWeight: FontWeight.w500,
-                    ),),
-                ],),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Final Position Title',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('Start Date',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('End Date',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('Employer',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('Emergency Contact',
-                            style: ThemeManager.customTextStyle(context)),
-                      ],
+    final employeementProviderState = Provider.of<HrManageProvider>(
+        context, listen: false);
+    bool isSelectedADD = false;
+    bool isSelectedEdit = false;
+    final LayerLink _layerLink = LayerLink();
+    int currentPage = 0;
+    int itemsPerPage = 0;
+    final StreamController<
+        List<EmployeementData>> employeementStreamController = StreamController<
+        List<EmployeementData>>();
+    TextEditingController positionTitleController = TextEditingController();
+    TextEditingController leavingResonController = TextEditingController();
+    TextEditingController startDateContoller = TextEditingController();
+    TextEditingController endDateController = TextEditingController();
+    TextEditingController lastSupervisorNameController = TextEditingController();
+    TextEditingController supervisorMobileNumber = TextEditingController();
+    TextEditingController cityNameController = TextEditingController();
+    TextEditingController employeerController = TextEditingController();
+    TextEditingController emergencyMobileNumber = TextEditingController();
+    TextEditingController countryController = TextEditingController();
+    //print("Employee id in EmployeeMent screen :: ${employeeId}");
+
+
+
+    // Truncate the text to 10 characters
+    String _truncateText(String text, int maxLength) {
+      if (text.length > maxLength) {
+        return text.substring(0, maxLength) + '...'; // Add "..." if the text exceeds 10 characters
+      }
+      return text;
+    }
+
+
+
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+
+            ///add button
+            CustomIconButtonConst(
+                width: 80,
+                text: AppStringHr.add,
+                icon: Icons.add,
+                onPressed: () {
+                  positionTitleController.clear();
+                  leavingResonController.clear();
+                  startDateContoller.clear();
+                  endDateController.clear();
+                  lastSupervisorNameController.clear();
+                  supervisorMobileNumber.clear();
+                  cityNameController.clear();
+                  employeerController.clear();
+                  emergencyMobileNumber.clear();
+                  countryController.clear();
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    // routeSettings: ,
+                    builder: (BuildContext context) {
+                      return StatefulBuilder(
+                        builder: (BuildContext context,
+                            void Function(void Function()) setState) {
+                          return AddEmployeementPopup(
+                            positionTitleController: positionTitleController,
+                            leavingResonController: leavingResonController,
+                            startDateContoller: startDateContoller,
+                            endDateController: endDateController,
+                            lastSupervisorNameController: lastSupervisorNameController,
+                            supervisorMobileNumber: supervisorMobileNumber,
+                            cityNameController: cityNameController,
+                            employeerController: employeerController,
+                            emergencyMobileNumber: emergencyMobileNumber,
+                            countryController: countryController,
+
+                            onpressedSave: () async {
+                              var response = await addEmployeement(
+                                  context,
+                                  employeeId,
+                                  employeerController.text,
+                                  cityNameController.text,
+                                  leavingResonController.text,
+                                  lastSupervisorNameController.text,
+                                  supervisorMobileNumber.text,
+                                  positionTitleController.text,
+                                  startDateContoller.text,
+                                  isSelectedADD
+                                      ? "Currently Working"
+                                      : endDateController.text,
+                                  emergencyMobileNumber.text,
+                                  countryController.text);
+
+                              var approveResponse = await approveOnboardQualifyEmploymentPatch(
+                                  context, response.employeementId!);
+                              if (approveResponse.statusCode == 200 ||
+                                  approveResponse.statusCode == 201) {
+                                Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AddSuccessPopup(
+                                      message: 'Employement Added Successfully',
+                                    );
+                                  },
+                                );
+                              } else if (response.statusCode == 400 ||
+                                  response.statusCode == 404) {
+                                Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (
+                                      BuildContext context) => const FourNotFourPopup(),
+                                );
+                              }
+                              else {
+                                Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      FailedPopup(text: response.message),
+                                );
+                              }
+                            },
+                            checkBoxTile: StatefulBuilder(
+                              builder: (BuildContext context,
+                                  void Function(void Function()) setState) {
+                                return Container(
+                                  //color: Colors.red,
+                                    width: 300,
+                                    child: CheckboxTile(
+                                      title: 'Currently work here',
+                                      initialValue: isSelectedADD,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          isSelectedADD = !isSelectedADD;
+                                          endDateController.clear();
+                                        });
+                                      },
+                                    ));
+                              },
+                            ),
+                            tite: 'Add Employment',
+                            onpressedClose: () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
+                }),
+            SizedBox(width: 100,)
+          ],
+        ),
+        StreamBuilder<List<EmployeementData>>(
+            stream: employeementStreamController.stream,
+            builder: (context, snapshot) {
+              getEmployeement(context, employeeId).then((data) {
+                employeementStreamController.add(data);
+              }).catchError((error) {
+                // Handle error
+              });
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Developer',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '01-03-24',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '22-03-24',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'John Smith',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '9845632156',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Reason of Leaving',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('Last Supervisor’s Name',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('SuperVisor\'s Phone No.',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('City',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('Country',
-                            style: ThemeManager.customTextStyle(context)),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Personal',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Jerry Christ',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'T4541564214',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Hamburg',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Germany',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(height: MediaQuery.of(context).size.height/6,),
-                        IconButtonWidget(
-                        iconData: Icons.edit_outlined,
-                        buttonText: 'Edit',
-                        onPressed: () {}),
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-            child2: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Row(children: [
-                  Text('Employment #2',
-                    style: TextStyle(
-                      fontFamily: 'FiraSans',
-                      fontSize: 13,
-                      color: Color(0xFF333333),
-                      fontWeight: FontWeight.w500,
-                    ),),
-                ],),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Final Position Title',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('Start Date',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('End Date',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('Employer',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('Emergency Contact',
-                            style: ThemeManager.customTextStyle(context)),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Developer',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '01-03-24',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '22-03-24',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'John Smith',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '9845632156',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Reason of Leaving',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('Last Supervisor’s Name',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('SuperVisor\'s Phone No.',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('City',
-                            style: ThemeManager.customTextStyle(context)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text('Country',
-                            style: ThemeManager.customTextStyle(context)),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Personal',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Jerry Christ',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'T4541564214',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Hamburg',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Germany',
-                          style: ThemeManagerDark.customTextStyle(context),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(height: MediaQuery.of(context).size.height/6,),
-                        IconButtonWidget(
-                            iconData: Icons.edit_outlined,
-                            buttonText: 'Edit',
-                            onPressed: () {}),
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-        ));
+                  ),
+                );
+              }
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 100),
+                      child: Text(
+                        AppStringHRNoData.employeeNoData,
+                        style: AllNoDataAvailable.customTextStyle(context),
+                      ),
+                    ));
+              }
+              if (snapshot.hasData) {
+                int totalItems = snapshot.data!.length;
+                List<EmployeementData> currentPageItems = snapshot.data!
+                    .sublist(
+                  (currentPage - 1) * itemsPerPage,
+                  (currentPage * itemsPerPage) > totalItems
+                      ? totalItems
+                      : (currentPage * itemsPerPage),
+                );
+
+                return WrapWidget(
+                    children: List.generate(snapshot.data!.length, (index) {
+                      var fileUrl = snapshot.data![index].documentUrl;
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        employeementProviderState.trimEmpAddress(
+                            snapshot.data![index].reason);
+                        employeementProviderState.trimSupervisor(
+                            snapshot.data![index].supervisor);
+                      });
+
+                      return CardDetails(
+                          childWidget: DetailsFormate(
+                            row1Child1: [
+                              SizedBox(height: 5,),
+                              Text('Final Position Title :',
+                                  style: ThemeManagerDark.customTextStyle(
+                                      context)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text('Start Date :',
+                                  style: ThemeManagerDark.customTextStyle(
+                                      context)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text('End Date :',
+                                  style: ThemeManagerDark.customTextStyle(
+                                      context)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text('Employer :',
+                                  style: ThemeManagerDark.customTextStyle(
+                                      context)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text('Emergency Contact :',
+                                  style: ThemeManagerDark.customTextStyle(
+                                      context)),
+                            ],
+                            row1Child2: [
+                              SizedBox(height: 5,),
+                              Text(
+                                snapshot.data![index].title,
+                                style: ThemeManagerDarkFont.customTextStyle(
+                                    context),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                snapshot.data![index].dateOfJoining,
+                                style: ThemeManagerDarkFont.customTextStyle(
+                                    context),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                snapshot.data![index].endDate,
+                                style: ThemeManagerDarkFont.customTextStyle(
+                                    context),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                snapshot.data![index].employer,
+                                style: ThemeManagerDarkFont.customTextStyle(
+                                    context),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                snapshot.data![index].emgMobile,
+                                style: ThemeManagerDarkFont.customTextStyle(
+                                    context),
+                              ),
+                            ],
+                            row2Child1: [
+                              SizedBox(height: 5,),
+                              Text('Reason of Leaving :',
+                                  style: ThemeManagerDark.customTextStyle(
+                                      context)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text('Last Supervisor’s Name :',
+                                  style: ThemeManagerDark.customTextStyle(
+                                      context)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text('Supervisor\'s Phone No. :',
+                                  style: ThemeManagerDark.customTextStyle(
+                                      context)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text('City :',
+                                  style: ThemeManagerDark.customTextStyle(
+                                      context)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text('Country :',
+                                  style: ThemeManagerDark.customTextStyle(
+                                      context)),
+                            ],
+                            row2Child2: [
+                              SizedBox(height: 5,),
+                              MouseRegion(
+                                onHover: (event) {
+                                  employeementProviderState.showOverlay(
+                                      context, event.position,
+                                      snapshot.data![index].reason ?? '--');
+                                },
+                                onExit: (_) {
+                                  employeementProviderState.removeOverlay();
+                                },
+                                child: CompositedTransformTarget(
+                                  link: _layerLink,
+                                  child: Text(
+                                    _truncateText(snapshot.data![index].reason ?? '--', 10),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),
+                                    overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                    maxLines: 1,
+                                       // snapshot.data![index].reason,
+                                    //style: ThemeManagerDarkFont.customTextStyle(
+                                        //context),
+                                  ),
+                                ),
+                              ),
+                              // Text(_trimAddress(
+                              //   snapshot.data![index].reason),
+                              //   style: ThemeManagerDarkFont.customTextStyle(context),
+                              // ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              MouseRegion(
+                                onHover: (event) {
+                                  employeementProviderState.showOverlay(
+                                      context, event.position,
+                                      snapshot.data![index].supervisor ?? '--');
+                                },
+                                onExit: (_) {
+                                  employeementProviderState.removeOverlay();
+                                },
+                                child: CompositedTransformTarget(
+                                  link: _layerLink,
+                                  child: Text(
+                                    _truncateText(snapshot.data![index].supervisor ?? '--', 10),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),
+                                    overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                    maxLines: 1,
+                                    //snapshot.data![index].supervisor,
+                                    //style: ThemeManagerDarkFont.customTextStyle(context),
+                                  ),),
+                              ),
+                              // Text( _trimAddress(
+                              //   snapshot.data![index].supervisor),
+                              //   style: ThemeManagerDarkFont.customTextStyle(context),
+                              // ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                snapshot.data![index].supMobile,
+                                style: ThemeManagerDarkFont.customTextStyle(
+                                    context),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                snapshot.data![index].city,
+                                style: ThemeManagerDarkFont.customTextStyle(
+                                    context),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                snapshot.data![index].country,
+                                style: ThemeManagerDarkFont.customTextStyle(
+                                    context),
+                              ),
+                            ],
+                            button: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                fileUrl == "--" ? SizedBox(
+                                  height: 25,
+                                ) : BorderIconButton(
+                                  iconData: Icons.remove_red_eye_outlined,
+                                  buttonText: 'View',
+                                  onPressed: () {
+                                    downloadFile(fileUrl);
+                                  },),
+                                SizedBox(width: 10,),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: snapshot.data![index].approved ==
+                                        null ? Text('Not Approved', style: TextStyle(
+                                      fontSize: 13,
+                                      color: ColorManager.mediumgrey,
+                                      fontWeight: FontWeight.w600,
+                                    )) : BorderIconButton(
+                                      iconData: Icons.edit_outlined,
+                                      buttonText: 'Edit',
+                                      onPressed: () {
+//                                 setState(() {
+//                                   showDialog(context: context, builder: (BuildContext context){
+//                                     return FutureBuilder<EmployeementPrefillData>(
+//                                         future: getPrefillEmployeement(context,snapshot.data![index].employmentId),
+//                                         builder: (context,snapshotPrefill) {
+//                                           if(snapshotPrefill.connectionState == ConnectionState.waiting){
+//                                             return Center(
+//                                               child: CircularProgressIndicator(
+//                                                 color: ColorManager.blueprime,
+//                                               ),
+//                                             );
+//                                           }
+//                                           var positionTitle = snapshotPrefill.data!.title;
+//                                           positionTitleController = TextEditingController(text: snapshotPrefill.data!.title);
+//
+//                                           var leavingReason = snapshotPrefill.data!.reason;
+//                                           leavingResonController = TextEditingController(text: snapshotPrefill.data!.reason);
+//
+//                                           var startDate = snapshotPrefill.data!.dateOfJoining;
+//                                           startDateContoller = TextEditingController(text: snapshotPrefill.data?.dateOfJoining);
+//
+//                                           var endDate = snapshotPrefill.data!.endDate;
+//                                           endDateController = TextEditingController(text: snapshotPrefill.data?.endDate);
+//
+//
+//                                           var supervisorName = snapshotPrefill.data!.supervisor;
+//                                           lastSupervisorNameController = TextEditingController(text: snapshotPrefill.data!.supervisor);
+//
+//                                           var supervisorMob = snapshotPrefill.data!.supMobile;
+//                                           supervisorMobileNumber = TextEditingController(text: snapshotPrefill.data!.supMobile);
+//
+//                                           var cityName = snapshotPrefill.data!.city;
+//                                           cityNameController = TextEditingController(text: snapshotPrefill.data!.city);
+//
+//                                           var employeer = snapshotPrefill.data!.employer;
+//                                           employeerController = TextEditingController(text: snapshotPrefill.data!.employer);
+//
+//                                           var emgMobile = snapshotPrefill.data!.emgMobile;
+//                                           emergencyMobileNumber = TextEditingController(text: snapshotPrefill.data!.emgMobile);
+//                                           var country = snapshotPrefill.data!.country;
+//                                           countryController =TextEditingController(text: snapshotPrefill.data!.country);
+//                                           return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
+//                                             endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
+//                                             supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
+//                                             employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
+//                                             countryController: countryController,
+//                                             onpressedSave: ()async{
+//                                               var response = await updateEmployeementPatch(context,
+//                                                   snapshot.data![index].employmentId,
+//                                                   widget.employeeId,
+//                                                   employeer == employeerController.text ? employeer.toString() : employeerController.text,
+//                                                   cityName == cityNameController.text ? cityName.toString() : cityNameController.text,
+//                                                   leavingReason == leavingResonController.text ? leavingReason.toString() : leavingResonController.text,
+//                                                   supervisorName == lastSupervisorNameController.text ? supervisorName.toString() : lastSupervisorNameController.text,
+//                                                   supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
+//                                                   positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
+//                                                   startDate == startDateContoller.text ? startDate  : startDateContoller.text,
+//                                               // isSelectedEdit
+//                                                   //     ? null // If currently working, don't update the end date
+//                                                   //     : endDate == endDateController.text
+//                                                   //     ? endDate
+//                                                   //     : endDateController.text,
+//                                                   isSelectedEdit ?  "Currently Working" : endDateController.text ,
+// //endDate == endDateController.text ? endDate : endDateController.text,
+//                                                   emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
+//                                                   country== countryController.text ?country.toString():countryController.text
+//                                                 // 'USA'
+//                                               );
+//                                               if(response.statusCode == 200 || response.statusCode == 201){
+//                                                 Navigator.pop(context);
+//                                                  showDialog(
+//                                                   context: context,
+//                                                   builder: (BuildContext context) {
+//                                                     return AddSuccessPopup(
+//                                                       message: 'Employement Edited Successfully',
+//                                                     );
+//                                                   },
+//                                                 );
+//                                               }else if(response.statusCode == 400 || response.statusCode == 404){
+//                                                 Navigator.pop(context);
+//                                                 showDialog(
+//                                                   context: context,
+//                                                   builder: (BuildContext context) => const FourNotFourPopup(),
+//                                                 );
+//                                               }
+//                                               else {
+//                                                 Navigator.pop(context);
+//                                                 showDialog(
+//                                                   context: context,
+//                                                   builder: (BuildContext context) => FailedPopup(text: response.message),
+//                                                 );
+//                                               }
+//                                          }, checkBoxTile: StatefulBuilder(
+//                                                 builder: (BuildContext context, void Function(void Function()) setState) {
+//                                                   return Container(
+//                                                     //color: Colors.red,
+//                                                       width: 300,
+//                                                       child: CheckboxTile(
+//                                                         title: 'Currently work here',
+//                                                         initialValue: isSelectedEdit,
+//                                                         onChanged: (value) {
+//                                                           setState((){
+//                                                             isSelectedEdit = !isSelectedEdit;
+//                                                             endDateController.clear();
+//                                                           });
+//                                                         },
+//                                                       ));
+//                                                 },
+//                                               ),
+//                                             // checkBoxTile:  Container(
+//                                             //     width: 300,
+//                                             //     child: CheckboxTile(title: 'Currently work here',
+//                                             //       initialValue: false,onChanged: (value){
+//                                             //     },)),
+//                                             tite: 'Edit Employment',
+//                                             onpressedClose: ()
+//                                              {
+//                                               Navigator.pop(context);
+//                                               },);
+//                                         }
+//                                     );
+//                                   });
+//                                 }
+                                        showDialog(context: context,
+                                            builder: (BuildContext context) {
+                                              return FutureBuilder<
+                                                  EmployeementPrefillData>(
+                                                future: getPrefillEmployeement(
+                                                    context,
+                                                    snapshot.data![index]
+                                                        .employmentId),
+                                                builder: (context,
+                                                    snapshotPrefill) {
+                                                  if (snapshotPrefill
+                                                      .connectionState ==
+                                                      ConnectionState.waiting) {
+                                                    return Center(
+                                                      child: CircularProgressIndicator(
+                                                        color: ColorManager
+                                                            .blueprime,
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  var positionTitle = snapshotPrefill
+                                                      .data!.title;
+                                                  positionTitleController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.title);
+
+                                                  var leavingReason = snapshotPrefill
+                                                      .data!.reason;
+                                                  leavingResonController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.reason);
+
+                                                  var startDate = snapshotPrefill
+                                                      .data!.dateOfJoining;
+                                                  startDateContoller =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data
+                                                              ?.dateOfJoining);
+
+                                                  var endDate = snapshotPrefill
+                                                      .data!.endDate;
+                                                  endDateController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data?.endDate);
+
+                                                  // Determine the value of isSelectedEdit based on endDateController's value
+                                                  if (endDateController.text ==
+                                                      "Currently Working") {
+                                                    isSelectedEdit = true;
+                                                  } else
+                                                  if (endDateController.text ==
+                                                      "2024/12/24") {
+                                                    isSelectedEdit = false;
+                                                  }
+
+                                                  var supervisorName = snapshotPrefill
+                                                      .data!.supervisor;
+                                                  lastSupervisorNameController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!
+                                                              .supervisor);
+
+                                                  var supervisorMob = snapshotPrefill
+                                                      .data!.supMobile;
+                                                  supervisorMobileNumber =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.supMobile);
+
+                                                  var cityName = snapshotPrefill
+                                                      .data!.city;
+                                                  cityNameController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.city);
+
+                                                  var employeer = snapshotPrefill
+                                                      .data!.employer;
+                                                  employeerController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.employer);
+
+                                                  var emgMobile = snapshotPrefill
+                                                      .data!.emgMobile;
+                                                  emergencyMobileNumber =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.emgMobile);
+
+                                                  var country = snapshotPrefill
+                                                      .data!.country;
+                                                  countryController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.country);
+
+                                                  return AddEmployeementPopup(
+                                                    positionTitleController: positionTitleController,
+                                                    leavingResonController: leavingResonController,
+                                                    startDateContoller: startDateContoller,
+                                                    endDateController: endDateController,
+                                                    lastSupervisorNameController: lastSupervisorNameController,
+                                                    supervisorMobileNumber: supervisorMobileNumber,
+                                                    cityNameController: cityNameController,
+                                                    employeerController: employeerController,
+                                                    emergencyMobileNumber: emergencyMobileNumber,
+                                                    countryController: countryController,
+                                                    onpressedSave: () async {
+                                                      var response = await updateEmployeementPatch(
+                                                        context,
+                                                        snapshot.data![index]
+                                                            .employmentId,
+                                                        employeeId,
+                                                        employeer ==
+                                                            employeerController
+                                                                .text
+                                                            ? employeer
+                                                            .toString()
+                                                            : employeerController
+                                                            .text,
+                                                        cityName ==
+                                                            cityNameController
+                                                                .text
+                                                            ? cityName
+                                                            .toString()
+                                                            : cityNameController
+                                                            .text,
+                                                        leavingReason ==
+                                                            leavingResonController
+                                                                .text
+                                                            ? leavingReason
+                                                            .toString()
+                                                            : leavingResonController
+                                                            .text,
+                                                        supervisorName ==
+                                                            lastSupervisorNameController
+                                                                .text
+                                                            ? supervisorName
+                                                            .toString()
+                                                            : lastSupervisorNameController
+                                                            .text,
+                                                        supervisorMob ==
+                                                            supervisorMobileNumber
+                                                                .text
+                                                            ? supervisorMob
+                                                            .toString()
+                                                            : supervisorMobileNumber
+                                                            .text,
+                                                        positionTitle ==
+                                                            positionTitleController
+                                                                .text
+                                                            ? positionTitle
+                                                            .toString()
+                                                            : positionTitleController
+                                                            .text,
+                                                        startDate ==
+                                                            startDateContoller
+                                                                .text
+                                                            ? startDate
+                                                            : startDateContoller
+                                                            .text,
+                                                        // Check if the end date is the same as the current end date or 'Currently Working'
+                                                        // endDate == endDateController.text || endDateController.text == "Currently Working"
+                                                        //     ? endDateController.text // If it's the same or "Currently Working", do not change the end date
+                                                        //     : endDateController.text,
+                                                        isSelectedEdit
+                                                            ? "Currently Working"
+                                                            : endDateController
+                                                            .text,
+                                                        emgMobile ==
+                                                            emergencyMobileNumber
+                                                                .text
+                                                            ? emgMobile
+                                                            : emergencyMobileNumber
+                                                            .text,
+                                                        country ==
+                                                            countryController
+                                                                .text
+                                                            ? country.toString()
+                                                            : countryController
+                                                            .text,
+                                                      );
+                                                      if (response.statusCode ==
+                                                          200 ||
+                                                          response.statusCode ==
+                                                              201) {
+                                                        Navigator.pop(context);
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (
+                                                              BuildContext context) {
+                                                            return AddSuccessPopup(
+                                                              message: 'Employement Edited Successfully',
+                                                            );
+                                                          },
+                                                        );
+                                                      } else
+                                                      if (response.statusCode ==
+                                                          400 ||
+                                                          response.statusCode ==
+                                                              404) {
+                                                        Navigator.pop(context);
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (
+                                                              BuildContext context) => const FourNotFourPopup(),
+                                                        );
+                                                      } else {
+                                                        Navigator.pop(context);
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (
+                                                              BuildContext context) =>
+                                                              FailedPopup(
+                                                                  text: response
+                                                                      .message),
+                                                        );
+                                                      }
+                                                    },
+                                                    checkBoxTile: StatefulBuilder(
+                                                      builder: (
+                                                          BuildContext context,
+                                                          void Function(void Function()) setState) {
+                                                        return Container(
+                                                          width: 300,
+                                                          child: CheckboxTile(
+                                                            title: 'Currently work here',
+                                                            initialValue: isSelectedEdit,
+                                                            // Checkbox is checked based on isSelectedEdit
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                isSelectedEdit =
+                                                                !isSelectedEdit;
+                                                                if (isSelectedEdit) {
+                                                                  endDateController
+                                                                      .clear(); // Clear end date when "Currently Working" is selected
+                                                                } else {
+                                                                  endDateController
+                                                                      .text =
+                                                                  ''; // Or revert end date based on your logic
+                                                                }
+                                                              });
+                                                            },
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                    tite: 'Edit Employment',
+                                                    onpressedClose: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  );
+                                                },
+                                              );
+                                            });
+                                      },)
+                                ),
+                              ],
+                            ),
+                            title: 'Employment #${index + 1}',)
+
+                      );
+                    })
+                );
+              } else {
+                return SizedBox();
+              }
+            }
+        ),
+      ],
+    );
   }
 }

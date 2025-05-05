@@ -1,216 +1,240 @@
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/policies_constant.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../../../../../app/resources/color.dart';
-import '../../../../../../../../app/resources/const_string.dart';
-import '../../../../../../../../app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/heading_constant_widget.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/org_add_popup_const.dart';
+import 'package:provider/provider.dart';
+import '../../../../../../../../app/constants/app_config.dart';
+import '../../../../../../../../app/resources/provider/delete_popup_provider.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
-import '../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
+import '../../../../../../../widgets/error_popups/delete_success_popup.dart';
+import '../files_constant-widget.dart';
 
-class CIPoliciesProcedure extends StatefulWidget {
-  const CIPoliciesProcedure({super.key});
+///provide
+class CIPoliciesProcedureProvider extends ChangeNotifier {
+  // Controllers
+  TextEditingController docNameController = TextEditingController();
+  TextEditingController docIdController = TextEditingController();
+  TextEditingController calenderController = TextEditingController();
+  TextEditingController idOfDocController = TextEditingController();
+  TextEditingController daysController = TextEditingController(text: "1");
+
+  // StreamControllers
+  final StreamController<List<NewOrgDocument>> policiesAndProcedureController =
+  StreamController<List<NewOrgDocument>>();
+
+  // State Variables
+  int currentPage = 1;
+  bool isLoading = false;
+
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
+
+  String? selectedValue;
+  String? selectedYear = AppConfig.year;
+
+  // Methods
+  void setCurrentPage(int pageNumber) {
+    currentPage = pageNumber;
+    notifyListeners();
+  }
+
+  void setLoading(bool value) {
+    isLoading = value;
+    notifyListeners();
+  }
+
+  Future<void> onDelete(NewOrgDocument doc, BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DeletePopupProvider(
+          title: DeletePopupString.deletePolicy,
+          loadingDuration: isLoading,
+          onCancel: () {
+            Navigator.pop(context);
+          },
+          onDelete: () async {
+            setLoading(true); // Set loading state
+            try {
+              await deleteNewOrgDoc(context, doc.orgDocumentSetupid);
+              Navigator.pop(context); // Close the confirmation dialog
+              showDialog(
+                context: context,
+                builder: (context) => DeleteSuccessPopup(),
+              );
+            } finally {
+              setLoading(false); // Reset loading state
+            }
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> onEdit(NewOrgDocument doc, BuildContext context) async {
+    var snapshotPrefill = await getPrefillNewOrgDocument(context, doc.orgDocumentSetupid);
+
+    docNameController.text = snapshotPrefill.docName ?? "";
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return OrgDocNewEditPopup(
+          height: AppSize.s383,
+          title: EditPopupString.editPolicy,
+          orgDocumentSetupid: snapshotPrefill.orgDocumentSetupid ?? 0,
+          docTypeId: snapshotPrefill.documentTypeId ?? 0,
+          subDocTypeId: snapshotPrefill.documentSubTypeId ?? 0,
+          idOfDoc: snapshotPrefill.idOfDocument ?? "",
+          docName: snapshotPrefill.docName ?? "",
+          expiryType: snapshotPrefill.expiryType,
+          threshhold: snapshotPrefill.threshold ?? 0,
+          expiryDate: snapshotPrefill.expiryDate,
+          expiryReminder: snapshotPrefill.expiryReminder,
+          docTypeText: AppStringEM.policiesAndProcedures,
+          subDocTypeText: '',
+        );
+      },
+    );
+  }
 
   @override
-  State<CIPoliciesProcedure> createState() => _CIPoliciesProcedureState();
+  void dispose() {
+    docNameController.dispose();
+    docIdController.dispose();
+    calenderController.dispose();
+    idOfDocController.dispose();
+    daysController.dispose();
+    policiesAndProcedureController.close();
+    super.dispose();
+  }
 }
 
-class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
-  String? selectedValue;
-  late List<Color> hrcontainerColors;
-  TextEditingController docNamecontroller = TextEditingController();
-  TextEditingController docIdController = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-    currentPage = 1;
-    itemsPerPage = 6;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
-    hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    _loadColors();
-  }
-  void _loadColors() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      for (int i = 0; i < hrcontainerColors.length; i++) {
-        int? colorValue = prefs.getInt('containerColor$i');
-        if (colorValue != null) {
-          hrcontainerColors[i] = Color(colorValue);
-        }
-      }
-    });
-  }
+class CIPoliciesProcedure extends StatelessWidget {
+  final int docId;
+  final int subDocId;
+
+  const CIPoliciesProcedure({
+    super.key,
+    required this.docId,
+    required this.subDocId,
+  });
+
   @override
   Widget build(BuildContext context) {
-    List<String> currentPageItems = items.sublist(
-      (currentPage - 1) * itemsPerPage,
-      min(currentPage * itemsPerPage, items.length),
-    );
+    // Get the provider instance
+    final provider = Provider.of<CIPoliciesProcedureProvider>(context);
+
     return Column(
       children: [
-        SizedBox(height: 20,),
-        Container(
-          height: AppSize.s30,
-          margin: EdgeInsets.symmetric(horizontal: AppMargin.m35),
-          decoration: BoxDecoration(
-            color: ColorManager.grey,
-            borderRadius: BorderRadius.circular(12),
+        TableHeadingConst(),
+        SizedBox(height: AppSize.s10),
+        PoliciesProcedureList(
+          controller: provider.policiesAndProcedureController,
+          fetchDocuments: (context) => getNewOrgDocfetch(
+            context,
+            AppConfig.policiesAndProcedure,
+            AppConfig.subDocId0,
+            1,
+            50,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Center(
-                  child: Text(
-                    AppString.srNo,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
-              Center(
-                  child: Text(
-                    AppString.name,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
-              Center(
-                  child: Text(
-                    AppString.expiry,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
-              // Expanded(
-              //     child: SizedBox(width: AppSize.s16,
-              //     )),
-              Center(
-                  child: Text(
-                    AppString.reminderthershold,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
-              // Center(child:
-              // Text(AppString.eligibleClinician,style: RegisterTableHead.customTextStyle(context),),),
-              Center(
-                  child: Text(
-                    AppString.actions,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
-            ],
-          ),
-        ),
-        SizedBox(height: AppSize.s10,),
-        Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: currentPageItems.length,
-            itemBuilder: (context, index) {
-              int serialNumber =
-                  index + 1 + (currentPage - 1) * itemsPerPage;
-              String formattedSerialNumber =
-              serialNumber.toString().padLeft(2, '0');
-              return Column(
-                children: [
-                  SizedBox(height: AppSize.s5),
-                  Container(
-                    padding: EdgeInsets.only(bottom: AppPadding.p5),
-                    margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
-                    decoration: BoxDecoration(
-                      color:ColorManager.white,
-                      borderRadius: BorderRadius.circular(4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: ColorManager.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    height: AppSize.s56,
-
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Center(
-                            child: Text(
-                              formattedSerialNumber,
-                              style: ThemeManagerDark.customTextStyle(context),
-                              textAlign: TextAlign.start,
-                            )),
-                        Center(
-                            child: Text(
-                              AppString.name,
-                              style: ThemeManagerDark.customTextStyle(context),
-                            )),
-                        Center(
-                            child: Text(
-                              AppString.expiry,
-                              style: ThemeManagerDark.customTextStyle(context),
-                            )),
-                        Center(
-                            child: Text(
-                              AppString.reminderthershold,
-                              style: ThemeManagerDark.customTextStyle(context),
-                            )),
-                        Center(
-                          child: Row(
-                            children: [
-                              IconButton(onPressed: (){
-                                showDialog(context: context, builder: (context){
-                                  return ORGPoliciesEditPopup(
-                                    idDocController: docIdController,
-                                    nameDocController: docNamecontroller,
-                                    onSavePressed: (){},
-                                    child:  CICCDropdown(
-                                      initialValue: 'Corporate & Compliance Documents',
-                                      items: [
-                                        DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
-                                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                      ],),);
-                                });
-                              },
-                                  icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)), SizedBox(width: 3,),
-                              Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            /// Handle previous page button press
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
+          emptyMessage: ErrorMessageString.noPolicyProcedure,
+          onEdit: (NewOrgDocument doc) {
+            provider.onEdit(doc, context);
           },
-          onPageNumberPressed: (pageNumber) {
-            /// Handle page number tap
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            /// Handle next page button press
-            setState(() {
-              currentPage = currentPage < (items.length / itemsPerPage).ceil()
-                  ? currentPage + 1
-                  : (items.length / itemsPerPage).ceil();
-            });
+          onDelete: (NewOrgDocument doc) {
+            provider.onDelete(doc, context);
           },
         ),
       ],
     );
   }
 }
+
+///calendar code
+// child2: Visibility(
+//   visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+//   child: Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       Padding(
+//         padding: const EdgeInsets.only(left: 2),
+//         child: Text(
+//           "Expiry Date",
+//           style: GoogleFonts.firaSans(
+//             fontSize: FontSize.s12,
+//             fontWeight: FontWeight.w700,
+//             color: ColorManager.mediumgrey,
+//             decoration: TextDecoration.none,
+//           ),
+//         ),
+//       ),
+//       SizedBox(height: 5,),
+//       FormField<String>(
+//         builder: (FormFieldState<String> field) {
+//           return SizedBox (
+//             width: 354,
+//             height: 30,
+//             child:   TextFormField(
+//               controller: calenderController,
+//               cursorColor: ColorManager.black,
+//               style: GoogleFonts.firaSans(
+//                 fontSize: FontSize.s12,
+//                 fontWeight: FontWeight.w700,
+//                 color: ColorManager.mediumgrey,
+//                 //decoration: TextDecoration.none,
+//               ),
+//               decoration: InputDecoration(
+//                 enabledBorder: OutlineInputBorder(
+//                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 focusedBorder: OutlineInputBorder(
+//                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 hintText: 'mm-dd-yyyy',
+//                 hintStyle: GoogleFonts.firaSans(
+//                   fontSize: FontSize.s12,
+//                   fontWeight: FontWeight.w700,
+//                   color: ColorManager.mediumgrey,
+//                   //decoration: TextDecoration.none,
+//                 ),
+//                 border: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(8),
+//                   borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+//                 ),
+//                 contentPadding:
+//                 EdgeInsets.symmetric(horizontal: 16),
+//                 suffixIcon: Icon(Icons.calendar_month_outlined,
+//                     color: ColorManager.blueprime),
+//                 errorText: field.errorText,
+//               ),
+//               onTap: () async {
+//                 DateTime? pickedDate = await showDatePicker(
+//                   context: context,
+//                   initialDate: DateTime.now(),
+//                   firstDate: DateTime(2000),
+//                   lastDate: DateTime(3101),
+//                 );
+//                 if (pickedDate != null) {
+//                   calenderController.text =
+//                       DateFormat('MM-dd-yyyy').format(pickedDate);
+//                 }
+//               },
+//               validator: (value) {
+//                 if (value == null || value.isEmpty) {
+//                   return 'please select birth date';
+//                 }
+//                 return null;
+//               },
+//             ),
+//           );
+//         },
+//       ),
+//     ],
+//   ),
+// ),

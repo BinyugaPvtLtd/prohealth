@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -93,7 +93,7 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.semiBold,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
 
@@ -101,7 +101,7 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                         TextFormField(
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.black.withOpacity(0.5),
-                            fontWeight: FontWeightManager.medium,
+                            fontWeight: FontWeight.w500,
                             fontSize: FontSize.s14,
                           ),
                           focusNode: newPasswordFocusNode,
@@ -167,7 +167,7 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                           controller: controllerConfirm,
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.black.withOpacity(0.5),
-                            fontWeight: FontWeightManager.medium,
+                            fontWeight: FontWeight.w500,
                             fontSize: FontSize.s14,
                           ),
                           cursorColor: ColorManager.black,
@@ -223,11 +223,17 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                               color: ColorManager.blueprime)
                               : CustomButton(
                             width:
-                            MediaQuery.of(context).size.width / 7,
+                            MediaQuery.of(context).size.width / 4,
                             height:
                             MediaQuery.of(context).size.height /
                                 25,
                             text: AppString.updatepass,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: ColorManager.white,
+                              decoration: TextDecoration.none,
+                            ),
                             backgroundColor: ColorManager.blueprime,
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
@@ -285,8 +291,7 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                                                   fontSize:
                                                   FontSize.s30,
                                                   fontWeight:
-                                                  FontWeightManager
-                                                      .extrabold,
+                                                  FontWeight.w800,
                                                 ),
                                               ),
                                               Text(
@@ -298,17 +303,20 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                                                   color: ColorManager
                                                       .darkgrey,
                                                   fontSize:
-                                                  FontSize.s12,
+                                                  FontSize.s14,
                                                   fontWeight:
-                                                  FontWeightManager
-                                                      .medium,
+                                                  FontWeight.w500,
                                                 ),
                                               ),
                                               CustomButton(
                                                 width: AppSize.s181,
                                                 height: AppSize.s45,
-                                                text: AppString
-                                                    .continuebutton,
+                                                text: AppString.continuebutton,
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                  fontSize: FontSize.s12,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: ColorManager.white,
+                                                ),
                                                 borderRadius: 24,
                                                 onPressed: () {
                                                   Navigator.push(
@@ -345,28 +353,20 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                                           Text(
                                             AppString
                                                 .threetimepasscanchange,
-                                            style:
-                                            GoogleFonts.firaSans(
+                                            style: TextStyle(
                                               fontSize: FontSize.s30,
                                               color:
                                               Color(0xff686464),
                                               fontWeight:
-                                              FontWeightManager
-                                                  .bold,
+                                              FontWeight.w700,
                                             ),
                                           ),
                                           Text(
-                                            AppString
-                                                .cannotchangepass,
-                                            style:
-                                            CustomTextStylesCommon
-                                                .commonStyle(
-                                              color: ColorManager
-                                                  .darkgrey,
-                                              fontSize: FontSize.s12,
-                                              fontWeight:
-                                              FontWeightManager
-                                                  .medium,
+                                            AppString.cannotchangepass,
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              color: ColorManager.darkgrey,
+                                              fontSize: FontSize.s14,
+                                              fontWeight: FontWeight.w500,
                                             ),
                                           ),
                                           CustomButton(

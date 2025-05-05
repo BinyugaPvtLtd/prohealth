@@ -1,36 +1,64 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
-
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/font_manager.dart';
 ///saloni
+
+class ProfileBarTextBoldStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.textPrimaryColor,
+
+      // decoration: TextDecoration.none,
+    );
+  }
+}
+class ThemeManagerDarkProfile {
+  static TextStyle customTextStyle() {
+    double fontSize = 12;
+    return TextStyle(
+      fontSize: fontSize,
+      color: ColorManager.black,
+      fontWeight: FontWeight.w600,
+    );
+  }
+}
 class MyConstants {
   static List<Widget> personalInfoTexts(BuildContext context) {
-    final textStyle = ThemeManagerDark.customTextStyle(context);
+
+   // final textStyle = ThemeManager.customTextStyle(context);
     return [
       Text(
         AppString.age,
-        style: textStyle,
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
+      //SizedBox(height: 1,),
       Text(
         AppString.gender,
-        style: textStyle,
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
+     // SizedBox(height: 1,),
       Text(
         AppString.ssn,
-        style: textStyle,
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
+    //  SizedBox(height: 1,),
       Text(
         AppString.phone,
-        style: textStyle,
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
+    //  SizedBox(height: 1,),
       Text(
         AppString.personalno,
-        style: textStyle,
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
+     // SizedBox(height: 1,),
       Text(
         AppString.workno,
-        style: textStyle,
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
     ];
   }
@@ -38,31 +66,44 @@ class MyConstants {
 
 class MyConstantsColumn {
   static List<Widget> personalInfoTexts(BuildContext context) {
-    final textStyle = ThemeManagerDark.customTextStyle(context);
+    // final textStyle = ThemeManager.customTextStyle(context);
     return [
+
       Text(
           AppString.personalEmail,
-      style: textStyle
+      style: ThemeManagerDarkProfile.customTextStyle()
     ),
+
       Text(
         AppString.workemail,
-        style: textStyle,
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
-      Text(
-        AppString.zone,
-        style: textStyle,
-      ),
+
       Text(
         AppString.speciality,
-        style: textStyle,
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
+
       Text(
         AppString.service,
-        style: textStyle,
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
+
       Text(
-        AppString.workno,
-        style: textStyle,
-      ),];
+        AppString.reportingOffice,
+          style: ThemeManagerDarkProfile.customTextStyle()
+      ),
+
+      Text(
+        AppString.summary,
+          style: ThemeManagerDarkProfile.customTextStyle()
+      ),
+
+      // Text(
+      //     '',
+      //     style: ProfileBarTextBoldStyle.customEditTextStyle()
+      // ),
+
+    ];
   }
 }

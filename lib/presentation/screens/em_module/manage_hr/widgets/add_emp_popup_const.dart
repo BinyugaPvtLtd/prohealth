@@ -1,145 +1,259 @@
-
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-
+import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
+import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
 
-class CustomPopupWidget extends StatelessWidget {
-  final TextEditingController nameController;
-  final TextEditingController addressController;
-  final TextEditingController emailController;
-  final VoidCallback onAddPressed;
+class CustomPopupWidget extends StatefulWidget {
+  final TextEditingController typeController;
+  final TextEditingController abbreviationController;
+  final TextEditingController? emailController;
+  final Future<void> Function(String) onAddPressed;
   final Color containerColor;
+  //final Widget? child;
+  final Function(Color)? onColorChanged;
+  final String title;
 
   CustomPopupWidget({
-    required this.nameController,
-    required this.addressController,
-    required this.emailController,
+    required this.typeController,
+    required this.abbreviationController,
+    this.emailController,
     required this.containerColor,
     required this.onAddPressed,
+    required this.onColorChanged,
+    // this.child,
+    required this.title,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        height: AppSize.s400,
-        width: AppSize.s350,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+  State<CustomPopupWidget> createState() => _CustomPopupWidgetState();
+}
+class _CustomPopupWidgetState extends State<CustomPopupWidget> {
+  late List<Color> _selectedColors;
+  List<String> _selectedColorCodes = List.filled(2, '');
+  int index = 0;
+  bool isLoading = false;
+
+  final _formKey = GlobalKey<FormState>();
+  String? _typeError;
+  String? _abbreviationError;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedColors = [Colors.white];
+
+    // Add listeners to text controllers to clear errors when text changes
+    widget.typeController.addListener(_onTypeChanged);
+    widget.abbreviationController.addListener(_onAbbreviationChanged);
+  }
+
+  @override
+  void dispose() {
+    // Remove listeners when the widget is disposed
+    widget.typeController.removeListener(_onTypeChanged);
+    widget.abbreviationController.removeListener(_onAbbreviationChanged);
+    super.dispose();
+  }
+
+  void _onTypeChanged() {
+    // Clear the error if the user starts typing
+    if (_typeError != null && widget.typeController.text.isNotEmpty) {
+      setState(() {
+        _typeError = null;
+      });
+    }
+  }
+
+  void _onAbbreviationChanged() {
+    // Clear the error if the user starts typing
+    if (_abbreviationError != null && widget.abbreviationController.text.isNotEmpty) {
+      setState(() {
+        _abbreviationError = null;
+      });
+    }
+  }
+
+  void _openColorPicker() async {
+    Color? pickedColor = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Padding(
+            padding: const EdgeInsets.only(left: AppPadding.p20),
+            child: Text(
+              'Pick a Color',
+              style: TextStyle(
+                fontSize: FontSize.s14,
+                fontWeight: FontWeight.w700,
+                color: ColorManager.blueprime,
+              ),
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
+                ColorPicker(
+                  borderColor: _selectedColors[0],
+                  onColorChanged: (Color color) {
+                    setState(() {
+                      _selectedColors[0] = color; // Update live preview
+                    });
                   },
-                  icon: Icon(Icons.close),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p3,horizontal: AppPadding.p25),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Employee Type',),
-                  SizedBox(height: AppSize.s16,),
-                  SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Shorthand',),
-                  SizedBox(height: AppSize.s16,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Type of Employee',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xff686464),
-                        decoration: TextDecoration.none,
-                      ),),
-                      SizedBox(height: 2),
-                      Container(
-                        height: 30,
-                        padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: Color(0xffB1B1B1)), // Black border
-                          borderRadius: BorderRadius.circular(8), // Rounded corners
-                        ),
-                        child: DropdownButtonFormField<String>(
-                          focusColor: Colors.transparent,
-                          icon: Icon(Icons.arrow_drop_down_sharp,color: ColorManager.black,),
-                          decoration: InputDecoration.collapsed(hintText: ''),
-                          items: <String>['Clinical', 'A', 'B', 'C']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                          },
-                          value: 'Clinical',style: TextStyle(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.semiBold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: AppSize.s16,),
-                  Row(
-                    children: [
-                      Text('Color',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff686464),
-                          decoration: TextDecoration.none,
-                        ),),
-                      SizedBox(width: AppSize.s25,),
-                      Container(
-                        padding: EdgeInsets.all(2),
-                        width: 61,
-                        height: 22,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(2),
-                          border: Border.all(width: 1, color: Color(0xffE9E9E9),
-                          ),
-                        ),
-                        child: Container(
-                          width: 57,
-                          height: 16,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(2),
-                            color: containerColor,
-                          ),
-                        ),
-                      )
-
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.width/22,),
-                  Center(
-                    child: CustomElevatedButton(
-                        width: AppSize.s105,
-                        height: AppSize.s30,
-                        text: 'Add',
-                        onPressed: onAddPressed),
-                  )
-                ],
-              ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(_selectedColors[0]); // Pass the selected color
+              },
             ),
           ],
+        );
+      },
+    );
+
+    //if (pickedColor != null) {
+      setState(() {
+        _selectedColors[0] = pickedColor ?? Colors.white;
+        widget.onColorChanged?.call(_selectedColors[0]); // Notify parent widget
+      });
+   // }
+  }
+
+  void _validateFields() {
+    setState(() {
+      _typeError = widget.typeController.text.isEmpty ? 'Please Enter Employee Type' : null;
+      _abbreviationError = widget.abbreviationController.text.isEmpty ? 'Please Enter Abbreviation' : null;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DialogueTemplate(
+      height: AppSize.s370,
+      width: AppSize.s350,
+      body: [Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: AppPadding.p15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SMTextfieldAsteric(
+                    controller: widget.typeController,
+                    keyboardType: TextInputType.text,
+                    text: 'Employee Type',
+                  ),
+                  _typeError != null ?
+                  Text(
+                    _typeError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ): SizedBox(height: AppSize.s12,),
+                ],
+              ),
+              SizedBox(height: AppSize.s16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CapitalSMTextFConst(
+                    controller: widget.abbreviationController,
+                    keyboardType: TextInputType.streetAddress,
+                    text: AppStringEM.abbrevation,
+                  ),
+                  _abbreviationError != null ?
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2.0),
+                    child: Text(
+                      _abbreviationError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+                  ): SizedBox(height: AppSize.s14,),
+                ],
+              ),
+              SizedBox(height: AppSize.s16),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: AppPadding.p3),
+                    child: Text(
+                      AppStringEM.color,
+                      style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
+                    ),
+                  ),
+                  SizedBox(width: AppSize.s25),
+                  Container(
+                    padding: EdgeInsets.all(2),
+                    width: AppSize.s62,
+                    height: AppSize.s22,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2),
+                      border: Border.all(
+                        width: 1,
+                        color: Color(0xffE9E9E9),
+                      ),
+                    ),
+                    child: GestureDetector(
+                      onTap: _openColorPicker,
+                      child: Container(
+                        width: AppSize.s60,
+                        height: AppSize.s20,
+                        decoration: BoxDecoration(
+                          color: _selectedColors[0],
+                          border: Border.all(
+                            width: 1,
+                            color: _selectedColors[0],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
+      ),],
+      bottomButtons: isLoading
+          ? SizedBox(
+        width: AppSize.s30,
+        height: AppSize.s30,
+        child: CircularProgressIndicator(color: ColorManager.blueprime),
+      )
+          : CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: 'Add',
+        onPressed: () async {
+          _validateFields();
+          if (_typeError == null && _abbreviationError == null) {
+            setState(() {
+              isLoading = true;
+            });
+            Color colorToPass = _selectedColors[0] ?? Colors.white;
+            String selectedColorToSave = '#${colorToPass.value.toRadixString(16).substring(2).toUpperCase()}';
+
+            await widget.onAddPressed(selectedColorToSave);
+            setState(() {
+              isLoading = false;
+            });
+          }
+        },
       ),
+      title: widget.title,
     );
   }
 }
