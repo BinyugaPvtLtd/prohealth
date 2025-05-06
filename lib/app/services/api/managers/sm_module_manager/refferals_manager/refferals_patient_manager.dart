@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
+import '../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
+import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
@@ -12,7 +14,11 @@ Future<List<PatientModel>> getPatientReffrealsData({
   required int pageNo,
   required int nbrOfRows,
   required String isIntake,
-  required String isArchived
+  required String isArchived,
+  required String searchName,
+  required String marketerId,
+  required String referralSourceId,
+  required String pcpId,
 }) async {
   List<PatientModel> itemsData = [];
   String convertIsoToDayMonthYear(String isoDate) {
@@ -30,13 +36,18 @@ Future<List<PatientModel>> getPatientReffrealsData({
 
   try {
     final response = await Api(context).get(
-      path: PatientRefferalsRepo.getPatientRefferals(pageNo: pageNo, nbrOfRows: nbrOfRows, isIntake: isIntake, isArchived: isArchived),
+      path: PatientRefferalsRepo.getPatientRefferals(pageNo: pageNo, nbrOfRows: nbrOfRows, isIntake: isIntake, isArchived: isArchived,searchName: searchName, marketerId: marketerId, referralSourceId: referralSourceId, pcpId: pcpId, ),
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
+        // print(item.containsKey('pt_img_url')); // Should be true
+        // print(item['pt_img_url']);             // Should not be null
+
         itemsData.add(PatientModel(
+          isPotential: item['is_potential_duplicate'] ?? false,
+          thresould: item['threshold']??0,
           ptTime: formatedTime,
           ptId: item['pt_id'],
           ptFirstName: item['pt_first_name'] ?? '',
@@ -61,8 +72,8 @@ Future<List<PatientModel>> getPatientReffrealsData({
           insuranceId: item['insurance_id'] ?? 0,
           createdAt: DateTime.parse(item['created_at']),
           ptDateOfBirth: DateTime.parse(item['pt_date_of_birth']),
-          ptImgUrl: item['pt_img_url'] ?? '',
-
+         // ptImgUrl: item['pt_img_url'] ?? '',
+          ptImgUrl: item['pt_img_url']?.toString() ?? '',
           service: ServiceModel(
             srvId: item['service']['srv_id'],
             srvName: item['service']['srv_name'],
@@ -207,6 +218,8 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
       var item = response.data;
         String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
         itemsData = PatientModel(
+          isPotential: item['is_potential_duplicate'] ?? false,
+          thresould: item['threshold']??0,
           ptTime: formatedTime,
           ptId: item['pt_id'],
           ptFirstName: item['pt_first_name'] ?? '',
@@ -384,3 +397,63 @@ Future<ApiData> updateReferralPatient(
   }
 }
 
+
+/// Services master
+Future<List<ServicePatientReffralsData>> getReferealsServiceList({
+  required BuildContext context,
+}) async {
+  List<ServicePatientReffralsData> itemsData = [];
+
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getReffrealsServiceData(),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(ServicePatientReffralsData(
+            serviceId: item['srv_id']??0,
+            serviceName: item['srv_name']??'',
+            serviceCode: item['srv_code']??''));
+      }
+    } else {
+      print("patient referrals Services error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+/// employee clinical
+Future<List<EmployeeClinicalData>> getEmployeeClinicalInReffreals({
+  required BuildContext context,
+}) async {
+  List<EmployeeClinicalData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getReffrealsEmployeeClinicalType(),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(EmployeeClinicalData(
+            emptypeId: item['employeeTypeId'] ?? 0,
+            empType: item['employeeType'] ?? '',
+            color: item['color'] ?? '',
+            abbreviation: item['abbreviation'] ?? '',
+            deptId: item['DepartmentId'] ?? 0
+            ));
+      }
+    } else {
+      print("patient referrals employee type error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}

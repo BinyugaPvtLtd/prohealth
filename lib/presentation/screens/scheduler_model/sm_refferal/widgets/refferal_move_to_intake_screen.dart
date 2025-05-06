@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +35,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
-    final providerReferrals = Provider.of<SmIntegrationProviderManager>(context,listen: false);
+    final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     return Stack(
       children: [
         Padding(
@@ -82,7 +82,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
               StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'true', isArchived: 'false').then((data) {
+                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'true', isArchived: 'false', searchName: 'all', marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
                       _streamController.add(data);
                     }).catchError((error) {
                       // Handle error
@@ -138,30 +138,31 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                   ),
                                   child:
                                   Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children:[
-                                            Container(
-                                                width: AppSize.s105,
-                                                height: AppSize.s16,
-                                                decoration: BoxDecoration(
-                                                  color:Color(0xFFFFE4E2),
-                                                  borderRadius: BorderRadius.only(
-                                                      topRight:
-                                                      Radius.circular(12)),),
-                                                child: Center(
-                                                  child: Text(
-                                                      'Potential Duplicate',
-                                                      textAlign: TextAlign.center,
-                                                      style: CustomTextStylesCommon.commonStyle(
-                                                          color: ColorManager.mediumgrey,
-                                                          fontSize: FontSize.s11,
-                                                          fontWeight: FontWeight.w400)),
-                                                )),
-                                          ]
-                                      ),
+                                      // Row(
+                                      //     mainAxisAlignment: MainAxisAlignment.end,
+                                      //     crossAxisAlignment: CrossAxisAlignment.end,
+                                      //     children:[
+                                      //       Container(
+                                      //           width: AppSize.s105,
+                                      //           height: AppSize.s16,
+                                      //           decoration: BoxDecoration(
+                                      //             color:Color(0xFFFFE4E2),
+                                      //             borderRadius: BorderRadius.only(
+                                      //                 topRight:
+                                      //                 Radius.circular(12)),),
+                                      //           child: Center(
+                                      //             child: Text(
+                                      //                 'Potential Duplicate',
+                                      //                 textAlign: TextAlign.center,
+                                      //                 style: CustomTextStylesCommon.commonStyle(
+                                      //                     color: ColorManager.mediumgrey,
+                                      //                     fontSize: FontSize.s11,
+                                      //                     fontWeight: FontWeight.w400)),
+                                      //           )),
+                                      //     ]
+                                      // ),
                                       Padding(
                                         padding: const EdgeInsets.only(left: AppPadding.p20,
                                             right: AppPadding.p25),
@@ -178,7 +179,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                 child: Image.asset("images/profilepic.png"),
                                               )
                                                   : Image.network(
-                                                snapshot.data![index].ptImgUrl,
+                                                snapshot.data![index].ptImgUrl!,
                                                 loadingBuilder: (context, child, loadingProgress) {
                                                   if (loadingProgress == null) {
                                                     return child;
@@ -274,7 +275,6 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                 ),
                                               ],
                                             ),),
-
                                             ///PCP
                                             Expanded(
                                               flex: 2,
@@ -299,8 +299,6 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                 ),
                                               ],
                                             ),),
-
-
                                             ///Primary diagnosis
                                             Expanded(
                                               flex: 3,
@@ -327,49 +325,36 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                             ),),
 
                                             ///company Img
-                                            // Expanded(
-                                            //   flex: 2,
-                                            //   child: Center(
-                                            //     child: SizedBox(
-                                            //       width: 110,
-                                            //       child: Image.network(
-                                            //         snapshot.data![index].referralSource.referralSourceImgUrl,
-                                            //         fit: BoxFit.contain, // or BoxFit.cover if you like
-                                            //         loadingBuilder: (context, child, loadingProgress) {
-                                            //           if (loadingProgress == null) {
-                                            //             return child;
-                                            //           } else {
-                                            //             return Center(
-                                            //               child: CircularProgressIndicator(
-                                            //                 value: loadingProgress.expectedTotalBytes != null
-                                            //                     ? loadingProgress.cumulativeBytesLoaded /
-                                            //                     (loadingProgress.expectedTotalBytes ?? 1)
-                                            //                     : null,
-                                            //               ),
-                                            //             );
-                                            //           }
-                                            //         },
-                                            //         errorBuilder: (context, error, stackTrace) {
-                                            //           return Image.asset(
-                                            //             'images/logo_login.png',
-                                            //             width: 110,
-                                            //             fit: BoxFit.contain,
-                                            //           );
-                                            //         },
-                                            //       ),
-                                            //     ),
-                                            //   ),
-                                            // )
-                                  ///
-                                  Expanded(
-                                    flex: 3,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 5),
-                                      child: Center(child: SizedBox(child: Image.asset('images/logo_login.png',width: 90,))),
-                                    ),
-                                  ),
-
-
+                                            Expanded(
+                                              flex: 3,
+                                              child: Center(
+                                                child: Image.network(
+                                                  snapshot.data![index].referralSource.referralSourceImgUrl,
+                                                  fit: BoxFit.contain, // or BoxFit.cover if you like
+                                                  loadingBuilder: (context, child, loadingProgress) {
+                                                    if (loadingProgress == null) {
+                                                      return child;
+                                                    } else {
+                                                      return Center(
+                                                        child: CircularProgressIndicator(
+                                                          value: loadingProgress.expectedTotalBytes != null
+                                                              ? loadingProgress.cumulativeBytesLoaded /
+                                                              (loadingProgress.expectedTotalBytes ?? 1)
+                                                              : null,
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                  errorBuilder: (context, error, stackTrace) {
+                                                    return Image.asset(
+                                                      'images/logo_login.png',
+                                                      width: 90,
+                                                      fit: BoxFit.contain,
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
                                             ///marketer
                                             Expanded(
                                               flex: 2,
@@ -452,420 +437,71 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                   onPressed: (){},
                                                   icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
                                               // SizedBox(width: AppSize.s2),
-                                              PopupMenuButton<String>(
-                                                tooltip: '',
-                                                splashRadius: 0,
-                                                color: Colors.white,
-                                                offset: Offset(25, 42),
-                                                itemBuilder: (BuildContext context) => [
-                                                  PopupMenuItem<String>(
-                                                    value: 'Merge Duplicate',
-                                                    padding: EdgeInsets.zero, // Remove padding
-                                                    child: InkWell(
-                                                      splashColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      onTap: () {
-                                                        Navigator.pop(context); // Important: manually close the popup
-                                                        onMergeDuplicatePressed();
-                                                      },
-                                                      child: Container(
-                                                        alignment: Alignment.centerLeft,
-                                                        padding: EdgeInsets.only(left: 12, top: 5),
-                                                        width: 100,
-                                                        child: Text(
-                                                          'Merge Duplicate',
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeight.w700,
-                                                            fontSize: FontSize.s12,
-                                                            color: ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  PopupMenuItem<String>(
-                                                    value: 'Archived',
-                                                    padding: EdgeInsets.zero,
-                                                    child: InkWell(
-                                                      splashColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      onTap: () async{
-                                                        var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
-                                                        if(response.statusCode == 200 || response.statusCode == 201){
-                                                          Navigator.pop(context);
-                                                          showDialog(
-                                                            context: context,
-                                                            builder: (BuildContext context) {
-                                                              return AddSuccessPopup(
-                                                                message: 'Data Updated Successfully',
-                                                               );
-                                                            },
-                                                          );
-                                                        }else{
-                                                          print('Api error');
-                                                        }
-                                                      },
-                                                      child: Container(
-                                                        alignment: Alignment.centerLeft,
-                                                        padding: EdgeInsets.only(left: 12, top: 5),
-                                                        width: 100,
-                                                        child: Text(
-                                                          'Archived',
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeight.w700,
-                                                            fontSize: FontSize.s12,
-                                                            color: ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                                child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
-                                              ),
+                                              // PopupMenuButton<String>(
+                                              //   tooltip: '',
+                                              //   splashRadius: 0,
+                                              //   color: Colors.white,
+                                              //   offset: Offset(25, 42),
+                                              //   itemBuilder: (BuildContext context) => [
+                                              //     PopupMenuItem<String>(
+                                              //       value: 'Merge Duplicate',
+                                              //       padding: EdgeInsets.zero, // Remove padding
+                                              //       child: InkWell(
+                                              //         splashColor: Colors.transparent,
+                                              //         highlightColor: Colors.transparent,
+                                              //         hoverColor: Colors.transparent,
+                                              //         onTap: () {
+                                              //           Navigator.pop(context); // Important: manually close the popup
+                                              //           onMergeDuplicatePressed();
+                                              //         },
+                                              //         child: Container(
+                                              //           alignment: Alignment.centerLeft,
+                                              //           padding: EdgeInsets.only(left: 12, top: 5),
+                                              //           width: 100,
+                                              //           child: Text(
+                                              //             'Merge Duplicate',
+                                              //             style: CustomTextStylesCommon.commonStyle(
+                                              //               fontWeight: FontWeight.w700,
+                                              //               fontSize: FontSize.s12,
+                                              //               color: ColorManager.mediumgrey,
+                                              //             ),
+                                              //           ),
+                                              //         ),
+                                              //       ),
+                                              //     ),
+                                              //     PopupMenuItem<String>(
+                                              //       value: 'Archived',
+                                              //       padding: EdgeInsets.zero,
+                                              //       child: InkWell(
+                                              //         splashColor: Colors.transparent,
+                                              //         highlightColor: Colors.transparent,
+                                              //         hoverColor: Colors.transparent,
+                                              //         onTap: () {
+                                              //           Navigator.pop(context);
+                                              //           print('Option 2 Selected');
+                                              //         },
+                                              //         child: Container(
+                                              //           alignment: Alignment.centerLeft,
+                                              //           padding: EdgeInsets.only(left: 12, top: 5),
+                                              //           width: 100,
+                                              //           child: Text(
+                                              //             'Archived',
+                                              //             style: CustomTextStylesCommon.commonStyle(
+                                              //               fontWeight: FontWeight.w700,
+                                              //               fontSize: FontSize.s12,
+                                              //               color: ColorManager.mediumgrey,
+                                              //             ),
+                                              //           ),
+                                              //         ),
+                                              //       ),
+                                              //     ),
+                                              //   ],
+                                              //   child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
+                                              // ),
                                             ],),
                                           ],
                                         )
-
-
-
-
-
-
                                       ),
-                                      // Row(
-                                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      //   children: [
-                                      //     Expanded(
-                                      //       flex: 4,
-                                      //       child: Row(
-                                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      //         children: [
-                                      //           Row(
-                                      //             children: [
-                                      //               ClipOval(
-                                      //                 child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                      //                     snapshot.data![index].ptImgUrl == null
-                                      //                     ? CircleAvatar(
-                                      //                   radius: 30,
-                                      //                   backgroundColor: Colors.transparent,
-                                      //                   child: Image.asset("images/profilepic.png"),
-                                      //                 )
-                                      //                     : Image.network(
-                                      //                   snapshot.data![index].ptImgUrl,
-                                      //                   loadingBuilder: (context, child, loadingProgress) {
-                                      //                     if (loadingProgress == null) {
-                                      //                       return child;
-                                      //                     } else {
-                                      //                       return Center(
-                                      //                         child: CircularProgressIndicator(
-                                      //                           value: loadingProgress.expectedTotalBytes != null
-                                      //                               ? loadingProgress.cumulativeBytesLoaded /
-                                      //                               (loadingProgress.expectedTotalBytes ?? 1)
-                                      //                               : null,
-                                      //                         ),
-                                      //                       );
-                                      //                     }
-                                      //                   },
-                                      //                   errorBuilder: (context, error, stackTrace) {
-                                      //                     return CircleAvatar(
-                                      //                       radius: 25,
-                                      //                       backgroundColor: Colors.transparent,
-                                      //                       child: Image.asset("images/profilepic.png"),
-                                      //                     );
-                                      //                   },
-                                      //                   fit: BoxFit.cover,
-                                      //                   height: 43,
-                                      //                   width: 43,
-                                      //                 ),
-                                      //               ),
-                                      //               SizedBox(width: AppSize.s15),
-                                      //               Column(
-                                      //                 crossAxisAlignment: CrossAxisAlignment.start,
-                                      //                 mainAxisAlignment: MainAxisAlignment.center,
-                                      //                 children: [
-                                      //                   Text(
-                                      //                     "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
-                                      //                     textAlign: TextAlign.center,
-                                      //                     style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //                       fontWeight: FontWeight.w700,
-                                      //                       color: ColorManager.mediumgrey,),
-                                      //                   ),
-                                      //                   SizedBox(height: AppSize.s5,),
-                                      //                   Text(
-                                      //                     "Referral Date : ${snapshot.data![index].ptRefferalDate}",
-                                      //                     textAlign: TextAlign.center,
-                                      //                     style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //                       fontWeight: FontWeight.w400,
-                                      //                       color: ColorManager.mediumgrey,),
-                                      //                   ),
-                                      //                 ],
-                                      //               ),
-                                      //             ],
-                                      //           ),
-                                      //
-                                      //           //SizedBox(width: AppSize.s40),
-                                      //           Text(
-                                      //             "Ch #1",
-                                      //             style: DocDefineTableData.customTextStyle(context),
-                                      //           ),
-                                      //           Padding(
-                                      //             padding: const EdgeInsets.only(right: 70.0),
-                                      //             child: Column(
-                                      //               crossAxisAlignment: CrossAxisAlignment.start,
-                                      //               mainAxisAlignment: MainAxisAlignment.center,
-                                      //               children: [
-                                      //                 Text(
-                                      //                   "Referral Source: ",
-                                      //                   textAlign: TextAlign.center,
-                                      //                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //                     fontWeight: FontWeight.w400,
-                                      //                     color: ColorManager.textBlack,),
-                                      //                 ),
-                                      //                 SizedBox(height: AppSize.s4,),
-                                      //                 Text(
-                                      //                   snapshot.data![index].referralSource.sourceName,
-                                      //                   textAlign: TextAlign.center,
-                                      //                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //                     fontWeight: FontWeight.w700,
-                                      //                     color: ColorManager.mediumgrey,),
-                                      //                 ),
-                                      //               ],
-                                      //             ),
-                                      //           ),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     Expanded(
-                                      //       flex: 1,
-                                      //       child:  Column(
-                                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                                      //         mainAxisAlignment: MainAxisAlignment.center,
-                                      //         children: [
-                                      //           Text(
-                                      //             "PCP: ",
-                                      //             textAlign: TextAlign.center,
-                                      //             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //               fontWeight: FontWeight.w400,
-                                      //               color: ColorManager.mediumgrey,),
-                                      //           ),
-                                      //           SizedBox(height: AppSize.s4,),
-                                      //           Text(
-                                      //             "${snapshot.data![index].pcp.phyFirstName} ${snapshot.data![index].pcp.phyLastName}",
-                                      //             textAlign: TextAlign.center,
-                                      //             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //               fontWeight: FontWeight.w700,
-                                      //               color: ColorManager.mediumgrey,),
-                                      //           ),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     Expanded(
-                                      //       flex: 1,
-                                      //       child:  Column(
-                                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                                      //         mainAxisAlignment: MainAxisAlignment.center,
-                                      //         children: [
-                                      //           Text(
-                                      //             "Primary Diagnosis: ",
-                                      //             textAlign: TextAlign.center,
-                                      //             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //               fontWeight: FontWeight.w400,
-                                      //               color: ColorManager.mediumgrey,),
-                                      //           ),
-                                      //           SizedBox(height: AppSize.s4,),
-                                      //           Text(
-                                      //             snapshot.data![index].primaryDiagnosis.dgnName,
-                                      //             textAlign: TextAlign.center,
-                                      //             style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                      //               fontWeight: FontWeight.w700,
-                                      //               color: ColorManager.mediumgrey,),
-                                      //           ),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     SizedBox(width: 20,),
-                                      //     Expanded(
-                                      //       flex: 1,
-                                      //       child: Row(
-                                      //         children: [
-                                      //           Image.network(
-                                      //             snapshot.data![index].referralSource.referralSourceImgUrl,
-                                      //             loadingBuilder: (context, child, loadingProgress) {
-                                      //               if (loadingProgress == null) {
-                                      //                 return child;
-                                      //               } else {
-                                      //                 return Center(
-                                      //                   child: CircularProgressIndicator(
-                                      //                     value: loadingProgress.expectedTotalBytes != null
-                                      //                         ? loadingProgress.cumulativeBytesLoaded /
-                                      //                         (loadingProgress.expectedTotalBytes ?? 1)
-                                      //                         : null,
-                                      //                   ),
-                                      //                 );
-                                      //               }
-                                      //             },
-                                      //             errorBuilder: (context, error, stackTrace) {
-                                      //               return Image.asset('images/logo_login.png',width: 110,);
-                                      //             },
-                                      //             width: 110,
-                                      //           ),
-                                      //           // Text("Manual",style: DocDefineTableData.customTextStyle(context),),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     Expanded(
-                                      //         flex: 3,
-                                      //         child: Row(
-                                      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      //           children: [
-                                      //             SizedBox(width: AppSize.s10),
-                                      //             Text("Marketer: ",style: DocDefineTableData.customTextStyle(context),),
-                                      //             // SizedBox(width: AppSize.s28),
-                                      //             Row(
-                                      //               children: [
-                                      //                 ClipOval(
-                                      //                   child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                      //                       snapshot.data![index].ptImgUrl == null
-                                      //                       ? CircleAvatar(
-                                      //                     radius: 30,
-                                      //                     backgroundColor: Colors.transparent,
-                                      //                     child: Image.asset("images/profilepic.png"),
-                                      //                   )
-                                      //                       : Image.network(
-                                      //                     snapshot.data![index].marketer.imgurl,
-                                      //                     loadingBuilder: (context, child, loadingProgress) {
-                                      //                       if (loadingProgress == null) {
-                                      //                         return child;
-                                      //                       } else {
-                                      //                         return Center(
-                                      //                           child: CircularProgressIndicator(
-                                      //                             value: loadingProgress.expectedTotalBytes != null
-                                      //                                 ? loadingProgress.cumulativeBytesLoaded /
-                                      //                                 (loadingProgress.expectedTotalBytes ?? 1)
-                                      //                                 : null,
-                                      //                           ),
-                                      //                         );
-                                      //                       }
-                                      //                     },
-                                      //                     errorBuilder: (context, error, stackTrace) {
-                                      //                       return CircleAvatar(
-                                      //                         radius: 25,
-                                      //                         backgroundColor: Colors.transparent,
-                                      //                         child: Image.asset("images/profilepic.png"),
-                                      //                       );
-                                      //                     },
-                                      //                     fit: BoxFit.cover,
-                                      //                     height: 45,
-                                      //                     width: 41,
-                                      //                   ),
-                                      //                 ),
-                                      //                 SizedBox(width: AppSize.s15),
-                                      //                 Text(
-                                      //                   "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
-                                      //                   textAlign: TextAlign.center,
-                                      //                   style: DocDefineTableData.customTextStyle(context),
-                                      //                 ),
-                                      //               ],
-                                      //             ),
-                                      //             // SizedBox(width: AppSize.s20),
-                                      //             InkWell(
-                                      //               onTap: () async {
-                                      //                 try {
-                                      //                   onEyeButtonPressed();
-                                      //                   providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
-                                      //                 }
-                                      //                 catch (e){
-                                      //                   print("Error: $e");
-                                      //                 }
-                                      //               },
-                                      //               child: Container(
-                                      //                 width: AppSize.s20,
-                                      //                 height: AppSize.s25,
-                                      //                 child: SvgPicture.asset(
-                                      //                   'images/sm/sm_refferal/eye.svg', // make sure your file is in assets and listed in pubspec.yaml
-                                      //                   height: AppSize.s15,
-                                      //                   width: AppSize.s22,
-                                      //                 ),
-                                      //               ),
-                                      //             ),
-                                      //             //  SizedBox(width: AppSize.s10),
-                                      //             IconButton(
-                                      //                 hoverColor: Colors.transparent,
-                                      //                 splashColor: Colors.transparent,
-                                      //                 highlightColor: Colors.transparent,
-                                      //                 onPressed: (){},
-                                      //                 icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
-                                      //             // SizedBox(width: AppSize.s2),
-                                      //             PopupMenuButton<String>(
-                                      //               tooltip: '',
-                                      //               splashRadius: 0,
-                                      //               color: Colors.white,
-                                      //               offset: Offset(25, 42),
-                                      //               itemBuilder: (BuildContext context) => [
-                                      //                 PopupMenuItem<String>(
-                                      //                   value: 'Merge Duplicate',
-                                      //                   padding: EdgeInsets.zero, // Remove padding
-                                      //                   child: InkWell(
-                                      //                     splashColor: Colors.transparent,
-                                      //                     highlightColor: Colors.transparent,
-                                      //                     hoverColor: Colors.transparent,
-                                      //                     onTap: () {
-                                      //                       Navigator.pop(context); // Important: manually close the popup
-                                      //                       onMergeDuplicatePressed();
-                                      //                     },
-                                      //                     child: Container(
-                                      //                       alignment: Alignment.centerLeft,
-                                      //                       padding: EdgeInsets.only(left: 12, top: 5),
-                                      //                       width: 100,
-                                      //                       child: Text(
-                                      //                         'Merge Duplicate',
-                                      //                         style: CustomTextStylesCommon.commonStyle(
-                                      //                           fontWeight: FontWeight.w700,
-                                      //                           fontSize: FontSize.s12,
-                                      //                           color: ColorManager.mediumgrey,
-                                      //                         ),
-                                      //                       ),
-                                      //                     ),
-                                      //                   ),
-                                      //                 ),
-                                      //                 PopupMenuItem<String>(
-                                      //                   value: 'Archived',
-                                      //                   padding: EdgeInsets.zero,
-                                      //                   child: InkWell(
-                                      //                     splashColor: Colors.transparent,
-                                      //                     highlightColor: Colors.transparent,
-                                      //                     hoverColor: Colors.transparent,
-                                      //                     onTap: () {
-                                      //                       Navigator.pop(context);
-                                      //                       print('Option 2 Selected');
-                                      //                     },
-                                      //                     child: Container(
-                                      //                       alignment: Alignment.centerLeft,
-                                      //                       padding: EdgeInsets.only(left: 12, top: 5),
-                                      //                       width: 100,
-                                      //                       child: Text(
-                                      //                         'Archived',
-                                      //                         style: CustomTextStylesCommon.commonStyle(
-                                      //                           fontWeight: FontWeight.w700,
-                                      //                           fontSize: FontSize.s12,
-                                      //                           color: ColorManager.mediumgrey,
-                                      //                         ),
-                                      //                       ),
-                                      //                     ),
-                                      //                   ),
-                                      //                 ),
-                                      //               ],
-                                      //               child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
-                                      //             ),
-                                      //             // SizedBox(width: AppSize.s10),
-                                      //           ],
-                                      //         ))
-                                      //   ],
-                                      // ),
-                                      Expanded(child: Container(height: AppSize.s8,)),
                                     ],
                                   ),
                                 ),

@@ -152,7 +152,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                           ]
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                                        padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p30),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -173,7 +173,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                             ),
                                             SizedBox(width: 10,),
                                             Expanded(
-                                              flex: 2,
+                                              flex: 3,
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -221,7 +221,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                               ),
                                             ),
                                             Expanded(
-                                              flex: 2,
+                                              flex: 3,
                                               child:  Center(
                                               child: Text("Apollo Hospital, Washington DC",
                                                 textAlign: TextAlign.start,
@@ -233,8 +233,9 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
 
                                             ),
                                             SizedBox(width: 10,),
+                                            SizedBox(width: MediaQuery.of(context).size.width/25,),
                                             Expanded(
-                                              flex: 5,
+                                              flex: 7,
                                               child:  Wrap(
                                                 spacing: 15,
 
@@ -491,6 +492,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                 ),
                                               ),
                                             ),
+                                            SizedBox(width: 5,),
                                             Expanded(
                                               flex: 1,
                                               child: InkWell(

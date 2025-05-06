@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:provider/provider.dart';
 import '../../../../../app/resources/color.dart';
@@ -40,7 +41,7 @@ class RefferalArchievedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
-    final providerReferrals = Provider.of<SmIntegrationProviderManager>(context,listen: false);
+    final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     return Stack(
       children: [
         Padding(
@@ -153,7 +154,7 @@ class RefferalArchievedScreen extends StatelessWidget {
               StreamBuilder<List<PatientModel>>(
                 stream: _streamController.stream,
                 builder: (context,snapshot) {
-                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'false', isArchived: 'true').then((data) {
+                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'false', isArchived: 'true', searchName: 'all', marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
                     _streamController.add(data);
                   }).catchError((error) {
                     // Handle error
@@ -273,7 +274,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                               child: Image.asset("images/profilepic.png"),
                                             )
                                                 : Image.network(
-                                              snapshot.data![index].ptImgUrl,
+                                              snapshot.data![index].ptImgUrl!,
                                               loadingBuilder: (context, child, loadingProgress) {
                                                 if (loadingProgress == null) {
                                                   return child;

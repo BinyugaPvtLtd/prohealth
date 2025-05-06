@@ -166,7 +166,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                           ]
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(left: AppPadding.p20),
+                                        padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p30),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -187,7 +187,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                             ),
                                             SizedBox(width: 10,),
                                             Expanded(
-                                              flex: 2,
+                                              flex: 3,
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -262,6 +262,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                              // ),
                                             ),
                                             SizedBox(width: 20),
+                                            SizedBox(width: MediaQuery.of(context).size.width/35,),
                                             Expanded(
                                               flex: 5,
                                               child: Wrap(

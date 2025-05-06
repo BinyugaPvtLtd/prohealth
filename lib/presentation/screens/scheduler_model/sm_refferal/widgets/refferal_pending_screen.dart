@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:provider/provider.dart';
 import '../../../../../app/resources/color.dart';
@@ -25,11 +26,12 @@ import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
 class RefferalPendingScreen extends StatelessWidget {
   final VoidCallback onEyeButtonPressed;
+  final VoidCallback onAutoSyncPressed;
   final VoidCallback onMergeDuplicatePressed;
   final VoidCallback onMoveToIntake;
    RefferalPendingScreen(
       {super.key,
-      required this.onEyeButtonPressed,
+      required this.onEyeButtonPressed,required this.onAutoSyncPressed,
       required this.onMergeDuplicatePressed, required this.onMoveToIntake});
 
   List<String> hardcodedItems = [
@@ -45,7 +47,7 @@ class RefferalPendingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
-    final providerReferrals = Provider.of<SmIntegrationProviderManager>(context,listen: false);
+    final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     return Stack(
       children: [
         Padding(
@@ -58,25 +60,43 @@ class RefferalPendingScreen extends StatelessWidget {
               //   crossAxisAlignment: CrossAxisAlignment.start,
               //   children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomSearchFieldSM(
-                    width: 440,
-                    onPressed: () {},
-                  ),
-                  SizedBox(
-                    width: AppSize.s20,
-                  ),
-                  IconButton(
-                      hoverColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: providerContact.toggleFilter,
-                      icon: Image.asset("images/sm/sm_refferal/filter_icon.png",
-                          height: AppSize.s18,
-                          width: AppSize
-                              .s16) //Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                  Row(
+                    children: [
+                      CustomSearchFieldSM(
+                        width: 440,
+                        onPressed: () {},
                       ),
+                      SizedBox(
+                        width: AppSize.s20,
+                      ),
+                      IconButton(
+                          hoverColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onPressed: providerContact.toggleFilter,
+                          icon: Image.asset("images/sm/sm_refferal/filter_icon.png",
+                              height: AppSize.s18,
+                              width: AppSize
+                                  .s16) //Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    height: AppSize.s36,
+                    child: CustomIconButton(
+                      color: ColorManager.bluebottom,
+                      icon: Icons.autorenew_sharp,
+                      textWeight: FontWeight.w700,
+                      textSize: FontSize.s12,
+                      text: "Auto Sync",
+                      onPressed: ()async{
+                        onAutoSyncPressed();
+                      },
+                    ),
+                  )
                 ],
               ),
               // Row(
@@ -198,7 +218,7 @@ class RefferalPendingScreen extends StatelessWidget {
               StreamBuilder<List<PatientModel>>(
                 stream: _streamController.stream,
                 builder: (context,snapshot) {
-                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'false', isArchived: 'false').then((data) {
+                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 20, isIntake: 'false', isArchived: 'false', searchName: 'all', marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
                     _streamController.add(data);
                   }).catchError((error) {
                     // Handle error
@@ -263,7 +283,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     border:  Border(
                                       left: BorderSide(
-                                        color: ColorManager.greenDark,
+                                        color: snapshot.data![index].thresould == 0 ? ColorManager.greenDark : snapshot.data![index].thresould == 1 ?ColorManager.pieChartFYellow:ColorManager.red,
                                         width: 6,
                                       ),
                                     ),
@@ -279,7 +299,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.end,
                                           crossAxisAlignment: CrossAxisAlignment.end,
                                           children: [
-                                            Container(
+                                            snapshot.data![index].isPotential ?   Container(
                                                 width: AppSize.s105,
                                                 height: AppSize.s16,
                                                 decoration: BoxDecoration(
@@ -297,7 +317,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                           fontSize: FontSize.s11,
                                                           fontWeight:
                                                           FontWeight.w400)),
-                                                )),
+                                                )) : Offstage()
                                           ]),
                                       Padding(
                                         padding: const EdgeInsets.only(left: AppPadding.p15,right: AppPadding.p15),
@@ -306,41 +326,74 @@ class RefferalPendingScreen extends StatelessWidget {
                                           children: [
                                             /// Include image to Referral Source
                                             ClipOval(
-                                              child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                                  snapshot.data![index].ptImgUrl == null
+                                              child: (snapshot.data![index].ptImgUrl == null ||
+                                                  snapshot.data![index].ptImgUrl == '' ||
+                                                  snapshot.data![index].ptImgUrl == 'imgurl')
                                                   ? CircleAvatar(
                                                 radius: 22,
                                                 backgroundColor: Colors.transparent,
                                                 child: Image.asset("images/profilepic.png"),
                                               )
                                                   : Image.network(
-                                                snapshot.data![index].ptImgUrl,
-                                                loadingBuilder: (context, child, loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  } else {
-                                                    return Center(
-                                                      child: CircularProgressIndicator(
-                                                        value: loadingProgress.expectedTotalBytes != null
-                                                            ? loadingProgress.cumulativeBytesLoaded /
-                                                            (loadingProgress.expectedTotalBytes ?? 1)
-                                                            : null,
-                                                      ),
-                                                    );
-                                                  }
-                                                },
-                                                errorBuilder: (context, error, stackTrace) {
-                                                  return CircleAvatar(
-                                                    radius: 21,
-                                                    backgroundColor: Colors.transparent,
-                                                    child: Image.asset("images/profilepic.png"),
-                                                  );
-                                                },
-                                                fit: BoxFit.cover,
+                                                snapshot.data![index].ptImgUrl!,
                                                 height: 40,
                                                 width: 40,
+                                                fit: BoxFit.cover,
+                                                loadingBuilder: (context, child, loadingProgress) {
+                                                  if (loadingProgress == null) return child;
+                                                  return Center(
+                                                    child: CircularProgressIndicator(
+                                                      value: loadingProgress.expectedTotalBytes != null
+                                                          ? loadingProgress.cumulativeBytesLoaded /
+                                                          (loadingProgress.expectedTotalBytes ?? 1)
+                                                          : null,
+                                                    ),
+                                                  );
+                                                },
+                                                errorBuilder: (context, error, stackTrace) => CircleAvatar(
+                                                  radius: 21,
+                                                  backgroundColor: Colors.transparent,
+                                                  child: Image.asset("images/profilepic.png"),
+                                                ),
                                               ),
                                             ),
+                                            // ClipOval(
+                                            //   child: snapshot.data![index].ptImgUrl == 'imgurl' ||
+                                            //       snapshot.data![index].ptImgUrl == null
+                                            //       ? CircleAvatar(
+                                            //     radius: 22,
+                                            //     backgroundColor: Colors.transparent,
+                                            //     child: Image.asset("images/profilepic.png"),
+                                            //   )
+                                            //       : Image.network(
+                                            //     snapshot.data![index].ptImgUrl!,
+                                            //     loadingBuilder: (context, child, loadingProgress) {
+                                            //       if (loadingProgress == null) {
+                                            //         return child;
+                                            //       } else {
+                                            //         return Center(
+                                            //           child: CircularProgressIndicator(
+                                            //             value: loadingProgress.expectedTotalBytes != null
+                                            //                 ? loadingProgress.cumulativeBytesLoaded /
+                                            //                 (loadingProgress.expectedTotalBytes ?? 1)
+                                            //                 : null,
+                                            //           ),
+                                            //         );
+                                            //       }
+                                            //     },
+                                            //     errorBuilder: (context, error, stackTrace) {
+                                            //       return CircleAvatar(
+                                            //         radius: 21,
+                                            //         backgroundColor: Colors.transparent,
+                                            //         child: Image.asset("images/profilepic.png"),
+                                            //       );
+                                            //     },
+                                            //     fit: BoxFit.cover,
+                                            //     height: 40,
+                                            //     width: 40,
+                                            //   ),
+                                            // ),
+                                            ///
                                             // ClipRRect(
                                             //   borderRadius:
                                             //   BorderRadius.circular(60),
@@ -684,7 +737,6 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   }else{
                                                     print('Api error');
                                                   }
-
                                                   },
                                                   style: ElevatedButton.styleFrom(
                                                     padding: EdgeInsets.symmetric(
@@ -718,32 +770,32 @@ class RefferalPendingScreen extends StatelessWidget {
                                               color: Colors.white,
                                               offset: Offset(25, 42),
                                               itemBuilder: (BuildContext context) => [
-                                                PopupMenuItem<String>(
-                                                  value: 'Merge Duplicate',
-                                                  padding: EdgeInsets.zero, // Remove padding
-                                                  child: InkWell(
-                                                    splashColor: Colors.transparent,
-                                                    highlightColor: Colors.transparent,
-                                                    hoverColor: Colors.transparent,
-                                                    onTap: () {
-                                                      Navigator.pop(context); // Important: manually close the popup
-                                                      onMergeDuplicatePressed();
-                                                    },
-                                                    child: Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      padding: EdgeInsets.only(left: 12, top: 5),
-                                                      width: 100,
-                                                      child: Text(
-                                                        'Merge Duplicate',
-                                                        style: CustomTextStylesCommon.commonStyle(
-                                                          fontWeight: FontWeight.w700,
-                                                          fontSize: FontSize.s12,
-                                                          color: ColorManager.mediumgrey,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
+                                                // PopupMenuItem<String>(
+                                                //   value: 'Merge Duplicate',
+                                                //   padding: EdgeInsets.zero, // Remove padding
+                                                //   child: InkWell(
+                                                //     splashColor: Colors.transparent,
+                                                //     highlightColor: Colors.transparent,
+                                                //     hoverColor: Colors.transparent,
+                                                //     onTap: () {
+                                                //       Navigator.pop(context); // Important: manually close the popup
+                                                //       onMergeDuplicatePressed();
+                                                //     },
+                                                //     child: Container(
+                                                //       alignment: Alignment.centerLeft,
+                                                //       padding: EdgeInsets.only(left: 12, top: 5),
+                                                //       width: 100,
+                                                //       child: Text(
+                                                //         'Merge Duplicate',
+                                                //         style: CustomTextStylesCommon.commonStyle(
+                                                //           fontWeight: FontWeight.w700,
+                                                //           fontSize: FontSize.s12,
+                                                //           color: ColorManager.mediumgrey,
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //   ),
+                                                // ),
                                                 PopupMenuItem<String>(
                                                   value: 'Archived',
                                                   padding: EdgeInsets.zero,
