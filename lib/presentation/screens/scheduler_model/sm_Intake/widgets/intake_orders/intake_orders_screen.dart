@@ -340,7 +340,6 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                   ],
                                 ),
                               )
-                             
                             ],
                           ),
                           
