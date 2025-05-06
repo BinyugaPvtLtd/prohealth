@@ -6,6 +6,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widge
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
 import 'package:provider/provider.dart';
+
 //import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
 import '../../../../app/resources/provider/sm_provider/sm_integration_provider.dart';
 import '../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
