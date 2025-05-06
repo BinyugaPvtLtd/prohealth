@@ -283,7 +283,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     border:  Border(
                                       left: BorderSide(
-                                        color: ColorManager.greenDark,
+                                        color: snapshot.data![index].thresould == 0 ? ColorManager.greenDark : snapshot.data![index].thresould == 1 ?ColorManager.pieChartFYellow:ColorManager.red,
                                         width: 6,
                                       ),
                                     ),
@@ -299,25 +299,25 @@ class RefferalPendingScreen extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.end,
                                           crossAxisAlignment: CrossAxisAlignment.end,
                                           children: [
-                                            // Container(
-                                            //     width: AppSize.s105,
-                                            //     height: AppSize.s16,
-                                            //     decoration: BoxDecoration(
-                                            //       color: Color(0xFFFFE4E2),
-                                            //       borderRadius: BorderRadius.only(
-                                            //           topRight: Radius.circular(8)),
-                                            //     ),
-                                            //     child: Center(
-                                            //       child: Text('Potential Duplicate',
-                                            //           textAlign: TextAlign.center,
-                                            //           style: CustomTextStylesCommon
-                                            //               .commonStyle(
-                                            //               color: ColorManager
-                                            //                   .mediumgrey,
-                                            //               fontSize: FontSize.s11,
-                                            //               fontWeight:
-                                            //               FontWeight.w400)),
-                                            //     )),
+                                            snapshot.data![index].isPotential ?   Container(
+                                                width: AppSize.s105,
+                                                height: AppSize.s16,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFFFE4E2),
+                                                  borderRadius: BorderRadius.only(
+                                                      topRight: Radius.circular(8)),
+                                                ),
+                                                child: Center(
+                                                  child: Text('Potential Duplicate',
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon
+                                                          .commonStyle(
+                                                          color: ColorManager
+                                                              .mediumgrey,
+                                                          fontSize: FontSize.s11,
+                                                          fontWeight:
+                                                          FontWeight.w400)),
+                                                )) : Offstage()
                                           ]),
                                       Padding(
                                         padding: const EdgeInsets.only(left: AppPadding.p15,right: AppPadding.p15),

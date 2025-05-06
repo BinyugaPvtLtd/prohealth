@@ -39,6 +39,8 @@ Future<List<PatientModel>> getPatientReffrealsData({
       for (var item in response.data) {
         String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
         itemsData.add(PatientModel(
+          isPotential: item['is_potential_duplicate'] ?? false,
+          thresould: item['threshold']??0,
           ptTime: formatedTime,
           ptId: item['pt_id'],
           ptFirstName: item['pt_first_name'] ?? '',
@@ -209,6 +211,8 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
       var item = response.data;
         String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
         itemsData = PatientModel(
+          isPotential: item['is_potential_duplicate'] ?? false,
+          thresould: item['threshold']??0,
           ptTime: formatedTime,
           ptId: item['pt_id'],
           ptFirstName: item['pt_first_name'] ?? '',

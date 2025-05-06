@@ -31,8 +31,9 @@ class PatientModel {
   final PCPModel pcp;
   final MarketerModel marketer;
   final List<DisciplineModel> disciplines;
-
-  PatientModel({
+  final bool isPotential;
+  final int thresould;
+  PatientModel({required this.isPotential, required this.thresould,
     required this.ptTime,
     required this.ptId,
     required this.ptFirstName,

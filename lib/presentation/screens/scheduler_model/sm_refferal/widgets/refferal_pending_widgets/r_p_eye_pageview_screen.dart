@@ -58,7 +58,8 @@ class DiagnosisProvider extends ChangeNotifier {
 
   void addDiagnosis() {
     _diagnosisKeys.add(GlobalKey<_DiagosisListState>());
-    // _diagnosisData.add(DiagnosisModel(dgnId: null, dgnName: '', dgnCode: '')); // empty data
+
+    // _diagnosisData.add(DiagnosisModel(dgnId: 0, dgnName: '', dgnCode: '')); // empty data
     notifyListeners();
   }
 
@@ -95,9 +96,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   TextEditingController policy = TextEditingController();
   TextEditingController plan = TextEditingController();
   TextEditingController provider = TextEditingController();
-  TextEditingController possible = TextEditingController();
-  TextEditingController icd = TextEditingController();
-  TextEditingController pdgm = TextEditingController();
+  TextEditingController possiblePrime = TextEditingController();
+  TextEditingController icdPrime = TextEditingController();
+  TextEditingController pdgmPrime = TextEditingController();
   //TextEditingController patientsSummary = TextEditingController();
   String selectedType = "Insurance";
   bool isChecked = false;
@@ -145,7 +146,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   }
 
 
-
+  double _sliderValue = 100; // initial value
 
 
   @override
@@ -179,8 +180,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
             patientsController = TextEditingController(text:snapshot.data!.ptContactNo);
             zipCodeController = TextEditingController(text:snapshot.data!.ptZipCode);
             patientsSummary = TextEditingController(text:snapshot.data!.ptSummary);
-            icd = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnCode);
-            possible = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnName);
+            icdPrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnCode);
+            possiblePrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnName);
            // referredfor = TextEditingController(text: snapshot.data!.service.srvName);
             List<String> desciplineModel = [];
             for(var a in snapshot.data!.disciplines){
@@ -601,12 +602,12 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       ///insurance
                       BlueBGHeadConst(HeadText: "Insurance"),
                       SizedBox(height: AppSize.s20,),
-                      Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
                       StatefulBuilder(
                           builder: (BuildContext context, StateSetter setState){
-                        return Row(
+                        return Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                        Row(
                           children: [
                             SizedBox(width: 15),
                             CustomRadioListTile(
@@ -631,335 +632,390 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               title: 'Self Pay',
                             ),
                           ],
-                        );}
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 25, top: 6),
-                        child: Text(
-                          'Mark as Primary',
-                          style: AllPopupHeadings.customTextStyle(context),
                         ),
-                      ),
-                      SizedBox(height: 10),
-                      // Container(
-                      //   color: selectedType == 'Self Pay' ? Colors.grey.shade200 : Colors.transparent,
-                      //   child: IgnorePointer(
-                      //     ignoring: selectedType == 'Self Pay',
-                      //     child: ListView.builder(
-                      //       shrinkWrap: true,
-                      //       itemCount: 2,
-                      //       itemBuilder: (context, index) {
-                      //         return Padding(
-                      //           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      //           child: Column(
-                      //             crossAxisAlignment: CrossAxisAlignment.start,
-                      //             children: [
-                      //               Text(
-                      //                 'Insurance  #${index + 1}',
-                      //                 style: TextStyle(
-                      //                   fontSize: FontSize.s14,
-                      //                   fontWeight: FontWeight.w500,
-                      //                   color: ColorManager.mediumgrey,
-                      //                   decoration: TextDecoration.none,
-                      //                 ),
-                      //               ),
-                      //               Row(
-                      //                 crossAxisAlignment: CrossAxisAlignment.center,
-                      //                 children: [
-                      //                   Expanded(
-                      //                     child: Container(
-                      //                       padding: EdgeInsets.only(top: 15),
-                      //                       child: Checkbox(
-                      //                         splashRadius: 0,
-                      //                         checkColor: ColorManager.white,
-                      //                         activeColor: ColorManager.bluebottom,
-                      //                         side: BorderSide(color: ColorManager.bluebottom, width: 2),
-                      //                         value: isCheckedList[index],
-                      //                         onChanged: (bool? value) {
-                      //                           setState(() {
-                      //                             isCheckedList[index] = value!;
-                      //                           });
-                      //                         },
-                      //                       ),
-                      //                     ),
-                      //                   ),
-                      //                   SizedBox(width: 20),
-                      //                   Expanded(
-                      //                     flex: 2,
-                      //                     child: SMTextFConst(
-                      //                       controller: policy,
-                      //                       isAsteric: false,
-                      //                       keyboardType: TextInputType.text,
-                      //                       text: "Policy #",
-                      //                     ),
-                      //                   ),
-                      //                   Expanded(child: Container()),
-                      //                   Expanded(
-                      //                     flex: 2,
-                      //                     child: SMTextFConst(
-                      //                       controller: provider,
-                      //                       isAsteric: false,
-                      //                       keyboardType: TextInputType.text,
-                      //                       text: "Insurance Provider :",
-                      //                     ),
-                      //                   ),
-                      //                   Expanded(child: Container()),
-                      //                   Expanded(
-                      //                     flex: 2,
-                      //                     child: SMTextFConst(
-                      //                       controller: plan,
-                      //                       isAsteric: false,
-                      //                       keyboardType: TextInputType.text,
-                      //                       text: "Insurance Plan :",
-                      //                     ),
-                      //                   ),
-                      //                   SizedBox(width: 10),
-                      //                   Expanded(
-                      //                     flex: 2,
-                      //                     child: Column(
-                      //                       mainAxisAlignment: MainAxisAlignment.start,
-                      //                       children: [
-                      //                         Text(
-                      //                           "Eligibility:",
-                      //                           style: AllPopupHeadings.customTextStyle(context),
-                      //                         ),
-                      //                         SizedBox(height: 12),
-                      //                         Container(
-                      //                           height: 30,
-                      //                           padding: EdgeInsets.only(left: 45, right: 20),
-                      //                           child: Text(
-                      //                             "Not all visit\ncovered",
-                      //                             style: TextStyle(
-                      //                               fontSize: FontSize.s12,
-                      //                               fontWeight: FontWeight.w700,
-                      //                               color: ColorManager.greenDark,
-                      //                             ),
-                      //                           ),
-                      //                         )
-                      //                       ],
-                      //                     ),
-                      //                   ),
-                      //                   SizedBox(width: 20),
-                      //                   Container(
-                      //                     width: 30,
-                      //                     height: 30,
-                      //                     decoration: BoxDecoration(
-                      //                       color: ColorManager.greenDark,
-                      //                       borderRadius: BorderRadius.circular(3),
-                      //                     ),
-                      //                     child: Center(
-                      //                       child: Text(
-                      //                         "A",
-                      //                         textAlign: TextAlign.center,
-                      //                         style: TextStyle(
-                      //                           fontSize: FontSize.s12,
-                      //                           fontWeight: FontWeight.w700,
-                      //                           color: ColorManager.white,
-                      //                         ),
-                      //                       ),
-                      //                     ),
-                      //                   ),
-                      //                   SizedBox(width: 30),
-                      //                   Expanded(
-                      //                     flex: 2,
-                      //                     child: Column(
-                      //                       children: [
-                      //                         CustomElevatedButton(
-                      //                           width: AppSize.s130,
-                      //                           height: AppSize.s30,
-                      //                           text: "Check Eligibility",
-                      //                           color: ColorManager.bluebottom,
-                      //                           onPressed: () {},
-                      //                         ),
-                      //                         SizedBox(height: 5),
-                      //                         Text(
-                      //                           "Last checked at 8:30 AM",
-                      //                           style: TextStyle(
-                      //                             fontSize: FontSize.s12,
-                      //                             fontWeight: FontWeight.w400,
-                      //                             color: ColorManager.mediumgrey,
-                      //                           ),
-                      //                         ),
-                      //                       ],
-                      //                     ),
-                      //                   )
-                      //                 ],
-                      //               ),
-                      //               SizedBox(height: 10),
-                      //               Divider(thickness: 1, height: 30),
-                      //             ],
-                      //           ),
-                      //         );
-                      //       },
-                      //     ),
-                      //   ),
-                      // ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 25, top: 6),
+                          child: Text(
+                            'Mark as Primary',
+                            style: AllPopupHeadings.customTextStyle(context),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        // Container(
+                        //   color: selectedType == 'Self Pay' ? Colors.grey.shade200 : Colors.transparent,
+                        //   child: IgnorePointer(
+                        //     ignoring: selectedType == 'Self Pay',
+                        //     child: ListView.builder(
+                        //       shrinkWrap: true,
+                        //       itemCount: 2,
+                        //       itemBuilder: (context, index) {
+                        //         return Padding(
+                        //           padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        //           child: Column(
+                        //             crossAxisAlignment: CrossAxisAlignment.start,
+                        //             children: [
+                        //               Text(
+                        //                 'Insurance  #${index + 1}',
+                        //                 style: TextStyle(
+                        //                   fontSize: FontSize.s14,
+                        //                   fontWeight: FontWeight.w500,
+                        //                   color: ColorManager.mediumgrey,
+                        //                   decoration: TextDecoration.none,
+                        //                 ),
+                        //               ),
+                        //               Row(
+                        //                 crossAxisAlignment: CrossAxisAlignment.center,
+                        //                 children: [
+                        //                   Expanded(
+                        //                     child: Container(
+                        //                       padding: EdgeInsets.only(top: 15),
+                        //                       child: Checkbox(
+                        //                         splashRadius: 0,
+                        //                         checkColor: ColorManager.white,
+                        //                         activeColor: ColorManager.bluebottom,
+                        //                         side: BorderSide(color: ColorManager.bluebottom, width: 2),
+                        //                         value: isCheckedList[index],
+                        //                         onChanged: (bool? value) {
+                        //                           setState(() {
+                        //                             isCheckedList[index] = value!;
+                        //                           });
+                        //                         },
+                        //                       ),
+                        //                     ),
+                        //                   ),
+                        //                   SizedBox(width: 20),
+                        //                   Expanded(
+                        //                     flex: 2,
+                        //                     child: SMTextFConst(
+                        //                       controller: policy,
+                        //                       isAsteric: false,
+                        //                       keyboardType: TextInputType.text,
+                        //                       text: "Policy #",
+                        //                     ),
+                        //                   ),
+                        //                   Expanded(child: Container()),
+                        //                   Expanded(
+                        //                     flex: 2,
+                        //                     child: SMTextFConst(
+                        //                       controller: provider,
+                        //                       isAsteric: false,
+                        //                       keyboardType: TextInputType.text,
+                        //                       text: "Insurance Provider :",
+                        //                     ),
+                        //                   ),
+                        //                   Expanded(child: Container()),
+                        //                   Expanded(
+                        //                     flex: 2,
+                        //                     child: SMTextFConst(
+                        //                       controller: plan,
+                        //                       isAsteric: false,
+                        //                       keyboardType: TextInputType.text,
+                        //                       text: "Insurance Plan :",
+                        //                     ),
+                        //                   ),
+                        //                   SizedBox(width: 10),
+                        //                   Expanded(
+                        //                     flex: 2,
+                        //                     child: Column(
+                        //                       mainAxisAlignment: MainAxisAlignment.start,
+                        //                       children: [
+                        //                         Text(
+                        //                           "Eligibility:",
+                        //                           style: AllPopupHeadings.customTextStyle(context),
+                        //                         ),
+                        //                         SizedBox(height: 12),
+                        //                         Container(
+                        //                           height: 30,
+                        //                           padding: EdgeInsets.only(left: 45, right: 20),
+                        //                           child: Text(
+                        //                             "Not all visit\ncovered",
+                        //                             style: TextStyle(
+                        //                               fontSize: FontSize.s12,
+                        //                               fontWeight: FontWeight.w700,
+                        //                               color: ColorManager.greenDark,
+                        //                             ),
+                        //                           ),
+                        //                         )
+                        //                       ],
+                        //                     ),
+                        //                   ),
+                        //                   SizedBox(width: 20),
+                        //                   Container(
+                        //                     width: 30,
+                        //                     height: 30,
+                        //                     decoration: BoxDecoration(
+                        //                       color: ColorManager.greenDark,
+                        //                       borderRadius: BorderRadius.circular(3),
+                        //                     ),
+                        //                     child: Center(
+                        //                       child: Text(
+                        //                         "A",
+                        //                         textAlign: TextAlign.center,
+                        //                         style: TextStyle(
+                        //                           fontSize: FontSize.s12,
+                        //                           fontWeight: FontWeight.w700,
+                        //                           color: ColorManager.white,
+                        //                         ),
+                        //                       ),
+                        //                     ),
+                        //                   ),
+                        //                   SizedBox(width: 30),
+                        //                   Expanded(
+                        //                     flex: 2,
+                        //                     child: Column(
+                        //                       children: [
+                        //                         CustomElevatedButton(
+                        //                           width: AppSize.s130,
+                        //                           height: AppSize.s30,
+                        //                           text: "Check Eligibility",
+                        //                           color: ColorManager.bluebottom,
+                        //                           onPressed: () {},
+                        //                         ),
+                        //                         SizedBox(height: 5),
+                        //                         Text(
+                        //                           "Last checked at 8:30 AM",
+                        //                           style: TextStyle(
+                        //                             fontSize: FontSize.s12,
+                        //                             fontWeight: FontWeight.w400,
+                        //                             color: ColorManager.mediumgrey,
+                        //                           ),
+                        //                         ),
+                        //                       ],
+                        //                     ),
+                        //                   )
+                        //                 ],
+                        //               ),
+                        //               SizedBox(height: 10),
+                        //               Divider(thickness: 1, height: 30),
+                        //             ],
+                        //           ),
+                        //         );
+                        //       },
+                        //     ),
+                        //   ),
+                        // ),
 
-                      Opacity(
-                        opacity: selectedType == 'Self Pay' ? 0.2 :  0.9,
-                        child: Container(
-                          child: IgnorePointer(
-                            ignoring: selectedType == 'Self Pay',
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: 2, // Adjust as needed
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Insurance  #${index + 1}',
-                                        style: TextStyle(
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeight.w500,
-                                          color: ColorManager.mediumgrey,
-                                          decoration: TextDecoration.none,
+                        Opacity(
+                          opacity: selectedType == 'Self Pay' ? 0.2 :  0.9,
+                          child: Container(
+                            child: IgnorePointer(
+                              ignoring: selectedType == 'Self Pay',
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: 2, // Adjust as needed
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Insurance  #${index + 1}',
+                                          style: TextStyle(
+                                            fontSize: FontSize.s14,
+                                            fontWeight: FontWeight.w500,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                          //AllPopupHeadings.customTextStyle(context),
                                         ),
-                                        //AllPopupHeadings.customTextStyle(context),
-                                      ),
-                                      Row(mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child:  Container(
-                                              padding: EdgeInsets.only(top: 15),
-                                              child: Checkbox(
-                                                splashRadius: 0,
-                                                checkColor: ColorManager.white,
-                                                activeColor: ColorManager.bluebottom,
-                                                side: BorderSide(color: ColorManager.bluebottom, width: 2),
-                                                value: isCheckedList[index],
-                                                onChanged: (bool? value) {
-                                                  setState(() {
-                                                    isCheckedList[index] = value!;
-                                                  });
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          //SizedBox(width: 20,),
-                                          Expanded(
-                                            flex: 2,
-                                            child: SMTextFConst(
-                                              controller: policy,
-                                              isAsteric: false,
-                                              keyboardType: TextInputType.text,
-                                              text: "Policy #",
-                                            ),
-                                          ),
-                                          Expanded(child: Container()),
-                                          Expanded(
-                                            flex: 2,
-                                            child: SMTextFConst(
-                                              controller: provider,
-                                              isAsteric: false,
-                                              keyboardType: TextInputType.text,
-                                              text: "Insurance Provider :",
-                                            ),
-                                          ),
-                                          Expanded(child: Container()),
-                                          Expanded(
-                                            flex: 2,
-                                            child: SMTextFConst(
-                                              controller: plan,
-                                              isAsteric: false,
-                                              keyboardType: TextInputType.text,
-                                              text: "Insurance Plan :",
-                                            ),
-                                          ),
-                                         // SizedBox(width: 10,),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                              Container(
-                                                child: Text("Eligibility:",
-                                                  style: AllPopupHeadings.customTextStyle(context),),
-                                              ),
-                                              SizedBox(height: 12,),
-                                              Container(
-                                                height: 30,
-                                                padding: EdgeInsets.only(left: 45,right: 20),
-                                                child: Text("Not all visit\ncovered",
-                                                  style: TextStyle(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: ColorManager.greenDark,
-                                                  ),),
-                                              )
-                                            ],),
-                                          ),
-                                          //SizedBox(width: 20,),
-                                          Container(
-                                            width: 30,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              color: ColorManager.greenDark,
-                                              borderRadius: BorderRadius.circular(3),
-                                            ),
-                                            child: Center(
-                                              child: Text("A",
-                                               textAlign: TextAlign.center,
-                                               style: TextStyle(
-                                                 fontSize: FontSize.s12,
-                                                 fontWeight: FontWeight.w700,
-                                                 color: ColorManager.white,
-                                               ),),
-                                            ),
-                                          ),
-                                          SizedBox(width: 30,),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Column(
-                                              children: [
-                                                CustomElevatedButton(
-                                                  width: AppSize.s130,
-                                                  height: AppSize.s30,
-                                                  text: "Check Eligibility",
-                                                  color:  ColorManager.bluebottom,
-                                                  onPressed: (){},
+                                        Row(mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child:  Container(
+                                                padding: EdgeInsets.only(top: 15),
+                                                child: Checkbox(
+                                                  splashRadius: 0,
+                                                  checkColor: ColorManager.white,
+                                                  activeColor: ColorManager.bluebottom,
+                                                  side: BorderSide(color: ColorManager.bluebottom, width: 2),
+                                                  value: isCheckedList[index],
+                                                  onChanged: (bool? value) {
+                                                    setState(() {
+                                                      isCheckedList[index] = value!;
+                                                    });
+                                                  },
                                                 ),
-                                                SizedBox(height: 5,),
-                                                Text("Last checked at 8:30 AM",
-                                                  style: TextStyle(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorManager.mediumgrey,
-                                                  ),),
-                                              ],
+                                              ),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(height: 10,),
-                                      Divider(
-                                      //  color: ColorManager.containerBorderGrey,
-                                        thickness: 1,
-                                        height: 30,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
+                                            //SizedBox(width: 20,),
+                                            Expanded(
+                                              flex: 2,
+                                              child: SMTextFConst(
+                                                controller: policy,
+                                                isAsteric: false,
+                                                keyboardType: TextInputType.text,
+                                                text: "Policy #",
+                                              ),
+                                            ),
+                                            Expanded(child: Container()),
+                                            Expanded(
+                                              flex: 2,
+                                              child: SMTextFConst(
+                                                controller: provider,
+                                                isAsteric: false,
+                                                keyboardType: TextInputType.text,
+                                                text: "Insurance Provider :",
+                                              ),
+                                            ),
+                                            Expanded(child: Container()),
+                                            Expanded(
+                                              flex: 2,
+                                              child: SMTextFConst(
+                                                controller: plan,
+                                                isAsteric: false,
+                                                keyboardType: TextInputType.text,
+                                                text: "Insurance Plan :",
+                                              ),
+                                            ),
+                                           // SizedBox(width: 10,),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                Container(
+                                                  child: Text("Eligibility:",
+                                                    style: AllPopupHeadings.customTextStyle(context),),
+                                                ),
+                                                SizedBox(height: 12,),
+                                                Container(
+                                                  height: 30,
+                                                  padding: EdgeInsets.only(left: 45,right: 20),
+                                                  child: Text("Not all visit\ncovered",
+                                                    style: TextStyle(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: ColorManager.greenDark,
+                                                    ),),
+                                                )
+                                              ],),
+                                            ),
+                                            //SizedBox(width: 20,),
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.greenDark,
+                                                borderRadius: BorderRadius.circular(3),
+                                              ),
+                                              child: Center(
+                                                child: Text("A",
+                                                 textAlign: TextAlign.center,
+                                                 style: TextStyle(
+                                                   fontSize: FontSize.s12,
+                                                   fontWeight: FontWeight.w700,
+                                                   color: ColorManager.white,
+                                                 ),),
+                                              ),
+                                            ),
+                                            SizedBox(width: 30,),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Column(
+                                                children: [
+                                                  CustomElevatedButton(
+                                                    width: AppSize.s130,
+                                                    height: AppSize.s30,
+                                                    text: "Check Eligibility",
+                                                    color:  ColorManager.bluebottom,
+                                                    onPressed: (){},
+                                                  ),
+                                                  SizedBox(height: 5,),
+                                                  Text("Last checked at 8:30 AM",
+                                                    style: TextStyle(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: ColorManager.mediumgrey,
+                                                    ),),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(height: 10,),
+                                        Divider(
+                                        //  color: ColorManager.containerBorderGrey,
+                                          thickness: 1,
+                                          height: 30,
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),
+                                            ],
+                                          );
+          }
                       ),
-                    ],
-                  ),
                       SizedBox(height: AppSize.s20,),
                       ///diagnosis
                       BlueBGHeadConst(HeadText: "Diagnosis"),
                       SizedBox(height: AppSize.s10,),
-
+                     snapshot.data!.primaryDiagnosis.dgnId != 0 ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(height: 90,width: 5,color: ColorManager.greenDark,),
+                              SizedBox(width: AppSize.s30,),
+                              Expanded(
+                                child: SMTextFConst(controller: possiblePrime,
+                                    isAsteric: false,
+                                    isIcon: true,
+                                    keyboardType: TextInputType.text, text: "Possible Diagnosis"),
+                              ),
+                              SizedBox(width: AppSize.s60,),
+                              Expanded(
+                                child: SMTextFConst(controller: icdPrime,
+                                    isAsteric: false,
+                                    isIcon: true,
+                                    keyboardType: TextInputType.text, text: "ICD Code"),
+                              ),
+                              SizedBox(width: AppSize.s60,),
+                              Expanded(
+                                child: SMTextFConst(controller: pdgmPrime,
+                                    isAsteric: false,
+                                    isIcon: true,
+                                    keyboardType: TextInputType.text, text: "PDGM - Acceptable"),
+                              ),
+                              SizedBox(width: AppSize.s30,),
+                              Expanded(
+                                child: Container(
+                                  height: 30,
+                                  width: AppSize.s354,
+                                ),
+                              ),
+                              SizedBox(width: AppSize.s30,),
+                              Expanded(
+                                child: Container(
+                                  height: 30,
+                                  width: AppSize.s354,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Divider(
+                            color: ColorManager.containerBorderGrey,
+                            thickness: 1,
+                            height: 2,
+                          ),
+                          SizedBox(height: AppSize.s30,),
+                        ],
+                      ),
+                    ) : Offstage(),
                       Column(
                         children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
                           int index = entry.key;
                           GlobalKey<_DiagosisListState> key = entry.value;
                           List<DiagnosisModel> data = providerAddState.diagnosisData;
+
                           return DiagosisList(
                             key: key,
                             index: index + 1,
@@ -968,7 +1024,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           );
                         }).toList(),
                       ),
-
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -1185,20 +1240,29 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                           fontWeight: FontWeight.w700),
                                                     ),
                                                   ),
-                                                  Container(
-                                                    width: 600,
-                                                    child: SliderTheme(
-                                                      data: SliderThemeData(
-                                                        thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
+                                                  StatefulBuilder(
+                                                      builder: (BuildContext context, StateSetter setState){
+                                                    return Container(
+                                                      width: 600,
+                                                      child: SliderTheme(
+                                                        data: SliderThemeData(
+                                                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
+                                                        ),
+                                                        child: Slider(
+                                                          value: _sliderValue,
+                                                          min: 0,
+                                                          max: 200,
+                                                          divisions: 4,
+                                                          // label: _sliderValue.round().toString(),
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              _sliderValue = value;
+                                                            });
+                                                          },
+                                                        ),
                                                       ),
-                                                      child: Slider(
-                                                        value: 100,
-                                                        min: 0,
-                                                        max: 200,
-                                                        divisions: 4,
-                                                        onChanged: (value) {},
-                                                      ),
-                                                    ),
+                                                    );
+                           }
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -1222,9 +1286,10 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 20.0),
                                                     child: Row(
-                                                      spacing: 10,
+                                                      spacing: 20,
                                                       children: [
                                                         ...List.generate(snapshot.data!.disciplines.length, (index){
+                                                          var hexColor = snapshot.data!.disciplines[index].color.replaceAll("#", "");
                                                           return  Row(
                                                             children: [
                                                               Container(
@@ -1235,11 +1300,11 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                     child: Text(snapshot.data!.disciplines[index].abbreviation,
                                                                         style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
                                                                   ),
-                                                                  backgroundColor: Colors.redAccent,
+                                                                  backgroundColor:Color(int.parse('0xFF$hexColor')),
                                                                 ),
                                                               ),
                                                               SizedBox(width: 4),
-                                                              Text(snapshot.data!.disciplines[index].departmentId.toString(), style: TextStyle(fontWeight: FontWeight.bold)),
+                                                              Text("112", style: TextStyle(fontWeight: FontWeight.bold)),
                                                               // SizedBox(width: 50),
                                                               // Container(
                                                               //   height: 20,
@@ -1658,10 +1723,30 @@ class DiagosisList extends StatefulWidget {
 
 class _DiagosisListState extends State<DiagosisList> {
 
-  TextEditingController possible = TextEditingController();
-  TextEditingController icd = TextEditingController();
-  TextEditingController pdgm = TextEditingController();
+  // TextEditingController possible = TextEditingController();
+  // TextEditingController icd = TextEditingController();
+  // TextEditingController pdgm = TextEditingController();
+  final List<TextEditingController> _possibleControllers = [];
+  final List<TextEditingController> _icdControllers = [];
+  final List<TextEditingController> _pdgmControllers = [];
 
+  @override
+  void initState() {
+    super.initState();
+
+    for (int i = 0; i < widget.diagnosisData.length; i++) {
+      _possibleControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnName));
+      _icdControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnId.toString()));
+      _pdgmControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnCode));
+    }
+
+    // If new empty row is added (no model data), add blank controllers
+    if (widget.diagnosisData.length < widget.index) {
+      _possibleControllers.add(TextEditingController());
+      _icdControllers.add(TextEditingController());
+      _pdgmControllers.add(TextEditingController());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1672,9 +1757,9 @@ class _DiagosisListState extends State<DiagosisList> {
             shrinkWrap: true,
             itemCount: widget.diagnosisData.length, // Adjust as needed
             itemBuilder: (context, index) {
-              possible = TextEditingController(text: widget.diagnosisData[index].dgnName);
-              icd = TextEditingController(text: widget.diagnosisData[index].dgnId.toString());
-              pdgm = TextEditingController(text: widget.diagnosisData[index].dgnCode);
+              // possible = TextEditingController(text: widget.diagnosisData[index].dgnName);
+              // icd = TextEditingController(text: widget.diagnosisData[index].dgnId.toString());
+              // pdgm = TextEditingController(text: widget.diagnosisData[index].dgnCode);
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0.0),
                 child: Column(
@@ -1685,21 +1770,21 @@ class _DiagosisListState extends State<DiagosisList> {
                         Container(height: 90,width: 5,color: ColorManager.greenDark,),
                         SizedBox(width: AppSize.s30,),
                         Expanded(
-                          child: SMTextFConst(controller: possible,
+                          child: SMTextFConst(controller: _possibleControllers[index],
                               isAsteric: false,
                               isIcon: true,
                               keyboardType: TextInputType.text, text: "Possible Diagnosis"),
                         ),
                         SizedBox(width: AppSize.s60,),
                         Expanded(
-                          child: SMTextFConst(controller: icd,
+                          child: SMTextFConst(controller: _icdControllers[index],
                               isAsteric: false,
                               isIcon: true,
                               keyboardType: TextInputType.text, text: "ICD Code"),
                         ),
                         SizedBox(width: AppSize.s60,),
                         Expanded(
-                          child: SMTextFConst(controller: pdgm,
+                          child: SMTextFConst(controller: _pdgmControllers[index],
                               isAsteric: false,
                               isIcon: true,
                               keyboardType: TextInputType.text, text: "PDGM - Acceptable"),
