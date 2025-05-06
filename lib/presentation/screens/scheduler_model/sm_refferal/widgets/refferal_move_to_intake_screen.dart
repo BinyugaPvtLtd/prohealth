@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +35,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
-    final providerReferrals = Provider.of<SmIntegrationProviderManager>(context,listen: false);
+    final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     return Stack(
       children: [
         Padding(
@@ -59,29 +60,29 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: AppSize.s20,),
-              Row(
-                children: [
-                  Text("Received Date",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
-                  SizedBox(width: AppSize.s15,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s50,),
-                  Text("Hospitals",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
-                  SizedBox(width: AppSize.s15,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s50,),
-                  Text("PCP",
-                      style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
-                  SizedBox(width: AppSize.s15,),
-                  Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Text("Received Date",
+              //         style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
+              //     SizedBox(width: AppSize.s15,),
+              //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+              //     SizedBox(width: AppSize.s50,),
+              //     Text("Hospitals",
+              //         style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
+              //     SizedBox(width: AppSize.s15,),
+              //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+              //     SizedBox(width: AppSize.s50,),
+              //     Text("PCP",
+              //         style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12, fontWeight: FontWeight.w400)),
+              //     SizedBox(width: AppSize.s15,),
+              //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+              //   ],
+              // ),
               SizedBox(height: AppSize.s20,),
               StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'true', isArchived: 'false').then((data) {
+                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'true', isArchived: 'false', searchName: 'all', marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
                       _streamController.add(data);
                     }).catchError((error) {
                       // Handle error
@@ -137,30 +138,31 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                   ),
                                   child:
                                   Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children:[
-                                            Container(
-                                                width: AppSize.s105,
-                                                height: AppSize.s16,
-                                                decoration: BoxDecoration(
-                                                  color:Color(0xFFFFE4E2),
-                                                  borderRadius: BorderRadius.only(
-                                                      topRight:
-                                                      Radius.circular(12)),),
-                                                child: Center(
-                                                  child: Text(
-                                                      'Potential Duplicate',
-                                                      textAlign: TextAlign.center,
-                                                      style: CustomTextStylesCommon.commonStyle(
-                                                          color: ColorManager.mediumgrey,
-                                                          fontSize: FontSize.s11,
-                                                          fontWeight: FontWeight.w400)),
-                                                )),
-                                          ]
-                                      ),
+                                      // Row(
+                                      //     mainAxisAlignment: MainAxisAlignment.end,
+                                      //     crossAxisAlignment: CrossAxisAlignment.end,
+                                      //     children:[
+                                      //       Container(
+                                      //           width: AppSize.s105,
+                                      //           height: AppSize.s16,
+                                      //           decoration: BoxDecoration(
+                                      //             color:Color(0xFFFFE4E2),
+                                      //             borderRadius: BorderRadius.only(
+                                      //                 topRight:
+                                      //                 Radius.circular(12)),),
+                                      //           child: Center(
+                                      //             child: Text(
+                                      //                 'Potential Duplicate',
+                                      //                 textAlign: TextAlign.center,
+                                      //                 style: CustomTextStylesCommon.commonStyle(
+                                      //                     color: ColorManager.mediumgrey,
+                                      //                     fontSize: FontSize.s11,
+                                      //                     fontWeight: FontWeight.w400)),
+                                      //           )),
+                                      //     ]
+                                      // ),
                                       Padding(
                                         padding: const EdgeInsets.only(left: AppPadding.p20,
                                             right: AppPadding.p25),
@@ -177,7 +179,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                 child: Image.asset("images/profilepic.png"),
                                               )
                                                   : Image.network(
-                                                snapshot.data![index].ptImgUrl,
+                                                snapshot.data![index].ptImgUrl!,
                                                 loadingBuilder: (context, child, loadingProgress) {
                                                   if (loadingProgress == null) {
                                                     return child;
@@ -435,67 +437,67 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                   onPressed: (){},
                                                   icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I18,)),
                                               // SizedBox(width: AppSize.s2),
-                                              PopupMenuButton<String>(
-                                                tooltip: '',
-                                                splashRadius: 0,
-                                                color: Colors.white,
-                                                offset: Offset(25, 42),
-                                                itemBuilder: (BuildContext context) => [
-                                                  PopupMenuItem<String>(
-                                                    value: 'Merge Duplicate',
-                                                    padding: EdgeInsets.zero, // Remove padding
-                                                    child: InkWell(
-                                                      splashColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      onTap: () {
-                                                        Navigator.pop(context); // Important: manually close the popup
-                                                        onMergeDuplicatePressed();
-                                                      },
-                                                      child: Container(
-                                                        alignment: Alignment.centerLeft,
-                                                        padding: EdgeInsets.only(left: 12, top: 5),
-                                                        width: 100,
-                                                        child: Text(
-                                                          'Merge Duplicate',
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeight.w700,
-                                                            fontSize: FontSize.s12,
-                                                            color: ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  PopupMenuItem<String>(
-                                                    value: 'Archived',
-                                                    padding: EdgeInsets.zero,
-                                                    child: InkWell(
-                                                      splashColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      onTap: () {
-                                                        Navigator.pop(context);
-                                                        print('Option 2 Selected');
-                                                      },
-                                                      child: Container(
-                                                        alignment: Alignment.centerLeft,
-                                                        padding: EdgeInsets.only(left: 12, top: 5),
-                                                        width: 100,
-                                                        child: Text(
-                                                          'Archived',
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeight.w700,
-                                                            fontSize: FontSize.s12,
-                                                            color: ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                                child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
-                                              ),
+                                              // PopupMenuButton<String>(
+                                              //   tooltip: '',
+                                              //   splashRadius: 0,
+                                              //   color: Colors.white,
+                                              //   offset: Offset(25, 42),
+                                              //   itemBuilder: (BuildContext context) => [
+                                              //     PopupMenuItem<String>(
+                                              //       value: 'Merge Duplicate',
+                                              //       padding: EdgeInsets.zero, // Remove padding
+                                              //       child: InkWell(
+                                              //         splashColor: Colors.transparent,
+                                              //         highlightColor: Colors.transparent,
+                                              //         hoverColor: Colors.transparent,
+                                              //         onTap: () {
+                                              //           Navigator.pop(context); // Important: manually close the popup
+                                              //           onMergeDuplicatePressed();
+                                              //         },
+                                              //         child: Container(
+                                              //           alignment: Alignment.centerLeft,
+                                              //           padding: EdgeInsets.only(left: 12, top: 5),
+                                              //           width: 100,
+                                              //           child: Text(
+                                              //             'Merge Duplicate',
+                                              //             style: CustomTextStylesCommon.commonStyle(
+                                              //               fontWeight: FontWeight.w700,
+                                              //               fontSize: FontSize.s12,
+                                              //               color: ColorManager.mediumgrey,
+                                              //             ),
+                                              //           ),
+                                              //         ),
+                                              //       ),
+                                              //     ),
+                                              //     PopupMenuItem<String>(
+                                              //       value: 'Archived',
+                                              //       padding: EdgeInsets.zero,
+                                              //       child: InkWell(
+                                              //         splashColor: Colors.transparent,
+                                              //         highlightColor: Colors.transparent,
+                                              //         hoverColor: Colors.transparent,
+                                              //         onTap: () {
+                                              //           Navigator.pop(context);
+                                              //           print('Option 2 Selected');
+                                              //         },
+                                              //         child: Container(
+                                              //           alignment: Alignment.centerLeft,
+                                              //           padding: EdgeInsets.only(left: 12, top: 5),
+                                              //           width: 100,
+                                              //           child: Text(
+                                              //             'Archived',
+                                              //             style: CustomTextStylesCommon.commonStyle(
+                                              //               fontWeight: FontWeight.w700,
+                                              //               fontSize: FontSize.s12,
+                                              //               color: ColorManager.mediumgrey,
+                                              //             ),
+                                              //           ),
+                                              //         ),
+                                              //       ),
+                                              //     ),
+                                              //   ],
+                                              //   child: Icon(Icons.more_vert, color: ColorManager.mediumgrey),
+                                              // ),
                                             ],),
                                           ],
                                         )

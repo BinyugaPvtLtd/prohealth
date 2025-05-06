@@ -22,7 +22,7 @@ class PatientModel {
   final int insuranceId;
   final DateTime createdAt;
   final DateTime ptDateOfBirth;
-  final String ptImgUrl;
+  final String? ptImgUrl;
   final String ptTime;
   final ServiceModel service;
   final DiagnosisModel primaryDiagnosis;
@@ -31,8 +31,9 @@ class PatientModel {
   final PCPModel pcp;
   final MarketerModel marketer;
   final List<DisciplineModel> disciplines;
-
-  PatientModel({
+  final bool isPotential;
+  final int thresould;
+  PatientModel({required this.isPotential, required this.thresould,
     required this.ptTime,
     required this.ptId,
     required this.ptFirstName,
@@ -246,4 +247,16 @@ class DisciplineModel {
     required this.abbreviation,
     required this.departmentId,
   });
+}
+
+/// employee type
+class EmployeeClinicalData{
+  final int emptypeId;
+  final String empType;
+  final String color;
+  final String abbreviation;
+  final int deptId;
+
+  EmployeeClinicalData({required this.emptypeId, required this.empType,
+  required this.color, required this.abbreviation, required this.deptId});
 }
