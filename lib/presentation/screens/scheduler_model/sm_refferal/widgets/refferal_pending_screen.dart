@@ -25,11 +25,12 @@ import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
 class RefferalPendingScreen extends StatelessWidget {
   final VoidCallback onEyeButtonPressed;
+  final VoidCallback onAutoSyncPressed;
   final VoidCallback onMergeDuplicatePressed;
   final VoidCallback onMoveToIntake;
    RefferalPendingScreen(
       {super.key,
-      required this.onEyeButtonPressed,
+      required this.onEyeButtonPressed,required this.onAutoSyncPressed,
       required this.onMergeDuplicatePressed, required this.onMoveToIntake});
 
   List<String> hardcodedItems = [
@@ -58,25 +59,43 @@ class RefferalPendingScreen extends StatelessWidget {
               //   crossAxisAlignment: CrossAxisAlignment.start,
               //   children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomSearchFieldSM(
-                    width: 440,
-                    onPressed: () {},
-                  ),
-                  SizedBox(
-                    width: AppSize.s20,
-                  ),
-                  IconButton(
-                      hoverColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: providerContact.toggleFilter,
-                      icon: Image.asset("images/sm/sm_refferal/filter_icon.png",
-                          height: AppSize.s18,
-                          width: AppSize
-                              .s16) //Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                  Row(
+                    children: [
+                      CustomSearchFieldSM(
+                        width: 440,
+                        onPressed: () {},
                       ),
+                      SizedBox(
+                        width: AppSize.s20,
+                      ),
+                      IconButton(
+                          hoverColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onPressed: providerContact.toggleFilter,
+                          icon: Image.asset("images/sm/sm_refferal/filter_icon.png",
+                              height: AppSize.s18,
+                              width: AppSize
+                                  .s16) //Icon(Icons.filter_alt, color: ColorManager.mediumgrey,),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    height: AppSize.s36,
+                    child: CustomIconButton(
+                      color: ColorManager.bluebottom,
+                      icon: Icons.autorenew_sharp,
+                      textWeight: FontWeight.w700,
+                      textSize: FontSize.s12,
+                      text: "Auto Sync",
+                      onPressed: ()async{
+                        onAutoSyncPressed();
+                      },
+                    ),
+                  )
                 ],
               ),
               // Row(
