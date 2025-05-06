@@ -5,7 +5,7 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../sm_Intake/widgets/intake_update_schedular/information_update.dart';
-import 'curate_screen.dart';
+// import 'curate_screen.dart';
 
 class RPAutoSyncScreen extends StatelessWidget {
   final VoidCallback onAutoBackPressed;
@@ -181,11 +181,11 @@ class RPAutoSyncScreen extends StatelessWidget {
                                                     width: 120,
                                                     child: ElevatedButton(
                                                       onPressed: () async{
-                                                        CurateScreen(
-                                                          onCurateBackPressed: (){
-                                                            //onCurateButtonPressed();
-                                                            },
-                                                          onCurateScreenPressed: () {  },);
+                                                        // CurateScreen(
+                                                        //   onCurateBackPressed: (){
+                                                        //     //onCurateButtonPressed();
+                                                        //     },
+                                                        //   onCurateScreenPressed: () {  },);
                                                       },
                                                       style: ElevatedButton.styleFrom(
                                                         padding: EdgeInsets.symmetric(
