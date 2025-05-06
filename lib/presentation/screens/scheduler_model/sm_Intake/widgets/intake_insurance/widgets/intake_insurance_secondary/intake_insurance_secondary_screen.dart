@@ -89,10 +89,11 @@ class IntakeSecondaryScreen extends StatelessWidget {
                       child: BlueBGHeadConst(HeadText: "Policy Details"),
                     ),
                     IntakeFlowContainerConst(
-                      height: providerState.isContactTrue ? AppSize.s540  :AppSize.s360,
+                      height: providerState.isContactTrue ? AppSize.s540  :AppSize.s370,
                       containerPadding: providerState.isContactTrue ? EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) : null,
                       //child: SingleChildScrollView(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                         providerState.isContactTrue ?   Row(
                             children: [
@@ -415,31 +416,36 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Insurance Verified',
-                                        style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :  SMTextfieldHeadings.customTextStyle(context)
+                                        style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :SMTextfieldHeadings.customTextStyle(context)
                                       //AllPopupHeadings.customTextStyle(context)
                                     ),
                                     SizedBox(height: 10),
                                     Row(
                                       children: [
-                                        CustomRadioListTileSMp(
-                                          title: 'Yes',
-                                          value: 'Yes',
-                                          groupValue: statustype,
-                                          onChanged: (value) {
-                                            // setState(() {
-                                            statustype = value;
-                                            // });
-                                          },
+                                        Expanded(
+                                          child: CustomRadioListTileSMp(
+                                            title: 'Yes',
+                                            value: 'Yes',
+                                            groupValue: statustype,
+                                            onChanged: (value) {
+                                              // setState(() {
+                                              statustype = value;
+                                              // });
+                                            },
+                                          ),
                                         ),
-                                        CustomRadioListTileSMp(
-                                          title: 'No',
-                                          value: 'No',
-                                          groupValue: statustype,
-                                          onChanged: (value) {
-                                            // setState(() {
-                                            statustype = value;
-                                            // });
-                                          },
+
+                                        Expanded(
+                                          child: CustomRadioListTileSMp(
+                                            title: 'No',
+                                            value: 'No',
+                                            groupValue: statustype,
+                                            onChanged: (value) {
+                                              // setState(() {
+                                              statustype = value;
+                                              // });
+                                            },
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -488,47 +494,54 @@ class IntakeSecondaryScreen extends StatelessWidget {
                             ],
                           ) : Offstage(),
                           SizedBox(height: AppSize.s16),
-                          providerState.isContactTrue ?Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
+                          providerState.isContactTrue ?SizedBox(
+                            width: 200,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
                               Flexible(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Insurance Verified',
-                                        style:SMTextfieldHeadings.customTextStyle(context)
-                                      //AllPopupHeadings.customTextStyle(context)
-                                    ),
-                                    SizedBox(height: 10),
-                                    Row(
+                              child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        CustomRadioListTileSMp(
-                                          title: 'Yes',
-                                          value: 'Yes',
-                                          groupValue: statustype,
-                                          onChanged: (value) {
-                                            // setState(() {
-                                            statustype = value;
-                                            // });
-                                          },
-                                        ),
-                                        providerState.isContactTrue ? SizedBox(width: 20,):SizedBox(width: 0,),
-                                        CustomRadioListTileSMp(
-                                          title: 'No',
-                                          value: 'No',
-                                          groupValue: statustype,
-                                          onChanged: (value) {
-                                            // setState(() {
-                                            statustype = value;
-                                            // });
-                                          },
-                                        ),
+                                      Text('Insurance Verified',
+                                      style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :SMTextfieldHeadings.customTextStyle(context)
+                                      //AllPopupHeadings.customTextStyle(context)
+                                      ),
+                                      SizedBox(height: 10),
+                                      Row(
+                                      children: [
+                                      Expanded(
+                                      child: CustomRadioListTileSMp(
+                                      title: 'Yes',
+                                      value: 'Yes',
+                                      groupValue: statustype,
+                                      onChanged: (value) {
+                                      // setState(() {
+                                      statustype = value;
+                                      // });
+                                      },
+                                      ),
+                                      ),
+
+                                      Expanded(
+                                      child: CustomRadioListTileSMp(
+                                      title: 'No',
+                                      value: 'No',
+                                      groupValue: statustype,
+                                      onChanged: (value) {
+                                      // setState(() {
+                                      statustype = value;
+                                      // });
+                                      },
+                                      ),
+                                      ),
                                       ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                                      ),
+                                      ],
+                                      ),
+                                      ),
+                              ],
+                            ),
                           ):Offstage(),
                         ],
                       ),
