@@ -155,8 +155,7 @@ class RPAutoSyncScreen extends StatelessWidget {
                                                         ),
                                                       ],
                                                     ),
-                                                  ),
-                                                 // SizedBox(width: MediaQuery.of(context).size.width/25,),
+                                                  ), // SizedBox(width: MediaQuery.of(context).size.width/25,),
                                                   Expanded(
                                                     flex: 2,
                                                     child: Padding(
