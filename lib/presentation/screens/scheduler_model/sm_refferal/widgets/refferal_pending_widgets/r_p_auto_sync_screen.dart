@@ -5,10 +5,14 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../sm_Intake/widgets/intake_update_schedular/information_update.dart';
+import 'curate_screen.dart';
 
 class RPAutoSyncScreen extends StatelessWidget {
   final VoidCallback onAutoBackPressed;
-  const RPAutoSyncScreen({super.key, required this.onAutoBackPressed});
+  //final VoidCallback onCurateButtonPressed;
+  const RPAutoSyncScreen({super.key, required this.onAutoBackPressed,
+  //  required this.onCurateButtonPressed
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -104,14 +108,14 @@ class RPAutoSyncScreen extends StatelessWidget {
                                                       width: AppSize.s80,
                                                       height: AppSize.s16,
                                                       decoration: BoxDecoration(
-                                                        color: ColorManager.bluebottom.withOpacity(0.12),
+                                                        color: ColorManager.greenDark,
                                                         borderRadius: BorderRadius.only(topRight: Radius.circular(8)),),
                                                       child: Center(
                                                         child: Text(
                                                             'Curated',
                                                             textAlign: TextAlign.center,
                                                             style: CustomTextStylesCommon.commonStyle(
-                                                                color: ColorManager.bluebottom,
+                                                                color: ColorManager.white,
                                                                 fontSize: FontSize.s11,
                                                                 fontWeight: FontWeight.w400)),
                                                       )),
@@ -155,8 +159,7 @@ class RPAutoSyncScreen extends StatelessWidget {
                                                         ),
                                                       ],
                                                     ),
-                                                  ),
-                                                 // SizedBox(width: MediaQuery.of(context).size.width/25,),
+                                                  ), // SizedBox(width: MediaQuery.of(context).size.width/25,),
                                                   Expanded(
                                                     flex: 2,
                                                     child: Padding(
@@ -177,7 +180,13 @@ class RPAutoSyncScreen extends StatelessWidget {
                                                   Container(
                                                     width: 120,
                                                     child: ElevatedButton(
-                                                      onPressed: () async{},
+                                                      onPressed: () async{
+                                                        CurateScreen(
+                                                          onCurateBackPressed: (){
+                                                            //onCurateButtonPressed();
+                                                            },
+                                                          onCurateScreenPressed: () {  },);
+                                                      },
                                                       style: ElevatedButton.styleFrom(
                                                         padding: EdgeInsets.symmetric(
                                                             horizontal: 6,

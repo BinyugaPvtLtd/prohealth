@@ -14,7 +14,11 @@ Future<List<PatientModel>> getPatientReffrealsData({
   required int pageNo,
   required int nbrOfRows,
   required String isIntake,
-  required String isArchived
+  required String isArchived,
+  required String searchName,
+  required String marketerId,
+  required String referralSourceId,
+  required String pcpId,
 }) async {
   List<PatientModel> itemsData = [];
   String convertIsoToDayMonthYear(String isoDate) {
@@ -32,12 +36,15 @@ Future<List<PatientModel>> getPatientReffrealsData({
 
   try {
     final response = await Api(context).get(
-      path: PatientRefferalsRepo.getPatientRefferals(pageNo: pageNo, nbrOfRows: nbrOfRows, isIntake: isIntake, isArchived: isArchived),
+      path: PatientRefferalsRepo.getPatientRefferals(pageNo: pageNo, nbrOfRows: nbrOfRows, isIntake: isIntake, isArchived: isArchived,searchName: searchName, marketerId: marketerId, referralSourceId: referralSourceId, pcpId: pcpId, ),
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
+        // print(item.containsKey('pt_img_url')); // Should be true
+        // print(item['pt_img_url']);             // Should not be null
+
         itemsData.add(PatientModel(
           isPotential: item['is_potential_duplicate'] ?? false,
           thresould: item['threshold']??0,
@@ -65,8 +72,8 @@ Future<List<PatientModel>> getPatientReffrealsData({
           insuranceId: item['insurance_id'] ?? 0,
           createdAt: DateTime.parse(item['created_at']),
           ptDateOfBirth: DateTime.parse(item['pt_date_of_birth']),
-          ptImgUrl: item['pt_img_url'] ?? '',
-
+         // ptImgUrl: item['pt_img_url'] ?? '',
+          ptImgUrl: item['pt_img_url']?.toString() ?? '',
           service: ServiceModel(
             srvId: item['service']['srv_id'],
             srvName: item['service']['srv_name'],

@@ -218,7 +218,7 @@ class RefferalPendingScreen extends StatelessWidget {
               StreamBuilder<List<PatientModel>>(
                 stream: _streamController.stream,
                 builder: (context,snapshot) {
-                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'false', isArchived: 'false').then((data) {
+                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'false', isArchived: 'false', searchName: 'all', marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
                     _streamController.add(data);
                   }).catchError((error) {
                     // Handle error
@@ -326,41 +326,74 @@ class RefferalPendingScreen extends StatelessWidget {
                                           children: [
                                             /// Include image to Referral Source
                                             ClipOval(
-                                              child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                                  snapshot.data![index].ptImgUrl == null
+                                              child: (snapshot.data![index].ptImgUrl == null ||
+                                                  snapshot.data![index].ptImgUrl == '' ||
+                                                  snapshot.data![index].ptImgUrl == 'imgurl')
                                                   ? CircleAvatar(
                                                 radius: 22,
                                                 backgroundColor: Colors.transparent,
                                                 child: Image.asset("images/profilepic.png"),
                                               )
                                                   : Image.network(
-                                                snapshot.data![index].ptImgUrl,
-                                                loadingBuilder: (context, child, loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  } else {
-                                                    return Center(
-                                                      child: CircularProgressIndicator(
-                                                        value: loadingProgress.expectedTotalBytes != null
-                                                            ? loadingProgress.cumulativeBytesLoaded /
-                                                            (loadingProgress.expectedTotalBytes ?? 1)
-                                                            : null,
-                                                      ),
-                                                    );
-                                                  }
-                                                },
-                                                errorBuilder: (context, error, stackTrace) {
-                                                  return CircleAvatar(
-                                                    radius: 21,
-                                                    backgroundColor: Colors.transparent,
-                                                    child: Image.asset("images/profilepic.png"),
-                                                  );
-                                                },
-                                                fit: BoxFit.cover,
+                                                snapshot.data![index].ptImgUrl!,
                                                 height: 40,
                                                 width: 40,
+                                                fit: BoxFit.cover,
+                                                loadingBuilder: (context, child, loadingProgress) {
+                                                  if (loadingProgress == null) return child;
+                                                  return Center(
+                                                    child: CircularProgressIndicator(
+                                                      value: loadingProgress.expectedTotalBytes != null
+                                                          ? loadingProgress.cumulativeBytesLoaded /
+                                                          (loadingProgress.expectedTotalBytes ?? 1)
+                                                          : null,
+                                                    ),
+                                                  );
+                                                },
+                                                errorBuilder: (context, error, stackTrace) => CircleAvatar(
+                                                  radius: 21,
+                                                  backgroundColor: Colors.transparent,
+                                                  child: Image.asset("images/profilepic.png"),
+                                                ),
                                               ),
                                             ),
+                                            // ClipOval(
+                                            //   child: snapshot.data![index].ptImgUrl == 'imgurl' ||
+                                            //       snapshot.data![index].ptImgUrl == null
+                                            //       ? CircleAvatar(
+                                            //     radius: 22,
+                                            //     backgroundColor: Colors.transparent,
+                                            //     child: Image.asset("images/profilepic.png"),
+                                            //   )
+                                            //       : Image.network(
+                                            //     snapshot.data![index].ptImgUrl!,
+                                            //     loadingBuilder: (context, child, loadingProgress) {
+                                            //       if (loadingProgress == null) {
+                                            //         return child;
+                                            //       } else {
+                                            //         return Center(
+                                            //           child: CircularProgressIndicator(
+                                            //             value: loadingProgress.expectedTotalBytes != null
+                                            //                 ? loadingProgress.cumulativeBytesLoaded /
+                                            //                 (loadingProgress.expectedTotalBytes ?? 1)
+                                            //                 : null,
+                                            //           ),
+                                            //         );
+                                            //       }
+                                            //     },
+                                            //     errorBuilder: (context, error, stackTrace) {
+                                            //       return CircleAvatar(
+                                            //         radius: 21,
+                                            //         backgroundColor: Colors.transparent,
+                                            //         child: Image.asset("images/profilepic.png"),
+                                            //       );
+                                            //     },
+                                            //     fit: BoxFit.cover,
+                                            //     height: 40,
+                                            //     width: 40,
+                                            //   ),
+                                            // ),
+                                            ///
                                             // ClipRRect(
                                             //   borderRadius:
                                             //   BorderRadius.circular(60),
