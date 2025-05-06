@@ -143,55 +143,55 @@ class RefferalPendingScreen extends StatelessWidget {
               SizedBox(
                 height: AppSize.s20,
               ),
-              Row(
-                children: [
-                  Text("Received Date",
-                      style: TextStyle(
-                          color: ColorManager.textBlack,
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400)),
-                  SizedBox(
-                    width: AppSize.s15,
-                  ),
-                  Image.asset(
-                    "images/sm/sm_refferal/refferal_arrow.png",
-                    height: IconSize.I14,
-                    width: IconSize.I16,
-                  ),
-                  SizedBox(
-                    width: AppSize.s50,
-                  ),
-                  Text("Hospitals",
-                      style: TextStyle(
-                          color: ColorManager.textBlack,
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400)),
-                  SizedBox(
-                    width: AppSize.s15,
-                  ),
-                  Image.asset(
-                    "images/sm/sm_refferal/refferal_arrow.png",
-                    height: IconSize.I14,
-                    width: IconSize.I16,
-                  ),
-                  SizedBox(
-                    width: AppSize.s50,
-                  ),
-                  Text("PCP",
-                      style: TextStyle(
-                          color: ColorManager.textBlack,
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400)),
-                  SizedBox(
-                    width: AppSize.s15,
-                  ),
-                  Image.asset(
-                    "images/sm/sm_refferal/refferal_arrow.png",
-                    height: IconSize.I14,
-                    width: IconSize.I16,
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Text("Received Date",
+              //         style: TextStyle(
+              //             color: ColorManager.textBlack,
+              //             fontSize: FontSize.s12,
+              //             fontWeight: FontWeight.w400)),
+              //     SizedBox(
+              //       width: AppSize.s15,
+              //     ),
+              //     Image.asset(
+              //       "images/sm/sm_refferal/refferal_arrow.png",
+              //       height: IconSize.I14,
+              //       width: IconSize.I16,
+              //     ),
+              //     SizedBox(
+              //       width: AppSize.s50,
+              //     ),
+              //     Text("Hospitals",
+              //         style: TextStyle(
+              //             color: ColorManager.textBlack,
+              //             fontSize: FontSize.s12,
+              //             fontWeight: FontWeight.w400)),
+              //     SizedBox(
+              //       width: AppSize.s15,
+              //     ),
+              //     Image.asset(
+              //       "images/sm/sm_refferal/refferal_arrow.png",
+              //       height: IconSize.I14,
+              //       width: IconSize.I16,
+              //     ),
+              //     SizedBox(
+              //       width: AppSize.s50,
+              //     ),
+              //     Text("PCP",
+              //         style: TextStyle(
+              //             color: ColorManager.textBlack,
+              //             fontSize: FontSize.s12,
+              //             fontWeight: FontWeight.w400)),
+              //     SizedBox(
+              //       width: AppSize.s15,
+              //     ),
+              //     Image.asset(
+              //       "images/sm/sm_refferal/refferal_arrow.png",
+              //       height: IconSize.I14,
+              //       width: IconSize.I16,
+              //     ),
+              //   ],
+              // ),
               SizedBox(
                 height: AppSize.s20,
               ),
