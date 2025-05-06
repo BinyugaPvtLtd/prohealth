@@ -246,7 +246,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           child: Image.asset("images/profilepic.png"),
                                         )
                                             : Image.network(
-                                          snapshot.data!.ptImgUrl,
+                                          snapshot.data!.ptImgUrl!,
                                           loadingBuilder: (context, child, loadingProgress) {
                                             if (loadingProgress == null) {
                                               return child;

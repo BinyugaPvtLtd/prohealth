@@ -22,7 +22,7 @@ class PatientModel {
   final int insuranceId;
   final DateTime createdAt;
   final DateTime ptDateOfBirth;
-  final String ptImgUrl;
+  final String? ptImgUrl;
   final String ptTime;
   final ServiceModel service;
   final DiagnosisModel primaryDiagnosis;

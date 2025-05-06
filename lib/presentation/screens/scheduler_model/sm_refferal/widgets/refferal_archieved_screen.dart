@@ -154,7 +154,7 @@ class RefferalArchievedScreen extends StatelessWidget {
               StreamBuilder<List<PatientModel>>(
                 stream: _streamController.stream,
                 builder: (context,snapshot) {
-                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'false', isArchived: 'true').then((data) {
+                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'false', isArchived: 'true', searchName: 'all', marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
                     _streamController.add(data);
                   }).catchError((error) {
                     // Handle error
@@ -274,7 +274,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                               child: Image.asset("images/profilepic.png"),
                                             )
                                                 : Image.network(
-                                              snapshot.data![index].ptImgUrl,
+                                              snapshot.data![index].ptImgUrl!,
                                               loadingBuilder: (context, child, loadingProgress) {
                                                 if (loadingProgress == null) {
                                                   return child;
