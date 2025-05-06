@@ -247,3 +247,15 @@ class DisciplineModel {
     required this.departmentId,
   });
 }
+
+/// employee type
+class EmployeeClinicalData{
+  final int emptypeId;
+  final String empType;
+  final String color;
+  final String abbreviation;
+  final int deptId;
+
+  EmployeeClinicalData({required this.emptypeId, required this.empType,
+  required this.color, required this.abbreviation, required this.deptId});
+}

@@ -416,3 +416,33 @@ Future<List<ServicePatientReffralsData>> getReferealsServiceList({
   }
 }
 
+/// employee clinical
+Future<List<EmployeeClinicalData>> getEmployeeClinicalInReffreals({
+  required BuildContext context,
+}) async {
+  List<EmployeeClinicalData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getReffrealsEmployeeClinicalType(),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(EmployeeClinicalData(
+            emptypeId: item['employeeTypeId'] ?? 0,
+            empType: item['employeeType'] ?? '',
+            color: item['color'] ?? '',
+            abbreviation: item['abbreviation'] ?? '',
+            deptId: item['DepartmentId'] ?? 0
+            ));
+      }
+    } else {
+      print("patient referrals employee type error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}

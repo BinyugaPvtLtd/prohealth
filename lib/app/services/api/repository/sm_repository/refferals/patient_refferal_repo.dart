@@ -1,6 +1,7 @@
 class PatientRefferalsRepo{
   static String patientRefferals ="/patient-referral";
   static String serviceRefferals = '/services-master';
+  static String employeeClinical = '/employee-types/GetClinicianType';
 
 
   static  String getPatientRefferals({required int pageNo, required int nbrOfRows, required String isIntake, required String isArchived}){
@@ -13,5 +14,9 @@ class PatientRefferalsRepo{
 
   static  String getReffrealsServiceData(){
     return "$serviceRefferals";
+  }
+
+  static  String getReffrealsEmployeeClinicalType(){
+    return "$employeeClinical";
   }
 }

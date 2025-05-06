@@ -279,25 +279,25 @@ class RefferalPendingScreen extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.end,
                                           crossAxisAlignment: CrossAxisAlignment.end,
                                           children: [
-                                            Container(
-                                                width: AppSize.s105,
-                                                height: AppSize.s16,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFFFFE4E2),
-                                                  borderRadius: BorderRadius.only(
-                                                      topRight: Radius.circular(8)),
-                                                ),
-                                                child: Center(
-                                                  child: Text('Potential Duplicate',
-                                                      textAlign: TextAlign.center,
-                                                      style: CustomTextStylesCommon
-                                                          .commonStyle(
-                                                          color: ColorManager
-                                                              .mediumgrey,
-                                                          fontSize: FontSize.s11,
-                                                          fontWeight:
-                                                          FontWeight.w400)),
-                                                )),
+                                            // Container(
+                                            //     width: AppSize.s105,
+                                            //     height: AppSize.s16,
+                                            //     decoration: BoxDecoration(
+                                            //       color: Color(0xFFFFE4E2),
+                                            //       borderRadius: BorderRadius.only(
+                                            //           topRight: Radius.circular(8)),
+                                            //     ),
+                                            //     child: Center(
+                                            //       child: Text('Potential Duplicate',
+                                            //           textAlign: TextAlign.center,
+                                            //           style: CustomTextStylesCommon
+                                            //               .commonStyle(
+                                            //               color: ColorManager
+                                            //                   .mediumgrey,
+                                            //               fontSize: FontSize.s11,
+                                            //               fontWeight:
+                                            //               FontWeight.w400)),
+                                            //     )),
                                           ]),
                                       Padding(
                                         padding: const EdgeInsets.only(left: AppPadding.p15,right: AppPadding.p15),
@@ -684,7 +684,6 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   }else{
                                                     print('Api error');
                                                   }
-
                                                   },
                                                   style: ElevatedButton.styleFrom(
                                                     padding: EdgeInsets.symmetric(
@@ -718,32 +717,32 @@ class RefferalPendingScreen extends StatelessWidget {
                                               color: Colors.white,
                                               offset: Offset(25, 42),
                                               itemBuilder: (BuildContext context) => [
-                                                PopupMenuItem<String>(
-                                                  value: 'Merge Duplicate',
-                                                  padding: EdgeInsets.zero, // Remove padding
-                                                  child: InkWell(
-                                                    splashColor: Colors.transparent,
-                                                    highlightColor: Colors.transparent,
-                                                    hoverColor: Colors.transparent,
-                                                    onTap: () {
-                                                      Navigator.pop(context); // Important: manually close the popup
-                                                      onMergeDuplicatePressed();
-                                                    },
-                                                    child: Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      padding: EdgeInsets.only(left: 12, top: 5),
-                                                      width: 100,
-                                                      child: Text(
-                                                        'Merge Duplicate',
-                                                        style: CustomTextStylesCommon.commonStyle(
-                                                          fontWeight: FontWeight.w700,
-                                                          fontSize: FontSize.s12,
-                                                          color: ColorManager.mediumgrey,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
+                                                // PopupMenuItem<String>(
+                                                //   value: 'Merge Duplicate',
+                                                //   padding: EdgeInsets.zero, // Remove padding
+                                                //   child: InkWell(
+                                                //     splashColor: Colors.transparent,
+                                                //     highlightColor: Colors.transparent,
+                                                //     hoverColor: Colors.transparent,
+                                                //     onTap: () {
+                                                //       Navigator.pop(context); // Important: manually close the popup
+                                                //       onMergeDuplicatePressed();
+                                                //     },
+                                                //     child: Container(
+                                                //       alignment: Alignment.centerLeft,
+                                                //       padding: EdgeInsets.only(left: 12, top: 5),
+                                                //       width: 100,
+                                                //       child: Text(
+                                                //         'Merge Duplicate',
+                                                //         style: CustomTextStylesCommon.commonStyle(
+                                                //           fontWeight: FontWeight.w700,
+                                                //           fontSize: FontSize.s12,
+                                                //           color: ColorManager.mediumgrey,
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //   ),
+                                                // ),
                                                 PopupMenuItem<String>(
                                                   value: 'Archived',
                                                   padding: EdgeInsets.zero,
