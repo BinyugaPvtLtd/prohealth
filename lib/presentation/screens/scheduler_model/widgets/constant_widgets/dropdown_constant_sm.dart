@@ -122,11 +122,13 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                      widget.headText,
-                      style:SMTextfieldHeadings.customTextStyle(context),
-                      //providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
-                    //AllPopupHeadings.customTextStyle(context)
+                  Flexible(
+                    child: Text(
+                        widget.headText,
+                        style:SMTextfieldHeadings.customTextStyle(context),
+                        //providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) : SMTextfieldHeadings.customTextStyle(context)
+                      //AllPopupHeadings.customTextStyle(context)
+                    ),
                   ),
                   widget.isIconVisible! ? SvgPicture.asset(
                     'images/sm/sm_refferal/i_circle.svg',

@@ -166,7 +166,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                           ]
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(left: AppPadding.p20),
+                                        padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p30),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.center,
