@@ -218,7 +218,7 @@ class RefferalPendingScreen extends StatelessWidget {
               StreamBuilder<List<PatientModel>>(
                 stream: _streamController.stream,
                 builder: (context,snapshot) {
-                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'false', isArchived: 'false', searchName: 'all', marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
+                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 20, isIntake: 'false', isArchived: 'false', searchName: 'all', marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
                     _streamController.add(data);
                   }).catchError((error) {
                     // Handle error
