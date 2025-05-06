@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_archieved_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_move_to_intake_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_auto_sync_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
   }
   bool isShowingReferalEyePageview = false;
   bool isShowingMergeDuplicatePageview = false;
+  bool isShowingAutoSyncPageview = false;
   void switchToEyePageviweScreen() {
     setState(() {
       isShowingReferalEyePageview = true;
@@ -58,6 +60,19 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
       isShowingMergeDuplicatePageview = false;
     });
   }
+
+  void switchToAutoSyncPageviweScreen() {
+    setState(() {
+      isShowingAutoSyncPageview = true;
+    });
+  }
+
+  void goBackToInitialScreenFromAuto() {
+    setState(() {
+      isShowingAutoSyncPageview = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final providerState = Provider.of<SmIntakeProviderManager>(context, listen: false);
@@ -74,8 +89,16 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
           RPMergeDuplicateScreen(onMergeBackPressed: (){
             goBackToInitialRPendingScreen();
             providerReferrals.passPatientIdClear();
-          }) :
-      Column(
+          })
+          : isShowingAutoSyncPageview ?
+          RPAutoSyncScreen(
+            onAutoBackPressed: (){
+              goBackToInitialScreenFromAuto();
+              providerReferrals.passPatientIdClear();
+              providerState.toogleAutoSyncScreenProvider();
+            },
+          )
+     : Column(
         children: [
           /// Tab bar
           Container(
@@ -129,7 +152,8 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                   switchToEyePageviweScreen();
                   providerState.toogleEyeScreenProvider();
                 },
-                  onMergeDuplicatePressed: switchToMergeDuplicateScreen, onMoveToIntake: widget.onPressedMoveTointake,),
+                  onMergeDuplicatePressed: switchToMergeDuplicateScreen, onMoveToIntake: widget.onPressedMoveTointake,
+                  onAutoSyncPressed: switchToAutoSyncPageviweScreen,),
                 RefferalMoveToIntakeScreen(onEyeButtonPressed: (){
                   switchToEyePageviweScreen();
                   providerState.toogleEyeScreenProvider();
