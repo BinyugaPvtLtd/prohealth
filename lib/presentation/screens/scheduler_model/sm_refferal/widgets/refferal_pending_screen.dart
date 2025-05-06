@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:provider/provider.dart';
 import '../../../../../app/resources/color.dart';
@@ -45,7 +46,7 @@ class RefferalPendingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
-    final providerReferrals = Provider.of<SmIntegrationProviderManager>(context,listen: false);
+    final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     return Stack(
       children: [
         Padding(

@@ -23,7 +23,59 @@ import '../../../../em_module/widgets/button_constant.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../widgets/constant_widgets/dropdown_constant_sm.dart';
+import 'package:flutter/material.dart';
 
+
+class DiagnosisProvider extends ChangeNotifier {
+  int _patientId = 0;
+  int get patientId => _patientId;
+
+
+  void passPatientId({required int patientIdNo}){
+    _patientId = patientIdNo;
+    notifyListeners();
+  }
+  void passPatientIdClear(){
+    _patientId = 0;
+    notifyListeners();
+  }
+  List<GlobalKey<_DiagosisListState>> _diagnosisKeys = [];
+  List<DiagnosisModel> _diagnosisData = []; // Holds initial API data
+  bool _isVisible = false;
+
+  List<GlobalKey<_DiagosisListState>> get diagnosisKeys => _diagnosisKeys;
+  List<DiagnosisModel> get diagnosisData => _diagnosisData;
+  bool get isVisible => _isVisible;
+
+  void loadDiagnosisFromApi(List<DiagnosisModel> apiData) {
+    _diagnosisKeys.clear();
+    _diagnosisData = apiData;
+    for (var _ in apiData) {
+      _diagnosisKeys.add(GlobalKey<_DiagosisListState>());
+    }
+    notifyListeners();
+  }
+
+  void addDiagnosis() {
+    _diagnosisKeys.add(GlobalKey<_DiagosisListState>());
+    // _diagnosisData.add(DiagnosisModel(dgnId: null, dgnName: '', dgnCode: '')); // empty data
+    notifyListeners();
+  }
+
+  void removeDiagnosis(GlobalKey<_DiagosisListState> key) {
+    int index = _diagnosisKeys.indexOf(key);
+    if (index != -1) {
+      _diagnosisKeys.removeAt(index);
+      _diagnosisData!.removeAt(index);
+      notifyListeners();
+    }
+  }
+
+  void setVisibility(bool value) {
+    _isVisible = value;
+    notifyListeners();
+  }
+}
 class ReferalPendingEyePageview extends StatefulWidget {
   final VoidCallback onGoBackPressed;
   const ReferalPendingEyePageview({super.key, required this.onGoBackPressed});
@@ -79,33 +131,31 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   var HomeHealthAide = '';
   var Dietician = '';
 
-
-
-
-
-  List<GlobalKey<_DiagosisListState>> diagnosisKeys = [];
-
-  void addDiagnosis() {
-    setState(() {
-      diagnosisKeys.add(GlobalKey<_DiagosisListState>( ));
-    });
+  @override
+  void initState() {
+    super.initState();
+    loadInitialDiagnosis();
   }
 
-  void removeDiagnosis(GlobalKey<_DiagosisListState> key) {
-    setState(() {
-      diagnosisKeys.remove(key);
-    });
+  Future<void> loadInitialDiagnosis() async {
+    final provider = Provider.of<DiagnosisProvider>(context, listen: false);
+    PatientModel apiData = await getPatientReffrealsDataUsingId(context: context, patientId: provider.patientId); // ← Your API call
+    provider.loadDiagnosisFromApi(apiData.secondaryDiagnoses);
+    provider.setVisibility(true);
   }
-  bool isVisible = false;
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
-    return  Consumer<SmIntegrationProviderManager>(
-      builder: (context,providerState,child) {
+    // final providerAddState = Provider.of<DiagnosisProvider>(context);
+    return  Consumer<DiagnosisProvider>(
+      builder: (context,providerAddState,child) {
         return FutureBuilder<PatientModel>(
-          future: getPatientReffrealsDataUsingId(context: context, patientId: providerState.patientId),
+          future: getPatientReffrealsDataUsingId(context: context, patientId: providerAddState.patientId),
           builder: (context,snapshot) {
-
             if(snapshot.connectionState == ConnectionState.waiting){
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 76),
@@ -906,14 +956,15 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       SizedBox(height: AppSize.s10,),
 
                       Column(
-                        children: diagnosisKeys.asMap().entries.map((entry) {
+                        children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
                           int index = entry.key;
                           GlobalKey<_DiagosisListState> key = entry.value;
+                          List<DiagnosisModel> data = providerAddState.diagnosisData;
                           return DiagosisList(
                             key: key,
                             index: index + 1,
-                            onRemove: () => removeDiagnosis(key),
-                            isVisible: isVisible,
+                            onRemove: () => providerAddState.removeDiagnosis(key),
+                            isVisible: providerAddState.isVisible, diagnosisData: data,
                           );
                         }).toList(),
                       ),
@@ -931,10 +982,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                             textSize: FontSize.s12,
                             text: "Add Diagnosis",
                             onPressed: ()async {
-                              setState(() {
-                                isVisible = true;
-                                addDiagnosis();
-                              });
+                                providerAddState.setVisibility(true);
+                                providerAddState.addDiagnosis();
+
                             },
                           ),
                         ),],
@@ -1116,7 +1166,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                   }
                                                 },
                                               )
-                         
+
                                             ),
                                             Expanded(
                                               flex: 2,
@@ -1172,34 +1222,42 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 20.0),
                                                     child: Row(
+                                                      spacing: 10,
                                                       children: [
-                                                        Container(
-                                                          height: 20,
-                                                          child: Chip(
-                                                            label: Padding(
-                                                              padding: const EdgeInsets.only(bottom: 5.0),
-                                                              child: Text("PT", style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
-                                                            ),
-                                                            backgroundColor: Colors.redAccent,
-                                                          ),
-                                                        ),
-                                                        SizedBox(width: 4),
-                                                        Text("120", style: TextStyle(fontWeight: FontWeight.bold)),
-                                                        SizedBox(width: 50),
-                                                        Container(
-                                                          height: 20,
-                                                          child: Chip(
-                                                            label: Padding(
-                                                              padding: const EdgeInsets.only(bottom: 5.0),
-                                                              child: Text("OT", style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
-                                                            ),
-                                                            backgroundColor: Colors.orangeAccent,
-                                                          ),
-                                                        ),
-                                                        SizedBox(width: 4),
-                                                        Text("02", style: TextStyle(fontWeight: FontWeight.bold)),
+                                                        ...List.generate(snapshot.data!.disciplines.length, (index){
+                                                          return  Row(
+                                                            children: [
+                                                              Container(
+                                                                height: 20,
+                                                                child: Chip(
+                                                                  label: Padding(
+                                                                    padding: const EdgeInsets.only(bottom: 5.0),
+                                                                    child: Text(snapshot.data!.disciplines[index].abbreviation,
+                                                                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
+                                                                  ),
+                                                                  backgroundColor: Colors.redAccent,
+                                                                ),
+                                                              ),
+                                                              SizedBox(width: 4),
+                                                              Text(snapshot.data!.disciplines[index].departmentId.toString(), style: TextStyle(fontWeight: FontWeight.bold)),
+                                                              // SizedBox(width: 50),
+                                                              // Container(
+                                                              //   height: 20,
+                                                              //   child: Chip(
+                                                              //     label: Padding(
+                                                              //       padding: const EdgeInsets.only(bottom: 5.0),
+                                                              //       child: Text("OT", style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
+                                                              //     ),
+                                                              //     backgroundColor: Colors.orangeAccent,
+                                                              //   ),
+                                                              // ),
+                                                              // SizedBox(width: 4),
+                                                              // Text("02", style: TextStyle(fontWeight: FontWeight.bold)),
+                                                            ],
+                                                          );
+                                                        })
                                                       ],
-                                                    ),
+                                                    )
                                                   ),
                                                 ],
                                                 ),
@@ -1586,12 +1644,13 @@ class DiagosisList extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
+  final List<DiagnosisModel> diagnosisData;
   const DiagosisList(
       {Key? key,
         required this.onRemove,
         required this.index,
         // required this.employeeID,
-        required this.isVisible, })
+        required this.isVisible, required this.diagnosisData, })
       : super(key: key);
   @override
   _DiagosisListState createState() => _DiagosisListState();
@@ -1611,8 +1670,11 @@ class _DiagosisListState extends State<DiagosisList> {
         Container(
           child:  ListView.builder(
             shrinkWrap: true,
-            itemCount: 1, // Adjust as needed
+            itemCount: widget.diagnosisData.length, // Adjust as needed
             itemBuilder: (context, index) {
+              possible = TextEditingController(text: widget.diagnosisData[index].dgnName);
+              icd = TextEditingController(text: widget.diagnosisData[index].dgnId.toString());
+              pdgm = TextEditingController(text: widget.diagnosisData[index].dgnCode);
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0.0),
                 child: Column(

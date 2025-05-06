@@ -61,7 +61,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
   @override
   Widget build(BuildContext context) {
     final providerState = Provider.of<SmIntakeProviderManager>(context, listen: false);
-    final providerReferrals = Provider.of<SmIntegrationProviderManager>(context,listen: false);
+    final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: isShowingReferalEyePageview ?
