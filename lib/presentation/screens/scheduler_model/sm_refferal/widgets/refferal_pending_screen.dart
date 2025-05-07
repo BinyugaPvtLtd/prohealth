@@ -175,7 +175,7 @@ class RefferalPendingScreen extends StatelessWidget {
               //     ),
               //     Image.asset(
               //       "images/sm/sm_refferal/refferal_arrow.png",
-              //       height: IconSize.I14,
+              //       height: IcnSize.I14,
               //       width: IconSize.I16,
               //     ),
               //     SizedBox(
@@ -283,7 +283,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     border:  Border(
                                       left: BorderSide(
-                                        color: snapshot.data![index].thresould == 0 ? ColorManager.greenDark : snapshot.data![index].thresould == 1 ?ColorManager.pieChartFYellow:ColorManager.red,
+                                        color: snapshot.data![index].thresould == 0 ? ColorManager.greenDark : snapshot.data![index].thresould == 1 ?const Color(0xFFFEBD4D):ColorManager.red,
                                         width: 6,
                                       ),
                                     ),
@@ -723,7 +723,9 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   ),
                                                   onPressed: () async{
 
-                                                  var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: true, isArchived: false);
+                                                  var response = await updateReferralPatient(context: context,
+                                                      isUpdatePatiendData: false,
+                                                      patientId:  snapshot.data![index].ptId, isIntake: true, isArchived: false);
                                                   if(response.statusCode == 200 || response.statusCode == 201){
                                                     //onMoveToIntake();
                                                     showDialog(
@@ -804,7 +806,9 @@ class RefferalPendingScreen extends StatelessWidget {
                                                     highlightColor: Colors.transparent,
                                                     hoverColor: Colors.transparent,
                                                     onTap: () async{
-                                                      var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
+                                                      var response = await updateReferralPatient(context: context,
+                                                          isUpdatePatiendData: false,
+                                                          patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
                                                       if(response.statusCode == 200 || response.statusCode == 201){
                                                        Navigator.pop(context);
                                                        showDialog(
