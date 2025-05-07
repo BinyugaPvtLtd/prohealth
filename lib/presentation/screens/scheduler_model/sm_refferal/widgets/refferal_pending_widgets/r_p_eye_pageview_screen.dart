@@ -526,7 +526,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       summary: patientsSummary.text,
                                       zipCode: zipCodeController.text,
                                       serviceId: snapshot.data!.fkSrvId,
-                                      disciplineIds: desciplineintList);
+                                      disciplineIds: desciplineintList,
+                                      insuranceId: patientInsuranceId);
                                 },
                                 keyboardType: TextInputType.text, text: "First Name"),
                           ),
@@ -543,7 +544,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       summary: patientsSummary.text,
                                       zipCode: zipCodeController.text,
                                       serviceId: snapshot.data!.fkSrvId,
-                                      disciplineIds: desciplineintList);
+                                      disciplineIds: desciplineintList,
+                                      insuranceId: patientInsuranceId);
                                 },
                                 keyboardType: TextInputType.text, text: "Last Name"),
                           ),
@@ -560,7 +562,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       summary: patientsSummary.text,
                                       zipCode: zipCodeController.text,
                                       serviceId: snapshot.data!.fkSrvId,
-                                      disciplineIds: desciplineintList);
+                                      disciplineIds: desciplineintList,
+                                      insuranceId: patientInsuranceId);
                                 },
                                 keyboardType: TextInputType.text, text: "Patient or Caregiver Phone Number"),
                           ),
@@ -577,7 +580,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       summary: patientsSummary.text,
                                       zipCode: zipCodeController.text,
                                       serviceId: snapshot.data!.fkSrvId,
-                                      disciplineIds: desciplineintList);
+                                      disciplineIds: desciplineintList,
+                                      insuranceId: patientInsuranceId);
                                 },
                                 keyboardType: TextInputType.text, text: "Zip Code"),
                           ),
@@ -627,7 +631,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                               summary: patientsSummary.text,
                                               zipCode: zipCodeController.text,
                                               serviceId: a.serviceId,
-                                              disciplineIds: desciplineintList);
+                                              disciplineIds: desciplineintList,
+                                              insuranceId: patientInsuranceId);
                                         }
                                       });
                                 } else {
@@ -649,7 +654,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       summary: patientsSummary.text,
                                       zipCode: zipCodeController.text,
                                       serviceId: snapshot.data!.fkSrvId,
-                                      disciplineIds: desciplineintList);
+                                      disciplineIds: desciplineintList,
+                                      insuranceId: patientInsuranceId);
                                 },
                                 keyboardType: TextInputType.text, text: "Patient Summary"),
                           ),
@@ -908,6 +914,16 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                   onChanged: (bool? value) {
                                                     setState(() {
                                                       isCheckedList[index] = value!;
+                                                      updateReferralPatient(context: context,
+                                                          patientId: providerAddState.patientId,
+                                                          isUpdatePatiendData: true,firstName: firstNameController.text,
+                                                          lastName: lastNameController.text,
+                                                          contactNo: patientsController.text,
+                                                          summary: patientsSummary.text,
+                                                          zipCode: zipCodeController.text,
+                                                          serviceId: snapshot.data!.fkSrvId,
+                                                          disciplineIds: desciplineintList,
+                                                          insuranceId: value == true ? patientInsurance[index].insurance_id : patientInsuranceId);
                                                     });
                                                   },
                                                 ),
@@ -1196,7 +1212,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                               summary: patientsSummary.text,
                                                                               zipCode: zipCodeController.text,
                                                                               serviceId: snapshot.data!.fkSrvId,
-                                                                              disciplineIds: desciplineintList);
+                                                                              disciplineIds: desciplineintList,
+                                                                              insuranceId: patientInsuranceId);
                                                                         } else {
                                                                           desciplineModel.remove(snapshotEmp.data![index].empType);
                                                                           desciplineintList.remove(snapshotEmp.data![index].emptypeId);
@@ -1208,7 +1225,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                               summary: patientsSummary.text,
                                                                               zipCode: zipCodeController.text,
                                                                               serviceId: snapshot.data!.fkSrvId,
-                                                                              disciplineIds: desciplineintList);
+                                                                              disciplineIds: desciplineintList,
+                                                                              insuranceId: patientInsuranceId);
                                                                         }
                                                                       });
                                                                     },
@@ -1745,8 +1763,8 @@ class _DiagosisListState extends State<DiagosisList> {
 
     for (int i = 0; i < widget.diagnosisData.length; i++) {
       _possibleControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnName));
-      _icdControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnId.toString()));
-      _pdgmControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnCode));
+      _icdControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnCode.toString()));
+      _pdgmControllers.add(TextEditingController(text: ''));
     }
 
     // If new empty row is added (no model data), add blank controllers
