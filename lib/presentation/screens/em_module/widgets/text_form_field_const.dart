@@ -17,6 +17,7 @@ class SMTextFConst extends StatefulWidget {
   final Icon? icon;
   final bool? readOnly;
   final VoidCallback? onChange;
+  final ValueChanged<String>? onChangeField;
   final bool? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
@@ -31,6 +32,7 @@ class SMTextFConst extends StatefulWidget {
 
   SMTextFConst({
     Key? key,
+    this.onChangeField,
     this.focusNode,
     required this.controller,
     required this.keyboardType,
@@ -122,6 +124,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
               controller: widget.controller,
               keyboardType: widget.keyboardType,
               //cursorHeight: 17,
+              onChanged: widget.onChangeField,
               cursorColor: Colors.black,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
@@ -137,7 +140,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10),
               ),
-              style: TableSubHeading.customTextStyle(context),
+              style: TableSubHeading.customTextStyleWithColor(context,widget.textColor),
               //validator: widget.validator,
               onTap: widget.onChange,
               validator: widget.validator,
@@ -521,11 +524,13 @@ class SMTextFConstPhone extends StatefulWidget {
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
+  final ValueChanged<String>? onChangeField;
   final bool isAsteric;
 
 
   SMTextFConstPhone({
     Key? key,
+    this.onChangeField,
     required this.controller,
     required this.keyboardType,
     required this.text,

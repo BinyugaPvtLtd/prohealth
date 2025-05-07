@@ -23,6 +23,8 @@ class PatientModel {
   final DateTime createdAt;
   final DateTime ptDateOfBirth;
   final String? ptImgUrl;
+  final int fk_rpti_id;
+  final bool is_selfPay;
   final String ptTime;
   final ServiceModel service;
   final DiagnosisModel primaryDiagnosis;
@@ -34,6 +36,8 @@ class PatientModel {
   final bool isPotential;
   final int thresould;
   PatientModel({required this.isPotential, required this.thresould,
+    required this.is_selfPay,
+    required this.fk_rpti_id,
     required this.ptTime,
     required this.ptId,
     required this.ptFirstName,
