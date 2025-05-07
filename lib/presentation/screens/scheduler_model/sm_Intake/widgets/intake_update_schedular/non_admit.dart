@@ -145,7 +145,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                       'Chart #2',
                                                       textAlign: TextAlign.center,
                                                       style: CustomTextStylesCommon.commonStyle(
-                                                          color: ColorManager.bluebottom,
+                                                          color: Color(0xFF1696C8),
                                                           fontSize: FontSize.s11,
                                                           fontWeight: FontWeight.w400)),
                                                 )),
