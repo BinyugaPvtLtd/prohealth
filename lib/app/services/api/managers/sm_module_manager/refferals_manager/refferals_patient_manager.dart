@@ -380,6 +380,7 @@ Future<ApiData> updateReferralPatient(
      String? zipCode,
      String? summary,
      int? serviceId,
+     int? insuranceId,
   List<int>? disciplineIds,
     }) async {
   try {
@@ -396,6 +397,7 @@ Future<ApiData> updateReferralPatient(
         "pt_summary": summary,
         "fk_srv_id":serviceId,
         "fk_pt_discplines":disciplineIds,
+        // "fk_rpti_id":insuranceId
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
