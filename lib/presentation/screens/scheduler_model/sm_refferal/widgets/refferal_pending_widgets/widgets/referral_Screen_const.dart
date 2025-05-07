@@ -74,9 +74,10 @@ class SMCheckbox extends StatelessWidget {
 
 class CustomSearchFieldSM extends StatelessWidget {
   final VoidCallback onPressed;
+   TextEditingController? searchController;
   final double? width;
 
-  const CustomSearchFieldSM({Key? key,required this.onPressed, this.width}) : super(key: key);
+   CustomSearchFieldSM({Key? key,required this.onPressed, this.width,  this.searchController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +87,7 @@ class CustomSearchFieldSM extends StatelessWidget {
       child: TextField(
         textCapitalization: TextCapitalization.words,
         style: DocumentTypeDataStyle.customTextStyle(context),
+        controller: searchController,
         decoration: InputDecoration(
           filled: true,
           fillColor: Color(0xFFF8F8F8),

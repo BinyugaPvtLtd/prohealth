@@ -1763,8 +1763,8 @@ class _DiagosisListState extends State<DiagosisList> {
 
     for (int i = 0; i < widget.diagnosisData.length; i++) {
       _possibleControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnName));
-      _icdControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnId.toString()));
-      _pdgmControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnCode));
+      _icdControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnCode.toString()));
+      _pdgmControllers.add(TextEditingController(text: ''));
     }
 
     // If new empty row is added (no model data), add blank controllers

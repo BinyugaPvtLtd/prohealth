@@ -144,7 +144,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
             createdAt:DateTime.parse(item['marketer']['createdAt']),
             resumeurl: item['marketer']['resumeurl'] ?? '',
             covreage: item['marketer']['covreage'] ?? '',
-            approved: item['marketer']['approved'],
+            approved: item['marketer']['approved']??false,
             terminationFlag: item['marketer']['terminationFlag'],
             zoneId: item['marketer']['zoneId'] ?? 0,
             countryId: item['marketer']['countryId'] ?? 0,
