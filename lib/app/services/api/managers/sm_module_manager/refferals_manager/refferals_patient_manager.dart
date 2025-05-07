@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
+import '../../../../../../data/api_data/sm_data/sm_model_data/patient_insurances_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../../../resources/const_string.dart';
@@ -46,6 +47,8 @@ Future<List<PatientModel>> getPatientReffrealsData({
         // print(item['pt_img_url']);             // Should not be null
 
         itemsData.add(PatientModel(
+          is_selfPay: item['is_selfPay']??false,
+          fk_rpti_id: item['fk_rpti_id']??0,
           isPotential: item['is_potential_duplicate'] ?? false,
           thresould: item['threshold']??0,
           ptTime: formatedTime,
@@ -218,6 +221,8 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
       var item = response.data;
         String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
         itemsData = PatientModel(
+          is_selfPay: item['is_selfPay']??false,
+          fk_rpti_id: item['fk_rpti_id']??0,
           isPotential: item['is_potential_duplicate'] ?? false,
           thresould: item['threshold']??0,
           ptTime: formatedTime,
@@ -366,14 +371,31 @@ Future<ApiData> updateReferralPatient(
 {
     required BuildContext context,
     required int patientId,
-    required bool isIntake,
-    required bool isArchived}) async {
+     bool? isIntake,
+     bool? isArchived,
+    required bool isUpdatePatiendData,
+     String? firstName,
+     String? lastName,
+     String? contactNo,
+     String? zipCode,
+     String? summary,
+     int? serviceId,
+  List<int>? disciplineIds,
+    }) async {
   try {
     var response = await Api(context).patch(
       path: PatientRefferalsRepo.getPatientRefferalsWithId(id: patientId),
-      data: {
+      data: isUpdatePatiendData == false? {
         "is_intake": isIntake,
-        "is_archieved": isArchived
+        "is_archieved": isArchived,
+      } : {
+        "pt_first_name": firstName,
+        "pt_last_name": lastName,
+        "pt_contact_no": contactNo,
+        "pt_zip_code": zipCode,
+        "pt_summary": summary,
+        "fk_srv_id":serviceId,
+        "fk_pt_discplines":disciplineIds,
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -449,6 +471,69 @@ Future<List<EmployeeClinicalData>> getEmployeeClinicalInReffreals({
       }
     } else {
       print("patient referrals employee type error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+
+/// insurance patient
+Future<List<PatientInsurancesData>> getReffrealsPatientInsurance({
+  required BuildContext context,
+}) async {
+  List<PatientInsurancesData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getReffrealsInsurance(),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientInsurancesData(
+            insurance_id: item['insurance_id']??0,
+            insurance_policy: item['insurance_policy']??'',
+            insurance_provider: item['insurance_provider']??'',
+            insurance_plan: item['insurance_plan']??''
+
+        ));
+      }
+    } else {
+      print("patient referrals insurance error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+/// Insurance patient prefill
+Future<PatientInsurancesData> getReffrealsPatientInsurancePrefill({
+  required BuildContext context,
+  required int insuranceId
+}) async {
+  var itemsData;
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getReffrealsInsuranceWithId(id: insuranceId),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+        itemsData = PatientInsurancesData(
+            insurance_id: response.data['insurance_id']??0,
+            insurance_policy: response.data['insurance_policy']??'',
+            insurance_provider: response.data['insurance_provider']??'',
+            insurance_plan: response.data['insurance_plan']??''
+
+        );
+
+    } else {
+      print("patient referrals insurance prefill error");
     }
 
     return itemsData;

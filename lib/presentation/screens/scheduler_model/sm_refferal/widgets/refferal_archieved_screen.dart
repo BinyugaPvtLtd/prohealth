@@ -600,7 +600,10 @@ class RefferalArchievedScreen extends StatelessWidget {
                                           SizedBox(width: AppSize.s20),
                                           InkWell(
                                             onTap: () async{
-                                              var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: false);
+                                              var response = await updateReferralPatient(context: context,
+                                                  patientId:  snapshot.data![index].ptId, isIntake: false,
+                                                  isArchived: false,
+                                                  isUpdatePatiendData: false);
                                               if(response.statusCode == 200 || response.statusCode == 201){
                                                 showDialog(
                                                   context: context,

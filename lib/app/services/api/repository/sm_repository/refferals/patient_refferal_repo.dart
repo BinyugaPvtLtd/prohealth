@@ -2,6 +2,7 @@ class PatientRefferalsRepo{
   static String patientRefferals ="/patient-referral";
   static String serviceRefferals = '/services-master';
   static String employeeClinical = '/employee-types/GetClinicianType';
+  static String patientInsuarnce = '/insurances-master';
 
 ////patient-referral/{pageNbr}/{NbrofRows}/{isIntake}/{isArchived}/{searchName}/{marketerId}/{referralSourceId}/{pcpId}
   static  String getPatientRefferals({required int pageNo, required int nbrOfRows, required String isIntake, required String isArchived,required String searchName, required String marketerId,required String referralSourceId, required String pcpId}){
@@ -18,5 +19,13 @@ class PatientRefferalsRepo{
 
   static  String getReffrealsEmployeeClinicalType(){
     return "$employeeClinical";
+  }
+
+  static  String getReffrealsInsurance(){
+    return "$patientInsuarnce";
+  }
+
+  static  String getReffrealsInsuranceWithId({required int id}){
+    return "$patientInsuarnce/$id";
   }
 }

@@ -723,7 +723,9 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   ),
                                                   onPressed: () async{
 
-                                                  var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: true, isArchived: false);
+                                                  var response = await updateReferralPatient(context: context,
+                                                      isUpdatePatiendData: false,
+                                                      patientId:  snapshot.data![index].ptId, isIntake: true, isArchived: false);
                                                   if(response.statusCode == 200 || response.statusCode == 201){
                                                     //onMoveToIntake();
                                                     showDialog(
@@ -804,7 +806,9 @@ class RefferalPendingScreen extends StatelessWidget {
                                                     highlightColor: Colors.transparent,
                                                     hoverColor: Colors.transparent,
                                                     onTap: () async{
-                                                      var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
+                                                      var response = await updateReferralPatient(context: context,
+                                                          isUpdatePatiendData: false,
+                                                          patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
                                                       if(response.statusCode == 200 || response.statusCode == 201){
                                                        Navigator.pop(context);
                                                        showDialog(

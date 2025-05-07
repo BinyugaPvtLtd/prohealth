@@ -17,6 +17,7 @@ import '../../../../../../app/resources/provider/sm_provider/sm_integration_prov
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
+import '../../../../../../data/api_data/sm_data/sm_model_data/patient_insurances_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../../em_module/company_identity/widgets/manage_history_version.dart';
 import '../../../../em_module/widgets/button_constant.dart';
@@ -136,8 +137,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   void initState() {
     super.initState();
     loadInitialDiagnosis();
+    loadInitialinsurance();
   }
-
+  List<PatientInsurancesData> patientInsurance = [];
   Future<void> loadInitialDiagnosis() async {
     final provider = Provider.of<DiagnosisProvider>(context, listen: false);
     PatientModel apiData = await getPatientReffrealsDataUsingId(context: context, patientId: provider.patientId); // ← Your API call
@@ -145,9 +147,13 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
     provider.setVisibility(true);
   }
 
+  Future<void> loadInitialinsurance() async {
+    patientInsurance = await getReffrealsPatientInsurance(context: context,); // ← Your API call
+  }
+
 
   double _sliderValue = 100; // initial value
-
+  int patientInsuranceId = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -184,10 +190,12 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
             possiblePrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnName);
            // referredfor = TextEditingController(text: snapshot.data!.service.srvName);
             List<String> desciplineModel = [];
+            List<int> desciplineintList = [];
             for(var a in snapshot.data!.disciplines){
               desciplineModel.add(a.employeeType);
+              desciplineintList.add(a.employeeTypeId);
             }
-            bool isChecked(String name) => desciplineModel.contains(name);
+            patientInsuranceId = snapshot.data!.fk_rpti_id;
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 30),
               child:  ScrollConfiguration(
@@ -509,24 +517,68 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           Expanded(
                             child: SMTextFConst(controller: firstNameController,
                                 isAsteric: false,
+                                onChangeField: (value){
+                                  updateReferralPatient(context: context,
+                                      patientId: providerAddState.patientId,
+                                      isUpdatePatiendData: true,firstName: firstNameController.text,
+                                      lastName: lastNameController.text,
+                                      contactNo: patientsController.text,
+                                      summary: patientsSummary.text,
+                                      zipCode: zipCodeController.text,
+                                      serviceId: snapshot.data!.fkSrvId,
+                                      disciplineIds: desciplineintList);
+                                },
                                 keyboardType: TextInputType.text, text: "First Name"),
                           ),
                           SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: SMTextFConst(controller: lastNameController,
                                 isAsteric: false,
+                                onChangeField: (value){
+                                  updateReferralPatient(context: context,
+                                      patientId: providerAddState.patientId,
+                                      isUpdatePatiendData: true,firstName: firstNameController.text,
+                                      lastName: lastNameController.text,
+                                      contactNo: patientsController.text,
+                                      summary: patientsSummary.text,
+                                      zipCode: zipCodeController.text,
+                                      serviceId: snapshot.data!.fkSrvId,
+                                      disciplineIds: desciplineintList);
+                                },
                                 keyboardType: TextInputType.text, text: "Last Name"),
                           ),
                           SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: SMTextFConstPhone(controller: patientsController,
                                 isAsteric: false,
+                                onChanged: (value){
+                                  updateReferralPatient(context: context,
+                                      patientId: providerAddState.patientId,
+                                      isUpdatePatiendData: true,firstName: firstNameController.text,
+                                      lastName: lastNameController.text,
+                                      contactNo: patientsController.text,
+                                      summary: patientsSummary.text,
+                                      zipCode: zipCodeController.text,
+                                      serviceId: snapshot.data!.fkSrvId,
+                                      disciplineIds: desciplineintList);
+                                },
                                 keyboardType: TextInputType.text, text: "Patient or Caregiver Phone Number"),
                           ),
                           SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: SMTextFConst(controller: zipCodeController,
                                 isAsteric: false,
+                                onChangeField: (value){
+                                  updateReferralPatient(context: context,
+                                      patientId: providerAddState.patientId,
+                                      isUpdatePatiendData: true,firstName: firstNameController.text,
+                                      lastName: lastNameController.text,
+                                      contactNo: patientsController.text,
+                                      summary: patientsSummary.text,
+                                      zipCode: zipCodeController.text,
+                                      serviceId: snapshot.data!.fkSrvId,
+                                      disciplineIds: desciplineintList);
+                                },
                                 keyboardType: TextInputType.text, text: "Zip Code"),
                           ),
                         ],
@@ -542,7 +594,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 if (snapshotService.connectionState == ConnectionState.waiting) {
                                   return SchedularTextField(
                                     isIconVisible: true,
-                                    controller: referredfor = TextEditingController(text: snapshot.data!.service.srvName),
+                                    controller: TextEditingController(text: snapshot.data!.service.srvName),
                                     labelText: 'Referred for',
                                   );
                                 }
@@ -567,7 +619,15 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       dropDownMenuList: dropDownList,
                                       onChanged: (newValue) {
                                         for (var a in snapshotService.data!) {
-
+                                          updateReferralPatient(context: context,
+                                              patientId: providerAddState.patientId,
+                                              isUpdatePatiendData: true,firstName: firstNameController.text,
+                                              lastName: lastNameController.text,
+                                              contactNo: patientsController.text,
+                                              summary: patientsSummary.text,
+                                              zipCode: zipCodeController.text,
+                                              serviceId: a.serviceId,
+                                              disciplineIds: desciplineintList);
                                         }
                                       });
                                 } else {
@@ -580,6 +640,17 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           Expanded(
                             child: SMTextFConst(controller: patientsSummary,
                                 isAsteric: false,
+                                onChangeField: (value){
+                                  updateReferralPatient(context: context,
+                                      patientId: providerAddState.patientId,
+                                      isUpdatePatiendData: true,firstName: firstNameController.text,
+                                      lastName: lastNameController.text,
+                                      contactNo: patientsController.text,
+                                      summary: patientsSummary.text,
+                                      zipCode: zipCodeController.text,
+                                      serviceId: snapshot.data!.fkSrvId,
+                                      disciplineIds: desciplineintList);
+                                },
                                 keyboardType: TextInputType.text, text: "Patient Summary"),
                           ),
                           SizedBox(width: AppSize.s30,),
@@ -802,8 +873,11 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               ignoring: selectedType == 'Self Pay',
                               child: ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: 2, // Adjust as needed
+                                itemCount: patientInsurance.length, // Adjust as needed
                                 itemBuilder: (context, index) {
+                                  policy = TextEditingController(text: patientInsurance[index].insurance_policy);
+                                  provider = TextEditingController(text: patientInsurance[index].insurance_provider);
+                                  plan = TextEditingController(text: patientInsurance[index].insurance_plan);
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                                     child: Column(
@@ -830,7 +904,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                   checkColor: ColorManager.white,
                                                   activeColor: ColorManager.bluebottom,
                                                   side: BorderSide(color: ColorManager.bluebottom, width: 2),
-                                                  value: isCheckedList[index],
+                                                  value: patientInsuranceId == patientInsurance[index].insurance_id ? true :isCheckedList[index],
                                                   onChanged: (bool? value) {
                                                     setState(() {
                                                       isCheckedList[index] = value!;
@@ -856,6 +930,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                 controller: provider,
                                                 isAsteric: false,
                                                 keyboardType: TextInputType.text,
+                                                textColor: ColorManager.blueprime,
                                                 text: "Insurance Provider :",
                                               ),
                                             ),
@@ -866,72 +941,73 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                 controller: plan,
                                                 isAsteric: false,
                                                 keyboardType: TextInputType.text,
+                                                textColor: ColorManager.blueprime,
                                                 text: "Insurance Plan :",
                                               ),
                                             ),
                                            // SizedBox(width: 10,),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                Container(
-                                                  child: Text("Eligibility:",
-                                                    style: AllPopupHeadings.customTextStyle(context),),
-                                                ),
-                                                SizedBox(height: 12,),
-                                                Container(
-                                                  height: 30,
-                                                  padding: EdgeInsets.only(left: 45,right: 20),
-                                                  child: Text("Not all visit\ncovered",
-                                                    style: TextStyle(
-                                                      fontSize: FontSize.s12,
-                                                      fontWeight: FontWeight.w700,
-                                                      color: ColorManager.greenDark,
-                                                    ),),
-                                                )
-                                              ],),
-                                            ),
-                                            //SizedBox(width: 20,),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                color: ColorManager.greenDark,
-                                                borderRadius: BorderRadius.circular(3),
-                                              ),
-                                              child: Center(
-                                                child: Text("A",
-                                                 textAlign: TextAlign.center,
-                                                 style: TextStyle(
-                                                   fontSize: FontSize.s12,
-                                                   fontWeight: FontWeight.w700,
-                                                   color: ColorManager.white,
-                                                 ),),
-                                              ),
-                                            ),
-                                            SizedBox(width: 30,),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Column(
-                                                children: [
-                                                  CustomElevatedButton(
-                                                    width: AppSize.s130,
-                                                    height: AppSize.s30,
-                                                    text: "Check Eligibility",
-                                                    color:  ColorManager.bluebottom,
-                                                    onPressed: (){},
-                                                  ),
-                                                  SizedBox(height: 5,),
-                                                  Text("Last checked at 8:30 AM",
-                                                    style: TextStyle(
-                                                      fontSize: FontSize.s12,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: ColorManager.mediumgrey,
-                                                    ),),
-                                                ],
-                                              ),
-                                            )
+                                           //  Expanded(
+                                           //    flex: 2,
+                                           //    child: Column(
+                                           //      mainAxisAlignment: MainAxisAlignment.start,
+                                           //      children: [
+                                           //      Container(
+                                           //        child: Text("Eligibility:",
+                                           //          style: AllPopupHeadings.customTextStyle(context),),
+                                           //      ),
+                                           //      SizedBox(height: 12,),
+                                           //      Container(
+                                           //        height: 30,
+                                           //        padding: EdgeInsets.only(left: 45,right: 20),
+                                           //        child: Text("Not all visit\ncovered",
+                                           //          style: TextStyle(
+                                           //            fontSize: FontSize.s12,
+                                           //            fontWeight: FontWeight.w700,
+                                           //            color: ColorManager.greenDark,
+                                           //          ),),
+                                           //      )
+                                           //    ],),
+                                           //  ),
+                                           //  //SizedBox(width: 20,),
+                                           //  Container(
+                                           //    width: 30,
+                                           //    height: 30,
+                                           //    decoration: BoxDecoration(
+                                           //      color: ColorManager.greenDark,
+                                           //      borderRadius: BorderRadius.circular(3),
+                                           //    ),
+                                           //    child: Center(
+                                           //      child: Text("A",
+                                           //       textAlign: TextAlign.center,
+                                           //       style: TextStyle(
+                                           //         fontSize: FontSize.s12,
+                                           //         fontWeight: FontWeight.w700,
+                                           //         color: ColorManager.white,
+                                           //       ),),
+                                           //    ),
+                                           //  ),
+                                           //  SizedBox(width: 30,),
+                                           //  Expanded(
+                                           //    flex: 2,
+                                           //    child: Column(
+                                           //      children: [
+                                           //        CustomElevatedButton(
+                                           //          width: AppSize.s130,
+                                           //          height: AppSize.s30,
+                                           //          text: "Check Eligibility",
+                                           //          color:  ColorManager.bluebottom,
+                                           //          onPressed: (){},
+                                           //        ),
+                                           //        SizedBox(height: 5,),
+                                           //        Text("Last checked at 8:30 AM",
+                                           //          style: TextStyle(
+                                           //            fontSize: FontSize.s12,
+                                           //            fontWeight: FontWeight.w400,
+                                           //            color: ColorManager.mediumgrey,
+                                           //          ),),
+                                           //      ],
+                                           //    ),
+                                           //  )
                                           ],
                                         ),
                                         SizedBox(height: 10,),
@@ -1111,8 +1187,28 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                         // isCheckedValue = value!;
                                                                         if (value!) {
                                                                           desciplineModel.add(snapshotEmp.data![index].empType);
+                                                                          desciplineintList.add(snapshotEmp.data![index].emptypeId);
+                                                                          updateReferralPatient(context: context,
+                                                                              patientId: providerAddState.patientId,
+                                                                              isUpdatePatiendData: true,firstName: firstNameController.text,
+                                                                              lastName: lastNameController.text,
+                                                                              contactNo: patientsController.text,
+                                                                              summary: patientsSummary.text,
+                                                                              zipCode: zipCodeController.text,
+                                                                              serviceId: snapshot.data!.fkSrvId,
+                                                                              disciplineIds: desciplineintList);
                                                                         } else {
                                                                           desciplineModel.remove(snapshotEmp.data![index].empType);
+                                                                          desciplineintList.remove(snapshotEmp.data![index].emptypeId);
+                                                                          updateReferralPatient(context: context,
+                                                                              patientId: providerAddState.patientId,
+                                                                              isUpdatePatiendData: true,firstName: firstNameController.text,
+                                                                              lastName: lastNameController.text,
+                                                                              contactNo: patientsController.text,
+                                                                              summary: patientsSummary.text,
+                                                                              zipCode: zipCodeController.text,
+                                                                              serviceId: snapshot.data!.fkSrvId,
+                                                                              disciplineIds: desciplineintList);
                                                                         }
                                                                       });
                                                                     },
