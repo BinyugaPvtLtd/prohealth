@@ -1025,111 +1025,24 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         }).toList(),
                       ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [ Container(
-                          height: AppSize.s30,
-                          child: CustomIconButton(
-                            color: ColorManager.bluebottom,
-                            icon: Icons.add,
-                            textWeight: FontWeight.w700,
-                            textSize: FontSize.s12,
-                            text: "Add Diagnosis",
-                            onPressed: ()async {
-                                providerAddState.setVisibility(true);
-                                providerAddState.addDiagnosis();
-
-                            },
-                          ),
-                        ),],
-                      ),
-
-
-
-                      ///
-                      ///
-                      ///
-                      // Column(
-                      //   children: [
-                      //     Container(
-                      //       child:  ListView.builder(
-                      //         shrinkWrap: true,
-                      //         itemCount: 1, // Adjust as needed
-                      //         itemBuilder: (context, index) {
-                      //           return Padding(
-                      //             padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                      //             child: Column(
-                      //               crossAxisAlignment: CrossAxisAlignment.start,
-                      //               children: [
-                      //                 Row(
-                      //                   children: [
-                      //                     Container(height: 90,width: 5,color: ColorManager.greenDark,),
-                      //                     SizedBox(width: AppSize.s30,),
-                      //                     Expanded(
-                      //                       child: SMTextFConst(controller: possible,
-                      //                           isAsteric: false,
-                      //                           isIcon: true,
-                      //                           keyboardType: TextInputType.text, text: "Possible Diagnosis"),
-                      //                     ),
-                      //                     SizedBox(width: AppSize.s60,),
-                      //                     Expanded(
-                      //                       child: SMTextFConst(controller: icd,
-                      //                           isAsteric: false,
-                      //                           isIcon: true,
-                      //                           keyboardType: TextInputType.text, text: "ICD Code"),
-                      //                     ),
-                      //                     SizedBox(width: AppSize.s60,),
-                      //                     Expanded(
-                      //                       child: SMTextFConst(controller: pdgm,
-                      //                           isAsteric: false,
-                      //                           isIcon: true,
-                      //                           keyboardType: TextInputType.text, text: "PDGM - Acceptable"),
-                      //                     ),
-                      //                     SizedBox(width: AppSize.s30,),
-                      //                     Expanded(
-                      //                       child: Container(
-                      //                         height: 30,
-                      //                         width: AppSize.s354,
-                      //                       ),
-                      //                     ),
-                      //                     SizedBox(width: AppSize.s30,),
-                      //                     Expanded(
-                      //                       child: Container(
-                      //                         height: 30,
-                      //                         width: AppSize.s354,
-                      //                       ),
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //                 Divider(
-                      //                   color: ColorManager.containerBorderGrey,
-                      //                   thickness: 1,
-                      //                   height: 2,
-                      //                 ),
-                      //                 SizedBox(height: AppSize.s30,),
-                      //               ],
-                      //             ),
-                      //           );
-                      //         },
-                      //       ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      //   children: [ Container(
+                      //     height: AppSize.s30,
+                      //     child: CustomIconButton(
+                      //       color: ColorManager.bluebottom,
+                      //       icon: Icons.add,
+                      //       textWeight: FontWeight.w700,
+                      //       textSize: FontSize.s12,
+                      //       text: "Add Diagnosis",
+                      //       onPressed: ()async {
+                      //           providerAddState.setVisibility(true);
+                      //           providerAddState.addDiagnosis();
+                      //
+                      //       },
                       //     ),
-                      //     Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       crossAxisAlignment: CrossAxisAlignment.center,
-                      //       children: [ Container(
-                      //         height: AppSize.s30,
-                      //         child: CustomIconButton(
-                      //           color: ColorManager.bluebottom,
-                      //           icon: Icons.add,
-                      //           textWeight: FontWeight.w700,
-                      //           textSize: FontSize.s12,
-                      //           text: "Add Diagnosis",
-                      //           onPressed: ()async{},
-                      //         ),
-                      //       ),],
-                      //     )
-                      //   ],
+                      //   ),],
                       // ),
                       SizedBox(height: AppSize.s40,),
                       ///Suggested Plan of Care

@@ -283,7 +283,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     border:  Border(
                                       left: BorderSide(
-                                        color: snapshot.data![index].thresould == 0 ? ColorManager.greenDark : snapshot.data![index].thresould == 1 ?ColorManager.pieChartFYellow:ColorManager.red,
+                                        color: snapshot.data![index].thresould == 0 ? ColorManager.greenDark : snapshot.data![index].thresould == 1 ?const Color(0xFFFEBD4D):ColorManager.red,
                                         width: 6,
                                       ),
                                     ),
