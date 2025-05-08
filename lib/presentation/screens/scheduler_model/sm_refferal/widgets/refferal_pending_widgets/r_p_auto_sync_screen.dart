@@ -136,23 +136,23 @@ class RPAutoSyncScreen extends StatelessWidget {
                                                       children: [
                                                         Text(
                                                           "Ross Geller",
-                                                          textAlign: TextAlign.center,
+                                                          textAlign: TextAlign.start,
                                                           style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                             fontWeight: FontWeight.w700,
                                                             color: ColorManager.mediumgrey,),
                                                         ),
                                                         SizedBox(height: 5,),
                                                         Text(
-                                                          "Recieved Date: 09/15/2024",
-                                                          textAlign: TextAlign.center,
+                                                          "Received Date: 4/30/25",
+                                                          textAlign: TextAlign.start,
                                                           style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                             fontWeight: FontWeight.w400,
                                                             color: ColorManager.mediumgrey,),
                                                         ),
                                                         SizedBox(height: 3,),
                                                         Text(
-                                                          "7:35 PM",
-                                                          textAlign: TextAlign.center,
+                                                          "07: 35 PM",
+                                                          textAlign: TextAlign.start,
                                                           style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                             fontWeight: FontWeight.w400,
                                                             color: ColorManager.mediumgrey,),
@@ -177,8 +177,41 @@ class RPAutoSyncScreen extends StatelessWidget {
                                                       onPressed: (){},
                                                       icon: Icon(Icons.phone,color: ColorManager.bluebottom,size: IconSize.I22,)),),
                                                   Expanded(child: Container()),
+                                                  // Container(
+                                                  //   width: 120,
+                                                  //   height: 33,
+                                                  //   child: ElevatedButton(
+                                                  //     onPressed: () async{
+                                                  //       onCuratePressed();
+                                                  //       // CurateScreen(
+                                                  //       //   onCurateBackPressed: (){
+                                                  //       //     //onCurateButtonPressed();
+                                                  //       //     },
+                                                  //       //   onCurateScreenPressed: () {  },);
+                                                  //     },
+                                                  //     style: ElevatedButton.styleFrom(
+                                                  //       padding: EdgeInsets.symmetric(
+                                                  //           horizontal: 6,
+                                                  //           vertical: 12),
+                                                  //       backgroundColor:
+                                                  //       ColorManager.white,
+                                                  //       shape: RoundedRectangleBorder(
+                                                  //         borderRadius: BorderRadius.circular(12),
+                                                  //         side: BorderSide(color: ColorManager.bluebottom),
+                                                  //       ),
+                                                  //     ),
+                                                  //     child: Text("Add To Referral",//"Add To Referral",
+                                                  //         style: CustomTextStylesCommon.commonStyle(
+                                                  //           fontSize: FontSize.s12,
+                                                  //           fontWeight: FontWeight.w600,
+                                                  //           color:
+                                                  //           ColorManager.bluebottom,
+                                                  //         )),
+                                                  //   ),
+                                                  // ),
                                                   Container(
                                                     width: 120,
+                                                    height: 36,
                                                     child: ElevatedButton(
                                                       onPressed: () async{
                                                         onCuratePressed();
@@ -192,24 +225,21 @@ class RPAutoSyncScreen extends StatelessWidget {
                                                         padding: EdgeInsets.symmetric(
                                                             horizontal: 6,
                                                             vertical: 12),
-                                                        backgroundColor:
-                                                        ColorManager.white,
+                                                        backgroundColor: ColorManager.white,
                                                         shape: RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(12),
-                                                          side: BorderSide(color: ColorManager.bluebottom),
+                                                          side: BorderSide(color: ColorManager.redDark),
                                                         ),
                                                       ),
                                                       child: Text("Curate",//"Add To Referral",
-                                                          style: CustomTextStylesCommon
-                                                              .commonStyle(
+                                                          style: CustomTextStylesCommon.commonStyle(
                                                             fontSize: FontSize.s12,
                                                             fontWeight: FontWeight.w600,
-                                                            color:
-                                                            ColorManager.bluebottom,
+                                                            color: ColorManager.redDark,
                                                           )),
                                                     ),
                                                   ),
-                                                 Expanded(child: Container()),
+                                                  Expanded(child: Container()),
                                                   Expanded(
                                                     flex: 1,
                                                     child: IconButton(
@@ -223,7 +253,7 @@ class RPAutoSyncScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: AppSize.s5),
+                                        const SizedBox(height: AppSize.s5),
                                       ],
                                     ),
                                   ),

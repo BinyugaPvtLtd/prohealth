@@ -36,6 +36,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
+    TextEditingController _searchController = TextEditingController();
     return Stack(
       children: [
         Padding(
@@ -46,6 +47,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomSearchFieldSM(
+                    searchController: _searchController,
                     width: 440,
                     onPressed: (){},
                   ),
@@ -82,7 +84,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
               StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'true', isArchived: 'false', searchName: 'all', marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
+                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'true', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text, marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
                       _streamController.add(data);
                     }).catchError((error) {
                       // Handle error

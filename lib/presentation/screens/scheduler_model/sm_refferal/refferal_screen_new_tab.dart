@@ -90,7 +90,10 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
     final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: isShowingReferalEyePageview ?
+      body:isShowingCuratePageview
+          ? CurateScreen(
+        onCurateBackPressed: goBackToInitialScreenFromCurate,
+      ) : isShowingReferalEyePageview ?
       ReferalPendingEyePageview(onGoBackPressed: (){
         goBackToInitialScreen();
         providerReferrals.passPatientIdClear();

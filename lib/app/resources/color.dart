@@ -43,6 +43,7 @@ class ColorManager {
   static Color whitebluecolor = Color(0xFFeef6fd);//Color(0xFFB1D6F4).withValues(alpha: 0.15);//Color.fromARGB(1, 177, 214,244);//Color(0xffE0F2F1);
   static Color red = Color(0xffD93D3D);
   static Color rednew = Color(0xffEB3223);
+  static Color redDark = Color(0xffA6160A);
   static Color buttoncolor = Color(0xfc79AEF5);
   //static Color greylight = Color(0xff575757);
   static Color dividerColor = Color(0xffD4D4D4);

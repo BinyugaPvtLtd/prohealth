@@ -170,7 +170,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
           ? AppSize.s374
           : widget.height!
           : widget.height == null
-          ? AppSize.s650
+          ? 660
           : widget.height!,
       body: [
         Padding(
@@ -826,7 +826,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 //   ],
                 // ),
               ),
-              SizedBox(height: 20,)
+              SizedBox(height: 10,)
             ],
           ),
         )

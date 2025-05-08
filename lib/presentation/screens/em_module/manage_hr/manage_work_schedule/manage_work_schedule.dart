@@ -166,7 +166,9 @@ class WorkSchedule extends StatelessWidget {
                       ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 45,
+                    horizontal:workScheduleProvider.selectedIndex == 1 ?
+                    MediaQuery.of(context).size.width / 45 :
+                    MediaQuery.of(context).size.width / 20,
                   ),
                   child: PageView(
                     controller: workScheduleProvider.pageController,
