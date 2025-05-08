@@ -263,7 +263,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                       }, index: 1, grpIndex: _selectedIndex, heading: AppString.zone,),
                       EMTabbar(onTap: (int index){
                         _selectButton(2);
-                      }, index: 2, grpIndex: _selectedIndex, heading: AppString.zip_code,),
+                      }, index: 2, grpIndex: _selectedIndex, heading: AppString.zipCode,),
                     ],
                   ),
                 ),

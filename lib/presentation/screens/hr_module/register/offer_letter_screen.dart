@@ -1767,7 +1767,15 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                 return const Text("Error fetching counties");
                               }
                               if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                return const Text('No Data available');
+                                return Container(
+                                    width: AppSize.s250,
+                                    height: AppSize.s30,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey, width: 1),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: Center(child: Text('No Data available',
+                                    style: DocumentTypeDataStyle.customTextStyle(context),)));
                               }
 
                               List<DropdownMenuItem<String>> countyDropDownList = snapshot.data!

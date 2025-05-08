@@ -686,8 +686,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       StatefulBuilder(
                           builder: (BuildContext context, StateSetter setState){
                         return Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                         Row(
                           children: [
                             SizedBox(width: 15),
@@ -965,69 +965,69 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                 text: "Insurance Plan :",
                                               ),
                                             ),
-                                           // SizedBox(width: 10,),
-                                           //  Expanded(
-                                           //    flex: 2,
-                                           //    child: Column(
-                                           //      mainAxisAlignment: MainAxisAlignment.start,
-                                           //      children: [
-                                           //      Container(
-                                           //        child: Text("Eligibility:",
-                                           //          style: AllPopupHeadings.customTextStyle(context),),
-                                           //      ),
-                                           //      SizedBox(height: 12,),
-                                           //      Container(
-                                           //        height: 30,
-                                           //        padding: EdgeInsets.only(left: 45,right: 20),
-                                           //        child: Text("Not all visit\ncovered",
-                                           //          style: TextStyle(
-                                           //            fontSize: FontSize.s12,
-                                           //            fontWeight: FontWeight.w700,
-                                           //            color: ColorManager.greenDark,
-                                           //          ),),
-                                           //      )
-                                           //    ],),
-                                           //  ),
-                                           //  //SizedBox(width: 20,),
-                                           //  Container(
-                                           //    width: 30,
-                                           //    height: 30,
-                                           //    decoration: BoxDecoration(
-                                           //      color: ColorManager.greenDark,
-                                           //      borderRadius: BorderRadius.circular(3),
-                                           //    ),
-                                           //    child: Center(
-                                           //      child: Text("A",
-                                           //       textAlign: TextAlign.center,
-                                           //       style: TextStyle(
-                                           //         fontSize: FontSize.s12,
-                                           //         fontWeight: FontWeight.w700,
-                                           //         color: ColorManager.white,
-                                           //       ),),
-                                           //    ),
-                                           //  ),
-                                           //  SizedBox(width: 30,),
-                                           //  Expanded(
-                                           //    flex: 2,
-                                           //    child: Column(
-                                           //      children: [
-                                           //        CustomElevatedButton(
-                                           //          width: AppSize.s130,
-                                           //          height: AppSize.s30,
-                                           //          text: "Check Eligibility",
-                                           //          color:  ColorManager.bluebottom,
-                                           //          onPressed: (){},
-                                           //        ),
-                                           //        SizedBox(height: 5,),
-                                           //        Text("Last checked at 8:30 AM",
-                                           //          style: TextStyle(
-                                           //            fontSize: FontSize.s12,
-                                           //            fontWeight: FontWeight.w400,
-                                           //            color: ColorManager.mediumgrey,
-                                           //          ),),
-                                           //      ],
-                                           //    ),
-                                           //  )
+                                           SizedBox(width: 10,),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                Container(
+                                                  child: Text("Eligibility:",
+                                                    style: AllPopupHeadings.customTextStyle(context),),
+                                                ),
+                                                SizedBox(height: 12,),
+                                                Container(
+                                                  height: 30,
+                                                  padding: EdgeInsets.only(left: 45,right: 20),
+                                                  child: Text("Not all visit\ncovered",
+                                                    style: TextStyle(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: ColorManager.greenDark,
+                                                    ),),
+                                                )
+                                              ],),
+                                            ),
+                                            //SizedBox(width: 20,),
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.greenDark,
+                                                borderRadius: BorderRadius.circular(3),
+                                              ),
+                                              child: Center(
+                                                child: Text("A",
+                                                 textAlign: TextAlign.center,
+                                                 style: TextStyle(
+                                                   fontSize: FontSize.s12,
+                                                   fontWeight: FontWeight.w700,
+                                                   color: ColorManager.white,
+                                                 ),),
+                                              ),
+                                            ),
+                                            SizedBox(width: 30,),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Column(
+                                                children: [
+                                                  CustomElevatedButton(
+                                                    width: AppSize.s130,
+                                                    height: AppSize.s30,
+                                                    text: "Check Eligibility",
+                                                    color:  ColorManager.bluebottom,
+                                                    onPressed: (){},
+                                                  ),
+                                                  SizedBox(height: 5,),
+                                                  Text("Last checked at 8:30 AM",
+                                                    style: TextStyle(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: ColorManager.mediumgrey,
+                                                    ),),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
                                         SizedBox(height: 10,),
