@@ -9,8 +9,8 @@ import '../../../sm_Intake/widgets/intake_update_schedular/information_update.da
 
 class RPAutoSyncScreen extends StatelessWidget {
   final VoidCallback onAutoBackPressed;
-  //final VoidCallback onCurateButtonPressed;
-  const RPAutoSyncScreen({super.key, required this.onAutoBackPressed,
+  final VoidCallback onCuratePressed;
+  const RPAutoSyncScreen({super.key, required this.onAutoBackPressed, required this.onCuratePressed,
   //  required this.onCurateButtonPressed
   });
 
@@ -181,6 +181,7 @@ class RPAutoSyncScreen extends StatelessWidget {
                                                     width: 120,
                                                     child: ElevatedButton(
                                                       onPressed: () async{
+                                                        onCuratePressed();
                                                         // CurateScreen(
                                                         //   onCurateBackPressed: (){
                                                         //     //onCurateButtonPressed();
@@ -198,7 +199,7 @@ class RPAutoSyncScreen extends StatelessWidget {
                                                           side: BorderSide(color: ColorManager.bluebottom),
                                                         ),
                                                       ),
-                                                      child: Text("Add To Referral",
+                                                      child: Text("Curate",//"Add To Referral",
                                                           style: CustomTextStylesCommon
                                                               .commonStyle(
                                                             fontSize: FontSize.s12,
