@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_archieved_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_move_to_intake_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/curate_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_auto_sync_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
 import 'package:provider/provider.dart';
-
-//import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_merge_duplicate_screen.dart';
-import '../../../../app/resources/provider/sm_provider/sm_integration_provider.dart';
 import '../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../sm_Intake/intake_main_screen.dart';
@@ -37,6 +35,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
   bool isShowingReferalEyePageview = false;
   bool isShowingMergeDuplicatePageview = false;
   bool isShowingAutoSyncPageview = false;
+  bool isShowingCuratePageview = false;
   void switchToEyePageviweScreen() {
     setState(() {
       isShowingReferalEyePageview = true;
@@ -73,6 +72,18 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
     });
   }
 
+  void switchToCuratePageviweScreen() {
+    setState(() {
+      isShowingCuratePageview = true;
+    });
+  }
+
+  void goBackToInitialScreenFromCurate() {
+    setState(() {
+      isShowingCuratePageview = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final providerState = Provider.of<SmIntakeProviderManager>(context, listen: false);
@@ -96,6 +107,9 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
               goBackToInitialScreenFromAuto();
               providerReferrals.passPatientIdClear();
               providerState.toogleAutoSyncScreenProvider();
+            },
+            onCuratePressed: () {
+              switchToCuratePageviweScreen();
             },
           )
      : Column(
@@ -152,8 +166,11 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                   switchToEyePageviweScreen();
                   providerState.toogleEyeScreenProvider();
                 },
-                  onMergeDuplicatePressed: switchToMergeDuplicateScreen, onMoveToIntake: widget.onPressedMoveTointake,
-                  onAutoSyncPressed: switchToAutoSyncPageviweScreen,),
+                  onMergeDuplicatePressed: switchToMergeDuplicateScreen,
+                  onMoveToIntake: widget.onPressedMoveTointake,
+                  onAutoSyncPressed: (){
+                                  switchToAutoSyncPageviweScreen();
+                                },),
                 RefferalMoveToIntakeScreen(onEyeButtonPressed: (){
                   switchToEyePageviweScreen();
                   providerState.toogleEyeScreenProvider();

@@ -77,6 +77,7 @@ class DiagnosisProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
 class ReferalPendingEyePageview extends StatefulWidget {
   final VoidCallback onGoBackPressed;
   const ReferalPendingEyePageview({super.key, required this.onGoBackPressed});
@@ -220,6 +221,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                   Padding(
                                     padding: const EdgeInsets.all(20.0),
                                     child: InkWell(
+                                        hoverColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                         onTap: widget.onGoBackPressed,
                                         child: Icon(
                                           Icons.arrow_back,
