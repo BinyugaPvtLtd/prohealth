@@ -1769,7 +1769,6 @@ class _DynamciContainerState extends State<DynamciContainer> {
                               if (!snapshot.hasData || snapshot.data!.isEmpty) {
                                 return  _buildPlaceholder(text:'No Data available');
                               }
-
                               List<DropdownMenuItem<String>> countyDropDownList = snapshot.data!
                                   .map((county) =>
                                   DropdownMenuItem<String>(
