@@ -502,7 +502,6 @@ class RefferalPendingScreen extends StatelessWidget {
                                               ),
                                             ),
                                             //SizedBox(width: 20,),
-
                                             /// PCP and primary diagnosis
                                            // SizedBox(width: 25,),
                                             Expanded(

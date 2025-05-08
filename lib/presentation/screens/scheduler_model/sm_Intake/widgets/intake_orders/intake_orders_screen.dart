@@ -128,216 +128,222 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment:CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SchedularTextField(
-                                    width:providerState.isContactTrue ? AppSize.s200 :AppSize.s300,
-                                    controller: receivedDateController,
-                                    labelText: 'Date Received',
-                                    enable: false,
-                                    showDatePicker:true,
-                                  ),
-                                  const SizedBox(height: AppSize.s14,),
-
-                                     SchedularTextField(
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SchedularTextField(
                                       width:providerState.isContactTrue ? AppSize.s200 :AppSize.s300,
-                                      controller: orderDateController,
-                                      labelText: 'Order Date',
-                                       enable: false,
+                                      controller: receivedDateController,
+                                      labelText: 'Date Received',
+                                      enable: false,
                                       showDatePicker:true,
                                     ),
-
-                                  const SizedBox(height: AppSize.s14,),
-                                  CheckboxTile(
-
-                                    title: 'Orders Signed and Date',
-                                    initialValue: ordersSignAndDate,
-                                    isInfoIconVisible: true,
-                                    onChanged: (value) {
-
-                                    },
-                                  )
-
-                                ],
+                                    const SizedBox(height: AppSize.s14,),
+                                
+                                       SchedularTextField(
+                                        width:providerState.isContactTrue ? AppSize.s200 :AppSize.s300,
+                                        controller: orderDateController,
+                                        labelText: 'Order Date',
+                                         enable: false,
+                                        showDatePicker:true,
+                                      ),
+                                
+                                    const SizedBox(height: AppSize.s14,),
+                                    CheckboxTile(
+                                
+                                      title: 'Orders Signed and Date',
+                                      initialValue: ordersSignAndDate,
+                                      isInfoIconVisible: true,
+                                      onChanged: (value) {
+                                
+                                      },
+                                    )
+                                
+                                  ],
+                                ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: providerState.isContactTrue ? 0 :7),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      spacing: 5,
-                                      children: [
-                                        Text('Disciplines',style:
-                                       // providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) :
-                                        AllPopupHeadings.customTextStyle(context),),
-                                        const SizedBox(width: AppSize.s10,),
-                                        SvgPicture.asset(
-                                          'images/sm/sm_refferal/i_circle.svg',
-                                          height: IconSize.I20,
-                                          width: IconSize.I20,
-                                        )
-                                      ],
+
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(left: providerState.isContactTrue ? 0 :7),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        spacing: 5,
+                                        children: [
+                                          Text('Disciplines',style:
+                                         // providerState.isContactTrue ? SMTextfieldResponsiveHeadings.customTextStyle(context) :
+                                          AllPopupHeadings.customTextStyle(context),),
+                                          const SizedBox(width: AppSize.s10,),
+                                          SvgPicture.asset(
+                                            'images/sm/sm_refferal/i_circle.svg',
+                                            height: IconSize.I20,
+                                            width: IconSize.I20,
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Container(
-                                    height:providerState.isContactTrue ? AppSize.s150 :AppSize.s100,
-                                    width:providerState.isContactTrue ? AppSize.s350 :AppSize.s480,
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: providerState.isContactTrue ? 4: 3,
-                                          child: Container(
-                                            child: Column(
-                                              //alignment: WrapAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              // spacing: 10,
-                                              // runSpacing: 5,
-                                              children: [
-                                                CheckboxTile(
-                                                  title: 'Nursing',
-                                                  initialValue: isNursing,
-                                                  onChanged: (value) {
-
-                                                  },
-                                                ),
-                                                CheckboxTile(
-                                                  title: //providerState.isContactTrue ?'Physical\nTherapy' :
-                                                  'Physical Therapy',
-                                                  initialValue: isPhysicalThe,
-                                                  onChanged: (value) {
-                                                  },
-                                                ),
-                                                providerState.isContactTrue ?
-                                                CheckboxTile(
-                                                  title: //providerState.isContactTrue ?'Speech\nTherapy' :
-                                                  'Speech Therapy',
-                                                  initialValue: isOccupationalThe,
-                                                  onChanged: (value) {
-
-                                                  },
-                                                )
-                                                : CheckboxTile(
-                                                  title: //providerState.isContactTrue ?'Home Health\nAide' :
-                                                  'Home Health Aide',
-                                                  initialValue: isSpeechThe,
-                                                  onChanged: (value) {
-
-                                                  },
-                                                ),
-                                                providerState.isContactTrue ? CheckboxTile(
-                                                  title: 'Dietician',
-                                                  initialValue: isMedicalSocialThe,
-                                                  onChanged: (value) {
-                                                  },
-                                                ): const Offstage()
-
-
-
-                                              ],
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      height:providerState.isContactTrue ? AppSize.s150 :AppSize.s100,
+                                      width:providerState.isContactTrue ? AppSize.s350 :AppSize.s480,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: providerState.isContactTrue ? 4: 3,
+                                            child: Container(
+                                              child: Column(
+                                                //alignment: WrapAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                // spacing: 10,
+                                                // runSpacing: 5,
+                                                children: [
+                                                  CheckboxTile(
+                                                    title: 'Nursing',
+                                                    initialValue: isNursing,
+                                                    onChanged: (value) {
+                                
+                                                    },
+                                                  ),
+                                                  CheckboxTile(
+                                                    title: //providerState.isContactTrue ?'Physical\nTherapy' :
+                                                    'Physical Therapy',
+                                                    initialValue: isPhysicalThe,
+                                                    onChanged: (value) {
+                                                    },
+                                                  ),
+                                                  providerState.isContactTrue ?
+                                                  CheckboxTile(
+                                                    title: //providerState.isContactTrue ?'Speech\nTherapy' :
+                                                    'Speech Therapy',
+                                                    initialValue: isOccupationalThe,
+                                                    onChanged: (value) {
+                                
+                                                    },
+                                                  )
+                                                  : CheckboxTile(
+                                                    title: //providerState.isContactTrue ?'Home Health\nAide' :
+                                                    'Home Health Aide',
+                                                    initialValue: isSpeechThe,
+                                                    onChanged: (value) {
+                                
+                                                    },
+                                                  ),
+                                                  providerState.isContactTrue ? CheckboxTile(
+                                                    title: 'Dietician',
+                                                    initialValue: isMedicalSocialThe,
+                                                    onChanged: (value) {
+                                                    },
+                                                  ): const Offstage()
+                                
+                                
+                                
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(width:providerState.isContactTrue ?  3 : 8 ,),
-                                        Expanded(
-                                          flex: providerState.isContactTrue ? 5: 4,
-                                          child: Container(
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                providerState.isContactTrue ?
-                                                CheckboxTile(
-                                                  title: //providerState.isContactTrue ?'Home Health\nAide' :
-                                                  'Home Health Aide',
-                                                  initialValue: isSpeechThe,
-                                                  onChanged: (value) {
-
-                                                  },
-                                                ) : CheckboxTile(
-                                                  title: //providerState.isContactTrue ?'Speech\nTherapy' :
-                                                  'Speech Therapy',
-                                                  initialValue: isOccupationalThe,
-                                                  onChanged: (value) {
-
-                                                  },
-                                                ),
-                                                CheckboxTile(
-                                                  title: // providerState.isContactTrue ?'Medical Social\nServices' :
-                                                  'Medical Social Services',
-                                                  initialValue: isSpeechThe,
-                                                  onChanged: (value) {
-
-                                                  },
-                                                ),
-                                                CheckboxTile(
-                                                  title: // providerState.isContactTrue ?'Occupational\nTherapy' :
-                                                  'Occupational Therapy',
-                                                  initialValue: isPhysicalThe,
-                                                  onChanged: (value) {
-                                                  },
-                                                ),
-                                                providerState.isContactTrue ? Container(height: 30,): const Offstage()
-                                              ],
+                                          SizedBox(width:providerState.isContactTrue ?  3 : 8 ,),
+                                          Expanded(
+                                            flex: providerState.isContactTrue ? 5: 4,
+                                            child: Container(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  providerState.isContactTrue ?
+                                                  CheckboxTile(
+                                                    title: //providerState.isContactTrue ?'Home Health\nAide' :
+                                                    'Home Health Aide',
+                                                    initialValue: isSpeechThe,
+                                                    onChanged: (value) {
+                                
+                                                    },
+                                                  ) : CheckboxTile(
+                                                    title: //providerState.isContactTrue ?'Speech\nTherapy' :
+                                                    'Speech Therapy',
+                                                    initialValue: isOccupationalThe,
+                                                    onChanged: (value) {
+                                
+                                                    },
+                                                  ),
+                                                  CheckboxTile(
+                                                    title: // providerState.isContactTrue ?'Medical Social\nServices' :
+                                                    'Medical Social Services',
+                                                    initialValue: isSpeechThe,
+                                                    onChanged: (value) {
+                                
+                                                    },
+                                                  ),
+                                                  CheckboxTile(
+                                                    title: // providerState.isContactTrue ?'Occupational\nTherapy' :
+                                                    'Occupational Therapy',
+                                                    initialValue: isPhysicalThe,
+                                                    onChanged: (value) {
+                                                    },
+                                                  ),
+                                                  providerState.isContactTrue ? Container(height: 30,): const Offstage()
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        providerState.isContactTrue ? const Offstage() : Expanded(
-                                          flex: 2,
-                                          child: Container(
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                CheckboxTile(
-                                                  title: 'Dietician',
-                                                  initialValue: isMedicalSocialThe,
-                                                  onChanged: (value) {
-                                                  },
-                                                ),
-                                              ],
+                                          providerState.isContactTrue ? const Offstage() : Expanded(
+                                            flex: 2,
+                                            child: Container(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  CheckboxTile(
+                                                    title: 'Dietician',
+                                                    initialValue: isMedicalSocialThe,
+                                                    onChanged: (value) {
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CustomDropdownTextFieldsm(
-                                    width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                    isIconVisible: false,
-                                    headText: 'Marketer',
-                                    onChanged: (newValue) {
-                                    },),
-                                  const SizedBox(height: AppSize.s14,),
-                                  CustomDropdownTextFieldsm(
-                                    width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                    headText: 'Referral Source',
-                                    onChanged: (newValue) {
 
-                                    },),
-                                  const SizedBox(height: AppSize.s14,),
-                                  SchedularTextField(
-                                    width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                    controller: caseManagerController,
-                                    labelText: 'Case Manager',
-                                  )
-                                ],
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomDropdownTextFieldsm(
+                                      width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                      isIconVisible: false,
+                                      headText: 'Marketer',
+                                      onChanged: (newValue) {
+                                      },),
+                                    const SizedBox(height: AppSize.s14,),
+                                    CustomDropdownTextFieldsm(
+                                      width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                      headText: 'Referral Source',
+                                      onChanged: (newValue) {
+
+                                      },),
+                                    const SizedBox(height: AppSize.s14,),
+                                    SchedularTextField(
+                                      width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                      controller: caseManagerController,
+                                      labelText: 'Case Manager',
+                                    )
+                                  ],
+                                ),
                               )
-                              // CheckboxTile(
-                              //   title: 'No Emergency Contact',
-                              //   initialValue: noEmergencyData,
-                              //   onChanged: (value) {
-                              //
-                              //   },
-                              // )
                             ],
                           ),
+
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.end,

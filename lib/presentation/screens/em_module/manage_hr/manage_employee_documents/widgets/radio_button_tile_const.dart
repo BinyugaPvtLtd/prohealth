@@ -116,28 +116,32 @@ class _CustomRadioListTileSMpState extends State<CustomRadioListTileSMp> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-               Transform.scale(
-                 scale:1.5,
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    unselectedWidgetColor: ColorManager.bluebottom, // border color when not selected
+               Flexible(
+                 child: Transform.scale(
+                   scale:1.5,
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      unselectedWidgetColor: ColorManager.bluebottom, // border color when not selected
+                    ),
+                    child: Radio<String>(
+                      splashRadius: 0,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      value: widget.value,
+                      groupValue: widget.groupValue,
+                      onChanged: widget.onChanged,
+                      activeColor: ColorManager.bluebottom,
+                    ),
                   ),
-                  child: Radio<String>(
-                    splashRadius: 0,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    value: widget.value,
-                    groupValue: widget.groupValue,
-                    onChanged: widget.onChanged,
-                    activeColor: ColorManager.bluebottom,
-                  ),
-                ),
-              ),
+                               ),
+               ),
              SizedBox(width: 8),
-              Text(
-                widget.title,
-                style: DocumentTypeDataStyle.customTextStyle(context)
-                //providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :DocumentTypeDataStyle.customTextStyle(context),
+              Flexible(
+                child: Text(
+                  widget.title,
+                  style: DocumentTypeDataStyle.customTextStyle(context)
+                  //providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :DocumentTypeDataStyle.customTextStyle(context),
+                ),
               ),
               //SizedBox( width: AppSize.s50,)
             ],

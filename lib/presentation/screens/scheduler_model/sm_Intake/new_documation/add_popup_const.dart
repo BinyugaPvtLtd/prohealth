@@ -5,6 +5,8 @@ import '../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../em_module/widgets/button_constant.dart';
 import '../../../em_module/widgets/dialogue_template.dart';
@@ -204,31 +206,6 @@ Padding(
 )
 
 
-//Container(
-//                   width: double.infinity, // Ensure full width
-//                   height: 300, // Adjust height as needed
-//                   child: Timeline(
-//                     children: <Widget>[
-//                       Container(height: 20, color: Colors.blue),
-//                       Container(height: 20, color: Colors.green),
-//                       Container(height: 20, color: Colors.red),
-//                       Container(height: 20, color: Colors.orange),
-//                      // Container(height: 20, color: Colors.pink),
-//                     ],
-//                     indicators: <Widget>[
-//                       Icon(Icons.access_alarm,size: 10,),
-//                       Icon(Icons.backup,size: 10,),
-//                       Icon(Icons.accessibility_new,size: 10,),
-//                       Icon(Icons.access_alarm,size: 10,),
-//                     ],
-//                     isLeftAligned: true,
-//                     itemGap: 2.0,
-//                     lineColor: Colors.blueAccent,
-//                     indicatorSize: 20.0,
-//                     indicatorColor: Colors.blue,
-//                     strokeWidth: 3.0,
-//                   ),
-//                 ),
 
           ],
         ),
@@ -236,137 +213,222 @@ Padding(
 
     );
 
-    ///
-    ///
-    ///
 
 
 
-    return DialogueTemplate(
-      width: AppSize.s400,
-      height: AppSize.s430,
-      body: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            HeaderContentConst(
-              isAsterisk: false,
-              heading: AppString.type_of_the_document,
-              content: Container(
-                width: 354,
-                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+  }
+}
+
+
+
+
+
+
+class CustomAddButtonsm extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const CustomAddButtonsm({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 160,
+      height: 35,
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        label: Text(
+          text,
+          style: TextStyle(
+            fontSize: FontSize.s13,
+            fontWeight: FontWeight.w600,
+            color: ColorManager.white,
+            decoration: TextDecoration.none,
+          ),
+        ),
+        icon: const Icon(Icons.add),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: ColorManager.bluebottom,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+class FileInfoCard extends StatelessWidget {
+  final String fileName;
+  final String uploadedInfo;
+  final bool isContact;
+  final VoidCallback onHistoryTap;
+  final VoidCallback onTelegramTap;
+  final VoidCallback onPrintTap;
+  final VoidCallback onDownloadTap;
+  final VoidCallback onDeleteTap;
+
+  const FileInfoCard({
+    Key? key,
+    required this.fileName,
+    required this.uploadedInfo,
+    required this.isContact,
+    required this.onHistoryTap,
+    required this.onTelegramTap,
+    required this.onPrintTap,
+    required this.onDownloadTap,
+    required this.onDeleteTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final iconSize = isContact ? IconSize.I18 : IconSize.I24;
+    final horizontalPadding = isContact ? 0.0 : 35.0;
+    final contentText = isContact
+        ? "Contents: Progress Notes,\nMedication Profile, Demographics"
+        : "Contents: Progress Notes, Medication Profile, Demographics";
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 10),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            decoration: BoxDecoration(
+              color: ColorManager.white,
+              borderRadius: BorderRadius.circular(8.0),
+              boxShadow: [
+                BoxShadow(
+                  color: ColorManager.black.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: const Offset(0, 4),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                     "",
-                      style: DocumentTypeDataStyle.customTextStyle(context),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
-              ),
+              ],
             ),
-            ///
-            HeaderContentConst(
-              isAsterisk: false,
-              heading: AppString.type_of_the_document,
-              content: Container(
-                width: 354,
-                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
                   children: [
-                    Text(
-                     "",
-                      style: DocumentTypeDataStyle.customTextStyle(context),
+                    const SizedBox(width: 10),
+                    Container(
+                      color: ColorManager.blueprime,
+                      height: AppSize.s45,
+                      width: AppSize.s65,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Image.asset("images/sm/eye_outline.png"),
+                      ),
                     ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.transparent,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            /// upload  doc
-            HeaderContentConst(
-              isAsterisk: false,
-              heading: AppString.upload_document,
-              content: InkWell(
-                onTap:(){},
-                child: Container(
-                  height: AppSize.s30,
-                  width: AppSize.s354,
-                  padding: EdgeInsets.only(left: AppPadding.p10),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: ColorManager.containerBorderGrey,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: StatefulBuilder(
-                    builder: (BuildContext context,
-                        void Function(void Function()) setState) {
-                      return Padding(
-                        padding: const EdgeInsets.all(0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "",
-                                style: DocumentTypeDataStyle.customTextStyle(context),
-                              ),
-                            ),
-                            IconButton(
-                              padding: EdgeInsets.all(4),
-                              onPressed: (){},
-                              icon: Icon(
-                                Icons.file_upload_outlined,
-                                color: ColorManager.black,
-                                size: 20,
-                              ),
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                            ),
-                          ],
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          fileName,
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w600,
+                            color: ColorManager.mediumgrey,
+                          ),
                         ),
-                      );
-                    },
+                        const SizedBox(height: AppSize.s3),
+                        Text(
+                          uploadedInfo,
+                          style: TextStyle(
+                            fontSize: isContact ? FontSize.s12 : FontSize.s11,
+                            fontWeight: FontWeight.w300,
+                            fontStyle: FontStyle.italic,
+                            color: ColorManager.granitegray,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Center(
+                    child: Text(
+                      contentText,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeight.w600,
+                        color: ColorManager.cream,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
-              ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: IconButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          icon: Icon(Icons.history, size: iconSize, color: ColorManager.granitegray),
+                          onPressed: onHistoryTap,
+                        ),
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          child: Image.asset("images/sm/telegram.png", height: iconSize),
+                          onTap: onTelegramTap,
+                        ),
+                      ),
+                      Expanded(
+                        child: IconButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          icon: Icon(Icons.print_outlined, size: iconSize, color: ColorManager.granitegray),
+                          onPressed: onPrintTap,
+                        ),
+                      ),
+                      Expanded(
+                        child: IconButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          icon: Icon(Icons.file_download_outlined, size: iconSize, color: const Color(0xff686464)),
+                          onPressed: onDownloadTap,
+                        ),
+                      ),
+                      Expanded(
+                        child: IconButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          icon: Icon(Icons.delete_outline, size: iconSize, color: const Color(0xff686464)),
+                          onPressed: onDeleteTap,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 50,),
-          ],
-        ),
-
-      ],
-      bottomButtons: CustomElevatedButton(
-        width: AppSize.s105,
-        height: AppSize.s30,
-        text: AppStringEM.submit,
-        onPressed: () {},
+          ),
+        ],
       ),
-      title: widget.title,
     );
-
-
   }
 }

@@ -273,30 +273,37 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                               //AllPopupHeadings.customTextStyle(context)
                             ),
                             SizedBox(height: 5),
-                            Row(
-                              children: [
-                                CustomRadioListTileSMp(
-                                  title: 'No',
-                                  value: 'No',
-                                  groupValue: statustype,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      statustype = value;
-                                    });
-                                  },
-                                ),
-                                providerState.isContactTrue ? SizedBox(width: 15,) : Offstage(),
-                                CustomRadioListTileSMp(
-                                  title: 'Yes',
-                                  value: 'Yes',
-                                  groupValue: statustype,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      statustype = value;
-                                    });
-                                  },
-                                ),
-                              ],
+                            SizedBox(
+                              width: 200,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomRadioListTileSMp(
+                                      title: 'No',
+                                      value: 'No',
+                                      groupValue: statustype,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          statustype = value;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  providerState.isContactTrue ? SizedBox(width: 15,) : Offstage(),
+                                  Expanded(
+                                    child: CustomRadioListTileSMp(
+                                      title: 'Yes',
+                                      value: 'Yes',
+                                      groupValue: statustype,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          statustype = value;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -304,20 +311,20 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                       SizedBox(width: providerState.isContactTrue ? AppSize.s90 : AppSize.s35),
                       Padding(
                         padding: EdgeInsets.only(right: providerState.isContactTrue ?140 :0),
-                        child: Container(
-                          child: Flexible(
-                              child: SchedularTextField(
-                                width: 250 ,
-                                  controller: pecosController,
-                                  labelText: "PECOS Status")),
+                        child: SizedBox(
+                          width: 250,
+                          child: SchedularTextField(
+                            width: 250 ,
+                              controller: pecosController,
+                              labelText: "PECOS Status"),
                         ),
                       ),
                       providerState.isContactTrue ?Offstage() : SizedBox(width: AppSize.s35),
-                      providerState.isContactTrue ?Offstage() : Flexible(child: SizedBox(width:0)),
+                      providerState.isContactTrue ?Offstage() : SizedBox(width:0),
                       providerState.isContactTrue ?Offstage() :  SizedBox(width: AppSize.s35),
-                      Flexible(child: SizedBox(width:0)),
+                      SizedBox(width:0),
                       providerState.isContactTrue ?Offstage() : SizedBox(width: AppSize.s35),
-                      providerState.isContactTrue ?Offstage() : Flexible(child: SizedBox(width:0)),
+                      providerState.isContactTrue ?Offstage() : SizedBox(width:0),
                     ],
                   ),
                   SizedBox(height: AppSize.s16),
@@ -327,17 +334,21 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SchedularTextField(
-                            width: providerState.isContactTrue?250 :400,
-                            controller: verificationController,
-                            isIconVisible: true,
-                            labelText: "Verification Details"),
+                        Flexible(
+                          child: SchedularTextField(
+                              width: providerState.isContactTrue?250 :400,
+                              controller: verificationController,
+                              isIconVisible: true,
+                              labelText: "Verification Details"),
+                        ),
                         SizedBox(width: AppSize.s35),
-                        SchedularTextField(
-                          width:  providerState.isContactTrue?250 :400,
-                            controller: trakingController,
-                            isIconVisible: true,
-                            labelText: "Tracking Notes"),
+                        Flexible(
+                          child: SchedularTextField(
+                            width:  providerState.isContactTrue?250 :400,
+                              controller: trakingController,
+                              isIconVisible: true,
+                              labelText: "Tracking Notes"),
+                        ),
                         // Flexible(
                         //     child: SizedBox(width:0)),
                       ],

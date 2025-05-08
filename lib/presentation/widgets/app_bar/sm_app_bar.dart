@@ -1055,7 +1055,6 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
                     ],
                   );
                 },
-
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
