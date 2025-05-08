@@ -1785,7 +1785,6 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                     child: Text(county.countyName),
                                   ))
                                   .toList();
-
                               return CICCDropdown(
                                 items: countyDropDownList,
                                 initialValue: selectedCounty,
