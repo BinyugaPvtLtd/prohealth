@@ -48,6 +48,7 @@ class RefferalPendingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
+    TextEditingController _searchController = TextEditingController();
     return Stack(
       children: [
         Padding(
@@ -66,6 +67,7 @@ class RefferalPendingScreen extends StatelessWidget {
                   Row(
                     children: [
                       CustomSearchFieldSM(
+                        searchController: _searchController,
                         width: 440,
                         onPressed: () {},
                       ),
@@ -218,7 +220,7 @@ class RefferalPendingScreen extends StatelessWidget {
               StreamBuilder<List<PatientModel>>(
                 stream: _streamController.stream,
                 builder: (context,snapshot) {
-                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 20, isIntake: 'false', isArchived: 'false', searchName: 'all', marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
+                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 20, isIntake: 'false', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text, marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
                     _streamController.add(data);
                   }).catchError((error) {
                     // Handle error
@@ -283,7 +285,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     border:  Border(
                                       left: BorderSide(
-                                        color: snapshot.data![index].thresould == 0 ? ColorManager.greenDark : snapshot.data![index].thresould == 1 ?ColorManager.pieChartFYellow:ColorManager.red,
+                                        color: snapshot.data![index].thresould == 0 ? ColorManager.greenDark : snapshot.data![index].thresould == 1 ?const Color(0xFFFEBD4D):ColorManager.red,
                                         width: 6,
                                       ),
                                     ),
@@ -723,7 +725,9 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   ),
                                                   onPressed: () async{
 
-                                                  var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: true, isArchived: false);
+                                                  var response = await updateReferralPatient(context: context,
+                                                      isUpdatePatiendData: false,
+                                                      patientId:  snapshot.data![index].ptId, isIntake: true, isArchived: false);
                                                   if(response.statusCode == 200 || response.statusCode == 201){
                                                     //onMoveToIntake();
                                                     showDialog(
@@ -804,7 +808,9 @@ class RefferalPendingScreen extends StatelessWidget {
                                                     highlightColor: Colors.transparent,
                                                     hoverColor: Colors.transparent,
                                                     onTap: () async{
-                                                      var response = await updateReferralPatient(context: context, patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
+                                                      var response = await updateReferralPatient(context: context,
+                                                          isUpdatePatiendData: false,
+                                                          patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
                                                       if(response.statusCode == 200 || response.statusCode == 201){
                                                        Navigator.pop(context);
                                                        showDialog(
