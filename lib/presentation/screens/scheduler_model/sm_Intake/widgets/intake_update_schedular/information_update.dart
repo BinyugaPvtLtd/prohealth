@@ -160,13 +160,13 @@ class InformationUpdateScreen extends StatelessWidget {
                                                       style: CustomTextStylesCommon.commonStyle(
                                                           color:  Color(0xFF1696C8),
                                                           fontSize: FontSize.s11,
-                                                          fontWeight: FontWeight.w400)),
+                                                          fontWeight: FontWeight.w700)),
                                                 )),
 
                                           ]
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p30),
+                                        padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p40),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.center,

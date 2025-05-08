@@ -1767,7 +1767,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                 return const Text("Error fetching counties");
                               }
                               if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                return const Text('No Data available');
+                                return  _buildPlaceholder(text:'No Data available');
                               }
 
                               List<DropdownMenuItem<String>> countyDropDownList = snapshot.data!

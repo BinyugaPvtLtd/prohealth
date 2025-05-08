@@ -40,7 +40,8 @@ class _CheckboxTileState extends State<CheckboxTile> {
   Widget build(BuildContext context) {
     return Consumer<SmIntakeProviderManager>(
       builder: (context,providerState,child) {
-        return Row(
+        return
+          Row(
           children: [
             Theme(
               data: Theme.of(context).copyWith(
@@ -156,6 +157,153 @@ class _CheckboxTileDetailsState extends State<CheckboxTileDetails> {
               color: Colors.white),
         ),
       ],
+    );
+  }
+}
+
+
+class ExpCheckboxTile extends StatefulWidget {
+  final String title;
+  final bool initialValue;
+  final Function(bool)? onChanged;
+  final bool? isInfoIconVisible;
+  final Image? icon;
+
+  ExpCheckboxTile({
+    this.isInfoIconVisible = false,
+    required this.title,
+    this.initialValue = false,
+    this.onChanged, this.icon,
+  });
+
+  @override
+  _ExpCheckboxTileState createState() => _ExpCheckboxTileState();
+}
+
+class _ExpCheckboxTileState extends State<ExpCheckboxTile> {
+  late bool _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.initialValue;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<SmIntakeProviderManager>(
+        builder: (context,providerState,child) {
+          return Row(
+            children: [
+              Theme(
+                data: Theme.of(context).copyWith(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  unselectedWidgetColor: ColorManager.bluebottom,
+                  checkboxTheme: CheckboxThemeData(
+                    side: BorderSide(color: ColorManager.bluebottom, width: 2),
+                  ),
+                ),
+                child: Checkbox(
+                  splashRadius: 0,
+                  activeColor: ColorManager.bluebottom,
+                  value: _value,
+                  onChanged: (value) {
+                    setState(() {
+                      _value = value!;
+                    });
+                    if (widget.onChanged != null) {
+                      widget.onChanged!(_value);
+                    }
+                  },
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(  // <-- Wrap the inner Row with Expanded
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(  // Make text wrap if necessary
+                      child: Text(
+                        widget.title,
+                        style: SMTextfieldHeadings.customTextStyle(context),
+                        overflow: TextOverflow.ellipsis, // Optional for truncation
+                      ),
+                    ),
+                    if (widget.isInfoIconVisible!)
+                      widget.icon ??
+                          SvgPicture.asset(
+                            'images/sm/sm_refferal/i_circle.svg',
+                            height: IconSize.I20,
+                            width: IconSize.I20,
+                          )
+                  ],
+                ),
+              ),
+            ],
+          );
+
+
+          //   Row(
+          //   children: [
+          //     Theme(
+          //       data: Theme.of(context).copyWith(
+          //         splashColor: Colors.transparent,
+          //         highlightColor: Colors.transparent,
+          //         hoverColor: Colors.transparent,
+          //         unselectedWidgetColor:
+          //         ColorManager.bluebottom, // border color when unchecked
+          //         checkboxTheme: CheckboxThemeData(
+          //           side: BorderSide(
+          //               color: ColorManager.bluebottom, width: 2), // border styling
+          //         ),
+          //       ),
+          //       child: Checkbox(
+          //         splashRadius: 0,
+          //         activeColor: ColorManager.bluebottom,
+          //         value: _value,
+          //         onChanged: (value) {
+          //           setState(() {
+          //             _value = value!;
+          //           });
+          //           if (widget.onChanged != null) {
+          //             widget.onChanged!(_value);
+          //           }
+          //         },
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 8,
+          //     ),
+          //     Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //       children: [
+          //         Text(
+          //             widget.title,
+          //             style:
+          //             // providerState.isContactTrue ?
+          //             // SMTextfieldResponsiveHeadings.customTextStyle(context)
+          //             //     :
+          //             SMTextfieldHeadings.customTextStyle(context)
+          //           //AllPopupHeadings.customTextStyle(context)
+          //         ),
+          //         SizedBox(width: 10,),
+          //         widget.isInfoIconVisible!
+          //             ? widget.icon ??
+          //             SvgPicture.asset(
+          //               'images/sm/sm_refferal/i_circle.svg',
+          //               height: IconSize.I20,
+          //               width: IconSize.I20,
+          //             )
+          //             : Offstage()
+          //       ],
+          //     ),
+          //     //
+          //
+          //   ],
+          // );
+        }
     );
   }
 }
