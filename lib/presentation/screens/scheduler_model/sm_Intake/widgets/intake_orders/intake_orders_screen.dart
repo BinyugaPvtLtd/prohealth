@@ -150,13 +150,16 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                     ),
 
                                   const SizedBox(height: AppSize.s14,),
-                                  ExpCheckboxTile(
-                                    title: 'Orders Signed and Date',
-                                    initialValue: ordersSignAndDate,
-                                    isInfoIconVisible: true,
-                                    onChanged: (value) {
+                                  SizedBox(
+                                    width: 300,
+                                    child: ExpCheckboxTile(
+                                      title: 'Orders Signed and Date',
+                                      initialValue: ordersSignAndDate,
+                                      isInfoIconVisible: true,
+                                      onChanged: (value) {
 
-                                    },
+                                      },
+                                    ),
                                   )
                                 ],
                               ),

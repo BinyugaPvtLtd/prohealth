@@ -483,6 +483,7 @@ import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../em_module/widgets/button_constant.dart';
+import '../../../../../hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
 import '../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
@@ -1167,24 +1168,29 @@ class PTPageview extends StatefulWidget {
 }
 
 class _PTPageviewState extends State<PTPageview> {
+
+
+  bool allvisits = true;
+  bool rocsoc = false;
+  bool casemanager = false;
+  bool followup = false;
   @override
   Widget build(BuildContext context) {
     TextEditingController firstNameController = TextEditingController();
     bool isAssigned = false;
     String? selectedType = "Auto-assign";
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: AppSize.s25,),
-        Container(
-          // width: 500,
-          child:     Column(
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: AppSize.s25,),
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10,bottom: 15),
                     child: Text(
                       'Assignment Type',
                       style: AllPopupHeadings.customTextStyle(context),
@@ -1201,6 +1207,7 @@ class _PTPageviewState extends State<PTPageview> {
                           selectedType = value!;
                         });
                       }, title: "Auto-assign"),
+          SizedBox(width: 60,),
                   CustomRadioListTile(value: "Sent Request",
                       groupValue: selectedType,
                       onChanged: (value) {
@@ -1208,303 +1215,566 @@ class _PTPageviewState extends State<PTPageview> {
                           selectedType = value!;
                         });
                       }, title: "Sent Request"),
-                  CustomRadioListTile(value: "Mark as Confirm",
-                      groupValue: selectedType,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedType = value!;
-                        });
-                      }, title: "Mark as Confirm"),
+          
                 ],
               ),
             ],
           ),
-        ),
-        SizedBox(height: AppSize.s25,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.white,  // Background color (adjust as needed)
-                border: Border.all(
-                  color: ColorManager.bluebottom,  // Border color
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(12),  // Circular border radius
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text("In Zone", style:TextStyle(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.greenDark,
-                        ),),
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Stack(
-
-                                  children: [SizedBox(
-                                    height: 60,  // Adjust height for circle size
-                                    width: 60,
-                                    child: CircleAvatar(
-                                      child:
-                                      Image.asset('images/1.png',fit: BoxFit.contain,),
+          SizedBox(height: AppSize.s25,),
+      
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // Card Section - takes fixed ratio of space
+              Expanded(
+                flex: 2,
+                child: Container(
+                  margin: EdgeInsets.only(right: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: ColorManager.bluebottom, width: 2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "In Zone",
+                            style: TextStyle(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.greenDark,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: AppSize.s60,
+                                    height: AppSize.s60,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(60),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(60),
+                                      child: SizedBox(
+                                        width: AppSize.s45,
+                                        height: AppSize.s45,
+                                        child: Image.asset(
+                                          'images/1.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                    Positioned(
-                                      right:0,
-                                      bottom :0,
-                                      child: Container(
+                                  Positioned(
+                                    left: 40,
+                                    bottom: 5,
+                                    child: Container(
+                                      width: 19,
+                                      height: 19,
+                                      decoration: BoxDecoration(
                                         color: Color(0xFF527FB9),
-                                        width: 19,
-                                        height: 19,
-                                        child: Center(
-                                          child: Text("ST",style: TextStyle(
-                                            // fontWeight: FontWeight.w600,
-                                            // fontSize: FontSize.s13,
+                                        borderRadius: BorderRadius.circular(3),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "ST",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 10,
                                             color: ColorManager.white,
                                             decoration: TextDecoration.none,
-                                          ),),
+                                          ),
                                         ),
-                                      ),)
-                                  ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                " ",
+                                style: TextStyle(
+                                  fontSize: FontSize.s14,
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorManager.greenDark,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: 10),
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Adam Johnson",
+                                  style: TextStyle(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w700,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Available (22 / 25)",
+                                  style: TextStyle(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w600,
+                                    color: ColorManager.greenDark,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Sacramento Z1 (2.4 Miles Away)",
+                                  style: TextStyle(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Salaried",
+                                  style: TextStyle(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w700,
+                                    color: ColorManager.mediumgrey,
+                                  ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5),
-                            Text("\$24", style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.greenDark,
-                            ),),
-                          ],
-                        ),
-                        SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Adam Johnson", style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey,
-                            ),),
-                            SizedBox(height: 5),
-                            Text("Available", style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.greenDark,
-                            ),),
-                            SizedBox(height: 5),
-                            Text("Sacramento Z1 (2.4 Miles Away)", style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.mediumgrey,
-                            ),),
-                            SizedBox(height: 5),
-                            Text("Salaried", style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey,
-                            ),),
-
-                          ],
-                        ),
-
-                      ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                    ],
+                  ),
+                ),
+              ),
+      
+              // Checkbox Section
+              Expanded(
+                flex: 7,
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 150,
+                      child: Icon(Icons.close, color: Colors.redAccent),
                     ),
-                    SizedBox(height: 5),
+                    Flexible(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ExpCheckboxTile(
+                              title: 'All Visits',
+                              initialValue: allvisits,
+                              isInfoIconVisible: false,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                          Expanded(
+                            child: ExpCheckboxTile(
+                              title: 'SOC/ROC/EVAL',
+                              initialValue: rocsoc,
+                              isInfoIconVisible: false,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                          Expanded(
+                            child: ExpCheckboxTile(
+                              title: 'Case Manager',
+                              initialValue: casemanager,
+                              isInfoIconVisible: false,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                          Expanded(
+                            child: ExpCheckboxTile(
+                              title: 'Follow Up Visits',
+                              initialValue: followup,
+                              isInfoIconVisible: false,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                          Expanded(flex:1,child: Container())
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-
-            Container(
-              width: 300,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Week 1 ", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                  ),),
-                  SizedBox(height: AppSize.s25,),
-                  Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-                  SizedBox(height: 10),
-                  Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-
-
-                ],
-              ),
-            ),
-
-            SizedBox(
-              height: 120, // Set this to match the height of your container
-              child: VerticalDivider(
-                width: 2,  // Divider width
-                color: ColorManager.containerBorderGrey, // Divider color
-                thickness: 2, // Thickness of the divider
-              ),
-            ),
-            Container(
-              width: 300,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Week 2 ", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                  ),),
-                  SizedBox(height: AppSize.s25,),
-                  Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-                  SizedBox(height: 10),
-                  Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-
-
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 120, // Set this to match the height of your container
-              child: VerticalDivider(
-                width: 2,  // Divider width
-                color: ColorManager.containerBorderGrey, // Divider color
-                thickness: 2, // Thickness of the divider
-              ),
-            ),
-            Container(
-              width: 300,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Week 3 ", style:TextStyle(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                      ),),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.close,color: ColorManager.faintOrange,))
-                    ],
-                  ),
-                  SizedBox(height: AppSize.s15,),
-                  Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-                  SizedBox(height: 10),
-                  Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-
-                  SizedBox(height: 20),
-                ],
-              ),
-            ),
-            SizedBox(width: 10,),
-          ],
-        ),
-
-        SizedBox(height: AppSize.s30,),
-        Text(
-          "Notes to Clinician",
-          style: CustomTextStylesCommon.commonStyle(
-              color: ColorManager.mediumgrey,
-              fontSize: FontSize.s14,
-              fontWeight: FontWeight.w600),
-        ),
-        SizedBox(height: 10),
-        Container(
-          width:  AppSize.s400,
-          height: AppSize.s45,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-            borderRadius: BorderRadius.circular(5),
+            ],
           ),
-          child: TextFormField(
-            autofocus: true,
-            enabled: true ,
-            controller: firstNameController,
-            cursorColor: Colors.black,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            decoration: InputDecoration(
-              hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 10),
-            ),
-            style: TableSubHeading.customTextStyle(context),
-            //validator: widget.validator,
-            onTap: (){},
-            //validator: widget.validator,
-            // onTap: widget.onChange,
+      
+          ///
+          ///
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   children: [
+          //     Expanded(
+          //       flex: 3,
+          //       child: Container(
+          //         width: double.infinity,
+          //         margin: EdgeInsets.only(right: 20),
+          //         padding: EdgeInsets.only(left: 5, right: 8, top: 5,bottom: 5),
+          //         decoration: BoxDecoration(
+          //           border: Border.all(color: ColorManager.bluebottom,width: 2),
+          //           borderRadius: BorderRadius.circular(12),
+          //         ),
+          //         child: Column(
+          //
+          //           children: [
+          //             Row(
+          //               mainAxisAlignment: MainAxisAlignment.end,
+          //               children: [
+          //                 Text("In Zone", style:TextStyle(
+          //                   fontSize: FontSize.s12,
+          //                   fontWeight: FontWeight.w700,
+          //                   color: ColorManager.greenDark,
+          //                 ),),
+          //               ],
+          //             ),
+          //             SizedBox(height: 5),
+          //             Row(
+          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //               children: [
+          //                 Column(
+          //                   crossAxisAlignment: CrossAxisAlignment.start,
+          //                   children: [
+          //                     Stack(
+          //                       children: [
+          //                         Container(
+          //                           width: AppSize.s60, // Larger than image
+          //                           height: AppSize.s60, // Slightly larger height
+          //                           alignment: Alignment.center,
+          //                           decoration: BoxDecoration(
+          //                             // color: Colors.grey[200], // Optional background color
+          //                             borderRadius: BorderRadius.circular(60),
+          //                           ),
+          //                           child: ClipRRect(
+          //                             borderRadius: BorderRadius.circular(60),
+          //                             child: SizedBox(
+          //                               width: AppSize.s45,
+          //                               height: AppSize.s45,
+          //                               child: Image.asset(
+          //                                 'images/1.png',
+          //                                 fit: BoxFit.cover,
+          //                               ),
+          //                             ),
+          //                           ),
+          //                         ),
+          //                         Positioned(
+          //                           left: 40, // Adjusted to fit new container size
+          //                           bottom: 5,
+          //                           child: Container(
+          //                             width: 19,
+          //                             height: 19,
+          //                             decoration: BoxDecoration(
+          //                               color: Color(0xFF527FB9),
+          //                               borderRadius: BorderRadius.circular(3),
+          //                             ),
+          //                             child: Center(
+          //                               child: Text(
+          //                                 "ST",
+          //                                 style: TextStyle(
+          //                                   fontWeight: FontWeight.w400,
+          //                                   fontSize: 10,
+          //                                   color: ColorManager.white,
+          //                                   decoration: TextDecoration.none,
+          //                                 ),
+          //                               ),
+          //                             ),
+          //                           ),
+          //                         ),
+          //                       ],
+          //                     ),
+          //                     SizedBox(height: 10),
+          //                     Text(" ", style:TextStyle(
+          //                       fontSize: FontSize.s14,
+          //                       fontWeight: FontWeight.w700,
+          //                       color: ColorManager.greenDark,
+          //                     ),),
+          //                   ],
+          //                 ),
+          //                 SizedBox(width: 10),
+          //                 Column(
+          //                   crossAxisAlignment: CrossAxisAlignment.start,
+          //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //                   children: [
+          //                     Text("Adam Johnson", style:TextStyle(
+          //                       fontSize: FontSize.s12,
+          //                       fontWeight: FontWeight.w700,
+          //                       color: ColorManager.mediumgrey,
+          //                     ),),
+          //                     SizedBox(height: 10),
+          //                     Text("Available (22 / 25)", style:TextStyle(
+          //                       fontSize: FontSize.s12,
+          //                       fontWeight: FontWeight.w600,
+          //                       color: ColorManager.greenDark,
+          //                     ),),
+          //                     SizedBox(height: 10),
+          //                     Text("Sacramento Z1 (2.4 Miles Away)", style:TextStyle(
+          //                       fontSize: FontSize.s12,
+          //                       fontWeight: FontWeight.w400,
+          //                       color: ColorManager.mediumgrey,
+          //                     ),),
+          //                     SizedBox(height: 10),
+          //                     Text("Salaried", style:TextStyle(
+          //                       fontSize: FontSize.s12,
+          //                       fontWeight: FontWeight.w700,
+          //                       color: ColorManager.mediumgrey,
+          //                     ),),
+          //
+          //                   ],
+          //                 ),
+          //
+          //               ],
+          //             ),
+          //             SizedBox(height: 5),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //
+          //     Flexible(
+          //       flex: 5,
+          //       child: Row(
+          //         children: [
+          //
+          //       SizedBox(width: 100,child: Icon(Icons.close,color: Colors.redAccent,),),
+          //
+          //           SizedBox(
+          //             width: 120,
+          //             child: ExpCheckboxTile(
+          //               title: 'All Visits',
+          //               initialValue: allvisits,
+          //               isInfoIconVisible: false,
+          //               onChanged: (value) {
+          //
+          //               },
+          //             ),
+          //           ),
+          //           SizedBox(
+          //             width: 150,
+          //             child: ExpCheckboxTile(
+          //               title: 'SOC/ROC/EVAL',
+          //               initialValue: rocsoc,
+          //               isInfoIconVisible: false,
+          //               onChanged: (value) {
+          //
+          //               },
+          //             ),
+          //           ),
+          //           SizedBox(
+          //             width: 150,
+          //             child: ExpCheckboxTile(
+          //               title: 'Case Manager',
+          //               initialValue: casemanager,
+          //               isInfoIconVisible: false,
+          //               onChanged: (value) {
+          //
+          //               },
+          //             ),
+          //           ),
+          //           SizedBox(
+          //             width: 150,
+          //             child: ExpCheckboxTile(
+          //               title: 'Follow Up Visits',
+          //               initialValue: followup,
+          //               isInfoIconVisible: false,
+          //               onChanged: (value) {
+          //
+          //               },
+          //             ),
+          //           )
+          //
+          //         ],
+          //       ),
+          //     )
+          //
+          //     // Container(
+          //     //   width: 300,
+          //     //   child: Column(
+          //     //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     //     children: [
+          //     //       Text("Week 1 ", style:TextStyle(
+          //     //         fontSize: FontSize.s14,
+          //     //         fontWeight: FontWeight.w700,
+          //     //         color: ColorManager.mediumgrey,
+          //     //       ),),
+          //     //       SizedBox(height: AppSize.s25,),
+          //     //       Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
+          //     //         fontSize: FontSize.s14,
+          //     //         fontWeight: FontWeight.w400,
+          //     //         color: ColorManager.mediumgrey,
+          //     //       ),),
+          //     //       SizedBox(height: 10),
+          //     //       Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
+          //     //         fontSize: FontSize.s14,
+          //     //         fontWeight: FontWeight.w400,
+          //     //         color: ColorManager.mediumgrey,
+          //     //       ),),
+          //     //
+          //     //
+          //     //     ],
+          //     //   ),
+          //     // ),
+          //     //
+          //     // SizedBox(
+          //     //   height: 120, // Set this to match the height of your container
+          //     //   child: VerticalDivider(
+          //     //     width: 2,  // Divider width
+          //     //     color: ColorManager.containerBorderGrey, // Divider color
+          //     //     thickness: 2, // Thickness of the divider
+          //     //   ),
+          //     // ),
+          //     // Container(
+          //     //   width: 300,
+          //     //   child: Column(
+          //     //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     //     children: [
+          //     //       Text("Week 2 ", style:TextStyle(
+          //     //         fontSize: FontSize.s14,
+          //     //         fontWeight: FontWeight.w700,
+          //     //         color: ColorManager.mediumgrey,
+          //     //       ),),
+          //     //       SizedBox(height: AppSize.s25,),
+          //     //       Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
+          //     //         fontSize: FontSize.s14,
+          //     //         fontWeight: FontWeight.w400,
+          //     //         color: ColorManager.mediumgrey,
+          //     //       ),),
+          //     //       SizedBox(height: 10),
+          //     //       Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
+          //     //         fontSize: FontSize.s14,
+          //     //         fontWeight: FontWeight.w400,
+          //     //         color: ColorManager.mediumgrey,
+          //     //       ),),
+          //     //
+          //     //
+          //     //     ],
+          //     //   ),
+          //     // ),
+          //     // SizedBox(
+          //     //   height: 120, // Set this to match the height of your container
+          //     //   child: VerticalDivider(
+          //     //     width: 2,  // Divider width
+          //     //     color: ColorManager.containerBorderGrey, // Divider color
+          //     //     thickness: 2, // Thickness of the divider
+          //     //   ),
+          //     // ),
+          //     // Container(
+          //     //   width: 300,
+          //     //   child: Column(
+          //     //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     //     children: [
+          //     //       Row(
+          //     //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     //         children: [
+          //     //           Text("Week 3 ", style:TextStyle(
+          //     //             fontSize: FontSize.s14,
+          //     //             fontWeight: FontWeight.w700,
+          //     //             color: ColorManager.mediumgrey,
+          //     //           ),),
+          //     //           IconButton(onPressed: (){}, icon: Icon(Icons.close,color: ColorManager.faintOrange,))
+          //     //         ],
+          //     //       ),
+          //     //       SizedBox(height: AppSize.s15,),
+          //     //       Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
+          //     //         fontSize: FontSize.s14,
+          //     //         fontWeight: FontWeight.w400,
+          //     //         color: ColorManager.mediumgrey,
+          //     //       ),),
+          //     //       SizedBox(height: 10),
+          //     //       Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
+          //     //         fontSize: FontSize.s14,
+          //     //         fontWeight: FontWeight.w400,
+          //     //         color: ColorManager.mediumgrey,
+          //     //       ),),
+          //     //
+          //     //       SizedBox(height: 20),
+          //     //     ],
+          //     //   ),
+          //     // ),
+          //     // SizedBox(width: 10,),
+          //   ],
+          // ),
+      
+          SizedBox(height: AppSize.s30,),
+          Text(
+            "Notes to Clinician",
+            style: CustomTextStylesCommon.commonStyle(
+                color: ColorManager.mediumgrey,
+                fontSize: FontSize.s14,
+                fontWeight: FontWeight.w600),
           ),
-        ),
-        SizedBox(height: 10),
-        CustomeTransparentAddShift(
-            width: 130,
-            height: 30,
-            text: "Add Clinician", onPressed: (){}),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () {},
-              backgroundColor: ColorManager.bluebottom, // Adjust color as needed
-              shape: CircleBorder(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
-                  //SizedBox(height: 4),
-                  Text(
-                    'Contact',
-                    style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
-                  ),
-                ],
+          SizedBox(height: 10),
+          Container(
+            width:  AppSize.s400,
+            height: AppSize.s50,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: TextFormField(
+              autofocus: false,
+              enabled: false ,
+              controller: firstNameController,
+              cursorColor: Colors.black,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
               ),
-            )
-          ],
-        ),
-        Divider(),
-        Spacer(),
-        Center(
-          child: Row(
+              style: TableSubHeading.customTextStyle(context),
+              //validator: widget.validator,
+              onTap: (){},
+              //validator: widget.validator,
+              // onTap: widget.onChange,
+            ),
+          ),
+          SizedBox(height: 20),
+          CustomeTransparentAddShift(
+              width: 130,
+              height: 30,
+              text: "Add Clinician", onPressed: (){}),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: ColorManager.bluebottom, // Adjust color as needed
+                shape: CircleBorder(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
+                    //SizedBox(height: 4),
+                    Text(
+                      'Contact',
+                      style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          Divider(),
+        //  Spacer(),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomElevatedButton(
@@ -1515,9 +1785,9 @@ class _PTPageviewState extends State<PTPageview> {
                 onPressed: () {},
               ),
             ],
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -1532,22 +1802,26 @@ class OTPageview extends StatefulWidget {
 class _OTPageviewState extends State<OTPageview> {
   @override
   Widget build(BuildContext context) {
+
+    bool allvisits = true;
+    bool rocsoc = false;
+    bool casemanager = false;
+    bool followup = false;
     TextEditingController firstNameController = TextEditingController();
     bool isAssigned = false;
     String? selectedType = "Auto-assign";
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: AppSize.s25,),
-        Container(
-          // width: 500,
-          child:     Column(
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: AppSize.s25,),
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10,bottom: 15),
                     child: Text(
                       'Assignment Type',
                       style: AllPopupHeadings.customTextStyle(context),
@@ -1564,6 +1838,7 @@ class _OTPageviewState extends State<OTPageview> {
                           selectedType = value!;
                         });
                       }, title: "Auto-assign"),
+                  SizedBox(width: 60,),
                   CustomRadioListTile(value: "Sent Request",
                       groupValue: selectedType,
                       onChanged: (value) {
@@ -1571,305 +1846,274 @@ class _OTPageviewState extends State<OTPageview> {
                           selectedType = value!;
                         });
                       }, title: "Sent Request"),
-                  CustomRadioListTile(value: "Mark as Confirm",
-                      groupValue: selectedType,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedType = value!;
-                        });
-                      }, title: "Mark as Confirm"),
+
                 ],
               ),
             ],
           ),
-        ),
-        SizedBox(height: AppSize.s25,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.white,  // Background color (adjust as needed)
-                border: Border.all(
-                  color: ColorManager.bluebottom,  // Border color
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(12),  // Circular border radius
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text("In Zone", style:TextStyle(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.greenDark,
-                        ),),
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Stack(
+          SizedBox(height: AppSize.s25,),
 
-                                  children: [SizedBox(
-                                    height: 60,  // Adjust height for circle size
-                                    width: 60,
-                                    child: CircleAvatar(
-                                      child:
-                                      Image.asset('images/1.png',fit: BoxFit.contain,),
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // Card Section - takes fixed ratio of space
+              Expanded(
+                flex: 2,
+                child: Container(
+                  margin: EdgeInsets.only(right: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: ColorManager.bluebottom, width: 2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "In Zone",
+                            style: TextStyle(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.greenDark,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: AppSize.s60,
+                                    height: AppSize.s60,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(60),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(60),
+                                      child: SizedBox(
+                                        width: AppSize.s45,
+                                        height: AppSize.s45,
+                                        child: Image.asset(
+                                          'images/1.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                    Positioned(
-                                      right:0,
-                                      bottom :0,
-                                      child: Container(
+                                  Positioned(
+                                    left: 40,
+                                    bottom: 5,
+                                    child: Container(
+                                      width: 19,
+                                      height: 19,
+                                      decoration: BoxDecoration(
                                         color: Color(0xFF527FB9),
-                                        width: 19,
-                                        height: 19,
-                                        child: Center(
-                                          child: Text("ST",style: TextStyle(
-                                            // fontWeight: FontWeight.w600,
-                                            // fontSize: FontSize.s13,
+                                        borderRadius: BorderRadius.circular(3),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "ST",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 10,
                                             color: ColorManager.white,
                                             decoration: TextDecoration.none,
-                                          ),),
+                                          ),
                                         ),
-                                      ),)
-                                  ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                " ",
+                                style: TextStyle(
+                                  fontSize: FontSize.s14,
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorManager.greenDark,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: 10),
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Adam Johnson",
+                                  style: TextStyle(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w700,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Available (22 / 25)",
+                                  style: TextStyle(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w600,
+                                    color: ColorManager.greenDark,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Sacramento Z1 (2.4 Miles Away)",
+                                  style: TextStyle(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Salaried",
+                                  style: TextStyle(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w700,
+                                    color: ColorManager.mediumgrey,
+                                  ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5),
-                            Text("\$24", style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.greenDark,
-                            ),),
-                          ],
-                        ),
-                        SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Adam Johnson", style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey,
-                            ),),
-                            SizedBox(height: 5),
-                            Text("Available", style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.greenDark,
-                            ),),
-                            SizedBox(height: 5),
-                            Text("Sacramento Z1 (2.4 Miles Away)", style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.mediumgrey,
-                            ),),
-                            SizedBox(height: 5),
-                            Text("Salaried", style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey,
-                            ),),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                    ],
+                  ),
+                ),
+              ),
 
-                          ],
-                        ),
-
-                      ],
+              // Checkbox Section
+              Expanded(
+                flex: 7,
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 150,
+                      child: Icon(Icons.close, color: Colors.redAccent),
                     ),
-                    SizedBox(height: 5),
+                    Flexible(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ExpCheckboxTile(
+                              title: 'All Visits',
+                              initialValue: allvisits,
+                              isInfoIconVisible: false,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                          Expanded(
+                            child: ExpCheckboxTile(
+                              title: 'SOC/ROC/EVAL',
+                              initialValue: rocsoc,
+                              isInfoIconVisible: false,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                          Expanded(
+                            child: ExpCheckboxTile(
+                              title: 'Case Manager',
+                              initialValue: casemanager,
+                              isInfoIconVisible: false,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                          Expanded(
+                            child: ExpCheckboxTile(
+                              title: 'Follow Up Visits',
+                              initialValue: followup,
+                              isInfoIconVisible: false,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                          Expanded(flex:1,child: Container())
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-
-            Container(
-              width: 300,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Week 1 ", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                  ),),
-                  SizedBox(height: AppSize.s25,),
-                  Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-                  SizedBox(height: 10),
-                  Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-
-
-                ],
-              ),
-            ),
-
-            SizedBox(
-              height: 120, // Set this to match the height of your container
-              child: VerticalDivider(
-                width: 2,  // Divider width
-                color: ColorManager.containerBorderGrey, // Divider color
-                thickness: 2, // Thickness of the divider
-              ),
-            ),
-            Container(
-              width: 300,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Week 2 ", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                  ),),
-                  SizedBox(height: AppSize.s25,),
-                  Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-                  SizedBox(height: 10),
-                  Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-
-
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 120, // Set this to match the height of your container
-              child: VerticalDivider(
-                width: 2,  // Divider width
-                color: ColorManager.containerBorderGrey, // Divider color
-                thickness: 2, // Thickness of the divider
-              ),
-            ),
-            Container(
-              width: 300,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Week 3 ", style:TextStyle(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                      ),),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.close,color: ColorManager.faintOrange,))
-                    ],
-                  ),
-                  SizedBox(height: AppSize.s15,),
-                  Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-                  SizedBox(height: 10),
-                  Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.mediumgrey,
-                  ),),
-
-                  SizedBox(height: 20),
-                ],
-              ),
-            ),
-            SizedBox(width: 10,),
-
-
-          ],
-        ),
-
-        SizedBox(height: AppSize.s30,),
-        Text(
-          "Notes to Clinician",
-          style: CustomTextStylesCommon.commonStyle(
-              color: ColorManager.mediumgrey,
-              fontSize: FontSize.s14,
-              fontWeight: FontWeight.w600),
-        ),
-        SizedBox(height: 10),
-        Container(
-          width:  AppSize.s400,
-          height: AppSize.s45,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-            borderRadius: BorderRadius.circular(5),
+            ],
           ),
-          child: TextFormField(
-            autofocus: true,
-            enabled: true ,
-            controller: firstNameController,
-            cursorColor: Colors.black,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            decoration: InputDecoration(
-              hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 10),
-            ),
-            style: TableSubHeading.customTextStyle(context),
-            //validator: widget.validator,
-            onTap: (){},
-            //validator: widget.validator,
-            // onTap: widget.onChange,
+
+
+
+          SizedBox(height: AppSize.s30,),
+          Text(
+            "Notes to Clinician",
+            style: CustomTextStylesCommon.commonStyle(
+                color: ColorManager.mediumgrey,
+                fontSize: FontSize.s14,
+                fontWeight: FontWeight.w600),
           ),
-        ),
-        SizedBox(height: 10),
-        CustomeTransparentAddShift(
-            width: 130,
-            height: 30,
-            text: "Add Clinician", onPressed: (){}),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () {},
-              backgroundColor: ColorManager.bluebottom, // Adjust color as needed
-              shape: CircleBorder(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
-                  //SizedBox(height: 4),
-                  Text(
-                    'Contact',
-                    style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
-                  ),
-                ],
+          SizedBox(height: 10),
+          Container(
+            width:  AppSize.s400,
+            height: AppSize.s50,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: TextFormField(
+              autofocus: false,
+              enabled: false ,
+              controller: firstNameController,
+              cursorColor: Colors.black,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
               ),
-            )
-          ],
-        ),
-        Divider(),
-        Spacer(),
-        Center(
-          child: Row(
+              style: TableSubHeading.customTextStyle(context),
+              //validator: widget.validator,
+              onTap: (){},
+              //validator: widget.validator,
+              // onTap: widget.onChange,
+            ),
+          ),
+          SizedBox(height: 20),
+          CustomeTransparentAddShift(
+              width: 130,
+              height: 30,
+              text: "Add Clinician", onPressed: (){}),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: ColorManager.bluebottom, // Adjust color as needed
+                shape: CircleBorder(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
+                    //SizedBox(height: 4),
+                    Text(
+                      'Contact',
+                      style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          Divider(),
+          //  Spacer(),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomElevatedButton(
@@ -1880,9 +2124,9 @@ class _OTPageviewState extends State<OTPageview> {
                 onPressed: () {},
               ),
             ],
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

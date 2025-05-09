@@ -99,6 +99,7 @@ class _SmAppBarState extends State<SmAppBar> with SingleTickerProviderStateMixin
                   //   ),
                   //   child: Row(
                   //     children: [
+                  /// sm heading
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
@@ -132,7 +133,7 @@ class _SmAppBarState extends State<SmAppBar> with SingleTickerProviderStateMixin
 
                 ],
               ),
-
+///sm tabbar
               Flexible(
                 fit: FlexFit.loose,
                 child: Padding(
@@ -956,7 +957,7 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.only(left: 10,right: 5),
       child:Row(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -997,15 +998,31 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
               return Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    loginName ?? "",
-                    style: const TextStyle(
-                      color: Color(0xFF2EA3D4),
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text(
+                        loginName ?? "",
+                        style: const TextStyle(
+                          color: Color(0xFF2EA3D4),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 4),
+
+                  // Flexible(
+                  //   child: Text(
+                  //     loginName ?? "",
+                  //     style: const TextStyle(
+                  //       color: Color(0xFF2EA3D4),
+                  //       fontSize: 13,
+                  //       fontWeight: FontWeight.w700,
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(width: 4),
 
                   // Custom styled popup menu with icons
                   PopupMenuButton<String>(
