@@ -397,7 +397,7 @@ Future<ApiData> updateReferralPatient(
         "pt_summary": summary,
         "fk_srv_id":serviceId,
         "fk_pt_discplines":disciplineIds,
-        // "fk_rpti_id":insuranceId
+         "fk_rpti_id":insuranceId
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -542,5 +542,122 @@ Future<PatientInsurancesData> getReffrealsPatientInsurancePrefill({
   } catch (e) {
     print("error: $e");
     return itemsData;
+  }
+}
+
+
+///  patient documents
+Future<List<PatientDocumentsData>> getReffrealsPatientDocuments({
+  required BuildContext context,
+  required int patientId
+}) async {
+  List<PatientDocumentsData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientDocument(patientId: patientId),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDocumentsData(
+            rptd_id: item['rptd_id']??0,
+            fk_pt_id: item['fk_pt_id']??0,
+            rptd_url: item['rptd_url']??'',
+            rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
+            rptd_created_by: item['rptd_id']??0
+
+
+        ));
+      }
+      }
+    else {
+      print("patient referrals insurance prefill error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+/// Add Patient documents
+Future<ApiData> postReferralPatientDocuments(
+    {
+      required BuildContext context,
+      required int fk_pt_id,
+      required String rptd_url,
+      required int rptd_created_by,
+    }) async {
+  try {
+    var response = await Api(context).post(
+      path: PatientRefferalsRepo.addPatientDocument(),
+      data: {
+        "fk_pt_id": fk_pt_id,
+        "rptd_url": rptd_url,
+        "rptd_created_by": rptd_created_by
+      }
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Patient Document added ");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+/// delete document
+Future<ApiData> deletePatientDocument(
+    {
+      required BuildContext context,
+      required int docId,
+    }) async {
+  try {
+    var response = await Api(context).delete(
+        path: PatientRefferalsRepo.deletePatientDocument(id: docId),
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Patient Document deleted ");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

@@ -4,6 +4,9 @@ class PatientRefferalsRepo{
   static String employeeClinical = '/employee-types/GetClinicianType';
   static String patientInsuarnce = '/insurances-master';
 
+  /// patient document
+  static String patientDocument = '/patient-referral-documents/patient';
+  static String patientDocumentDelete = '/patient-referral-documents';
 ////patient-referral/{pageNbr}/{NbrofRows}/{isIntake}/{isArchived}/{searchName}/{marketerId}/{referralSourceId}/{pcpId}
   static  String getPatientRefferals({required int pageNo, required int nbrOfRows, required String isIntake, required String isArchived,required String searchName, required String marketerId,required String referralSourceId, required String pcpId}){
     return "$patientRefferals/$pageNo/$nbrOfRows/$isIntake/$isArchived/$searchName/$marketerId/$referralSourceId/$pcpId";
@@ -27,5 +30,17 @@ class PatientRefferalsRepo{
 
   static  String getReffrealsInsuranceWithId({required int id}){
     return "$patientInsuarnce/$id";
+  }
+
+  static  String getPatientDocument({required int patientId}){
+    return "$patientDocument/$patientId";
+  }
+
+  static  String addPatientDocument(){
+    return "$patientDocumentDelete";
+  }
+
+  static  String deletePatientDocument({required int id}){
+    return "$patientDocumentDelete/$id";
   }
 }
