@@ -10,6 +10,7 @@ import 'package:prohealth/presentation/screens/login_module/login/login_screen.d
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
 import 'package:url_launcher/url_launcher.dart' show canLaunch, launch;
 
+import '../../../app/resources/theme_manager.dart';
 import '../../../app/resources/value_manager.dart';
 import '../../screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
@@ -956,42 +957,36 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
+      child:Row(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          MouseRegion(
-            onEnter: (_) {},
-            onExit: (_) {},
-            child: FutureBuilder<UserAppBar>(
-              future: getAppBarDetails(context),
-              builder: (context, snapshot) {
-                Widget avatar = CircleAvatar(
-                  backgroundColor: Colors.grey[100],
+          // Avatar (non-tappable)
+          FutureBuilder<UserAppBar>(
+            future: getAppBarDetails(context),
+            builder: (context, snapshot) {
+              Widget avatar = CircleAvatar(
+                backgroundColor: Colors.grey[100],
+                radius: 20,
+                backgroundImage: const AssetImage("images/profilepic.png"),
+              );
+
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.hasData &&
+                  snapshot.data!.imgUrl.isNotEmpty) {
+                avatar = CircleAvatar(
+                  backgroundColor: Colors.transparent,
                   radius: 20,
-                  backgroundImage: const AssetImage("images/profilepic.png"),
+                  backgroundImage: NetworkImage(snapshot.data!.imgUrl),
                 );
+              }
 
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return GestureDetector(child: avatar, onTap: () {});
-                } else if (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty) {
-                  avatar = CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 20,
-                    backgroundImage: NetworkImage(snapshot.data!.imgUrl),
-                  );
-                }
-
-                return GestureDetector(
-                  child: avatar,
-                  onTap: () {
-                    print("userid appbar: ${snapshot.data?.userId}");
-                  },
-                );
-              },
-            ),
+              return avatar; // purely visual
+            },
           ),
           const SizedBox(width: 3),
+
+          // Login name and dropdown icon
           FutureBuilder(
             future: user(),
             builder: (context, snap) {
@@ -999,17 +994,129 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
                 return const SizedBox();
               }
 
-              return MouseRegion(
-                onEnter: (_) {
-                  showMenu(
-                    context: context,
-                    position: const RelativeRect.fromLTRB(70, 70, 0, 0),
-                    items: [
-                      PopupMenuItem(
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    loginName ?? "",
+                    style: const TextStyle(
+                      color: Color(0xFF2EA3D4),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+
+                  // Custom styled popup menu with icons
+                  PopupMenuButton<String>(
+                    tooltip: '',
+                    splashRadius: 0,
+                    color: Colors.white,
+                    offset: const Offset(20, 30),
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (BuildContext context) => [
+                      // Settings
+                      PopupMenuItem<String>(
+                        height: 25,
+                        value: 'Settings',
                         padding: EdgeInsets.zero,
-                        height: 30,
-                        child: GestureDetector(
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
                           onTap: () {
+                           // Navigator.pop(context);
+                            // Navigate or perform settings logic
+                          },
+                          child: Container(
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(left: 12,),
+                                width: 120,
+                                height: 40,
+                                child: Column(
+                                  children: [
+                                    const SizedBox(height: 5.5),
+                                    Row(
+                                      children: [
+                                         Icon(Icons.settings, size: 18, color: ColorManager.mediumgrey),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'Settings',
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Divider(),
+                                  ],
+                                ),
+                              ),
+
+                        ),
+                      ),
+
+                      // Divider
+                    //  const PopupMenuDivider(),
+
+                      // Notification
+                      PopupMenuItem<String>(
+                        height: 25,
+                        value: 'Notification',
+                        padding: EdgeInsets.zero,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          onTap: () {
+                          //  Navigator.pop(context);
+                            // Notification logic
+                          },
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.only(left: 12, ),
+                            width: 120,
+                            height: 40,
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 5.5),
+                                Row(
+                                  children: [
+                                     Icon(Icons.notifications_rounded, size: 18, color: ColorManager.mediumgrey),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      'Notification',
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // Divider
+                     // const PopupMenuDivider(),
+
+                      // Log Out
+                      PopupMenuItem<String>(
+                        height: 25,
+                        value: 'Logout',
+                        padding: EdgeInsets.zero,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          onTap: () {
+                            Navigator.pop(context);
                             if (isLoggedIn) {
                               showDialog(
                                 context: context,
@@ -1031,51 +1138,281 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
                             }
                           },
                           child: Container(
-                            height: 25,
-                            width: 90,
-                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
-                                Icon(Icons.logout, size: 12, color: Colors.black),
-                                Text(
-                                  'Log Out',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.only(left: 12, ),
+                            width: 120,
+                            height: 40,
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 5.5),
+                                Row(
+                                  children: [
+                                     Icon(Icons.logout, size: 18, color: ColorManager.mediumgrey),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      'Log Out',
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                                Divider(),
                               ],
                             ),
                           ),
                         ),
                       ),
+                   //   const PopupMenuDivider(),
                     ],
-                  );
-                },
-
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      loginName ?? "",
-                      style: TextStyle(
-                        color: Color(0xFF2EA3D4),
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    child: const Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      color: Color(0xFF2EA3D4),
                     ),
-                    const SizedBox(width: 4),
-                    Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xFF2EA3D4)),
-                  ],
-                ),
+                  ),
+                ],
               );
             },
           ),
         ],
       ),
+
+
+      ///
+      // Row(
+      //   mainAxisAlignment: MainAxisAlignment.end,
+      //   crossAxisAlignment: CrossAxisAlignment.center,
+      //   children: [
+      //     MouseRegion(
+      //       onEnter: (_) {},
+      //       onExit: (_) {},
+      //       child: FutureBuilder<UserAppBar>(
+      //         future: getAppBarDetails(context),
+      //         builder: (context, snapshot) {
+      //           Widget avatar = CircleAvatar(
+      //             backgroundColor: Colors.grey[100],
+      //             radius: 20,
+      //             backgroundImage: const AssetImage("images/profilepic.png"),
+      //           );
+      //
+      //           if (snapshot.connectionState == ConnectionState.waiting) {
+      //             return GestureDetector(child: avatar, onTap: () {});
+      //           } else if (snapshot.hasData && snapshot.data!.imgUrl.isNotEmpty) {
+      //             avatar = CircleAvatar(
+      //               backgroundColor: Colors.transparent,
+      //               radius: 20,
+      //               backgroundImage: NetworkImage(snapshot.data!.imgUrl),
+      //             );
+      //           }
+      //
+      //           return GestureDetector(
+      //             child: avatar,
+      //             onTap: () {
+      //               print("userid appbar: ${snapshot.data?.userId}");
+      //             },
+      //           );
+      //         },
+      //       ),
+      //     ),
+      //     const SizedBox(width: 3),
+      //     FutureBuilder(
+      //       future: user(),
+      //       builder: (context, snap) {
+      //         if (snap.connectionState == ConnectionState.waiting) {
+      //           return const SizedBox();
+      //         }
+      //
+      //         return MouseRegion(
+      //           onEnter: (_) {
+      //             showMenu(
+      //               context: context,
+      //               position: const RelativeRect.fromLTRB(70, 70, 0, 0),
+      //               items: [
+      //                 // PopupMenuItem(
+      //                 //   padding: EdgeInsets.zero,
+      //                 //   height: 30,
+      //                 //   child: GestureDetector(
+      //                 //     onTap: () {
+      //                 //       if (isLoggedIn) {
+      //                 //         showDialog(
+      //                 //           context: context,
+      //                 //           builder: (context) => DeletePopup(
+      //                 //             onCancel: () => Navigator.pop(context),
+      //                 //             onDelete: () {
+      //                 //               TokenManager.removeAccessToken();
+      //                 //               Navigator.pushNamedAndRemoveUntil(
+      //                 //                 context,
+      //                 //                 LoginScreen.routeName,
+      //                 //                     (route) => false,
+      //                 //               );
+      //                 //             },
+      //                 //             btnText: "Log Out",
+      //                 //             title: "Log Out",
+      //                 //             text: "Do you really want to logout?",
+      //                 //           ),
+      //                 //         );
+      //                 //       }
+      //                 //     },
+      //                 //     child: Container(
+      //                 //       height: 25,
+      //                 //       width: 90,
+      //                 //       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      //                 //       child: Row(
+      //                 //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //                 //         crossAxisAlignment: CrossAxisAlignment.center,
+      //                 //         children: const [
+      //                 //           Icon(Icons.logout, size: 12, color: Colors.black),
+      //                 //           Text(
+      //                 //             'Log Out',
+      //                 //             style: TextStyle(
+      //                 //               fontSize: 12,
+      //                 //               color: Colors.black,
+      //                 //               fontWeight: FontWeight.w600,
+      //                 //             ),
+      //                 //           ),
+      //                 //         ],
+      //                 //       ),
+      //                 //     ),
+      //                 //   ),
+      //                 // ),
+      //                 ///
+      //                 ///
+      //                 PopupMenuItem(
+      //                   padding: EdgeInsets.zero,
+      //                   height: 30,
+      //                   child: GestureDetector(
+      //                     onTap: () {
+      //                       // Add your navigation or action here
+      //                      // Navigator.pushNamed(context, '/profile'); // Example
+      //                     },
+      //                     child: Container(
+      //                       height: 30,
+      //                       width: 90,
+      //                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      //                       child: Row(
+      //                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //                         crossAxisAlignment: CrossAxisAlignment.center,
+      //                         children: const [
+      //                           Icon(Icons.notifications_rounded, size: 12, color: Colors.black),
+      //                           Text(
+      //                             'Notification',
+      //                             style: TextStyle(
+      //                               fontSize: 12,
+      //                               color: Colors.black,
+      //                               fontWeight: FontWeight.w600,
+      //                             ),
+      //                           ),
+      //                         ],
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 ),
+      //
+      //                 // Settings item
+      //                 PopupMenuItem(
+      //                   padding: EdgeInsets.zero,
+      //                   height: 30,
+      //                   child: GestureDetector(
+      //                     onTap: () {
+      //                       // Add your navigation or action here
+      //                      // Navigator.pushNamed(context, '/settings'); // Example
+      //                     },
+      //                     child: Container(
+      //                       height: 25,
+      //                       width: 90,
+      //                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      //                       child: Row(
+      //                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //                         crossAxisAlignment: CrossAxisAlignment.center,
+      //                         children: const [
+      //                           Icon(Icons.settings, size: 12, color: Colors.black),
+      //                           Text(
+      //                             'Settings',
+      //                             style: TextStyle(
+      //                               fontSize: 12,
+      //                               color: Colors.black,
+      //                               fontWeight: FontWeight.w600,
+      //                             ),
+      //                           ),
+      //                         ],
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 ),
+      //
+      //                 // Log Out item
+      //                 PopupMenuItem(
+      //                   padding: EdgeInsets.zero,
+      //                   height: 30,
+      //                   child: GestureDetector(
+      //                     onTap: () {
+      //                       if (isLoggedIn) {
+      //                         showDialog(
+      //                           context: context,
+      //                           builder: (context) => DeletePopup(
+      //                             onCancel: () => Navigator.pop(context),
+      //                             onDelete: () {
+      //                               TokenManager.removeAccessToken();
+      //                               Navigator.pushNamedAndRemoveUntil(
+      //                                 context,
+      //                                 LoginScreen.routeName,
+      //                                     (route) => false,
+      //                               );
+      //                             },
+      //                             btnText: "Log Out",
+      //                             title: "Log Out",
+      //                             text: "Do you really want to logout?",
+      //                           ),
+      //                         );
+      //                       }
+      //                     },
+      //                     child: Container(
+      //                       height: 25,
+      //                       width: 90,
+      //                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      //                       child: Row(
+      //                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //                         crossAxisAlignment: CrossAxisAlignment.center,
+      //                         children: const [
+      //                           Icon(Icons.logout, size: 12, color: Colors.black),
+      //                           Text(
+      //                             'Log Out',
+      //                             style: TextStyle(
+      //                               fontSize: 12,
+      //                               color: Colors.black,
+      //                               fontWeight: FontWeight.w600,
+      //                             ),
+      //                           ),
+      //                         ],
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 ),
+      //               ],
+      //             );
+      //           },
+      //           child: Row(
+      //             mainAxisSize: MainAxisSize.min,
+      //             children: [
+      //               Text(
+      //                 loginName ?? "",
+      //                 style: TextStyle(
+      //                   color: Color(0xFF2EA3D4),
+      //                   fontSize: 13,
+      //                   fontWeight: FontWeight.w700,
+      //                 ),
+      //               ),
+      //               const SizedBox(width: 4),
+      //               Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xFF2EA3D4)),
+      //             ],
+      //           ),
+      //         );
+      //       },
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

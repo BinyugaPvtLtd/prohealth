@@ -209,147 +209,284 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                             padding: isSidebarOpen==true ?EdgeInsets.only(left: 10,top: 10,right: 10):  EdgeInsets.only(left: 50,top: 10,right: 50),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                               children: [
-                                // InkWell(
-                                //     onTap: widget.onGoBackPressed,
-                                //     child: Row(
-                                //       children: [
-                                //         Icon(
-                                //           Icons.arrow_back,
-                                //           size: IconSize.I16,
-                                //           color: ColorManager.mediumgrey,
-                                //
-                                //         ),
-                                //         SizedBox(width: 5,),
-                                //         Text(
-                                //           'Go Back',
-                                //          style:TextStyle(
-                                //            fontSize: FontSize.s14,
-                                //            fontWeight: FontWeight.w700,
-                                //            color: ColorManager.mediumgrey,
-                                //          ),
-                                //         ),
-                                //       ],
-                                //     )),
-                                PageViewMenuButtonConst(
-                                  onTap: isSidebarOpen==true ?(int index){
-                                    intakeSelectButton(index);
-                                    toggleSidebar();
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleRightSliderProvider();
-                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
-                                    intakeSelectButton(index);
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleLeftSidebarProvider();
-                                  }:(int index) {
-                                    intakeSelectButton(index);
-                                  },
-                                  index: 0,
-                                  grpIndex: _selectedIndex,
-                                  heading: "Demographics",
+                                Expanded(
+                                  child: PageViewMenuButtonConst(
+                                    onTap: isSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      toggleSidebar();
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleRightSliderProvider();
+                                    }
+                                        : providerContact.isLeftSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleLeftSidebarProvider();
+                                    }
+                                        : (int index) {
+                                      intakeSelectButton(index);
+                                    },
+                                    index: 0,
+                                    grpIndex: _selectedIndex,
+                                    heading: "Demographics",
+                                  ),
                                 ),
-                                // PageViewMenuButtonConst(
-                                //   onTap: (int index) {
-                                //     intakeSelectButton(index);
-                                //   },
-                                //   index: 1,
-                                //   grpIndex: _selectedIndex,
-                                //   heading: "Referral",
-                                //   enabled: patientId != 0,
-                                // ),
-                                PageViewMenuButtonConst(
-                                  onTap: isSidebarOpen==true ?(int index){
-                                    intakeSelectButton(index);
-                                    toggleSidebar();
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleRightSliderProvider();
-
-                                  } : providerContact.isLeftSidebarOpen == true ? (int index) {
-                                    intakeSelectButton(index);
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleLeftSidebarProvider();
-                                  }:(int index) {
-                                    intakeSelectButton(index);
-                                  },
-                                  index: 1,
-                                  grpIndex: _selectedIndex,
-                                  heading: "Documentation",
-                                  //enabled: patientId != 0,
+                                Expanded(
+                                  child: PageViewMenuButtonConst(
+                                    onTap: isSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      toggleSidebar();
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleRightSliderProvider();
+                                    }
+                                        : providerContact.isLeftSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleLeftSidebarProvider();
+                                    }
+                                        : (int index) {
+                                      intakeSelectButton(index);
+                                    },
+                                    index: 1,
+                                    grpIndex: _selectedIndex,
+                                    heading: "Documentation",
+                                  ),
                                 ),
-                                PageViewMenuButtonConst(
-                                  onTap: isSidebarOpen==true ?(int index){
-                                    intakeSelectButton(index);
-                                    toggleSidebar();
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleRightSliderProvider();
-                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
-                                    intakeSelectButton(index);
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleLeftSidebarProvider();
-                                  }:(int index) {
-                                    intakeSelectButton(index);
-                                  },
-                                  index: 2,
-                                  grpIndex: _selectedIndex,
-                                  heading: "Insurance",
-                                  // enabled: patientId != 0,
+                                Expanded(
+                                  child: PageViewMenuButtonConst(
+                                    onTap: isSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      toggleSidebar();
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleRightSliderProvider();
+                                    }
+                                        : providerContact.isLeftSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleLeftSidebarProvider();
+                                    }
+                                        : (int index) {
+                                      intakeSelectButton(index);
+                                    },
+                                    index: 2,
+                                    grpIndex: _selectedIndex,
+                                    heading: "Insurance",
+                                  ),
                                 ),
-                                PageViewMenuButtonConst(
-                                  onTap: isSidebarOpen==true ?(int index){
-                                    intakeSelectButton(index);
-                                    toggleSidebar();
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleRightSliderProvider();
-                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
-                                    intakeSelectButton(index);
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleLeftSidebarProvider();
-                                  }:(int index) {
-                                    intakeSelectButton(index);
-                                  },
-                                  index: 3,//3,
-                                  grpIndex: _selectedIndex,
-                                  heading: "Physician Info",
-                                  // enabled: patientId != 0,
+                                Expanded(
+                                  child: PageViewMenuButtonConst(
+                                    onTap: isSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      toggleSidebar();
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleRightSliderProvider();
+                                    }
+                                        : providerContact.isLeftSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleLeftSidebarProvider();
+                                    }
+                                        : (int index) {
+                                      intakeSelectButton(index);
+                                    },
+                                    index: 3,
+                                    grpIndex: _selectedIndex,
+                                    heading: "Physician Info",
+                                  ),
                                 ),
-                                PageViewMenuButtonConst(
-                                  onTap: isSidebarOpen==true ?(int index){
-                                    intakeSelectButton(index);
-                                    toggleSidebar();
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleRightSliderProvider();
-                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
-                                    intakeSelectButton(index);
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleLeftSidebarProvider();
-                                  }:(int index) {
-                                    intakeSelectButton(index);
-                                  },
-                                  index: 4,
-                                  grpIndex: _selectedIndex,
-                                  heading: "Orders",
-                                  // enabled: patientId != 0,
+                                Expanded(
+                                  child: PageViewMenuButtonConst(
+                                    onTap: isSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      toggleSidebar();
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleRightSliderProvider();
+                                    }
+                                        : providerContact.isLeftSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleLeftSidebarProvider();
+                                    }
+                                        : (int index) {
+                                      intakeSelectButton(index);
+                                    },
+                                    index: 4,
+                                    grpIndex: _selectedIndex,
+                                    heading: "Orders",
+                                  ),
                                 ),
-                                PageViewMenuButtonConst(
-                                  onTap: isSidebarOpen==true ?(int index){
-                                    intakeSelectButton(index);
-                                    toggleSidebar();
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleRightSliderProvider();
-                                  } :providerContact.isLeftSidebarOpen == true ? (int index) {
-                                    intakeSelectButton(index);
-                                    providerContact.toogleContactProvider();
-                                    providerContact.toogleLeftSidebarProvider();
-                                  }:(int index) {
-                                    intakeSelectButton(index);
-                                  },
-                                  index: 5,
-                                  grpIndex: _selectedIndex,
-                                  heading: "Initial Contact",
-                                  // enabled: patientId != 0,
+                                Expanded(
+                                  child: PageViewMenuButtonConst(
+                                    onTap: isSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      toggleSidebar();
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleRightSliderProvider();
+                                    }
+                                        : providerContact.isLeftSidebarOpen == true
+                                        ? (int index) {
+                                      intakeSelectButton(index);
+                                      providerContact.toogleContactProvider();
+                                      providerContact.toogleLeftSidebarProvider();
+                                    }
+                                        : (int index) {
+                                      intakeSelectButton(index);
+                                    },
+                                    index: 5,
+                                    grpIndex: _selectedIndex,
+                                    heading: "Initial Contact",
+                                  ),
                                 ),
                               ],
+
+                              ///
+                              // children: [
+                              //   // InkWell(
+                              //   //     onTap: widget.onGoBackPressed,
+                              //   //     child: Row(
+                              //   //       children: [
+                              //   //         Icon(
+                              //   //           Icons.arrow_back,
+                              //   //           size: IconSize.I16,
+                              //   //           color: ColorManager.mediumgrey,
+                              //   //
+                              //   //         ),
+                              //   //         SizedBox(width: 5,),
+                              //   //         Text(
+                              //   //           'Go Back',
+                              //   //          style:TextStyle(
+                              //   //            fontSize: FontSize.s14,
+                              //   //            fontWeight: FontWeight.w700,
+                              //   //            color: ColorManager.mediumgrey,
+                              //   //          ),
+                              //   //         ),
+                              //   //       ],
+                              //   //     )),
+                              //   PageViewMenuButtonConst(
+                              //     onTap: isSidebarOpen==true ?(int index){
+                              //       intakeSelectButton(index);
+                              //       toggleSidebar();
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleRightSliderProvider();
+                              //     } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                              //       intakeSelectButton(index);
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleLeftSidebarProvider();
+                              //     }:(int index) {
+                              //       intakeSelectButton(index);
+                              //     },
+                              //     index: 0,
+                              //     grpIndex: _selectedIndex,
+                              //     heading: "Demographics",
+                              //   ),
+                              //
+                              //   PageViewMenuButtonConst(
+                              //     onTap: isSidebarOpen==true ?(int index){
+                              //       intakeSelectButton(index);
+                              //       toggleSidebar();
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleRightSliderProvider();
+                              //
+                              //     } : providerContact.isLeftSidebarOpen == true ? (int index) {
+                              //       intakeSelectButton(index);
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleLeftSidebarProvider();
+                              //     }:(int index) {
+                              //       intakeSelectButton(index);
+                              //     },
+                              //     index: 1,
+                              //     grpIndex: _selectedIndex,
+                              //     heading: "Documentation",
+                              //     //enabled: patientId != 0,
+                              //   ),
+                              //
+                              //   PageViewMenuButtonConst(
+                              //     onTap: isSidebarOpen==true ?(int index){
+                              //       intakeSelectButton(index);
+                              //       toggleSidebar();
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleRightSliderProvider();
+                              //     } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                              //       intakeSelectButton(index);
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleLeftSidebarProvider();
+                              //     }:(int index) {
+                              //       intakeSelectButton(index);
+                              //     },
+                              //     index: 2,
+                              //     grpIndex: _selectedIndex,
+                              //     heading: "Insurance",
+                              //     // enabled: patientId != 0,
+                              //   ),
+                              //
+                              //   PageViewMenuButtonConst(
+                              //     onTap: isSidebarOpen==true ?(int index){
+                              //       intakeSelectButton(index);
+                              //       toggleSidebar();
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleRightSliderProvider();
+                              //     } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                              //       intakeSelectButton(index);
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleLeftSidebarProvider();
+                              //     }:(int index) {
+                              //       intakeSelectButton(index);
+                              //     },
+                              //     index: 3,//3,
+                              //     grpIndex: _selectedIndex,
+                              //     heading: "Physician Info",
+                              //     // enabled: patientId != 0,
+                              //   ),
+                              //
+                              //   PageViewMenuButtonConst(
+                              //     onTap: isSidebarOpen==true ?(int index){
+                              //       intakeSelectButton(index);
+                              //       toggleSidebar();
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleRightSliderProvider();
+                              //     } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                              //       intakeSelectButton(index);
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleLeftSidebarProvider();
+                              //     }:(int index) {
+                              //       intakeSelectButton(index);
+                              //     },
+                              //     index: 4,
+                              //     grpIndex: _selectedIndex,
+                              //     heading: "Orders",
+                              //     // enabled: patientId != 0,
+                              //   ),
+                              //
+                              //   PageViewMenuButtonConst(
+                              //     onTap: isSidebarOpen==true ?(int index){
+                              //       intakeSelectButton(index);
+                              //       toggleSidebar();
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleRightSliderProvider();
+                              //     } :providerContact.isLeftSidebarOpen == true ? (int index) {
+                              //       intakeSelectButton(index);
+                              //       providerContact.toogleContactProvider();
+                              //       providerContact.toogleLeftSidebarProvider();
+                              //     }:(int index) {
+                              //       intakeSelectButton(index);
+                              //     },
+                              //     index: 5,
+                              //     grpIndex: _selectedIndex,
+                              //     heading: "Initial Contact",
+                              //     // enabled: patientId != 0,
+                              //   ),
+                              // ],
                             ),
                           ),
                         ),
