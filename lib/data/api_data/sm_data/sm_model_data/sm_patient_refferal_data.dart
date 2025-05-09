@@ -27,6 +27,7 @@ class PatientModel {
   final bool is_selfPay;
   final String ptTime;
   final ServiceModel service;
+  final InsuranceModel insurance;
   final DiagnosisModel primaryDiagnosis;
   final List<DiagnosisModel> secondaryDiagnoses;
   final ReferralSourceModel referralSource;
@@ -64,6 +65,7 @@ class PatientModel {
     required this.ptDateOfBirth,
     required this.ptImgUrl,
     required this.service,
+    required this.insurance,
     required this.primaryDiagnosis,
     required this.secondaryDiagnoses,
     required this.referralSource,
@@ -79,6 +81,18 @@ class ServiceModel {
   final String srvCode;
 
   ServiceModel({required this.srvId, required this.srvName, required this.srvCode});
+}
+
+class InsuranceModel {
+  final int rptiId;
+  final int fkptId;
+  final String policy;
+  final String insuranceProvider;
+  final String insurancePlan;
+  final bool eligibility;
+  final bool authorization;
+  final String? time;
+  InsuranceModel({required this.rptiId, required this.fkptId, required this.policy, required this.insuranceProvider, required this.insurancePlan, required this.eligibility, required this.authorization, this.time,});
 }
 
 class DiagnosisModel {

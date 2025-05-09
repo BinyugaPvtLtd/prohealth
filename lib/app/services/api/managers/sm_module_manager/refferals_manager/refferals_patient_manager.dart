@@ -179,6 +179,17 @@ Future<List<PatientModel>> getPatientReffrealsData({
               departmentId: d['DepartmentId'],
             );
           }).toList(),
+
+          insurance: InsuranceModel(
+              rptiId: item['patientInsurance']['rpti_id'],
+              fkptId: item['patientInsurance']['fk_pt_id'],
+              policy: item['patientInsurance']['rpti_policy'],
+              insuranceProvider: item['patientInsurance']['rpti_insurance_provider'],
+              insurancePlan: item['patientInsurance']['rpti_insurance_plan'],
+              eligibility: item['patientInsurance']['rpti_eligibility'],
+              authorization: item['patientInsurance']['rpti_authorization'],
+              time: item['patientInsurance']['rpti_last_checked_time']),
+
         ));
       }
     } else {
@@ -353,12 +364,25 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
               departmentId: d['DepartmentId'],
             );
           }).toList(),
+
+          insurance: InsuranceModel(
+              //rptiId: item['patientInsurance']['rpti_id'] ?? 0,
+              rptiId: item['patientInsurance']['rpti_id'] is int
+                  ? item['patientInsurance']['rpti_id']
+                  : int.tryParse(item['patientInsurance']['rpti_id'].toString()) ?? 0,
+
+              fkptId: item['patientInsurance']['fk_pt_id'] ?? 0,
+              policy: item['patientInsurance']['rpti_policy'] ?? '',
+              insuranceProvider: item['patientInsurance']['rpti_insurance_provider'] ?? '',
+              insurancePlan: item['patientInsurance']['rpti_insurance_plan'] ?? '',
+              eligibility: item['patientInsurance']['rpti_eligibility'] ?? false,
+              authorization: item['patientInsurance']['rpti_authorization'] ?? false,
+              time: item['patientInsurance']['rpti_last_checked_time']),
         );
     
     } else {
       print("patient referrals prefill error");
     }
-
     return itemsData;
   } catch (e) {
     print("error: $e");

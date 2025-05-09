@@ -979,31 +979,35 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                 Container(
                                                   height: 30,
                                                   padding: EdgeInsets.only(left: 45,right: 20),
-                                                  child: Text("Not all visit\ncovered",
+                                                  child: Text( snapshot.data!.insurance.eligibility == false  ? "Not all visit\ncovered" : "Eligible",
                                                     style: TextStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w700,
-                                                      color: ColorManager.greenDark,
+                                                      color:  snapshot.data!.insurance.eligibility == false
+                                                          ? ColorManager.incidentskinSM
+                                                          : ColorManager.greenDark,
                                                     ),),
                                                 )
                                               ],),
                                             ),
                                             //SizedBox(width: 20,),
-                                            Container(
+                                           Container(
                                               width: 30,
                                               height: 30,
                                               decoration: BoxDecoration(
-                                                color: ColorManager.greenDark,
+                                                color:  snapshot.data!.insurance.eligibility == false
+                                                    ? ColorManager.incidentskinSM
+                                                    : ColorManager.bluebottom,
                                                 borderRadius: BorderRadius.circular(3),
                                               ),
                                               child: Center(
                                                 child: Text("A",
-                                                 textAlign: TextAlign.center,
-                                                 style: TextStyle(
-                                                   fontSize: FontSize.s12,
-                                                   fontWeight: FontWeight.w700,
-                                                   color: ColorManager.white,
-                                                 ),),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: ColorManager.white,
+                                                  ),),
                                               ),
                                             ),
                                             SizedBox(width: 30,),
@@ -1019,8 +1023,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                     onPressed: (){},
                                                   ),
                                                   SizedBox(height: 5,),
-                                                  Text("Last checked at 8:30 AM",
-                                                    style: TextStyle(
+                                              Text("Last checked at ${snapshot.data!.insurance.time}",
+                                              style: TextStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w400,
                                                       color: ColorManager.mediumgrey,

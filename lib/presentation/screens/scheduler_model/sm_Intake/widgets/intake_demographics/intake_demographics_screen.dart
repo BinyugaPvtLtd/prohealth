@@ -175,27 +175,31 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
 
-                                        CustomDropdownsmi(
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 2.0),
+                                          child: CustomDropdownsmi(
 
-                                            width:150,
-                                            isAstric:false,
-                                            iconColor: ColorManager.mediumgrey,
-                                            initialValue: selectedValue,
-                                            headText: "", // Default fallback if depId doesn't match any of the expected values
-                                            items: items,
+                                              width:150,
+                                              isAstric:false,
+                                              hintText: "Erica T",
+                                              iconColor: ColorManager.mediumgrey,
+                                              initialValue: selectedValue,
+                                              headText: "", // Default fallback if depId doesn't match any of the expected values
+                                              items: items,
 
-                                            onChanged: (newValue) {
-                                              // for (var a in snapshot.data!) {
-                                              //   if (a.empType == newValue) {
-                                              //     clinicialName = a.empType!;
-                                              //     clinicalId = a.employeeTypesId!;
-                                              //     print("Dept ID'''''' ${clinicalId}");
-                                              //     print("';';';''''''''Dept ID ${clinicialName}");
-                                              //     // Do something with docType
-                                              //   }
-                                              // }
-                                            },
-                                          ),
+                                              onChanged: (newValue) {
+                                                // for (var a in snapshot.data!) {
+                                                //   if (a.empType == newValue) {
+                                                //     clinicialName = a.empType!;
+                                                //     clinicalId = a.employeeTypesId!;
+                                                //     print("Dept ID'''''' ${clinicalId}");
+                                                //     print("';';';''''''''Dept ID ${clinicialName}");
+                                                //     // Do something with docType
+                                                //   }
+                                                // }
+                                              },
+                                            ),
+                                        ),
 
 
                                         ///
@@ -252,7 +256,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                             ),
                                             Container(
                                               width: 130,
-                                              height: 60,
+                                              height: 50,
                                               padding: const EdgeInsets.all(8),
                                             // padding: EdgeInsets.symmetric(vertical: 10,horizontal: 25),
                                               decoration: BoxDecoration(
@@ -277,7 +281,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                             ),
                                             Container(
                                               width:130,
-                                              height: 60,
+                                              height: 50,
                                               padding: const EdgeInsets.all(8),
                                               decoration: BoxDecoration(
                                                 color: Color(0xFFEEEEEE),
@@ -300,8 +304,8 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                       children: [
                                         CustomButtonTransparent(
                                           width: AppSize.s120,
-                                          height: 23,
-                                          //borderRadius: 12,
+                                          height: 28,
+                                          borderRadius: 14,
                                           text: "Accept Theirs",
                                           onPressed: () {
 
@@ -309,8 +313,8 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                         ),
                                         CustomElevatedButton(
                                           width: AppSize.s120,
-                                          height: 23,
-                                          borderRadius: 12,
+                                          height: 28,
+                                          borderRadius: 14,
                                           text: "Keep Yours",
                                           style: TextStyle(fontSize: 10),
                                           onPressed: (){},
