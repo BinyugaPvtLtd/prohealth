@@ -160,7 +160,7 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 40),
-                                    child: CheckboxTile(
+                                    child: ExpCheckboxTile(
                                       title:
                                       providerState.isContactTrue?'Patient representative will be\npresent at SOC':'Patient representative will be present at SOC',
                                       initialValue: isOrthoPatient,
@@ -169,16 +169,19 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 40),
-                                    child: CheckboxTile(
-                                      icon: Image.asset(
-                                        "images/sm/sm_refferal/telegram.png",
-                                        height: 18,
-                                        width: 18,
+                                    child: SizedBox(
+                                      width: 300,
+                                      child: ExpCheckboxTile(
+                                        icon: Image.asset(
+                                          "images/sm/sm_refferal/telegram.png",
+                                          height: 18,
+                                          width: 18,
+                                        ),
+                                        title: 'Send consents for signature',
+                                        initialValue: isPtInr,
+                                        isInfoIconVisible: true,
+                                        onChanged: (value) {},
                                       ),
-                                      title: 'Send consents for signature',
-                                      initialValue: isPtInr,
-                                      isInfoIconVisible: true,
-                                      onChanged: (value) {},
                                     ),
                                   )
                                 ],

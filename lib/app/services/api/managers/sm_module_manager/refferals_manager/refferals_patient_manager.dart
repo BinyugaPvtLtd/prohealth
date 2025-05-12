@@ -7,6 +7,7 @@ import '../../../../../../data/api_data/sm_data/sm_model_data/patient_insurances
 import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../../../resources/const_string.dart';
+import '../../../../base64/encode_decode_base64.dart';
 import '../../../api.dart';
 import '../../../repository/sm_repository/refferals/patient_refferal_repo.dart';
 ///get
@@ -83,18 +84,16 @@ Future<List<PatientModel>> getPatientReffrealsData({
             srvName: item['service']['srv_name'],
             srvCode: item['service']['srv_code'],
           ),
-
-          primaryDiagnosis: DiagnosisModel(
-            dgnId: item['primaryDiagnosis']['dgn_id'],
-            dgnName: item['primaryDiagnosis']['dgn_name'],
-            dgnCode: item['primaryDiagnosis']['dgn_code'],
-          ),
-
-          secondaryDiagnoses: (item['secondaryDiagnoses'] as List).map((d) {
-            return DiagnosisModel(
-              dgnId: d['dgn_id'],
-              dgnName: d['dgn_name'],
-              dgnCode: d['dgn_code'],
+          patientDiagnoses: (item['patientDiagnoses'] as List).map((d) {
+            return PatientDiagnosesModel(
+              rpt_dgn_id: d['dgn_id']??0,
+              dgnName: d['dgn_name']??'',
+              dgnCode: d['dgn_code']??'',
+              fk_pt_id: d['fk_pt_id']??0,
+              fk_dgn_id: d['fk_dgn_id']??0,
+              rpt_pdgm: d['rpt_pdgm']??false,
+              rpt_isPrimary: d['rpt_isPrimary']??false,
+              color: d['color']??0,
             );
           }).toList(),
 
@@ -271,18 +270,16 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
             srvName: item['service']['srv_name'],
             srvCode: item['service']['srv_code'],
           ),
-
-          primaryDiagnosis: DiagnosisModel(
-            dgnId: item['primaryDiagnosis']['dgn_id'],
-            dgnName: item['primaryDiagnosis']['dgn_name'],
-            dgnCode: item['primaryDiagnosis']['dgn_code'],
-          ),
-
-          secondaryDiagnoses: (item['secondaryDiagnoses'] as List).map((d) {
-            return DiagnosisModel(
-              dgnId: d['dgn_id'],
-              dgnName: d['dgn_name'],
-              dgnCode: d['dgn_code'],
+          patientDiagnoses: (item['patientDiagnoses'] as List).map((d) {
+            return PatientDiagnosesModel(
+              rpt_dgn_id: d['dgn_id']??0,
+              dgnName: d['dgn_name']??'',
+              dgnCode: d['dgn_code']??'',
+              fk_pt_id: d['fk_pt_id']??0,
+              fk_dgn_id: d['fk_dgn_id']??0,
+              rpt_pdgm: d['rpt_pdgm']??false,
+              rpt_isPrimary: d['rpt_isPrimary']??false,
+              color: d['color']??0,
             );
           }).toList(),
 
@@ -423,7 +420,7 @@ Future<ApiData> updateReferralPatient(
         "pt_summary": summary,
         "fk_srv_id":serviceId,
         "fk_pt_discplines":disciplineIds,
-        // "fk_rpti_id":insuranceId
+         "fk_rpti_id":insuranceId
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -568,5 +565,169 @@ Future<PatientInsurancesData> getReffrealsPatientInsurancePrefill({
   } catch (e) {
     print("error: $e");
     return itemsData;
+  }
+}
+
+
+///  patient documents
+Future<List<PatientDocumentsData>> getReffrealsPatientDocuments({
+  required BuildContext context,
+  required int patientId
+}) async {
+  List<PatientDocumentsData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientDocument(patientId: patientId),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDocumentsData(
+            rptd_id: item['rptd_id']??0,
+            fk_pt_id: item['fk_pt_id']??0,
+            rptd_url: item['rptd_url']??'',
+            rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
+            rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--"
+
+
+        ));
+      }
+      }
+    else {
+      print("patient Document error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+/// Add Patient documents
+Future<ApiData> postReferralPatientDocuments(
+    {
+      required BuildContext context,
+      required int fk_pt_id,
+      required String rptd_url,
+      required int rptd_created_by,
+    }) async {
+  try {
+    var response = await Api(context).post(
+      path: PatientRefferalsRepo.addPatientDocument(),
+      data: {
+        "fk_pt_id": fk_pt_id,
+        "document_name": rptd_url,
+        "rptd_created_by": rptd_created_by
+      }
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Patient Document added ");
+      // orgDocumentGet(context);
+      var uploadResponse = response.data;
+      int rptd_id = uploadResponse['rptd_id'];
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!,
+          rptd_id: rptd_id);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+/// delete document
+Future<ApiData> deletePatientDocument(
+    {
+      required BuildContext context,
+      required int docId,
+    }) async {
+  try {
+    var response = await Api(context).delete(
+        path: PatientRefferalsRepo.deletePatientDocument(id: docId),
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Patient Document deleted ");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// patient document upload base64
+Future<ApiData> uploadPatientReffrelsDocuments({
+  required BuildContext context,
+  required int rptd_id,
+  required dynamic documentFile,
+  required String documentName,
+  String? expiryDate
+}) async {
+  try {
+    String documents = await
+    AppFilePickerBase64.getEncodeBase64(
+        bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path: PatientRefferalsRepo.attachPatientDocument(rptd_id: rptd_id),
+      data: {
+        'base64':documents,
+        "documentName":documentName
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Patient Documents uploded");
+      // orgDocumentGet(context);
+      var uploadResponse = response.data;
+      int documentId = uploadResponse['employeeDocumentId'];
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!,documentId:documentId );
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

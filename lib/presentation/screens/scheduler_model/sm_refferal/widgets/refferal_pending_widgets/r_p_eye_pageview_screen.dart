@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
@@ -11,6 +14,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/provider/sm_provider/sm_integration_provider.dart';
@@ -19,7 +23,10 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/patient_insurances_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../em_module/company_identity/widgets/manage_history_version.dart';
+import '../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../../em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../em_module/widgets/button_constant.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';
@@ -30,7 +37,13 @@ import 'package:flutter/material.dart';
 class DiagnosisProvider extends ChangeNotifier {
   int _patientId = 0;
   int get patientId => _patientId;
+  String _fileName = '';
+  dynamic _filePath;
+  bool _fileAbove20Mb = false;
 
+  dynamic get filePath => _filePath;
+  String get fileName => _fileName;
+  bool get fileAbove20Mb => _fileAbove20Mb;
 
   void passPatientId({required int patientIdNo}){
     _patientId = patientIdNo;
@@ -40,15 +53,31 @@ class DiagnosisProvider extends ChangeNotifier {
     _patientId = 0;
     notifyListeners();
   }
+
+
   List<GlobalKey<_DiagosisListState>> _diagnosisKeys = [];
-  List<DiagnosisModel> _diagnosisData = []; // Holds initial API data
+  List<PatientDiagnosesModel> _diagnosisData = []; // Holds initial API data
   bool _isVisible = false;
 
   List<GlobalKey<_DiagosisListState>> get diagnosisKeys => _diagnosisKeys;
-  List<DiagnosisModel> get diagnosisData => _diagnosisData;
+  List<PatientDiagnosesModel> get diagnosisData => _diagnosisData;
   bool get isVisible => _isVisible;
 
-  void loadDiagnosisFromApi(List<DiagnosisModel> apiData) {
+  void pickPatientFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['png','jpg'],
+    );
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
+    if (result != null) {
+      _filePath = result.files.first.bytes;
+      _fileName = result.files.first.name;
+      _fileAbove20Mb = !isAbove20MB;
+      notifyListeners();
+    }
+  }
+  void loadDiagnosisFromApi(List<PatientDiagnosesModel> apiData) {
     _diagnosisKeys.clear();
     _diagnosisData = apiData;
     for (var _ in apiData) {
@@ -115,16 +144,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   bool homeHealthAide = true;
   bool dietician = false;
   void _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['svg', 'png', 'jpg', 'gif'],
-    );
 
-    if (result != null) {
-      setState(() {
-        selectedFileName = result.files.single.name;
-      });
-    }
   }
   var Nursing = '';
   var PhysicalTherapy = '';
@@ -141,10 +161,11 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
     loadInitialinsurance();
   }
   List<PatientInsurancesData> patientInsurance = [];
+
   Future<void> loadInitialDiagnosis() async {
     final provider = Provider.of<DiagnosisProvider>(context, listen: false);
     PatientModel apiData = await getPatientReffrealsDataUsingId(context: context, patientId: provider.patientId); // ← Your API call
-    provider.loadDiagnosisFromApi(apiData.secondaryDiagnoses);
+    provider.loadDiagnosisFromApi(apiData.patientDiagnoses);
     provider.setVisibility(true);
   }
 
@@ -155,10 +176,11 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
 
   double _sliderValue = 100; // initial value
   int patientInsuranceId = 0;
-
+  final StreamController<List<PatientDocumentsData>> _streamController = StreamController<List<PatientDocumentsData>>.broadcast();
   @override
   Widget build(BuildContext context) {
     // final providerAddState = Provider.of<DiagnosisProvider>(context);
+    bool _isLoading = false;
     return  Consumer<DiagnosisProvider>(
       builder: (context,providerAddState,child) {
         return FutureBuilder<PatientModel>(
@@ -179,16 +201,16 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
             var patientPhone = snapshot.data!.ptContactNo;
             var zipCodePatient = snapshot.data!.ptZipCode;
             var patientSummery = snapshot.data!.ptSummary;
-            var icdNo = snapshot.data!.primaryDiagnosis.dgnCode;
-            var posibleDignosis = snapshot.data!.primaryDiagnosis.dgnName;
+            // var icdNo = snapshot.data!.primaryDiagnosis.dgnCode;
+            // var posibleDignosis = snapshot.data!.primaryDiagnosis.dgnName;
             //var refferFor = snapshot.data.referralSource.
             firstNameController = TextEditingController(text:snapshot.data!.ptFirstName);
             lastNameController = TextEditingController(text:snapshot.data!.ptLastName);
             patientsController = TextEditingController(text:snapshot.data!.ptContactNo);
             zipCodeController = TextEditingController(text:snapshot.data!.ptZipCode);
             patientsSummary = TextEditingController(text:snapshot.data!.ptSummary);
-            icdPrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnCode);
-            possiblePrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnName);
+            // icdPrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnCode);
+            // possiblePrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnName);
            // referredfor = TextEditingController(text: snapshot.data!.service.srvName);
             List<String> desciplineModel = [];
             List<int> desciplineintList = [];
@@ -368,7 +390,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                             flex: 2,
                                             child: Container(
                                               child: Text(
-                                                snapshot.data!.primaryDiagnosis.dgnName,
+                                                snapshot.data!.patientDiagnoses[0].dgnName,
                                                 textAlign: TextAlign.start,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                   fontWeight: FontWeight.w700,
@@ -927,7 +949,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                           zipCode: zipCodeController.text,
                                                           serviceId: snapshot.data!.fkSrvId,
                                                           disciplineIds: desciplineintList,
-                                                          insuranceId: value == true ? patientInsurance[index].insurance_id : patientInsuranceId);
+                                                          insuranceId: value == true ? patientInsuranceId : patientInsurance[index].insurance_id);
                                                     });
                                                   },
                                                 ),
@@ -1056,65 +1078,11 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       ///diagnosis
                       BlueBGHeadConst(HeadText: "Diagnosis"),
                       SizedBox(height: AppSize.s10,),
-                     snapshot.data!.primaryDiagnosis.dgnId != 0 ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(height: 90,width: 5,color: ColorManager.greenDark,),
-                              SizedBox(width: AppSize.s30,),
-                              Expanded(
-                                child: SMTextFConst(controller: possiblePrime,
-                                    isAsteric: false,
-                                    isIcon: true,
-                                    keyboardType: TextInputType.text, text: "Possible Diagnosis"),
-                              ),
-                              SizedBox(width: AppSize.s60,),
-                              Expanded(
-                                child: SMTextFConst(controller: icdPrime,
-                                    isAsteric: false,
-                                    isIcon: true,
-                                    keyboardType: TextInputType.text, text: "ICD Code"),
-                              ),
-                              SizedBox(width: AppSize.s60,),
-                              Expanded(
-                                child: SMTextFConst(controller: pdgmPrime,
-                                    isAsteric: false,
-                                    isIcon: true,
-                                    keyboardType: TextInputType.text, text: "PDGM - Acceptable"),
-                              ),
-                              SizedBox(width: AppSize.s30,),
-                              Expanded(
-                                child: Container(
-                                  height: 30,
-                                  width: AppSize.s354,
-                                ),
-                              ),
-                              SizedBox(width: AppSize.s30,),
-                              Expanded(
-                                child: Container(
-                                  height: 30,
-                                  width: AppSize.s354,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            color: ColorManager.containerBorderGrey,
-                            thickness: 1,
-                            height: 2,
-                          ),
-                          SizedBox(height: AppSize.s30,),
-                        ],
-                      ),
-                    ) : Offstage(),
                       Column(
                         children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
                           int index = entry.key;
                           GlobalKey<_DiagosisListState> key = entry.value;
-                          List<DiagnosisModel> data = providerAddState.diagnosisData;
+                          List<PatientDiagnosesModel> data = providerAddState.diagnosisData;
 
                           return DiagosisList(
                             key: key,
@@ -1373,337 +1341,445 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       ///documents
                       BlueBGHeadConst(HeadText: "Documents"),
                       SizedBox(height: AppSize.s30,),
-                      // Text(
-                      //   'Upload Bulk Document',
-                      //   style:TextStyle(
-                      //     fontSize: FontSize.s16,
-                      //     fontWeight: FontWeight.w700,
-                      //     color: ColorManager.mediumgrey,
-                      //   ),
-                      // ),
-                      // SizedBox(height: 8),
-                      // DottedBorder(
-                      //   color: Color(0xFFDBDBDB),
-                      //   strokeWidth: 1,
-                      //   dashPattern: [6, 3],
-                      //   borderType: BorderType.RRect,
-                      //   radius: Radius.circular(12),
-                      //  // borderPadding: EdgeInsets.symmetric(horizontal: 10),
-                      //   child: Container(
-                      //     width: double.infinity,
-                      //     height: 80,
-                      //     alignment: Alignment.center,
-                      //     child: InkWell(
-                      //       hoverColor: Colors.transparent,
-                      //       splashColor: Colors.transparent,
-                      //       highlightColor: Colors.transparent,
-                      //       onTap: _pickFile,
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.center,
-                      //         crossAxisAlignment: CrossAxisAlignment.center,
-                      //         children: [
-                      //           Container(
-                      //             height: 50,
-                      //               width: 50,
-                      //               decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(30),
-                      //                 color: Color(0xFFE6F1FE)
-                      //          ),
-                      //           child: Center(child: SvgPicture.asset('images/doc_vector.svg',height: 30,width: 30,))),
-                      //           SizedBox(width: 30),
-                      //           Column(
-                      //             mainAxisAlignment: MainAxisAlignment.center,
-                      //             crossAxisAlignment: CrossAxisAlignment.center,
-                      //             children: [
-                      //               RichText(
-                      //                 text: TextSpan(
-                      //                   text: "Drop your files here or ",
-                      //                   style: TextStyle(color: Colors.black),
-                      //                   children: [
-                      //                     TextSpan(
-                      //                       text: "Click to upload",
-                      //                       style: TextStyle(color: ColorManager.blueBorder, fontWeight: FontWeight.bold),
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               ),
-                      //               SizedBox(height: 10),
-                      //               Text("SVG, PNG, JPG or GIF (max. 800x400px)",
-                      //                   style: TextStyle(color: Colors.grey, fontSize: 12)),
-                      //             ],
-                      //           )
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // if (selectedFileName != null)
-                      //   Padding(
-                      //     padding: const EdgeInsets.only(top: 8.0),
-                      //     child: Text("Selected file: $selectedFileName",
-                      //         style: TextStyle(color: Colors.green)),
-                      //   ),
-                      // Column(
-                      //   children: [
-                      //     Container(
-                      //       height: 200,
-                      //       child: ScrollConfiguration(
-                      //         behavior: ScrollBehavior().copyWith(scrollbars: false),
-                      //         child: ListView.builder(
-                      //             scrollDirection: Axis.vertical,
-                      //             itemCount: 0,//paginatedData.length,
-                      //             itemBuilder: (context, index) {
-                      //             //  int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                      //              // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                      //               var fileUrl = "url";//policiesdata.docurl;
-                      //               final fileExtension = fileUrl.split('/').last;
-                      //
-                      //               Widget fileWidget;
-                      //               if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
-                      //                 fileWidget = Image.network(
-                      //                   fileUrl,
-                      //                   fit: BoxFit.cover,
-                      //                   errorBuilder: (context, error, stackTrace) {
-                      //                     return Icon(
-                      //                       Icons.broken_image,
-                      //                       size: IconSize.I45,
-                      //                       color: ColorManager.faintGrey,
-                      //                     );
-                      //                   },
-                      //                 );
-                      //               }
-                      //               else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
-                      //                 fileWidget = Icon(
-                      //                   Icons.description,
-                      //                   size: IconSize.I45,
-                      //                   color: ColorManager.faintGrey,
-                      //                 );
-                      //               }
-                      //               else {
-                      //                 fileWidget = Icon(
-                      //                   Icons.insert_drive_file,
-                      //                   size: IconSize.I45,
-                      //                   color: ColorManager.faintGrey,
-                      //                 );
-                      //               }
-                      //               return Column(
-                      //                 crossAxisAlignment: CrossAxisAlignment.start,
-                      //                 children: [
-                      //                   //SizedBox(height: 5),
-                      //                   Padding(
-                      //                     padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,),
-                      //                     child: Container(
-                      //                         margin: EdgeInsets.symmetric(horizontal: AppSize.s5),
-                      //                         decoration: BoxDecoration(
-                      //                           color: Colors.white,
-                      //                           borderRadius:
-                      //                           BorderRadius.circular(4),
-                      //                           boxShadow: [
-                      //                             BoxShadow(
-                      //                               color: const Color(0xff000000).withOpacity(0.25),
-                      //                               spreadRadius: 0,
-                      //                               blurRadius: 4,
-                      //                               offset: const Offset(0, 2),
-                      //                             ),
-                      //                           ],
-                      //                         ),
-                      //                         height: AppSize.s65,
-                      //                         child: Padding(
-                      //                           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30),
-                      //                           child: Row(
-                      //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //                             children: [
-                      //                               Row(
-                      //                                 children: [
-                      //                                   GestureDetector(
-                      //                                     onTap: (){
-                      //                                       print("FileExtension:${fileExtension}");
-                      //                                       downloadFile(fileUrl);
-                      //                                       //DowloadFile();
-                      //                                       //.downloadPdfFromBase64(fileExtension,"Acknowledgement");
-                      //                                     },
-                      //                                     child: Container(
-                      //                                         width: AppSize.s62,
-                      //                                         height: AppSize.s45,
-                      //                                         padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
-                      //                                         decoration: BoxDecoration(
-                      //                                           borderRadius: BorderRadius.circular(4),
-                      //                                           border: Border.all(width: 2, color: ColorManager.faintGrey),
-                      //                                         ),
-                      //                                         child: SvgPicture.asset('images/doc_vector.svg')),
-                      //                                   ),
-                      //                                   SizedBox(width: AppSize.s10,),
-                      //                                   Text(
-                      //                                     "Document 1",
-                      //                                     //policiesdata.fileName.toString(),
-                      //                                     textAlign: TextAlign.center,
-                      //                                     style:  DocDefineTableData.customTextStyle(context),
-                      //                                   ),
-                      //                                 ],
-                      //                               ),
-                      //
-                      //                               Row(
-                      //                                 mainAxisAlignment: MainAxisAlignment.center,
-                      //                                 children: [
-                      //                                   // IconButton(
-                      //                                   //   onPressed: () {},
-                      //                                   //   // {
-                      //                                   //   //   showDialog(
-                      //                                   //   //     context: context,
-                      //                                   //   //     builder: (context) =>
-                      //                                   //   //         ManageHistoryPopup(
-                      //                                   //   //           docHistory: 'new',//policiesdata.docHistory,
-                      //                                   //   //         ),
-                      //                                   //   //   );
-                      //                                   //   // },
-                      //                                   //   icon: Icon(
-                      //                                   //     Icons.history,
-                      //                                   //     size:IconSize.I22,color: IconColorManager.bluebottom,
-                      //                                   //   ),
-                      //                                   //   splashColor: Colors.transparent,
-                      //                                   //   highlightColor: Colors.transparent,
-                      //                                   //   hoverColor: Colors.transparent,
-                      //                                   // ),
-                      //                                   // SizedBox(width: AppSize.s10,),
-                      //                                   ///print
-                      //                                   IconButton(
-                      //                                     onPressed: () {
-                      //                                       print("FileExtension:${fileExtension}");
-                      //                                       // DowloadFile()
-                      //                                       //     .downloadPdfFromBase64(
-                      //                                       //     fileExtension,
-                      //                                       //     "DME.pdf");
-                      //                                       downloadFile(fileUrl);
-                      //                                     },
-                      //                                     icon: Icon(
-                      //                                       Icons
-                      //                                           .print_outlined,
-                      //                                       size:IconSize.I22,color: IconColorManager.bluebottom,
-                      //                                     ),
-                      //                                     splashColor:
-                      //                                     Colors.transparent,
-                      //                                     highlightColor:
-                      //                                     Colors.transparent,
-                      //                                     hoverColor:
-                      //                                     Colors.transparent,
-                      //                                   ),
-                      //                                   SizedBox(width: AppSize.s10,),
-                      //                                   ///download saloni
-                      //                                   PdfDownloadButton(apiUrl: "",// policiesdata.docurl,
-                      //                                       iconsize: IconSize.I22,
-                      //                                       documentName: "",//policiesdata.docName!
-                      //                                   ),
-                      //                                   // SizedBox(width: AppSize.s10,),
-                      //                                   // ///edit
-                      //                                   // IconButton(
-                      //                                   //   onPressed: (){},
-                      //                                   //   //     () {
-                      //                                   //   //   showDialog(
-                      //                                   //   //     context: context,
-                      //                                   //   //     builder: (context) {
-                      //                                   //   //       return FutureBuilder<
-                      //                                   //   //           MCorporateCompliancePreFillModal>(
-                      //                                   //   //         future: getPrefillNewOrgOfficeDocument(
-                      //                                   //   //             context,
-                      //                                   //   //             policiesdata
-                      //                                   //   //                 .orgOfficeDocumentId),
-                      //                                   //   //         builder: (context,
-                      //                                   //   //             snapshotPrefill) {
-                      //                                   //   //           if (snapshotPrefill
-                      //                                   //   //               .connectionState ==
-                      //                                   //   //               ConnectionState
-                      //                                   //   //                   .waiting) {
-                      //                                   //   //             return Center(
-                      //                                   //   //               child:
-                      //                                   //   //               CircularProgressIndicator(
-                      //                                   //   //                 color: ColorManager
-                      //                                   //   //                     .blueprime,
-                      //                                   //   //               ),
-                      //                                   //   //             );
-                      //                                   //   //           }
-                      //                                   //   //
-                      //                                   //   //           var calender =
-                      //                                   //   //               snapshotPrefill
-                      //                                   //   //                   .data!
-                      //                                   //   //                   .expiry_date;
-                      //                                   //   //           calenderController =
-                      //                                   //   //               TextEditingController(
-                      //                                   //   //                 text: snapshotPrefill
-                      //                                   //   //                     .data!
-                      //                                   //   //                     .expiry_date,
-                      //                                   //   //               );
-                      //                                   //   //           return StatefulBuilder(
-                      //                                   //   //             builder: (BuildContext
-                      //                                   //   //             context,
-                      //                                   //   //                 void Function(void Function())
-                      //                                   //   //                 setState) {
-                      //                                   //   //               return VCScreenPopupEditConst(
-                      //                                   //   //                 fileName: snapshotPrefill
-                      //                                   //   //                     .data!
-                      //                                   //   //                     .fileName,
-                      //                                   //   //                 url: snapshotPrefill.data!.url,
-                      //                                   //   //                 expiryDate: snapshotPrefill.data!.expiry_date,
-                      //                                   //   //                 title: EditPopupString.editPolicy,
-                      //                                   //   //                 loadingDuration: _isLoading,
-                      //                                   //   //                 officeId: widget.officeId,
-                      //                                   //   //                 docTypeMetaIdCC: widget.docID,
-                      //                                   //   //                 selectedSubDocId: widget.subDocID,
-                      //                                   //   //                 //orgDocId: manageCCADR.orgOfficeDocumentId,
-                      //                                   //   //                 orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
-                      //                                   //   //                 orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
-                      //                                   //   //                 docName: snapshotPrefill.data!.docName,
-                      //                                   //   //                 selectedExpiryType: snapshotPrefill.data!.expType,
-                      //                                   //   //                 documentType: AppStringEM.policiesAndProcedures,
-                      //                                   //   //                 documentSubType: '',
-                      //                                   //   //                 isOthersDocs: snapshotPrefill.data!.isOthersDocs,
-                      //                                   //   //                 idOfDoc: snapshotPrefill.data!.idOfDocument,
-                      //                                   //   //                 expiryType: snapshotPrefill.data!.expType,
-                      //                                   //   //                 threshhold: snapshotPrefill.data!.threshould,
-                      //                                   //   //               );
-                      //                                   //   //             },
-                      //                                   //   //           );
-                      //                                   //   //         },
-                      //                                   //   //       );
-                      //                                   //   //     },
-                      //                                   //   //   );
-                      //                                   //   // },
-                      //                                   //   icon: Icon(
-                      //                                   //     Icons.edit_outlined,
-                      //                                   //     size:IconSize.I22,color: IconColorManager.bluebottom,
-                      //                                   //   ),
-                      //                                   //   splashColor:
-                      //                                   //   Colors.transparent,
-                      //                                   //   highlightColor:
-                      //                                   //   Colors.transparent,
-                      //                                   //   hoverColor:
-                      //                                   //   Colors.transparent,
-                      //                                   // ),
-                      //                                   SizedBox(width: AppSize.s10,),
-                      //                                   ///delete
-                      //                                   IconButton(
-                      //                                       splashColor: Colors.transparent,
-                      //                                       highlightColor: Colors.transparent,
-                      //                                       hoverColor: Colors.transparent,
-                      //                                       onPressed: () {
-                      //                                       },
-                      //                                       icon: Icon(
-                      //                                         Icons
-                      //                                             .delete_outline,
-                      //                                         size:IconSize.I24,color: IconColorManager.red,
-                      //                                       )),
-                      //                                 ],
-                      //                               )
-                      //                             ],
-                      //                           ),
-                      //                         )),
-                      //                   ),
-                      //                 ],
-                      //               );
-                      //             }),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                      Text(
+                        'Upload Bulk Document',
+                        style:TextStyle(
+                          fontSize: FontSize.s16,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.mediumgrey,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      StatefulBuilder(
+                        builder: (BuildContext context, StateSetter setState){
+                        return DottedBorder(
+                          color: Color(0xFFDBDBDB),
+                          strokeWidth: 1,
+                          dashPattern: [6, 3],
+                          borderType: BorderType.RRect,
+                          radius: Radius.circular(12),
+                         // borderPadding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Container(
+                            width: double.infinity,
+                            height: 80,
+                            alignment: Alignment.center,
+                            child: InkWell(
+                              hoverColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: ()async{
+                                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['svg', 'png', 'jpg', 'gif'],
+                                );
+
+                                if (result != null) {
+                                  setState(() {
+                                    selectedFileName = result.files.single.name;
+                                  });
+                                  ApiData apiData =  await postReferralPatientDocuments(
+                                      context: context,
+                                      fk_pt_id: providerAddState.patientId,
+                                      rptd_url: result.files.first.name,
+                                      rptd_created_by: snapshot.data!.marketer.employeeId);
+                                  if(apiData.statusCode == 200 || apiData.statusCode == 201){
+                                    var uploadPatientDoc = await uploadPatientReffrelsDocuments(context: context,
+                                        rptd_id: apiData.rptd_id!,
+                                        documentFile: result.files.first.bytes,
+                                        documentName: result.files.first.name);
+                                    if(uploadPatientDoc.success == true){
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AddSuccessPopup(
+                                            message: 'Document Uploaded Successfully',
+                                          );
+                                        },
+                                      );
+                                    }
+                                  }
+
+                                }
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                        color: Color(0xFFE6F1FE)
+                                 ),
+                                  child: Center(child: SvgPicture.asset('images/doc_vector.svg',height: 30,width: 30,))),
+                                  SizedBox(width: 30),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          text: "Drop your files here or ",
+                                          style: TextStyle(color: Colors.black),
+                                          children: [
+                                            TextSpan(
+                                              text: "Click to upload",
+                                              style: TextStyle(color: ColorManager.blueBorder, fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Text("SVG, PNG, JPG or GIF (max. 800x400px)",
+                                          style: TextStyle(color: Colors.grey, fontSize: 12)),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );},
+                      ),
+                      if (selectedFileName != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text("Selected file: $selectedFileName",
+                              style: TextStyle(color: Colors.green)),
+                        ),
+                      StreamBuilder<List<PatientDocumentsData>>(
+                        stream: _streamController.stream,
+                        builder: (context,snapshotDoc) {
+                          getReffrealsPatientDocuments(context: context, patientId: providerAddState.patientId,).then((data) {
+                            _streamController.add(data);
+                          }).catchError((error) {
+                            // Handle error
+                          });
+                          if(snapshotDoc.connectionState == ConnectionState.waiting){
+                            return Center(
+                              child: SizedBox(
+                                height: 30,
+                                  width: 30,
+                                  child: CircularProgressIndicator(color: ColorManager.blueprime,)),
+                            );
+                          }
+                          if(snapshotDoc.data!.isEmpty){
+                            return Center(
+                                child: Padding(
+                                  padding:const EdgeInsets.symmetric(vertical: 76),
+                                  child: Text(
+                                    AppStringSMModule.patientDocNoData,
+                                    style: AllNoDataAvailable.customTextStyle(context),
+                                  ),
+                                ));
+                          }
+                          if(snapshotDoc.hasData){
+                            return Column(
+                              children: [
+                                Container(
+                                  height: 200,
+                                  child: ScrollConfiguration(
+                                    behavior: ScrollBehavior().copyWith(scrollbars: false),
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: snapshotDoc.data!.length,//paginatedData.length,
+                                        itemBuilder: (context, index) {
+                                          //  int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                          // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                                          var fileUrl = "url";//policiesdata.docurl;
+                                          final fileExtension = fileUrl.split('/').last;
+
+                                          Widget fileWidget;
+                                          if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                                            fileWidget = Image.network(
+                                              fileUrl,
+                                              fit: BoxFit.cover,
+                                              errorBuilder: (context, error, stackTrace) {
+                                                return Icon(
+                                                  Icons.broken_image,
+                                                  size: IconSize.I45,
+                                                  color: ColorManager.faintGrey,
+                                                );
+                                              },
+                                            );
+                                          }
+                                          else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                                            fileWidget = Icon(
+                                              Icons.description,
+                                              size: IconSize.I45,
+                                              color: ColorManager.faintGrey,
+                                            );
+                                          }
+                                          else {
+                                            fileWidget = Icon(
+                                              Icons.insert_drive_file,
+                                              size: IconSize.I45,
+                                              color: ColorManager.faintGrey,
+                                            );
+                                          }
+                                          return Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              //SizedBox(height: 5),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,),
+                                                child: Container(
+                                                    margin: EdgeInsets.symmetric(horizontal: AppSize.s5),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                      BorderRadius.circular(4),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: const Color(0xff000000).withOpacity(0.25),
+                                                          spreadRadius: 0,
+                                                          blurRadius: 4,
+                                                          offset: const Offset(0, 2),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    height: AppSize.s65,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              GestureDetector(
+                                                                onTap: (){
+                                                                  print("FileExtension:${fileExtension}");
+                                                                  downloadFile(fileUrl);
+                                                                  //DowloadFile();
+                                                                  //.downloadPdfFromBase64(fileExtension,"Acknowledgement");
+                                                                },
+                                                                child: Container(
+                                                                    width: AppSize.s62,
+                                                                    height: AppSize.s45,
+                                                                    padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                                                    decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(4),
+                                                                      border: Border.all(width: 2, color: ColorManager.faintGrey),
+                                                                    ),
+                                                                    child: SvgPicture.asset('images/doc_vector.svg')),
+                                                              ),
+                                                              SizedBox(width: AppSize.s10,),
+                                                              Text(
+                                                                snapshotDoc.data![index].documentName,
+                                                                //policiesdata.fileName.toString(),
+                                                                textAlign: TextAlign.center,
+                                                                style:  DocDefineTableData.customTextStyle(context),
+                                                              ),
+                                                            ],
+                                                          ),
+
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              // IconButton(
+                                                              //   onPressed: () {},
+                                                              //   // {
+                                                              //   //   showDialog(
+                                                              //   //     context: context,
+                                                              //   //     builder: (context) =>
+                                                              //   //         ManageHistoryPopup(
+                                                              //   //           docHistory: 'new',//policiesdata.docHistory,
+                                                              //   //         ),
+                                                              //   //   );
+                                                              //   // },
+                                                              //   icon: Icon(
+                                                              //     Icons.history,
+                                                              //     size:IconSize.I22,color: IconColorManager.bluebottom,
+                                                              //   ),
+                                                              //   splashColor: Colors.transparent,
+                                                              //   highlightColor: Colors.transparent,
+                                                              //   hoverColor: Colors.transparent,
+                                                              // ),
+                                                              // SizedBox(width: AppSize.s10,),
+                                                              ///print
+                                                              IconButton(
+                                                                onPressed: () {
+                                                                  print("FileExtension:${fileExtension}");
+                                                                  // DowloadFile()
+                                                                  //     .downloadPdfFromBase64(
+                                                                  //     fileExtension,
+                                                                  //     "DME.pdf");
+                                                                  downloadFile(fileUrl);
+                                                                },
+                                                                icon: Icon(
+                                                                  Icons
+                                                                      .print_outlined,
+                                                                  size:IconSize.I22,color: IconColorManager.bluebottom,
+                                                                ),
+                                                                splashColor:
+                                                                Colors.transparent,
+                                                                highlightColor:
+                                                                Colors.transparent,
+                                                                hoverColor:
+                                                                Colors.transparent,
+                                                              ),
+                                                              SizedBox(width: AppSize.s10,),
+                                                              ///download saloni
+                                                              PdfDownloadButton(apiUrl: "",// policiesdata.docurl,
+                                                                iconsize: IconSize.I22,
+                                                                documentName: "",//policiesdata.docName!
+                                                              ),
+                                                              // SizedBox(width: AppSize.s10,),
+                                                              // ///edit
+                                                              // IconButton(
+                                                              //   onPressed: (){},
+                                                              //   //     () {
+                                                              //   //   showDialog(
+                                                              //   //     context: context,
+                                                              //   //     builder: (context) {
+                                                              //   //       return FutureBuilder<
+                                                              //   //           MCorporateCompliancePreFillModal>(
+                                                              //   //         future: getPrefillNewOrgOfficeDocument(
+                                                              //   //             context,
+                                                              //   //             policiesdata
+                                                              //   //                 .orgOfficeDocumentId),
+                                                              //   //         builder: (context,
+                                                              //   //             snapshotPrefill) {
+                                                              //   //           if (snapshotPrefill
+                                                              //   //               .connectionState ==
+                                                              //   //               ConnectionState
+                                                              //   //                   .waiting) {
+                                                              //   //             return Center(
+                                                              //   //               child:
+                                                              //   //               CircularProgressIndicator(
+                                                              //   //                 color: ColorManager
+                                                              //   //                     .blueprime,
+                                                              //   //               ),
+                                                              //   //             );
+                                                              //   //           }
+                                                              //   //
+                                                              //   //           var calender =
+                                                              //   //               snapshotPrefill
+                                                              //   //                   .data!
+                                                              //   //                   .expiry_date;
+                                                              //   //           calenderController =
+                                                              //   //               TextEditingController(
+                                                              //   //                 text: snapshotPrefill
+                                                              //   //                     .data!
+                                                              //   //                     .expiry_date,
+                                                              //   //               );
+                                                              //   //           return StatefulBuilder(
+                                                              //   //             builder: (BuildContext
+                                                              //   //             context,
+                                                              //   //                 void Function(void Function())
+                                                              //   //                 setState) {
+                                                              //   //               return VCScreenPopupEditConst(
+                                                              //   //                 fileName: snapshotPrefill
+                                                              //   //                     .data!
+                                                              //   //                     .fileName,
+                                                              //   //                 url: snapshotPrefill.data!.url,
+                                                              //   //                 expiryDate: snapshotPrefill.data!.expiry_date,
+                                                              //   //                 title: EditPopupString.editPolicy,
+                                                              //   //                 loadingDuration: _isLoading,
+                                                              //   //                 officeId: widget.officeId,
+                                                              //   //                 docTypeMetaIdCC: widget.docID,
+                                                              //   //                 selectedSubDocId: widget.subDocID,
+                                                              //   //                 //orgDocId: manageCCADR.orgOfficeDocumentId,
+                                                              //   //                 orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
+                                                              //   //                 orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                              //   //                 docName: snapshotPrefill.data!.docName,
+                                                              //   //                 selectedExpiryType: snapshotPrefill.data!.expType,
+                                                              //   //                 documentType: AppStringEM.policiesAndProcedures,
+                                                              //   //                 documentSubType: '',
+                                                              //   //                 isOthersDocs: snapshotPrefill.data!.isOthersDocs,
+                                                              //   //                 idOfDoc: snapshotPrefill.data!.idOfDocument,
+                                                              //   //                 expiryType: snapshotPrefill.data!.expType,
+                                                              //   //                 threshhold: snapshotPrefill.data!.threshould,
+                                                              //   //               );
+                                                              //   //             },
+                                                              //   //           );
+                                                              //   //         },
+                                                              //   //       );
+                                                              //   //     },
+                                                              //   //   );
+                                                              //   // },
+                                                              //   icon: Icon(
+                                                              //     Icons.edit_outlined,
+                                                              //     size:IconSize.I22,color: IconColorManager.bluebottom,
+                                                              //   ),
+                                                              //   splashColor:
+                                                              //   Colors.transparent,
+                                                              //   highlightColor:
+                                                              //   Colors.transparent,
+                                                              //   hoverColor:
+                                                              //   Colors.transparent,
+                                                              // ),
+                                                              SizedBox(width: AppSize.s10,),
+                                                              ///delete
+                                                              IconButton(
+                                                                  splashColor: Colors.transparent,
+                                                                  highlightColor: Colors.transparent,
+                                                                  hoverColor: Colors.transparent,
+                                                                  onPressed: () async{
+                                                                    showDialog(
+                                                                        context: context,
+                                                                        builder: (context) =>
+                                                                            StatefulBuilder(
+                                                                              builder: (BuildContext context, void Function(void Function())setState) {
+                                                                                return DeletePopup(
+                                                                                  loadingDuration: _isLoading,
+                                                                                  title: 'Delete Document',
+                                                                                  onCancel: () {
+                                                                                    Navigator.pop(context);
+                                                                                  },
+                                                                                  onDelete: () async {
+                                                                                    setState(() {
+                                                                                      _isLoading = true;
+                                                                                    });
+                                                                                    try {
+                                                                                      var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
+                                                                                      if(response.statusCode == 200  || response.statusCode == 201) {
+                                                                                        Navigator.pop(context);
+                                                                                        // Future.delayed(Duration(seconds: 1));
+                                                                                        showDialog(
+                                                                                          context: context,
+                                                                                          builder: (BuildContext context) => DeleteSuccessPopup(),
+                                                                                        );
+                                                                                      }
+                                                                                    } finally {
+                                                                                      setState(() {
+                                                                                        _isLoading = false;
+                                                                                        //Navigator.pop(context);
+                                                                                      });
+                                                                                    }
+                                                                                    // setState(() async{
+                                                                                    //
+                                                                                    //   Navigator.pop(context);
+                                                                                    // });
+                                                                                  },
+                                                                                );
+                                                                              },
+                                                                            ));
+                                                                  },
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .delete_outline,
+                                                                    size:IconSize.I24,color: IconColorManager.red,
+                                                                  )),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )),
+                                              ),
+                                            ],
+                                          );
+                                        }),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }else{
+                            return SizedBox();
+                          }
+
+                        }
+                      ),
                     ],
                   ),
                 ),
@@ -1744,7 +1820,7 @@ class DiagosisList extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
-  final List<DiagnosisModel> diagnosisData;
+  final List<PatientDiagnosesModel> diagnosisData;
   const DiagosisList(
       {Key? key,
         required this.onRemove,
@@ -1772,7 +1848,7 @@ class _DiagosisListState extends State<DiagosisList> {
     for (int i = 0; i < widget.diagnosisData.length; i++) {
       _possibleControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnName));
       _icdControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnCode.toString()));
-      _pdgmControllers.add(TextEditingController(text: ''));
+      _pdgmControllers.add(TextEditingController(text: widget.diagnosisData[i].rpt_pdgm ? 'YES':'NO'));
     }
 
     // If new empty row is added (no model data), add blank controllers
@@ -1802,7 +1878,7 @@ class _DiagosisListState extends State<DiagosisList> {
                   children: [
                     Row(
                       children: [
-                        Container(height: 90,width: 5,color: ColorManager.greenDark,),
+                        Container(height: 90,width: 5,color: widget.diagnosisData[index].color == 0 ? ColorManager.greenDark : widget.diagnosisData[index].color == 1 ?const Color(0xFFFEBD4D):ColorManager.red,),
                         SizedBox(width: AppSize.s30,),
                         Expanded(
                           child: SMTextFConst(controller: _possibleControllers[index],
@@ -1822,6 +1898,7 @@ class _DiagosisListState extends State<DiagosisList> {
                           child: SMTextFConst(controller: _pdgmControllers[index],
                               isAsteric: false,
                               isIcon: true,
+                              textColor:widget.diagnosisData[index].rpt_pdgm ? Color(0xFF008000) : Color(0xFFD20101),
                               keyboardType: TextInputType.text, text: "PDGM - Acceptable"),
                         ),
                         SizedBox(width: AppSize.s30,),
@@ -1852,7 +1929,6 @@ class _DiagosisListState extends State<DiagosisList> {
             },
           ),
         ),
-
       ],
     );
   }

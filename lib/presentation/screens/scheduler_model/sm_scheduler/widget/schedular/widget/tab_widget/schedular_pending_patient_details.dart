@@ -82,58 +82,48 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(60),
-                                    child: SizedBox(
-                                      width: AppSize.s40,
-                                      height: AppSize.s45,
-                                      child: Image.asset(
-                                        'images/hr_dashboard/man.png', // Replace with your image path
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: AppSize.s15),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Jeh Tiwari',
-                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w700,
-                                    color: ColorManager.mediumgrey,),
-                                ),
-                                SizedBox(height: AppSize.s7),
-                                Text(
-                                  'MRN #584234',
-                                  style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w400,
-                                    color: ColorManager.mediumgrey,),
-                                ),
-                                SizedBox(height: AppSize.s7),
-                                Text(
-                                  'Anxiety',
-                                  style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w400,
-                                    color: ColorManager.mediumgrey,),
-                                ),
-                              ],
-                            ),
-                          ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(60),
+                        child: SizedBox(
+                          width: AppSize.s40,
+                          height: AppSize.s45,
+                          child: Image.asset(
+                            'images/hr_dashboard/man.png', // Replace with your image path
+                            fit: BoxFit.cover,
+                          ),
                         ),
+                      ),
+                    ),
+                    SizedBox(width: AppSize.s12),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Jeh Tiwari',
+                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,),
+                          ),
+                          SizedBox(height: AppSize.s5),
+                          Text(
+                            'MRN #584234',
+                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),
+                          ),
+                          SizedBox(height: AppSize.s5),
+                          Text(
+                            'Anxiety',
+                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),
+                          ),
+                        ],
                       ),
                     ),
                     Expanded(
@@ -162,12 +152,14 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                         children: [
                           Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
                           SizedBox(width: 25,),
-                          Text(
-                            "132 My Street,Lane no 123,  Sacramento 12401",
-                            textAlign: TextAlign.start,
-                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.textBlack,),
+                          Flexible(
+                            child: Text(
+                              "132 My Street,Lane no 123,  Sacramento 12401",
+                              textAlign: TextAlign.start,
+                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w400,
+                                color: ColorManager.textBlack,),
+                            ),
                           ),
                         ],
                       ),
@@ -201,15 +193,21 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SMTabbarscheduler(onTap: (int index){
-                            _selectButton(0);
-                          }, index: 0, grpIndex: _selectedIndex, heading: "RN SOC", ),
-                          SMTabbarscheduler(onTap: (int index){
-                            _selectButton(1);
-                          }, index: 1, grpIndex: _selectedIndex, heading: "PT"),
-                          SMTabbarscheduler(onTap: (int index){
-                            _selectButton(2);
-                          }, index: 2, grpIndex: _selectedIndex, heading: "OT"),
+                          Expanded(
+                            child: SMTabbarscheduler(onTap: (int index){
+                              _selectButton(0);
+                            }, index: 0, grpIndex: _selectedIndex, heading: "RN SOC", ),
+                          ),
+                          Expanded(
+                            child: SMTabbarscheduler(onTap: (int index){
+                              _selectButton(1);
+                            }, index: 1, grpIndex: _selectedIndex, heading: "PT"),
+                          ),
+                          Expanded(
+                            child: SMTabbarscheduler(onTap: (int index){
+                              _selectButton(2);
+                            }, index: 2, grpIndex: _selectedIndex, heading: "OT"),
+                          ),
                         ],
                       ),
                     ),
@@ -319,7 +317,7 @@ class SMTabbarscheduler extends StatelessWidget {
                 Positioned(
                   right: -5,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4,vertical: 2),
+                    padding: EdgeInsets.symmetric(horizontal: 4,vertical: 0),
                     decoration: BoxDecoration(
                       color: ColorManager.blueprime, // Badge color
                       borderRadius: BorderRadius.circular(12), // Rounded badge

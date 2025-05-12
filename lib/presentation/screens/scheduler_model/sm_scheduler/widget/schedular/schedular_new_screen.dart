@@ -183,7 +183,7 @@ class SMTabbar extends StatelessWidget {
               final textWidth = textPainter.size.width;
 
               return Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
+               // margin: const EdgeInsets.symmetric(vertical: 5),
                 height: 2,
                 width: textWidth + 60, // Adjust padding around text
                 color: grpIndex == index

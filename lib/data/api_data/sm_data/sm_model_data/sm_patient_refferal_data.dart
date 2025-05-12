@@ -28,9 +28,7 @@ class PatientModel {
   final int fkempIdArchieved;
   //final String ptTime;
   final ServiceModel service;
-  final List<InsuranceModel> insurance;
-  final DiagnosisModel primaryDiagnosis;
-  final List<DiagnosisModel> secondaryDiagnoses;
+  final List<PatientDiagnosesModel> patientDiagnoses;
   final ReferralSourceModel referralSource;
   final PCPModel pcp;
   final MarketerModel marketer;
@@ -67,9 +65,7 @@ class PatientModel {
     required this.ptDateOfBirth,
     required this.ptImgUrl,
     required this.service,
-    required this.insurance,
-    required this.primaryDiagnosis,
-    required this.secondaryDiagnoses,
+    required this.patientDiagnoses,
     required this.referralSource,
     required this.pcp,
     required this.marketer,
@@ -85,24 +81,27 @@ class ServiceModel {
   ServiceModel({required this.srvId, required this.srvName, required this.srvCode});
 }
 
-class InsuranceModel {
-  final int rptiId;
-  final int fkptId;
-  final String policy;
-  final String insuranceProvider;
-  final String insurancePlan;
-  final bool eligibility;
-  final bool authorization;
-  final String? time;
-  InsuranceModel({required this.rptiId, required this.fkptId, required this.policy, required this.insuranceProvider, required this.insurancePlan, required this.eligibility, required this.authorization, this.time,});
-}
+class PatientDiagnosesModel {
 
-class DiagnosisModel {
-  final int dgnId;
+  final int rpt_dgn_id;
   final String dgnName;
   final String dgnCode;
+  final int fk_pt_id;
+  final int fk_dgn_id;
+  final bool rpt_pdgm;
+  final bool rpt_isPrimary;
+  final int color;
 
-  DiagnosisModel({required this.dgnId, required this.dgnName, required this.dgnCode});
+  PatientDiagnosesModel({
+    required this.fk_pt_id,
+    required this.fk_dgn_id,
+    required this.rpt_pdgm,
+    required this.rpt_isPrimary,
+    required this.color,
+    required this.rpt_dgn_id,
+    required this.dgnName,
+    required this.dgnCode,
+  });
 }
 
 class ReferralSourceModel {

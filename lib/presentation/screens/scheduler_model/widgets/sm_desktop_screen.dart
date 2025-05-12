@@ -175,7 +175,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
               Column(
                 children: [
                     ApplicationSMAppBar(headingText: "Scheduling Manager",
-                      body: [
+                      body:providerContact.isAppVarVisible ?[]:[
                      Expanded(
                        child: Obx(
                              () => Padding(
