@@ -18,8 +18,10 @@ class SmIntakeProviderManager extends ChangeNotifier{
   bool _IContainerVisible = false;
   bool _ICContainerVisible = false;
   bool _PContainerVisible = false;// Track filter panel state
+  bool _isAppBarVisible = false;
 
 
+  bool get isAppVarVisible => _isAppBarVisible;
   int get initialIndex => _initialIndex;
   bool get isContactTrue => _isContactTrue;
   bool get isRightSliderOpen => _isRightSliderOpen;
@@ -114,6 +116,11 @@ class SmIntakeProviderManager extends ChangeNotifier{
   void toggleContainerP() {
       _PContainerVisible = !_PContainerVisible;
       notifyListeners();
+  }
+
+  void toogleAppBar(){
+    _isAppBarVisible = !_isAppBarVisible;
+    notifyListeners();
   }
 
 }

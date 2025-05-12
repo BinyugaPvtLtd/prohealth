@@ -19,9 +19,12 @@ class ApiData {
   final int? documentId;
   final int? banckingId;
   final int? otherDocId;
+  /// SM variables
+  final int? rptd_id;
   ApiData(
       {this.officeId,
         this.employeeEnrollId,
+        this.rptd_id,
       required this.statusCode,
       required this.success,
       required this.message,
