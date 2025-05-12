@@ -444,7 +444,9 @@ class RefferalPendingScreen extends StatelessWidget {
                                                     height: AppSize.s2,
                                                   ),
                                                   Text(
-                                                    snapshot.data![index].ptTime,
+                                                    snapshot.data![index].intakeTime != null
+                                                        ? DateFormat.jm().format(DateTime.parse(snapshot.data![index].intakeTime!))
+                                                        : '',
                                                     textAlign: TextAlign.center,
                                                     style: CustomTextStylesCommon.commonStyle(
                                                       fontSize: FontSize.s11,

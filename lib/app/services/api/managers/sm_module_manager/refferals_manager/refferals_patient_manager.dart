@@ -9,7 +9,7 @@ import '../../../../../../data/api_data/sm_data/sm_model_data/sm_patient_reffera
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/sm_repository/refferals/patient_refferal_repo.dart';
-
+///get
 Future<List<PatientModel>> getPatientReffrealsData({
   required BuildContext context,
   required int pageNo,
@@ -51,7 +51,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
           fk_rpti_id: item['fk_rpti_id']??0,
           isPotential: item['is_potential_duplicate'] ?? false,
           thresould: item['threshold']??0,
-          ptTime: formatedTime,
+        //  ptTime: formatedTime,
           ptId: item['pt_id'],
           ptFirstName: item['pt_first_name'] ?? '',
           ptLastName: item['pt_last_name'] ?? '',
@@ -69,14 +69,15 @@ Future<List<PatientModel>> getPatientReffrealsData({
           fkPtDiscplines: List<int>.from(item['fk_pt_discplines'] ?? []),
           ptCoverageArea: item['pt_coverage_area'] ?? 0,
           isIntake: item['is_intake'] ?? false,
-          intakeTime: item['intake_time'] != null ? DateTime.tryParse(item['intake_time']) : null,
+          intakeTime:  item['intake_time']?.toString(), // != null ? DateTime.tryParse(item['intake_time']) : null,
           isArchieved: item['is_archieved'] ?? false,
           archievedTime: item['archieved_time'] != null ? DateTime.tryParse(item['archieved_time']) : null,
-          insuranceId: item['insurance_id'] ?? 0,
+         // insuranceId: item['insurance_id'] ?? 0,
           createdAt: DateTime.parse(item['created_at']),
           ptDateOfBirth: DateTime.parse(item['pt_date_of_birth']),
          // ptImgUrl: item['pt_img_url'] ?? '',
           ptImgUrl: item['pt_img_url']?.toString() ?? '',
+          fkempIdArchieved: item['fk_emp_id_archived'] ?? 0,
           service: ServiceModel(
             srvId: item['service']['srv_id'],
             srvName: item['service']['srv_name'],
@@ -180,17 +181,20 @@ Future<List<PatientModel>> getPatientReffrealsData({
             );
           }).toList(),
 
-          insurance: InsuranceModel(
-              rptiId: item['patientInsurance']['rpti_id'],
-              fkptId: item['patientInsurance']['fk_pt_id'],
-              policy: item['patientInsurance']['rpti_policy'],
-              insuranceProvider: item['patientInsurance']['rpti_insurance_provider'],
-              insurancePlan: item['patientInsurance']['rpti_insurance_plan'],
-              eligibility: item['patientInsurance']['rpti_eligibility'],
-              authorization: item['patientInsurance']['rpti_authorization'],
-              time: item['patientInsurance']['rpti_last_checked_time']),
+          insurance: (item['patientInsurance'] as List).map((i) {
+            return InsuranceModel(
+              rptiId: 0,//item['patientInsurance']['rpti_id'] ?? 0,
+              fkptId: i['fk_pt_id'] ?? 0,
+              policy: i['rpti_policy'] ?? "",
+              insuranceProvider: i['rpti_insurance_provider'] ?? "",
+              insurancePlan: i['rpti_insurance_plan']?? "",
+              eligibility: i['rpti_eligibility']?? false,
+              authorization: i['rpti_authorization']?? false,
+              time: i['rpti_last_checked_time']?? "");
+          }).toList(),
 
         ));
+        print("RPTI ID ::::::::::::::::::: ${item['patientInsurance']['rpti_id'].runtimeType}");
       }
     } else {
       print("patient referrals error");
@@ -236,7 +240,7 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
           fk_rpti_id: item['fk_rpti_id']??0,
           isPotential: item['is_potential_duplicate'] ?? false,
           thresould: item['threshold']??0,
-          ptTime: formatedTime,
+        //  ptTime: formatedTime,
           ptId: item['pt_id'],
           ptFirstName: item['pt_first_name'] ?? '',
           ptLastName: item['pt_last_name'] ?? '',
@@ -254,14 +258,14 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
           fkPtDiscplines: List<int>.from(item['fk_pt_discplines'] ?? []),
           ptCoverageArea: item['pt_coverage_area'] ?? 0,
           isIntake: item['is_intake'] ?? false,
-          intakeTime: item['intake_time'] != null ? DateTime.tryParse(item['intake_time']) : null,
+          intakeTime: item['intake_time'], // != null ? DateTime.tryParse(item['intake_time']) : null,
           isArchieved: item['is_archieved'] ?? false,
           archievedTime: item['archieved_time'] != null ? DateTime.tryParse(item['archieved_time']) : null,
-          insuranceId: item['insurance_id'] ?? 0,
+        //  insuranceId: item['insurance_id'] ?? 0,
           createdAt: DateTime.parse(item['created_at']),
           ptDateOfBirth: DateTime.parse(item['pt_date_of_birth']),
           ptImgUrl: item['pt_img_url'] ?? '',
-
+          fkempIdArchieved: item['fk_emp_id_archived'] ?? 0,
           service: ServiceModel(
             srvId: item['service']['srv_id'],
             srvName: item['service']['srv_name'],
@@ -365,19 +369,17 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
             );
           }).toList(),
 
-          insurance: InsuranceModel(
-              //rptiId: item['patientInsurance']['rpti_id'] ?? 0,
-              rptiId: item['patientInsurance']['rpti_id'] is int
-                  ? item['patientInsurance']['rpti_id']
-                  : int.tryParse(item['patientInsurance']['rpti_id'].toString()) ?? 0,
-
-              fkptId: item['patientInsurance']['fk_pt_id'] ?? 0,
-              policy: item['patientInsurance']['rpti_policy'] ?? '',
-              insuranceProvider: item['patientInsurance']['rpti_insurance_provider'] ?? '',
-              insurancePlan: item['patientInsurance']['rpti_insurance_plan'] ?? '',
-              eligibility: item['patientInsurance']['rpti_eligibility'] ?? false,
-              authorization: item['patientInsurance']['rpti_authorization'] ?? false,
-              time: item['patientInsurance']['rpti_last_checked_time']),
+          insurance: (item['patientInsurance'] as List).map((i) {
+            return InsuranceModel(
+                rptiId: 0,//item['patientInsurance']['rpti_id'] ?? 0,
+                fkptId: i['fk_pt_id'] ?? 0,
+                policy: i['rpti_policy'] ?? "",
+                insuranceProvider: i['rpti_insurance_provider'] ?? "",
+                insurancePlan: i['rpti_insurance_plan']?? "",
+                eligibility: i['rpti_eligibility']?? false,
+                authorization: i['rpti_authorization']?? false,
+                time: i['rpti_last_checked_time']?? "");
+          }).toList(),
         );
     
     } else {

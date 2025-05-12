@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:provider/provider.dart';
@@ -336,7 +337,9 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                   height: AppSize.s2,
                                                 ),
                                                 Text(
-                                                  snapshot.data![index].ptTime,
+                                                  snapshot.data![index].intakeTime != null
+                                                      ? DateFormat.jm().format(DateTime.parse(snapshot.data![index].intakeTime!))
+                                                      : '',
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon
                                                       .commonStyle(

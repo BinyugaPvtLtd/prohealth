@@ -301,7 +301,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           color: ColorManager.mediumgrey,),
                                       ),
                                       Text(
-                                        "Received Date: ${snapshot.data!.ptRefferalDate}  | ${ snapshot.data!.ptTime}",
+                                        "Received Date: ${snapshot.data!.ptRefferalDate}  | ${ snapshot.data!.intakeTime}",
                                         textAlign: TextAlign.center,
                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                           fontWeight: FontWeight.w400,
@@ -979,11 +979,11 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                 Container(
                                                   height: 30,
                                                   padding: EdgeInsets.only(left: 45,right: 20),
-                                                  child: Text( snapshot.data!.insurance.eligibility == false  ? "Not all visit\ncovered" : "Eligible",
+                                                  child: Text( snapshot.data!.insurance[index].eligibility == false  ? "Not all visit\ncovered" : "Eligible",
                                                     style: TextStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w700,
-                                                      color:  snapshot.data!.insurance.eligibility == false
+                                                      color:  snapshot.data!.insurance[index].eligibility == false
                                                           ? ColorManager.incidentskinSM
                                                           : ColorManager.greenDark,
                                                     ),),
@@ -995,7 +995,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                               width: 30,
                                               height: 30,
                                               decoration: BoxDecoration(
-                                                color:  snapshot.data!.insurance.eligibility == false
+                                                color:  snapshot.data!.insurance[index].eligibility == false
                                                     ? ColorManager.incidentskinSM
                                                     : ColorManager.bluebottom,
                                                 borderRadius: BorderRadius.circular(3),
@@ -1023,7 +1023,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                     onPressed: (){},
                                                   ),
                                                   SizedBox(height: 5,),
-                                              Text("Last checked at ${snapshot.data!.insurance.time}",
+                                              Text("Last checked at ${snapshot.data!.insurance[index].time}",
                                               style: TextStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w400,

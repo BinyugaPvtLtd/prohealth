@@ -135,7 +135,7 @@ class _CurateScreenState extends State<CurateScreen> {
                               Expanded(child: Container()),
                               /// Name & Sync
                               Expanded(
-                                flex: 2,
+                                flex: 3,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -155,17 +155,17 @@ class _CurateScreenState extends State<CurateScreen> {
                                     Expanded(
                                       flex: 2,
                                       child: Text(
-                                        "| Sync 05/08/2024  | 6:35 PM",
+                                        " Sync 05/08/2024  | 6:35 PM",
                                         style: DocDefineTableDataID.customTextStyle(context),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-
+                              const SizedBox(width: 20),
                               /// Referral Date
                               Expanded(
-                                flex: 2,
+                                flex: 3,
                                 child: Row(
                                   children: [
                                     Expanded(
@@ -175,10 +175,10 @@ class _CurateScreenState extends State<CurateScreen> {
                                         style: DocDefineTableDataID.customTextStyle(context),
                                       ),
                                     ),
-                                    const SizedBox(width: 20),
+                                    const SizedBox(width: 40),
                                     Expanded(
                                       child: Text(
-                                        "09/15/2024",
+                                        "4/30/2025",
                                         style: DocDefineTableData.customTextStyle(context),
                                       ),
                                     ),
@@ -188,7 +188,7 @@ class _CurateScreenState extends State<CurateScreen> {
 
                               /// Contact Number
                               Expanded(
-                                flex: 2,
+                                flex: 3,
                                 child: Row(
                                   children: [
                                     Expanded(
@@ -198,7 +198,7 @@ class _CurateScreenState extends State<CurateScreen> {
                                         style: DocDefineTableDataID.customTextStyle(context),
                                       ),
                                     ),
-                                    const SizedBox(width: 20),
+                                    const SizedBox(width: 40),
                                     Expanded(
                                       child: Text(
                                         "+44 47962124531",
@@ -469,10 +469,10 @@ class _CurateScreenState extends State<CurateScreen> {
                                                     },
                                                   ),
                                                   SizedBox(
-                                                    width: AppSize.s15,
+                                                    width: AppSize.s5,
                                                   ),
                                                   Text(
-                                                    "Do you have secondary Insurance? ",
+                                                    "Do you have secondary Insurance ? ",
                                                     style: DocDefineTableDataID
                                                         .customTextStyle(context),
                                                   )
@@ -683,10 +683,10 @@ class _CurateScreenState extends State<CurateScreen> {
                                                 },
                                               ),
                                               SizedBox(
-                                                width: AppSize.s15,
+                                                width: AppSize.s5,
                                               ),
                                               Text(
-                                                "Do you have secondary Insurance? ",
+                                                "Do you have secondary Insurance ? ",
                                                 style: DocDefineTableDataID
                                                     .customTextStyle(context),
                                               )
@@ -796,7 +796,7 @@ class _CurateScreenState extends State<CurateScreen> {
                     ),
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 15,
                   ),
                   CustomElevatedButton(
                     width: AppSize.s105,
