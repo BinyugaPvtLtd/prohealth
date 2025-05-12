@@ -406,4 +406,5 @@ class AppStringSMModule{
   static const String pendingReferNoData = 'No available pending referrals!';
   static const String moveIntakeReferNoData = 'No available intake referrals!';
   static const String archivedReferNoData = 'No available archived referrals!';
+  static const String patientDocNoData = 'No available patient documents!';
 }
