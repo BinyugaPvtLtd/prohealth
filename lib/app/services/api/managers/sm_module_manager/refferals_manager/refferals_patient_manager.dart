@@ -182,7 +182,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
 
           insurance: (item['patientInsurance'] as List).map((i) {
             return InsuranceModel(
-              rptiId: 0,//item['patientInsurance']['rpti_id'] ?? 0,
+              rptiId: item['patientInsurance']['rpti_id'] ?? 0,
               fkptId: i['fk_pt_id'] ?? 0,
               policy: i['rpti_policy'] ?? "",
               insuranceProvider: i['rpti_insurance_provider'] ?? "",
@@ -368,7 +368,7 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
 
           insurance: (item['patientInsurance'] as List).map((i) {
             return InsuranceModel(
-                rptiId: 0,//item['patientInsurance']['rpti_id'] ?? 0,
+                rptiId: item['patientInsurance']['rpti_id'] ?? 0,
                 fkptId: i['fk_pt_id'] ?? 0,
                 policy: i['rpti_policy'] ?? "",
                 insuranceProvider: i['rpti_insurance_provider'] ?? "",
