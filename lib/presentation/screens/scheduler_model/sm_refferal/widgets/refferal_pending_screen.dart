@@ -561,7 +561,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   SizedBox(
                                                     height: AppSize.s4,
                                                   ),
-                                                  Text(
+                                                  Text(snapshot.data![index].patientDiagnoses.isEmpty ? "--":
                                                     snapshot.data![index].patientDiagnoses[0].dgnName,
                                                     textAlign: TextAlign.center,
                                                     style: CustomTextStylesCommon
