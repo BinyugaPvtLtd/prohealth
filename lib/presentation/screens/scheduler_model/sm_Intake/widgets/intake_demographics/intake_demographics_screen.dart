@@ -142,14 +142,14 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
               return SlideTransition(
                 position: _slideLeftAnimation,
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 5),
+                    padding: const EdgeInsets.only(top: 5,left: 10),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.24,
                       //height: double.infinity,
                       color: Colors.white,
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.all(1),
                       child: ScrollConfiguration(
                         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                         child: SingleChildScrollView(
@@ -323,7 +323,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                     child: Divider(color: Color(0xFFD9D9D9),thickness: 1,),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 5,bottom: 5,left: 20),
+                                    padding: const EdgeInsets.only(top: 5,bottom: 10,left: 20),
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: RichText(
@@ -334,7 +334,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                               fontWeight: FontWeight.w700,fontSize: 12),
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: 'Abc.pdf. ',
+                                              text: 'Abc.pdf . ',
                                               style: CustomTextStylesCommon.commonStyle(
                                                   color:Color(0xFF51B5E6),
                                                   fontWeight: FontWeight.w700,fontSize: 12),
@@ -382,13 +382,15 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                                     fontWeight: FontWeight.w400,fontSize: 12),
                                               ),
 
+
                                             ],
                                           ),
                                         ),
 
                                       ),
                                     ),
-                                  )
+                                  ),
+                                  SizedBox(height: 100,),
                                 ],
                               ),
                             ),

@@ -233,7 +233,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                     height: AppSize.s5,
                                                   ),
                                                   Text(
-                                                    "Received Date :  ${snapshot.data![index].ptRefferalDate}",
+                                                    "Referral Date :  ${snapshot.data![index].ptRefferalDate}",
                                                     textAlign: TextAlign.center,
                                                     style: CustomTextStylesCommon
                                                         .commonStyle(
