@@ -8,6 +8,8 @@ import '../../../../../../app/resources/establishment_resources/establish_theme_
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
+import '../../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../em_module/widgets/button_constant.dart';
 import '../../../../em_module/widgets/text_form_field_const.dart';
@@ -49,6 +51,7 @@ class _CurateScreenState extends State<CurateScreen> {
   bool docChecked = false;
   String selectedType = "Insurance";
   bool isChecked = false;
+  List<String> desciplineModel = [];
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -695,11 +698,14 @@ class _CurateScreenState extends State<CurateScreen> {
                                           SizedBox(
                                             height: 15,
                                           ),
-                                          SMTextFConst(
-                                            controller: secInsurance,
-                                            isAsteric: false,
-                                            keyboardType: TextInputType.text,
-                                            text: "Secondary Insurance Number",
+                                          Opacity(
+                                            opacity: 0.6,
+                                            child: SMTextFConst(
+                                              controller: secInsurance,
+                                              isAsteric: false,
+                                              keyboardType: TextInputType.text,
+                                              text: "Secondary Insurance Number",
+                                            ),
                                           ),
                                           SizedBox(
                                             height: 15,
@@ -717,17 +723,127 @@ class _CurateScreenState extends State<CurateScreen> {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          CustomDropdownTextFieldsm(
-                                              width: AppSize.s354,
-                                              isIconVisible: false,
-                                              headText: "Clinician"),
+                                          Container(
+                                            width: 354,
+                                           // height: 30,
+                                            child: FutureBuilder<List<EmployeeClinicalData>>(
+                                              future: getEmployeeClinicalInReffreals(context: context),
+                                              builder: (context, snapshotEmp) {
+                                                if (snapshotEmp.connectionState == ConnectionState.waiting) {
+                                                  return Center(
+                                                    child: CircularProgressIndicator(color: ColorManager.blueprime),
+                                                  );
+                                                }
+
+                                                if (snapshotEmp.hasData) {
+                                                  // Create the dropdown items list
+                                                  List<DropdownMenuItem<String>> dropDownList = snapshotEmp.data!
+                                                      .map((e) => DropdownMenuItem<String>(
+                                                    child: Text(e.empType ?? ''),
+                                                    value: e.empType,
+                                                  ))
+                                                      .toList();
+
+                                                  return CustomDropdownTextFieldsm(
+                                                    isIconVisible: false,
+                                                    headText: 'Clinician',
+                                                    initialValue: desciplineModel.isNotEmpty ? desciplineModel.last : null,
+                                                    dropDownMenuList: dropDownList,
+                                                    // onChanged: (newValue) {
+                                                    //   final selected = snapshotEmp.data!.firstWhere((e) => e.empType == newValue);
+                                                    //
+                                                    //   // Clear previous selection if single-select dropdown
+                                                    //   desciplineModel.clear();
+                                                    //   desciplineintList.clear();
+                                                    //
+                                                    //   desciplineModel.add(selected.empType ?? '');
+                                                    //   desciplineintList.add(selected.emptypeId ?? 0);
+                                                    //
+                                                    //   updateReferralPatient(
+                                                    //     context: context,
+                                                    //     patientId: providerAddState.patientId,
+                                                    //     isUpdatePatiendData: true,
+                                                    //     firstName: firstNameController.text,
+                                                    //     lastName: lastNameController.text,
+                                                    //     contactNo: patientsController.text,
+                                                    //     summary: patientsSummary.text,
+                                                    //     zipCode: zipCodeController.text,
+                                                    //     serviceId: snapshot.data?.fkSrvId ?? 0,
+                                                    //     disciplineIds: desciplineintList,
+                                                    //     insuranceId: patientInsuranceId,
+                                                    //   );
+                                                    // },
+                                                  );
+                                                } else {
+                                                  return const SizedBox();
+                                                }
+                                              },
+                                            ),
+                                          ),
                                           SizedBox(
                                             height: 25,
                                           ),
-                                          CustomDropdownTextFieldsm(
-                                              width: AppSize.s354,
-                                              isIconVisible: false,
-                                              headText: "Clinician"),
+                                          Container(
+                                            width: 354,
+                                            //height: 30,
+                                            child: FutureBuilder<List<EmployeeClinicalData>>(
+                                              future: getEmployeeClinicalInReffreals(context: context),
+                                              builder: (context, snapshotEmp) {
+                                                if (snapshotEmp.connectionState == ConnectionState.waiting) {
+                                                  return Center(
+                                                    child: CircularProgressIndicator(color: ColorManager.blueprime),
+                                                  );
+                                                }
+
+                                                if (snapshotEmp.hasData) {
+                                                  // Create the dropdown items list
+                                                  List<DropdownMenuItem<String>> dropDownList = snapshotEmp.data!
+                                                      .map((e) => DropdownMenuItem<String>(
+                                                    child: Text(e.empType ?? ''),
+                                                    value: e.empType,
+                                                  ))
+                                                      .toList();
+
+                                                  return CustomDropdownTextFieldsm(
+                                                    isIconVisible: false,
+                                                    headText: 'Clinician',
+                                                    initialValue: desciplineModel.isNotEmpty ? desciplineModel.last : null,
+                                                    dropDownMenuList: dropDownList,
+                                                    // onChanged: (newValue) {
+                                                    //   final selected = snapshotEmp.data!.firstWhere((e) => e.empType == newValue);
+                                                    //
+                                                    //   // Clear previous selection if single-select dropdown
+                                                    //   desciplineModel.clear();
+                                                    //   desciplineintList.clear();
+                                                    //
+                                                    //   desciplineModel.add(selected.empType ?? '');
+                                                    //   desciplineintList.add(selected.emptypeId ?? 0);
+                                                    //
+                                                    //   updateReferralPatient(
+                                                    //     context: context,
+                                                    //     patientId: providerAddState.patientId,
+                                                    //     isUpdatePatiendData: true,
+                                                    //     firstName: firstNameController.text,
+                                                    //     lastName: lastNameController.text,
+                                                    //     contactNo: patientsController.text,
+                                                    //     summary: patientsSummary.text,
+                                                    //     zipCode: zipCodeController.text,
+                                                    //     serviceId: snapshot.data?.fkSrvId ?? 0,
+                                                    //     disciplineIds: desciplineintList,
+                                                    //     insuranceId: patientInsuranceId,
+                                                    //   );
+                                                    // },
+                                                  );
+                                                } else {
+                                                  return const SizedBox();
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                          // CustomDropdownTextFieldsm(
+                                          //     width: AppSize.s354,
+                                          //     isIconVisible: false,
+                                          //     headText: "Clinician"),
                                         ],
                                       ),
                                     ),

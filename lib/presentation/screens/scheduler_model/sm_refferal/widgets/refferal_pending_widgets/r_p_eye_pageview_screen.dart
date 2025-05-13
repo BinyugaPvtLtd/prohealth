@@ -389,7 +389,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           Expanded(
                                             flex: 2,
                                             child: Container(
-                                              child: Text(
+                                              child: Text(snapshot.data!.patientDiagnoses.isEmpty ? "" :
                                                 snapshot.data!.patientDiagnoses[0].dgnName,
                                                 textAlign: TextAlign.start,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
@@ -578,7 +578,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: SMTextFConstPhone(controller: patientsController,
-                                isAsteric: false,
+                                isAsteric: true,
                                 onChanged: (value){
                                   updateReferralPatient(context: context,
                                       patientId: providerAddState.patientId,
@@ -744,160 +744,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           ),
                         ),
                         SizedBox(height: 10),
-                        // Container(
-                        //   color: selectedType == 'Self Pay' ? Colors.grey.shade200 : Colors.transparent,
-                        //   child: IgnorePointer(
-                        //     ignoring: selectedType == 'Self Pay',
-                        //     child: ListView.builder(
-                        //       shrinkWrap: true,
-                        //       itemCount: 2,
-                        //       itemBuilder: (context, index) {
-                        //         return Padding(
-                        //           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        //           child: Column(
-                        //             crossAxisAlignment: CrossAxisAlignment.start,
-                        //             children: [
-                        //               Text(
-                        //                 'Insurance  #${index + 1}',
-                        //                 style: TextStyle(
-                        //                   fontSize: FontSize.s14,
-                        //                   fontWeight: FontWeight.w500,
-                        //                   color: ColorManager.mediumgrey,
-                        //                   decoration: TextDecoration.none,
-                        //                 ),
-                        //               ),
-                        //               Row(
-                        //                 crossAxisAlignment: CrossAxisAlignment.center,
-                        //                 children: [
-                        //                   Expanded(
-                        //                     child: Container(
-                        //                       padding: EdgeInsets.only(top: 15),
-                        //                       child: Checkbox(
-                        //                         splashRadius: 0,
-                        //                         checkColor: ColorManager.white,
-                        //                         activeColor: ColorManager.bluebottom,
-                        //                         side: BorderSide(color: ColorManager.bluebottom, width: 2),
-                        //                         value: isCheckedList[index],
-                        //                         onChanged: (bool? value) {
-                        //                           setState(() {
-                        //                             isCheckedList[index] = value!;
-                        //                           });
-                        //                         },
-                        //                       ),
-                        //                     ),
-                        //                   ),
-                        //                   SizedBox(width: 20),
-                        //                   Expanded(
-                        //                     flex: 2,
-                        //                     child: SMTextFConst(
-                        //                       controller: policy,
-                        //                       isAsteric: false,
-                        //                       keyboardType: TextInputType.text,
-                        //                       text: "Policy #",
-                        //                     ),
-                        //                   ),
-                        //                   Expanded(child: Container()),
-                        //                   Expanded(
-                        //                     flex: 2,
-                        //                     child: SMTextFConst(
-                        //                       controller: provider,
-                        //                       isAsteric: false,
-                        //                       keyboardType: TextInputType.text,
-                        //                       text: "Insurance Provider :",
-                        //                     ),
-                        //                   ),
-                        //                   Expanded(child: Container()),
-                        //                   Expanded(
-                        //                     flex: 2,
-                        //                     child: SMTextFConst(
-                        //                       controller: plan,
-                        //                       isAsteric: false,
-                        //                       keyboardType: TextInputType.text,
-                        //                       text: "Insurance Plan :",
-                        //                     ),
-                        //                   ),
-                        //                   SizedBox(width: 10),
-                        //                   Expanded(
-                        //                     flex: 2,
-                        //                     child: Column(
-                        //                       mainAxisAlignment: MainAxisAlignment.start,
-                        //                       children: [
-                        //                         Text(
-                        //                           "Eligibility:",
-                        //                           style: AllPopupHeadings.customTextStyle(context),
-                        //                         ),
-                        //                         SizedBox(height: 12),
-                        //                         Container(
-                        //                           height: 30,
-                        //                           padding: EdgeInsets.only(left: 45, right: 20),
-                        //                           child: Text(
-                        //                             "Not all visit\ncovered",
-                        //                             style: TextStyle(
-                        //                               fontSize: FontSize.s12,
-                        //                               fontWeight: FontWeight.w700,
-                        //                               color: ColorManager.greenDark,
-                        //                             ),
-                        //                           ),
-                        //                         )
-                        //                       ],
-                        //                     ),
-                        //                   ),
-                        //                   SizedBox(width: 20),
-                        //                   Container(
-                        //                     width: 30,
-                        //                     height: 30,
-                        //                     decoration: BoxDecoration(
-                        //                       color: ColorManager.greenDark,
-                        //                       borderRadius: BorderRadius.circular(3),
-                        //                     ),
-                        //                     child: Center(
-                        //                       child: Text(
-                        //                         "A",
-                        //                         textAlign: TextAlign.center,
-                        //                         style: TextStyle(
-                        //                           fontSize: FontSize.s12,
-                        //                           fontWeight: FontWeight.w700,
-                        //                           color: ColorManager.white,
-                        //                         ),
-                        //                       ),
-                        //                     ),
-                        //                   ),
-                        //                   SizedBox(width: 30),
-                        //                   Expanded(
-                        //                     flex: 2,
-                        //                     child: Column(
-                        //                       children: [
-                        //                         CustomElevatedButton(
-                        //                           width: AppSize.s130,
-                        //                           height: AppSize.s30,
-                        //                           text: "Check Eligibility",
-                        //                           color: ColorManager.bluebottom,
-                        //                           onPressed: () {},
-                        //                         ),
-                        //                         SizedBox(height: 5),
-                        //                         Text(
-                        //                           "Last checked at 8:30 AM",
-                        //                           style: TextStyle(
-                        //                             fontSize: FontSize.s12,
-                        //                             fontWeight: FontWeight.w400,
-                        //                             color: ColorManager.mediumgrey,
-                        //                           ),
-                        //                         ),
-                        //                       ],
-                        //                     ),
-                        //                   )
-                        //                 ],
-                        //               ),
-                        //               SizedBox(height: 10),
-                        //               Divider(thickness: 1, height: 30),
-                        //             ],
-                        //           ),
-                        //         );
-                        //       },
-                        //     ),
-                        //   ),
-                        // ),
-
                         Opacity(
                           opacity: selectedType == 'Self Pay' ? 0.2 :  0.9,
                           child: Container(
@@ -1293,11 +1139,22 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                             children: [
                                                               Container(
                                                                 height: 20,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(6),
+                                                                  boxShadow: [
+                                                                    BoxShadow(
+                                                                      color: Colors.black.withOpacity(0.25), // light shadow
+                                                                      spreadRadius: 0,
+                                                                      blurRadius: 2.38,
+                                                                      offset: const Offset(0, 1.19), // horizontal & vertical offset
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                                 child: Chip(
                                                                   label: Padding(
-                                                                    padding: const EdgeInsets.only(bottom: 5.0),
+                                                                    padding: const EdgeInsets.only(bottom: 8.0),
                                                                     child: Text(snapshot.data!.disciplines[index].abbreviation,
-                                                                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
+                                                                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 10)),
                                                                   ),
                                                                   backgroundColor:Color(int.parse('0xFF$hexColor')),
                                                                 ),
