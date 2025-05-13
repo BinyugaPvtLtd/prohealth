@@ -416,7 +416,6 @@ class _FilterByState extends State<FilterBy> {
                   child: Container(
                     width: 400,
                    height: 300,
-
                     child: SingleChildScrollView(
                       child: Column(
                         children: widget.body,
