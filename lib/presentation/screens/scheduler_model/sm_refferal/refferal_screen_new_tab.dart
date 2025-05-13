@@ -108,6 +108,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
           : isShowingAutoSyncPageview ?
           RPAutoSyncScreen(
             onAutoBackPressed: (){
+              providerState.toogleAppBar();
               goBackToInitialScreenFromAuto();
               providerReferrals.passPatientIdClear();
               providerState.toogleAutoSyncScreenProvider();

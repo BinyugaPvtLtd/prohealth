@@ -84,7 +84,9 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
               StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'true', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text, marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
+                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'true', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                        marketerId: providerContact.marketerId,
+                        referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                       _streamController.add(data);
                     }).catchError((error) {
                       // Handle error

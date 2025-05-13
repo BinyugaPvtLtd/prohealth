@@ -95,6 +95,7 @@ class RefferalPendingScreen extends StatelessWidget {
                       textSize: FontSize.s12,
                       text: "Auto Sync",
                       onPressed: ()async{
+                        providerContact.toogleAppBar();
                         onAutoSyncPressed();
                       },
                     ),
@@ -220,7 +221,9 @@ class RefferalPendingScreen extends StatelessWidget {
               StreamBuilder<List<PatientModel>>(
                 stream: _streamController.stream,
                 builder: (context,snapshot) {
-                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 20, isIntake: 'false', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text, marketerId: 'all', referralSourceId: 'all', pcpId: 'all').then((data) {
+                  getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 20, isIntake: 'false', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                      marketerId: providerContact.marketerId,
+                      referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                     _streamController.add(data);
                   }).catchError((error) {
                     // Handle error
@@ -672,11 +675,14 @@ class RefferalPendingScreen extends StatelessWidget {
                                             //SizedBox(width: AppSize.s15),
                                             Expanded(
                                               flex: 2,
-                                              child: Text(
-                                                "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
-                                                textAlign: TextAlign.center,
-                                                style: DocDefineTableData
-                                                    .customTextStyle(context),
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                child: Text(
+                                                  "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
+                                                  textAlign: TextAlign.center,
+                                                  style: DocDefineTableData
+                                                      .customTextStyle(context),
+                                                ),
                                               ),
                                             ),
 

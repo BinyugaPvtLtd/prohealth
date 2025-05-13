@@ -1339,7 +1339,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                         itemBuilder: (context, index) {
                                           //  int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                                           // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                                          var fileUrl = "url";//policiesdata.docurl;
+                                          var fileUrl = snapshotDoc.data![index].rptd_url;//policiesdata.docurl;
                                           final fileExtension = fileUrl.split('/').last;
 
                                           Widget fileWidget;
@@ -1473,9 +1473,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                               ),
                                                               SizedBox(width: AppSize.s10,),
                                                               ///download saloni
-                                                              PdfDownloadButton(apiUrl: "",// policiesdata.docurl,
+                                                              PdfDownloadButton(apiUrl: snapshotDoc.data![index].rptd_url,// policiesdata.docurl,
                                                                 iconsize: IconSize.I22,
-                                                                documentName: "",//policiesdata.docName!
+                                                                documentName: snapshotDoc.data![index].documentName,//policiesdata.docName!
                                                               ),
                                                               // SizedBox(width: AppSize.s10,),
                                                               // ///edit
@@ -1731,7 +1731,7 @@ class _DiagosisListState extends State<DiagosisList> {
                   children: [
                     Row(
                       children: [
-                        Container(height: 90,width: 5,color: widget.diagnosisData[index].color == 0 ? ColorManager.greenDark : widget.diagnosisData[index].color == 1 ?const Color(0xFFFEBD4D):ColorManager.red,),
+                        Container(height: 90,width: 5,color: widget.diagnosisData[index].color == 0 ?ColorManager.red: ColorManager.greenDark),
                         SizedBox(width: AppSize.s30,),
                         Expanded(
                           child: SMTextFConst(controller: _possibleControllers[index],
