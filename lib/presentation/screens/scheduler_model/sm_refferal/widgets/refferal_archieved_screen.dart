@@ -333,7 +333,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                     ColorManager.mediumgrey,
                                                   ),
                                                 ),
-                                              SizedBox(
+                                                SizedBox(
                                                   height: AppSize.s2,
                                                 ),
                                                 Text(

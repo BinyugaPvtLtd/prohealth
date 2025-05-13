@@ -389,7 +389,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           Expanded(
                                             flex: 2,
                                             child: Container(
-                                              child: Text(snapshot.data!.patientDiagnoses.isEmpty ? "" :
+                                              child: Text(
                                                 snapshot.data!.patientDiagnoses[0].dgnName,
                                                 textAlign: TextAlign.start,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
@@ -1001,37 +1001,31 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                 Container(
                                                   height: 30,
                                                   padding: EdgeInsets.only(left: 45,right: 20),
-                                                  child: Text( "Eligibility",//snapshot.data!.insurance[index].eligibility == false  ? "Not all visit\ncovered" : "Eligible",
+                                                  child: Text("Not all visit\ncovered",
                                                     style: TextStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w700,
-                                                      color: // snapshot.data!.insurance[index].eligibility == false
-                                                        //  ? ColorManager.incidentskinSM
-                                                      //    :
-                                                      ColorManager.greenDark,
+                                                      color: ColorManager.greenDark,
                                                     ),),
                                                 )
                                               ],),
                                             ),
                                             //SizedBox(width: 20,),
-                                           Container(
+                                            Container(
                                               width: 30,
                                               height: 30,
                                               decoration: BoxDecoration(
-                                                color:  //snapshot.data!.insurance[index].eligibility == false
-                                                    // ? ColorManager.incidentskinSM
-                                                    // :
-                                                ColorManager.bluebottom,
+                                                color: ColorManager.greenDark,
                                                 borderRadius: BorderRadius.circular(3),
                                               ),
                                               child: Center(
                                                 child: Text("A",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: ColorManager.white,
-                                                  ),),
+                                                 textAlign: TextAlign.center,
+                                                 style: TextStyle(
+                                                   fontSize: FontSize.s12,
+                                                   fontWeight: FontWeight.w700,
+                                                   color: ColorManager.white,
+                                                 ),),
                                               ),
                                             ),
                                             SizedBox(width: 30,),
@@ -1047,8 +1041,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                     onPressed: (){},
                                                   ),
                                                   SizedBox(height: 5,),
-                                              Text("Last checked at ",//${snapshot.data!.insurance[index].time}",
-                                              style: TextStyle(
+                                                  Text("Last checked at 8:30 AM",
+                                                    style: TextStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w400,
                                                       color: ColorManager.mediumgrey,

@@ -28,10 +28,10 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
     setState(() {
       _selectedIndex = index;
     });
-    _tabPageController.animateToPage(
+    _tabPageController.jumpToPage(
       index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
+      // duration: Duration(milliseconds: 500),
+      // curve: Curves.ease,
     );
   }
 

@@ -348,3 +348,132 @@ class _SmDropdownConstState extends State<SmDropdownConst> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+///filter by
+class FilterBy extends StatefulWidget {
+  final List<Widget> body;
+  final String? value;
+  final List<String>? items;
+  final List<DropdownMenuItem<String>>? dropDownMenuList;
+  final String? hintText;
+ final String? headText;
+  final void Function(String?)? onChanged;
+  final double? width;
+  final double? widthone;
+  final double? height;
+  final String? initialValue;
+  final bool? isIconVisible;
+  final double? borderRadius;
+  const FilterBy ({
+    Key? key,
+    this.dropDownMenuList,
+     this.headText,
+    this.value,
+    this.items,
+    this.onChanged,
+    this.width,
+    this.widthone,
+    this.height,
+    this.initialValue,
+    this.hintText, this.isIconVisible = true, this.borderRadius,required this.body,
+  }): super(key:key);
+
+  @override
+  State<FilterBy> createState() => _FilterByState();
+}
+
+class _FilterByState extends State<FilterBy> {
+
+
+  void _showDropdownDialog() async {
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+    final result = await showDialog<String>(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Positioned(
+              left: offset.dx,
+              top: offset.dy + size.height,
+              child: Material(
+                color: ColorManager.white,
+                elevation: 4,
+                borderRadius: BorderRadius.circular(4),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                  child: Container(
+                    width: 400,
+                   height: 300,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: widget.body,
+                      )
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 36,
+      width: 150,
+
+      child: GestureDetector(
+        onTap: _showDropdownDialog,
+        child: Container(
+          padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
+          decoration:
+          BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300, width: 1), // Applies to all sides
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 3),
+                  child: Text(
+                      'Filter by',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize:FontSize.s13,
+                        color: ColorManager.mediumgrey,
+                        decoration: TextDecoration.none,
+                      ) //DocumentTypeDataStyle.customTextStyle(context),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon( Icons.arrow_drop_down_sharp, color:  ColorManager.mediumgrey,size: IconSize.I22,),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
