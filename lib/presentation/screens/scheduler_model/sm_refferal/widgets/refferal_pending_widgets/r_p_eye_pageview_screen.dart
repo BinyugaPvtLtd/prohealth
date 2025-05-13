@@ -390,6 +390,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                             flex: 2,
                                             child: Container(
                                               child: Text(
+                                                snapshot.data!.patientDiagnoses.isEmpty ? "--":
                                                 snapshot.data!.patientDiagnoses[0].dgnName,
                                                 textAlign: TextAlign.start,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
