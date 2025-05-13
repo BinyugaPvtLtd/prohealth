@@ -536,14 +536,14 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                       }, title: "Mark as Confirm"),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(
                     child: Container(
                       width: 250,
-                      margin: EdgeInsets.only(right: 20),
-                      padding: EdgeInsets.only(left: 5,right: 8,top: 5,bottom: 5),
+                      margin: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(left: 5,right: 8,top: 5,bottom: 5),
                       decoration: BoxDecoration(
                         border: Border.all(color: ColorManager.bluebottom,width: 2),
                         borderRadius: BorderRadius.circular(12),
@@ -580,7 +580,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(height: 2,),
+                                      const SizedBox(height: 2,),
                                       Text('Salaried', style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
                                           fontSize: FontSize.s12, fontWeight: FontWeight.w700),)
                                     ],
@@ -594,11 +594,11 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                         style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
                                             fontSize: FontSize.s12, fontWeight: FontWeight.w700),
                                       ),
-                                      SizedBox(height: 10,),
+                                      const SizedBox(height: 10,),
                                       Text("Available (22 / 25)",
                                         style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
                                             fontSize: FontSize.s12, fontWeight: FontWeight.w600),),
-                                      SizedBox(height: 10,),
+                                      const SizedBox(height: 10,),
                                       Text("Sacramento Z1 (2.4 Miles Away)",
                                         style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
                                             fontSize: FontSize.s12, fontWeight: FontWeight.w400),),
@@ -618,7 +618,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                 highlightColor: Colors.transparent,
                                 child: Image.asset("images/sm/contact_text.png",height: 35,)
                                 ,onTap: (){},),
-                              SizedBox(width: 50,),
+                              const SizedBox(width: 50,),
                               Container(
                                 decoration: BoxDecoration(
                                   color: ColorManager.bluebottom,
@@ -630,7 +630,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                       isAssigned = true;
                                     });
                                   },
-                                  child: Text("Assign"),
+                                  child: const Text("Assign"),
                                 ),
                               ),
                             ],
@@ -651,13 +651,13 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                   color: ColorManager.mediumgrey,
                                   fontSize: FontSize.s14,
                                   fontWeight: FontWeight.w700),),
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
                             Text("2024-12-1  (Tuesday) , 01:00 PM",
                               style: CustomTextStylesCommon.commonStyle(
                                   color: ColorManager.mediumgrey,
                                   fontSize: FontSize.s14,
                                   fontWeight: FontWeight.w400),),
-                            SizedBox(height: 15,),
+                            const SizedBox(height: 15,),
                             Text("2024-12-2  (Wednesday) , 01:00 PM",
                               style: CustomTextStylesCommon.commonStyle(
                                   color: ColorManager.mediumgrey,
@@ -686,13 +686,13 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                 color: ColorManager.mediumgrey,
                                 fontSize: FontSize.s14,
                                 fontWeight: FontWeight.w700),),
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                           Text("2024-12-1  (Tuesday) , 01:00 PM",
                             style: CustomTextStylesCommon.commonStyle(
                                 color: ColorManager.mediumgrey,
                                 fontSize: FontSize.s14,
                                 fontWeight: FontWeight.w400),),
-                          SizedBox(height: 15,),
+                          const SizedBox(height: 15,),
                           Text("2024-12-2  (Wednesday) , 01:00 PM",
                             style: CustomTextStylesCommon.commonStyle(
                                 color: ColorManager.mediumgrey,
@@ -721,13 +721,13 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                 color: ColorManager.mediumgrey,
                                 fontSize: FontSize.s14,
                                 fontWeight: FontWeight.w700),),
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                           Text("2024-12-1  (Tuesday) , 01:00 PM",
                             style: CustomTextStylesCommon.commonStyle(
                                 color: ColorManager.mediumgrey,
                                 fontSize: FontSize.s14,
                                 fontWeight: FontWeight.w400),),
-                          SizedBox(height: 15,),
+                          const SizedBox(height: 15,),
                           Text("2024-12-2  (Wednesday) , 01:00 PM",
                             style: CustomTextStylesCommon.commonStyle(
                                 color: ColorManager.mediumgrey,
@@ -751,7 +751,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                   )
                 ],
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Text(
                 "Notes to Clinician",
                 style: CustomTextStylesCommon.commonStyle(
@@ -759,12 +759,12 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                     fontSize: FontSize.s14,
                     fontWeight: FontWeight.w600),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 width:  AppSize.s400,
                 height: AppSize.s45,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+                  border: Border.all(color: const Color(0xFFB1B1B1), width: 1),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: TextFormField(
@@ -773,7 +773,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                   controller: firstNameController,
                   cursorColor: Colors.black,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 10),
@@ -785,7 +785,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                   // onTap: widget.onChange,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               CustomeTransparentAddShift(
                   width: 130,
                   height: 30,
@@ -796,11 +796,11 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                   FloatingActionButton(
                     onPressed: () {},
                     backgroundColor: ColorManager.bluebottom, // Adjust color as needed
-                    shape: CircleBorder(),
+                    shape: const CircleBorder(),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
+                        const Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
                         //SizedBox(height: 4),
                         Text(
                           'Contact',
@@ -811,8 +811,8 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                   )
                 ],
               ),
-              Divider(),
-              Spacer(),
+              const Divider(),
+              const Spacer(),
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -836,7 +836,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                           child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(height: 20),
+                                          const SizedBox(height: 20),
                                           Text(
                                             "Clinician Preference",
                                             style: CustomTextStylesCommon.commonStyle(
@@ -844,26 +844,65 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                                 fontSize: FontSize.s14,
                                                 fontWeight: FontWeight.w600),
                                           ),
-                                          SizedBox(height: 40),
+                                          const SizedBox(height: 40),
                                           Row(
                                             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               CustomSearchFieldSM(
                                                 onPressed: () {},
                                               ),
-                                              SizedBox(width: 50,),
-                                              SmDropdownConst(
-                                                height: 36,
-                                                width: 150,
-                                                isAstric: false,
-                                                initialValue: 'Filter by',
-                                                headText: "",
-                                                items: ['Filter by', 'Referral App', 'E-Fax', 'E-Referrals', 'Manual'],
-                                                onChanged: (newValue) {},
-                                              ),
+                                              const SizedBox(width: 50,),
+
+
+
+                                              FilterBy(body: [
+
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                        "Filter By",
+                                                        style:TextStyle(
+                                                          fontSize: FontSize.s15,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: ColorManager.blueprime,
+                                                          decoration: TextDecoration.none,
+                                                        )
+                                                    ),
+                                                    IconButton(
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      icon:  Icon(
+                                                        Icons.close,
+                                                        color: ColorManager.mediumgrey,
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                    ),
+
+                                                  ],
+                                                ),
+SizedBox(height: 10,),
+                                                Filterpopup(text: 'Counties', bluetext: 'sacramento',)
+                                              ],
+
+                                              )
+
+
+                                              // SmDropdownConst(
+                                              //   height: 36,
+                                              //   width: 150,
+                                              //   isAstric: false,
+                                              //   initialValue: 'Filter by',
+                                              //   headText: "",
+                                              //   items: ['Filter by', 'Referral App', 'E-Fax', 'E-Referrals', 'Manual'],
+                                              //   onChanged: (newValue) {},
+                                              // ),
                                             ],
                                           ),
-                                          SizedBox(height: 20),
+                                          const SizedBox(height: 20),
                                           Text(
                                             "Suggestions",
                                             style: CustomTextStylesCommon.commonStyle(
@@ -871,7 +910,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                                 fontSize: FontSize.s14,
                                                 fontWeight: FontWeight.w600),
                                           ),
-                                          SizedBox(height: 20),
+                                          const SizedBox(height: 20),
                                           SizedBox(
                                             height: 140,
                                             child: ListView.builder(
@@ -880,8 +919,8 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               itemBuilder: (context, index) {
                                                 return Container(
                           width: 270,
-                          margin: EdgeInsets.only(right: 20),
-                          padding: EdgeInsets.only(left: 5, right: 8, top: 5,bottom: 5),
+                          margin: const EdgeInsets.only(right: 20),
+                          padding: const EdgeInsets.only(left: 5, right: 8, top: 5,bottom: 5),
                           decoration: BoxDecoration(
                             border: Border.all(color: ColorManager.bluebottom,width: 2),
                             borderRadius: BorderRadius.circular(12),
@@ -936,7 +975,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                                   width: 19,
                                                   height: 19,
                                                   decoration: BoxDecoration(
-                                                    color: Color(0xFF527FB9),
+                                                    color: const Color(0xFF527FB9),
                                                     borderRadius: BorderRadius.circular(3),
                                                   ),
                                                   child: Center(
@@ -967,11 +1006,11 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                             style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
                                                 fontSize: FontSize.s12, fontWeight: FontWeight.w700),
                                           ),
-                                          SizedBox(height: 10,),
+                                          const SizedBox(height: 10,),
                                           Text("Available (22/25)",
                                             style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
                                                 fontSize: FontSize.s12, fontWeight: FontWeight.w600),),
-                                          SizedBox(height: 10,),
+                                          const SizedBox(height: 10,),
                                           Text("Sacramento Z1 (2.4 Miles Away)",
                                             style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
                                                 fontSize: FontSize.s12, fontWeight: FontWeight.w400),),
@@ -982,7 +1021,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                   ),
                                 ],
                               ),
-                                      SizedBox(height: 4,),
+                                      const SizedBox(height: 4,),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 8,),
                                 child: Row(
@@ -994,7 +1033,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                       highlightColor: Colors.transparent,
                                       child: Image.asset("images/sm/contact_icon.png",height: 20,)
                                       ,onTap: (){},),
-                                   SizedBox(width: 20,),
+                                   const SizedBox(width: 20,),
                                     Text(
                                       "Accepted",
                                       style: CustomTextStylesCommon.commonStyle(
@@ -1034,7 +1073,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               },
                                             ),
                                           ),
-                                          SizedBox(height:20),
+                                          const SizedBox(height:20),
                                           Padding(
                                             padding: const EdgeInsets.only(left: 10),
                                             child: Text(
@@ -1045,12 +1084,12 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                                   fontWeight: FontWeight.w600),
                                             ),
                                           ),
-                                          SizedBox(height: 10),
+                                          const SizedBox(height: 10),
                                           Container(
                                             width:  AppSize.s400,
                                             height: AppSize.s50,
                                             decoration: BoxDecoration(
-                                              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+                                              border: Border.all(color: const Color(0xFFB1B1B1), width: 1),
                                               borderRadius: BorderRadius.circular(5),
                                             ),
                                             child: TextFormField(
@@ -1059,7 +1098,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               controller: firstNameController,
                                               cursorColor: Colors.black,
                                               autovalidateMode: AutovalidateMode.onUserInteraction,
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
                                                 border: InputBorder.none,
                                                 contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
@@ -1071,7 +1110,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               // onTap: widget.onChange,
                                             ),
                                           ),
-                                          SizedBox(height: 20),
+                                          const SizedBox(height: 20),
                                           CustomeTransparentAddShift(
                                               width: 130,
                                               height: 30,
@@ -1082,11 +1121,11 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               FloatingActionButton(
                                                 onPressed: () {},
                                                 backgroundColor: ColorManager.bluebottom, // Adjust color as needed
-                                                shape: CircleBorder(),
+                                                shape: const CircleBorder(),
                                                 child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
+                            const Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
                             //SizedBox(height: 4),
                             Text(
                               'Contact',
@@ -1097,7 +1136,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                               )
                                             ],
                                           ),
-                                          Divider(),
+                                          const Divider(),
                                           // Spacer(),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -1183,7 +1222,7 @@ class _PTPageviewState extends State<PTPageview> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: AppSize.s25,),
+          const SizedBox(height: AppSize.s25,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -1207,7 +1246,7 @@ class _PTPageviewState extends State<PTPageview> {
                           selectedType = value!;
                         });
                       }, title: "Auto-assign"),
-          SizedBox(width: 60,),
+          const SizedBox(width: 60,),
                   CustomRadioListTile(value: "Sent Request",
                       groupValue: selectedType,
                       onChanged: (value) {
@@ -1220,7 +1259,7 @@ class _PTPageviewState extends State<PTPageview> {
               ),
             ],
           ),
-          SizedBox(height: AppSize.s25,),
+          const SizedBox(height: AppSize.s25,),
       
           Row(
             // crossAxisAlignment: CrossAxisAlignment.start,
@@ -1230,8 +1269,8 @@ class _PTPageviewState extends State<PTPageview> {
               Expanded(
                 flex: 2,
                 child: Container(
-                  margin: EdgeInsets.only(right: 20),
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  margin: const EdgeInsets.only(right: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                   decoration: BoxDecoration(
                     border: Border.all(color: ColorManager.bluebottom, width: 2),
                     borderRadius: BorderRadius.circular(12),
@@ -1251,7 +1290,7 @@ class _PTPageviewState extends State<PTPageview> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Row(
                         children: [
                           Column(
@@ -1284,7 +1323,7 @@ class _PTPageviewState extends State<PTPageview> {
                                       width: 19,
                                       height: 19,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFF527FB9),
+                                        color: const Color(0xFF527FB9),
                                         borderRadius: BorderRadius.circular(3),
                                       ),
                                       child: Center(
@@ -1302,7 +1341,7 @@ class _PTPageviewState extends State<PTPageview> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Text(
                                 " ",
                                 style: TextStyle(
@@ -1313,7 +1352,7 @@ class _PTPageviewState extends State<PTPageview> {
                               ),
                             ],
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Flexible(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1326,7 +1365,7 @@ class _PTPageviewState extends State<PTPageview> {
                                     color: ColorManager.mediumgrey,
                                   ),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Text(
                                   "Available (22 / 25)",
                                   style: TextStyle(
@@ -1335,7 +1374,7 @@ class _PTPageviewState extends State<PTPageview> {
                                     color: ColorManager.greenDark,
                                   ),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Text(
                                   "Sacramento Z1 (2.4 Miles Away)",
                                   style: TextStyle(
@@ -1344,7 +1383,7 @@ class _PTPageviewState extends State<PTPageview> {
                                     color: ColorManager.mediumgrey,
                                   ),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Text(
                                   "Salaried",
                                   style: TextStyle(
@@ -1358,7 +1397,7 @@ class _PTPageviewState extends State<PTPageview> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                     ],
                   ),
                 ),
@@ -1369,7 +1408,7 @@ class _PTPageviewState extends State<PTPageview> {
                 flex: 7,
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 150,
                       child: Icon(Icons.close, color: Colors.redAccent),
                     ),
@@ -1712,7 +1751,7 @@ class _PTPageviewState extends State<PTPageview> {
           //   ],
           // ),
       
-          SizedBox(height: AppSize.s30,),
+          const SizedBox(height: AppSize.s30,),
           Text(
             "Notes to Clinician",
             style: CustomTextStylesCommon.commonStyle(
@@ -1720,12 +1759,12 @@ class _PTPageviewState extends State<PTPageview> {
                 fontSize: FontSize.s14,
                 fontWeight: FontWeight.w600),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Container(
             width:  AppSize.s400,
             height: AppSize.s50,
             decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              border: Border.all(color: const Color(0xFFB1B1B1), width: 1),
               borderRadius: BorderRadius.circular(5),
             ),
             child: TextFormField(
@@ -1734,7 +1773,7 @@ class _PTPageviewState extends State<PTPageview> {
               controller: firstNameController,
               cursorColor: Colors.black,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
@@ -1746,7 +1785,7 @@ class _PTPageviewState extends State<PTPageview> {
               // onTap: widget.onChange,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           CustomeTransparentAddShift(
               width: 130,
               height: 30,
@@ -1757,11 +1796,11 @@ class _PTPageviewState extends State<PTPageview> {
               FloatingActionButton(
                 onPressed: () {},
                 backgroundColor: ColorManager.bluebottom, // Adjust color as needed
-                shape: CircleBorder(),
+                shape: const CircleBorder(),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
+                    const Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
                     //SizedBox(height: 4),
                     Text(
                       'Contact',
@@ -1772,7 +1811,7 @@ class _PTPageviewState extends State<PTPageview> {
               )
             ],
           ),
-          Divider(),
+          const Divider(),
         //  Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -1815,7 +1854,7 @@ class _OTPageviewState extends State<OTPageview> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: AppSize.s25,),
+          const SizedBox(height: AppSize.s25,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -1839,7 +1878,7 @@ class _OTPageviewState extends State<OTPageview> {
                           selectedType = value!;
                         });
                       }, title: "Auto-assign"),
-                  SizedBox(width: 60,),
+                  const SizedBox(width: 60,),
                   CustomRadioListTile(value: "Sent Request",
                       groupValue: selectedType,
                       onChanged: (value) {
@@ -1852,7 +1891,7 @@ class _OTPageviewState extends State<OTPageview> {
               ),
             ],
           ),
-          SizedBox(height: AppSize.s25,),
+          const SizedBox(height: AppSize.s25,),
 
           Row(
             // crossAxisAlignment: CrossAxisAlignment.start,
@@ -1862,8 +1901,8 @@ class _OTPageviewState extends State<OTPageview> {
               Expanded(
                 flex: 2,
                 child: Container(
-                  margin: EdgeInsets.only(right: 20),
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  margin: const EdgeInsets.only(right: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                   decoration: BoxDecoration(
                     border: Border.all(color: ColorManager.bluebottom, width: 2),
                     borderRadius: BorderRadius.circular(12),
@@ -1883,7 +1922,7 @@ class _OTPageviewState extends State<OTPageview> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Row(
                         children: [
                           Column(
@@ -1916,7 +1955,7 @@ class _OTPageviewState extends State<OTPageview> {
                                       width: 19,
                                       height: 19,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFF527FB9),
+                                        color: const Color(0xFF527FB9),
                                         borderRadius: BorderRadius.circular(3),
                                       ),
                                       child: Center(
@@ -1934,7 +1973,7 @@ class _OTPageviewState extends State<OTPageview> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Text(
                                 " ",
                                 style: TextStyle(
@@ -1945,7 +1984,7 @@ class _OTPageviewState extends State<OTPageview> {
                               ),
                             ],
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Flexible(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1958,7 +1997,7 @@ class _OTPageviewState extends State<OTPageview> {
                                     color: ColorManager.mediumgrey,
                                   ),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Text(
                                   "Available (22 / 25)",
                                   style: TextStyle(
@@ -1967,7 +2006,7 @@ class _OTPageviewState extends State<OTPageview> {
                                     color: ColorManager.greenDark,
                                   ),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Text(
                                   "Sacramento Z1 (2.4 Miles Away)",
                                   style: TextStyle(
@@ -1976,7 +2015,7 @@ class _OTPageviewState extends State<OTPageview> {
                                     color: ColorManager.mediumgrey,
                                   ),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Text(
                                   "Salaried",
                                   style: TextStyle(
@@ -1990,7 +2029,7 @@ class _OTPageviewState extends State<OTPageview> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                     ],
                   ),
                 ),
@@ -2001,7 +2040,7 @@ class _OTPageviewState extends State<OTPageview> {
                 flex: 7,
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 150,
                       child: Icon(Icons.close, color: Colors.redAccent),
                     ),
@@ -2052,7 +2091,7 @@ class _OTPageviewState extends State<OTPageview> {
 
 
 
-          SizedBox(height: AppSize.s30,),
+          const SizedBox(height: AppSize.s30,),
           Text(
             "Notes to Clinician",
             style: CustomTextStylesCommon.commonStyle(
@@ -2060,12 +2099,12 @@ class _OTPageviewState extends State<OTPageview> {
                 fontSize: FontSize.s14,
                 fontWeight: FontWeight.w600),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Container(
             width:  AppSize.s400,
             height: AppSize.s50,
             decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              border: Border.all(color: const Color(0xFFB1B1B1), width: 1),
               borderRadius: BorderRadius.circular(5),
             ),
             child: TextFormField(
@@ -2074,7 +2113,7 @@ class _OTPageviewState extends State<OTPageview> {
               controller: firstNameController,
               cursorColor: Colors.black,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
@@ -2086,7 +2125,7 @@ class _OTPageviewState extends State<OTPageview> {
               // onTap: widget.onChange,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           CustomeTransparentAddShift(
               width: 130,
               height: 30,
@@ -2097,11 +2136,11 @@ class _OTPageviewState extends State<OTPageview> {
               FloatingActionButton(
                 onPressed: () {},
                 backgroundColor: ColorManager.bluebottom, // Adjust color as needed
-                shape: CircleBorder(),
+                shape: const CircleBorder(),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
+                    const Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
                     //SizedBox(height: 4),
                     Text(
                       'Contact',
@@ -2112,7 +2151,7 @@ class _OTPageviewState extends State<OTPageview> {
               )
             ],
           ),
-          Divider(),
+          const Divider(),
           //  Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -2128,6 +2167,93 @@ class _OTPageviewState extends State<OTPageview> {
           )
         ],
       ),
+    );
+  }
+}
+
+
+
+
+class Filterpopup extends StatelessWidget {
+  final String text;
+  final String bluetext;
+  TextEditingController? searchController;
+   Filterpopup({super.key, required this.text , this.searchController, required this.bluetext});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Text(
+             text,
+              style: CustomTextStylesCommon.commonStyle(
+                  color: ColorManager.mediumgrey,
+                  fontSize: FontSize.s12,
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+    const SizedBox(height: 15,),
+    SizedBox(
+    height: 30,
+    child: TextField(
+    textCapitalization: TextCapitalization.words,
+    style: DocumentTypeDataStyle.customTextStyle(context),
+    controller: searchController,
+    decoration: InputDecoration(
+    filled: true,
+    fillColor: const Color(0xFFF8F8F8),
+    hintText: 'Search',
+    alignLabelWithHint: true,
+    hintStyle:  CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+    fontWeight: FontWeight.w400,
+    color: const Color(0xFF7F7F7F),),
+    enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.grey.shade200,//Color(0xFFF0F0F0),
+    width: 1),
+    borderRadius: BorderRadius.circular(10),
+    ),
+    focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.grey.shade200, width: 1),
+    borderRadius: BorderRadius.circular(10),
+    ),
+
+    contentPadding: const EdgeInsets.symmetric(horizontal: 13, vertical: 8),
+    ),
+    ),
+    ),
+          const SizedBox(height: 10,),
+          Container(
+            width: 150,
+            height: 30,
+            decoration: BoxDecoration(
+              color: ColorManager.blueprime,
+              borderRadius: BorderRadius.circular(10), // Makes the border circular
+              border: Border.all(
+                color: Colors.white, // Change border color if needed
+                width: 2, // Adjust border width
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(bluetext,  style: CustomTextStylesCommon.commonStyle(
+    color: ColorManager.white,
+    fontSize: FontSize.s11,
+    fontWeight: FontWeight.w400),
+    ),
+                    Icon( Icons.close, color:  ColorManager.white,size: IconSize.I16,),
+
+                  ],
+              ),
+            ),
+          ),
+
+        ],
     );
   }
 }

@@ -464,7 +464,8 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                   height: AppSize.s4,
                                                 ),
                                                 Text(
-                                                  snapshot.data![index].primaryDiagnosis.dgnName,
+                                                  snapshot.data![index].patientDiagnoses.isEmpty ? "--":
+                                                  snapshot.data![index].patientDiagnoses[0].dgnName,
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon
                                                       .commonStyle(

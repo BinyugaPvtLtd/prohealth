@@ -27,8 +27,7 @@ class PatientModel {
   final bool is_selfPay;
   final String ptTime;
   final ServiceModel service;
-  final DiagnosisModel primaryDiagnosis;
-  final List<DiagnosisModel> secondaryDiagnoses;
+  final List<PatientDiagnosesModel> patientDiagnoses;
   final ReferralSourceModel referralSource;
   final PCPModel pcp;
   final MarketerModel marketer;
@@ -64,8 +63,7 @@ class PatientModel {
     required this.ptDateOfBirth,
     required this.ptImgUrl,
     required this.service,
-    required this.primaryDiagnosis,
-    required this.secondaryDiagnoses,
+    required this.patientDiagnoses,
     required this.referralSource,
     required this.pcp,
     required this.marketer,
@@ -81,12 +79,27 @@ class ServiceModel {
   ServiceModel({required this.srvId, required this.srvName, required this.srvCode});
 }
 
-class DiagnosisModel {
-  final int dgnId;
+class PatientDiagnosesModel {
+
+  final int rpt_dgn_id;
   final String dgnName;
   final String dgnCode;
+  final int fk_pt_id;
+  final int fk_dgn_id;
+  final bool rpt_pdgm;
+  final bool rpt_isPrimary;
+  final int color;
 
-  DiagnosisModel({required this.dgnId, required this.dgnName, required this.dgnCode});
+  PatientDiagnosesModel({
+    required this.fk_pt_id,
+    required this.fk_dgn_id,
+    required this.rpt_pdgm,
+    required this.rpt_isPrimary,
+    required this.color,
+    required this.rpt_dgn_id,
+    required this.dgnName,
+    required this.dgnCode,
+  });
 }
 
 class ReferralSourceModel {

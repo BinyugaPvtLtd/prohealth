@@ -317,7 +317,8 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                 ),
                                                 SizedBox(height: AppSize.s4,),
                                                 Text(
-                                                  snapshot.data![index].primaryDiagnosis.dgnName,
+                                                  snapshot.data![index].patientDiagnoses.isEmpty ? "--":
+                                                  snapshot.data![index].patientDiagnoses[0].dgnName,
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w700,

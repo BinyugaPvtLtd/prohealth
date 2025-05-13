@@ -268,7 +268,7 @@ class FaxHistoryTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
         child: Column(
           children: [
             Container(

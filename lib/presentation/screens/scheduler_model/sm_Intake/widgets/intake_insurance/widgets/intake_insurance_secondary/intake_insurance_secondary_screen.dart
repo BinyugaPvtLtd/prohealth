@@ -84,13 +84,13 @@ class IntakeSecondaryScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 35),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 35),
                       child: BlueBGHeadConst(HeadText: "Policy Details"),
                     ),
                     IntakeFlowContainerConst(
-                      height: providerState.isContactTrue ? AppSize.s540  :AppSize.s370,
-                      containerPadding: providerState.isContactTrue ? EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) : null,
+                      height: providerState.isContactTrue ? AppSize.s540  :AppSize.s374,
+                      containerPadding: providerState.isContactTrue ? const EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) : null,
                       //child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,11 +102,11 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       items: ['B','A'],
                                       onChanged: (newValue) {
                                       })),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaName, labelText: 'Name*')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaType,
@@ -121,39 +121,39 @@ class IntakeSecondaryScreen extends StatelessWidget {
                           items: ['B','A'],
                           onChanged: (newValue) {
                           })),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaName, labelText: 'Name*')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaType,
                                     labelText: 'Type*',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       isIconVisible: true,
                                       controller: pharmaCategory, labelText: 'Category')),
-                              SizedBox(width: AppSize.s35),
-                              Flexible(
+                              const SizedBox(width: AppSize.s35),
+                              const Flexible(
                                   child: SizedBox()),
                             ],
                           ),
-                          SizedBox(height: AppSize.s16),
+                          const SizedBox(height: AppSize.s16),
                           providerState.isContactTrue ?  Row(
                             children: [
                               Flexible(
                                   child: SchedularTextField(
                                       isIconVisible: true,
                                       controller: pharmaCategory, labelText: 'Category')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmacyaddress,
                                       labelText: 'Street*')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaSuitApt,
@@ -166,12 +166,12 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   child: SchedularTextField(
                                       controller: pharmacyaddress,
                                       labelText: 'Street*')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaSuitApt,
                                       labelText: 'Suite/Apt#')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                 child: FutureBuilder<List<CityData>>(
                                   future: getCityDropDown(context),
@@ -208,7 +208,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                 // child: SchedularTextField(
                                 //     controller: pharmacycity, labelText: 'City'),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
 
                                 child:FutureBuilder<List<StateData>>(
@@ -244,7 +244,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmacyzipcode,
@@ -254,7 +254,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
 
                             ],
                           ),
-                          SizedBox(height: AppSize.s16),
+                          const SizedBox(height: AppSize.s16),
                           providerState.isContactTrue ?    Row(
                             children: [
                               Flexible(
@@ -293,7 +293,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                 // child: SchedularTextField(
                                 //     controller: pharmacycity, labelText: 'City'),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
 
                                 child:FutureBuilder<List<StateData>>(
@@ -329,7 +329,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmacyzipcode,
@@ -344,30 +344,30 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       controller: pharmaphone,
                                       phoneField:true,
                                       labelText: 'Phone Number*')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaAuth,
                                     labelText: 'Auth Status',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaEftDateForm, labelText: 'Effective From',
                                     showDatePicker: true,)),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaEftDateFormTo, labelText: 'Effective to',
                                     showDatePicker: true,)),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: CustomDropdownTextFieldsm(headText: 'Eligibility Status',items: ['Santa Clara','A'],
                                       onChanged: (newValue) {
                                       })),
                             ],
                           ),
-                          SizedBox(height: AppSize.s16),
+                          const SizedBox(height: AppSize.s16),
                           providerState.isContactTrue ?   Row(
                             children: [
                               Flexible(
@@ -375,13 +375,13 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       controller: pharmaphone,
                                       phoneField:true,
                                       labelText: 'Phone Number*')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaAuth,
                                     labelText: 'Auth Status',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaEftDateForm, labelText: 'Effective From',
@@ -394,23 +394,23 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   child: SchedularTextField(
                                       controller: pharmaPolicyHicNo,
                                       labelText: 'Policy/HIC Number')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaGrpNo,
                                     labelText: 'Group Number',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaGrpName, labelText: 'Group Name',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaEmail, labelText: 'Primary Email',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -419,7 +419,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                         style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :SMTextfieldHeadings.customTextStyle(context)
                                       //AllPopupHeadings.customTextStyle(context)
                                     ),
-                                    SizedBox(height: 10),
+                                    const SizedBox(height: 10),
                                     Row(
                                       children: [
                                         Expanded(
@@ -454,26 +454,26 @@ class IntakeSecondaryScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: AppSize.s16),
+                          const SizedBox(height: AppSize.s16),
                           providerState.isContactTrue ?  Row(
                             children: [
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaEftDateFormTo, labelText: 'Effective to',
                                     showDatePicker: true,)),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: CustomDropdownTextFieldsm(headText: 'Eligibility Status',items: ['Santa Clara','A'],
                                       onChanged: (newValue) {
                                       })),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaPolicyHicNo,
                                       labelText: 'Policy/HIC Number')),
                             ],
-                          ) : Offstage(),
-                          SizedBox(height: AppSize.s16),
+                          ) : const Offstage(),
+                          const SizedBox(height: AppSize.s16),
                           providerState.isContactTrue ? Row(
                             children: [
                               Flexible(
@@ -481,19 +481,19 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                     controller: pharmaGrpNo,
                                     labelText: 'Group Number',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaGrpName, labelText: 'Group Name',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaEmail, labelText: 'Primary Email',
                                   )),
                             ],
-                          ) : Offstage(),
-                          SizedBox(height: AppSize.s16),
+                          ) : const Offstage(),
+                          const SizedBox(height: AppSize.s16),
                           providerState.isContactTrue ?SizedBox(
                             width: 200,
                             child: Row(
@@ -507,7 +507,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :SMTextfieldHeadings.customTextStyle(context)
                                       //AllPopupHeadings.customTextStyle(context)
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       Row(
                                       children: [
                                       Expanded(
@@ -542,17 +542,17 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       ),
                               ],
                             ),
-                          ):Offstage(),
+                          ):const Offstage(),
                         ],
                       ),
                       // ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 35),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 35),
                       child: BlueBGHeadConst(HeadText: "Suggested Care & Diagnosis"),
                     ),
                     Container(
-                        height: AppSize.s410,
+                        height: AppSize.s430,
                         padding: providerState.isContactTrue ? const EdgeInsets.symmetric(horizontal: AppPadding.p0,vertical: AppPadding.p15 ) :const EdgeInsets.symmetric(horizontal: AppPadding.p30,vertical: AppPadding.p15 ),
                         //child: SingleChildScrollView(
                         child: Column(
@@ -560,7 +560,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 55.0),
                                 child: Container(
-                                  height: AppSize.s88,
+                                 height: AppSize.s95,
                                   padding: const EdgeInsets.only(right: AppPadding.p30, ),
                                   decoration: BoxDecoration(
                                     color: ColorManager.white,
@@ -571,107 +571,136 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   child:Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Row(
-                                        children: [
-                                          VerticalDivider(
-                                            color: ColorManager.greenDark,
-                                            thickness: 4.5,
-                                          ),
-                                          SizedBox(width: AppSize.s20,),
-                                          Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text('Authorization #1',
-                                                  style: DocDefineTableData.customTextStyle(context)),
-                                              SizedBox(height: AppSize.s5,),
-                                              providerState.isContactTrue?Text("Added 1/26/2025, 8:17:00 AM PST by\nHenry, Rebecca",
-                                                  style:  DocDefineTableDataID.customTextStyle(context)) :Text("Added 1/26/2025, 8:17:00 AM PST by Henry, Rebecca",
-                                                  style:  DocDefineTableDataID.customTextStyle(context)),
-
-                                              SizedBox(height: AppSize.s16,),
-                                              Text("Effective: 1/5/2025 - 7/5/2025",
-                                                  style:  DocDefineTableDataID.customTextStyle(context)),
-                                            ],
-                                          )
-                                        ],
+                                      Expanded(
+                                        flex: 3,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            VerticalDivider(
+                                              color: ColorManager.greenDark,
+                                              thickness: 4.5,
+                                            ),
+                                            const SizedBox(width: AppSize.s20,),
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text('Authorization #1',
+                                                      style: DocDefineTableData.customTextStyle(context)),
+                                                  const SizedBox(height: AppSize.s5,),
+                                                  providerState.isContactTrue?Text("Added 1/26/2025, 8:17:00 AM PST by\nHenry, Rebecca",
+                                                      style:  DocDefineTableDataID.customTextStyle(context)) :Flexible(
+                                                        child: Text("Added 1/26/2025, 8:17:00 AM PST by Henry, Rebecca",
+                                                        style:  DocDefineTableDataID.customTextStyle(context)),
+                                                      ),
+                                              
+                                                  const SizedBox(height: AppSize.s16,),
+                                                  Text("Effective: 1/5/2025 - 7/5/2025",
+                                                      style:  DocDefineTableDataID.customTextStyle(context)),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
 
-                                      Row(children: [
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                          Text('Disciplines',
-                                              style: DocDefineTableDataID.customTextStyle(context)),
-                                          SizedBox(height: AppSize.s10,),
-                                          Text('RN',
-                                              style: DocDefineTableDataID.customTextStyle(context)),
-                                          SizedBox(height: AppSize.s5,),
-                                          Text('PT',
-                                              style: DocDefineTableDataID.customTextStyle(context)),
-                                          SizedBox(height: AppSize.s5,),
-                                          Text('OT',
-                                              style: DocDefineTableDataID.customTextStyle(context)),
-                                        ],),
-                                        SizedBox(width: AppSize.s60,),
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                          Text('Authorized',
-                                              style: DocDefineTableDataID.customTextStyle(context)),
-                                          SizedBox(height: AppSize.s10,),
-                                          Text('5',
-                                              style: DocDefineTableDataID.customTextStyle(context)),
-                                          SizedBox(height: AppSize.s5,),
-                                          Text('5',
-                                              style: DocDefineTableDataID.customTextStyle(context)),
-                                          SizedBox(height: AppSize.s5,),
-                                          Text('5',
-                                              style: DocDefineTableDataID.customTextStyle(context)),
-                                        ],),
-                                      ],),
-                                      SizedBox(width: AppSize.s70,),
-                                      Padding(
-                                        padding: EdgeInsets.only(right:  providerState.isContactTrue? 0 : 70.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            IconButton(
-                                              splashColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              onPressed: () {
-                                              },
-                                              icon: Icon(
-                                                Icons.edit_outlined,
-                                                color: ColorManager.mediumgrey,
-                                              ),
-                                              iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
+                                      Expanded(
+                                        flex: 3,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(right: 120),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                               // crossAxisAlignment: CrossAxisAlignment.center,
+                                              spacing:2,
+                                                children: [
+                                                Text('Disciplines',
+                                                    style: DocDefineTableDataID.customTextStyle(context)),
+                                                const SizedBox(height: AppSize.s10,),
+                                                Text('RN',
+                                                    style: DocDefineTableDataID.customTextStyle(context)),
+                                               // const SizedBox(height: AppSize.s5,),
+                                                Text('PT',
+                                                    style: DocDefineTableDataID.customTextStyle(context)),
+                                               //  const SizedBox(height: AppSize.s5,),
+                                                Text('OT',
+                                                    style: DocDefineTableDataID.customTextStyle(context)),
+                                              ],),
                                             ),
-                                            SizedBox(width: AppSize.s10,),
-                                            IconButton(
-                                              onPressed: () {
-                                              },
-                                              icon: Icon(
-                                                Icons.delete_outline,
-                                                color: ColorManager.mediumgrey,
-                                              ),
-                                              splashColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              iconSize:providerState.isContactTrue?IconSize.I16 :IconSize.I22,
+                                            const SizedBox(width: AppSize.s30,),
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                               // crossAxisAlignment: CrossAxisAlignment.center,
+                                                spacing:2,
+                                                children: [
+                                                Text('Authorized',
+                                                    style: DocDefineTableDataID.customTextStyle(context)),
+                                                const SizedBox(height: AppSize.s10,),
+                                                Text('5',
+                                                    style: DocDefineTableDataID.customTextStyle(context)),
+                                               // const SizedBox(height: AppSize.s5,),
+                                                Text('5',
+                                                    style: DocDefineTableDataID.customTextStyle(context)),
+                                               // const SizedBox(height: AppSize.s5,),
+                                                Text('5',
+                                                    style: DocDefineTableDataID.customTextStyle(context)),
+                                              ],),
                                             ),
-                                          ],
+                                          ],),
+                                        ),
+                                      ),
+                                      //SizedBox(width: AppSize.s70,),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 105),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Flexible(
+                                                child: IconButton(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  onPressed: () {
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.edit_outlined,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
+                                                  iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
+                                                ),
+                                              ),
+                                              const SizedBox(width: AppSize.s10,),
+                                              Flexible(
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete_outline,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  iconSize:providerState.isContactTrue?IconSize.I16 :IconSize.I22,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              SizedBox(height: AppSize.s25),
-                              Padding(padding:  EdgeInsets.symmetric(horizontal: 59.0),
+                              const SizedBox(height: AppSize.s25),
+                              Padding(padding:  const EdgeInsets.symmetric(horizontal: 59.0),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -682,18 +711,22 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Row(children: [
-                                          Padding(
-                                              padding:EdgeInsets.only(top: 20,right: 20),
-                                              child: Text('Authorization #2',style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :SMTextfieldHeadings.customTextStyle(context)
-                                                //AllPopupHeadings.customTextStyle(context)
-                                              )),
-                                          CustomDropdownTextFieldsm(
-                                            width: providerState.isContactTrue? 150 : 205,
-                                            isIconVisible: false,
-                                            headText: '',
-                                            onChanged: (newValue) {},),
+                                          Flexible(
+                                            child: Padding(
+                                                padding:const EdgeInsets.only(top: 20,right: 20),
+                                                child: Text('Authorization #2',style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context) :SMTextfieldHeadings.customTextStyle(context)
+                                                  //AllPopupHeadings.customTextStyle(context)
+                                                )),
+                                          ),
+                                          Flexible(
+                                            child: CustomDropdownTextFieldsm(
+                                              width: providerState.isContactTrue? 150 : 205,
+                                              isIconVisible: false,
+                                              headText: '',
+                                              onChanged: (newValue) {},),
+                                          ),
                                         ],),
-                                        SizedBox(height: AppSize.s15),
+                                        const SizedBox(height: AppSize.s15),
                                         SchedularTextField(
                                           isIconVisible:true,
                                           width: providerState.isContactTrue? 150 :205,
@@ -701,7 +734,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           labelText: 'Effective From',
                                           showDatePicker: true,
                                         ),
-                                        SizedBox(height: AppSize.s10),
+                                        const SizedBox(height: AppSize.s10),
                                         SchedularTextField(
                                           isIconVisible:true,
                                           width: providerState.isContactTrue? 150 :205,
@@ -715,48 +748,78 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                    flex: 2,
                                     child: Row(
                                       children: [
-                                        Column(children: [
-                                          SizedBox(height: 20,),
-                                          Center(
-                                            child: Text('Disciplice',
-                                                style: DocDefineTableDataID.customTextStyle(context)),
-                                          ),
-                                          CustomDropdownTextFieldsm(
-                                            width:providerState.isContactTrue? 150 :205,
-                                            borderRadius: 0,
-                                            isIconVisible: false,
-                                            headText: '',
-                                            onChanged: (newValue) {},),
-                                          SizedBox(height: AppSize.s5),
-                                          CustomDropdownTextFieldsm(
-                                            width:providerState.isContactTrue? 150 :205,
-                                            borderRadius: 0,
-                                            isIconVisible: false,
-                                            headText: '',
-                                            onChanged: (newValue) {},),
-                                        ],),
-                                        SizedBox(width: AppSize.s50),
-                                        Column(children: [
-                                          SizedBox(height: 30,),
-                                          Center(
-                                            child: Text('Authorized',
-                                                style: DocDefineTableDataID.customTextStyle(context)),
-                                          ),
-                                          SchedularTextField(
-                                            isIconVisible:true,
-                                            width:providerState.isContactTrue? 60 : 105,
-                                            controller: authorizze1,
-                                            labelText: '',
-                                            borderRadius: 0,
-                                          ),
-                                          SchedularTextField(
-                                            isIconVisible:true,
-                                            width: providerState.isContactTrue? 60 : 105,
-                                            controller: authorize2,
-                                            labelText: '',
-                                            borderRadius: 0,
-                                          ),
-                                        ],),
+                                        Flexible(
+                                          child: Column(children: [
+                                            const SizedBox(height: 20,),
+                                            Center(
+                                              child: Text('Disciplice',
+                                                  style: DocDefineTableDataID.customTextStyle(context)),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 4),
+                                              child: CustomDropdownTextFieldsm(
+                                                width:providerState.isContactTrue? 150 :205,
+                                                borderRadius: 0,
+                                                isIconVisible: false,
+                                                headText: '',
+                                                onChanged: (newValue) {},),
+                                            ),
+                                           // SizedBox(height: AppSize.s5),
+                                            Padding(
+                                              padding:const EdgeInsets.symmetric(vertical: 4),
+                                              child: CustomDropdownTextFieldsm(
+                                                width:providerState.isContactTrue? 150 :205,
+                                                borderRadius: 0,
+                                                isIconVisible: false,
+                                                headText: '',
+                                                onChanged: (newValue) {},),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 4),
+                                              child: Text('Add Discipline',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: FontSize.s12,
+                                                    color: ColorManager.blueprime,
+                                                    decoration: TextDecoration.underline,
+                                                  )),
+                                            )
+                                          ],),
+                                        ),
+                                        const SizedBox(width: AppSize.s50),
+                                        Flexible(
+                                          child: Column(children: [
+                                            const SizedBox(height: 18,),
+                                            Center(
+                                              child: Text('Authorized',
+                                                  style: DocDefineTableDataID.customTextStyle(context)),
+                                            ),
+                                            SchedularTextField(
+                                              isIconVisible:true,
+                                              width:providerState.isContactTrue? 60 : 105,
+                                              controller: authorizze1,
+                                              labelText: '',
+                                              borderRadius: 0,
+                                            ),
+                                            SchedularTextField(
+                                              isIconVisible:true,
+                                              width: providerState.isContactTrue? 60 : 105,
+                                              controller: authorize2,
+                                              labelText: '',
+                                              borderRadius: 0,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 4),
+                                              child: Text('Add Discipline',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: FontSize.s12,
+                                                    color: ColorManager.white,
+                                                    decoration: TextDecoration.underline,
+                                                  )),
+                                            )
+                                          ],),
+                                        ),
                                        // SizedBox(width: AppSize.s100),
                                       ],
                                     ),
@@ -767,37 +830,41 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        SizedBox(height: 20,),
+                                        //SizedBox(height: 20,),
                                         Padding(
                                           padding: EdgeInsets.only(bottom: 90.0,right: providerState.isContactTrue? 30 :60),
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.end,
                                             crossAxisAlignment: CrossAxisAlignment.end,
                                             children: [
-                                              IconButton(
-                                                splashColor: Colors.transparent,
-                                                highlightColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                onPressed: () {
-                                                },
-                                                icon: Icon(
-                                                  Icons.save_outlined,
-                                                  color: ColorManager.mediumgrey,
+                                              Flexible(
+                                                child: IconButton(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  onPressed: () {
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.save_outlined,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
+                                                  iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
                                                 ),
-                                                iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
                                               ),
-                                              SizedBox(width: AppSize.s10,),
-                                              IconButton(
-                                                onPressed: () {
-                                                },
-                                                icon: Icon(
-                                                  Icons.delete_outline,
-                                                  color: ColorManager.mediumgrey,
+                                              const SizedBox(width: AppSize.s10,),
+                                              Flexible(
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete_outline,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
                                                 ),
-                                                splashColor: Colors.transparent,
-                                                highlightColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
                                               ),
                                               SizedBox(width: providerState.isContactTrue? 0 : AppSize.s30,),
                                             ],
@@ -961,7 +1028,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                               //         ],))),
                               //   ],),
                               // ),
-                              SizedBox(height: AppSize.s40),
+                              const SizedBox(height: AppSize.s40),
                               CustomIconButtonConst(
                                   width: 170,
                                   text: 'Add Authorization',
@@ -969,9 +1036,9 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   onPressed: () {
 
                                   }),])),
-                    SizedBox(height: AppSize.s25),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 35),
+                    const SizedBox(height: AppSize.s25),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 35),
                       child: BlueBGHeadConst(HeadText: "Attachments"),
                     ),
                     Container(
@@ -996,11 +1063,11 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        VerticalDivider(
+                                        const VerticalDivider(
                                           color: Color(0xFF50B5E5),
                                           thickness: 4.5,
                                         ),
-                                        SizedBox(width: AppSize.s20,),
+                                        const SizedBox(width: AppSize.s20,),
                                         Column(
                                           mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -1011,7 +1078,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                               style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                 fontWeight: FontWeight.w600,
                                                 color: ColorManager.mediumgrey,),),
-                                            SizedBox(height: AppSize.s8,),
+                                            const SizedBox(height: AppSize.s8,),
                                             Text("Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca",
                                               style:  TextStyle(fontSize: FontSize.s12,
                                                 fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
@@ -1042,26 +1109,26 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                         //   ),
                                         //   iconSize: IconSize.I22,
                                         // ),
-                                        SizedBox(width: AppSize.s13,),
+                                        const SizedBox(width: AppSize.s13,),
                                         IconButton(
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
                                           onPressed: () {
                                           },
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.print_outlined,
                                             color: Color(0xFF686464),
                                           ),
                                           iconSize: IconSize.I22,
                                         ),
-                                        SizedBox(width: AppSize.s10,),
+                                        const SizedBox(width: AppSize.s10,),
                                         ///download
                                         IconButton(
                                           onPressed: () {
 
                                           },
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.save_alt_outlined,
                                             color: Color(0xFF686464),
                                           ),
@@ -1070,12 +1137,12 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           hoverColor: Colors.transparent,
                                           iconSize: IconSize.I22,
                                         ),
-                                        SizedBox(width: AppSize.s10,),
+                                        const SizedBox(width: AppSize.s10,),
                                         ///delete
                                         IconButton(
                                           onPressed: () {
                                           },
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.delete_outline,
                                             color: Color(0xFF686464),
                                           ),
@@ -1090,7 +1157,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                 ),
                                 ),
                               ),
-                              SizedBox(height: AppSize.s25),
+                              const SizedBox(height: AppSize.s25),
                               CustomIconButtonConst(
                                   width: 150,
                                   text: 'Add Attachment',
@@ -1098,7 +1165,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   onPressed: () {
 
                                   }),])),
-                    SizedBox(height: AppSize.s60),
+                    const SizedBox(height: AppSize.s60),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       spacing: 10,
@@ -1116,7 +1183,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: AppSize.s30),
+                    const SizedBox(height: AppSize.s30),
                   ],
                 )
             ),

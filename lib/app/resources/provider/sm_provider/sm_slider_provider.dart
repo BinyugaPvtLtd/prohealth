@@ -8,6 +8,10 @@ class SmIntakeProviderManager extends ChangeNotifier{
   bool _isLeftSidebarOpen = false;
   bool _isAutoSyncScreenVisible = false;
   int _initialIndex = 0;
+  int _marketerId = 0;
+  int _referralSourceId = 0;
+  int _pcpId = 0;
+
 
   // Referal filter
   bool _isFilterOpen = false;
@@ -18,8 +22,10 @@ class SmIntakeProviderManager extends ChangeNotifier{
   bool _IContainerVisible = false;
   bool _ICContainerVisible = false;
   bool _PContainerVisible = false;// Track filter panel state
+  bool _isAppBarVisible = false;
 
 
+  bool get isAppVarVisible => _isAppBarVisible;
   int get initialIndex => _initialIndex;
   bool get isContactTrue => _isContactTrue;
   bool get isRightSliderOpen => _isRightSliderOpen;
@@ -37,6 +43,10 @@ class SmIntakeProviderManager extends ChangeNotifier{
   bool get IContainerVisible => _IContainerVisible;
   bool get ICContainerVisible => _ICContainerVisible;
   bool get PContainerVisible => _PContainerVisible;
+
+  int get marketerId => _marketerId;
+  int get referralSourceId => _referralSourceId;
+  int get pcpId => _pcpId;
 
   void toogleContactProvider(){
     _isContactTrue = !_isContactTrue;
@@ -114,6 +124,18 @@ class SmIntakeProviderManager extends ChangeNotifier{
   void toggleContainerP() {
       _PContainerVisible = !_PContainerVisible;
       notifyListeners();
+  }
+
+  void toogleAppBar(){
+    _isAppBarVisible = !_isAppBarVisible;
+    notifyListeners();
+  }
+
+  void filterIdIntegration({required int marketerId, required int sourceId, required int pcpId}){
+    _marketerId = marketerId;
+    _referralSourceId = sourceId;
+    _pcpId = pcpId;
+    notifyListeners();
   }
 
 }
