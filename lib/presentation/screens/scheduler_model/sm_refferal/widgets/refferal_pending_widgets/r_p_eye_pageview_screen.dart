@@ -389,7 +389,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           Expanded(
                                             flex: 2,
                                             child: Container(
-                                              child: Text(
+                                              child: Text(snapshot.data!.patientDiagnoses.isEmpty ? "" :
                                                 snapshot.data!.patientDiagnoses[0].dgnName,
                                                 textAlign: TextAlign.start,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
@@ -1001,13 +1001,14 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                 Container(
                                                   height: 30,
                                                   padding: EdgeInsets.only(left: 45,right: 20),
-                                                  child: Text( snapshot.data!.insurance[index].eligibility == false  ? "Not all visit\ncovered" : "Eligible",
+                                                  child: Text( "Eligibility",//snapshot.data!.insurance[index].eligibility == false  ? "Not all visit\ncovered" : "Eligible",
                                                     style: TextStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w700,
-                                                      color:  snapshot.data!.insurance[index].eligibility == false
-                                                          ? ColorManager.incidentskinSM
-                                                          : ColorManager.greenDark,
+                                                      color: // snapshot.data!.insurance[index].eligibility == false
+                                                        //  ? ColorManager.incidentskinSM
+                                                      //    :
+                                                      ColorManager.greenDark,
                                                     ),),
                                                 )
                                               ],),
@@ -1017,9 +1018,10 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                               width: 30,
                                               height: 30,
                                               decoration: BoxDecoration(
-                                                color:  snapshot.data!.insurance[index].eligibility == false
-                                                    ? ColorManager.incidentskinSM
-                                                    : ColorManager.bluebottom,
+                                                color:  //snapshot.data!.insurance[index].eligibility == false
+                                                    // ? ColorManager.incidentskinSM
+                                                    // :
+                                                ColorManager.bluebottom,
                                                 borderRadius: BorderRadius.circular(3),
                                               ),
                                               child: Center(
@@ -1045,7 +1047,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                     onPressed: (){},
                                                   ),
                                                   SizedBox(height: 5,),
-                                              Text("Last checked at ${snapshot.data!.insurance[index].time}",
+                                              Text("Last checked at ",//${snapshot.data!.insurance[index].time}",
                                               style: TextStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w400,
