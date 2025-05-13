@@ -95,6 +95,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
         onCurateBackPressed: goBackToInitialScreenFromCurate,
       ) : isShowingReferalEyePageview ?
       ReferalPendingEyePageview(onGoBackPressed: (){
+        providerState.toogleAppBar();
         goBackToInitialScreen();
         providerReferrals.passPatientIdClear();
         providerState.toogleEyeScreenProvider();
@@ -166,6 +167,7 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
               },
               children: [
                 RefferalPendingScreen(onEyeButtonPressed: (){
+                  providerState.toogleAppBar();
                   switchToEyePageviweScreen();
                   providerState.toogleEyeScreenProvider();
                 },
@@ -175,10 +177,14 @@ class _RefferalScreenNewTabState extends State<RefferalScreenNewTab> {
                                   switchToAutoSyncPageviweScreen();
                                 },),
                 RefferalMoveToIntakeScreen(onEyeButtonPressed: (){
+                  providerState.toogleAppBar();
                   switchToEyePageviweScreen();
                   providerState.toogleEyeScreenProvider();
                 },onMergeDuplicatePressed: switchToMergeDuplicateScreen,),
-                RefferalArchievedScreen(onEyeButtonPressed: switchToEyePageviweScreen,)
+                RefferalArchievedScreen(onEyeButtonPressed:(){
+                  providerState.toogleAppBar();
+                  switchToEyePageviweScreen();
+                },)
               ],
             ),
           ),

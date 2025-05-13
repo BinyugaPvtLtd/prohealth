@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
@@ -24,6 +25,7 @@ import '../../../../../../data/api_data/sm_data/sm_model_data/patient_insurances
 import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../em_module/company_identity/widgets/manage_history_version.dart';
+import '../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../em_module/widgets/button_constant.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
@@ -35,7 +37,13 @@ import 'package:flutter/material.dart';
 class DiagnosisProvider extends ChangeNotifier {
   int _patientId = 0;
   int get patientId => _patientId;
+  String _fileName = '';
+  dynamic _filePath;
+  bool _fileAbove20Mb = false;
 
+  dynamic get filePath => _filePath;
+  String get fileName => _fileName;
+  bool get fileAbove20Mb => _fileAbove20Mb;
 
   void passPatientId({required int patientIdNo}){
     _patientId = patientIdNo;
@@ -45,15 +53,31 @@ class DiagnosisProvider extends ChangeNotifier {
     _patientId = 0;
     notifyListeners();
   }
+
+
   List<GlobalKey<_DiagosisListState>> _diagnosisKeys = [];
-  List<DiagnosisModel> _diagnosisData = []; // Holds initial API data
+  List<PatientDiagnosesModel> _diagnosisData = []; // Holds initial API data
   bool _isVisible = false;
 
   List<GlobalKey<_DiagosisListState>> get diagnosisKeys => _diagnosisKeys;
-  List<DiagnosisModel> get diagnosisData => _diagnosisData;
+  List<PatientDiagnosesModel> get diagnosisData => _diagnosisData;
   bool get isVisible => _isVisible;
 
-  void loadDiagnosisFromApi(List<DiagnosisModel> apiData) {
+  void pickPatientFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['png','jpg'],
+    );
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
+    if (result != null) {
+      _filePath = result.files.first.bytes;
+      _fileName = result.files.first.name;
+      _fileAbove20Mb = !isAbove20MB;
+      notifyListeners();
+    }
+  }
+  void loadDiagnosisFromApi(List<PatientDiagnosesModel> apiData) {
     _diagnosisKeys.clear();
     _diagnosisData = apiData;
     for (var _ in apiData) {
@@ -141,7 +165,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   Future<void> loadInitialDiagnosis() async {
     final provider = Provider.of<DiagnosisProvider>(context, listen: false);
     PatientModel apiData = await getPatientReffrealsDataUsingId(context: context, patientId: provider.patientId); // ← Your API call
-    provider.loadDiagnosisFromApi(apiData.secondaryDiagnoses);
+    provider.loadDiagnosisFromApi(apiData.patientDiagnoses);
     provider.setVisibility(true);
   }
 
@@ -177,16 +201,16 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
             var patientPhone = snapshot.data!.ptContactNo;
             var zipCodePatient = snapshot.data!.ptZipCode;
             var patientSummery = snapshot.data!.ptSummary;
-            var icdNo = snapshot.data!.primaryDiagnosis.dgnCode;
-            var posibleDignosis = snapshot.data!.primaryDiagnosis.dgnName;
+            // var icdNo = snapshot.data!.primaryDiagnosis.dgnCode;
+            // var posibleDignosis = snapshot.data!.primaryDiagnosis.dgnName;
             //var refferFor = snapshot.data.referralSource.
             firstNameController = TextEditingController(text:snapshot.data!.ptFirstName);
             lastNameController = TextEditingController(text:snapshot.data!.ptLastName);
             patientsController = TextEditingController(text:snapshot.data!.ptContactNo);
             zipCodeController = TextEditingController(text:snapshot.data!.ptZipCode);
             patientsSummary = TextEditingController(text:snapshot.data!.ptSummary);
-            icdPrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnCode);
-            possiblePrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnName);
+            // icdPrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnCode);
+            // possiblePrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnName);
            // referredfor = TextEditingController(text: snapshot.data!.service.srvName);
             List<String> desciplineModel = [];
             List<int> desciplineintList = [];
@@ -366,7 +390,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                             flex: 2,
                                             child: Container(
                                               child: Text(
-                                                snapshot.data!.primaryDiagnosis.dgnName,
+                                                snapshot.data!.patientDiagnoses[0].dgnName,
                                                 textAlign: TextAlign.start,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                   fontWeight: FontWeight.w700,
@@ -1050,65 +1074,11 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       ///diagnosis
                       BlueBGHeadConst(HeadText: "Diagnosis"),
                       SizedBox(height: AppSize.s10,),
-                     snapshot.data!.primaryDiagnosis.dgnId != 0 ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(height: 90,width: 5,color: ColorManager.greenDark,),
-                              SizedBox(width: AppSize.s30,),
-                              Expanded(
-                                child: SMTextFConst(controller: possiblePrime,
-                                    isAsteric: false,
-                                    isIcon: true,
-                                    keyboardType: TextInputType.text, text: "Possible Diagnosis"),
-                              ),
-                              SizedBox(width: AppSize.s60,),
-                              Expanded(
-                                child: SMTextFConst(controller: icdPrime,
-                                    isAsteric: false,
-                                    isIcon: true,
-                                    keyboardType: TextInputType.text, text: "ICD Code"),
-                              ),
-                              SizedBox(width: AppSize.s60,),
-                              Expanded(
-                                child: SMTextFConst(controller: pdgmPrime,
-                                    isAsteric: false,
-                                    isIcon: true,
-                                    keyboardType: TextInputType.text, text: "PDGM - Acceptable"),
-                              ),
-                              SizedBox(width: AppSize.s30,),
-                              Expanded(
-                                child: Container(
-                                  height: 30,
-                                  width: AppSize.s354,
-                                ),
-                              ),
-                              SizedBox(width: AppSize.s30,),
-                              Expanded(
-                                child: Container(
-                                  height: 30,
-                                  width: AppSize.s354,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            color: ColorManager.containerBorderGrey,
-                            thickness: 1,
-                            height: 2,
-                          ),
-                          SizedBox(height: AppSize.s30,),
-                        ],
-                      ),
-                    ) : Offstage(),
                       Column(
                         children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
                           int index = entry.key;
                           GlobalKey<_DiagosisListState> key = entry.value;
-                          List<DiagnosisModel> data = providerAddState.diagnosisData;
+                          List<PatientDiagnosesModel> data = providerAddState.diagnosisData;
 
                           return DiagosisList(
                             key: key,
@@ -1402,12 +1372,28 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 if (result != null) {
                                   setState(() {
                                     selectedFileName = result.files.single.name;
-                                    postReferralPatientDocuments(
-                                    context: context,
-                                    fk_pt_id: providerAddState.patientId,
-                                    rptd_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-                                    rptd_created_by: snapshot.data!.marketer.employeeId);
                                   });
+                                  ApiData apiData =  await postReferralPatientDocuments(
+                                      context: context,
+                                      fk_pt_id: providerAddState.patientId,
+                                      rptd_url: result.files.first.name,
+                                      rptd_created_by: snapshot.data!.marketer.employeeId);
+                                  if(apiData.statusCode == 200 || apiData.statusCode == 201){
+                                    var uploadPatientDoc = await uploadPatientReffrelsDocuments(context: context,
+                                        rptd_id: apiData.rptd_id!,
+                                        documentFile: result.files.first.bytes,
+                                        documentName: result.files.first.name);
+                                    if(uploadPatientDoc.success == true){
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AddSuccessPopup(
+                                            message: 'Document Uploaded Successfully',
+                                          );
+                                        },
+                                      );
+                                    }
+                                  }
 
                                 }
                               },
@@ -1575,7 +1561,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                               ),
                                                               SizedBox(width: AppSize.s10,),
                                                               Text(
-                                                                snapshotDoc.data![index].rptd_created_at,
+                                                                snapshotDoc.data![index].documentName,
                                                                 //policiesdata.fileName.toString(),
                                                                 textAlign: TextAlign.center,
                                                                 style:  DocDefineTableData.customTextStyle(context),
@@ -1830,7 +1816,7 @@ class DiagosisList extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
-  final List<DiagnosisModel> diagnosisData;
+  final List<PatientDiagnosesModel> diagnosisData;
   const DiagosisList(
       {Key? key,
         required this.onRemove,
@@ -1858,7 +1844,7 @@ class _DiagosisListState extends State<DiagosisList> {
     for (int i = 0; i < widget.diagnosisData.length; i++) {
       _possibleControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnName));
       _icdControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnCode.toString()));
-      _pdgmControllers.add(TextEditingController(text: ''));
+      _pdgmControllers.add(TextEditingController(text: widget.diagnosisData[i].rpt_pdgm ? 'YES':'NO'));
     }
 
     // If new empty row is added (no model data), add blank controllers
@@ -1888,7 +1874,7 @@ class _DiagosisListState extends State<DiagosisList> {
                   children: [
                     Row(
                       children: [
-                        Container(height: 90,width: 5,color: ColorManager.greenDark,),
+                        Container(height: 90,width: 5,color: widget.diagnosisData[index].color == 0 ? ColorManager.greenDark : widget.diagnosisData[index].color == 1 ?const Color(0xFFFEBD4D):ColorManager.red,),
                         SizedBox(width: AppSize.s30,),
                         Expanded(
                           child: SMTextFConst(controller: _possibleControllers[index],
@@ -1908,6 +1894,7 @@ class _DiagosisListState extends State<DiagosisList> {
                           child: SMTextFConst(controller: _pdgmControllers[index],
                               isAsteric: false,
                               isIcon: true,
+                              textColor:widget.diagnosisData[index].rpt_pdgm ? Color(0xFF008000) : Color(0xFFD20101),
                               keyboardType: TextInputType.text, text: "PDGM - Acceptable"),
                         ),
                         SizedBox(width: AppSize.s30,),
