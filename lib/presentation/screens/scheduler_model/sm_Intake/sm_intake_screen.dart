@@ -717,37 +717,45 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          PageViewMenuButtonConst(
-                                            onTap: (int index) {
-                                              intakeContactSelectButton(index);
-                                            },
-                                            index: 0,
-                                            grpIndex: callerLogSelectIndex,
-                                            heading: "Calls",
+                                          Expanded(
+                                            child: PageViewMenuButtonConst(
+                                              onTap: (int index) {
+                                                intakeContactSelectButton(index);
+                                              },
+                                              index: 0,
+                                              grpIndex: callerLogSelectIndex,
+                                              heading: "Calls",
+                                            ),
                                           ),
-                                          PageViewMenuButtonConst(
-                                            onTap: (int index) {
-                                              intakeContactSelectButton(index);
-                                            },
-                                            index: 1,
-                                            grpIndex: callerLogSelectIndex,
-                                            heading: "Logs",
+                                          Expanded(
+                                            child: PageViewMenuButtonConst(
+                                              onTap: (int index) {
+                                                intakeContactSelectButton(index);
+                                              },
+                                              index: 1,
+                                              grpIndex: callerLogSelectIndex,
+                                              heading: "Logs",
+                                            ),
                                           ),
-                                          PageViewMenuButtonConst(
-                                            onTap: (int index) {
-                                              intakeContactSelectButton(index);
-                                            },
-                                            index: 2,
-                                            grpIndex: callerLogSelectIndex,
-                                            heading: "E-Fax",
+                                          Expanded(
+                                            child: PageViewMenuButtonConst(
+                                              onTap: (int index) {
+                                                intakeContactSelectButton(index);
+                                              },
+                                              index: 2,
+                                              grpIndex: callerLogSelectIndex,
+                                              heading: "E-Fax",
+                                            ),
                                           ),
-                                          PageViewMenuButtonConst(
-                                            onTap: (int index) {
-                                              intakeContactSelectButton(index);
-                                            },
-                                            index: 3,
-                                            grpIndex: callerLogSelectIndex,
-                                            heading: "Documents",
+                                          Expanded(
+                                            child: PageViewMenuButtonConst(
+                                              onTap: (int index) {
+                                                intakeContactSelectButton(index);
+                                              },
+                                              index: 3,
+                                              grpIndex: callerLogSelectIndex,
+                                              heading: "Documents",
+                                            ),
                                           ),
                                         ],
                                       ),
