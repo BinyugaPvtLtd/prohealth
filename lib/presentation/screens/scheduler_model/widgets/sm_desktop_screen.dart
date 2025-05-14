@@ -667,7 +667,14 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
               ),
               if (providerState.isFilterOpen)
                 GestureDetector(
-                  onTap: providerState.toggleFilter,
+                  onTap: (){
+                    _isCheckedList = List<bool>.filled(patientRefferalSourcesData.length, false);
+                    _isCheckedListMaster = List<bool>.filled(hRAllData.length, false);
+                    _physicianList = List<bool>.filled(patientPhysicianMasterData.length, false);
+                    providerState.filterIdIntegration(marketerId: 'all',
+                        sourceId: 'all', pcpId: 'all');
+                    providerState.toggleFilter();
+                  },
                   behavior: HitTestBehavior.translucent,
                   child: Container(
                     color:
