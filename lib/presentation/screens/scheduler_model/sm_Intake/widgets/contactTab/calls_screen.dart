@@ -186,6 +186,7 @@ class LiveCallTab extends StatelessWidget {
                             },
                           ),
                           const CircleAvatar(
+                            backgroundColor: Colors.transparent,
                             radius: 25,
                               backgroundImage:
                               AssetImage('images/temp.jpg'),
@@ -197,6 +198,7 @@ class LiveCallTab extends StatelessWidget {
                         spacing: 10,
                         children: [
                           const CircleAvatar(
+                            backgroundColor: Colors.transparent,
                             radius: 25,
                               backgroundImage:
                               AssetImage('images/tmp2.jpg'),
@@ -389,6 +391,7 @@ class CallTranscriptTab extends StatelessWidget {
                         Column(
                           children: [
                             const CircleAvatar(
+                              backgroundColor: Colors.transparent,
                               backgroundImage:
                               AssetImage('images/tmp2.jpg'), // Replace with your asset
                               radius: 23,
@@ -434,6 +437,7 @@ class CallTranscriptTab extends StatelessWidget {
                       if (message['isMe'])  Column(
                         children: [
                           const CircleAvatar(
+                            backgroundColor: Colors.transparent,
                             backgroundImage:
                             AssetImage('images/temp.jpg'), // Replace with your asset
                             radius: 23,

@@ -180,6 +180,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
     loadInitialinsurance();
   }
   List<PatientInsurancesData> patientInsurance = [];
+  List<EmployeeClinicalData> employeeClinicalData = [];
 
   Future<void> loadInitialDiagnosis() async {
     final provider = Provider.of<DiagnosisProvider>(context, listen: false);
@@ -189,13 +190,20 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   }
 
   Future<void> loadInitialinsurance() async {
-    patientInsurance = await getReffrealsPatientInsurance(context: context,); // ← Your API call
+    patientInsurance = await getReffrealsPatientInsurance(context: context,);
+    employeeClinicalData = await getEmployeeClinicalInReffreals(context: context);// ← Your API call
   }
 
 
   double _sliderValue = 100; // initial value
   int patientInsuranceId = 0;
   final StreamController<List<PatientDocumentsData>> _streamController = StreamController<List<PatientDocumentsData>>.broadcast();
+  // Stream<PatientModel> getPatientReffrealsDataStream({required BuildContext context, required int patientId}) {
+  //   return Stream.periodic(Duration(seconds: 5)).asyncMap(
+  //         (_) => getPatientReffrealsDataUsingId(context: context, patientId: patientId),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     // final providerAddState = Provider.of<DiagnosisProvider>(context);
@@ -232,10 +240,14 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
             // possiblePrime = TextEditingController(text:snapshot.data!.primaryDiagnosis.dgnName);
            // referredfor = TextEditingController(text: snapshot.data!.service.srvName);
             List<String> desciplineModel = [];
+            List<String> desciplineModelAbbrivation = [];
+            List<String> desciplineModelAbbrivationColor = [];
             List<int> desciplineintList = [];
             for(var a in snapshot.data!.disciplines){
               desciplineModel.add(a.employeeType);
               desciplineintList.add(a.employeeTypeId);
+              desciplineModelAbbrivation.add(a.abbreviation);
+              desciplineModelAbbrivationColor.add(a.color);
             }
             patientInsuranceId = snapshot.data!.fk_rpti_id;
             return Padding(
@@ -1138,220 +1150,226 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                        StatefulBuilder(
                            builder: (BuildContext context, StateSetter setState){
                       return Container(height: 150,
-                                  child: Row(
-                                          children: [
-                                            Expanded(
-                                              flex:3,
-                                              child: FutureBuilder<List<EmployeeClinicalData>>(
-                                                future: getEmployeeClinicalInReffreals(context: context),
-                                                builder: (context, snapshotEmp) {
-                                                  if (snapshotEmp.connectionState == ConnectionState.waiting) {
-                                                    return Center(
-                                                      child: CircularProgressIndicator(color: ColorManager.blueprime),
-                                                    );
-                                                  }
-                                                  if (snapshotEmp.hasData) {
-                                                    return Padding(
-                                                      padding: const EdgeInsets.only(left: 25),
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Row(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Text(
-                                                                "Disciplines",
-                                                                style: TextStyle(
-                                                                  fontSize: FontSize.s14,
-                                                                  fontWeight: FontWeight.w700,
-                                                                  color: ColorManager.mediumgrey,
-                                                                ),
-                                                              ),
-                                                              const SizedBox(width: 30),
-                                                              InkWell(
-                                                                hoverColor: Colors.transparent,
-                                                                splashColor: Colors.transparent,
-                                                                highlightColor: Colors.transparent,
-                                                                onTap: () {},
-                                                                child: SvgPicture.asset(
-                                                                  'images/sm/sm_refferal/i_circle.svg',
-                                                                  height: IconSize.I20,
-                                                                  width: IconSize.I20,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(height: 10),
-                                                          StatefulBuilder(
-                                                              builder: (BuildContext context, StateSetter setState){
-                                                                  return Wrap(
-                                                              spacing: 10,
-                                                              runSpacing: 10,
+                                  child: StatefulBuilder(
+                                      builder: (BuildContext context, StateSetter setState){
+                                    return Row(
+                                            children: [
+                                              Expanded(
+                                                flex:3,
+                                                child:
+                                                // FutureBuilder<List<EmployeeClinicalData>>(
+                                                //   future: getEmployeeClinicalInReffreals(context: context),
+                                                //   builder: (context, snapshotEmp) {
+                                                //     if (snapshotEmp.connectionState == ConnectionState.waiting) {
+                                                //       return Center(
+                                                //         child: CircularProgressIndicator(color: ColorManager.blueprime),
+                                                //       );
+                                                //     }
+                                                //     if (snapshotEmp.hasData) {
+                                                //       return
+                                                        Padding(
+                                                        padding: const EdgeInsets.only(left: 25),
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Row(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
-                                                                ...List.generate(snapshotEmp.data!.length, (index){
-                                                                  bool isCheckedValue = desciplineModel.contains(snapshotEmp.data![index].empType);
-                                                                  return buildCheckbox(
-                                                                    snapshotEmp.data![index].empType,
-                                                                    isCheckedValue,
-                                                                        (value) {
-                                                                      setState(() {
-                                                                        // isCheckedValue = value!;
-                                                                        if (value!) {
-                                                                          desciplineModel.add(snapshotEmp.data![index].empType);
-                                                                          desciplineintList.add(snapshotEmp.data![index].emptypeId);
-                                                                          updateReferralPatient(context: context,
-                                                                              patientId: providerAddState.patientId,
-                                                                              isUpdatePatiendData: true,firstName: firstNameController.text,
-                                                                              lastName: lastNameController.text,
-                                                                              contactNo: patientsController.text,
-                                                                              summary: patientsSummary.text,
-                                                                              zipCode: zipCodeController.text,
-                                                                              serviceId: snapshot.data!.fkSrvId,
-                                                                              disciplineIds: desciplineintList,
-                                                                              insuranceId: patientInsuranceId);
-                                                                        } else {
-                                                                          desciplineModel.remove(snapshotEmp.data![index].empType);
-                                                                          desciplineintList.remove(snapshotEmp.data![index].emptypeId);
-                                                                          updateReferralPatient(context: context,
-                                                                              patientId: providerAddState.patientId,
-                                                                              isUpdatePatiendData: true,firstName: firstNameController.text,
-                                                                              lastName: lastNameController.text,
-                                                                              contactNo: patientsController.text,
-                                                                              summary: patientsSummary.text,
-                                                                              zipCode: zipCodeController.text,
-                                                                              serviceId: snapshot.data!.fkSrvId,
-                                                                              disciplineIds: desciplineintList,
-                                                                              insuranceId: patientInsuranceId);
-                                                                        }
-                                                                      });
-                                                                    },
-                                                                    desciplineModel,
-                                                                  );
-                                                                })
-                                                              ]
-                                                              // snapshotEmp.data!.map((empData) {
-                                                              //
-                                                              //   return
-                                                              // }).toList(),
-                                                            );}
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  } else {
-                                                    return const SizedBox();
-                                                  }
-                                                },
-                                              )
-
-                                            ),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Container(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 20.0),
-                                                    child: Text(
-                                                      "Distance from Patient’s Home",
-                                                      style:  CustomTextStylesCommon.commonStyle(
-                                                          color: ColorManager.mediumgrey,
-                                                          fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w700),
-                                                    ),
-                                                  ),
-                                                  StatefulBuilder(
-                                                      builder: (BuildContext context, StateSetter setState){
-                                                    return Container(
-                                                      width: 600,
-                                                      child: SliderTheme(
-                                                        data: const SliderThemeData(
-                                                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
-                                                        ),
-                                                        child: Slider(
-                                                          value: _sliderValue,
-                                                          min: 0,
-                                                          max: 200,
-                                                          divisions: 4,
-                                                          // label: _sliderValue.round().toString(),
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              _sliderValue = value;
-                                                            });
-                                                          },
-                                                        ),
-                                                      ),
-                                                    );
-                           }
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: List.generate(5, (index) => Text("${index * 50}")),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 16),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 20.0),
-                                                    child: Text(
-                                                      "Available Clinicians",
-                                                      style: CustomTextStylesCommon.commonStyle(
-                                                          color: ColorManager.mediumgrey,
-                                                          fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w700),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 8),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 20.0),
-                                                    child: Row(
-                                                      spacing: 20,
-                                                      children: [
-                                                        ...List.generate(snapshot.data!.disciplines.length, (index){
-                                                          var hexColor = snapshot.data!.disciplines[index].color.replaceAll("#", "");
-                                                          return  Row(
-                                                            children: [
-                                                              Container(
-                                                                height: 20,
-                                                                child: Chip(
-                                                                  label: Padding(
-                                                                    padding: const EdgeInsets.only(bottom: 5.0),
-                                                                    child: Text(snapshot.data!.disciplines[index].abbreviation,
-                                                                        style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
+                                                                Text(
+                                                                  "Disciplines",
+                                                                  style: TextStyle(
+                                                                    fontSize: FontSize.s14,
+                                                                    fontWeight: FontWeight.w700,
+                                                                    color: ColorManager.mediumgrey,
                                                                   ),
-                                                                  backgroundColor:Color(int.parse('0xFF$hexColor')),
                                                                 ),
-                                                              ),
-                                                              const SizedBox(width: 4),
-                                                              const Text("112", style: TextStyle(fontWeight: FontWeight.bold)),
-                                                              // SizedBox(width: 50),
-                                                              // Container(
-                                                              //   height: 20,
-                                                              //   child: Chip(
-                                                              //     label: Padding(
-                                                              //       padding: const EdgeInsets.only(bottom: 5.0),
-                                                              //       child: Text("OT", style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
-                                                              //     ),
-                                                              //     backgroundColor: Colors.orangeAccent,
-                                                              //   ),
-                                                              // ),
-                                                              // SizedBox(width: 4),
-                                                              // Text("02", style: TextStyle(fontWeight: FontWeight.bold)),
-                                                            ],
-                                                          );
-                                                        })
-                                                      ],
-                                                    )
+                                                                SizedBox(width: 30),
+                                                                InkWell(
+                                                                  hoverColor: Colors.transparent,
+                                                                  splashColor: Colors.transparent,
+                                                                  highlightColor: Colors.transparent,
+                                                                  onTap: () {},
+                                                                  child: SvgPicture.asset(
+                                                                    'images/sm/sm_refferal/i_circle.svg',
+                                                                    height: IconSize.I20,
+                                                                    width: IconSize.I20,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            SizedBox(height: 10),
+                                                            Wrap(
+                                                                spacing: 10,
+                                                                runSpacing: 10,
+                                                                children: [
+                                                                  ...List.generate(employeeClinicalData.length, (index){
+                                                                    bool isCheckedValue = desciplineModel.contains(employeeClinicalData[index].empType);
+                                                                    return buildCheckbox(
+                                                                      employeeClinicalData[index].empType,
+                                                                      isCheckedValue,
+                                                                          (value) {
+                                                                        setState(() {
+                                                                          // isCheckedValue = value!;
+                                                                          if (value!) {
+                                                                            desciplineModel.add(employeeClinicalData[index].empType);
+                                                                            desciplineintList.add(employeeClinicalData[index].emptypeId);
+                                                                            desciplineModelAbbrivation.add(employeeClinicalData[index].abbreviation);
+                                                                            desciplineModelAbbrivationColor.add(employeeClinicalData[index].color);
+                                                                            updateReferralPatient(context: context,
+                                                                                patientId: providerAddState.patientId,
+                                                                                isUpdatePatiendData: true,firstName: firstNameController.text,
+                                                                                lastName: lastNameController.text,
+                                                                                contactNo: patientsController.text,
+                                                                                summary: patientsSummary.text,
+                                                                                zipCode: zipCodeController.text,
+                                                                                serviceId: snapshot.data!.fkSrvId,
+                                                                                disciplineIds: desciplineintList,
+                                                                                insuranceId: patientInsuranceId);
+                                                                          } else {
+                                                                            desciplineModel.remove(employeeClinicalData[index].empType);
+                                                                            desciplineintList.remove(employeeClinicalData[index].emptypeId);
+                                                                            desciplineModelAbbrivation.remove(employeeClinicalData[index].abbreviation);
+                                                                            desciplineModelAbbrivationColor.remove(employeeClinicalData[index].color);
+                                                                            updateReferralPatient(context: context,
+                                                                                patientId: providerAddState.patientId,
+                                                                                isUpdatePatiendData: true,firstName: firstNameController.text,
+                                                                                lastName: lastNameController.text,
+                                                                                contactNo: patientsController.text,
+                                                                                summary: patientsSummary.text,
+                                                                                zipCode: zipCodeController.text,
+                                                                                serviceId: snapshot.data!.fkSrvId,
+                                                                                disciplineIds: desciplineintList,
+                                                                                insuranceId: patientInsuranceId);
+                                                                          }
+                                                                        });
+                                                                      },
+                                                                      desciplineModel,
+                                                                    );
+                                                                  })
+                                                                ]
+                                                                // snapshotEmp.data!.map((empData) {
+                                                                //
+                                                                //   return
+                                                                // }).toList(),
+                                                              )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                //     } else {
+                                                //       return SizedBox();
+                                                //     }
+                                                //   },
+                                                // )
+
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Container(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 20.0),
+                                                      child: Text(
+                                                        "Distance from Patient’s Home",
+                                                        style:  CustomTextStylesCommon.commonStyle(
+                                                            color: ColorManager.mediumgrey,
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w700),
+                                                      ),
+                                                    ),
+                                                    StatefulBuilder(
+                                                        builder: (BuildContext context, StateSetter setState){
+                                                      return Container(
+                                                        width: 600,
+                                                        child: SliderTheme(
+                                                          data: SliderThemeData(
+                                                            thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
+                                                          ),
+                                                          child: Slider(
+                                                            value: _sliderValue,
+                                                            min: 0,
+                                                            max: 200,
+                                                            divisions: 4,
+                                                            // label: _sliderValue.round().toString(),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                _sliderValue = value;
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                      );
+                                                               }
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: List.generate(5, (index) => Text("${index * 50}")),
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 16),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 20.0),
+                                                      child: Text(
+                                                        "Available Clinicians",
+                                                        style: CustomTextStylesCommon.commonStyle(
+                                                            color: ColorManager.mediumgrey,
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w700),
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 8),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 20.0),
+                                                      child: Row(
+                                                        spacing: 20,
+                                                        children: [
+                                                          ...List.generate(desciplineModelAbbrivation.length, (index){
+                                                            var hexColor = desciplineModelAbbrivationColor[index].replaceAll("#", "");
+                                                            return  Row(
+                                                              children: [
+                                                                Container(
+                                                                  height: 20,
+                                                                  child: Chip(
+                                                                    label: Padding(
+                                                                      padding: const EdgeInsets.only(bottom: 5.0),
+                                                                      child: Text(desciplineModelAbbrivation[index],
+                                                                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
+                                                                    ),
+                                                                    backgroundColor:Color(int.parse('0xFF$hexColor')),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(width: 4),
+                                                                Text("112", style: TextStyle(fontWeight: FontWeight.bold)),
+                                                                // SizedBox(width: 50),
+                                                                // Container(
+                                                                //   height: 20,
+                                                                //   child: Chip(
+                                                                //     label: Padding(
+                                                                //       padding: const EdgeInsets.only(bottom: 5.0),
+                                                                //       child: Text("OT", style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
+                                                                //     ),
+                                                                //     backgroundColor: Colors.orangeAccent,
+                                                                //   ),
+                                                                // ),
+                                                                // SizedBox(width: 4),
+                                                                // Text("02", style: TextStyle(fontWeight: FontWeight.bold)),
+                                                              ],
+                                                            );
+                                                          })
+                                                        ],
+                                                      )
+                                                    ),
+                                                  ],
                                                   ),
-                                                ],
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        )
+                                            ],
+                                          );}
+                                  )
                                   );
           }
                        ),
