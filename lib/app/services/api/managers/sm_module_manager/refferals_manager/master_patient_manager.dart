@@ -7,7 +7,6 @@ import '../../../repository/sm_repository/refferals/patient_refferal_repo.dart';
 ///  patient physician master
 Future<List<PatientPhysicianMasterData>> getPatientPhysicianMaster({
   required BuildContext context,
-  required int patientId
 }) async {
   List<PatientPhysicianMasterData> itemsData = [];
   try {
@@ -43,7 +42,6 @@ Future<List<PatientPhysicianMasterData>> getPatientPhysicianMaster({
 ///  patient referral master
 Future<List<PatientRefferalSourcesData>> getPatientreferralsMaster({
   required BuildContext context,
-  required int patientId
 }) async {
   List<PatientRefferalSourcesData> itemsData = [];
   try {

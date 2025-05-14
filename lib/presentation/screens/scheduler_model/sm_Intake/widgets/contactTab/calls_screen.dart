@@ -73,16 +73,16 @@ class ContactCallsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         spacing: 10,
                         children: [
-                          Icon(Icons.wifi_calling_3_outlined),
-                          Text("Live Call")
+                          Flexible(child: Icon(Icons.wifi_calling_3_outlined)),
+                          Flexible(child: Text("Live Call"))
                         ],
                       ),): const Tab(child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: 10,
                             children: [
-                              Icon(Icons.content_paste_search_outlined),
-                              Text("Transcripts")
+                              Flexible(child: Icon(Icons.content_paste_search_outlined)),
+                              Flexible(child: Text("Transcripts"))
                             ],
                           ),),
                           const Tab(
@@ -91,8 +91,8 @@ class ContactCallsScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               spacing: 10,
                               children: [
-                                Icon(Icons.history),
-                                Text("Transcription History")
+                                Flexible(child: Icon(Icons.history)),
+                                Flexible(child: Text("Transcription History"))
                               ],
                             ),),
                         ],

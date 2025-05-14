@@ -8,9 +8,9 @@ class SmIntakeProviderManager extends ChangeNotifier{
   bool _isLeftSidebarOpen = false;
   bool _isAutoSyncScreenVisible = false;
   int _initialIndex = 0;
-  int _marketerId = 0;
-  int _referralSourceId = 0;
-  int _pcpId = 0;
+  String _marketerId = 'all';
+  String _referralSourceId = 'all';
+  String _pcpId = 'all';
 
 
   // Referal filter
@@ -44,9 +44,9 @@ class SmIntakeProviderManager extends ChangeNotifier{
   bool get ICContainerVisible => _ICContainerVisible;
   bool get PContainerVisible => _PContainerVisible;
 
-  int get marketerId => _marketerId;
-  int get referralSourceId => _referralSourceId;
-  int get pcpId => _pcpId;
+  String get marketerId => _marketerId;
+  String get referralSourceId => _referralSourceId;
+  String get pcpId => _pcpId;
 
   void toogleContactProvider(){
     _isContactTrue = !_isContactTrue;
@@ -131,7 +131,7 @@ class SmIntakeProviderManager extends ChangeNotifier{
     notifyListeners();
   }
 
-  void filterIdIntegration({required int marketerId, required int sourceId, required int pcpId}){
+  void filterIdIntegration({required String marketerId, required String sourceId, required String pcpId}){
     _marketerId = marketerId;
     _referralSourceId = sourceId;
     _pcpId = pcpId;
