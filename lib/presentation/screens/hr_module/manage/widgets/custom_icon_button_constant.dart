@@ -77,12 +77,14 @@ class CustomButtonTransparent extends StatefulWidget {
   final double? height;
   final double? width;
   final double? borderRadius;
+  final TextStyle? style;
 
    CustomButtonTransparent({
     required this.text,
     required this.onPressed,
      this.height = AppSize.s35,
      this.width = AppSize.s100,
+     this.style,
     Key? key, this.borderRadius = 12,
   }) : super(key: key);
 
@@ -123,7 +125,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
                 ),
                 child: Text(
           widget.text,
-          style: TransparentButtonTextConst.customTextStyle(context)
+          style: widget.style ?? TransparentButtonTextConst.customTextStyle(context)
                 ),
               ),
         );

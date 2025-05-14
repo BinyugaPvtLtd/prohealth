@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_
 import 'package:provider/provider.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
@@ -306,17 +307,20 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                           width: AppSize.s120,
                                           height: 28,
                                           borderRadius: 14,
+                                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.blueprime,),
                                           text: "Accept Theirs",
-                                          onPressed: () {
-
-                                          },
+                                          onPressed: () {},
                                         ),
                                         CustomElevatedButton(
                                           width: AppSize.s120,
                                           height: 28,
                                           borderRadius: 14,
                                           text: "Keep Yours",
-                                          style: TextStyle(fontSize: 10),
+                                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.white,),
                                           onPressed: (){},
                                         ),
                                       ],

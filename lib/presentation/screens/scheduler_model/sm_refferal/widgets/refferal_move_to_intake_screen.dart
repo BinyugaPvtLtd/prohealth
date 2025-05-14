@@ -350,10 +350,14 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                     }
                                                   },
                                                   errorBuilder: (context, error, stackTrace) {
-                                                    return Image.asset(
-                                                      'images/logo_login.png',
-                                                      width: 90,
-                                                      fit: BoxFit.contain,
+                                                    return SizedBox(
+                                                      child: Center(
+                                                        child: Image.asset(
+                                                          'images/logo_login.png',
+                                                          width: 90,
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                      ),
                                                     );
                                                   },
                                                 ),
