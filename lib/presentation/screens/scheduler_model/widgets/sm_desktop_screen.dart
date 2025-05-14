@@ -16,6 +16,8 @@ import '../../../../app/resources/color.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../app/resources/value_manager.dart';
+import '../../../../app/services/api/managers/sm_module_manager/refferals_manager/master_patient_manager.dart';
+import '../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../widgets/app_bar/app_bar.dart';
 import '../../../widgets/widgets/const_appbar/controller.dart';
 import '../../hr_module/hr_home_screen/referesh_provider.dart';
@@ -74,6 +76,8 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   @override
   void initState() {
     super.initState();
+    loadInitialData();
+
     // _loadIndex();
   }
   bool _showHighestCaseViewMoreScreen = false;
@@ -159,7 +163,16 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   }
   TextEditingController assigndatecontroller = TextEditingController();
 
-
+  List<PatientRefferalSourcesData> patientRefferalSourcesData = [];
+  List<PatientPhysicianMasterData> patientPhysicianMasterData = [];
+  List<bool> _isCheckedList = [];
+  List<bool> _isCheckedListMaster = [];
+  Future<void> loadInitialData() async {
+    patientRefferalSourcesData = await getPatientreferralsMaster(context: context,);
+    patientPhysicianMasterData = await getPatientPhysicianMaster(context: context);
+    _isCheckedList = List<bool>.filled(patientRefferalSourcesData.length, false);
+    _isCheckedListMaster = List<bool>.filled(patientPhysicianMasterData.length, false);
+  }
   ///checkbox
   bool _isChecked = false;
   @override
@@ -362,9 +375,6 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
 
                    ],),
-
-
-
                   ///2nd  buttons
                   // _showAutoScreen
                   //     ? SizedBox(height: 30,)
@@ -696,10 +706,17 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                       style: TextStyle(
                                           fontSize: 16, fontWeight: FontWeight.bold),
                                     ),
+
                                   ],
                                 ),
                               ),
-                              // TextButton(onPressed: (){}, child: Text("CLEAR ALL"))
+                             TextButton(onPressed: (){
+                               _isCheckedList = List<bool>.filled(patientRefferalSourcesData.length, false);
+                               _isCheckedListMaster = List<bool>.filled(patientPhysicianMasterData.length, false);
+                               providerState.filterIdIntegration(marketerId: 'all',
+                                   sourceId: 'all', pcpId: 'all');
+                               providerState.toggleFilter();
+                             }, child: Text("CLEAR ALL"))
                             ],
                           ),
                         ),
@@ -723,22 +740,51 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                       : Icons.keyboard_arrow_down,
                                   color: ColorManager.mediumgrey,
                                 ),
+
                               ],
                             ),
                           ),
                         ),
-                        AnimatedContainer(
-                          duration: Duration(milliseconds: 30),
-                          height: providerState.MContainerVisible ? 0 : 0,
-                          width: 300,
-                          color: Colors.blue,
-                          alignment: Alignment.center,
-                          child: providerState.MContainerVisible
-                              ? Text(
-                            'Container is Open',
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          )
-                              : null,
+
+                        StatefulBuilder(
+                            builder: (BuildContext context, StateSetter setState){
+                              return  AnimatedContainer(
+                                duration: Duration(milliseconds: 30),
+                                //height: providerState.MContainerVisible ? 300 : 0,
+                                width: 300,
+                                color: Colors.white,
+                                alignment: Alignment.center,
+                                child: providerState.MContainerVisible
+                                    ? Column(
+                                  children: [
+                                    ...List.generate(patientPhysicianMasterData.length, (index){
+                                      return Row(
+                                        children: [
+                                          Checkbox(
+                                            splashRadius: 0,
+                                            activeColor: ColorManager.blueprime,
+                                            value: _isCheckedListMaster[index],
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                _isCheckedListMaster[index] = value!;
+                                                providerState.filterIdIntegration(marketerId: patientPhysicianMasterData[index].phy_id.toString(),
+                                                    sourceId: 'all', pcpId: 'all');
+                                              });
+                                            },
+                                          ),
+                                          Text(
+                                            "${ patientPhysicianMasterData[index].phy_first_name} ${ patientPhysicianMasterData[index].phy_last_name}",
+                                            style: DocDefineTableDataID.customTextStyle(
+                                                context),
+                                          ),
+                                        ],
+                                      );
+                                    })
+
+                                  ],
+                                )
+                                    : null,
+                              );}
                         ),
                         Divider(),
                         InkWell(
@@ -795,190 +841,66 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                             ),
                           ),
                         ),
-                        AnimatedContainer(
-                          duration: Duration(milliseconds: 30),
-                          height: providerState.RContainerVisible ? 300 : 0,
-                          width: 300,
-                          // color: Colors.grey,
-                          // alignment: Alignment.center,
-                          child: providerState.RContainerVisible
-                              ? Column(
-                            children: [
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Search...',
-                                  prefixIcon: Icon(Icons.search,
-                                      size: 20, color: Colors.grey),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors
-                                            .grey), // Set the color of the bottom border
+                        StatefulBuilder(
+                            builder: (BuildContext context, StateSetter setState){
+                          return AnimatedContainer(
+                            duration: Duration(milliseconds: 30),
+                            height: providerState.RContainerVisible ? 300 : 0,
+                            width: 300,
+                            // color: Colors.grey,
+                            // alignment: Alignment.center,
+                            child: providerState.RContainerVisible
+                                ? Column(
+                              children: [
+                                TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Search...',
+                                    prefixIcon: Icon(Icons.search,
+                                        size: 20, color: Colors.grey),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors
+                                              .grey), // Set the color of the bottom border
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors
+                                              .grey), // Set the color when focused
+                                    ),
+                                    //  contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors
-                                            .grey), // Set the color when focused
-                                  ),
-                                  //  contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                                  onChanged: (value) {
+                                    // Handle search logic here (e.g., filtering options)
+                                  },
                                 ),
-                                onChanged: (value) {
-                                  // Handle search logic here (e.g., filtering options)
-                                },
-                              ),
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     setState(() {
-                              //       _isChecked = !_isChecked;  // Toggle checkbox state
-                              //     });
-                              //   },
-                              //   child: Container(
-                              //     decoration: BoxDecoration(
-                              //    //   shape: BoxShape.,
-                              //       color:  Colors.transparent, // Checked or unchecked background color
-                              //       border: Border.all(color: Colors.blue), // Border color of the circle
-                              //     ),
-                              //     padding: EdgeInsets.all(10),
-                              //     child: _isChecked
-                              //         ? Icon(Icons.clear, color: Colors.white)  // Use 'clear' icon instead of 'check'
-                              //         : Icon(Icons.check_box_outline_blank, color: ColorManager.grey),  // Unchecked state icon
-                              //   ),
-                              // ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    splashRadius: 0,
-                                    activeColor: ColorManager.blueprime,
-                                    value: _isChecked,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        _isChecked = value!;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    'Lorem Ipsum',
-                                    style: DocDefineTableDataID.customTextStyle(
-                                        context),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    splashRadius: 0,
-                                    activeColor: ColorManager.blueprime,
-                                    value: _isChecked,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        _isChecked = value!;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    'Lorem Ipsum',
-                                    style: DocDefineTableDataID.customTextStyle(
-                                        context),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    splashRadius: 0,
-                                    activeColor: ColorManager.blueprime,
-                                    value: _isChecked,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        _isChecked = value!;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    'Lorem Ipsum',
-                                    style: DocDefineTableDataID.customTextStyle(
-                                        context),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    splashRadius: 0,
-                                    activeColor: ColorManager.blueprime,
-                                    value: _isChecked,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        _isChecked = value!;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    'Lorem Ipsum',
-                                    style: DocDefineTableDataID.customTextStyle(
-                                        context),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    splashRadius: 0,
-                                    activeColor: ColorManager.blueprime,
-                                    value: _isChecked,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        _isChecked = value!;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    'Lorem Ipsum',
-                                    style: DocDefineTableDataID.customTextStyle(
-                                        context),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    splashRadius: 0,
-                                    activeColor: ColorManager.blueprime,
-                                    value: _isChecked,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        _isChecked = value!;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    'Lorem Ipsum',
-                                    style: DocDefineTableDataID.customTextStyle(
-                                        context),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    splashRadius: 0,
-                                    activeColor: ColorManager.blueprime,
-                                    value: _isChecked,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        _isChecked = value!;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    'Lorem Ipsum',
-                                    style: DocDefineTableDataID.customTextStyle(
-                                        context),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                              : null,
+                              ...List.generate(patientRefferalSourcesData.length, (index){
+                                return Row(
+                                  children: [
+                                    Checkbox(
+                                      splashRadius: 0,
+                                      activeColor: ColorManager.blueprime,
+                                      value: _isCheckedList[index],
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          _isCheckedList[index] = value!;
+                                          providerState.filterIdIntegration(marketerId: 'all',
+                                              sourceId: patientRefferalSourcesData[index].ref_source_id.toString(), pcpId: 'all');
+                                        });
+                                      },
+                                    ),
+                                    Text(
+                                      patientRefferalSourcesData[index].source_name,
+                                      style: DocDefineTableDataID.customTextStyle(
+                                          context),
+                                    ),
+                                  ],
+                                );
+                              })
+
+                              ],
+                            )
+                                : null,
+                          );}
                         ),
                         Divider(),
                         InkWell(
