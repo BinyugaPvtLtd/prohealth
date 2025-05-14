@@ -500,6 +500,35 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
               ),
                                   ),
               const SizedBox(height: AppSize.s10),
+             providerContact.isLeftSidebarOpen ? Container(
+                child: InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap:(){},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 10),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.arrow_back,
+                            size: IconSize.I16,
+                            color: ColorManager.mediumgrey,
+
+                          ),
+                          SizedBox(width: 5,),
+                          Text(
+                            'Go Back',
+                            style:TextStyle(
+                              fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+              ) : Offstage(),
               Expanded(
                 flex: 1,
                 child: Padding(
@@ -815,6 +844,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         // providerContact.toogleLeftSidebarProvider();
                         // providerContact.toogleRightSliderProvider();
                       }:(){
+
                         toggleLeftSidebar();
                         providerContact.toogleContactProvider();
                         providerContact.toogleLeftSidebarProvider();
