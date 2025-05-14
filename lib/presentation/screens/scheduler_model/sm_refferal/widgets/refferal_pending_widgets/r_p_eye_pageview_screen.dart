@@ -591,7 +591,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: SMTextFConstPhone(controller: patientsController,
-                                isAsteric: false,
+                                isAsteric: true,
                                 onChanged: (value){
                                   updateReferralPatient(context: context,
                                       patientId: providerAddState.patientId,
