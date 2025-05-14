@@ -88,6 +88,18 @@ class DiagnosisProvider extends ChangeNotifier {
 
   void addDiagnosis() {
     _diagnosisKeys.add(GlobalKey<_DiagosisListState>());
+    _diagnosisData.add(
+      PatientDiagnosesModel(
+        rpt_dgn_id: 0,
+        dgnName: '',
+        dgnCode: '',
+        fk_pt_id: 0,
+        fk_dgn_id: 0,
+        rpt_pdgm: false,
+        rpt_isPrimary: false,
+        color: 2, // assuming 2 is default for white
+      ),
+    );
 
     // _diagnosisData.add(DiagnosisModel(dgnId: 0, dgnName: '', dgnCode: '')); // empty data
     notifyListeners();
@@ -105,6 +117,13 @@ class DiagnosisProvider extends ChangeNotifier {
   void setVisibility(bool value) {
     _isVisible = value;
     notifyListeners();
+  }
+
+  void updateDiagnosis(int index, PatientDiagnosesModel model) {
+    if (index >= 0 && index < _diagnosisData.length) {
+      _diagnosisData[index] = model;
+      notifyListeners();
+    }
   }
 }
 
@@ -222,7 +241,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 30),
               child:  ScrollConfiguration(
-            behavior: ScrollBehavior().copyWith(scrollbars: false),
+            behavior: const ScrollBehavior().copyWith(scrollbars: false),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +251,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         height: 130,
                         decoration: BoxDecoration(
                           color: ColorManager.white,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                           border: Border(
                             top: BorderSide(
                               color: ColorManager.blueprime,
@@ -332,7 +351,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     ],
                                   ),
                                 )),
-                            SizedBox(width: 50,),
+                            const SizedBox(width: 50,),
                             Expanded(
                                 flex:4,
                                 child: Container(
@@ -340,7 +359,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      SizedBox(height: 30,),
+                                      const SizedBox(height: 30,),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -370,7 +389,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 20,),
+                                      const SizedBox(height: 20,),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -411,7 +430,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      SizedBox(height: 30,),
+                                      const SizedBox(height: 30,),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -441,7 +460,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 20,),
+                                      const SizedBox(height: 20,),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -477,13 +496,13 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                             Expanded(
                                 flex:4,
                                 child: Container(
-                                  padding: EdgeInsets.only(bottom: 12),
+                                  padding: const EdgeInsets.only(bottom: 12),
                                   child: Row(
                                   children: [
                                     Text("Marketer: ",style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                       fontWeight: FontWeight.w400,
                                       color: ColorManager.mediumgrey,),),
-                                    SizedBox(width: AppSize.s25),
+                                    const SizedBox(width: AppSize.s25),
                                     ClipOval(
                                       child: snapshot.data!.ptImgUrl == 'imgurl' ||
                                           snapshot.data!.ptImgUrl == null
@@ -520,7 +539,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                         width: 41,
                                       ),
                                     ),
-                                    SizedBox(width: AppSize.s15),
+                                    const SizedBox(width: AppSize.s15),
                                     Text(
                                       "${snapshot.data!.marketer.firstName} ${snapshot.data!.marketer.lastName}",
                                       textAlign: TextAlign.center,
@@ -528,19 +547,19 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                         fontWeight: FontWeight.w700,
                                         color: ColorManager.mediumgrey,),
                                     ),
-                                    SizedBox(width: AppSize.s7),
+                                    const SizedBox(width: AppSize.s7),
                                     ],
                                 ),)),
                           ],
                         ),
                       ),
-                      SizedBox(height: AppSize.s20,),
+                      const SizedBox(height: AppSize.s20,),
                       ///patients info
-                      BlueBGHeadConst(HeadText: "Patient Information"),
-                      SizedBox(height: AppSize.s20,),
+                      const BlueBGHeadConst(HeadText: "Patient Information"),
+                      const SizedBox(height: AppSize.s20,),
                       Row(
                         children: [
-                          SizedBox(width: AppSize.s25,),
+                          const SizedBox(width: AppSize.s25,),
                           Expanded(
                             child: SMTextFConst(controller: firstNameController,
                                 isAsteric: false,
@@ -558,7 +577,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 },
                                 keyboardType: TextInputType.text, text: "First Name"),
                           ),
-                          SizedBox(width: AppSize.s30,),
+                          const SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: SMTextFConst(controller: lastNameController,
                                 isAsteric: false,
@@ -576,7 +595,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 },
                                 keyboardType: TextInputType.text, text: "Last Name"),
                           ),
-                          SizedBox(width: AppSize.s30,),
+                          const SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: SMTextFConstPhone(controller: patientsController,
                                 isAsteric: false,
@@ -594,7 +613,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 },
                                 keyboardType: TextInputType.text, text: "Patient or Caregiver Phone Number"),
                           ),
-                          SizedBox(width: AppSize.s30,),
+                          const SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: SMTextFConst(controller: zipCodeController,
                                 isAsteric: false,
@@ -614,10 +633,10 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           ),
                         ],
                       ),
-                      SizedBox(height: AppSize.s10,),
+                      const SizedBox(height: AppSize.s10,),
                       Row(
                         children: [
-                          SizedBox(width: AppSize.s25,),
+                          const SizedBox(width: AppSize.s25,),
                           Expanded(
                             child: FutureBuilder<List<ServicePatientReffralsData>>(
                               future: getReferealsServiceList(context: context),
@@ -668,7 +687,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               },
                             ),
                           ),
-                          SizedBox(width: AppSize.s30,),
+                          const SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: SMTextFConst(controller: patientsSummary,
                                 isAsteric: false,
@@ -686,14 +705,14 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 },
                                 keyboardType: TextInputType.text, text: "Patient Summary"),
                           ),
-                          SizedBox(width: AppSize.s30,),
+                          const SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: Container(
                               height: 30,
                               width: AppSize.s354,
                             ),
                           ),
-                          SizedBox(width: AppSize.s30,),
+                          const SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: Container(
                               height: 30,
@@ -702,10 +721,10 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           ),
                         ],
                       ),
-                      SizedBox(height: AppSize.s50,),
+                      const SizedBox(height: AppSize.s50,),
                       ///insurance
-                      BlueBGHeadConst(HeadText: "Insurance"),
-                      SizedBox(height: AppSize.s20,),
+                      const BlueBGHeadConst(HeadText: "Insurance"),
+                      const SizedBox(height: AppSize.s20,),
                       StatefulBuilder(
                           builder: (BuildContext context, StateSetter setState){
                         return Column(
@@ -713,7 +732,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         children: [
                         Row(
                           children: [
-                            SizedBox(width: 15),
+                            const SizedBox(width: 15),
                             CustomRadioListTile(
                               value: 'Insurance',
                               groupValue: selectedType,
@@ -724,7 +743,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               },
                               title: 'Insurance',
                             ),
-                            SizedBox(width: 110,),
+                            const SizedBox(width: 110,),
                             CustomRadioListTile(
                               value: 'Self Pay',
                               groupValue: selectedType,
@@ -744,7 +763,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                             style: AllPopupHeadings.customTextStyle(context),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         // Container(
                         //   color: selectedType == 'Self Pay' ? Colors.grey.shade200 : Colors.transparent,
                         //   child: IgnorePointer(
@@ -931,7 +950,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           children: [
                                             Expanded(
                                               child:  Container(
-                                                padding: EdgeInsets.only(top: 15),
+                                                padding: const EdgeInsets.only(top: 15),
                                                 child: Checkbox(
                                                   splashRadius: 0,
                                                   checkColor: ColorManager.white,
@@ -988,7 +1007,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                 text: "Insurance Plan :",
                                               ),
                                             ),
-                                           SizedBox(width: 10,),
+                                           const SizedBox(width: 10,),
                                             Expanded(
                                               flex: 2,
                                               child: Column(
@@ -998,10 +1017,10 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                   child: Text("Eligibility:",
                                                     style: AllPopupHeadings.customTextStyle(context),),
                                                 ),
-                                                SizedBox(height: 12,),
+                                                const SizedBox(height: 12,),
                                                 Container(
                                                   height: 30,
-                                                  padding: EdgeInsets.only(left: 45,right: 20),
+                                                  padding: const EdgeInsets.only(left: 45,right: 20),
                                                   child: Text("Not all visit\ncovered",
                                                     style: TextStyle(
                                                       fontSize: FontSize.s12,
@@ -1029,7 +1048,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                  ),),
                                               ),
                                             ),
-                                            SizedBox(width: 30,),
+                                            const SizedBox(width: 30,),
                                             Expanded(
                                               flex: 2,
                                               child: Column(
@@ -1041,7 +1060,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                     color:  ColorManager.bluebottom,
                                                     onPressed: (){},
                                                   ),
-                                                  SizedBox(height: 5,),
+                                                  const SizedBox(height: 5,),
                                                   Text("Last checked at 8:30 AM",
                                                     style: TextStyle(
                                                       fontSize: FontSize.s12,
@@ -1053,8 +1072,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                             )
                                           ],
                                         ),
-                                        SizedBox(height: 10,),
-                                        Divider(
+                                        const SizedBox(height: 10,),
+                                        const Divider(
                                         //  color: ColorManager.containerBorderGrey,
                                           thickness: 1,
                                           height: 30,
@@ -1071,10 +1090,10 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           );
           }
                       ),
-                      SizedBox(height: AppSize.s20,),
+                      const SizedBox(height: AppSize.s20,),
                       ///diagnosis
-                      BlueBGHeadConst(HeadText: "Diagnosis"),
-                      SizedBox(height: AppSize.s10,),
+                      const BlueBGHeadConst(HeadText: "Diagnosis"),
+                      const SizedBox(height: AppSize.s10,),
                       Column(
                         children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
                           int index = entry.key;
@@ -1083,36 +1102,39 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
 
                           return DiagosisList(
                             key: key,
-                            index: index + 1,
+                            index: index,
                             onRemove: () => providerAddState.removeDiagnosis(key),
                             isVisible: providerAddState.isVisible, diagnosisData: data,
+                            onChanged: (int index, PatientDiagnosesModel updatedModel) {
+                            //  providerAddState.updateDiagnosis(index, updatedModel);
+                            },
                           );
                         }).toList(),
                       ),
 
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   crossAxisAlignment: CrossAxisAlignment.center,
-                      //   children: [ Container(
-                      //     height: AppSize.s30,
-                      //     child: CustomIconButton(
-                      //       color: ColorManager.bluebottom,
-                      //       icon: Icons.add,
-                      //       textWeight: FontWeight.w700,
-                      //       textSize: FontSize.s12,
-                      //       text: "Add Diagnosis",
-                      //       onPressed: ()async {
-                      //           providerAddState.setVisibility(true);
-                      //           providerAddState.addDiagnosis();
-                      //
-                      //       },
-                      //     ),
-                      //   ),],
-                      // ),
-                      SizedBox(height: AppSize.s40,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [ Container(
+                          height: AppSize.s30,
+                          child: CustomIconButton(
+                            color:  ColorManager.bluebottom,
+                            icon: Icons.add,
+                            textWeight: FontWeight.w700,
+                            textSize: FontSize.s12,
+                            text: "Add Diagnosis",
+                            onPressed: ()async {
+                                providerAddState.setVisibility(true);
+                                providerAddState.addDiagnosis();
+
+                            },
+                          ),
+                        ),],
+                      ),
+                      const SizedBox(height: AppSize.s40,),
                       ///Suggested Plan of Care
-                      BlueBGHeadConst(HeadText: "Disciplines Ordered"),
-                      SizedBox(height: AppSize.s10,),
+                      const BlueBGHeadConst(HeadText: "Disciplines Ordered"),
+                      const SizedBox(height: AppSize.s10,),
                        StatefulBuilder(
                            builder: (BuildContext context, StateSetter setState){
                       return Container(height: 150,
@@ -1145,7 +1167,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                   color: ColorManager.mediumgrey,
                                                                 ),
                                                               ),
-                                                              SizedBox(width: 30),
+                                                              const SizedBox(width: 30),
                                                               InkWell(
                                                                 hoverColor: Colors.transparent,
                                                                 splashColor: Colors.transparent,
@@ -1159,7 +1181,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                               ),
                                                             ],
                                                           ),
-                                                          SizedBox(height: 10),
+                                                          const SizedBox(height: 10),
                                                           StatefulBuilder(
                                                               builder: (BuildContext context, StateSetter setState){
                                                                   return Wrap(
@@ -1217,7 +1239,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                       ),
                                                     );
                                                   } else {
-                                                    return SizedBox();
+                                                    return const SizedBox();
                                                   }
                                                 },
                                               )
@@ -1245,7 +1267,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                     return Container(
                                                       width: 600,
                                                       child: SliderTheme(
-                                                        data: SliderThemeData(
+                                                        data: const SliderThemeData(
                                                           thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
                                                         ),
                                                         child: Slider(
@@ -1271,7 +1293,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                       children: List.generate(5, (index) => Text("${index * 50}")),
                                                     ),
                                                   ),
-                                                  SizedBox(height: 16),
+                                                  const SizedBox(height: 16),
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 20.0),
                                                     child: Text(
@@ -1282,7 +1304,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                           fontWeight: FontWeight.w700),
                                                     ),
                                                   ),
-                                                  SizedBox(height: 8),
+                                                  const SizedBox(height: 8),
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 20.0),
                                                     child: Row(
@@ -1298,13 +1320,13 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                   label: Padding(
                                                                     padding: const EdgeInsets.only(bottom: 5.0),
                                                                     child: Text(snapshot.data!.disciplines[index].abbreviation,
-                                                                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
+                                                                        style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 11)),
                                                                   ),
                                                                   backgroundColor:Color(int.parse('0xFF$hexColor')),
                                                                 ),
                                                               ),
-                                                              SizedBox(width: 4),
-                                                              Text("112", style: TextStyle(fontWeight: FontWeight.bold)),
+                                                              const SizedBox(width: 4),
+                                                              const Text("112", style: TextStyle(fontWeight: FontWeight.bold)),
                                                               // SizedBox(width: 50),
                                                               // Container(
                                                               //   height: 20,
@@ -1334,10 +1356,10 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
           }
                        ),
 
-                      SizedBox(height: AppSize.s30,),
+                      const SizedBox(height: AppSize.s30,),
                       ///documents
-                      BlueBGHeadConst(HeadText: "Documents"),
-                      SizedBox(height: AppSize.s30,),
+                      const BlueBGHeadConst(HeadText: "Documents"),
+                      const SizedBox(height: AppSize.s30,),
                       Text(
                         'Upload Bulk Document',
                         style:TextStyle(
@@ -1346,15 +1368,15 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           color: ColorManager.mediumgrey,
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       StatefulBuilder(
                         builder: (BuildContext context, StateSetter setState){
                         return DottedBorder(
-                          color: Color(0xFFDBDBDB),
+                          color: const Color(0xFFDBDBDB),
                           strokeWidth: 1,
                           dashPattern: [6, 3],
                           borderType: BorderType.RRect,
-                          radius: Radius.circular(12),
+                          radius: const Radius.circular(12),
                          // borderPadding: EdgeInsets.symmetric(horizontal: 10),
                           child: Container(
                             width: double.infinity,
@@ -1388,7 +1410,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          return AddSuccessPopup(
+                                          return const AddSuccessPopup(
                                             message: 'Document Uploaded Successfully',
                                           );
                                         },
@@ -1407,10 +1429,10 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       width: 50,
                                       decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
-                                        color: Color(0xFFE6F1FE)
+                                        color: const Color(0xFFE6F1FE)
                                  ),
                                   child: Center(child: SvgPicture.asset('images/doc_vector.svg',height: 30,width: 30,))),
-                                  SizedBox(width: 30),
+                                  const SizedBox(width: 30),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -1418,7 +1440,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       RichText(
                                         text: TextSpan(
                                           text: "Drop your files here or ",
-                                          style: TextStyle(color: Colors.black),
+                                          style: const TextStyle(color: Colors.black),
                                           children: [
                                             TextSpan(
                                               text: "Click to upload",
@@ -1427,8 +1449,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 10),
-                                      Text("SVG, PNG, JPG or GIF (max. 800x400px)",
+                                      const SizedBox(height: 10),
+                                      const Text("SVG, PNG, JPG or GIF (max. 800x400px)",
                                           style: TextStyle(color: Colors.grey, fontSize: 12)),
                                     ],
                                   )
@@ -1442,7 +1464,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text("Selected file: $selectedFileName",
-                              style: TextStyle(color: Colors.green)),
+                              style: const TextStyle(color: Colors.green)),
                         ),
                       StreamBuilder<List<PatientDocumentsData>>(
                         stream: _streamController.stream,
@@ -1476,7 +1498,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 Container(
                                   height: 200,
                                   child: ScrollConfiguration(
-                                    behavior: ScrollBehavior().copyWith(scrollbars: false),
+                                    behavior: const ScrollBehavior().copyWith(scrollbars: false),
                                     child: ListView.builder(
                                         scrollDirection: Axis.vertical,
                                         itemCount: snapshotDoc.data!.length,//paginatedData.length,
@@ -1521,7 +1543,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                               Padding(
                                                 padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,),
                                                 child: Container(
-                                                    margin: EdgeInsets.symmetric(horizontal: AppSize.s5),
+                                                    margin: const EdgeInsets.symmetric(horizontal: AppSize.s5),
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       borderRadius:
@@ -1553,14 +1575,14 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                 child: Container(
                                                                     width: AppSize.s62,
                                                                     height: AppSize.s45,
-                                                                    padding: EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
+                                                                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p8),
                                                                     decoration: BoxDecoration(
                                                                       borderRadius: BorderRadius.circular(4),
                                                                       border: Border.all(width: 2, color: ColorManager.faintGrey),
                                                                     ),
                                                                     child: SvgPicture.asset('images/doc_vector.svg')),
                                                               ),
-                                                              SizedBox(width: AppSize.s10,),
+                                                              const SizedBox(width: AppSize.s10,),
                                                               Text(
                                                                 snapshotDoc.data![index].documentName,
                                                                 //policiesdata.fileName.toString(),
@@ -1615,7 +1637,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                 hoverColor:
                                                                 Colors.transparent,
                                                               ),
-                                                              SizedBox(width: AppSize.s10,),
+                                                              const SizedBox(width: AppSize.s10,),
                                                               ///download saloni
                                                               PdfDownloadButton(apiUrl: snapshotDoc.data![index].rptd_url,// policiesdata.docurl,
                                                                 iconsize: IconSize.I22,
@@ -1706,7 +1728,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                               //   hoverColor:
                                                               //   Colors.transparent,
                                                               // ),
-                                                              SizedBox(width: AppSize.s10,),
+                                                              const SizedBox(width: AppSize.s10,),
                                                               ///delete
                                                               IconButton(
                                                                   splashColor: Colors.transparent,
@@ -1735,7 +1757,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                                         // Future.delayed(Duration(seconds: 1));
                                                                                         showDialog(
                                                                                           context: context,
-                                                                                          builder: (BuildContext context) => DeleteSuccessPopup(),
+                                                                                          builder: (BuildContext context) => const DeleteSuccessPopup(),
                                                                                         );
                                                                                       }
                                                                                     } finally {
@@ -1772,7 +1794,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               ],
                             );
                           }else{
-                            return SizedBox();
+                            return const SizedBox();
                           }
 
                         }
@@ -1813,17 +1835,19 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
 
 
 class DiagosisList extends StatefulWidget {
-  // final int employeeID;
+ // final int diagosisID;
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
   final List<PatientDiagnosesModel> diagnosisData;
+  final Function(int index, PatientDiagnosesModel updatedModel) onChanged;
+
   const DiagosisList(
       {Key? key,
         required this.onRemove,
         required this.index,
-        // required this.employeeID,
-        required this.isVisible, required this.diagnosisData, })
+      // required this.diagosisID,
+        required this.isVisible, required this.diagnosisData, required this.onChanged, })
       : super(key: key);
   @override
   _DiagosisListState createState() => _DiagosisListState();
@@ -1831,43 +1855,47 @@ class DiagosisList extends StatefulWidget {
 
 class _DiagosisListState extends State<DiagosisList> {
 
-  // TextEditingController possible = TextEditingController();
-  // TextEditingController icd = TextEditingController();
-  // TextEditingController pdgm = TextEditingController();
-  final List<TextEditingController> _possibleControllers = [];
-  final List<TextEditingController> _icdControllers = [];
-  final List<TextEditingController> _pdgmControllers = [];
+  TextEditingController possible = TextEditingController();
+  TextEditingController icd = TextEditingController();
+  TextEditingController pdgm = TextEditingController();
+
 
   @override
   void initState() {
     super.initState();
 
-    for (int i = 0; i < widget.diagnosisData.length; i++) {
-      _possibleControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnName));
-      _icdControllers.add(TextEditingController(text: widget.diagnosisData[i].dgnCode.toString()));
-      _pdgmControllers.add(TextEditingController(text: widget.diagnosisData[i].rpt_pdgm ? 'YES':'NO'));
+    if (widget.diagnosisData.length > widget.index) {
+      final data = widget.diagnosisData[widget.index];
+      possible.text = data.dgnName;
+      icd.text = data.dgnCode;
+      pdgm.text = data.rpt_pdgm ? 'YES' : 'NO';
     }
 
-    // If new empty row is added (no model data), add blank controllers
-    if (widget.diagnosisData.length < widget.index) {
-      _possibleControllers.add(TextEditingController());
-      _icdControllers.add(TextEditingController());
-      _pdgmControllers.add(TextEditingController());
-    }
+    possible.addListener(_updateModel);
+    icd.addListener(_updateModel);
+    pdgm.addListener(_updateModel);
   }
+
+  void _updateModel() {
+    final updatedModel = PatientDiagnosesModel(
+      rpt_dgn_id: 0,
+      dgnName: possible.text,
+      dgnCode: icd.text,
+      fk_pt_id: 0,
+      fk_dgn_id: 0,
+      rpt_pdgm: pdgm.text.toUpperCase() == 'YES',
+      rpt_isPrimary: false,
+      color: 2,
+    );
+
+    widget.onChanged(widget.index, updatedModel);
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          child:  ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.diagnosisData.length, // Adjust as needed
-            itemBuilder: (context, index) {
-              // possible = TextEditingController(text: widget.diagnosisData[index].dgnName);
-              // icd = TextEditingController(text: widget.diagnosisData[index].dgnId.toString());
-              // pdgm = TextEditingController(text: widget.diagnosisData[index].dgnCode);
+
+    final diagnosis = widget.diagnosisData[widget.index];
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0.0),
                 child: Column(
@@ -1875,37 +1903,45 @@ class _DiagosisListState extends State<DiagosisList> {
                   children: [
                     Row(
                       children: [
-                        Container(height: 90,width: 5,color: widget.diagnosisData[index].color == 0 ?ColorManager.red: ColorManager.greenDark),
-                        SizedBox(width: AppSize.s30,),
+                        Container(height: 90,width: 5,color: diagnosis.color == 0
+                            ? ColorManager.red
+                            : diagnosis.color == 1
+                            ? ColorManager.greenDark
+                            : Colors.white,),
+                        const SizedBox(width: AppSize.s30,),
                         Expanded(
-                          child: SMTextFConst(controller: _possibleControllers[index],
+                          child: SMTextFConst(controller: possible,
                               isAsteric: false,
                               isIcon: true,
                               keyboardType: TextInputType.text, text: "Possible Diagnosis"),
                         ),
-                        SizedBox(width: AppSize.s60,),
+                        const SizedBox(width: AppSize.s60,),
                         Expanded(
-                          child: SMTextFConst(controller: _icdControllers[index],
+                          child: SMTextFConst(controller: icd,
                               isAsteric: false,
                               isIcon: true,
                               keyboardType: TextInputType.text, text: "ICD Code"),
                         ),
-                        SizedBox(width: AppSize.s60,),
+                        const SizedBox(width: AppSize.s60,),
                         Expanded(
-                          child: SMTextFConst(controller: _pdgmControllers[index],
+                          child: SMTextFConst(controller: pdgm,
                               isAsteric: false,
-                              isIcon: true,
-                              textColor:widget.diagnosisData[index].rpt_pdgm ? Color(0xFF008000) : Color(0xFFD20101),
+                              isIcon: false,
+                             textColor: diagnosis.color == 0
+                              ? ColorManager.red
+                                  : diagnosis.color == 1
+                              ? ColorManager.greenDark
+                                  : Colors.black,
                               keyboardType: TextInputType.text, text: "PDGM - Acceptable"),
                         ),
-                        SizedBox(width: AppSize.s30,),
+                        const SizedBox(width: AppSize.s30,),
                         Expanded(
                           child: Container(
                             height: 30,
                             width: AppSize.s354,
                           ),
                         ),
-                        SizedBox(width: AppSize.s30,),
+                        const SizedBox(width: AppSize.s30,),
                         Expanded(
                           child: Container(
                             height: 30,
@@ -1919,14 +1955,10 @@ class _DiagosisListState extends State<DiagosisList> {
                       thickness: 1,
                       height: 2,
                     ),
-                    SizedBox(height: AppSize.s30,),
+                    const SizedBox(height: AppSize.s30,),
                   ],
                 ),
               );
-            },
-          ),
-        ),
-      ],
-    );
+
   }
 }
