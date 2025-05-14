@@ -896,7 +896,6 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                   ],
                                 );
                               })
-
                               ],
                             )
                                 : null,
