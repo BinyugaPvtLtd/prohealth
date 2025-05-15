@@ -180,17 +180,17 @@ Future<List<PatientModel>> getPatientReffrealsData({
             );
           }).toList(),
 
-          insurance: (item['patientInsurance'] as List).map((i) {
-            return InsuranceModel(
-              rptiId: item['patientInsurance']['rpti_id'] ?? 0,
-              fkptId: i['fk_pt_id'] ?? 0,
-              policy: i['rpti_policy'] ?? "",
-              insuranceProvider: i['rpti_insurance_provider'] ?? "",
-              insurancePlan: i['rpti_insurance_plan']?? "",
-              eligibility: i['rpti_eligibility']?? false,
-              authorization: i['rpti_authorization']?? false,
-              time: i['rpti_last_checked_time']?? "");
-          }).toList(),
+          // insurance: (item['patientInsurance'] as List).map((i) {
+          //   return InsuranceModel(
+          //     rptiId: item['patientInsurance']['rpti_id'] ?? 0,
+          //     fkptId: i['fk_pt_id'] ?? 0,
+          //     policy: i['rpti_policy'] ?? "",
+          //     insuranceProvider: i['rpti_insurance_provider'] ?? "",
+          //     insurancePlan: i['rpti_insurance_plan']?? "",
+          //     eligibility: i['rpti_eligibility']?? false,
+          //     authorization: i['rpti_authorization']?? false,
+          //     time: i['rpti_last_checked_time']?? "");
+          // }).toList(),
 
         ));
         print("RPTI ID ::::::::::::::::::: ${item['patientInsurance']['rpti_id'].runtimeType}");
@@ -366,17 +366,17 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
             );
           }).toList(),
 
-          insurance: (item['patientInsurance'] as List).map((i) {
-            return InsuranceModel(
-                rptiId: item['patientInsurance']['rpti_id'] ?? 0,
-                fkptId: i['fk_pt_id'] ?? 0,
-                policy: i['rpti_policy'] ?? "",
-                insuranceProvider: i['rpti_insurance_provider'] ?? "",
-                insurancePlan: i['rpti_insurance_plan']?? "",
-                eligibility: i['rpti_eligibility']?? false,
-                authorization: i['rpti_authorization']?? false,
-                time: i['rpti_last_checked_time']?? "");
-          }).toList(),
+          // insurance: (item['patientInsurance'] as List).map((i) {
+          //   return InsuranceModel(
+          //       rptiId: item['patientInsurance']['rpti_id'] ?? 0,
+          //       fkptId: i['fk_pt_id'] ?? 0,
+          //       policy: i['rpti_policy'] ?? "",
+          //       insuranceProvider: i['rpti_insurance_provider'] ?? "",
+          //       insurancePlan: i['rpti_insurance_plan']?? "",
+          //       eligibility: i['rpti_eligibility']?? false,
+          //       authorization: i['rpti_authorization']?? false,
+          //       time: i['rpti_last_checked_time']?? "");
+          // }).toList(),
         );
     
     } else {
