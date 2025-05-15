@@ -115,105 +115,123 @@ class _CurateScreenState extends State<CurateScreen> {
                       children: [
                         Container(
                           height: 100,
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           decoration: BoxDecoration(
                             color: ColorManager.white,
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(8),
+                                bottomRight: Radius.circular(8),
+                                topLeft: Radius.circular(8),
+                                topRight: Radius.circular(8)),
                             border: Border(
-                              top: BorderSide(color: ColorManager.bluebottom, width: 3),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.6),
-                                spreadRadius: 1,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
+                              bottom: BorderSide(
+                                color: Colors.grey.shade300,
+                                width: 3,
                               ),
-                            ],
+                              left: BorderSide(
+                                color: Colors.grey.shade300,
+                                width: 1,
+                              ),
+                              right: BorderSide(
+                                color: Colors.grey.shade300,
+                                width: 1,
+                              ),
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(child: Container()),
-                              /// Name & Sync
-                              Expanded(
-                                flex: 3,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        "John S",
-                                        textAlign: TextAlign.end,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeight.w800,
-                                          color: ColorManager.black,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                // bottomLeft: Radius.circular(12),
+                                //bottomRight: Radius.circular(12),
+                                  topLeft: Radius.circular(8),
+                                  topRight: Radius.circular(8)),
+                              border: const Border(
+                                  top: BorderSide(color: Color(0xFF1696C8),width: 5)
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(child: Container()),
+                                /// Name & Sync
+                                Expanded(
+                                  flex: 3,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          "John S",
+                                          textAlign: TextAlign.end,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontSize: FontSize.s14,
+                                            fontWeight: FontWeight.w800,
+                                            color: ColorManager.black,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 20),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        " Sync 05/08/2024  | 6:35 PM",
-                                        style: DocDefineTableDataID.customTextStyle(context),
+                                      const SizedBox(width: 20),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          " Sync 05/08/2024  | 6:35 PM",
+                                          style: DocDefineTableDataID.customTextStyle(context),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 20),
-                              /// Referral Date
-                              Expanded(
-                                flex: 3,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        textAlign: TextAlign.end,
-                                        "Referral Date: ",
-                                        style: DocDefineTableDataID.customTextStyle(context),
+                                const SizedBox(width: 20),
+                                /// Referral Date
+                                Expanded(
+                                  flex: 3,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          textAlign: TextAlign.end,
+                                          "Referral Date: ",
+                                          style: DocDefineTableDataID.customTextStyle(context),
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 40),
-                                    Expanded(
-                                      child: Text(
-                                        "4/30/2025",
-                                        style: DocDefineTableData.customTextStyle(context),
+                                      const SizedBox(width: 40),
+                                      Expanded(
+                                        child: Text(
+                                          "4/30/2025",
+                                          style: DocDefineTableData.customTextStyle(context),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
 
-                              /// Contact Number
-                              Expanded(
-                                flex: 3,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        "Contact Number: ",
-                                        textAlign: TextAlign.end,
-                                        style: DocDefineTableDataID.customTextStyle(context),
+                                /// Contact Number
+                                Expanded(
+                                  flex: 3,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          "Contact Number: ",
+                                          textAlign: TextAlign.end,
+                                          style: DocDefineTableDataID.customTextStyle(context),
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 40),
-                                    Expanded(
-                                      child: Text(
-                                        "+44 47962124531",
-                                        style: DocDefineTableData.customTextStyle(context),
+                                      const SizedBox(width: 40),
+                                      Expanded(
+                                        child: Text(
+                                          "+44 47962124531",
+                                          style: DocDefineTableData.customTextStyle(context),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
 
-                              Expanded(child: Container()),
-                            ],
+                                Expanded(child: Container()),
+                              ],
+                            ),
                           ),
                         ),
                         // Container(
@@ -493,7 +511,7 @@ class _CurateScreenState extends State<CurateScreen> {
                                         ),
                                         BlueBGHeadConst(HeadText: "Suggested Plan Of Care"),
                                         Container(
-                                          padding: EdgeInsets.only(left: 25, top: 15,bottom: 30),
+                                          padding: EdgeInsets.only(left: 25, top: 19,bottom: 30),
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,

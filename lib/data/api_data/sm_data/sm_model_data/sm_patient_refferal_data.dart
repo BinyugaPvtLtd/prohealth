@@ -26,6 +26,7 @@ class PatientModel {
   final int fk_rpti_id;
   final bool is_selfPay;
   final int fkempIdArchieved;
+  final String documentName;
   //final String ptTime;
   final ServiceModel service;
   final List<PatientDiagnosesModel> patientDiagnoses;
@@ -36,7 +37,7 @@ class PatientModel {
   final List<DisciplineModel> disciplines;
   final bool isPotential;
   final int thresould;
-  PatientModel( {required this.isPotential, required this.thresould,
+  PatientModel({required this.isPotential, required this.thresould,
     required this.is_selfPay,
     required this.fk_rpti_id,
     required this.fkempIdArchieved,
@@ -65,6 +66,7 @@ class PatientModel {
     required this.createdAt,
     required this.ptDateOfBirth,
     required this.ptImgUrl,
+    required this.documentName,
     required this.service,
    // required this.insurance,
     required this.patientDiagnoses,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -610,10 +611,45 @@ class RefferalPendingScreen extends StatelessWidget {
                                               flex: 3,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(right: 5),
-                                                child: SizedBox(child: Center(child: Image.asset('images/logo_login.png',width: 90,fit: BoxFit.contain,))),
+                                                child: SizedBox(child: Center(child:  Image.network(
+                                                  snapshot.data![index].referralSource.referralSourceImgUrl,
+                                                  width: 90,
+                                                  fit: BoxFit.contain,
+                                                  errorBuilder: (context, error, stackTrace) {
+                                                    return Image.asset(
+                                                      'images/logo_login.png', // fallback asset
+                                                      width: 90,
+                                                      fit: BoxFit.contain,
+                                                    );
+                                                  },
+                                                ),
+                                                // Image.network( snapshot.data![index].referralSource.referralSourceImgUrl
+                                                // //  'images/logo_login.png',width: 90,fit: BoxFit.contain,
+                                                // )
+                                                )),
                                               ),
                                             ),
-
+                                            // Expanded(
+                                            //   flex: 3,
+                                            //   child: Padding(
+                                            //     padding: const EdgeInsets.only(right: 5),
+                                            //     child: SizedBox(
+                                            //       child: Center(
+                                            //         child: CachedNetworkImage(
+                                            //           imageUrl: snapshot.data![index].referralSource.referralSourceImgUrl,
+                                            //           width: 90,
+                                            //           fit: BoxFit.contain,
+                                            //          // placeholder: (context, url) => const CircularProgressIndicator(),
+                                            //           errorWidget: (context, url, error) => Image.asset(
+                                            //             'images/logo_login.png',
+                                            //             width: 90,
+                                            //             fit: BoxFit.contain,
+                                            //           ),
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                            // ),
                                             /// Marketer
                                            // SizedBox(width: AppSize.s10),
                                             Expanded(

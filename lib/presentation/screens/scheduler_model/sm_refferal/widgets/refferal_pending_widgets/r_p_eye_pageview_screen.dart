@@ -1333,6 +1333,17 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                               children: [
                                                                 Container(
                                                                   height: 20,
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(6),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                        color: Colors.black.withOpacity(0.25), // light shadow
+                                                                        spreadRadius: 0,
+                                                                        blurRadius: 2.38,
+                                                                        offset: const Offset(0, 1.19), // horizontal & vertical offset
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                   child: Chip(
                                                                     label: Padding(
                                                                       padding: const EdgeInsets.only(bottom: 5.0),

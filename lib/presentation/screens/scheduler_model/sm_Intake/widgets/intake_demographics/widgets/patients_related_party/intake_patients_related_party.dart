@@ -163,13 +163,13 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     controller: firstNameController,
                                     labelText: 'First Name*',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: lastNameController,
                                     labelText: 'Last Name*',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
                                 child:FutureBuilder<List<RelationshipData>>(
                                   future: getRelationshipDropDown(context),
@@ -281,12 +281,12 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                   child: SchedularTextField(
                                       controller: streetController,
                                       labelText: "Street*")),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: suitAptController,
                                       labelText: "Suite/Apt#")),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
                                 child: FutureBuilder<List<CityData>>(
                                   future: getCityDropDown(context),
@@ -644,13 +644,13 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: zipCodeController,
                                       onlyAllowNumbers: true,
                                       labelText: "Zip Code*")),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: phoneNumberController,
@@ -687,9 +687,9 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                       controller: emailController,
                                       labelText: "Email")),
                               // Empty container for alignment
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(child: Container()),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(child: Container()),
                             ],
                           ) : Offstage(),
@@ -761,13 +761,13 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     labelText: 'First Name*',
 
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: lastNamePCController,
                                     labelText: 'Last Name*',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                 child:FutureBuilder<List<RelationshipData>>(
                                   future: getRelationshipDropDown(context),
@@ -880,12 +880,12 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                   child: SchedularTextField(
                                       controller: streetPCController,
                                       labelText: "Street*")),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: suitAptPCController,
                                       labelText: "Suite/Apt#")),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                 child: FutureBuilder<List<CityData>>(
                                   future: getCityDropDown(context),
@@ -986,10 +986,6 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     }
                                   },
                                 ),
-
-                                // child: SchedularTextField(
-                                //     controller: ctlrCity,
-                                //     labelText: AppString.city),
                               ),
                             ],
                           ):
@@ -1243,13 +1239,13 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: zipCodePCController,
                                       onlyAllowNumbers: true,
                                       labelText: "Zip Code*")),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: phoneNumberPCController,
@@ -1286,9 +1282,9 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                       controller: emailPCController,
                                       labelText: "Email")),
                               // Empty container for alignment
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(child: Container()),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(child: Container()),
                             ],
                           ) : Offstage(),
@@ -1360,13 +1356,13 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     labelText: 'First Name*',
 
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: lastNamePRController,
                                     labelText: 'Last Name*',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
                                 child:FutureBuilder<List<RelationshipData>>(
                                   future: getRelationshipDropDown(context),
@@ -1488,13 +1484,13 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                     onChanged: (newValue) {
 
                                     },)),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
                                   child: CustomDropdownTextFieldsm(headText: 'Type*',items: ['Legal Representative','A'],
                                     onChanged: (newValue) {
 
                                     },)),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: streetPRController,
@@ -1613,7 +1609,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                   child: SchedularTextField(
                                       controller: suitAptPRController,
                                       labelText: "Suite/Apt#")),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                 child: FutureBuilder<List<CityData>>(
                                   future: getCityDropDown(context),
@@ -1657,7 +1653,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                 //     controller: ctlrCity,
                                 //     labelText: AppString.city),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
                                 child:FutureBuilder<List<StateData>>(
                                   future: getStateDropDown(context),
@@ -1707,17 +1703,17 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                       controller: phoneNumberPRController,
                                       phoneField:true,
                                       labelText: "Phone Number*")),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: emailPRController,
                                       labelText: "Email")),
                               // Empty container for alignment
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(child: Container()),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(child: Container()),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(child: Container()),
                             ],
                           ),
@@ -1729,13 +1725,13 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                       controller: zipCodePRController,
                                       onlyAllowNumbers: true,
                                       labelText: "Zip Code*")),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: phoneNumberPRController,
                                       phoneField:true,
                                       labelText: "Phone Number*")),
-                              SizedBox(width: AppSize.s35),
+                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: emailPRController,

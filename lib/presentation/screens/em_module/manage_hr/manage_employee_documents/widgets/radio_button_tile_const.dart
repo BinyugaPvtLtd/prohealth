@@ -11,6 +11,7 @@ class CustomRadioListTile extends StatefulWidget {
   final String? groupValue;
   final ValueChanged<String?> onChanged;
   final String title;
+  final TextStyle? style;
 
   const CustomRadioListTile({
     Key? key,
@@ -18,6 +19,7 @@ class CustomRadioListTile extends StatefulWidget {
     required this.groupValue,
     required this.onChanged,
     required this.title,
+    this.style,
   }) : super(key: key);
 
   @override
@@ -36,13 +38,14 @@ class _CustomRadioListTileState extends State<CustomRadioListTile> {
             focusColor: Colors.transparent,
             hoverColor: Colors.transparent,
             value: widget.value,
+            activeColor: ColorManager.bluebottom,
             groupValue: widget.groupValue,
             onChanged: widget.onChanged,
           ),
           // const SizedBox(width: 0),
           Text(
             widget.title,
-            style: DocumentTypeDataStyle.customTextStyle(context),
+            style: widget.style ?? DocumentTypeDataStyle.customTextStyle(context),
           ),
         SizedBox( width: AppSize.s40,)
         ],

@@ -79,6 +79,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
          // ptImgUrl: item['pt_img_url'] ?? '',
           ptImgUrl: item['pt_img_url']?.toString() ?? '',
           fkempIdArchieved: item['fk_emp_id_archived'] ?? 0,
+          documentName: item['document_name'] ?? "",
           service: ServiceModel(
             srvId: item['service']['srv_id'],
             srvName: item['service']['srv_name'],
@@ -180,20 +181,9 @@ Future<List<PatientModel>> getPatientReffrealsData({
             );
           }).toList(),
 
-          // insurance: (item['patientInsurance'] as List).map((i) {
-          //   return InsuranceModel(
-          //     rptiId: item['patientInsurance']['rpti_id'] ?? 0,
-          //     fkptId: i['fk_pt_id'] ?? 0,
-          //     policy: i['rpti_policy'] ?? "",
-          //     insuranceProvider: i['rpti_insurance_provider'] ?? "",
-          //     insurancePlan: i['rpti_insurance_plan']?? "",
-          //     eligibility: i['rpti_eligibility']?? false,
-          //     authorization: i['rpti_authorization']?? false,
-          //     time: i['rpti_last_checked_time']?? "");
-          // }).toList(),
 
         ));
-        print("RPTI ID ::::::::::::::::::: ${item['patientInsurance']['rpti_id'].runtimeType}");
+      //  print("RPTI ID ::::::::::::::::::: ${item['patientInsurance']['rpti_id'].runtimeType}");
       }
     } else {
       print("patient referrals error");
@@ -265,6 +255,7 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
           ptDateOfBirth: DateTime.parse(item['pt_date_of_birth']),
           ptImgUrl: item['pt_img_url'] ?? '',
           fkempIdArchieved: item['fk_emp_id_archived'] ?? 0,
+          documentName: item['document_name'] ?? "",
           service: ServiceModel(
             srvId: item['service']['srv_id'],
             srvName: item['service']['srv_name'],

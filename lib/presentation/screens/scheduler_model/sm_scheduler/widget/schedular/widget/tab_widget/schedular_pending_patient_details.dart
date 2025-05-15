@@ -38,7 +38,7 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 60, right: 70),
+      padding: EdgeInsets.only(left: 60, right: 70, top: 20),
       child: ScrollConfiguration(
           behavior: ScrollBehavior().copyWith(scrollbars: false),
           child: SingleChildScrollView(
