@@ -43,7 +43,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
+      //  String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
         // print(item.containsKey('pt_img_url')); // Should be true
         // print(item['pt_img_url']);             // Should not be null
 
@@ -180,21 +180,12 @@ Future<List<PatientModel>> getPatientReffrealsData({
             );
           }).toList(),
 
-          // insurance: (item['patientInsurance'] as List).map((i) {
-          //   return InsuranceModel(
-          //     rptiId: item['patientInsurance']['rpti_id'] ?? 0,
-          //     fkptId: i['fk_pt_id'] ?? 0,
-          //     policy: i['rpti_policy'] ?? "",
-          //     insuranceProvider: i['rpti_insurance_provider'] ?? "",
-          //     insurancePlan: i['rpti_insurance_plan']?? "",
-          //     eligibility: i['rpti_eligibility']?? false,
-          //     authorization: i['rpti_authorization']?? false,
-          //     time: i['rpti_last_checked_time']?? "");
-          // }).toList(),
 
         ));
-        print("RPTI ID ::::::::::::::::::: ${item['patientInsurance']['rpti_id'].runtimeType}");
+
       }
+      // 👇 Add this line to print total fetched records
+      print("/////////Total records fetched from API: ${itemsData.length}");
     } else {
       print("patient referrals error");
     }
