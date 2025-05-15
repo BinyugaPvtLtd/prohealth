@@ -5,10 +5,10 @@ class PatientRefferalsRepo{
   static String patientInsuarnce = '/insurances-master';
 
   /// patient document
-  static String patientDocument = '/patient-documents/patient';
-  static String patientDocumentAdd = '/patient-documents/add';
-  static String patientDocumentDelete = '/patient-documents';
-  static String patientDocumentAttach = '/patient-documents/attach-document';
+  static String patientDocument = '/patient-document/patient';
+  static String patientDocumentAdd = '/patient-document/add';
+  static String patientDocumentDelete = '/patient-document';
+  static String patientDocumentAttach = '/patient-document/attach-document';
 
   /// filter master repo
   static String patientRefferalsMaster = '/referral-sources';

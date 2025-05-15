@@ -249,12 +249,14 @@ class RefferalPendingScreen extends StatelessWidget {
                         ));
                   }
                   if(snapshot.hasData){
+
                     return Expanded(
                       child: ScrollConfiguration(
                         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                         child: ListView.builder(
                           itemCount: snapshot.data!.length,
                           itemBuilder: (BuildContext context, int index) {
+                            print('Potential ${snapshot.data![index].isPotential}');
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                 vertical: 7,

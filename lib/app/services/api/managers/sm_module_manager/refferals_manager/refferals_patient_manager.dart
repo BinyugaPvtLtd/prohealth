@@ -50,7 +50,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
         itemsData.add(PatientModel(
           is_selfPay: item['is_selfPay']??false,
           fk_rpti_id: item['fk_rpti_id']??0,
-          isPotential: item['is_potential_duplicate'] ?? false,
+          isPotential: item['potential_duplicate'] ?? false,
           thresould: item['threshold']??0,
           ptTime: formatedTime,
           ptId: item['pt_id'],
@@ -222,7 +222,7 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
         itemsData = PatientModel(
           is_selfPay: item['is_selfPay']??false,
           fk_rpti_id: item['fk_rpti_id']??0,
-          isPotential: item['is_potential_duplicate'] ?? false,
+          isPotential: item['potential_duplicate'] ?? false,
           thresould: item['threshold']??0,
           ptTime: formatedTime,
           ptId: item['pt_id'],

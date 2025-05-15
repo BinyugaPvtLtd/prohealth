@@ -323,7 +323,8 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                     ColorManager.mediumgrey,
                                                   ),
                                                 ),
-                                                SizedBox(height: AppSize.s5,),
+                                                SizedBox(
+                                                  height: AppSize.s5,),
                                                 Text(
                                                   "Referral Date:  ${snapshot.data![index].ptRefferalDate}",
                                                   textAlign: TextAlign.center,
@@ -356,7 +357,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                           Expanded(
                                             flex: 4,
                                             child: Text(
-                                              "By Ross Geller",
+                                              "By ${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
                                               style: CustomTextStylesCommon.commonStyle(
                                                 fontSize: FontSize.s12,
                                                 fontWeight: FontWeight.w500,
