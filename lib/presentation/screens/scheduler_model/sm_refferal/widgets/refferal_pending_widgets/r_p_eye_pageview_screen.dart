@@ -1851,13 +1851,13 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
 
 
 
-
 class DiagosisList extends StatefulWidget {
  // final int diagosisID;
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
   final List<PatientDiagnosesModel> diagnosisData;
+  final Function(int index, PatientDiagnosesModel updatedModel) onChanged;
   const DiagosisList(
       {Key? key,
         required this.onRemove,
