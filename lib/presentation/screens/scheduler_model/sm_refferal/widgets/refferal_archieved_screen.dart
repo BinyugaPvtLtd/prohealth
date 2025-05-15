@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:provider/provider.dart';
@@ -334,11 +335,13 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                     ColorManager.mediumgrey,
                                                   ),
                                                 ),
-                                                SizedBox(
+                                              SizedBox(
                                                   height: AppSize.s2,
                                                 ),
                                                 Text(
-                                                  snapshot.data![index].ptTime,
+                                                  snapshot.data![index].intakeTime != null
+                                                      ? DateFormat.jm().format(DateTime.parse(snapshot.data![index].intakeTime!))
+                                                      : '',
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon
                                                       .commonStyle(
@@ -465,8 +468,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                 SizedBox(
                                                   height: AppSize.s4,
                                                 ),
-                                                Text(
-                                                  snapshot.data![index].patientDiagnoses.isEmpty ? "--":
+                                                Text( snapshot.data![index].patientDiagnoses.isEmpty ? "--" :
                                                   snapshot.data![index].patientDiagnoses[0].dgnName,
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon
@@ -484,7 +486,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                             flex: 3,
                                             child: Padding(
                                               padding: const EdgeInsets.only(right: 5),
-                                              child: Image.asset('images/logo_login.png',width: 90,fit: BoxFit.contain,),
+                                              child: SizedBox(child: Center(child: Image.asset('images/logo_login.png',width: 90,fit: BoxFit.contain,))),
                                             ),
                                           ),
                                           // SizedBox(

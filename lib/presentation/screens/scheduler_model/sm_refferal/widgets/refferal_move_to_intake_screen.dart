@@ -318,8 +318,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                     color: ColorManager.mediumgrey,),
                                                 ),
                                                 SizedBox(height: AppSize.s4,),
-                                                Text(
-                                                  snapshot.data![index].patientDiagnoses.isEmpty ? "--":
+                                                Text( snapshot.data![index].patientDiagnoses.isEmpty ? "--" :
                                                   snapshot.data![index].patientDiagnoses[0].dgnName,
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
@@ -351,10 +350,14 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                     }
                                                   },
                                                   errorBuilder: (context, error, stackTrace) {
-                                                    return Image.asset(
-                                                      'images/logo_login.png',
-                                                      width: 90,
-                                                      fit: BoxFit.contain,
+                                                    return SizedBox(
+                                                      child: Center(
+                                                        child: Image.asset(
+                                                          'images/logo_login.png',
+                                                          width: 90,
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                      ),
                                                     );
                                                   },
                                                 ),

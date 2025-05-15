@@ -354,7 +354,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           color: ColorManager.mediumgrey,),
                                       ),
                                       Text(
-                                        "Received Date: ${snapshot.data!.ptRefferalDate}  | ${ snapshot.data!.ptTime}",
+                                        "Received Date: ${snapshot.data!.ptRefferalDate}  | ${ snapshot.data!.intakeTime}",
                                         textAlign: TextAlign.center,
                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                           fontWeight: FontWeight.w400,
@@ -420,8 +420,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           Expanded(
                                             flex: 2,
                                             child: Container(
-                                              child: Text(
-                                                snapshot.data!.patientDiagnoses.isEmpty ? "--":
+                                              child: Text(snapshot.data!.patientDiagnoses.isEmpty ? "" :
                                                 snapshot.data!.patientDiagnoses[0].dgnName,
                                                 textAlign: TextAlign.start,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
@@ -610,7 +609,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           const SizedBox(width: AppSize.s30,),
                           Expanded(
                             child: SMTextFConstPhone(controller: patientsController,
-                                isAsteric: false,
+                                isAsteric: true,
                                 onChanged: (value){
                                   updateReferralPatient(context: context,
                                       patientId: providerAddState.patientId,
@@ -930,6 +929,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         //   ),
                         // ),
 
+                        SizedBox(height: 10),
                         Opacity(
                           opacity: selectedType == 'Self Pay' ? 0.2 :  0.9,
                           child: Container(
@@ -1858,8 +1858,6 @@ class DiagosisList extends StatefulWidget {
   final int index;
   final bool isVisible;
   final List<PatientDiagnosesModel> diagnosisData;
-  final Function(int index, PatientDiagnosesModel updatedModel) onChanged;
-
   const DiagosisList(
       {Key? key,
         required this.onRemove,

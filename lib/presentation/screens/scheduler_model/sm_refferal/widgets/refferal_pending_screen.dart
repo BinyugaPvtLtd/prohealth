@@ -447,7 +447,9 @@ class RefferalPendingScreen extends StatelessWidget {
                                                     height: AppSize.s2,
                                                   ),
                                                   Text(
-                                                    snapshot.data![index].ptTime,
+                                                    snapshot.data![index].intakeTime != null
+                                                        ? DateFormat.jm().format(DateTime.parse(snapshot.data![index].intakeTime!))
+                                                        : '',
                                                     textAlign: TextAlign.center,
                                                     style: CustomTextStylesCommon.commonStyle(
                                                       fontSize: FontSize.s11,
@@ -608,7 +610,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                               flex: 3,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(right: 5),
-                                                child: Image.asset('images/logo_login.png',width: 90,fit: BoxFit.contain,),
+                                                child: SizedBox(child: Center(child: Image.asset('images/logo_login.png',width: 90,fit: BoxFit.contain,))),
                                               ),
                                             ),
 

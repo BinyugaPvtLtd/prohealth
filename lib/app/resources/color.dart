@@ -65,6 +65,7 @@ class ColorManager {
   static Color blueDash = Color(0xff3786F1);
   static Color incidentBlue = Color(0xff344BFD);
   static Color incidentskin = Color(0xffF4A79D);
+  static Color incidentskinSM = Color(0xffF6928A);
 
 
   static Color skini = Color(0xFFFFA8A8);
