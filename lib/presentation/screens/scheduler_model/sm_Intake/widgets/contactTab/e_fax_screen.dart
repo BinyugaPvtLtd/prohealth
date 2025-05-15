@@ -36,40 +36,34 @@ class ContactEFaxScreen extends StatelessWidget {
             ),
             child: DefaultTabController(
               length: 2,
-              initialIndex: 0,
-              child: ScrollConfiguration(
-    behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-    child:SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10,bottom: 3,left: 90,right: 90),
+              child: Column(
+                children: [
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(
+                      color: ColorManager.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10,bottom: 3,),
                       child: TabBar(
-                        onTap: (index) {
-                        },
-                        indicatorWeight: 2,
-                        overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 1),
+                        labelColor: Colors.white,
+                        unselectedLabelColor:  ColorManager.textPrimaryColor,
+                        indicatorPadding:  EdgeInsets.symmetric(horizontal: 15,vertical: 1),
                         indicator: BoxDecoration(
-                          color: ColorManager.SMFBlue, // Background color for selected tab
-                          borderRadius: BorderRadius.circular(8), // Optional
+                          color: ColorManager.SMFBlue,
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
-                        indicatorSize: TabBarIndicatorSize.label,
-                        labelColor: ColorManager.textPrimaryColor,
-                        labelStyle: TextStyle(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        unselectedLabelColor: ColorManager.textPrimaryColor,
-                        dividerColor: Colors.black54,
                         tabs: [
                           Tab(child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            spacing: 10,
+                           spacing: 5,
                             children: [
-                              Icon(Icons.fax_rounded,size: 30,),
-                              Text("Send Fax")
+                              Flexible(child: Icon(Icons.fax_rounded,size: 30,color:  ColorManager.textPrimaryColor,)),
+                              Flexible(child: Text("Send Fax",  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                                fontWeight: FontWeight.w700,
+                                color:  ColorManager.textPrimaryColor,),))
                             ],
                           ),),
                           Tab(
@@ -78,31 +72,32 @@ class ContactEFaxScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               spacing: 10,
                               children: [
-                                Icon(Icons.history),
-                                Text("History")
+                                Flexible(child: Icon(Icons.history,color:  ColorManager.textPrimaryColor,)),
+                                Flexible(child: Text("History",  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                                  fontWeight: FontWeight.w700,
+                                  color:  ColorManager.textPrimaryColor,),))
                               ],
                             ),),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Divider(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Divider(),
+                  ),
+                  Expanded(
+                   // height: MediaQuery.of(context).size.height / 2, // Adjust height as needed
+                    child: TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        SendFaxTab(),
+                        FaxHistoryTab()
+                      ],
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height / 2, // Adjust height as needed
-                      child: TabBarView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          SendFaxTab(),
-                          FaxHistoryTab()
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
           ),
         )
         )
@@ -268,7 +263,7 @@ class FaxHistoryTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
         child: Column(
           children: [
             Container(

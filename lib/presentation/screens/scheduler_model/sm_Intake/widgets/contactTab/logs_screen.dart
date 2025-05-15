@@ -56,11 +56,18 @@ class ContactLogsScreen extends StatelessWidget {
                       tabs: [
                         Tab(child: Text('Call Log',  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
                           fontWeight: FontWeight.w700,
-                          color:  ColorManager.textPrimaryColor,),),),
+                          color:  ColorManager.textPrimaryColor,),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),),
 
                         Tab(child: Text('E-Fax',  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
                           fontWeight: FontWeight.w700,
-                          color:  ColorManager.textPrimaryColor,),),),
+                          color:  ColorManager.textPrimaryColor,),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                        ),
                       ],
                     ),
                   ),
@@ -144,18 +151,15 @@ class CallLogsTab extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Row(
-                          children: [
-                            Text(
-                              '6 mins 23 secs',
-                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.mediumgrey,),
-                            ),
-                          ],
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            '6 mins 23 secs',
+                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.mediumgrey,),
+                          ),
+                        ],
                       ),
                     ],
 
@@ -186,7 +190,7 @@ class EFaxTab extends StatelessWidget {
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10,),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10,),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -220,27 +224,24 @@ class EFaxTab extends StatelessWidget {
                         // )
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //SizedBox(height: AppSize.s5),
-                          Text(
-                            '2024/08/05',
-                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.mediumgrey,),
-                          ),
-                          SizedBox(height: AppSize.s2),
-                          Text(
-                            '8:17PM',
-                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.mediumgrey,),
-                          ),
-                        ],
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //SizedBox(height: AppSize.s5),
+                        Text(
+                          '2024/08/05',
+                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.mediumgrey,),
+                        ),
+                        SizedBox(height: AppSize.s2),
+                        Text(
+                          '8:17PM',
+                          style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.mediumgrey,),
+                        ),
+                      ],
                     ),
                   ],
 

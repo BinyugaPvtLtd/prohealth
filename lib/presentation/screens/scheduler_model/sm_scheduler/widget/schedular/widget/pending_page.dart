@@ -614,7 +614,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                 color: Color(0xFFF7F8FA),
                 borderRadius: BorderRadius.circular(10),
               ),
-          height: 420,
+          height: 460,
           width: 550,
 
               child: ChatBotContainer(

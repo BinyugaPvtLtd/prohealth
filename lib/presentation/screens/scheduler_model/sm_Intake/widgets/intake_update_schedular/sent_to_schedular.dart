@@ -354,55 +354,52 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                       ],
                                     ),
                                   ),
-                                       Expanded(
-                                         flex: 1,
-                                         child: Stack(
-                                           children: [
-                                             Container(
-                                               width: AppSize.s60, // Larger than image
-                                               height: AppSize.s60, // Slightly larger height
-                                               alignment: Alignment.center,
+                                       Stack(
+                                         children: [
+                                           Container(
+                                             width: AppSize.s60, // Larger than image
+                                             height: AppSize.s60, // Slightly larger height
+                                             alignment: Alignment.center,
+                                             decoration: BoxDecoration(
+                                               // color: Colors.grey[200], // Optional background color
+                                               borderRadius: BorderRadius.circular(60),
+                                             ),
+                                             child: ClipRRect(
+                                               borderRadius: BorderRadius.circular(60),
+                                               child: SizedBox(
+                                                 width: AppSize.s45,
+                                                 height: AppSize.s45,
+                                                 child: Image.asset(
+                                                   'images/1.png',
+                                                   fit: BoxFit.cover,
+                                                 ),
+                                               ),
+                                             ),
+                                           ),
+                                           Positioned(
+                                             left: 40, // Adjusted to fit new container size
+                                             bottom: 5,
+                                             child: Container(
+                                               width: 19,
+                                               height: 19,
                                                decoration: BoxDecoration(
-                                                 // color: Colors.grey[200], // Optional background color
-                                                 borderRadius: BorderRadius.circular(60),
+                                                 color: Color(0xFF527FB9),
+                                                 borderRadius: BorderRadius.circular(3),
                                                ),
-                                               child: ClipRRect(
-                                                 borderRadius: BorderRadius.circular(60),
-                                                 child: SizedBox(
-                                                   width: AppSize.s45,
-                                                   height: AppSize.s45,
-                                                   child: Image.asset(
-                                                     'images/1.png',
-                                                     fit: BoxFit.cover,
+                                               child: Center(
+                                                 child: Text(
+                                                   "ST",
+                                                   style: TextStyle(
+                                                     fontWeight: FontWeight.w400,
+                                                     fontSize: 10,
+                                                     color: ColorManager.white,
+                                                     decoration: TextDecoration.none,
                                                    ),
                                                  ),
                                                ),
                                              ),
-                                             Positioned(
-                                               left: 40, // Adjusted to fit new container size
-                                               bottom: 5,
-                                               child: Container(
-                                                 width: 19,
-                                                 height: 19,
-                                                 decoration: BoxDecoration(
-                                                   color: Color(0xFF527FB9),
-                                                   borderRadius: BorderRadius.circular(3),
-                                                 ),
-                                                 child: Center(
-                                                   child: Text(
-                                                     "ST",
-                                                     style: TextStyle(
-                                                       fontWeight: FontWeight.w400,
-                                                       fontSize: 10,
-                                                       color: ColorManager.white,
-                                                       decoration: TextDecoration.none,
-                                                     ),
-                                                   ),
-                                                 ),
-                                               ),
-                                             ),
-                                           ],
-                                         ),
+                                           ),
+                                         ],
                                        ),
 
                                        Expanded(
@@ -417,24 +414,27 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                          ),
                                        ),
 
-                                      Container(
-                                       // color: Color(0xFFE2F2F8),4
-                                        margin: const EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                            color: Color(0xFFE2F2F8),
-                                            borderRadius:
-                                            BorderRadius.circular(5)),
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 20),
+                                        child: Container(
+                                         // color: Color(0xFFE2F2F8),4
+                                          margin: const EdgeInsets.all(8.0),
+                                          decoration: BoxDecoration(
+                                              color: Color(0xFFE2F2F8),
+                                              borderRadius:
+                                              BorderRadius.circular(5)),
 
-                                        width: 22,
-                                        height: 20,
-                                        child: Center(
-                                          child: Text(
-                                            "A",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: FontSize.s12,
-                                              color: Color(0xFF1696C8),
-                                              decoration: TextDecoration.none,
+                                          width: 22,
+                                          height: 20,
+                                          child: Center(
+                                            child: Text(
+                                              "A",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: FontSize.s12,
+                                                color: Color(0xFF1696C8),
+                                                decoration: TextDecoration.none,
+                                              ),
                                             ),
                                           ),
                                         ),

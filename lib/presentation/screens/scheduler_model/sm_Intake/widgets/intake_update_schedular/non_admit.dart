@@ -221,7 +221,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                               ),
                                             ),
                                             Expanded(
-                                              flex: 3,
+                                              flex: 2,
                                               child:  Center(
                                               child: Text("Apollo Hospital, Washington DC",
                                                 textAlign: TextAlign.start,
@@ -232,7 +232,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                       ),
 
                                             ),
-                                            SizedBox(width: 10,),
+                                           // SizedBox(width: 10,),
                                             SizedBox(width: MediaQuery.of(context).size.width/25,),
                                             Expanded(
                                               flex: 7,

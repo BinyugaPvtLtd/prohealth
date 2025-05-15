@@ -198,26 +198,23 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                       body:providerContact.isAppVarVisible ?[]:[
                      Expanded(
                        child: Obx(
-                             () => Padding(
-                           padding: const EdgeInsets.only(left:0),
-                           child: CustomTitleButtonsm(
-                             height: AppSize.s30,
-                             width: AppSize.s100,
-                             onPressed: () {
-                               //companyAll(context);
-                               myController.selectButton(0);
-                               _pageController.jumpToPage(0,
-                                 // duration: Duration(milliseconds: 500),
-                                 // curve: Curves.ease
-                               );
-                               onPageChanged(0);
-                               pgeControllerId = 0;
-                               providerContact.toogleContactProviderclear();
-                             },
-                             text: 'Dashboard',
-                             isSelected: myController.selectedIndex.value == 0,
-                           ),
-                         ),
+                             () => CustomTitleButtonsm(
+                               height: AppSize.s30,
+                               width: AppSize.s100,
+                               onPressed: () {
+                                 //companyAll(context);
+                                 myController.selectButton(0);
+                                 _pageController.jumpToPage(0,
+                                   // duration: Duration(milliseconds: 500),
+                                   // curve: Curves.ease
+                                 );
+                                 onPageChanged(0);
+                                 pgeControllerId = 0;
+                                 providerContact.toogleContactProviderclear();
+                               },
+                               text: 'Dashboard',
+                               isSelected: myController.selectedIndex.value == 0,
+                             ),
                        ),
                      ),
                      // SizedBox(
@@ -358,27 +355,31 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                      // ),
                      Expanded(
                        child: Obx(
-                             () => CustomTitleButtonsm(
-                           height: AppSize.s30,
-                           width: AppSize.s140,
-                           onPressed: () {
+                             () => Padding(
+                               padding: const EdgeInsets.only(right: 20),
+                               child: CustomTitleButtonsm(
+                                                          height: AppSize.s30,
+                                                          width: AppSize.s140,
+                                                          onPressed: () {
 
-                             //companyByIdApi(context,);
-                             // companyDetailsApi(context,5);
-                             myController.selectButton(6);
-                             _pageController.jumpToPage(6,
-                               // duration: Duration(milliseconds: 500),
-                               // curve: Curves.ease
-                             );
-                             onPageChanged(6);
-                             pgeControllerId = 6;
-                             providerContact.toogleContactProviderclear();
-                           },
-                           text: 'Requests',
-                           isSelected: myController.selectedIndex.value == 6,
-                         ),
+                               //companyByIdApi(context,);
+                               // companyDetailsApi(context,5);
+                               myController.selectButton(6);
+                               _pageController.jumpToPage(6,
+                                 // duration: Duration(milliseconds: 500),
+                                 // curve: Curves.ease
+                               );
+                               onPageChanged(6);
+                               pgeControllerId = 6;
+                               providerContact.toogleContactProviderclear();
+                                                          },
+                                                          text: 'Requests',
+                                                          isSelected: myController.selectedIndex.value == 6,
+                                                        ),
+                             ),
                        ),
                      ),
+
 
                    ],),
                   ///2nd  buttons
@@ -945,7 +946,6 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                   ],
                                 );
                               })
-
                               ],
                             )
                                 : null,
