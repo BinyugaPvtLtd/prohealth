@@ -26,7 +26,7 @@ import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
-class RefferalPendingScreen extends StatefulWidget {
+class RefferalPendingScreen extends StatelessWidget {
   final VoidCallback onEyeButtonPressed;
   final VoidCallback onAutoSyncPressed;
   final VoidCallback onMergeDuplicatePressed;
@@ -36,11 +36,6 @@ class RefferalPendingScreen extends StatefulWidget {
       required this.onEyeButtonPressed,required this.onAutoSyncPressed,
       required this.onMergeDuplicatePressed, required this.onMoveToIntake});
 
-  @override
-  State<RefferalPendingScreen> createState() => _RefferalPendingScreenState();
-}
-
-class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
   List<String> hardcodedItems = [
     'All',
     'Referral App',
@@ -48,15 +43,13 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
     'E-Referrals',
     'Manual',
   ];
-
-  final int itemsPerPage = 5;
-
+  final int itemsPerPage = 20;
   final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
 
   @override
   Widget build(BuildContext context) {
     final pageProvider = Provider.of<SmIntakeProviderManager>(context);
-    var currentPage = pageProvider.currentPage;
+    final currentPage = pageProvider.currentPage;
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     TextEditingController _searchController = TextEditingController();
@@ -107,7 +100,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                       text: "Auto Sync",
                       onPressed: ()async{
                         providerContact.toogleAppBar();
-                        widget.onAutoSyncPressed();
+                        onAutoSyncPressed();
                       },
                     ),
                   )
@@ -262,18 +255,16 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     }
                     if(snapshot.hasData){
                       print(">>>>>>Number of items ppp : ${snapshot.data!.length}");
-                      final totalItems = snapshot.data!.length; // ideally should come from API
+                      final items = snapshot.data!;
+                      final totalItems = items.length; // ideally should come from API
                       final totalPages = (totalItems / itemsPerPage).ceil();
-                      List<PatientModel> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage)
-                          .take(itemsPerPage)
-                          .toList();
                       return Column(
                         children: [
                           Expanded(
                             child: ScrollConfiguration(
                               behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                               child: ListView.builder(
-                                itemCount: paginatedData.length,
+                                itemCount: snapshot.data!.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -302,7 +293,8 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                           ),
                                         ),
                                       ),
-                                      child: Container(
+                                      child:
+                                      Container(
                                         width: 6,
                                         decoration: BoxDecoration(
                                           border:  Border(
@@ -745,7 +737,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                   InkWell(
                                                     onTap: () async {
                                                       try {
-                                                        widget.onEyeButtonPressed();
+                                                        onEyeButtonPressed();
                                                         providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
                                                       } catch (e) {
                                                         print("Error: $e");
@@ -924,24 +916,20 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                           // Pagination Controls
                           PaginationControlsWidget(
                             currentPage: currentPage,
-                            items: snapshot.data!,
+                            items: items,
                             itemsPerPage: itemsPerPage,
                             onPreviousPagePressed: () {
-                              setState(() {
-                                currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                              });
+                              if (currentPage > 1) {
+                                pageProvider.setCurrentPage(currentPage - 1);
+                              }
                             },
                             onPageNumberPressed: (pageNumber) {
-                              setState(() {
-                                currentPage = pageNumber;
-                              });
+                              pageProvider.setCurrentPage(pageNumber);
                             },
                             onNextPagePressed: () {
-                              setState(() {
-                                currentPage = currentPage < totalPages
-                                    ? currentPage + 1
-                                    : totalPages;
-                              });
+                              if (currentPage < totalPages) {
+                                pageProvider.setCurrentPage(currentPage + 1);
+                              }
                             },
                           ),
                         ],
