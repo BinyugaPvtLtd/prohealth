@@ -32,7 +32,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
   List<String> hardcodedItems = ['All','Referral App','E-Fax','E-Referrals','Manual',];
 
   final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
-  final int itemsPerPage = 20;
+  final int itemsPerPage = 5;
   @override
   Widget build(BuildContext context) {
     final pageProvider = Provider.of<SmIntakeProviderManager>(context);
