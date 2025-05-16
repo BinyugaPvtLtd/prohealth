@@ -177,9 +177,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   void initState() {
     super.initState();
     loadInitialDiagnosis();
-    loadInitialinsurance();
+  //  loadInitialinsurance();
   }
-  List<PatientInsurancesData> patientInsurance = [];
+  //List<PatientInsurancesData> patientInsurance = [];
   List<EmployeeClinicalData> employeeClinicalData = [];
 
   Future<void> loadInitialDiagnosis() async {
@@ -189,10 +189,10 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
     provider.setVisibility(true);
   }
 
-  Future<void> loadInitialinsurance() async {
-    patientInsurance = await getReffrealsPatientInsurance(context: context,);
-    employeeClinicalData = await getEmployeeClinicalInReffreals(context: context);// ← Your API call
-  }
+  // Future<void> loadInitialinsurance() async {
+  //   patientInsurance = await getReffrealsPatientInsurance(context: context,);
+  //   employeeClinicalData = await getEmployeeClinicalInReffreals(context: context);// ← Your API call
+  // }
 
 
   double _sliderValue = 100; // initial value
@@ -937,11 +937,11 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               ignoring: selectedType == 'Self Pay',
                               child: ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: patientInsurance.length, // Adjust as needed
+                                itemCount: snapshot.data!.insurance.length, // Adjust as needed
                                 itemBuilder: (context, index) {
-                                  policy = TextEditingController(text: patientInsurance[index].insurance_policy);
-                                  provider = TextEditingController(text: patientInsurance[index].insurance_provider);
-                                  plan = TextEditingController(text: patientInsurance[index].insurance_plan);
+                                  policy = TextEditingController(text: snapshot.data!.insurance[index].policy);
+                                  provider = TextEditingController(text: snapshot.data!.insurance[index].insuranceProvider);
+                                  plan = TextEditingController(text: snapshot.data!.insurance[index].insurancePlan );//patientInsurance[index].insurance_plan);
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                                     child: Column(
@@ -968,7 +968,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                   checkColor: ColorManager.white,
                                                   activeColor: ColorManager.bluebottom,
                                                   side: BorderSide(color: ColorManager.bluebottom, width: 2),
-                                                  value: patientInsuranceId == patientInsurance[index].insurance_id ? true :isCheckedList[index],
+                                                  value: snapshot.data!.fk_rpti_id == snapshot.data!.insurance[index].rptiId ? true :isCheckedList[index],
                                                   onChanged: (bool? value) {
                                                     setState(() {
                                                       isCheckedList[index] = value!;
@@ -981,13 +981,13 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                           zipCode: zipCodeController.text,
                                                           serviceId: snapshot.data!.fkSrvId,
                                                           disciplineIds: desciplineintList,
-                                                          insuranceId: value == true ? patientInsuranceId : patientInsurance[index].insurance_id);
+                                                          insuranceId: value == true ? snapshot.data!.fk_rpti_id : snapshot.data!.insurance[index].rptiId);
                                                     });
                                                   },
                                                 ),
                                               ),
                                             ),
-                                            //SizedBox(width: 20,),
+                                            SizedBox(width: 20,),
                                             Expanded(
                                               flex: 2,
                                               child: SMTextFConst(
@@ -1033,11 +1033,11 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                 Container(
                                                   height: 30,
                                                   padding: const EdgeInsets.only(left: 45,right: 20),
-                                                  child: Text("Not all visit\ncovered",
+                                                  child: Text( snapshot.data!.insurance[index].eligibility == false ? "Not all visit\ncovered" : "Eligibility",
                                                     style: TextStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w700,
-                                                      color: ColorManager.greenDark,
+                                                      color: snapshot.data!.insurance[index].eligibility == false ? ColorManager.incidentskinSM : ColorManager.greenDark,
                                                     ),),
                                                 )
                                               ],),
@@ -1047,7 +1047,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                               width: 30,
                                               height: 30,
                                               decoration: BoxDecoration(
-                                                color: ColorManager.greenDark,
+                                                color: snapshot.data!.insurance[index].eligibility == false ? ColorManager.incidentskinSM : ColorManager.greenDark,
                                                 borderRadius: BorderRadius.circular(3),
                                               ),
                                               child: Center(
@@ -1073,12 +1073,14 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                     onPressed: (){},
                                                   ),
                                                   const SizedBox(height: 5,),
-                                                  Text("Last checked at 8:30 AM",
+                                                  Text(
+                                                    "Last checked at: ${snapshot.data!.insurance[index].time == null || snapshot.data!.insurance[index].time == "null" ? "00" : snapshot.data!.insurance[index].time} AM",
                                                     style: TextStyle(
                                                       fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w400,
                                                       color: ColorManager.mediumgrey,
-                                                    ),),
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             )

@@ -181,6 +181,17 @@ Future<List<PatientModel>> getPatientReffrealsData({
             );
           }).toList(),
 
+            insurance: (item['patientInsurance'] as List).map((d){
+              return InsuranceModel(
+                  rptiId: d['rpti_id'],
+                  fkptId: d['fk_pt_id'],
+                  policy: d['rpti_policy'],
+                  insuranceProvider: d['rpti_insurance_provider'],
+                  insurancePlan: d['rpti_insurance_plan'],
+                  eligibility: d['rpti_eligibility'],
+                  authorization: d['rpti_authorization'],
+                  time: d['']);
+            }).toList()
           // insurance: (item['patientInsurance'] as List).map((i) {
           //   return InsuranceModel(
           //     rptiId: item['patientInsurance']['rpti_id'] ?? 0,
@@ -369,6 +380,18 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
               departmentId: d['DepartmentId'],
             );
           }).toList(),
+
+            insurance: (item['patientInsurance'] as List).map((d){
+              return InsuranceModel(
+                  rptiId: d['rpti_id'],
+                  fkptId: d['fk_pt_id'],
+                  policy: d['rpti_policy'],
+                  insuranceProvider: d['rpti_insurance_provider'],
+                  insurancePlan: d['rpti_insurance_plan'],
+                  eligibility: d['rpti_eligibility'],
+                  authorization: d['rpti_authorization'],
+                  time: d['rpti_last_checked_time'] ?? "");
+            }).toList()
 
           // insurance: (item['patientInsurance'] as List).map((i) {
           //   return InsuranceModel(
