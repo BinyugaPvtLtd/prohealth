@@ -51,12 +51,25 @@ class SmIntakeProviderManager extends ChangeNotifier{
 
 
 
-  int _currentPage = 1;
+  int _currentPagepp = 1;
+  int _currentPageaa = 1;
+  int _currentPagemm = 1;
 
-  int get currentPage => _currentPage;
+  int get currentPage => _currentPagepp;
+  int get currentPageaa => _currentPageaa;
+  int get currentPagemm => _currentPagemm;
 
-  void setCurrentPage(int page) {
-    _currentPage = page;
+  void setCurrentPage(int pagepp) {
+    _currentPagepp = pagepp;
+    notifyListeners();
+  }
+
+  void aaCurrentPage(int pageaa) {
+    _currentPageaa = pageaa;
+    notifyListeners();
+  }
+  void mmCurrentPage(int pagemm) {
+    _currentPagemm = pagemm;
     notifyListeners();
   }
 
