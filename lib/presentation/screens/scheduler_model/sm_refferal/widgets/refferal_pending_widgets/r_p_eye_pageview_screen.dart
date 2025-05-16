@@ -969,9 +969,12 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                   checkColor: ColorManager.white,
                                                   activeColor: ColorManager.bluebottom,
                                                   side: BorderSide(color: ColorManager.bluebottom, width: 2),
-                                                  value: selectedRptiId == snapshot.data!.insurance[index].rptiId,
+                                                  value: selectedRptiId == snapshot.data!.insurance[index].rptiId ||
+                                                      (selectedRptiId == null &&
+                                                          snapshot.data!.fk_rpti_id == snapshot.data!.insurance[index].rptiId),
                                                   onChanged: (bool? value) async {
                                                     final currentId = snapshot.data!.insurance[index].rptiId;
+
                                                     if (value == true && selectedRptiId != currentId) {
                                                       await updateReferralPatient(
                                                         context: context,
@@ -986,12 +989,15 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                         disciplineIds: desciplineintList,
                                                         insuranceId: currentId,
                                                       );
+
                                                       setState(() {
-                                                        selectedRptiId = currentId;
+                                                        selectedRptiId = currentId; // This will uncheck the previous and check the new
                                                       });
                                                     }
                                                   },
                                                 )
+
+
                                                 // Checkbox(
                                                 //   splashRadius: 0,
                                                 //   checkColor: ColorManager.white,
