@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_
 import 'package:provider/provider.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
@@ -175,27 +176,31 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
 
-                                        CustomDropdownsmi(
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 2.0),
+                                          child: CustomDropdownsmi(
 
-                                            width:150,
-                                            isAstric:false,
-                                            iconColor: ColorManager.mediumgrey,
-                                            initialValue: selectedValue,
-                                            headText: "", // Default fallback if depId doesn't match any of the expected values
-                                            items: items,
+                                              width:150,
+                                              isAstric:false,
+                                              hintText: "Erica T",
+                                              iconColor: ColorManager.mediumgrey,
+                                              initialValue: selectedValue,
+                                              headText: "", // Default fallback if depId doesn't match any of the expected values
+                                              items: items,
 
-                                            onChanged: (newValue) {
-                                              // for (var a in snapshot.data!) {
-                                              //   if (a.empType == newValue) {
-                                              //     clinicialName = a.empType!;
-                                              //     clinicalId = a.employeeTypesId!;
-                                              //     print("Dept ID'''''' ${clinicalId}");
-                                              //     print("';';';''''''''Dept ID ${clinicialName}");
-                                              //     // Do something with docType
-                                              //   }
-                                              // }
-                                            },
-                                          ),
+                                              onChanged: (newValue) {
+                                                // for (var a in snapshot.data!) {
+                                                //   if (a.empType == newValue) {
+                                                //     clinicialName = a.empType!;
+                                                //     clinicalId = a.employeeTypesId!;
+                                                //     print("Dept ID'''''' ${clinicalId}");
+                                                //     print("';';';''''''''Dept ID ${clinicialName}");
+                                                //     // Do something with docType
+                                                //   }
+                                                // }
+                                              },
+                                            ),
+                                        ),
 
 
                                         ///
@@ -252,7 +257,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                             ),
                                             Container(
                                               width: 130,
-                                              height: 60,
+                                              height: 50,
                                               padding: const EdgeInsets.all(8),
                                             // padding: EdgeInsets.symmetric(vertical: 10,horizontal: 25),
                                               decoration: BoxDecoration(
@@ -277,7 +282,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                             ),
                                             Container(
                                               width:130,
-                                              height: 60,
+                                              height: 50,
                                               padding: const EdgeInsets.all(8),
                                               decoration: BoxDecoration(
                                                 color: Color(0xFFEEEEEE),
@@ -300,19 +305,22 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                       children: [
                                         CustomButtonTransparent(
                                           width: AppSize.s120,
-                                          height: 23,
-                                          //borderRadius: 12,
+                                          height: 28,
+                                          borderRadius: 14,
+                                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.blueprime,),
                                           text: "Accept Theirs",
-                                          onPressed: () {
-
-                                          },
+                                          onPressed: () {},
                                         ),
                                         CustomElevatedButton(
                                           width: AppSize.s120,
-                                          height: 23,
-                                          borderRadius: 12,
+                                          height: 28,
+                                          borderRadius: 14,
                                           text: "Keep Yours",
-                                          style: TextStyle(fontSize: 10),
+                                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.white,),
                                           onPressed: (){},
                                         ),
                                       ],
@@ -492,6 +500,35 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
               ),
                                   ),
               const SizedBox(height: AppSize.s10),
+             providerContact.isLeftSidebarOpen ? Container(
+                child: InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap:(){},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 10),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.arrow_back,
+                            size: IconSize.I16,
+                            color: ColorManager.mediumgrey,
+
+                          ),
+                          SizedBox(width: 5,),
+                          Text(
+                            'Go Back',
+                            style:TextStyle(
+                              fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+              ) : Offstage(),
               Expanded(
                 flex: 1,
                 child: Padding(
@@ -807,6 +844,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         // providerContact.toogleLeftSidebarProvider();
                         // providerContact.toogleRightSliderProvider();
                       }:(){
+
                         toggleLeftSidebar();
                         providerContact.toogleContactProvider();
                         providerContact.toogleLeftSidebarProvider();

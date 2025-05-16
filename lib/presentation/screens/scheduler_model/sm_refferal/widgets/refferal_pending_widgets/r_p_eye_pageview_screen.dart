@@ -354,7 +354,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           color: ColorManager.mediumgrey,),
                                       ),
                                       Text(
-                                        "Received Date: ${snapshot.data!.ptRefferalDate}  | ${ snapshot.data!.ptTime}",
+                                        "Received Date: ${snapshot.data!.ptRefferalDate}  | ${ snapshot.data!.intakeTime}",
                                         textAlign: TextAlign.center,
                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                           fontWeight: FontWeight.w400,
@@ -420,8 +420,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           Expanded(
                                             flex: 2,
                                             child: Container(
-                                              child: Text(
-                                                snapshot.data!.patientDiagnoses.isEmpty ? "--":
+                                              child: Text(snapshot.data!.patientDiagnoses.isEmpty ? "" :
                                                 snapshot.data!.patientDiagnoses[0].dgnName,
                                                 textAlign: TextAlign.start,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
@@ -930,6 +929,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                         //   ),
                         // ),
 
+                        SizedBox(height: 10),
                         Opacity(
                           opacity: selectedType == 'Self Pay' ? 0.2 :  0.9,
                           child: Container(
@@ -1851,7 +1851,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
 
 
 
-
 class DiagosisList extends StatefulWidget {
  // final int diagosisID;
   final VoidCallback onRemove;
@@ -1859,7 +1858,6 @@ class DiagosisList extends StatefulWidget {
   final bool isVisible;
   final List<PatientDiagnosesModel> diagnosisData;
   final Function(int index, PatientDiagnosesModel updatedModel) onChanged;
-
   const DiagosisList(
       {Key? key,
         required this.onRemove,
@@ -1977,5 +1975,6 @@ class _DiagosisListState extends State<DiagosisList> {
                   ],
                 ),
               );
+
   }
 }

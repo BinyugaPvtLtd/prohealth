@@ -8,30 +8,58 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 
-
 class ContactLogsScreen extends StatelessWidget {
   const ContactLogsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 10),
-        child: Container(
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(8),
-            border: const Border(
-                top: BorderSide(color: Color(0xFF1696C8),width: 5)
+        child: Padding(
+      padding: const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 10),
+      child: Container(
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(8),
+              bottomRight: Radius.circular(8),
+              topLeft: Radius.circular(8),
+              topRight: Radius.circular(8)),
+          //     border: const Border(
+          //   top: BorderSide(color: Color(0xFF1696C8),width: 5)
+          // ),
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.grey.shade300,
+              width: 3,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: ColorManager.black.withOpacity(0.2),
-                blurRadius: 2,
-                spreadRadius: 1,
-                offset: const Offset(0, 2), // Downward shadow
-              ),
-            ],
+            left: BorderSide(
+              color: Colors.grey.shade300,
+              width: 1,
+            ),
+            right: BorderSide(
+              color: Colors.grey.shade300,
+              width: 1,
+            ),
+          ),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: ColorManager.black.withOpacity(0.2),
+          //     blurRadius: 2,
+          //     spreadRadius: 1,
+          //     offset: const Offset(0, 2), // Downward shadow
+          //   ),
+          // ],
+        ),
+        child: Container(
+          //height: 6,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                // bottomLeft: Radius.circular(12),
+                //bottomRight: Radius.circular(12),
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8)),
+            border: const Border(
+                top: BorderSide(color: Color(0xFF1696C8), width: 5)),
           ),
           child: DefaultTabController(
             length: 2,
@@ -44,29 +72,43 @@ class ContactLogsScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10,bottom: 3,),
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                      bottom: 3,
+                    ),
                     child: TabBar(
                       labelColor: Colors.white,
-                      unselectedLabelColor:  ColorManager.textPrimaryColor,
-                      indicatorPadding:  EdgeInsets.symmetric(horizontal: 15,vertical: 1),
+                      unselectedLabelColor: ColorManager.textPrimaryColor,
+                      indicatorPadding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                       indicator: BoxDecoration(
                         color: ColorManager.SMFBlue,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                       ),
                       tabs: [
-                        Tab(child: Text('Call Log',  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700,
-                          color:  ColorManager.textPrimaryColor,),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                        ),),
-
-                        Tab(child: Text('E-Fax',  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700,
-                          color:  ColorManager.textPrimaryColor,),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
+                        Tab(
+                          child: Text(
+                            'Call Log',
+                            style: CustomTextStylesCommon.commonStyle(
+                              fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.textPrimaryColor,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
                         ),
+                        Tab(
+                          child: Text(
+                            'E-Fax',
+                            style: CustomTextStylesCommon.commonStyle(
+                              fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.textPrimaryColor,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
                         ),
                       ],
                     ),
@@ -76,11 +118,12 @@ class ContactLogsScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Divider(),
                 ),
-                 Expanded(
+                Expanded(
                   child: TabBarView(
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       CallLogsTab(),
+
                       ///
                       EFaxTab(),
                     ],
@@ -91,32 +134,25 @@ class ContactLogsScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 class CallLogsTab extends StatelessWidget {
   const CallLogsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: EdgeInsets.all(8.0),
-      child:ListView.builder(
+      child: ListView.builder(
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10,),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 10,
+                ),
                 child: Container(
                   height: 50,
                   child: Row(
@@ -126,26 +162,35 @@ class CallLogsTab extends StatelessWidget {
                         children: [
                           Column(
                             children: [
-                              Image.asset("images/sm/logo_ph.png",height: 40,),
+                              Image.asset(
+                                "images/sm/logo_ph.png",
+                                height: 40,
+                              ),
                             ],
                           ),
-                          SizedBox(width: 12,),
+                          SizedBox(
+                            width: 12,
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(height: AppSize.s5),
                               Text(
                                 'Prohealth',
-                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontSize: FontSize.s12,
                                   fontWeight: FontWeight.w700,
-                                  color: ColorManager.mediumgrey,),
+                                  color: ColorManager.mediumgrey,
+                                ),
                               ),
                               SizedBox(height: AppSize.s2),
                               Text(
                                 '2024/08/05',
-                                style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontSize: FontSize.s12,
                                   fontWeight: FontWeight.w400,
-                                  color: ColorManager.mediumgrey,),
+                                  color: ColorManager.mediumgrey,
+                                ),
                               ),
                             ],
                           ),
@@ -155,29 +200,21 @@ class CallLogsTab extends StatelessWidget {
                         children: [
                           Text(
                             '6 mins 23 secs',
-                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                            style: CustomTextStylesCommon.commonStyle(
+                              fontSize: FontSize.s12,
                               fontWeight: FontWeight.w400,
-                              color: ColorManager.mediumgrey,),
+                              color: ColorManager.mediumgrey,
+                            ),
                           ),
                         ],
                       ),
                     ],
-
                   ),
-                )
-            );
+                ));
           }),
     );
   }
 }
-
-
-
-
-
-
-
-
 
 class EFaxTab extends StatelessWidget {
   const EFaxTab({super.key});
@@ -186,11 +223,14 @@ class EFaxTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(8.0),
-      child:ListView.builder(
+      child: ListView.builder(
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10,),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,16 +241,23 @@ class EFaxTab extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            Image.asset("images/sm/file.png",height: 30,),
+                            Image.asset(
+                              "images/sm/file.png",
+                              height: 30,
+                            ),
                           ],
                         ),
                         //SizedBox(width: 20,),
                         SizedBox(
                           width: 200,
-                          child: Text('eFax sent by Warren. No document attached.',
-                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                          child: Text(
+                            'eFax sent by Warren. No document attached.',
+                            style: CustomTextStylesCommon.commonStyle(
+                              fontSize: FontSize.s12,
                               fontWeight: FontWeight.w500,
-                              color: ColorManager.mediumgrey,),),
+                              color: ColorManager.mediumgrey,
+                            ),
+                          ),
                         )
                         // Column(
                         //   children: [
@@ -230,37 +277,29 @@ class EFaxTab extends StatelessWidget {
                         //SizedBox(height: AppSize.s5),
                         Text(
                           '2024/08/05',
-                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeight.w400,
-                            color: ColorManager.mediumgrey,),
+                            color: ColorManager.mediumgrey,
+                          ),
                         ),
                         SizedBox(height: AppSize.s2),
                         Text(
                           '8:17PM',
-                          style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeight.w400,
-                            color: ColorManager.mediumgrey,),
+                            color: ColorManager.mediumgrey,
+                          ),
                         ),
                       ],
                     ),
                   ],
-
-                )
-            );
+                ));
           }),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 //   @override
 //   Widget build(BuildContext context) {
