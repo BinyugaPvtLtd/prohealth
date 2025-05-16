@@ -33,7 +33,7 @@ class PatientModel {
   final ReferralSourceModel referralSource;
   final PCPModel pcp;
   final MarketerModel marketer;
- // final List<InsuranceModel> insurance;
+  final List<InsuranceModel> insurance;
   final List<DisciplineModel> disciplines;
   final bool isPotential;
   final int thresould;
@@ -68,7 +68,7 @@ class PatientModel {
     required this.ptImgUrl,
     required this.documentName,
     required this.service,
-   // required this.insurance,
+    required this.insurance,
     required this.patientDiagnoses,
     required this.referralSource,
     required this.pcp,
@@ -86,17 +86,17 @@ class ServiceModel {
 }
 
 
-// class InsuranceModel {
-//   final int rptiId;
-//   final int fkptId;
-//   final String policy;
-//   final String insuranceProvider;
-//   final String insurancePlan;
-//   final bool eligibility;
-//   final bool authorization;
-//   final String? time;
-//   InsuranceModel({required this.rptiId, required this.fkptId, required this.policy, required this.insuranceProvider, required this.insurancePlan, required this.eligibility, required this.authorization, this.time,});
-// }
+class InsuranceModel {
+  final int rptiId;
+  final int fkptId;
+  final String policy;
+  final String insuranceProvider;
+  final String insurancePlan;
+  final bool eligibility;
+  final bool authorization;
+  final String? time;
+  InsuranceModel({required this.rptiId, required this.fkptId, required this.policy, required this.insuranceProvider, required this.insurancePlan, required this.eligibility, required this.authorization, this.time,});
+}
 
 class PatientDiagnosesModel {
 
