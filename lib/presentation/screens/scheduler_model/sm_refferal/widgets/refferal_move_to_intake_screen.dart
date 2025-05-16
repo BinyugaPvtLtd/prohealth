@@ -32,11 +32,11 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
   List<String> hardcodedItems = ['All','Referral App','E-Fax','E-Referrals','Manual',];
 
   final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
-  final int itemsPerPage = 20;
+  final int itemsPerPage = 10;
   @override
   Widget build(BuildContext context) {
-    final pageProvider = Provider.of<SmIntakeProviderManager>(context);
-    final currentPage = pageProvider.currentPage;
+    final intakeProvider = Provider.of<SmIntakeProviderManager>(context);
+    // final currentPage = intakeProvider.currentPagemm;
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     TextEditingController _searchController = TextEditingController();
@@ -88,7 +88,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                 child: StreamBuilder<List<PatientModel>>(
                     stream: _streamController.stream,
                     builder: (context,snapshot) {
-                      getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'true', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                      getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 9999, isIntake: 'true', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                           marketerId: providerContact.marketerId,
                           referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                         _streamController.add(data);
@@ -118,16 +118,27 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                       if(snapshot.hasData){
                         print(">>>>>>Number of items mmmmmm : ${snapshot.data!.length}");
                         final items = snapshot.data!;
-                        final totalItems = items.length; // ideally should come from API
+                        final totalItems = items.length;
                         final totalPages = (totalItems / itemsPerPage).ceil();
+                        final currentPage = intakeProvider.currentPagemm;
+
+                        // ✅ Slice the data
+                        final paginatedItems = items
+                            .skip((currentPage - 1) * itemsPerPage)
+                            .take(itemsPerPage)
+                            .toList();
+
+
                         return Column(
                           children: [
                             Expanded(
                               child: ScrollConfiguration(
                                 behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                                 child: ListView.builder(
-                                  itemCount: snapshot.data!.length,
+                                  itemCount: paginatedItems.length, // ✅ Correct count
                                   itemBuilder: (BuildContext context, int index) {
+                                    final movetointake = paginatedItems[index];
+
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 7,),
                                       child: Container(
@@ -185,15 +196,15 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                 children: [
                                                   ///Image
                                                   ClipOval(
-                                                    child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                                        snapshot.data![index].ptImgUrl == null
+                                                    child: movetointake.ptImgUrl == 'imgurl' ||
+                                                        movetointake.ptImgUrl == null
                                                         ? CircleAvatar(
                                                       radius: 22,
                                                       backgroundColor: Colors.transparent,
                                                       child: Image.asset("images/profilepic.png"),
                                                     )
                                                         : Image.network(
-                                                      snapshot.data![index].ptImgUrl!,
+                                                      movetointake.ptImgUrl!,
                                                       loadingBuilder: (context, child, loadingProgress) {
                                                         if (loadingProgress == null) {
                                                           return child;
@@ -231,7 +242,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                       MainAxisAlignment.center,
                                                       children: [
                                                         Text(
-                                                          "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
+                                                          "${movetointake.ptFirstName} ${movetointake.ptLastName}",
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon
                                                               .commonStyle(
@@ -245,7 +256,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                           height: AppSize.s5,
                                                         ),
                                                         Text(
-                                                          "Referral Date :  ${snapshot.data![index].ptRefferalDate}",
+                                                          "Referral Date :  ${movetointake.ptRefferalDate}",
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon
                                                               .commonStyle(
@@ -262,7 +273,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                   Expanded(
                                                     flex: 2,
                                                     child:  Text(
-                                                    "Ch #${snapshot.data![index].ptChartNo.toString()}",
+                                                    "Ch #${movetointake.ptChartNo.toString()}",
                                                     style: DocDefineTableData.customTextStyle(context),
                                                   ),),
                                                   ///Referral source
@@ -281,7 +292,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                       ),
                                                       SizedBox(height: AppSize.s4,),
                                                       Text(
-                                                        snapshot.data![index].referralSource.sourceName,
+                                                        movetointake.referralSource.sourceName,
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                           fontWeight: FontWeight.w700,
@@ -305,7 +316,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                       ),
                                                       SizedBox(height: AppSize.s4,),
                                                       Text(
-                                                        "${snapshot.data![index].pcp.phyFirstName} ${snapshot.data![index].pcp.phyLastName}",
+                                                        "${movetointake.pcp.phyFirstName} ${movetointake.pcp.phyLastName}",
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                           fontWeight: FontWeight.w700,
@@ -328,8 +339,8 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                           color: ColorManager.mediumgrey,),
                                                       ),
                                                       SizedBox(height: AppSize.s4,),
-                                                      Text( snapshot.data![index].patientDiagnoses.isEmpty ? "--" :
-                                                        snapshot.data![index].patientDiagnoses[0].dgnName,
+                                                      Text( movetointake.patientDiagnoses.isEmpty ? "--" :
+                                                      movetointake.patientDiagnoses[0].dgnName,
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                           fontWeight: FontWeight.w700,
@@ -343,7 +354,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                     flex: 3,
                                                     child: Center(
                                                       child: Image.network(
-                                                        snapshot.data![index].referralSource.referralSourceImgUrl,
+                                                        movetointake.referralSource.referralSourceImgUrl,
                                                         fit: BoxFit.contain, // or BoxFit.cover if you like
                                                         loadingBuilder: (context, child, loadingProgress) {
                                                           if (loadingProgress == null) {
@@ -380,15 +391,15 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                   // SizedBox(width: 10),
                                                   ///Img
                                         ClipOval(
-                                          child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                              snapshot.data![index].ptImgUrl == null
+                                          child: movetointake.ptImgUrl == 'imgurl' ||
+                                              movetointake.ptImgUrl == null
                                               ? CircleAvatar(
                                             radius: 23,
                                             backgroundColor: Colors.transparent,
                                             child: Image.asset("images/profilepic.png"),
                                           )
                                               : Image.network(
-                                            snapshot.data![index].marketer.imgurl,
+                                            movetointake.marketer.imgurl,
                                             loadingBuilder: (context, child, loadingProgress) {
                                               if (loadingProgress == null) {
                                                 return child;
@@ -419,7 +430,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                   Expanded(
                                                     flex: 2,
                                                     child:  Text(
-                                                    "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
+                                                    "${movetointake.marketer.firstName} ${movetointake.marketer.lastName}",
                                                     textAlign: TextAlign.center,
                                                     style: DocDefineTableData.customTextStyle(context),
                                                   ),),
@@ -431,7 +442,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                       onTap: () async {
                                                         try {
                                                           onEyeButtonPressed();
-                                                          providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
+                                                          providerReferrals.passPatientId(patientIdNo: movetointake.ptId);
                                                         }
                                                         catch (e){
                                                           print("Error: $e");
@@ -536,15 +547,15 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                               itemsPerPage: itemsPerPage,
                               onPreviousPagePressed: () {
                                 if (currentPage > 1) {
-                                  pageProvider.setCurrentPage(currentPage - 1);
+                                  intakeProvider.mmCurrentPage(currentPage - 1);
                                 }
                               },
                               onPageNumberPressed: (pageNumber) {
-                                pageProvider.setCurrentPage(pageNumber);
+                                intakeProvider.mmCurrentPage(pageNumber);
                               },
                               onNextPagePressed: () {
                                 if (currentPage < totalPages) {
-                                  pageProvider.setCurrentPage(currentPage + 1);
+                                  intakeProvider.mmCurrentPage(currentPage + 1);
                                 }
                               },
                             ),
