@@ -203,6 +203,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   //         (_) => getPatientReffrealsDataUsingId(context: context, patientId: patientId),
   //   );
   // }
+  int? selectedRptiId;
 
   @override
   Widget build(BuildContext context) {
@@ -968,23 +969,51 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                   checkColor: ColorManager.white,
                                                   activeColor: ColorManager.bluebottom,
                                                   side: BorderSide(color: ColorManager.bluebottom, width: 2),
-                                                  value: snapshot.data!.fk_rpti_id == snapshot.data!.insurance[index].rptiId ? true :isCheckedList[index],
-                                                  onChanged: (bool? value) {
-                                                    setState(() {
-                                                      isCheckedList[index] = value!;
-                                                      updateReferralPatient(context: context,
-                                                          patientId: providerAddState.patientId,
-                                                          isUpdatePatiendData: true,firstName: firstNameController.text,
-                                                          lastName: lastNameController.text,
-                                                          contactNo: patientsController.text,
-                                                          summary: patientsSummary.text,
-                                                          zipCode: zipCodeController.text,
-                                                          serviceId: snapshot.data!.fkSrvId,
-                                                          disciplineIds: desciplineintList,
-                                                          insuranceId: value == true ? snapshot.data!.fk_rpti_id : snapshot.data!.insurance[index].rptiId);
-                                                    });
+                                                  value: selectedRptiId == snapshot.data!.insurance[index].rptiId,
+                                                  onChanged: (bool? value) async {
+                                                    final currentId = snapshot.data!.insurance[index].rptiId;
+                                                    if (value == true && selectedRptiId != currentId) {
+                                                      await updateReferralPatient(
+                                                        context: context,
+                                                        patientId: providerAddState.patientId,
+                                                        isUpdatePatiendData: true,
+                                                        firstName: firstNameController.text,
+                                                        lastName: lastNameController.text,
+                                                        contactNo: patientsController.text,
+                                                        summary: patientsSummary.text,
+                                                        zipCode: zipCodeController.text,
+                                                        serviceId: snapshot.data!.fkSrvId,
+                                                        disciplineIds: desciplineintList,
+                                                        insuranceId: currentId,
+                                                      );
+                                                      setState(() {
+                                                        selectedRptiId = currentId;
+                                                      });
+                                                    }
                                                   },
-                                                ),
+                                                )
+                                                // Checkbox(
+                                                //   splashRadius: 0,
+                                                //   checkColor: ColorManager.white,
+                                                //   activeColor: ColorManager.bluebottom,
+                                                //   side: BorderSide(color: ColorManager.bluebottom, width: 2),
+                                                //   value: snapshot.data!.fk_rpti_id == snapshot.data!.insurance[index].rptiId ? true :isCheckedList[index],
+                                                //   onChanged: (bool? value) {
+                                                //     setState(() {
+                                                //       isCheckedList[index] = value!;
+                                                //       updateReferralPatient(context: context,
+                                                //           patientId: providerAddState.patientId,
+                                                //           isUpdatePatiendData: true,firstName: firstNameController.text,
+                                                //           lastName: lastNameController.text,
+                                                //           contactNo: patientsController.text,
+                                                //           summary: patientsSummary.text,
+                                                //           zipCode: zipCodeController.text,
+                                                //           serviceId: snapshot.data!.fkSrvId,
+                                                //           disciplineIds: desciplineintList,
+                                                //           insuranceId: value == true ? snapshot.data!.fk_rpti_id : snapshot.data!.insurance[index].rptiId);
+                                                //     });
+                                                //   },
+                                                // ),
                                               ),
                                             ),
                                             SizedBox(width: 20,),
