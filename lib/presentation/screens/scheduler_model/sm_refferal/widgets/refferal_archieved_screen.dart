@@ -733,7 +733,6 @@ class RefferalArchievedScreen extends StatelessWidget {
                     }else {
                       return const SizedBox();
                     }
-
                   }
                 ),
               ),
