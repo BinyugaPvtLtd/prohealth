@@ -177,7 +177,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   void initState() {
     super.initState();
     loadInitialDiagnosis();
-  //  loadInitialinsurance();
+    loadInitialinsurance();
   }
   //List<PatientInsurancesData> patientInsurance = [];
   List<EmployeeClinicalData> employeeClinicalData = [];
@@ -189,10 +189,10 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
     provider.setVisibility(true);
   }
 
-  // Future<void> loadInitialinsurance() async {
-  //   patientInsurance = await getReffrealsPatientInsurance(context: context,);
-  //   employeeClinicalData = await getEmployeeClinicalInReffreals(context: context);// ← Your API call
-  // }
+  Future<void> loadInitialinsurance() async {
+   // patientInsurance = await getReffrealsPatientInsurance(context: context,);
+    employeeClinicalData = await getEmployeeClinicalInReffreals(context: context);// ← Your API call
+  }
 
 
   double _sliderValue = 100; // initial value
@@ -207,12 +207,13 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
 
   @override
   Widget build(BuildContext context) {
-    // final providerAddState = Provider.of<DiagnosisProvider>(context);
+    final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
+    final int patientId = diagnosisProvider.patientId;
     bool _isLoading = false;
-    return  Consumer<DiagnosisProvider>(
-      builder: (context,providerAddState,child) {
+    // return  Consumer<DiagnosisProvider>(
+    //   builder: (context,providerAddState,child) {
         return FutureBuilder<PatientModel>(
-          future: getPatientReffrealsDataUsingId(context: context, patientId: providerAddState.patientId),
+          future: getPatientReffrealsDataUsingId(context: context, patientId: patientId),
           builder: (context,snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting){
               return Padding(
@@ -577,7 +578,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 isAsteric: false,
                                 onChangeField: (value){
                                   updateReferralPatient(context: context,
-                                      patientId: providerAddState.patientId,
+                                      patientId: patientId,
                                       isUpdatePatiendData: true,firstName: firstNameController.text,
                                       lastName: lastNameController.text,
                                       contactNo: patientsController.text,
@@ -595,7 +596,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 isAsteric: false,
                                 onChangeField: (value){
                                   updateReferralPatient(context: context,
-                                      patientId: providerAddState.patientId,
+                                      patientId: patientId,
                                       isUpdatePatiendData: true,firstName: firstNameController.text,
                                       lastName: lastNameController.text,
                                       contactNo: patientsController.text,
@@ -613,7 +614,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 isAsteric: true,
                                 onChanged: (value){
                                   updateReferralPatient(context: context,
-                                      patientId: providerAddState.patientId,
+                                      patientId: patientId,
                                       isUpdatePatiendData: true,firstName: firstNameController.text,
                                       lastName: lastNameController.text,
                                       contactNo: patientsController.text,
@@ -631,7 +632,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 isAsteric: false,
                                 onChangeField: (value){
                                   updateReferralPatient(context: context,
-                                      patientId: providerAddState.patientId,
+                                      patientId: patientId,
                                       isUpdatePatiendData: true,firstName: firstNameController.text,
                                       lastName: lastNameController.text,
                                       contactNo: patientsController.text,
@@ -682,7 +683,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       onChanged: (newValue) {
                                         for (var a in snapshotService.data!) {
                                           updateReferralPatient(context: context,
-                                              patientId: providerAddState.patientId,
+                                              patientId: patientId,
                                               isUpdatePatiendData: true,firstName: firstNameController.text,
                                               lastName: lastNameController.text,
                                               contactNo: patientsController.text,
@@ -705,7 +706,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                 isAsteric: false,
                                 onChangeField: (value){
                                   updateReferralPatient(context: context,
-                                      patientId: providerAddState.patientId,
+                                      patientId: patientId,
                                       isUpdatePatiendData: true,firstName: firstNameController.text,
                                       lastName: lastNameController.text,
                                       contactNo: patientsController.text,
@@ -978,7 +979,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                     if (value == true && selectedRptiId != currentId) {
                                                       await updateReferralPatient(
                                                         context: context,
-                                                        patientId: providerAddState.patientId,
+                                                        patientId: patientId,
                                                         isUpdatePatiendData: true,
                                                         firstName: firstNameController.text,
                                                         lastName: lastNameController.text,
@@ -1143,23 +1144,47 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       ///diagnosis
                       const BlueBGHeadConst(HeadText: "Diagnosis"),
                       const SizedBox(height: AppSize.s10,),
-                      Column(
-                        children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
-                          int index = entry.key;
-                          GlobalKey<_DiagosisListState> key = entry.value;
-                          List<PatientDiagnosesModel> data = providerAddState.diagnosisData;
+                      Consumer<DiagnosisProvider>(
+                        builder: (context, providerAddState, _) {
+                          return Column(
+                            children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
+                              int index = entry.key;
+                              GlobalKey<_DiagosisListState> key = entry.value;
+                              List<PatientDiagnosesModel> data = providerAddState.diagnosisData;
 
-                          return DiagosisList(
-                            key: key,
-                            index: index,
-                            onRemove: () => providerAddState.removeDiagnosis(key),
-                            isVisible: providerAddState.isVisible, diagnosisData: data,
-                            onChanged: (int index, PatientDiagnosesModel updatedModel) {
-                            //  providerAddState.updateDiagnosis(index, updatedModel);
-                            },
+                              return DiagosisList(
+                                key: key,
+                                index: index,
+                                onRemove: () => providerAddState.removeDiagnosis(key),
+                                isVisible: providerAddState.isVisible,
+                                diagnosisData: data,
+                                onChanged: (int index, PatientDiagnosesModel updatedModel) {
+                                  providerAddState.updateDiagnosis(index, updatedModel);
+                                },
+                              );
+                            }).toList(),
                           );
-                        }).toList(),
+                        },
                       ),
+
+                      ///
+                      // Column(
+                      //   children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
+                      //     int index = entry.key;
+                      //     GlobalKey<_DiagosisListState> key = entry.value;
+                      //     List<PatientDiagnosesModel> data = providerAddState.diagnosisData;
+                      //
+                      //     return DiagosisList(
+                      //       key: key,
+                      //       index: index,
+                      //       onRemove: () => providerAddState.removeDiagnosis(key),
+                      //       isVisible: providerAddState.isVisible, diagnosisData: data,
+                      //       onChanged: (int index, PatientDiagnosesModel updatedModel) {
+                      //       //  providerAddState.updateDiagnosis(index, updatedModel);
+                      //       },
+                      //     );
+                      //   }).toList(),
+                      // ),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -1173,8 +1198,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                             textSize: FontSize.s12,
                             text: "Add Diagnosis",
                             onPressed: ()async {
-                                providerAddState.setVisibility(true);
-                                providerAddState.addDiagnosis();
+                              Provider.of<DiagnosisProvider>(context, listen: false).addDiagnosis();
+                                // providerAddState.setVisibility(true);
+                                // providerAddState.addDiagnosis();
 
                             },
                           ),
@@ -1253,7 +1279,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                             desciplineModelAbbrivation.add(employeeClinicalData[index].abbreviation);
                                                                             desciplineModelAbbrivationColor.add(employeeClinicalData[index].color);
                                                                             updateReferralPatient(context: context,
-                                                                                patientId: providerAddState.patientId,
+                                                                                patientId: patientId,
                                                                                 isUpdatePatiendData: true,firstName: firstNameController.text,
                                                                                 lastName: lastNameController.text,
                                                                                 contactNo: patientsController.text,
@@ -1268,7 +1294,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                             desciplineModelAbbrivation.remove(employeeClinicalData[index].abbreviation);
                                                                             desciplineModelAbbrivationColor.remove(employeeClinicalData[index].color);
                                                                             updateReferralPatient(context: context,
-                                                                                patientId: providerAddState.patientId,
+                                                                                patientId: patientId,
                                                                                 isUpdatePatiendData: true,firstName: firstNameController.text,
                                                                                 lastName: lastNameController.text,
                                                                                 contactNo: patientsController.text,
@@ -1464,7 +1490,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                   });
                                   ApiData apiData =  await postReferralPatientDocuments(
                                       context: context,
-                                      fk_pt_id: providerAddState.patientId,
+                                      fk_pt_id: patientId,
                                       rptd_url: result.files.first.name,
                                       rptd_created_by: snapshot.data!.marketer.employeeId);
                                   if(apiData.statusCode == 200 || apiData.statusCode == 201){
@@ -1535,7 +1561,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       StreamBuilder<List<PatientDocumentsData>>(
                         stream: _streamController.stream,
                         builder: (context,snapshotDoc) {
-                          getReffrealsPatientDocuments(context: context, patientId: providerAddState.patientId,).then((data) {
+                          getReffrealsPatientDocuments(context: context, patientId: patientId,).then((data) {
                             _streamController.add(data);
                           }).catchError((error) {
                             // Handle error
@@ -1872,8 +1898,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
             );
           }
         );
-      }
-    );
+    //   }
+    // );
   }
   Widget buildCheckbox(String title, bool value, Function(bool?) onChanged, List<String> prefillData) {
     return Container(
