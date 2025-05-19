@@ -38,14 +38,14 @@ class RefferalArchievedScreen extends StatelessWidget {
     'Manual',
   ];
 
-  final int itemsPerPage = 20;
+  final int itemsPerPage = 10;
 
 
   final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
   @override
   Widget build(BuildContext context) {
-    final pageProvider = Provider.of<SmIntakeProviderManager>(context);
-    final currentPage = pageProvider.currentPage;
+    final archievedProvider = Provider.of<SmIntakeProviderManager>(context);
+    final currentPage = archievedProvider.currentPageaa;
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     TextEditingController _searchController = TextEditingController();
@@ -83,7 +83,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                 child: StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 10, isIntake: 'false', isArchived: 'true', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 9999, isIntake: 'false', isArchived: 'true', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                         marketerId: providerContact.marketerId,
                         referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                       _streamController.add(data);
@@ -113,8 +113,16 @@ class RefferalArchievedScreen extends StatelessWidget {
                     if(snapshot.hasData){
                       print(">>>>>>Number of items aaaaa: ${snapshot.data!.length}");
                       final items = snapshot.data!;
-                      final totalItems = items.length; // ideally should come from API
+                      final totalItems = items.length;
                       final totalPages = (totalItems / itemsPerPage).ceil();
+                      //final currentPage = archievedProvider.currentPageaa;
+
+                      // ✅ Slice the data
+                      final paginatedItems = items
+                          .skip((currentPage - 1) * itemsPerPage)
+                          .take(itemsPerPage)
+                          .toList();
+
                       return Column(
                         children: [
                           Flexible(
@@ -123,10 +131,9 @@ class RefferalArchievedScreen extends StatelessWidget {
                               behavior: ScrollConfiguration.of(context)
                                   .copyWith(scrollbars: false),
                               child: ListView.builder(
-                                itemCount: snapshot.data!.length,
-                                  shrinkWrap: true,
-                                //  physics: NeverScrollableScrollPhysics(),
+                                itemCount: paginatedItems.length, // ✅ Correct count
                                 itemBuilder: (BuildContext context, int index) {
+                                  final archieved = paginatedItems[index];
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 7,),
                                     child: Container(
@@ -206,15 +213,15 @@ class RefferalArchievedScreen extends StatelessWidget {
                                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 ClipOval(
-                                                  child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                                      snapshot.data![index].ptImgUrl == null
+                                                  child: archieved.ptImgUrl == 'imgurl' ||
+                                                      archieved.ptImgUrl == null
                                                       ? CircleAvatar(
                                                     radius: 22,
                                                     backgroundColor: Colors.transparent,
                                                     child: Image.asset("images/profilepic.png"),
                                                   )
                                                       : Image.network(
-                                                    snapshot.data![index].ptImgUrl!,
+                                                    archieved.ptImgUrl!,
                                                     loadingBuilder: (context, child, loadingProgress) {
                                                       if (loadingProgress == null) {
                                                         return child;
@@ -249,7 +256,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       Text(
-                                                        "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
+                                                        "${archieved.ptFirstName} ${archieved.ptLastName}",
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon
                                                             .commonStyle(
@@ -261,7 +268,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                       ),
                                                       SizedBox(height: AppSize.s5,),
                                                       Text(
-                                                        "Referral Date:  ${snapshot.data![index].ptRefferalDate}",
+                                                        "Referral Date:  ${archieved.ptRefferalDate}",
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon.commonStyle(
                                                           fontSize: FontSize.s11,
@@ -274,8 +281,8 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                         height: AppSize.s2,
                                                       ),
                                                       Text(
-                                                        snapshot.data![index].intakeTime != null
-                                                            ? DateFormat.jm().format(DateTime.parse(snapshot.data![index].intakeTime!))
+                                                        archieved.intakeTime != null
+                                                            ? DateFormat.jm().format(DateTime.parse(archieved.intakeTime!))
                                                             : '',
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon
@@ -334,7 +341,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                         height: AppSize.s4,
                                                       ),
                                                       Text(
-                                                        snapshot.data![index].referralSource.sourceName,
+                                                        archieved.referralSource.sourceName,
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon
                                                             .commonStyle(
@@ -369,7 +376,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                         height: AppSize.s4,
                                                       ),
                                                       Text(
-                                                        "${snapshot.data![index].pcp.phyFirstName} ${snapshot.data![index].pcp.phyLastName}",
+                                                        "${archieved.pcp.phyFirstName} ${archieved.pcp.phyLastName}",
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon
                                                             .commonStyle(
@@ -403,8 +410,8 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                       SizedBox(
                                                         height: AppSize.s4,
                                                       ),
-                                                      Text( snapshot.data![index].patientDiagnoses.isEmpty ? "--" :
-                                                        snapshot.data![index].patientDiagnoses[0].dgnName,
+                                                      Text( archieved.patientDiagnoses.isEmpty ? "--" :
+                                                      archieved.patientDiagnoses[0].dgnName,
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon
                                                             .commonStyle(
@@ -436,15 +443,15 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                 ),
                                                 // SizedBox(width: AppSize.s30),
                                                 ClipOval(
-                                                  child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                                      snapshot.data![index].ptImgUrl == null
+                                                  child: archieved.ptImgUrl == 'imgurl' ||
+                                                      archieved.ptImgUrl == null
                                                       ? CircleAvatar(
                                                     radius: 23,
                                                     backgroundColor: Colors.transparent,
                                                     child: Image.asset("images/profilepic.png"),
                                                   )
                                                       : Image.network(
-                                                    snapshot.data![index].marketer.imgurl,
+                                                    archieved.marketer.imgurl,
                                                     loadingBuilder: (context, child, loadingProgress) {
                                                       if (loadingProgress == null) {
                                                         return child;
@@ -475,7 +482,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                 Expanded(
                                                   flex: 3,
                                                   child: Text(
-                                                    "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
+                                                    "${archieved.marketer.firstName} ${archieved.marketer.lastName}",
                                                     textAlign: TextAlign.center,
                                                     style: DocDefineTableData.customTextStyle(context),
                                                   ),
@@ -486,7 +493,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                   onTap: () async {
                                                     try {
                                                       onEyeButtonPressed();
-                                                      providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
+                                                      providerReferrals.passPatientId(patientIdNo: archieved.ptId);
                                                     } catch (e) {
                                                       print("Error: $e");
                                                     }
@@ -543,7 +550,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                 InkWell(
                                                   onTap: () async{
                                                     var response = await updateReferralPatient(context: context,
-                                                        patientId:  snapshot.data![index].ptId, isIntake: false,
+                                                        patientId:  archieved.ptId, isIntake: false,
                                                         isArchived: false,
                                                         isUpdatePatiendData: false);
                                                     if(response.statusCode == 200 || response.statusCode == 201){
@@ -709,15 +716,15 @@ class RefferalArchievedScreen extends StatelessWidget {
                             itemsPerPage: itemsPerPage,
                             onPreviousPagePressed: () {
                               if (currentPage > 1) {
-                                pageProvider.setCurrentPage(currentPage - 1);
+                                archievedProvider.aaCurrentPage(currentPage - 1);
                               }
                             },
                             onPageNumberPressed: (pageNumber) {
-                              pageProvider.setCurrentPage(pageNumber);
+                              archievedProvider.aaCurrentPage(pageNumber);
                             },
                             onNextPagePressed: () {
                               if (currentPage < totalPages) {
-                                pageProvider.setCurrentPage(currentPage + 1);
+                                archievedProvider.aaCurrentPage(currentPage + 1);
                               }
                             },
                           ),
@@ -726,7 +733,6 @@ class RefferalArchievedScreen extends StatelessWidget {
                     }else {
                       return const SizedBox();
                     }
-
                   }
                 ),
               ),

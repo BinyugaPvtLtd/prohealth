@@ -43,13 +43,13 @@ class RefferalPendingScreen extends StatelessWidget {
     'E-Referrals',
     'Manual',
   ];
-  final int itemsPerPage = 20;
+  final int itemsPerPage = 10;
   final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
 
   @override
   Widget build(BuildContext context) {
     final pageProvider = Provider.of<SmIntakeProviderManager>(context);
-    final currentPage = pageProvider.currentPage;
+    //final currentPage = pageProvider.currentPage;
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     TextEditingController _searchController = TextEditingController();
@@ -60,10 +60,7 @@ class RefferalPendingScreen extends StatelessWidget {
               const EdgeInsets.only(left: 60, right: 60, top: 10, bottom: 30),
           child: Column(
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: [
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,119 +103,11 @@ class RefferalPendingScreen extends StatelessWidget {
                   )
                 ],
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Container(
-              //       height: AppSize.s30,
-              //       child: CustomIconButton(
-              //         color: ColorManager.bluebottom,
-              //         icon: Icons.add,
-              //         textWeight: FontWeight.w600,
-              //         textSize: FontSize.s11,
-              //         text: "Add Refferal",
-              //         onPressed: ()async{},
-              //       ),
-              //     ),
-              //     SizedBox(width: AppSize.s10,),
-              //     SmDropdownConst(
-              //       height: AppSize.s30,
-              //       width:AppSize.s150,
-              //       isAstric:false,
-              //       // Adjust headText based on depId
-              //       initialValue: 'Office',
-              //       headText: "", // Default fallback if depId doesn't match any of the expected values
-              //       items: ['Office 1','Office 2','Office 3'],
-              //       onChanged: (newValue) {
-              //         // for (var a in snapshot.data!) {
-              //         //   if (a.empType == newValue) {
-              //         //     clinicialName = a.empType!;
-              //         //     clinicalId = a.employeeTypesId!;
-              //         //     print("Dept ID'''''' ${clinicalId}");
-              //         //     print("';';';''''''''Dept ID ${clinicialName}");
-              //         //     // Do something with docType
-              //         //   }
-              //         // }
-              //       },
-              //     ),
-              //     SizedBox(width: AppSize.s10,),
-              //     SmDropdownConst(
-              //      height: AppSize.s30,
-              //       width:AppSize.s150,
-              //       isAstric:false,
-              //       // Adjust headText based on depId
-              //       initialValue: 'All',
-              //       headText: "", // Default fallback if depId doesn't match any of the expected values
-              //       items: ['All','Referral App','E-Fax','E-Referrals','Manual',],
-              //       onChanged: (newValue) {
-              //         // for (var a in snapshot.data!) {
-              //         //   if (a.empType == newValue) {
-              //         //     clinicialName = a.empType!;
-              //         //     clinicalId = a.employeeTypesId!;
-              //         //     print("Dept ID'''''' ${clinicalId}");
-              //         //     print("';';';''''''''Dept ID ${clinicialName}");
-              //         //     // Do something with docType
-              //         //   }
-              //         // }
-              //       },
-              //     ),
-              //
-              //   ],
-              // ),
-              //   ],
-              // ),
+
               SizedBox(
                 height: AppSize.s20,
               ),
-              // Row(
-              //   children: [
-              //     Text("Received Date",
-              //         style: TextStyle(
-              //             color: ColorManager.textBlack,
-              //             fontSize: FontSize.s12,
-              //             fontWeight: FontWeight.w400)),
-              //     SizedBox(
-              //       width: AppSize.s15,
-              //     ),
-              //     Image.asset(
-              //       "images/sm/sm_refferal/refferal_arrow.png",
-              //       height: IconSize.I14,
-              //       width: IconSize.I16,
-              //     ),
-              //     SizedBox(
-              //       width: AppSize.s50,
-              //     ),
-              //     Text("Hospitals",
-              //         style: TextStyle(
-              //             color: ColorManager.textBlack,
-              //             fontSize: FontSize.s12,
-              //             fontWeight: FontWeight.w400)),
-              //     SizedBox(
-              //       width: AppSize.s15,
-              //     ),
-              //     Image.asset(
-              //       "images/sm/sm_refferal/refferal_arrow.png",
-              //       height: IconSize.I14,
-              //       width: IconSize.I16,
-              //     ),
-              //     SizedBox(
-              //       width: AppSize.s50,
-              //     ),
-              //     Text("PCP",
-              //         style: TextStyle(
-              //             color: ColorManager.textBlack,
-              //             fontSize: FontSize.s12,
-              //             fontWeight: FontWeight.w400)),
-              //     SizedBox(
-              //       width: AppSize.s15,
-              //     ),
-              //     Image.asset(
-              //       "images/sm/sm_refferal/refferal_arrow.png",
-              //       height: IconSize.I14,
-              //       width: IconSize.I16,
-              //     ),
-              //   ],
-              // ),
+
               SizedBox(
                 height: AppSize.s20,
               ),
@@ -226,7 +115,10 @@ class RefferalPendingScreen extends StatelessWidget {
                 child: StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 20, isIntake: 'false', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                    getPatientReffrealsData(context: context,
+                        pageNo: 1, nbrOfRows: 9999,
+                       // pageNo: currentPage, nbrOfRows: itemsPerPage,
+                        isIntake: 'false', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                         marketerId: providerContact.marketerId,
                         referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                       _streamController.add(data);
@@ -255,17 +147,28 @@ class RefferalPendingScreen extends StatelessWidget {
                     }
                     if(snapshot.hasData){
                       print(">>>>>>Number of items ppp : ${snapshot.data!.length}");
+
                       final items = snapshot.data!;
-                      final totalItems = items.length; // ideally should come from API
+                      final totalItems = items.length;
                       final totalPages = (totalItems / itemsPerPage).ceil();
+                      final currentPage = pageProvider.currentPage;
+
+                      // ✅ Slice the data
+                      final paginatedItems = items
+                          .skip((currentPage - 1) * itemsPerPage)
+                          .take(itemsPerPage)
+                          .toList();
+
                       return Column(
                         children: [
                           Expanded(
                             child: ScrollConfiguration(
                               behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                               child: ListView.builder(
-                                itemCount: snapshot.data!.length,
+                                itemCount: paginatedItems.length, // ✅ Correct count
                                 itemBuilder: (BuildContext context, int index) {
+                                  final item = paginatedItems[index]; // ✅ Use paginated item
+
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 7,
@@ -299,7 +202,12 @@ class RefferalPendingScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           border:  Border(
                                             left: BorderSide(
-                                              color: snapshot.data![index].thresould == 0 ? ColorManager.greenDark : snapshot.data![index].thresould == 1 ?const Color(0xFFFEBD4D):ColorManager.red,
+                                              color: item.thresould == 0
+                                                  ? ColorManager.greenDark
+                                                  : item.thresould == 1
+                                                  ? const Color(0xFFFEBD4D)
+                                                  : ColorManager.red,
+                                             // color: snapshot.data![index].thresould == 0 ? ColorManager.greenDark : snapshot.data![index].thresould == 1 ?const Color(0xFFFEBD4D):ColorManager.red,
                                               width: 6,
                                             ),
                                           ),
@@ -315,7 +223,9 @@ class RefferalPendingScreen extends StatelessWidget {
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
-                                                  snapshot.data![index].isPotential ?   Container(
+                                                  //snapshot.data![index].isPotential ?
+                                                  item.isPotential ?
+                                                  Container(
                                                       width: AppSize.s105,
                                                       height: AppSize.s16,
                                                       decoration: BoxDecoration(
@@ -342,16 +252,16 @@ class RefferalPendingScreen extends StatelessWidget {
                                                 children: [
                                                   /// Include image to Referral Source
                                                   ClipOval(
-                                                    child: (snapshot.data![index].ptImgUrl == null ||
-                                                        snapshot.data![index].ptImgUrl == '' ||
-                                                        snapshot.data![index].ptImgUrl == 'imgurl')
+                                                    child:
+                                                    // (snapshot.data![index].ptImgUrl == null ||//     snapshot.data![index].ptImgUrl == '' ||//     snapshot.data![index].ptImgUrl == 'imgurl')
+                                                    (item.ptImgUrl == null || item.ptImgUrl == '' || item.ptImgUrl == 'imgurl')
                                                         ? CircleAvatar(
                                                       radius: 22,
                                                       backgroundColor: Colors.transparent,
                                                       child: Image.asset("images/profilepic.png"),
                                                     )
                                                         : Image.network(
-                                                      snapshot.data![index].ptImgUrl!,
+                                                      item.ptImgUrl!,
                                                       height: 40,
                                                       width: 40,
                                                       fit: BoxFit.cover,
@@ -432,7 +342,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                       MainAxisAlignment.center,
                                                       children: [
                                                         Text(
-                                                          "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
+                                                          "${item.ptFirstName} ${item.ptLastName}",
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon
                                                               .commonStyle(
@@ -446,7 +356,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                           height: AppSize.s5,
                                                         ),
                                                         Text(
-                                                          "Received Date :  ${snapshot.data![index].ptRefferalDate}",
+                                                          "Received Date :  ${item.ptRefferalDate}",
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon.commonStyle(
                                                             fontSize: FontSize.s11,
@@ -458,9 +368,10 @@ class RefferalPendingScreen extends StatelessWidget {
                                                           height: AppSize.s2,
                                                         ),
                                                         Text(
-                                                          snapshot.data![index].intakeTime != null
-                                                              ? DateFormat.jm().format(DateTime.parse(snapshot.data![index].intakeTime!))
-                                                              : '',
+                                                          DateFormat.jm().format(snapshot.data![index].createdAt),
+                                                          // item.intakeTime != null
+                                                          //     ? DateFormat.jm().format(DateTime.parse(item.intakeTime!))
+                                                          //     : '',
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon.commonStyle(
                                                             fontSize: FontSize.s11,
@@ -475,7 +386,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   // SizedBox(width: AppSize.s30),
                                                   Expanded(
                                                     flex: 2,
-                                                    child: Text("Ch #${snapshot.data![index].ptChartNo.toString()}",
+                                                    child: Text("Ch #${item.ptChartNo.toString()}",
                                                         textAlign: TextAlign.left,
                                                         style: CustomTextStylesCommon.commonStyle(
                                                           fontSize: FontSize.s12,
@@ -505,7 +416,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                           height: AppSize.s4,
                                                         ),
                                                         Text(
-                                                          snapshot.data![index].referralSource.sourceName,
+                                                          item.referralSource.sourceName,
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon
                                                               .commonStyle(
@@ -542,7 +453,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                           height: AppSize.s4,
                                                         ),
                                                         Text(
-                                                         "${snapshot.data![index].pcp.phyFirstName} ${snapshot.data![index].pcp.phyLastName}",
+                                                         "${item.pcp.phyFirstName} ${item.pcp.phyLastName}",
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon
                                                               .commonStyle(
@@ -577,8 +488,8 @@ class RefferalPendingScreen extends StatelessWidget {
                                                         SizedBox(
                                                           height: AppSize.s4,
                                                         ),
-                                                        Text(snapshot.data![index].patientDiagnoses.isEmpty ? "--":
-                                                          snapshot.data![index].patientDiagnoses[0].dgnName,
+                                                        Text(item.patientDiagnoses.isEmpty ? "--":
+                                                        item.patientDiagnoses[0].dgnName,
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon
                                                               .commonStyle(
@@ -622,7 +533,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                               child: Padding(
                                                 padding: const EdgeInsets.only(right: 5),
                                                 child: SizedBox(child: Center(child:  Image.network(
-                                                  snapshot.data![index].referralSource.referralSourceImgUrl,
+                                                  item.referralSource.referralSourceImgUrl,
                                                   width: 90,
                                                   fit: BoxFit.contain,
                                                   errorBuilder: (context, error, stackTrace) {
@@ -671,15 +582,15 @@ class RefferalPendingScreen extends StatelessWidget {
                                             ),
                                             //SizedBox(width: AppSize.s15),
                                             ClipOval(
-                                              child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                                  snapshot.data![index].ptImgUrl == null
+                                              child: item.ptImgUrl == 'imgurl' ||
+                                                  item.ptImgUrl == null
                                                   ? CircleAvatar(
                                                 radius: 23,
                                                 backgroundColor: Colors.transparent,
                                                 child: Image.asset("images/profilepic.png"),
                                               )
                                                   : Image.network(
-                                                snapshot.data![index].marketer.imgurl,
+                                                item.marketer.imgurl,
                                                 loadingBuilder: (context, child, loadingProgress) {
                                                   if (loadingProgress == null) {
                                                     return child;
@@ -724,7 +635,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                               child: Padding(
                                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                                 child: Text(
-                                                  "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
+                                                  "${item.marketer.firstName} ${item.marketer.lastName}",
                                                   textAlign: TextAlign.center,
                                                   style: DocDefineTableData
                                                       .customTextStyle(context),
@@ -737,7 +648,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                     onTap: () async {
                                                       try {
                                                         onEyeButtonPressed();
-                                                        providerReferrals.passPatientId(patientIdNo: snapshot.data![index].ptId);
+                                                        providerReferrals.passPatientId(patientIdNo: item.ptId);
                                                       } catch (e) {
                                                         print("Error: $e");
                                                       }
@@ -780,7 +691,7 @@ class RefferalPendingScreen extends StatelessWidget {
 
                                                         var response = await updateReferralPatient(context: context,
                                                             isUpdatePatiendData: false,
-                                                            patientId:  snapshot.data![index].ptId, isIntake: true, isArchived: false);
+                                                            patientId:  item.ptId, isIntake: true, isArchived: false);
                                                         if(response.statusCode == 200 || response.statusCode == 201){
                                                           //onMoveToIntake();
                                                           showDialog(
@@ -863,7 +774,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                           onTap: () async{
                                                             var response = await updateReferralPatient(context: context,
                                                                 isUpdatePatiendData: false,
-                                                                patientId:  snapshot.data![index].ptId, isIntake: false, isArchived: true);
+                                                                patientId:  item.ptId, isIntake: false, isArchived: true);
                                                             if(response.statusCode == 200 || response.statusCode == 201){
                                                              Navigator.pop(context);
                                                              showDialog(
@@ -914,22 +825,22 @@ class RefferalPendingScreen extends StatelessWidget {
                           const SizedBox(height: AppSize.s10),
                           // Pagination Controls
                           PaginationControlsWidget(
-                            currentPage: currentPage,
-                            items: items,
-                            itemsPerPage: itemsPerPage,
-                            onPreviousPagePressed: () {
-                              if (currentPage > 1) {
-                                pageProvider.setCurrentPage(currentPage - 1);
-                              }
-                            },
-                            onPageNumberPressed: (pageNumber) {
-                              pageProvider.setCurrentPage(pageNumber);
-                            },
-                            onNextPagePressed: () {
-                              if (currentPage < totalPages) {
-                                pageProvider.setCurrentPage(currentPage + 1);
-                              }
-                            },
+                              currentPage: currentPage,
+                              items: items, // Full list passed here
+                              itemsPerPage: itemsPerPage,
+                              onPreviousPagePressed: () {
+                                if (currentPage > 1) {
+                                  pageProvider.setCurrentPage(currentPage - 1);
+                                }
+                              },
+                              onPageNumberPressed: (pageNumber) {
+                                pageProvider.setCurrentPage(pageNumber);
+                              },
+                              onNextPagePressed: () {
+                                if (currentPage < totalPages) {
+                                  pageProvider.setCurrentPage(currentPage + 1);
+                                }
+                              },
                           ),
                         ],
                       );
