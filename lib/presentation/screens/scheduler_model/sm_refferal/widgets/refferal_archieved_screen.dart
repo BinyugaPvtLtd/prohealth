@@ -53,7 +53,7 @@ class RefferalArchievedScreen extends StatelessWidget {
       children: [
         Padding(
           padding:
-              const EdgeInsets.only(left: 60, right: 60, top: 10, bottom: 10),
+              const EdgeInsets.only(left: 60, right: 60, top: 10,),
           child: Column(
             children: [
 
@@ -83,7 +83,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                 child: StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 9999, isIntake: 'false', isArchived: 'true', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 9999, isIntake: 'false', isArchived: 'true', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                         marketerId: providerContact.marketerId,
                         referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                       _streamController.add(data);

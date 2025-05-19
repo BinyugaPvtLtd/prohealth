@@ -43,7 +43,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 60,right: 60, top: 10,bottom: 10),
+          padding: const EdgeInsets.only(left: 60,right: 60, top: 10),
           child: Column(
             children: [
               Row(
@@ -88,7 +88,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                 child: StreamBuilder<List<PatientModel>>(
                     stream: _streamController.stream,
                     builder: (context,snapshot) {
-                      getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 9999, isIntake: 'true', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                      getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 9999, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                           marketerId: providerContact.marketerId,
                           referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                         _streamController.add(data);

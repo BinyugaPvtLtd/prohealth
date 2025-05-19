@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -251,6 +252,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
               desciplineModelAbbrivation.add(a.abbreviation);
               desciplineModelAbbrivationColor.add(a.color);
             }
+            String formattedCreatedTime = DateFormat.jm().format(snapshot.data!.createdAt);
             patientInsuranceId = snapshot.data!.fk_rpti_id;
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 30),
@@ -356,7 +358,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                           color: ColorManager.mediumgrey,),
                                       ),
                                       Text(
-                                        "Received Date: ${snapshot.data!.ptRefferalDate}  | ${ snapshot.data!.intakeTime}",
+                                        "Received Date: ${snapshot.data!.ptRefferalDate}  | $formattedCreatedTime",
                                         textAlign: TextAlign.center,
                                         style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                           fontWeight: FontWeight.w400,

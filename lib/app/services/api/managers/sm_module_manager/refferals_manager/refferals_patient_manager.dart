@@ -17,6 +17,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
   required int nbrOfRows,
   required String isIntake,
   required String isArchived,
+  required String isScheduled ,
   required String searchName,
   required String marketerId,
   required String referralSourceId,
@@ -38,7 +39,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
 
   try {
     final response = await Api(context).get(
-      path: PatientRefferalsRepo.getPatientRefferals(pageNo: pageNo, nbrOfRows: nbrOfRows, isIntake: isIntake, isArchived: isArchived,searchName: searchName, marketerId: marketerId, referralSourceId: referralSourceId, pcpId: pcpId, ),
+      path: PatientRefferalsRepo.getPatientRefferals(pageNo: pageNo, nbrOfRows: nbrOfRows, isIntake: isIntake, isArchived: isArchived, isScheduled: isScheduled, searchName: searchName, marketerId: marketerId, referralSourceId: referralSourceId, pcpId: pcpId, ),
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {

@@ -68,10 +68,11 @@ class _NewPasswordScreenWebState extends State<NewPasswordScreenWeb> {
   Widget build(BuildContext context) {
     return LoginBaseConstant(
       onTap: () {
-        Navigator.push(
-          context,
-          RouteTransitions.slideTransition(page: LoginScreen()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        // Navigator.push(
+        //   context,
+        //   RouteTransitions.slideTransition(page: LoginScreen()),
+        // );
       },
       textAction: AppString.backtologin,
       titleText: AppString.newPass,
