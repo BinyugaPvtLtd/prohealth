@@ -1455,7 +1455,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               onTap: ()async{
                                 FilePickerResult? result = await FilePicker.platform.pickFiles(
                                   type: FileType.custom,
-                                  allowedExtensions: ['svg', 'png', 'jpg', 'gif'],
+                                  allowedExtensions: ['svg', 'png', 'jpg', 'gif','pdf'],
                                 );
 
                                 if (result != null) {
