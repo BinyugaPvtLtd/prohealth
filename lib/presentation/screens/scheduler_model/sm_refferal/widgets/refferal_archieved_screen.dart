@@ -428,7 +428,22 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                   flex: 3,
                                                   child: Padding(
                                                     padding: const EdgeInsets.only(right: 5),
-                                                    child: SizedBox(child: Center(child: Image.asset('images/logo_login.png',width: 90,fit: BoxFit.contain,))),
+                                                    child: SizedBox(child: Center(child:  Image.network(
+                                                      archieved.referralSource.referralSourceImgUrl,
+                                                      width: 90,
+                                                      fit: BoxFit.contain,
+                                                      errorBuilder: (context, error, stackTrace) {
+                                                        return Image.asset(
+                                                          'images/logo_login.png', // fallback asset
+                                                          width: 90,
+                                                          fit: BoxFit.contain,
+                                                        );
+                                                      },
+                                                    ),
+                                                      // Image.network( snapshot.data![index].referralSource.referralSourceImgUrl
+                                                      // //  'images/logo_login.png',width: 90,fit: BoxFit.contain,
+                                                      // )
+                                                    )),
                                                   ),
                                                 ),
                                                 // SizedBox(

@@ -12,6 +12,7 @@ import 'package:prohealth/presentation/screens/login_module/login/login_screen.d
 
 import '../data/navigator_arguments/screen_arguments.dart';
 import '../presentation/screens/hr_module/hr_home_screen/hr_home_screen.dart';
+import '../presentation/screens/scheduler_model/widgets/responsive_screen_sm.dart';
 
 // class RoutesManager {
 //   String getArgumentTitle(BuildContext context) {
@@ -90,6 +91,9 @@ class RoutesManager {
       },
       HRHomeScreen.routeName: (context) {
         return HRHomeScreen();
+      },
+      SMHomeScreen.routeName: (context) {
+        return SMHomeScreen();
       },
       // CompanyIdentityScreen.routeName: (context) {
       //   return const CompanyIdentityScreen();

@@ -4,10 +4,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/sm_desktop_screen.dart';
 
+import '../../../../app/resources/screen_route_name.dart';
 import '../../../../app/resources/value_manager.dart';
 
 class ResponsiveScreenSM extends StatelessWidget {
    ResponsiveScreenSM({super.key});
+
   final ButtonSelectionSMController myController =
   Get.put(ButtonSelectionSMController());
 
@@ -34,18 +36,15 @@ class ResponsiveScreenSM extends StatelessWidget {
   }
 }
 
-class SMHomeScreen extends StatefulWidget {
-  const SMHomeScreen({super.key});
-
-
-  @override
-  State<SMHomeScreen> createState() => _EMHomeScreenState();
-}
-
-class _EMHomeScreenState extends State<SMHomeScreen> {
+class SMHomeScreen extends StatelessWidget {
+  static const String routeName = RouteStrings.smDesktop;
+   SMHomeScreen({super.key});
+  final ButtonSelectionSMController myController =
+  Get.put(ButtonSelectionSMController());
   @override
   Widget build(BuildContext context) {
-
+    myController.selectButton(0);
     return SMDesktopScreen();
   }
 }
+
