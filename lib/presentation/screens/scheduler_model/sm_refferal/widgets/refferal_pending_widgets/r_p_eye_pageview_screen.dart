@@ -1483,7 +1483,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                   type: FileType.custom,
                                   allowedExtensions: ['svg', 'png', 'jpg', 'gif'],
                                 );
-
                                 if (result != null) {
                                   setState(() {
                                     selectedFileName = result.files.single.name;
