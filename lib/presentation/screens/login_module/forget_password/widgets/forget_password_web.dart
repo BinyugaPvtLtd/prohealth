@@ -41,10 +41,11 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
   Widget build(BuildContext context) {
     return LoginBaseConstant(
         onTap: () {
-          Navigator.push(
-            context,
-            RouteTransitions.slideTransition(page: const LoginScreen()),
-          );
+          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          // Navigator.push(
+          //   context,
+          //   RouteTransitions.slideTransition(page: const LoginScreen()),
+          // );
         },
         titleText: AppString.forgotpassword,
         textAction: AppString.backtologin,

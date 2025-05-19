@@ -360,7 +360,6 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
-import 'package:prohealth/app/services/api/managers/sm_module_manager/scheduler/scheduler_create_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import 'package:prohealth/data/api_data/sm_data/scheduler_create_data/schedular_data.dart';
