@@ -773,12 +773,23 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                   controller: firstNameController,
                   cursorColor: Colors.black,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                    hintStyle: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeight.w300,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey,
+                        fontStyle: FontStyle.italic
+                    ),
                     hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 10),
                   ),
-                  style: TableSubHeading.customTextStyle(context),
+                  style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
+                      fontStyle: FontStyle.italic
+                  ),
                   //validator: widget.validator,
                   onTap: (){},
                   //validator: widget.validator,
@@ -1098,12 +1109,23 @@ SizedBox(height: 10,),
                                               controller: firstNameController,
                                               cursorColor: Colors.black,
                                               autovalidateMode: AutovalidateMode.onUserInteraction,
-                                              decoration: const InputDecoration(
+                                              decoration:  InputDecoration(
+                                                hintStyle: CustomTextStylesCommon.commonStyle(
+                                                    fontWeight: FontWeight.w300,
+                                                    fontSize: FontSize.s12,
+                                                    color: ColorManager.mediumgrey,
+                                                    fontStyle: FontStyle.italic
+                                                ),
                                                 hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
                                                 border: InputBorder.none,
                                                 contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
                                               ),
-                                              style: TableSubHeading.customTextStyle(context),
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: FontSize.s12,
+                                                  color: ColorManager.mediumgrey,
+                                                  fontStyle: FontStyle.italic
+                                              ),
                                               //validator: widget.validator,
                                               onTap: (){},
                                               //validator: widget.validator,
@@ -1162,42 +1184,6 @@ SizedBox(height: 10,),
   }
 }
 
-// class RNSOCPageview extends StatelessWidget {
-//   const RNSOCPageview({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 500,
-//       width: 200,
-//      // color: Colors.red,
-//       child: Column(
-//         children: [
-//           Row(
-//             children: [
-//               CustomSearchFieldSM(
-//                 onPressed: (){},
-//               ),
-//               SmDropdownConst(
-//                 height: AppSize.s36,
-//                 width:AppSize.s150,
-//                 isAstric:false,
-//                 // Adjust headText based on depId
-//                 initialValue: 'Filter by',
-//                 headText: "", // Default fallback if depId doesn't match any of the expected values
-//                 items: ['Filter by','Referral App','E-Fax','E-Referrals','Manual',],
-//                 onChanged: (newValue) {
-//                 },
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-
 ///
 class PTPageview extends StatefulWidget {
   const PTPageview({super.key});
@@ -1240,6 +1226,11 @@ class _PTPageviewState extends State<PTPageview> {
               Row(
                 children: [
                   CustomRadioListTile(value: "Auto-assign",
+                      style: selectedType == "Auto-assign" ? CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: FontSize.s13,
+                        color: ColorManager.bluebottom,
+                      ) : DocumentTypeDataStyle.customTextStyle(context),
                       groupValue: selectedType,
                       onChanged: (value) {
                         setState(() {
@@ -1247,13 +1238,13 @@ class _PTPageviewState extends State<PTPageview> {
                         });
                       }, title: "Auto-assign"),
           const SizedBox(width: 60,),
-                  CustomRadioListTile(value: "Sent Request",
+                  CustomRadioListTile(value: "Send Request",
                       groupValue: selectedType,
                       onChanged: (value) {
                         setState(() {
                           selectedType = value!;
                         });
-                      }, title: "Sent Request"),
+                      }, title: "Send Request"),
           
                 ],
               ),
@@ -1294,12 +1285,14 @@ class _PTPageviewState extends State<PTPageview> {
                       Row(
                         children: [
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Stack(
                                 children: [
                                   Container(
                                     width: AppSize.s60,
-                                    height: AppSize.s60,
+                                    height: AppSize.s50,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(60),
@@ -1307,8 +1300,8 @@ class _PTPageviewState extends State<PTPageview> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(60),
                                       child: SizedBox(
-                                        width: AppSize.s45,
-                                        height: AppSize.s45,
+                                        width: AppSize.s50,
+                                        height: AppSize.s50,
                                         child: Image.asset(
                                           'images/1.png',
                                           fit: BoxFit.cover,
@@ -1341,7 +1334,7 @@ class _PTPageviewState extends State<PTPageview> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 20),
                               Text(
                                 " ",
                                 style: TextStyle(
@@ -1352,7 +1345,7 @@ class _PTPageviewState extends State<PTPageview> {
                               ),
                             ],
                           ),
-                          const SizedBox(width: 10),
+                          const SizedBox(width: 20),
                           Flexible(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1773,12 +1766,23 @@ class _PTPageviewState extends State<PTPageview> {
               controller: firstNameController,
               cursorColor: Colors.black,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                hintStyle: CustomTextStylesCommon.commonStyle(
+                    fontWeight: FontWeight.w300,
+                    fontSize: FontSize.s12,
+                    color: ColorManager.mediumgrey,
+                    fontStyle: FontStyle.italic
+                ),
                 hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
               ),
-              style: TableSubHeading.customTextStyle(context),
+              style: CustomTextStylesCommon.commonStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: FontSize.s12,
+                  color: ColorManager.mediumgrey,
+                  fontStyle: FontStyle.italic
+              ),
               //validator: widget.validator,
               onTap: (){},
               //validator: widget.validator,
@@ -1872,6 +1876,11 @@ class _OTPageviewState extends State<OTPageview> {
               Row(
                 children: [
                   CustomRadioListTile(value: "Auto-assign",
+                      style: selectedType == "Auto-assign" ? CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: FontSize.s13,
+                        color: ColorManager.bluebottom,
+                      ) : DocumentTypeDataStyle.customTextStyle(context),
                       groupValue: selectedType,
                       onChanged: (value) {
                         setState(() {
@@ -1879,13 +1888,13 @@ class _OTPageviewState extends State<OTPageview> {
                         });
                       }, title: "Auto-assign"),
                   const SizedBox(width: 60,),
-                  CustomRadioListTile(value: "Sent Request",
+                  CustomRadioListTile(value: "Send Request",
                       groupValue: selectedType,
                       onChanged: (value) {
                         setState(() {
                           selectedType = value!;
                         });
-                      }, title: "Sent Request"),
+                      }, title: "Send Request"),
 
                 ],
               ),
@@ -1931,7 +1940,7 @@ class _OTPageviewState extends State<OTPageview> {
                                 children: [
                                   Container(
                                     width: AppSize.s60,
-                                    height: AppSize.s60,
+                                    height: AppSize.s50,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(60),
@@ -1939,8 +1948,8 @@ class _OTPageviewState extends State<OTPageview> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(60),
                                       child: SizedBox(
-                                        width: AppSize.s45,
-                                        height: AppSize.s45,
+                                        width: AppSize.s50,
+                                        height: AppSize.s50,
                                         child: Image.asset(
                                           'images/1.png',
                                           fit: BoxFit.cover,
@@ -1973,7 +1982,7 @@ class _OTPageviewState extends State<OTPageview> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 20),
                               Text(
                                 " ",
                                 style: TextStyle(
@@ -1984,7 +1993,7 @@ class _OTPageviewState extends State<OTPageview> {
                               ),
                             ],
                           ),
-                          const SizedBox(width: 10),
+                          const SizedBox(width: 20),
                           Flexible(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -2113,12 +2122,23 @@ class _OTPageviewState extends State<OTPageview> {
               controller: firstNameController,
               cursorColor: Colors.black,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                hintStyle: CustomTextStylesCommon.commonStyle(
+                    fontWeight: FontWeight.w300,
+                    fontSize: FontSize.s12,
+                    color: ColorManager.mediumgrey,
+                    fontStyle: FontStyle.italic
+                ),
                 hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
+                contentPadding: const EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
               ),
-              style: TableSubHeading.customTextStyle(context),
+              style: CustomTextStylesCommon.commonStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: FontSize.s12,
+                color: ColorManager.mediumgrey,
+                fontStyle: FontStyle.italic
+              ),
               //validator: widget.validator,
               onTap: (){},
               //validator: widget.validator,

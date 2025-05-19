@@ -122,7 +122,7 @@ class CustomElevatedButton extends StatefulWidget {
   final double paddingHorizontal;
   final double width;
   final double height;
-  final TextStyle style;
+  final TextStyle? style;
   final Widget? child;
   final int? loadingDuration;
   bool? isSelectShow;
@@ -139,7 +139,7 @@ class CustomElevatedButton extends StatefulWidget {
     this.paddingHorizontal = 16.0,
     this.width = 150,
     this.height = 35.0,
-    this.style = const TextStyle(color: Colors.white),
+    this.style,
     this.child,  this.loadingDuration,
   }) : super(key: key);
 
@@ -183,7 +183,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         ),
         child: widget.text != null
             ? Text(widget.text!,
-            style: BlueButtonTextConst.customTextStyle(context))
+            style: widget.style ?? BlueButtonTextConst.customTextStyle(context))
             : widget.child,
       ),
     );

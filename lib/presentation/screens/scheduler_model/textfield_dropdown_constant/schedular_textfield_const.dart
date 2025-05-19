@@ -146,7 +146,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                       ),
                     child: TextFormField(
                       focusNode: widget.focusNode,
-                      autofocus: true,
+                      autofocus: false,
                       enabled: widget.enable == null ? true : false,
                       controller: widget.controller,
                      // keyboardType: widget.keyboardType,

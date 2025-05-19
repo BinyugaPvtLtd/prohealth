@@ -23,92 +23,123 @@ class ContactCallsScreen extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: ColorManager.white,
-                borderRadius: BorderRadius.circular(8),
-                  border: const Border(
-                top: BorderSide(color: Color(0xFF1696C8),width: 5)
-              ),
-                boxShadow: [
-                  BoxShadow(
-                    color: ColorManager.black.withOpacity(0.2),
-                    blurRadius: 2,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 2), // Downward shadow
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8)),
+              //     border: const Border(
+              //   top: BorderSide(color: Color(0xFF1696C8),width: 5)
+              // ),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey.shade300,
+                    width: 3,
                   ),
-                ],
+                  left: BorderSide(
+                    color: Colors.grey.shade300,
+                    width: 1,
+                  ),
+                  right: BorderSide(
+                    color: Colors.grey.shade300,
+                    width: 1,
+                  ),
+                ),
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: ColorManager.black.withOpacity(0.2),
+                //     blurRadius: 2,
+                //     spreadRadius: 1,
+                //     offset: const Offset(0, 2), // Downward shadow
+                //   ),
+               // ],
               ),
-              child: DefaultTabController(
-                length: 2,
-                initialIndex: providerState.initialIndex,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:  EdgeInsets.only(top: 10,bottom: 3,
-                          left: 25,//providerState.initialIndex == 1 ? 40 : 70,
-                          right: 25,// providerState.initialIndex == 1 ? 40 : 70
-                   ),
-                      child: TabBar(
-                        //padding: const EdgeInsets.symmetric(horizontal: 50),
-                        onTap: (index) {
-                          providerState.indexChnage(index);
+              child: Container(
+                //height: 6,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                     // bottomLeft: Radius.circular(12),
+                      //bottomRight: Radius.circular(12),
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8)),
+                      border: const Border(
+                    top: BorderSide(color: Color(0xFF1696C8),width: 5)
+                  ),
+                ),
+                child: DefaultTabController(
+                  length: 2,
+                  initialIndex: providerState.initialIndex,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding:  EdgeInsets.only(top: 10,bottom: 3,
+                            left: 25,//providerState.initialIndex == 1 ? 40 : 70,
+                            right: 25,// providerState.initialIndex == 1 ? 40 : 70
+                     ),
+                        child: TabBar(
+                          //padding: const EdgeInsets.symmetric(horizontal: 50),
+                          onTap: (index) {
+                            providerState.indexChnage(index);
 
-                    },
-                    indicatorWeight: 3,
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
-                    indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 1),
-                    indicator: BoxDecoration(
-                      color: ColorManager.SMFBlue, // Background color for selected tab
-                      borderRadius: BorderRadius.circular(8), // Optional
-                    ),
-                    indicatorSize: TabBarIndicatorSize.label,
-                    labelColor: ColorManager.textPrimaryColor,
-                    labelStyle: TextStyle(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    unselectedLabelColor: ColorManager.textPrimaryColor,
-                    dividerColor: Colors.black54,
-                    tabs: [
-                    providerState.isContactCallLive?  Tab(child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: 10,
-                        children: [
-                          Flexible(child: Icon(Icons.wifi_calling_3_outlined)),
-                          Flexible(child: Text("Live Call"))
-                        ],
-                      ),): const Tab(child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            spacing: 10,
-                            children: [
-                              Flexible(child: Icon(Icons.content_paste_search_outlined)),
-                              Flexible(child: Text("Transcripts"))
-                            ],
-                          ),),
-                          const Tab(
-                            child: Row(
+                      },
+                      indicatorWeight: 3,
+                      overlayColor: MaterialStateProperty.all(Colors.transparent),
+                      indicatorPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 1),
+                      indicator: BoxDecoration(
+                        color: ColorManager.SMFBlue, // Background color for selected tab
+                        borderRadius: BorderRadius.circular(8), // Optional
+                      ),
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelColor: ColorManager.textPrimaryColor,
+                      labelStyle: TextStyle(
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      unselectedLabelColor: ColorManager.textPrimaryColor,
+                      dividerColor: Colors.black54,
+                      tabs: [
+                      providerState.isContactCallLive?  Tab(child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 10,
+                          children: [
+                            Flexible(child: Icon(Icons.wifi_calling_3_outlined)),
+                            Flexible(child: Text("Live Call"))
+                          ],
+                        ),): const Tab(child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               spacing: 10,
                               children: [
-                                Flexible(child: Icon(Icons.history)),
-                                Flexible(child: Text("Transcription History"))
+                                Flexible(child: Icon(Icons.content_paste_search_outlined)),
+                                Flexible(child: Text("Transcripts"))
                               ],
                             ),),
-                        ],
+                            const Tab(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                spacing: 10,
+                                children: [
+                                  Flexible(child: Icon(Icons.history)),
+                                  Flexible(child: Text("Transcription History"))
+                                ],
+                              ),),
+                          ],
+                        ),
                       ),
-                    ),
 
-                    Expanded(
-                      child: TabBarView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                        providerState.isContactCallLive?const LiveCallTab():const CallTranscriptTab(),
-                          const CallTransictionTab(),
-                        ],
+                      Expanded(
+                        child: TabBarView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: [
+                          providerState.isContactCallLive?const LiveCallTab():const CallTranscriptTab(),
+                            const CallTransictionTab(),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -186,9 +217,9 @@ class LiveCallTab extends StatelessWidget {
                             },
                           ),
                           const CircleAvatar(
+                            backgroundColor: Colors.transparent,
                             radius: 25,
-                              backgroundImage:
-                              AssetImage('images/temp.jpg'),
+                              backgroundImage: AssetImage('images/temp.jpg'),
                           )
                         ],
                       ),
@@ -197,6 +228,7 @@ class LiveCallTab extends StatelessWidget {
                         spacing: 10,
                         children: [
                           const CircleAvatar(
+                            backgroundColor: Colors.transparent,
                             radius: 25,
                               backgroundImage:
                               AssetImage('images/tmp2.jpg'),
@@ -389,6 +421,7 @@ class CallTranscriptTab extends StatelessWidget {
                         Column(
                           children: [
                             const CircleAvatar(
+                              backgroundColor: Colors.transparent,
                               backgroundImage:
                               AssetImage('images/tmp2.jpg'), // Replace with your asset
                               radius: 23,
@@ -434,6 +467,7 @@ class CallTranscriptTab extends StatelessWidget {
                       if (message['isMe'])  Column(
                         children: [
                           const CircleAvatar(
+                            backgroundColor: Colors.transparent,
                             backgroundImage:
                             AssetImage('images/temp.jpg'), // Replace with your asset
                             radius: 23,

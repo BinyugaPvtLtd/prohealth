@@ -19,27 +19,57 @@ class ContactEFaxScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 10),
           child: Container(
-            decoration: BoxDecoration(
-              color: ColorManager.white,
-              borderRadius: BorderRadius.circular(8),
-              border: const Border(
-                  top: BorderSide(color: Color(0xFF1696C8),width: 5)
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: ColorManager.black.withOpacity(0.2),
-                  blurRadius: 2,
-                  spreadRadius: 1,
-                  offset: const Offset(0, 2), // Downward shadow
+              decoration: BoxDecoration(
+                color: ColorManager.white,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8)),
+                //     border: const Border(
+                //   top: BorderSide(color: Color(0xFF1696C8),width: 5)
+                // ),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey.shade300,
+                    width: 3,
+                  ),
+                  left: BorderSide(
+                    color: Colors.grey.shade300,
+                    width: 1,
+                  ),
+                  right: BorderSide(
+                    color: Colors.grey.shade300,
+                    width: 1,
+                  ),
                 ),
-              ],
-            ),
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: ColorManager.black.withOpacity(0.2),
+                //     blurRadius: 2,
+                //     spreadRadius: 1,
+                //     offset: const Offset(0, 2), // Downward shadow
+                //   ),
+                // ],
+              ),
+              child: Container(
+                //height: 6,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    // bottomLeft: Radius.circular(12),
+                    //bottomRight: Radius.circular(12),
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8)),
+                  border: const Border(
+                      top: BorderSide(color: Color(0xFF1696C8),width: 5)
+                  ),
+                ),
             child: DefaultTabController(
               length: 2,
               child: Column(
                 children: [
                   Container(
-                    width: 300,
+                    width: 320,
                     decoration: BoxDecoration(
                       color: ColorManager.white,
                       borderRadius: BorderRadius.circular(8),
@@ -98,7 +128,7 @@ class ContactEFaxScreen extends StatelessWidget {
                   ),
                 ],
               ),
-          ),
+          ), )
         )
         )
     );
@@ -296,19 +326,22 @@ class FaxHistoryTab extends StatelessWidget {
                             )
                           ],
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('2024/08/05',style: CustomTextStylesCommon.commonStyle(
-                              color:Color(0xFF686464),
-                              fontWeight: FontWeight.w400,fontSize: 12,
-                            ),),
-                            Text('8:17PM',style: CustomTextStylesCommon.commonStyle(
-                              color:Color(0xFF686464),
-                              fontWeight: FontWeight.w400,fontSize: 12,
-                            ),),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('2024/08/05',style: CustomTextStylesCommon.commonStyle(
+                                color:Color(0xFF686464),
+                                fontWeight: FontWeight.w400,fontSize: 12,
+                              ),),
+                              Text('8:17PM',style: CustomTextStylesCommon.commonStyle(
+                                color:Color(0xFF686464),
+                                fontWeight: FontWeight.w400,fontSize: 12,
+                              ),),
+                            ],
+                          ),
                         )
                     
                       ],

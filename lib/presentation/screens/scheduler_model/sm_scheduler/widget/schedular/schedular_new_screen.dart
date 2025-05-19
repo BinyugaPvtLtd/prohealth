@@ -3,11 +3,14 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widg
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/scheduled_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/soc_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/schedular_pending_patient_details.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../widgets/app_clickable_widget.dart';
 import '../../../../em_module/company_identity/company_identity_screen.dart';
+import '../../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 
 class NewSchedulerScreen extends StatefulWidget {
   const NewSchedulerScreen({super.key});
@@ -48,10 +51,15 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final providerState = Provider.of<SmIntakeProviderManager>(context, listen: false);
+    final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: isShowingPatientsDetailsPageview ?
-      SchedularPendingPatientDetails(onMergeBackPressed: goBackToInitialScreen,)
+      SchedularPendingPatientDetails(onMergeBackPressed: (){
+       // providerState.toogleAppBar();
+        goBackToInitialScreen();
+      },)
        : Column(
         children: [
           Row(
@@ -99,10 +107,16 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
                 children: [
                   // Page 1
                   PendingPageView(
-                    onAutoTap: switchToPatientsDetailsPageviweScreen,
+                    onAutoTap: (){
+                     // providerState.toogleAppBar();
+                      switchToPatientsDetailsPageviweScreen();
+                    },
                   ),
                   SocPageView(
-                    onAutoTap: switchToPatientsDetailsPageviweScreen,
+                    onAutoTap: (){
+                     // providerState.toogleAppBar();
+                      switchToPatientsDetailsPageviweScreen();
+                    },
                   ),
                   DisciplinePageView(),
                 ],

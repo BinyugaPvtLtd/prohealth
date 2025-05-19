@@ -561,10 +561,10 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                                         borderRadius: BorderRadius.circular(12),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.grey.withOpacity(0.2),
+                                            color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 0,
                                             blurRadius: 1,
-                                            offset: const Offset(0, 0.2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
 

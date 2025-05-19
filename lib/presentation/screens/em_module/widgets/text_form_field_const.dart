@@ -119,7 +119,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
             ),
             child: TextFormField(
               focusNode: widget.focusNode,
-              autofocus: true,
+              autofocus: false,
               enabled: widget.enable == null ? true : false,
               controller: widget.controller,
               keyboardType: widget.keyboardType,
@@ -586,7 +586,7 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: TextFormField(
-              autofocus: true,
+              autofocus: false,
               enabled: widget.enable ?? true,
               controller: widget.controller,
               onChanged: widget.onChanged,

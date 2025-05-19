@@ -10,7 +10,7 @@ import '../../../../../resources/const_string.dart';
 import '../../../../base64/encode_decode_base64.dart';
 import '../../../api.dart';
 import '../../../repository/sm_repository/refferals/patient_refferal_repo.dart';
-
+///get
 Future<List<PatientModel>> getPatientReffrealsData({
   required BuildContext context,
   required int pageNo,
@@ -43,16 +43,16 @@ Future<List<PatientModel>> getPatientReffrealsData({
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
+      //  String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
         // print(item.containsKey('pt_img_url')); // Should be true
         // print(item['pt_img_url']);             // Should not be null
 
         itemsData.add(PatientModel(
           is_selfPay: item['is_selfPay']??false,
           fk_rpti_id: item['fk_rpti_id']??0,
-          isPotential: item['is_potential_duplicate'] ?? false,
+          isPotential: item['potential_duplicate'] ?? false,
           thresould: item['threshold']??0,
-          ptTime: formatedTime,
+        //  ptTime: formatedTime,
           ptId: item['pt_id'],
           ptFirstName: item['pt_first_name'] ?? '',
           ptLastName: item['pt_last_name'] ?? '',
@@ -70,14 +70,16 @@ Future<List<PatientModel>> getPatientReffrealsData({
           fkPtDiscplines: List<int>.from(item['fk_pt_discplines'] ?? []),
           ptCoverageArea: item['pt_coverage_area'] ?? 0,
           isIntake: item['is_intake'] ?? false,
-          intakeTime: item['intake_time'] != null ? DateTime.tryParse(item['intake_time']) : null,
+          intakeTime:  item['intake_time']?.toString(), // != null ? DateTime.tryParse(item['intake_time']) : null,
           isArchieved: item['is_archieved'] ?? false,
           archievedTime: item['archieved_time'] != null ? DateTime.tryParse(item['archieved_time']) : null,
-          insuranceId: item['insurance_id'] ?? 0,
+         // insuranceId: item['insurance_id'] ?? 0,
           createdAt: DateTime.parse(item['created_at']),
           ptDateOfBirth: DateTime.parse(item['pt_date_of_birth']),
          // ptImgUrl: item['pt_img_url'] ?? '',
           ptImgUrl: item['pt_img_url']?.toString() ?? '',
+          fkempIdArchieved: item['fk_emp_id_archived'] ?? 0,
+          documentName: item['document_name'] ?? "",
           service: ServiceModel(
             srvId: item['service']['srv_id'],
             srvName: item['service']['srv_name'],
@@ -178,8 +180,35 @@ Future<List<PatientModel>> getPatientReffrealsData({
               departmentId: d['DepartmentId'],
             );
           }).toList(),
+
+            insurance: (item['patientInsurance'] as List).map((d){
+              return InsuranceModel(
+                  rptiId: d['rpti_id'],
+                  fkptId: d['fk_pt_id'],
+                  policy: d['rpti_policy'],
+                  insuranceProvider: d['rpti_insurance_provider'],
+                  insurancePlan: d['rpti_insurance_plan'],
+                  eligibility: d['rpti_eligibility'],
+                  authorization: d['rpti_authorization'],
+                  time: d['']);
+            }).toList()
+          // insurance: (item['patientInsurance'] as List).map((i) {
+          //   return InsuranceModel(
+          //     rptiId: item['patientInsurance']['rpti_id'] ?? 0,
+          //     fkptId: i['fk_pt_id'] ?? 0,
+          //     policy: i['rpti_policy'] ?? "",
+          //     insuranceProvider: i['rpti_insurance_provider'] ?? "",
+          //     insurancePlan: i['rpti_insurance_plan']?? "",
+          //     eligibility: i['rpti_eligibility']?? false,
+          //     authorization: i['rpti_authorization']?? false,
+          //     time: i['rpti_last_checked_time']?? "");
+          // }).toList(),
+
         ));
+      //  print("RPTI ID ::::::::::::::::::: ${item['patientInsurance']['rpti_id'].runtimeType}");
       }
+      // 👇 Add this line to print total fetched records
+      print("/////////Total records fetched from API: ${itemsData.length}");
     } else {
       print("patient referrals error");
     }
@@ -222,9 +251,9 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
         itemsData = PatientModel(
           is_selfPay: item['is_selfPay']??false,
           fk_rpti_id: item['fk_rpti_id']??0,
-          isPotential: item['is_potential_duplicate'] ?? false,
+          isPotential: item['potential_duplicate'] ?? false,
           thresould: item['threshold']??0,
-          ptTime: formatedTime,
+        //  ptTime: formatedTime,
           ptId: item['pt_id'],
           ptFirstName: item['pt_first_name'] ?? '',
           ptLastName: item['pt_last_name'] ?? '',
@@ -242,14 +271,15 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
           fkPtDiscplines: List<int>.from(item['fk_pt_discplines'] ?? []),
           ptCoverageArea: item['pt_coverage_area'] ?? 0,
           isIntake: item['is_intake'] ?? false,
-          intakeTime: item['intake_time'] != null ? DateTime.tryParse(item['intake_time']) : null,
+          intakeTime: item['intake_time'], // != null ? DateTime.tryParse(item['intake_time']) : null,
           isArchieved: item['is_archieved'] ?? false,
           archievedTime: item['archieved_time'] != null ? DateTime.tryParse(item['archieved_time']) : null,
-          insuranceId: item['insurance_id'] ?? 0,
+        //  insuranceId: item['insurance_id'] ?? 0,
           createdAt: DateTime.parse(item['created_at']),
           ptDateOfBirth: DateTime.parse(item['pt_date_of_birth']),
           ptImgUrl: item['pt_img_url'] ?? '',
-
+          fkempIdArchieved: item['fk_emp_id_archived'] ?? 0,
+          documentName: item['document_name'] ?? "",
           service: ServiceModel(
             srvId: item['service']['srv_id'],
             srvName: item['service']['srv_name'],
@@ -350,12 +380,35 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
               departmentId: d['DepartmentId'],
             );
           }).toList(),
+
+            insurance: (item['patientInsurance'] as List).map((d){
+              return InsuranceModel(
+                  rptiId: d['rpti_id'],
+                  fkptId: d['fk_pt_id'],
+                  policy: d['rpti_policy'],
+                  insuranceProvider: d['rpti_insurance_provider'],
+                  insurancePlan: d['rpti_insurance_plan'],
+                  eligibility: d['rpti_eligibility'],
+                  authorization: d['rpti_authorization'],
+                  time: d['rpti_last_checked_time'] ?? "");
+            }).toList()
+
+          // insurance: (item['patientInsurance'] as List).map((i) {
+          //   return InsuranceModel(
+          //       rptiId: item['patientInsurance']['rpti_id'] ?? 0,
+          //       fkptId: i['fk_pt_id'] ?? 0,
+          //       policy: i['rpti_policy'] ?? "",
+          //       insuranceProvider: i['rpti_insurance_provider'] ?? "",
+          //       insurancePlan: i['rpti_insurance_plan']?? "",
+          //       eligibility: i['rpti_eligibility']?? false,
+          //       authorization: i['rpti_authorization']?? false,
+          //       time: i['rpti_last_checked_time']?? "");
+          // }).toList(),
         );
     
     } else {
       print("patient referrals prefill error");
     }
-
     return itemsData;
   } catch (e) {
     print("error: $e");

@@ -24,25 +24,53 @@ class _ContactDocumentScreenState extends State<ContactDocumentScreen> {
         padding: const EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 10),
         child: Container(
          // height: MediaQuery.of(context).size.height * 0.6,
-          padding: const EdgeInsets.all(10),
-                decoration:BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: const Border(
-                      top: BorderSide(color: Color(0xFF1696C8),width: 5)
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: ColorManager.black.withOpacity(0.2),
-                      blurRadius: 2,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 2), // Downward shadow
-                    ),
-                  ],
+          //padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: ColorManager.white,
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8)),
+              //     border: const Border(
+              //   top: BorderSide(color: Color(0xFF1696C8),width: 5)
+              // ),
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.grey.shade300,
+                  width: 3,
                 ),
-
-
-          child: Padding(
+                left: BorderSide(
+                  color: Colors.grey.shade300,
+                  width: 1,
+                ),
+                right: BorderSide(
+                  color: Colors.grey.shade300,
+                  width: 1,
+                ),
+              ),
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: ColorManager.black.withOpacity(0.2),
+              //     blurRadius: 2,
+              //     spreadRadius: 1,
+              //     offset: const Offset(0, 2), // Downward shadow
+              //   ),
+              // ],
+            ),
+            child: Container(
+              //height: 6,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  // bottomLeft: Radius.circular(12),
+                  //bottomRight: Radius.circular(12),
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8)),
+                border: const Border(
+                    top: BorderSide(color: Color(0xFF1696C8),width: 5)
+                ),
+              ),
+              child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: SingleChildScrollView(
               child: Column(
@@ -291,7 +319,7 @@ class _ContactDocumentScreenState extends State<ContactDocumentScreen> {
                 ],
               ),
             ),
-          ),
+          ),)
         ),
       ),
     );

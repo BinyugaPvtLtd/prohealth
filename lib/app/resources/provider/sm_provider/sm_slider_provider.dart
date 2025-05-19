@@ -48,6 +48,31 @@ class SmIntakeProviderManager extends ChangeNotifier{
   String get referralSourceId => _referralSourceId;
   String get pcpId => _pcpId;
 
+
+
+
+  int _currentPagepp = 1;
+  int _currentPageaa = 1;
+  int _currentPagemm = 1;
+
+  int get currentPage => _currentPagepp;
+  int get currentPageaa => _currentPageaa;
+  int get currentPagemm => _currentPagemm;
+
+  void setCurrentPage(int pagepp) {
+    _currentPagepp = pagepp;
+    notifyListeners();
+  }
+
+  void aaCurrentPage(int pageaa) {
+    _currentPageaa = pageaa;
+    notifyListeners();
+  }
+  void mmCurrentPage(int pagemm) {
+    _currentPagemm = pagemm;
+    notifyListeners();
+  }
+
   void toogleContactProvider(){
     _isContactTrue = !_isContactTrue;
     notifyListeners();
@@ -139,3 +164,8 @@ class SmIntakeProviderManager extends ChangeNotifier{
   }
 
 }
+
+
+
+
+

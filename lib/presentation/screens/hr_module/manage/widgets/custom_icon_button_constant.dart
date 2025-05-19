@@ -76,13 +76,16 @@ class CustomButtonTransparent extends StatefulWidget {
    VoidCallback onPressed;
   final double? height;
   final double? width;
+  final double? borderRadius;
+  final TextStyle? style;
 
    CustomButtonTransparent({
     required this.text,
     required this.onPressed,
      this.height = AppSize.s35,
      this.width = AppSize.s100,
-    Key? key,
+     this.style,
+    Key? key, this.borderRadius = 12,
   }) : super(key: key);
 
   @override
@@ -116,13 +119,13 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           backgroundColor: ColorManager.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
             side: const BorderSide(color: Color(0xFF50B5E5)),
           ),
                 ),
                 child: Text(
           widget.text,
-          style: TransparentButtonTextConst.customTextStyle(context)
+          style: widget.style ?? TransparentButtonTextConst.customTextStyle(context)
                 ),
               ),
         );

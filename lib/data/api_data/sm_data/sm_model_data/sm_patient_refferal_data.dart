@@ -16,28 +16,32 @@ class PatientModel {
   final List<int> fkPtDiscplines;
   final int ptCoverageArea;
   final bool isIntake;
-  final DateTime? intakeTime;
+  final String? intakeTime;
   final bool isArchieved;
   final DateTime? archievedTime;
-  final int insuranceId;
+ // final int insuranceId;
   final DateTime createdAt;
   final DateTime ptDateOfBirth;
   final String? ptImgUrl;
   final int fk_rpti_id;
   final bool is_selfPay;
-  final String ptTime;
+  final int fkempIdArchieved;
+  final String documentName;
+  //final String ptTime;
   final ServiceModel service;
   final List<PatientDiagnosesModel> patientDiagnoses;
   final ReferralSourceModel referralSource;
   final PCPModel pcp;
   final MarketerModel marketer;
+  final List<InsuranceModel> insurance;
   final List<DisciplineModel> disciplines;
   final bool isPotential;
   final int thresould;
   PatientModel({required this.isPotential, required this.thresould,
     required this.is_selfPay,
     required this.fk_rpti_id,
-    required this.ptTime,
+    required this.fkempIdArchieved,
+   // required this.ptTime,
     required this.ptId,
     required this.ptFirstName,
     required this.ptLastName,
@@ -58,11 +62,13 @@ class PatientModel {
     this.intakeTime,
     required this.isArchieved,
     this.archievedTime,
-    required this.insuranceId,
+    //required this.insuranceId,
     required this.createdAt,
     required this.ptDateOfBirth,
     required this.ptImgUrl,
+    required this.documentName,
     required this.service,
+    required this.insurance,
     required this.patientDiagnoses,
     required this.referralSource,
     required this.pcp,
@@ -77,6 +83,19 @@ class ServiceModel {
   final String srvCode;
 
   ServiceModel({required this.srvId, required this.srvName, required this.srvCode});
+}
+
+
+class InsuranceModel {
+  final int rptiId;
+  final int fkptId;
+  final String policy;
+  final String insuranceProvider;
+  final String insurancePlan;
+  final bool eligibility;
+  final bool authorization;
+  final String? time;
+  InsuranceModel({required this.rptiId, required this.fkptId, required this.policy, required this.insuranceProvider, required this.insurancePlan, required this.eligibility, required this.authorization, this.time,});
 }
 
 class PatientDiagnosesModel {
