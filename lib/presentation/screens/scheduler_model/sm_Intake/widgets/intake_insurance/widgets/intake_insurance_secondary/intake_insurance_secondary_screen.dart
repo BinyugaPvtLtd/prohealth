@@ -848,7 +848,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                                     Icons.save_outlined,
                                                     color: ColorManager.mediumgrey,
                                                   ),
-                                                  iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
+                                                  iconSize: providerState.isContactTrue?IconSize.I18 :IconSize.I24,
                                                 ),
                                               ),
                                               const SizedBox(width: AppSize.s10,),
@@ -863,7 +863,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                                   splashColor: Colors.transparent,
                                                   highlightColor: Colors.transparent,
                                                   hoverColor: Colors.transparent,
-                                                  iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
+                                                  iconSize: providerState.isContactTrue?IconSize.I18 :IconSize.I24,
                                                 ),
                                               ),
                                               SizedBox(width: providerState.isContactTrue? 0 : AppSize.s30,),
@@ -1095,7 +1095,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
-                                          child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ?15 :22,)
+                                          child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ? IconSize.I18 :IconSize.I22,)
                                           ,onTap:(){},),
                                         // IconButton(
                                         //   splashColor: Colors.transparent,

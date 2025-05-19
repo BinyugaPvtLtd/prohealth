@@ -99,13 +99,13 @@ class IntakePrimaryScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 35),
                     child: BlueBGHeadConst(HeadText: "Policy Details"),
                   ),
                   IntakeFlowContainerConst(
                     height: providerstate.isContactTrue ?AppSize.s550 :AppSize.s400,
-                    containerPadding: providerstate.isContactTrue ? EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) : null,
+                    containerPadding: providerstate.isContactTrue ? const EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) : null,
                     //child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,11 +117,11 @@ class IntakePrimaryScreen extends StatelessWidget {
                                   child: CustomDropdownTextFieldsm(headText: 'Select from Database',items: ["A",'B'],
                                       onChanged: (newValue) {
                                       })),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaName, labelText: 'Name*')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaType,
@@ -139,39 +139,39 @@ class IntakePrimaryScreen extends StatelessWidget {
                                   // SchedularTextField(
                                   //     controller: pharmaSelectDB,
                                   //     labelText: 'Select from Database')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaName, labelText: 'Name*')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaType,
                                       labelText: 'Type*',
                                       )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     isIconVisible: true,
                                       controller: pharmaCategory, labelText: 'Category')),
-                              SizedBox(width: AppSize.s35),
-                              Flexible(
+                              const SizedBox(width: AppSize.s35),
+                              const Flexible(
                                   child: SizedBox()),
                             ],
                           ),
-                          SizedBox(height: AppSize.s16),
+                          const SizedBox(height: AppSize.s16),
                           providerstate.isContactTrue ? Row(
                             children: [
                               Flexible(
                                   child: SchedularTextField(
                                       isIconVisible: true,
                                       controller: pharmaCategory, labelText: 'Category')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmacyaddress,
                                       labelText: 'Street*')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaSuitApt,
@@ -184,12 +184,12 @@ class IntakePrimaryScreen extends StatelessWidget {
                                   child: SchedularTextField(
                                       controller: pharmacyaddress,
                                       labelText: 'Street*')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaSuitApt,
                                       labelText: 'Suite/Apt#')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                 child: FutureBuilder<List<CityData>>(
                                   future: getCityDropDown(context),
@@ -226,7 +226,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                 // child: SchedularTextField(
                                 //     controller: pharmacycity, labelText: 'City'),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                 child:FutureBuilder<List<StateData>>(
                                   future: getStateDropDown(context),
@@ -261,7 +261,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmacyzipcode,
@@ -271,7 +271,7 @@ class IntakePrimaryScreen extends StatelessWidget {
 
                             ],
                           ),
-                          SizedBox(height: AppSize.s16),
+                          const SizedBox(height: AppSize.s16),
                           providerstate.isContactTrue ?  Row(
                             children: [
                               Flexible(
@@ -310,7 +310,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                 // child: SchedularTextField(
                                 //     controller: pharmacycity, labelText: 'City'),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                 child:FutureBuilder<List<StateData>>(
                                   future: getStateDropDown(context),
@@ -345,7 +345,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmacyzipcode,
@@ -360,30 +360,30 @@ class IntakePrimaryScreen extends StatelessWidget {
                                       controller: pharmaphone,
                                       phoneField:true,
                                       labelText: 'Phone Number')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaAuth,
                                       labelText: 'Auth Status',
                                       )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaEftDateForm, labelText: 'Effective From',
                                   showDatePicker: true,)),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaEftDateFormTo, labelText: 'Effective to',
                                   showDatePicker: true,)),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: CustomDropdownTextFieldsm(headText: 'Eligibility Status',items: ['Santa Clara','A'],
                                       onChanged: (newValue) {
                                       })),
                             ],
                           ),
-                          SizedBox(height: AppSize.s16),
+                          const SizedBox(height: AppSize.s16),
                           providerstate.isContactTrue ?  Row(
                             children: [
                               Flexible(
@@ -391,13 +391,13 @@ class IntakePrimaryScreen extends StatelessWidget {
                                       controller: pharmaphone,
                                       phoneField:true,
                                       labelText: 'Phone Number')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaAuth,
                                     labelText: 'Auth Status',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaEftDateForm, labelText: 'Effective From',
@@ -410,23 +410,23 @@ class IntakePrimaryScreen extends StatelessWidget {
                                   child: SchedularTextField(
                                       controller: pharmaPolicyHicNo,
                                       labelText: 'Policy/HIC Number')),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaGrpNo,
                                     labelText: 'Group Number',
                                     )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaGrpName, labelText: 'Group Name',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaEmail, labelText: 'Primary Email',
                                     )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -435,7 +435,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         style:providerstate.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :SMTextfieldHeadings.customTextStyle(context)
                                         //AllPopupHeadings.customTextStyle(context)
                                         ),
-                                    SizedBox(height: 10),
+                                    const SizedBox(height: 10),
                                     Row(
                                       children: [
                                         Expanded(
@@ -470,26 +470,26 @@ class IntakePrimaryScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: AppSize.s16),
+                          const SizedBox(height: AppSize.s16),
                           providerstate.isContactTrue ?  Row(
                             children: [
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaEftDateFormTo, labelText: 'Effective to',
                                     showDatePicker: true,)),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: CustomDropdownTextFieldsm(headText: 'Eligibility Status',items: ['Santa Clara','A'],
                                       onChanged: (newValue) {
                                       })),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmaPolicyHicNo,
                                       labelText: 'Policy/HIC Number')),
                             ],
-                          ) : Offstage(),
-                          SizedBox(height: AppSize.s16),
+                          ) : const Offstage(),
+                          const SizedBox(height: AppSize.s16),
                           providerstate.isContactTrue ? Row(
                             children: [
                               Flexible(
@@ -497,19 +497,19 @@ class IntakePrimaryScreen extends StatelessWidget {
                                     controller: pharmaGrpNo,
                                     labelText: 'Group Number',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaGrpName, labelText: 'Group Name',
                                   )),
-                              SizedBox(width: AppSize.s35),
+                              const SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
                                     controller: pharmaEmail, labelText: 'Primary Email',
                                   )),
                             ],
-                          ) : Offstage(),
-                          SizedBox(height: AppSize.s16),
+                          ) : const Offstage(),
+                          const SizedBox(height: AppSize.s16),
                           providerstate.isContactTrue ?SizedBox(
                             width: 200,
                             child: Row(
@@ -523,7 +523,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                           style:providerstate.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :SMTextfieldHeadings.customTextStyle(context)
                                         //AllPopupHeadings.customTextStyle(context)
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       Row(
                                         children: [
                                           Expanded(
@@ -558,128 +558,132 @@ class IntakePrimaryScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ):Offstage(),
+                          ):const Offstage(),
                         ],
                       ),
                    // ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 35),
                     child: BlueBGHeadConst(HeadText: "Suggested Care & Diagnosis"),
                   ),
-                  SizedBox(height: AppSize.s40),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                  const SizedBox(height: AppSize.s40),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 35),
                     child: BlueBGHeadConst(HeadText: "Attachments"),
                   ),
-                  IntakeFlowContainerConst(
-                    height: AppSize.s200,
-                      containerPadding: providerstate.isContactTrue ? EdgeInsets.symmetric(horizontal: AppPadding.p0, vertical: AppPadding.p30) : null,
-                    //child: SingleChildScrollView(
+                  Container(
+                      height: AppSize.s200,
+                      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p40,vertical: AppPadding.p15 ),
+                      //child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Container(
-                          height: AppSize.s65,
-                          // padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
-                          decoration: BoxDecoration(
-                            color: ColorManager.white,
-                            // borderRadius: BorderRadius.circular(5),
-                            // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
-                            border: Border(
-                              bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey),
-                            ),//all(width: 1, color: Color(0xFFBCBCBC)),
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //     color: ColorManager.black.withOpacity(0.2),
-                            //     spreadRadius: 0,
-                            //     blurRadius: 4,
-                            //     offset: Offset(0, 4),
-                            //   ),
-                            // ],
-                          ),child:Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            VerticalDivider(
-                              color: Color(0xFF50B5E5),
-                              thickness: 4.5,
-                            ),
-                            SizedBox(width: AppSize.s20,),
-                            Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                Text('CWF.pdf',
-                                    style: DocDefineTableData.customTextStyle(context)),
-                                SizedBox(height: AppSize.s8,),
-                                Text("Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca",
-                                    style:  DocDefineTableDataID.customTextStyle(context)),
-                              ],
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              child: Image.asset("images/sm/telegram.png", height:  providerstate.isContactTrue?IconSize.I16 :IconSize.I22,),
-                              onTap: () {
-                              },
-                            ),
-                            SizedBox(width: AppSize.s10,),
-                            IconButton(
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              onPressed: () {
-                              },
-                              icon: Icon(
-                                Icons.print_outlined,
-                                color: Color(0xFF686464),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                          child: Container(
+                            height: AppSize.s65,
+                            // padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
+                            decoration: BoxDecoration(
+                              color: ColorManager.white,
+                              // borderRadius: BorderRadius.circular(5),
+                              // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
+                              border: Border(
+                                bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey),
+                              ),//all(width: 1, color: Color(0xFFBCBCBC)),
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //     color: ColorManager.black.withOpacity(0.2),
+                              //     spreadRadius: 0,
+                              //     blurRadius: 4,
+                              //     offset: Offset(0, 4),
+                              //   ),
+                              // ],
+                            ),child:Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                          Row(
+                            children: [
+                              const VerticalDivider(
+                                color: Color(0xFF50B5E5),
+                                thickness: 4.5,
                               ),
-                              iconSize: providerstate.isContactTrue?IconSize.I16 :IconSize.I22,
-                            ),
-                            SizedBox(width: AppSize.s10,),
-                            ///download
-                            IconButton(
-                              onPressed: () {
+                              const SizedBox(width: AppSize.s20,),
+                              Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.center,
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: [
+                                  Text('CWF.pdf',
+                                      style: DocDefineTableData.customTextStyle(context)),
+                                  const SizedBox(height: AppSize.s8,),
+                                  Text("Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca",
+                                      style:  DocDefineTableDataID.customTextStyle(context)),
+                                ],
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                child: Image.asset("images/sm/telegram.png", height:  providerstate.isContactTrue?IconSize.I18 :IconSize.I22,),
+                                onTap: () {
+                                },
+                              ),
+                              const SizedBox(width: AppSize.s10,),
+                              IconButton(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                onPressed: () {
+                                },
+                                icon: const Icon(
+                                  Icons.print_outlined,
+                                  color: Color(0xFF686464),
+                                ),
+                                iconSize: providerstate.isContactTrue?IconSize.I18 :IconSize.I22,
+                              ),
+                              const SizedBox(width: AppSize.s10,),
+                              ///download
+                              IconButton(
+                                onPressed: () {
 
-                              },
-                              icon: Icon(
-                                Icons.save_alt_outlined,
-                                color: Color(0xFF686464),
+                                },
+                                icon: const Icon(
+                                  Icons.save_alt_outlined,
+                                  color: Color(0xFF686464),
+                                ),
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                iconSize: providerstate.isContactTrue?IconSize.I18 :IconSize.I22,
                               ),
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              iconSize: providerstate.isContactTrue?IconSize.I16 :IconSize.I22,
-                            ),
-                            SizedBox(width: AppSize.s10,),
-                            ///delete
-                            IconButton(
-                              onPressed: () {
-                              },
-                              icon: Icon(
-                                Icons.delete_outline,
-                                color: Color(0xFF686464),
+                              const SizedBox(width: AppSize.s10,),
+                              ///delete
+                              IconButton(
+                                onPressed: () {
+                                },
+                                icon: const Icon(
+                                  Icons.delete_outline,
+                                  color: Color(0xFF686464),
+                                ),
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                iconSize:providerstate.isContactTrue?IconSize.I18 :IconSize.I22,
                               ),
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              iconSize:providerstate.isContactTrue?IconSize.I16 :IconSize.I22,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                        ), SizedBox(height: AppSize.s16),
+                            ],
+                          )
+                                                ],
+                                              ),
+                          ),
+                        ),
+                        const SizedBox(height: AppSize.s25),
                         CustomIconButtonConst(
                             width: 150,
                             text: 'Add Attachment',
@@ -687,7 +691,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                             onPressed: () {
 
                             }),])),
-                  SizedBox(height: AppSize.s40),
+                  const SizedBox(height: AppSize.s60),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     spacing: 10,
@@ -705,7 +709,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: AppSize.s30),
+                  const SizedBox(height: AppSize.s30),
                       ],
                     )
                     ),
