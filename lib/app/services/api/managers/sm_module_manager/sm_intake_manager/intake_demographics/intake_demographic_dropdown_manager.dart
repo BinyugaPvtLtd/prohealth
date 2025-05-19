@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/data/api_data/sm_data/sm_intake_data/intake_demographics/demographics_dropdown_data.dart';
 
-import '../../../../../../data/api_data/api_data.dart';
-import '../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
-import '../../../../../../presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../../../resources/common_resources/common_theme_const.dart';
-import '../../../../../resources/const_string.dart';
-import '../../../api.dart';
-import '../../../repository/sm_repository/medications/medications_repo.dart';
-import '../../../repository/sm_repository/patient_data/patient_data_info_repo.dart';
-import '../../../repository/sm_repository/physician_info/physician_info_repo.dart';
+import '../../../../../../../data/api_data/api_data.dart';
+import '../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
+import '../../../../../../../presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../../../../resources/common_resources/common_theme_const.dart';
+import '../../../../../../resources/const_string.dart';
+import '../../../../api.dart';
+import '../../../../repository/sm_repository/intake_repo/inatake_demographic_dropdown_repo.dart';
 
 ///Info save Post API
 Future<ApiData> postPhysicianInfoScreen(
@@ -504,10 +503,6 @@ Future<List<PriorityDisasterData>> getPiorityDisastorDropDown(
     return itemsList;
   }
 }
-
-
-
-
 ///
 
 
@@ -562,8 +557,6 @@ Future<List<CategoryData>> getCategoryDropDown(
   }
 }
 
-
-
 ///
 Future<List<SuppliesData>> getSuppliesDMEDropDown(
     BuildContext context,
@@ -589,8 +582,6 @@ Future<List<SuppliesData>> getSuppliesDMEDropDown(
   }
 }
 
-
-
 ///
 Future<List<PharmacyData>> getPharmacyDropDown(
     BuildContext context,
@@ -615,9 +606,6 @@ Future<List<PharmacyData>> getPharmacyDropDown(
     return itemsList;
   }
 }
-
-
-
 
 ///
 Future<List<FacilityData>> getFacilityDropDown(
@@ -671,4 +659,28 @@ Future<List<CountryData>> getCountryDropDown(
     return itemsList;
   }
 }
-///
+
+/// residence dropdown
+Future <List<ResidenceTypeData>> getResidenceDropdown(
+BuildContext context,) async {
+  List<ResidenceTypeData> itemsList = [];
+  try {
+    final response = await Api(context).get(path: PhysicianInfo.getResidence());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(ResidenceTypeData(
+          id: item['id'],
+          detail: item['detail'],
+          description: item['description'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}

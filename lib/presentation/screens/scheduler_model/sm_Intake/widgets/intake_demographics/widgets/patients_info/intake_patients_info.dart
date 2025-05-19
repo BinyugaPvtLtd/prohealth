@@ -37,7 +37,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
   final Widget childState;
   final Widget childCity;
   final Widget childReligion;
-  final Widget childRace;
+  final Widget childResidence;
   final Widget childLanguage;
   final Widget childCountry;
   final Widget childMaritalStatus;
@@ -67,7 +67,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
       required this.childState,
       required this.childCity,
       required this.childReligion,
-      required this.childRace,
+      required this.childResidence,
       required this.childLanguage,
 
       required this.childMaritalStatus, required this.childCountry, required this.childStatus, required this.isIButtonPressed});
@@ -310,7 +310,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                               ),
                               SizedBox(width: AppSize.s35),
                               Flexible(
-                                  child: childRace ),
+                                  child: childResidence ),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
@@ -342,7 +342,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                               ),
                               SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
-                                  child: childRace ),
+                                  child: childResidence ),
                               SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(

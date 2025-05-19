@@ -58,10 +58,11 @@ class _LoginPasswordWebState extends State<LoginPasswordWeb> {
   Widget build(BuildContext context) {
     return LoginBaseConstant(
       onTap: () {
-        Navigator.push(
-          context,
-          RouteTransitions.slideTransition(page: ForgetPassword()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPassword()));
+        // Navigator.push(
+        //   context,
+        //   RouteTransitions.slideTransition(page: ForgetPassword()),
+        // );
       },
       titleText: AppString.login,
       textAction: AppString.forgotpass,

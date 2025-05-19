@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_info_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_demographics/widgets/patients_info/intake_patients_info.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_demographics/widgets/patients_related_party/intake_patients_related_party.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
@@ -10,9 +9,10 @@ import '../../../../../../app/resources/establishment_resources/establish_theme_
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
-import '../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
+import '../../../../../../app/services/api/managers/sm_module_manager/sm_intake_manager/intake_demographics/intake_demographic_dropdown_manager.dart';
 import '../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
+import '../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographics_dropdown_data.dart';
 import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../em_module/widgets/button_constant.dart';
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -736,8 +736,8 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                             }
                           },
                         ),
-                        childRace: FutureBuilder<List<RaceData>>(
-                          future: getRaceDropDown(context),
+                        childResidence: FutureBuilder<List<ResidenceTypeData>>(
+                          future: getResidenceDropdown(context),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return SchedularTextField(
@@ -747,8 +747,8 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                               List<DropdownMenuItem<String>> dropDownList = [];
                               for (var i in snapshot.data!) {
                                 dropDownList.add(DropdownMenuItem<String>(
-                                  child: Text(i.race!),
-                                  value: i.race,
+                                  child: Text(i.description),
+                                  value: i.description,
                                 ));
                               }
 
@@ -757,8 +757,8 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                   dropDownMenuList: dropDownList,
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
-                                      if (a.race == newValue) {
-                                        selectedRace = a.race!;
+                                      if (a.description == newValue) {
+                                        selectedRace = a.description;
                                         //country = a
                                         // int? docType = a.companyOfficeID;
                                       }
