@@ -355,6 +355,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                     child: Center(
                                                       child: Image.network(
                                                         movetointake.referralSource.referralSourceImgUrl,
+                                                        width: 90,
                                                         fit: BoxFit.contain, // or BoxFit.cover if you like
                                                         loadingBuilder: (context, child, loadingProgress) {
                                                           if (loadingProgress == null) {
