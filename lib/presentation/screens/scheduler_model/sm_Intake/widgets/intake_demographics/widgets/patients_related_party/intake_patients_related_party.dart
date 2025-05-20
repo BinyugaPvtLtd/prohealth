@@ -20,6 +20,7 @@ import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dar
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 import '../../../../../widgets/constant_widgets/button_constant.dart';
 import '../../../intake_flow_contgainer_const.dart';
+import 'add_button_screen.dart';
 
 class IntakeRelatedPartiesScreen extends StatelessWidget {
   final int patientId;
@@ -63,6 +64,9 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
     TextEditingController emailPCController = TextEditingController();
     TextEditingController emailPRController = TextEditingController();
+
+    TextEditingController ctlrState = TextEditingController();
+   // TextEditingController emailPRController = TextEditingController();
 
     TextEditingController optforChaps = TextEditingController();
     TextEditingController dummyCtrl = TextEditingController();

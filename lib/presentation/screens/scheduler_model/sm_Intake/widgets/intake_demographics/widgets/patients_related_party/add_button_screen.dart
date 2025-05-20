@@ -239,6 +239,7 @@ class AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     controller: streetController,
+                    icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                     labelText: "Street*")),
             SizedBox(width:AddemergencyProvider.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
             Flexible(
@@ -296,6 +297,7 @@ class AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     controller: streetController,
+                    icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                     labelText: "Street*")),
             const SizedBox(width: AppSize.s35),
             Flexible(
