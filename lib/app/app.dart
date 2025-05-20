@@ -176,7 +176,7 @@ class _App extends State<App> {
       routes: RoutesManager().getRoutes(token: widget.signedIn),
       onGenerateRoute: (settings) {
         var url = html.window.location.href;
-        if (url == "${AppConfig.prod_deployment}/#/onBordingWelcome"){
+        if (url == "${AppConfig.dev}/#/onBordingWelcome"){
           //  if (url == "http://localhost:53323/#/onBordingWelcome") {
           Provider.of<RouteProvider>(context, listen: false)
               .setRoute('/onBordingWelcome');

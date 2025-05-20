@@ -115,6 +115,7 @@ class AEClinicalDiscipline {
   final int? deptID;
   final String? color;
   final int employeeTypesId;
+  // int? deptId;
 
   AEClinicalDiscipline(
       {required this.employeeTypesId,
