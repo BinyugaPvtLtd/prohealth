@@ -157,7 +157,7 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
                     children: [
                       Text(
                         _selectedValue ?? widget.hintText ?? 'Select',
-                        style: TableSubHeading.customTextStyle(context),//DocumentTypeDataStyle.customTextStyle(context),
+                        style: DropdownItemStyle.customTextStyle(context),// TableSubHeading.customTextStyle(context),//DocumentTypeDataStyle.customTextStyle(context),
                       ),
                       Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime,),
                     ],

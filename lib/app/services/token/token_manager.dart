@@ -4,6 +4,10 @@ class TokenManager {
   static Future<String> getAccessToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString("accessToken");
+    if(token == null || token == ''){
+      token = sharedPreferences.getString("accessTokenRegister");
+    }
+    print('Main Token :::: ${token}');
     return token ?? "";
   }
 
@@ -59,6 +63,7 @@ class TokenManager {
     sharedPreferences.setString("emailIdRegistered", emailId);
     sharedPreferences.setInt("userID", userID);
     sharedPreferences.setInt("departmentId", depID);
+
   }
 
   static Future<int> getdepIdRegister() async {

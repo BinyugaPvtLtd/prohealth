@@ -49,6 +49,8 @@ Future<List<PatientModel>> getPatientReffrealsData({
         // print(item['pt_img_url']);             // Should not be null
 
         itemsData.add(PatientModel(
+          isScheduler: item['isScheduler']??false,
+          schedulerTime: item['schedulerTime'] != null ?convertIsoToDayMonthYear(item['schedulerTime']):'--',
           is_selfPay: item['is_selfPay']??false,
           fk_rpti_id: item['fk_rpti_id']??0,
           isPotential: item['potential_duplicate'] ?? false,
@@ -250,6 +252,8 @@ Future<PatientModel> getPatientReffrealsDataUsingId({
       var item = response.data;
         String formatedTime =  DateFormat.jm().format( DateTime.parse(item['pt_refferal_date']));
         itemsData = PatientModel(
+            isScheduler: item['isScheduler']??false,
+            schedulerTime: item['schedulerTime'] != null ?convertIsoToDayMonthYear(item['schedulerTime']):'--',
           is_selfPay: item['is_selfPay']??false,
           fk_rpti_id: item['fk_rpti_id']??0,
           isPotential: item['potential_duplicate'] ?? false,
