@@ -69,7 +69,7 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: isShowingSMIntakeScreen
-          ? SMIntakeScreen(onGoBackPressed: goBackToInitialScreen, patientId: patientId!,) // Render the SMIntakeScreen when switched
+          ? SMIntakeScreen(onGoBackPressed: goBackToInitialScreen, ) // Render the SMIntakeScreen when switched
           : Column(
         children: [
           /// Tab bar

@@ -161,7 +161,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
       child: Container(
         //width: MediaQuery.of(context).size.width * 0.2,
         width: 420,
-        height: MediaQuery.of(context).size.height * 0.55,
+        height: MediaQuery.of(context).size.height * 0.56,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -263,7 +263,6 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                 FocusScope.of(context).requestFocus(getOtpButtonFocusNode);
                                 _pressGetOtpButton();  // Trigger the OTP button press
                               },
-
                             ),
                           ],
                         ),
