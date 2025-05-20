@@ -19,8 +19,10 @@ import '../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../app/services/api/managers/sm_module_manager/refferals_manager/master_patient_manager.dart';
+import '../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 import '../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
+import '../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../widgets/app_bar/app_bar.dart';
 import '../../../widgets/widgets/const_appbar/controller.dart';
 import '../../hr_module/hr_home_screen/referesh_provider.dart';
@@ -172,13 +174,20 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   List<bool> _isCheckedList = [];
   List<bool> _isCheckedListMaster = [];
   List<bool> _physicianList = [];
+  List<PatientModel> _parientModel = [];
+  int _totalPatients = 0;
+  
   Future<void> loadInitialData() async {
     hRAllData = await getAllHrDeptWise(context,AppConfig.salesId);
     patientRefferalSourcesData = await getPatientreferralsMaster(context: context,);
     patientPhysicianMasterData = await getPatientPhysicianMaster(context: context);
+    _parientModel =  await getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 20, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: 'all',
+        marketerId: "all",
+        referralSourceId: "all", pcpId:"all");
     _isCheckedList = List<bool>.filled(patientRefferalSourcesData.length, false);
     _isCheckedListMaster = List<bool>.filled(hRAllData.length, false);
     _physicianList = List<bool>.filled(patientPhysicianMasterData.length, false);
+    _totalPatients = _parientModel.length;
   }
   ///checkbox
   bool _isChecked = false;
@@ -648,7 +657,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                           );
                           onPageChanged(7);
                           pgeControllerId = 7;
-                        }); },),
+                        }); }, patientInfoData: _totalPatients,),
                        // SMIntakeScreen(),
                         NewSchedulerScreen(),
                         SmCalenderScreen(),

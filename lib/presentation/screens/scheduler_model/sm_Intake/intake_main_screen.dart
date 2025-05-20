@@ -9,11 +9,14 @@ import '../../../../app/resources/color.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
+import '../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
+import '../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../widgets/app_clickable_widget.dart';
 
 class IntakeMainScreen extends StatefulWidget {
+  final int patientInfoData;
   final VoidCallback intakeFlowSelected;
-  const IntakeMainScreen({super.key, required this.intakeFlowSelected});
+  const IntakeMainScreen({super.key, required this.intakeFlowSelected, required this.patientInfoData});
 
   @override
   State<IntakeMainScreen> createState() => _IntakeMainScreenState();
@@ -55,6 +58,11 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
     //   curve: Curves.ease,
     // );
   }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +85,7 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
                   index: 0,
                   grpIndex: _selectedIndex,
                   heading: "Information Update",
-                    badgeNumber: 55
+                    badgeNumber: widget.patientInfoData
                 ),
                 SizedBox(width: 20),
                 SMTabbar(
