@@ -523,7 +523,7 @@ class _CurateScreenState extends State<CurateScreen> {
                                                 text: "Clinician",
                                               ),
                                               SizedBox(
-                                                height: 20,
+                                                height: 15,
                                               ),
                                               SMTextFConst(
                                                 controller: firstNameController,
@@ -535,11 +535,11 @@ class _CurateScreenState extends State<CurateScreen> {
                                           ),
                                         ),
                                         SizedBox(
-                                          height: 25,
+                                          height: 28,
                                         ),
                                         BlueBGHeadConst(HeadText: "Diagnosis"),
                                         Container(
-                                          padding: EdgeInsets.only(left: 25, top: 15),
+                                          padding: EdgeInsets.only(left: 25, top: 20),
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -551,7 +551,7 @@ class _CurateScreenState extends State<CurateScreen> {
                                                 text: "Primary Diagnosis",
                                               ),
                                               SizedBox(
-                                                height: 20,
+                                                height: 15,
                                               ),
                                               SMTextFConst(
                                                 controller: firstNameController,

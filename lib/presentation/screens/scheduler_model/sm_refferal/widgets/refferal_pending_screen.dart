@@ -20,6 +20,7 @@ import '../../../../../app/resources/provider/sm_provider/sm_slider_provider.dar
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
+import '../../../../../app/services/api/managers/sm_module_manager/intake/all_intake_manager.dart';
 import '../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 import '../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -57,7 +58,7 @@ class RefferalPendingScreen extends StatelessWidget {
       children: [
         Padding(
           padding:
-              const EdgeInsets.only(left: 60, right: 60, top: 10, bottom: 30),
+              const EdgeInsets.only(left: 60, right: 60, top: 10,),
           child: Column(
             children: [
 
@@ -118,7 +119,7 @@ class RefferalPendingScreen extends StatelessWidget {
                     getPatientReffrealsData(context: context,
                         pageNo: 1, nbrOfRows: 9999,
                        // pageNo: currentPage, nbrOfRows: itemsPerPage,
-                        isIntake: 'false', isArchived: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                        isIntake: 'false', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                         marketerId: providerContact.marketerId,
                         referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                       _streamController.add(data);
@@ -689,9 +690,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                         ),
                                                         onPressed: () async{
 
-                                                        var response = await updateReferralPatient(context: context,
-                                                            isUpdatePatiendData: false,
-                                                            patientId:  item.ptId, isIntake: true, isArchived: false);
+                                                        var response = await addPatientIntakeDemographich(context: context, ptId: snapshot.data![index].ptId);
                                                         if(response.statusCode == 200 || response.statusCode == 201){
                                                           //onMoveToIntake();
                                                           showDialog(
@@ -823,7 +822,6 @@ class RefferalPendingScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: AppSize.s10),
-                          // Pagination Controls
                           PaginationControlsWidget(
                               currentPage: currentPage,
                               items: items, // Full list passed here

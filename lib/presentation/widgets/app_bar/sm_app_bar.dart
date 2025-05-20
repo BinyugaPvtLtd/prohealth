@@ -1025,168 +1025,177 @@ class _UserAppBarWidgetState extends State<UserAppBarWidget> {
                   // const SizedBox(width: 4),
 
                   // Custom styled popup menu with icons
-                  PopupMenuButton<String>(
-                    tooltip: '',
-                    splashRadius: 0,
-                    color: Colors.white,
-                    offset: const Offset(20, 30),
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (BuildContext context) => [
-                      // Settings
-                      PopupMenuItem<String>(
-                        height: 25,
-                        value: 'Settings',
-                        padding: EdgeInsets.zero,
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          onTap: () {
-                           // Navigator.pop(context);
-                            // Navigate or perform settings logic
-                          },
-                          child: Container(
-                                alignment: Alignment.centerLeft,
-                                padding: const EdgeInsets.only(left: 12,),
-                                width: 120,
-                                height: 40,
-                                child: Column(
-                                  children: [
-                                    const SizedBox(height: 5.5),
-                                    Row(
-                                      children: [
-                                         Icon(Icons.settings, size: 18, color: ColorManager.mediumgrey),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          'Settings',
-                                          style: CustomTextStylesCommon.commonStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: FontSize.s12,
-                                            color: ColorManager.mediumgrey,
+                  Theme(
+                    data: Theme.of(context).copyWith(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              splashFactory: NoSplash.splashFactory,
+              ),
+                    child: PopupMenuButton<String>(
+                      tooltip: '',
+                      splashRadius: 0,
+                      color: Colors.white,
+                      offset: const Offset(0, 40),
+                      padding: EdgeInsets.zero,
+                      
+                      itemBuilder: (BuildContext context) => [
+                        // Settings
+                        PopupMenuItem<String>(
+                          height: 25,
+                          value: 'Settings',
+                          padding: EdgeInsets.zero,
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            onTap: () {
+                             // Navigator.pop(context);
+                              // Navigate or perform settings logic
+                            },
+                            child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: const EdgeInsets.only(left: 12,),
+                                  width: 120,
+                                  height: 40,
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(height: 5.5),
+                                      Row(
+                                        children: [
+                                           Icon(Icons.settings, size: 18, color: ColorManager.mediumgrey),
+                                          const SizedBox(width: 10),
+                                          Text(
+                                            'Settings',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                      Divider(),
+                                    ],
+                                  ),
+                                ),
+                    
+                          ),
+                        ),
+                    
+                        // Divider
+                      //  const PopupMenuDivider(),
+                    
+                        // Notification
+                        PopupMenuItem<String>(
+                          height: 25,
+                          value: 'Notification',
+                          padding: EdgeInsets.zero,
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            onTap: () {
+                            //  Navigator.pop(context);
+                              // Notification logic
+                            },
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              padding: const EdgeInsets.only(left: 12, ),
+                              width: 120,
+                              height: 40,
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 5.5),
+                                  Row(
+                                    children: [
+                                       Icon(Icons.notifications_rounded, size: 18, color: ColorManager.mediumgrey),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        'Notification',
+                                        style: CustomTextStylesCommon.commonStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: FontSize.s12,
+                                          color: ColorManager.mediumgrey,
                                         ),
-                                      ],
-                                    ),
-                                    Divider(),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(),
+                                ],
                               ),
-
-                        ),
-                      ),
-
-                      // Divider
-                    //  const PopupMenuDivider(),
-
-                      // Notification
-                      PopupMenuItem<String>(
-                        height: 25,
-                        value: 'Notification',
-                        padding: EdgeInsets.zero,
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          onTap: () {
-                          //  Navigator.pop(context);
-                            // Notification logic
-                          },
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.only(left: 12, ),
-                            width: 120,
-                            height: 40,
-                            child: Column(
-                              children: [
-                                const SizedBox(height: 5.5),
-                                Row(
-                                  children: [
-                                     Icon(Icons.notifications_rounded, size: 18, color: ColorManager.mediumgrey),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      'Notification',
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: FontSize.s12,
-                                        color: ColorManager.mediumgrey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Divider(),
-                              ],
                             ),
                           ),
                         ),
-                      ),
-
-                      // Divider
-                     // const PopupMenuDivider(),
-
-                      // Log Out
-                      PopupMenuItem<String>(
-                        height: 25,
-                        value: 'Logout',
-                        padding: EdgeInsets.zero,
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          onTap: () {
-                            Navigator.pop(context);
-                            if (isLoggedIn) {
-                              showDialog(
-                                context: context,
-                                builder: (context) => DeletePopup(
-                                  onCancel: () => Navigator.pop(context),
-                                  onDelete: () {
-                                    TokenManager.removeAccessToken();
-                                    Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      LoginScreen.routeName,
-                                          (route) => false,
-                                    );
-                                  },
-                                  btnText: "Log Out",
-                                  title: "Log Out",
-                                  text: "Do you really want to logout?",
-                                ),
-                              );
-                            }
-                          },
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.only(left: 12, ),
-                            width: 120,
-                            height: 40,
-                            child: Column(
-                              children: [
-                                const SizedBox(height: 5.5),
-                                Row(
-                                  children: [
-                                     Icon(Icons.logout, size: 18, color: ColorManager.mediumgrey),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      'Log Out',
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: FontSize.s12,
-                                        color: ColorManager.mediumgrey,
+                    
+                        // Divider
+                       // const PopupMenuDivider(),
+                    
+                        // Log Out
+                        PopupMenuItem<String>(
+                          height: 25,
+                          value: 'Logout',
+                          padding: EdgeInsets.zero,
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            onTap: () {
+                              Navigator.pop(context);
+                              if (isLoggedIn) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => DeletePopup(
+                                    onCancel: () => Navigator.pop(context),
+                                    onDelete: () {
+                                      TokenManager.removeAccessToken();
+                                      Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        LoginScreen.routeName,
+                                            (route) => false,
+                                      );
+                                    },
+                                    btnText: "Log Out",
+                                    title: "Log Out",
+                                    text: "Do you really want to logout?",
+                                  ),
+                                );
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              padding: const EdgeInsets.only(left: 12, ),
+                              width: 120,
+                              height: 40,
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 5.5),
+                                  Row(
+                                    children: [
+                                       Icon(Icons.logout, size: 18, color: ColorManager.mediumgrey),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        'Log Out',
+                                        style: CustomTextStylesCommon.commonStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: FontSize.s12,
+                                          color: ColorManager.mediumgrey,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Divider(),
-                              ],
+                                    ],
+                                  ),
+                                  Divider(),
+                                ],
+                              ),
                             ),
                           ),
                         ),
+                     //   const PopupMenuDivider(),
+                      ],
+                      child: const Icon(
+                        Icons.keyboard_arrow_down_outlined,
+                        color: Color(0xFF2EA3D4),
                       ),
-                   //   const PopupMenuDivider(),
-                    ],
-                    child: const Icon(
-                      Icons.keyboard_arrow_down_outlined,
-                      color: Color(0xFF2EA3D4),
                     ),
                   ),
                 ],

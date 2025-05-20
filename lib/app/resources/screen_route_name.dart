@@ -9,4 +9,7 @@ class RouteStrings {
 
   ///
   static const String EMRDesktop = "/oasisDesktop";
+
+  /// Sm module
+ static const String smDesktop = "/smDesktop";
 }

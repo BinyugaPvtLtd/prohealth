@@ -618,17 +618,20 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                   ],
                 ),
                 SizedBox(height: AppSize.s10),
-                SMTextfieldAsteric(
-                  controller: widget.zipcodeController,
-                  keyboardType: TextInputType.text,
-                  text: 'Zip Code',
-                  onChanged: (value){
-                    setState(() {
-                      zipcodeError =widget.zipcodeController.text.isEmpty
-                          ? 'Zip Code Field Cannot Be Empty'
-                          : null;
-                    });
-                  },
+                StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                  return SMTextfieldAsteric(
+                    controller: widget.zipcodeController,
+                    keyboardType: TextInputType.text,
+                    text: 'Zip Code',
+                    onChanged: (value){
+                      setState(() {
+                        zipcodeError =widget.zipcodeController.text.isEmpty
+                            ? 'Zip Code Field Cannot Be Empty'
+                            : null;
+                      });
+                    },
+                  );},
                 ),
                 zipcodeError != null ?
                 Row(
@@ -1043,7 +1046,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
-                                    ErrorMessageString.noZoneAdded,
+                                    zoneNameText,
                                     //  AppString.dataNotFound,
                                     style: AllNoDataAvailable.customTextStyle(context)
                                 ),
@@ -1089,7 +1092,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
 
                           return CICCDropdown(
                             borderRadius: 8,
-                            initialValue: dropDownTypesList.isNotEmpty ? dropDownTypesList[0].value : null,
+                            initialValue: zoneNameText,//dropDownTypesList.isNotEmpty ? dropDownTypesList[0].value : null,
                             onChange: (val) {
                               for (var a in snapshotZone.data!) {
                                 if (a.zoneName == val) {

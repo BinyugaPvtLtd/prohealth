@@ -318,6 +318,7 @@ void fetchData()async{
                                     },
                                     fit: BoxFit.cover,
                                     height: AppSize.s100,
+                                    width: AppSize.s100,
                                   )
                                       : Container(),
                                 )

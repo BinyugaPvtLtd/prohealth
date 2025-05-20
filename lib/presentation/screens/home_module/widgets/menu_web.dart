@@ -383,11 +383,15 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                             InkWell(
                                                 onTap: () {
                                                   documentTypeGet(context);
-                                                  Navigator.push(
+                                                  Provider.of<RouteProvider>(
                                                       context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              ResponsiveScreenSM()));
+                                                      listen: false)
+                                                      .setRoute(
+                                                      RouteStrings.smDesktop);
+
+                                                  // Navigate to the detail page
+                                                  Navigator.pushNamed(context,
+                                                      RouteStrings.smDesktop);
                                                 },
                                                 child: const ResponsiveContainer(
                                                   'Intake & Scheduler',

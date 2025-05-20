@@ -9,7 +9,7 @@ import '../../../../../../../../app/resources/establishment_resources/establish_
 import '../../../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
-import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
+import '../../../../../../../../app/services/api/managers/sm_module_manager/sm_intake_manager/intake_demographics/intake_demographic_dropdown_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -848,7 +848,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                                     Icons.save_outlined,
                                                     color: ColorManager.mediumgrey,
                                                   ),
-                                                  iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
+                                                  iconSize: providerState.isContactTrue?IconSize.I18 :IconSize.I24,
                                                 ),
                                               ),
                                               const SizedBox(width: AppSize.s10,),
@@ -863,7 +863,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                                   splashColor: Colors.transparent,
                                                   highlightColor: Colors.transparent,
                                                   hoverColor: Colors.transparent,
-                                                  iconSize: providerState.isContactTrue?IconSize.I16 :IconSize.I22,
+                                                  iconSize: providerState.isContactTrue?IconSize.I18 :IconSize.I24,
                                                 ),
                                               ),
                                               SizedBox(width: providerState.isContactTrue? 0 : AppSize.s30,),
@@ -1095,7 +1095,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
-                                          child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ?15 :22,)
+                                          child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ? IconSize.I18 :IconSize.I22,)
                                           ,onTap:(){},),
                                         // IconButton(
                                         //   splashColor: Colors.transparent,
