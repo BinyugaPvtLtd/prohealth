@@ -26,7 +26,10 @@ class IntakePatientsDatatInfo extends StatelessWidget {
   final TextEditingController ctlrStreet;
   final TextEditingController ctlrZipCode;
   final TextEditingController ctlrApartment;
- // final TextEditingController ctlrCity;
+  final TextEditingController ctlrCity;
+  final TextEditingController ctlrState;
+  final TextEditingController ctlrPrimaryContact;
+  final TextEditingController ctlrSecondContact;
   final TextEditingController ctlrMajorStreet;
   final TextEditingController ctlrPrimeNo;
   final TextEditingController ctlrSecNo;
@@ -35,7 +38,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
   final TextEditingController ctlrDischargeResaon;
   final TextEditingController ctlrDateOfDeath;
   final Widget childState;
-  final Widget childCity;
+ // final Widget childCity;
   final Widget childReligion;
   final Widget childResidence;
   final Widget childLanguage;
@@ -56,7 +59,10 @@ class IntakePatientsDatatInfo extends StatelessWidget {
       required this.ctlrStreet,
       required this.ctlrZipCode,
       required this.ctlrApartment,
-     // required this.ctlrCity,
+      required this.ctlrCity,
+      required this.ctlrState,
+      required this.ctlrPrimaryContact,
+      required this.ctlrSecondContact,
       required this.ctlrMajorStreet,
       required this.ctlrPrimeNo,
       required this.ctlrSecNo,
@@ -65,7 +71,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
       required this.ctlrDischargeResaon,
       required this.ctlrDateOfDeath,
       required this.childState,
-      required this.childCity,
+     // required this.childCity,
       required this.childReligion,
       required this.childResidence,
       required this.childLanguage,
@@ -220,6 +226,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                               Flexible(
                                   child: SchedularTextField(
                                       controller: ctlrStreet,
+                                      icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                                       labelText: 'Street*',
                                       initialValue: 'A')),
                               SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
@@ -234,6 +241,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                               Flexible(
                                   child: SchedularTextField(
                                       controller: ctlrStreet,
+                                      icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                                       labelText: 'Street*',
                                       initialValue: 'A')),
                               SizedBox(width: AppSize.s35),
@@ -242,9 +250,21 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                       controller: ctlrApartment,
                                       labelText: "Suit/Apt#")),
                               SizedBox(width: AppSize.s35),
-                              Flexible(child: childCity),
+                              Flexible(
+                                child:  SchedularTextField(
+                                  controller: ctlrCity,
+                                  labelText: 'City*',
+                                ),
+                                 // child: childCity
+                              ),
                               SizedBox(width: AppSize.s35),
-                              Flexible(child: childState),
+                              Flexible(
+                                child: SchedularTextField(
+                                  controller: ctlrState,
+                                  labelText: 'State*',
+                                ),
+                              //    child: childState
+                              ),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
@@ -291,9 +311,20 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                           SizedBox(height: AppSize.s16),
                           providerState.isContactTrue ?  Row(
                             children: [
-                              Flexible(child: childCity),
+                              Flexible(
+                                child: SchedularTextField(
+                                    controller: ctlrCity,
+                                    labelText: 'City*',
+                                 ),
+                                 // child: childCity
+                              ),
                               SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
-                              Flexible(child: childState),
+                              Flexible( child:  SchedularTextField(
+                                controller: ctlrState,
+                                labelText: 'State*',
+                              ),
+                                //  child: childState
+                              ),
                               SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
@@ -319,10 +350,18 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   )),
                               SizedBox(width: AppSize.s35),
                               Flexible(
-                                  child: SchedularTextField(
-                                    controller: zoneController,
-                                    labelText: 'Zone*',
-                                  )),
+                                  child:  CustomDropdownTextFieldsm(
+                                      headText: 'Zone*',
+                                      items: ['','',],
+                                      //dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+
+                                      })
+                                  // SchedularTextField(
+                                  //   controller: zoneController,
+                                  //   labelText: 'Zone*',
+                                  // )
+                              ),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
@@ -354,13 +393,18 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                           Row(
                             children: [
                               Flexible(
-                                  child: CustomDropdownTextFieldsm(
-                                      headText: 'Primary Contact*',
-                                      items: ['Spouse','Patient',],
-                                      //dropDownMenuList: dropDownList,
-                                      onChanged: (newValue) {
-
-                                      })),
+                                  child: SchedularTextField(
+                                    controller: ctlrPrimaryContact,
+                                    labelText: 'Primary Contact*',
+                                  ),
+                                  // CustomDropdownTextFieldsm(
+                                  //     headText: 'Primary Contact*',
+                                  //     items: ['Spouse','Patient',],
+                                  //     //dropDownMenuList: dropDownList,
+                                  //     onChanged: (newValue) {
+                                  //
+                                  //     })
+                              ),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
@@ -391,10 +435,18 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                           providerState.isContactTrue ?  Row(
                             children: [
                               Flexible(
-                                  child: SchedularTextField(
-                                    controller: zoneController,
-                                    labelText: 'Zone*',
-                                  )),
+                                  child:  CustomDropdownTextFieldsm(
+                                      headText: 'Zone*',
+                                      items: ['','',],
+                                      //dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+
+                                      })
+                                  // SchedularTextField(
+                                  //   controller: zoneController,
+                                  //   labelText: 'Zone*',
+                                  // )
+          ),
                               SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
@@ -403,25 +455,35 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   )),
                               SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
-                                  child: CustomDropdownTextFieldsm(
-                                      headText: 'Primary Contact*',
-                                      items: ['Spouse','Patient',],
-                                      //dropDownMenuList: dropDownList,
-                                      onChanged: (newValue) {
-
-                                      })),
+                                  child: SchedularTextField(
+                                    controller: ctlrPrimaryContact,
+                                    labelText: 'Primary Contact*',
+                                  ),
+                                  // CustomDropdownTextFieldsm(
+                                  //     headText: 'Primary Contact*',
+                                  //     items: ['Spouse','Patient',],
+                                  //     //dropDownMenuList: dropDownList,
+                                  //     onChanged: (newValue) {
+                                  //
+                                  //     })
+                              ),
                             ],
                           ):
                           Row(
                             children: [
                               Flexible(
-                                  child: CustomDropdownTextFieldsm(
-                                      headText: 'Secondary Contact*',
-                                      items: ['Spouse','Patient',],
-                                      //dropDownMenuList: dropDownList,
-                                      onChanged: (newValue) {
-
-                                      })),
+                                  child: SchedularTextField(
+                                    controller: ctlrSecondContact,
+                                    labelText: 'Secondary Contact*',
+                                  ),
+                                  // CustomDropdownTextFieldsm(
+                                  //     headText: 'Secondary Contact*',
+                                  //     items: ['Spouse','Patient',],
+                                  //     //dropDownMenuList: dropDownList,
+                                  //     onChanged: (newValue) {
+                                  //
+                                  //     })
+                              ),
                               SizedBox(width: AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
@@ -477,13 +539,18 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                       labelText: "CAHPS Contact")),
                               SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                               Flexible(
-                                  child: CustomDropdownTextFieldsm(
-                                      headText: 'Secondary Contact*',
-                                      items: ['Spouse','Patient',],
-                                      //dropDownMenuList: dropDownList,
-                                      onChanged: (newValue) {
-
-                                      })),
+                                  child:  SchedularTextField(
+                                    controller: ctlrSecondContact,
+                                    labelText: 'Secondary Contact*',
+                                  ),
+                                  // CustomDropdownTextFieldsm(
+                                  //     headText: 'Secondary Contact*',
+                                  //     items: ['Spouse','Patient',],
+                                  //     //dropDownMenuList: dropDownList,
+                                  //     onChanged: (newValue) {
+                                  //
+                                  //     })
+                              ),
                               SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                               Flexible(
                                   child: SchedularTextField(
@@ -637,6 +704,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                       child: SchedularTextField(
                                         controller: ctlrSocialSec,
                                         labelText: 'Social Security',
+                                        isPasswordField: true,
                                         //showDatePicker:true
                                       )),
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),

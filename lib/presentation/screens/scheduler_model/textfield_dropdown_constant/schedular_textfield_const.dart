@@ -36,6 +36,7 @@ class SchedularTextField extends StatefulWidget {
   final double? borderRadius;
   final bool? onlyAllowNumbers;
   final VoidCallback? isIClicked;
+  final bool? isPasswordField;
 
    SchedularTextField({
     Key? key,
@@ -55,6 +56,7 @@ class SchedularTextField extends StatefulWidget {
      this.prefixWidget,
      this.showDatePicker = false, this.hintText,this.borderRadius,
      this.onlyAllowNumbers = false,
+     this.isPasswordField = false,
   }) : super(key: key);
 
   @override
@@ -63,13 +65,13 @@ class SchedularTextField extends StatefulWidget {
 
 class _SchedularTextFieldState extends State<SchedularTextField> {
   late TextEditingController _controller;
-
+  bool _obscureText = false;
   @override
   void initState() {
     super.initState();
     // _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
     _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
-
+    _obscureText = widget.isPasswordField ?? false;
     // If onChanged is provided, listen to controller changes
     _controller.addListener(() {
       if (widget.onChanged != null) {
@@ -149,6 +151,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                       autofocus: false,
                       enabled: widget.enable == null ? true : false,
                       controller: widget.controller,
+                      obscureText: _obscureText,
                      // keyboardType: widget.keyboardType,
                       cursorHeight: 17,
                       cursorColor: Colors.black,
@@ -159,15 +162,28 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                           onTap: () => _selectDate(context),
                           child: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,size: IconSize.I22,),
                         )
+                            : widget.isPasswordField == true
+                            ? GestureDetector(
+                          child: Icon(
+                            _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                            color: ColorManager.blueprime,
+                            size: IconSize.I20,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                        )
                             : widget.icon,
                         prefix: widget.prefixWidget,
                         prefixIcon: widget.suffixIcon,
                         hintText: widget.hintText,
-                        prefixStyle: AllHRTableData.customTextStyle(context),
+                        prefixStyle: DropdownItemStyle.customTextStyle(context),
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.only(bottom:AppPadding.p20, left: AppPadding.p10),
                       ),
-                      style: TableSubHeading.customTextStyle(context),
+                      style: DropdownItemStyle.customTextStyle(context),
                       //validator: widget.validator,
                       onTap: widget.onChange,
                       validator: widget.validator,

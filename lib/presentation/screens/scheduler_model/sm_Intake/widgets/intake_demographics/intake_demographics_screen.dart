@@ -42,6 +42,9 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
   TextEditingController ctlrZipCode = TextEditingController();
   TextEditingController ctlrApartment = TextEditingController();
   TextEditingController ctlrCity = TextEditingController();
+  TextEditingController ctlrState = TextEditingController();
+  TextEditingController ctlrPrimaryContact = TextEditingController();
+  TextEditingController ctlrSecondContact = TextEditingController();
   TextEditingController dummyCtrl = TextEditingController();
 
   TextEditingController ctlrMajorStreet = TextEditingController();
@@ -548,7 +551,10 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         ctlrStreet: ctlrStreet,
                         ctlrZipCode: ctlrZipCode,
                         ctlrApartment: ctlrApartment,
-                        // ctlrCity: ctlrCity,
+                        ctlrCity: ctlrCity,
+                        ctlrState: ctlrState,
+                        ctlrPrimaryContact: ctlrPrimaryContact,
+                        ctlrSecondContact: ctlrSecondContact,
                         ctlrMajorStreet: ctlrMajorStreet,
                         ctlrPrimeNo: ctlrPrimeNo,
                         ctlrSecNo: ctlrSecNo,
@@ -700,42 +706,42 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                             }
                           },
                         ),
-                        childCity: FutureBuilder<List<CityData>>(
-                          future: getCityDropDown(context),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return SchedularTextField(
-                                width: 400,
-                                controller: dummyCtrl,
-                                labelText: 'City*',
-                              );
-                            }
-                            if (snapshot.hasData) {
-                              List<DropdownMenuItem<String>> dropDownList = [];
-                              for (var i in snapshot.data!) {
-                                dropDownList.add(DropdownMenuItem<String>(
-                                  child: Text(i.cityName!),
-                                  value: i.cityName,
-                                ));
-                              }
-
-                              return CustomDropdownTextFieldsm(
-                                  headText: 'City*',
-                                  dropDownMenuList: dropDownList,
-                                  onChanged: (newValue) {
-                                    for (var a in snapshot.data!) {
-                                      if (a.cityName == newValue) {
-                                        selectedcity = a.cityName!;
-                                        //country = a
-                                        // int? docType = a.companyOfficeID;
-                                      }
-                                    }
-                                  });
-                            } else {
-                              return const Offstage();
-                            }
-                          },
-                        ),
+                        // childCity: FutureBuilder<List<CityData>>(
+                        //   future: getCityDropDown(context),
+                        //   builder: (context, snapshot) {
+                        //     if (snapshot.connectionState == ConnectionState.waiting) {
+                        //       return SchedularTextField(
+                        //         width: 400,
+                        //         controller: dummyCtrl,
+                        //         labelText: 'City*',
+                        //       );
+                        //     }
+                        //     if (snapshot.hasData) {
+                        //       List<DropdownMenuItem<String>> dropDownList = [];
+                        //       for (var i in snapshot.data!) {
+                        //         dropDownList.add(DropdownMenuItem<String>(
+                        //           child: Text(i.cityName!),
+                        //           value: i.cityName,
+                        //         ));
+                        //       }
+                        //
+                        //       return CustomDropdownTextFieldsm(
+                        //           headText: 'City*',
+                        //           dropDownMenuList: dropDownList,
+                        //           onChanged: (newValue) {
+                        //             for (var a in snapshot.data!) {
+                        //               if (a.cityName == newValue) {
+                        //                 selectedcity = a.cityName!;
+                        //                 //country = a
+                        //                 // int? docType = a.companyOfficeID;
+                        //               }
+                        //             }
+                        //           });
+                        //     } else {
+                        //       return const Offstage();
+                        //     }
+                        //   },
+                        // ),
                         childResidence: FutureBuilder<List<ResidenceTypeData>>(
                           future: getResidenceDropdown(context),
                           builder: (context, snapshot) {

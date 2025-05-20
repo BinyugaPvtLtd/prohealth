@@ -28,6 +28,8 @@ class PatientModel {
   final int fkempIdArchieved;
   final String documentName;
   //final String ptTime;
+  final bool isScheduler;
+  final String schedulerTime;
   final ServiceModel service;
   final List<PatientDiagnosesModel> patientDiagnoses;
   final ReferralSourceModel referralSource;
@@ -37,7 +39,11 @@ class PatientModel {
   final List<DisciplineModel> disciplines;
   final bool isPotential;
   final int thresould;
-  PatientModel({required this.isPotential, required this.thresould,
+  PatientModel({
+    required this.isScheduler,
+    required this.schedulerTime,
+    required this.isPotential,
+    required this.thresould,
     required this.is_selfPay,
     required this.fk_rpti_id,
     required this.fkempIdArchieved,
