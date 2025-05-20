@@ -174,7 +174,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                                   index: index + 1,
                                   onRemove: () => provider.removeEmergency(key),
                                   patientId: patientId,
-                                  isVisible: provider.isVisible,
+                                  isVisible: provider.isEmergencyVisible,
                                 );
                               }).toList(),
                             );
@@ -731,7 +731,7 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                               context.read<EmergencyContactProvider>().addEmergency();
                             }),
                         const SizedBox(height: AppSize.s16),
-                        Divider(),
+                        const Divider(),
                       ],
                     ),
                   ),
@@ -741,605 +741,626 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 35,vertical: 20),
                     child: BlueBGHeadConst(HeadText: "Primary Caregiver*"),
                   ),
-                  IntakeFlowContainerConst(
-                    height: providerState.isContactTrue ?AppSize.s430 :AppSize.s370,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                spacing: 20,
-                                children: [
-                                  CheckboxTile(
-                                    title: 'Copy Emergency Contact',
-                                    initialValue: copyEmergencyContactPC,
-                                    onChanged: (value) {
-                                      // setState(() {
-                                      //
-                                      // });
-                                    },
-                                  ),
-                                  CheckboxTile(
-                                    title: 'Copy Patient Representative',
-                                    initialValue: copyPatientPC,
-                                    onChanged: (value) {
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p50,),
+                    child: Column(
+                      children: [
+                      //   Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Row(
+                      //         mainAxisAlignment: MainAxisAlignment.start,
+                      //         spacing: 20,
+                      //         children: [
+                      //           CheckboxTile(
+                      //             title: 'Copy Emergency Contact',
+                      //             initialValue: copyEmergencyContactPC,
+                      //             onChanged: (value) {
+                      //               // setState(() {
+                      //               //
+                      //               // });
+                      //             },
+                      //           ),
+                      //           CheckboxTile(
+                      //             title: 'Copy Patient Representative',
+                      //             initialValue: copyPatientPC,
+                      //             onChanged: (value) {
+                      //
+                      //             },
+                      //           )
+                      //         ],
+                      //       ),
+                      //       CheckboxTile(
+                      //         title: 'No Caregiver Available',
+                      //         initialValue: noPCData,
+                      //         onChanged: (value) {
+                      //
+                      //         },
+                      //       )
+                      //
+                      //     ],
+                      //   ),
+                      //   const SizedBox(height: AppSize.s16),
+                      // providerState.isContactTrue ?  Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //             controller: firstNamePCController,
+                      //             labelText: 'First Name*',
+                      //
+                      //           )),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //             controller: lastNamePCController,
+                      //             labelText: 'Last Name*',
+                      //           )),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(
+                      //         child:FutureBuilder<List<RelationshipData>>(
+                      //           future: getRelationshipDropDown(context),
+                      //           builder: (context, snapshot) {
+                      //             if (snapshot.connectionState ==
+                      //                 ConnectionState.waiting) {
+                      //               return CustomDropdownTextFieldsm(
+                      //                 initialValue: 'Select',
+                      //                 headText: 'Relationship',items: [],
+                      //                 onChanged: (newValue) {
+                      //
+                      //                 },);
+                      //             }
+                      //             if (snapshot.hasData) {
+                      //               List<DropdownMenuItem<String>> dropDownList = [];
+                      //               for (var i in snapshot.data!) {
+                      //                 dropDownList.add(DropdownMenuItem<String>(
+                      //                   child: Text(i.relationship!),
+                      //                   value: i.relationship,
+                      //                 ));
+                      //               }
+                      //
+                      //               return CustomDropdownTextFieldsm(headText: 'Relationship*',dropDownMenuList: dropDownList,
+                      //                 onChanged: (newValue) {
+                      //                   for (var a in snapshot.data!) {
+                      //                     if (a.relationship == newValue) {
+                      //                       selectedRelationshipEC = a.relationship!;
+                      //                       //country = a
+                      //                       // int? docType = a.companyOfficeID;
+                      //                     }
+                      //                   }
+                      //                 },);
+                      //
+                      //
+                      //             } else {
+                      //               return const Offstage();
+                      //             }
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ):
+                      //   Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //             controller: firstNamePCController,
+                      //             labelText: 'First Name*',
+                      //
+                      //           )),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: lastNamePCController,
+                      //               labelText: 'Last Name*',
+                      //               )),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //         child:FutureBuilder<List<RelationshipData>>(
+                      //           future: getRelationshipDropDown(context),
+                      //           builder: (context, snapshot) {
+                      //             if (snapshot.connectionState ==
+                      //                 ConnectionState.waiting) {
+                      //               return CustomDropdownTextFieldsm(
+                      //                 initialValue: 'Select',
+                      //                 headText: 'Relationship',items: [],
+                      //                 onChanged: (newValue) {
+                      //
+                      //                 },);
+                      //             }
+                      //             if (snapshot.hasData) {
+                      //               List<DropdownMenuItem<String>> dropDownList = [];
+                      //               for (var i in snapshot.data!) {
+                      //                 dropDownList.add(DropdownMenuItem<String>(
+                      //                   child: Text(i.relationship!),
+                      //                   value: i.relationship,
+                      //                 ));
+                      //               }
+                      //
+                      //               return CustomDropdownTextFieldsm(headText: 'Relationship*',dropDownMenuList: dropDownList,
+                      //                 onChanged: (newValue) {
+                      //                   for (var a in snapshot.data!) {
+                      //                     if (a.relationship == newValue) {
+                      //                       selectedRelationshipEC = a.relationship!;
+                      //                       //country = a
+                      //                       // int? docType = a.companyOfficeID;
+                      //                     }
+                      //                   }
+                      //                 },);
+                      //
+                      //
+                      //             } else {
+                      //               return const Offstage();
+                      //             }
+                      //           },
+                      //         ),
+                      //       ),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       const Flexible(
+                      //           child: SizedBox()),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       const Flexible(
+                      //           child: SizedBox()),
+                      //     ],
+                      //   ),
+                      //   const SizedBox(height: AppSize.s16),
+                      //   providerState.isContactTrue ?  Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: streetPCController,
+                      //               icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
+                      //               labelText: "Street*")),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: suitAptPCController,
+                      //               labelText: "Suite/Apt#")),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(
+                      //         // child: FutureBuilder<List<CityData>>(
+                      //         //   future: getCityDropDown(context),
+                      //         //   builder: (context, snapshot) {
+                      //         //     if (snapshot.connectionState ==
+                      //         //         ConnectionState.waiting) {
+                      //         //       return CustomDropdownTextFieldsm(
+                      //         //         initialValue: 'Select',
+                      //         //         headText: 'City*',items: [],
+                      //         //         onChanged: (newValue) {
+                      //         //
+                      //         //         },);
+                      //         //     }
+                      //         //     if (snapshot.hasData) {
+                      //         //       List<DropdownMenuItem<String>> dropDownList = [];
+                      //         //       for (var i in snapshot.data!) {
+                      //         //         dropDownList.add(DropdownMenuItem<String>(
+                      //         //           child: Text(i.cityName!),
+                      //         //           value: i.cityName,
+                      //         //         ));
+                      //         //       }
+                      //         //
+                      //         //       return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
+                      //         //         onChanged: (newValue) {
+                      //         //           for (var a in snapshot.data!) {
+                      //         //             if (a.cityName == newValue) {
+                      //         //               selectedCityEC = a.cityName!;
+                      //         //               //country = a
+                      //         //               // int? docType = a.companyOfficeID;
+                      //         //             }
+                      //         //           }
+                      //         //         },);
+                      //         //       //   SizedBox(
+                      //         //       //   height: 27,
+                      //         //       //   child: DropdownButtonFormField<String>(
+                      //         //       //     decoration: InputDecoration(
+                      //         //       //       labelText: 'City',
+                      //         //       //       labelStyle: GoogleFonts.firaSans(
+                      //         //       //         fontSize: 10.0,
+                      //         //       //         fontWeight: FontWeight.w400,
+                      //         //       //         color: ColorManager.greylight,
+                      //         //       //       ),
+                      //         //       //       focusedBorder: OutlineInputBorder(
+                      //         //       //         borderSide: BorderSide(
+                      //         //       //             color: ColorManager
+                      //         //       //                 .containerBorderGrey),
+                      //         //       //       ),
+                      //         //       //       border: OutlineInputBorder(
+                      //         //       //         borderRadius:
+                      //         //       //         BorderRadius.circular(4.0),
+                      //         //       //         borderSide: const BorderSide(
+                      //         //       //             color: Colors.grey),
+                      //         //       //       ),
+                      //         //       //       contentPadding:
+                      //         //       //       const EdgeInsets.symmetric(
+                      //         //       //         //   //  vertical: 5,
+                      //         //       //           horizontal: 12),
+                      //         //       //     ),
+                      //         //       //     // value: selectedCountry,
+                      //         //       //     icon: Icon(
+                      //         //       //       Icons.arrow_drop_down,
+                      //         //       //       color: ColorManager.blueprime,
+                      //         //       //     ),
+                      //         //       //     iconSize: 24,
+                      //         //       //     elevation: 16,
+                      //         //       //     style: GoogleFonts.firaSans(
+                      //         //       //       fontSize: 10.0,
+                      //         //       //       fontWeight: FontWeight.w400,
+                      //         //       //       color: const Color(0xff686464),
+                      //         //       //     ),
+                      //         //       //
+                      //         //       //     onChanged: (newValue) {
+                      //         //       //       for (var a in snapshot.data!) {
+                      //         //       //         if (a.cityName == newValue) {
+                      //         //       //          selectedCityEC = a.cityName!;
+                      //         //       //           //country = a
+                      //         //       //           // int? docType = a.companyOfficeID;
+                      //         //       //         }
+                      //         //       //       }
+                      //         //       //     },
+                      //         //       //     items: dropDownList.map((String value) {
+                      //         //       //       return DropdownMenuItem<String>(
+                      //         //       //         value: value,
+                      //         //       //         child: Text(
+                      //         //       //           value,
+                      //         //       //           style: GoogleFonts.firaSans(
+                      //         //       //             fontSize: 12,
+                      //         //       //             color: Color(0xff575757),
+                      //         //       //             fontWeight: FontWeight.w400,
+                      //         //       //           ),
+                      //         //       //         ),
+                      //         //       //       );
+                      //         //       //     }).toList(),
+                      //         //       //   ),
+                      //         //       // );
+                      //         //     } else {
+                      //         //       return const Offstage();
+                      //         //     }
+                      //         //   },
+                      //         // ),
+                      //
+                      //         child: SchedularTextField(
+                      //             controller: ctlrCity,
+                      //             labelText: AppString.city),
+                      //       ),
+                      //     ],
+                      //   ):
+                      //   Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: streetPCController,
+                      //               icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
+                      //
+                      //               labelText: "Street*")),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: suitAptPCController,
+                      //               labelText: "Suite/Apt#")),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //         // child: FutureBuilder<List<CityData>>(
+                      //         //   future: getCityDropDown(context),
+                      //         //   builder: (context, snapshot) {
+                      //         //     if (snapshot.connectionState ==
+                      //         //         ConnectionState.waiting) {
+                      //         //       return CustomDropdownTextFieldsm(
+                      //         //         initialValue: 'Select',
+                      //         //         headText: 'City*',items: [],
+                      //         //         onChanged: (newValue) {
+                      //         //
+                      //         //         },);
+                      //         //     }
+                      //         //     if (snapshot.hasData) {
+                      //         //       List<DropdownMenuItem<String>> dropDownList = [];
+                      //         //       for (var i in snapshot.data!) {
+                      //         //         dropDownList.add(DropdownMenuItem<String>(
+                      //         //           child: Text(i.cityName!),
+                      //         //           value: i.cityName,
+                      //         //         ));
+                      //         //       }
+                      //         //
+                      //         //       return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
+                      //         //         onChanged: (newValue) {
+                      //         //           for (var a in snapshot.data!) {
+                      //         //             if (a.cityName == newValue) {
+                      //         //               selectedCityEC = a.cityName!;
+                      //         //               //country = a
+                      //         //               // int? docType = a.companyOfficeID;
+                      //         //             }
+                      //         //           }
+                      //         //         },);
+                      //         //       //   SizedBox(
+                      //         //       //   height: 27,
+                      //         //       //   child: DropdownButtonFormField<String>(
+                      //         //       //     decoration: InputDecoration(
+                      //         //       //       labelText: 'City',
+                      //         //       //       labelStyle: GoogleFonts.firaSans(
+                      //         //       //         fontSize: 10.0,
+                      //         //       //         fontWeight: FontWeight.w400,
+                      //         //       //         color: ColorManager.greylight,
+                      //         //       //       ),
+                      //         //       //       focusedBorder: OutlineInputBorder(
+                      //         //       //         borderSide: BorderSide(
+                      //         //       //             color: ColorManager
+                      //         //       //                 .containerBorderGrey),
+                      //         //       //       ),
+                      //         //       //       border: OutlineInputBorder(
+                      //         //       //         borderRadius:
+                      //         //       //         BorderRadius.circular(4.0),
+                      //         //       //         borderSide: const BorderSide(
+                      //         //       //             color: Colors.grey),
+                      //         //       //       ),
+                      //         //       //       contentPadding:
+                      //         //       //       const EdgeInsets.symmetric(
+                      //         //       //         //   //  vertical: 5,
+                      //         //       //           horizontal: 12),
+                      //         //       //     ),
+                      //         //       //     // value: selectedCountry,
+                      //         //       //     icon: Icon(
+                      //         //       //       Icons.arrow_drop_down,
+                      //         //       //       color: ColorManager.blueprime,
+                      //         //       //     ),
+                      //         //       //     iconSize: 24,
+                      //         //       //     elevation: 16,
+                      //         //       //     style: GoogleFonts.firaSans(
+                      //         //       //       fontSize: 10.0,
+                      //         //       //       fontWeight: FontWeight.w400,
+                      //         //       //       color: const Color(0xff686464),
+                      //         //       //     ),
+                      //         //       //
+                      //         //       //     onChanged: (newValue) {
+                      //         //       //       for (var a in snapshot.data!) {
+                      //         //       //         if (a.cityName == newValue) {
+                      //         //       //          selectedCityEC = a.cityName!;
+                      //         //       //           //country = a
+                      //         //       //           // int? docType = a.companyOfficeID;
+                      //         //       //         }
+                      //         //       //       }
+                      //         //       //     },
+                      //         //       //     items: dropDownList.map((String value) {
+                      //         //       //       return DropdownMenuItem<String>(
+                      //         //       //         value: value,
+                      //         //       //         child: Text(
+                      //         //       //           value,
+                      //         //       //           style: GoogleFonts.firaSans(
+                      //         //       //             fontSize: 12,
+                      //         //       //             color: Color(0xff575757),
+                      //         //       //             fontWeight: FontWeight.w400,
+                      //         //       //           ),
+                      //         //       //         ),
+                      //         //       //       );
+                      //         //       //     }).toList(),
+                      //         //       //   ),
+                      //         //       // );
+                      //         //     } else {
+                      //         //       return const Offstage();
+                      //         //     }
+                      //         //   },
+                      //         // ),
+                      //
+                      //         child: SchedularTextField(
+                      //             controller: ctlrCity,
+                      //             labelText: AppString.city),
+                      //       ),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       ///state
+                      //       Flexible(
+                      //         // child:FutureBuilder<List<StateData>>(
+                      //         //   future: getStateDropDown(context),
+                      //         //   builder: (context, snapshot) {
+                      //         //     if (snapshot.connectionState ==
+                      //         //         ConnectionState.waiting) {
+                      //         //       return CustomDropdownTextFieldsm(
+                      //         //         initialValue: 'Select',
+                      //         //         headText: 'State*',items: [],
+                      //         //         onChanged: (newValue) {
+                      //         //
+                      //         //         },);
+                      //         //     }
+                      //         //     if (snapshot.hasData) {
+                      //         //       List<DropdownMenuItem<String>> dropDownList = [];
+                      //         //       for (var i in snapshot.data!) {
+                      //         //         dropDownList.add(DropdownMenuItem<String>(
+                      //         //           child: Text(i.name),
+                      //         //           value: i.name,
+                      //         //         ));
+                      //         //       }
+                      //         //
+                      //         //       return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
+                      //         //         onChanged: (newValue) {
+                      //         //           for (var a in snapshot.data!) {
+                      //         //             if (a.name == newValue) {
+                      //         //               selectedStateEC = a.name!;
+                      //         //               //country = a
+                      //         //               // int? docType = a.companyOfficeID;
+                      //         //             }
+                      //         //           }
+                      //         //         },);
+                      //         //
+                      //         //       // return SchedularDropdown(
+                      //         //       //   labelText: 'State',
+                      //         //       //   // labelStyle: GoogleFonts.firaSans(
+                      //         //       //   //   fontSize: 12,
+                      //         //       //   //   color: Color(0xff575757),
+                      //         //       //   //   fontWeight: FontWeight.w400,
+                      //         //       //   // ),
+                      //         //       //   // labelFontSize: 12,
+                      //         //       //   items: dropDownList,
+                      //         //       //   onChanged: (newValue) {
+                      //         //       //     for (var a in snapshot.data!) {
+                      //         //       //       if (a.name == newValue) {
+                      //         //       //         selectedStatepr = a.name!;
+                      //         //       //         // stateId = a.stateId!;
+                      //         //       //         //  print("Dept ID ${stateId}");
+                      //         //       //         // int docType = a.employeeTypesId;
+                      //         //       //         // Do something with docType
+                      //         //       //       }
+                      //         //       //     }
+                      //         //       //   },
+                      //         //       // );
+                      //         //     } else {
+                      //         //       return const Offstage();
+                      //         //     }
+                      //         //   },
+                      //         // ),
+                      //         child: SchedularTextField(
+                      //             controller: ctlrCity,
+                      //             labelText: AppString.city),
+                      //       ),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: zipCodePCController,
+                      //               onlyAllowNumbers: true,
+                      //               labelText: "Zip Code*")),
+                      //
+                      //     ],
+                      //   ),
+                      //   const SizedBox(height: AppSize.s16),
+                      //   providerState.isContactTrue ?  Row(
+                      //     children: [
+                      //       ///state
+                      //       Flexible(
+                      //         child:FutureBuilder<List<StateData>>(
+                      //           future: getStateDropDown(context),
+                      //           builder: (context, snapshot) {
+                      //             if (snapshot.connectionState ==
+                      //                 ConnectionState.waiting) {
+                      //               return CustomDropdownTextFieldsm(
+                      //                 initialValue: 'Select',
+                      //                 headText: 'State*',items: [],
+                      //                 onChanged: (newValue) {
+                      //
+                      //                 },);
+                      //             }
+                      //             if (snapshot.hasData) {
+                      //               List<DropdownMenuItem<String>> dropDownList = [];
+                      //               for (var i in snapshot.data!) {
+                      //                 dropDownList.add(DropdownMenuItem<String>(
+                      //                   child: Text(i.name),
+                      //                   value: i.name,
+                      //                 ));
+                      //               }
+                      //
+                      //               return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
+                      //                 onChanged: (newValue) {
+                      //                   for (var a in snapshot.data!) {
+                      //                     if (a.name == newValue) {
+                      //                       selectedStateEC = a.name!;
+                      //                       //country = a
+                      //                       // int? docType = a.companyOfficeID;
+                      //                     }
+                      //                   }
+                      //                 },);
+                      //
+                      //               // return SchedularDropdown(
+                      //               //   labelText: 'State',
+                      //               //   // labelStyle: GoogleFonts.firaSans(
+                      //               //   //   fontSize: 12,
+                      //               //   //   color: Color(0xff575757),
+                      //               //   //   fontWeight: FontWeight.w400,
+                      //               //   // ),
+                      //               //   // labelFontSize: 12,
+                      //               //   items: dropDownList,
+                      //               //   onChanged: (newValue) {
+                      //               //     for (var a in snapshot.data!) {
+                      //               //       if (a.name == newValue) {
+                      //               //         selectedStatepr = a.name!;
+                      //               //         // stateId = a.stateId!;
+                      //               //         //  print("Dept ID ${stateId}");
+                      //               //         // int docType = a.employeeTypesId;
+                      //               //         // Do something with docType
+                      //               //       }
+                      //               //     }
+                      //               //   },
+                      //               // );
+                      //             } else {
+                      //               return const Offstage();
+                      //             }
+                      //           },
+                      //         ),
+                      //       ),
+                      //       SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: zipCodePCController,
+                      //               onlyAllowNumbers: true,
+                      //               labelText: "Zip Code*")),
+                      //       SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: phoneNumberPCController,
+                      //               phoneField:true,
+                      //               labelText: "Phone Number*")),
+                      //     ],
+                      //   ):
+                      //   Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: phoneNumberPCController,
+                      //               phoneField:true,
+                      //               labelText: "Phone Number*")),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: emailPCController,
+                      //               labelText: "Email")),
+                      //       // Empty container for alignment
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(child: Container()),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(child: Container()),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(child: Container()),
+                      //     ],
+                      //   ),
+                      //   const SizedBox(height: AppSize.s16),
+                      // providerState.isContactTrue ?  Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: emailPCController,
+                      //               labelText: "Email")),
+                      //       // Empty container for alignment
+                      //       SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(child: Container()),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(child: Container()),
+                      //     ],
+                      //   )
+                      //     : const Offstage(),
+                    ///
+                        ///
+                        Consumer<EmergencyContactProvider>(
+                          builder: (context, provider, _) {
+                            return Column(
+                              children: provider.primaryCaregiverKeys.asMap().entries.map((entry) {
+                                int index = entry.key;
+                                var key = entry.value;
+                                return PrimaryCaregiver(
+                                  key: key,
+                                  index: index + 1,
+                                  onRemove: () => provider.removeCaregiver(key),
+                                  patientId: patientId,
+                                  isVisible: provider.isCaregiverVisible,
+                                );
+                              }).toList(),
+                            );
+                          },
+                        ),
 
-                                    },
-                                  )
-                                ],
-                              ),
-                              CheckboxTile(
-                                title: 'No Caregiver Available',
-                                initialValue: noPCData,
-                                onChanged: (value) {
 
-                                },
-                              )
-
-                            ],
-                          ),
-                          const SizedBox(height: AppSize.s16),
-                        providerState.isContactTrue ?  Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                    controller: firstNamePCController,
-                                    labelText: 'First Name*',
-
-                                  )),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                    controller: lastNamePCController,
-                                    labelText: 'Last Name*',
-                                  )),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(
-                                child:FutureBuilder<List<RelationshipData>>(
-                                  future: getRelationshipDropDown(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return CustomDropdownTextFieldsm(
-                                        initialValue: 'Select',
-                                        headText: 'Relationship',items: [],
-                                        onChanged: (newValue) {
-
-                                        },);
-                                    }
-                                    if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>> dropDownList = [];
-                                      for (var i in snapshot.data!) {
-                                        dropDownList.add(DropdownMenuItem<String>(
-                                          child: Text(i.relationship!),
-                                          value: i.relationship,
-                                        ));
-                                      }
-
-                                      return CustomDropdownTextFieldsm(headText: 'Relationship*',dropDownMenuList: dropDownList,
-                                        onChanged: (newValue) {
-                                          for (var a in snapshot.data!) {
-                                            if (a.relationship == newValue) {
-                                              selectedRelationshipEC = a.relationship!;
-                                              //country = a
-                                              // int? docType = a.companyOfficeID;
-                                            }
-                                          }
-                                        },);
-
-
-                                    } else {
-                                      return const Offstage();
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
-                          ):
-                          Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                    controller: firstNamePCController,
-                                    labelText: 'First Name*',
-
-                                  )),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: lastNamePCController,
-                                      labelText: 'Last Name*',
-                                      )),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                child:FutureBuilder<List<RelationshipData>>(
-                                  future: getRelationshipDropDown(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return CustomDropdownTextFieldsm(
-                                        initialValue: 'Select',
-                                        headText: 'Relationship',items: [],
-                                        onChanged: (newValue) {
-
-                                        },);
-                                    }
-                                    if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>> dropDownList = [];
-                                      for (var i in snapshot.data!) {
-                                        dropDownList.add(DropdownMenuItem<String>(
-                                          child: Text(i.relationship!),
-                                          value: i.relationship,
-                                        ));
-                                      }
-
-                                      return CustomDropdownTextFieldsm(headText: 'Relationship*',dropDownMenuList: dropDownList,
-                                        onChanged: (newValue) {
-                                          for (var a in snapshot.data!) {
-                                            if (a.relationship == newValue) {
-                                              selectedRelationshipEC = a.relationship!;
-                                              //country = a
-                                              // int? docType = a.companyOfficeID;
-                                            }
-                                          }
-                                        },);
-
-
-                                    } else {
-                                      return const Offstage();
-                                    }
-                                  },
-                                ),
-                              ),
-                              const SizedBox(width: AppSize.s35),
-                              const Flexible(
-                                  child: SizedBox()),
-                              const SizedBox(width: AppSize.s35),
-                              const Flexible(
-                                  child: SizedBox()),
-                            ],
-                          ),
-                          const SizedBox(height: AppSize.s16),
-                          providerState.isContactTrue ?  Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: streetPCController,
-                                      icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
-                                      labelText: "Street*")),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: suitAptPCController,
-                                      labelText: "Suite/Apt#")),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(
-                                // child: FutureBuilder<List<CityData>>(
-                                //   future: getCityDropDown(context),
-                                //   builder: (context, snapshot) {
-                                //     if (snapshot.connectionState ==
-                                //         ConnectionState.waiting) {
-                                //       return CustomDropdownTextFieldsm(
-                                //         initialValue: 'Select',
-                                //         headText: 'City*',items: [],
-                                //         onChanged: (newValue) {
-                                //
-                                //         },);
-                                //     }
-                                //     if (snapshot.hasData) {
-                                //       List<DropdownMenuItem<String>> dropDownList = [];
-                                //       for (var i in snapshot.data!) {
-                                //         dropDownList.add(DropdownMenuItem<String>(
-                                //           child: Text(i.cityName!),
-                                //           value: i.cityName,
-                                //         ));
-                                //       }
-                                //
-                                //       return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
-                                //         onChanged: (newValue) {
-                                //           for (var a in snapshot.data!) {
-                                //             if (a.cityName == newValue) {
-                                //               selectedCityEC = a.cityName!;
-                                //               //country = a
-                                //               // int? docType = a.companyOfficeID;
-                                //             }
-                                //           }
-                                //         },);
-                                //       //   SizedBox(
-                                //       //   height: 27,
-                                //       //   child: DropdownButtonFormField<String>(
-                                //       //     decoration: InputDecoration(
-                                //       //       labelText: 'City',
-                                //       //       labelStyle: GoogleFonts.firaSans(
-                                //       //         fontSize: 10.0,
-                                //       //         fontWeight: FontWeight.w400,
-                                //       //         color: ColorManager.greylight,
-                                //       //       ),
-                                //       //       focusedBorder: OutlineInputBorder(
-                                //       //         borderSide: BorderSide(
-                                //       //             color: ColorManager
-                                //       //                 .containerBorderGrey),
-                                //       //       ),
-                                //       //       border: OutlineInputBorder(
-                                //       //         borderRadius:
-                                //       //         BorderRadius.circular(4.0),
-                                //       //         borderSide: const BorderSide(
-                                //       //             color: Colors.grey),
-                                //       //       ),
-                                //       //       contentPadding:
-                                //       //       const EdgeInsets.symmetric(
-                                //       //         //   //  vertical: 5,
-                                //       //           horizontal: 12),
-                                //       //     ),
-                                //       //     // value: selectedCountry,
-                                //       //     icon: Icon(
-                                //       //       Icons.arrow_drop_down,
-                                //       //       color: ColorManager.blueprime,
-                                //       //     ),
-                                //       //     iconSize: 24,
-                                //       //     elevation: 16,
-                                //       //     style: GoogleFonts.firaSans(
-                                //       //       fontSize: 10.0,
-                                //       //       fontWeight: FontWeight.w400,
-                                //       //       color: const Color(0xff686464),
-                                //       //     ),
-                                //       //
-                                //       //     onChanged: (newValue) {
-                                //       //       for (var a in snapshot.data!) {
-                                //       //         if (a.cityName == newValue) {
-                                //       //          selectedCityEC = a.cityName!;
-                                //       //           //country = a
-                                //       //           // int? docType = a.companyOfficeID;
-                                //       //         }
-                                //       //       }
-                                //       //     },
-                                //       //     items: dropDownList.map((String value) {
-                                //       //       return DropdownMenuItem<String>(
-                                //       //         value: value,
-                                //       //         child: Text(
-                                //       //           value,
-                                //       //           style: GoogleFonts.firaSans(
-                                //       //             fontSize: 12,
-                                //       //             color: Color(0xff575757),
-                                //       //             fontWeight: FontWeight.w400,
-                                //       //           ),
-                                //       //         ),
-                                //       //       );
-                                //       //     }).toList(),
-                                //       //   ),
-                                //       // );
-                                //     } else {
-                                //       return const Offstage();
-                                //     }
-                                //   },
-                                // ),
-
-                                child: SchedularTextField(
-                                    controller: ctlrCity,
-                                    labelText: AppString.city),
-                              ),
-                            ],
-                          ):
-                          Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: streetPCController,
-                                      icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
-
-                                      labelText: "Street*")),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: suitAptPCController,
-                                      labelText: "Suite/Apt#")),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                // child: FutureBuilder<List<CityData>>(
-                                //   future: getCityDropDown(context),
-                                //   builder: (context, snapshot) {
-                                //     if (snapshot.connectionState ==
-                                //         ConnectionState.waiting) {
-                                //       return CustomDropdownTextFieldsm(
-                                //         initialValue: 'Select',
-                                //         headText: 'City*',items: [],
-                                //         onChanged: (newValue) {
-                                //
-                                //         },);
-                                //     }
-                                //     if (snapshot.hasData) {
-                                //       List<DropdownMenuItem<String>> dropDownList = [];
-                                //       for (var i in snapshot.data!) {
-                                //         dropDownList.add(DropdownMenuItem<String>(
-                                //           child: Text(i.cityName!),
-                                //           value: i.cityName,
-                                //         ));
-                                //       }
-                                //
-                                //       return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
-                                //         onChanged: (newValue) {
-                                //           for (var a in snapshot.data!) {
-                                //             if (a.cityName == newValue) {
-                                //               selectedCityEC = a.cityName!;
-                                //               //country = a
-                                //               // int? docType = a.companyOfficeID;
-                                //             }
-                                //           }
-                                //         },);
-                                //       //   SizedBox(
-                                //       //   height: 27,
-                                //       //   child: DropdownButtonFormField<String>(
-                                //       //     decoration: InputDecoration(
-                                //       //       labelText: 'City',
-                                //       //       labelStyle: GoogleFonts.firaSans(
-                                //       //         fontSize: 10.0,
-                                //       //         fontWeight: FontWeight.w400,
-                                //       //         color: ColorManager.greylight,
-                                //       //       ),
-                                //       //       focusedBorder: OutlineInputBorder(
-                                //       //         borderSide: BorderSide(
-                                //       //             color: ColorManager
-                                //       //                 .containerBorderGrey),
-                                //       //       ),
-                                //       //       border: OutlineInputBorder(
-                                //       //         borderRadius:
-                                //       //         BorderRadius.circular(4.0),
-                                //       //         borderSide: const BorderSide(
-                                //       //             color: Colors.grey),
-                                //       //       ),
-                                //       //       contentPadding:
-                                //       //       const EdgeInsets.symmetric(
-                                //       //         //   //  vertical: 5,
-                                //       //           horizontal: 12),
-                                //       //     ),
-                                //       //     // value: selectedCountry,
-                                //       //     icon: Icon(
-                                //       //       Icons.arrow_drop_down,
-                                //       //       color: ColorManager.blueprime,
-                                //       //     ),
-                                //       //     iconSize: 24,
-                                //       //     elevation: 16,
-                                //       //     style: GoogleFonts.firaSans(
-                                //       //       fontSize: 10.0,
-                                //       //       fontWeight: FontWeight.w400,
-                                //       //       color: const Color(0xff686464),
-                                //       //     ),
-                                //       //
-                                //       //     onChanged: (newValue) {
-                                //       //       for (var a in snapshot.data!) {
-                                //       //         if (a.cityName == newValue) {
-                                //       //          selectedCityEC = a.cityName!;
-                                //       //           //country = a
-                                //       //           // int? docType = a.companyOfficeID;
-                                //       //         }
-                                //       //       }
-                                //       //     },
-                                //       //     items: dropDownList.map((String value) {
-                                //       //       return DropdownMenuItem<String>(
-                                //       //         value: value,
-                                //       //         child: Text(
-                                //       //           value,
-                                //       //           style: GoogleFonts.firaSans(
-                                //       //             fontSize: 12,
-                                //       //             color: Color(0xff575757),
-                                //       //             fontWeight: FontWeight.w400,
-                                //       //           ),
-                                //       //         ),
-                                //       //       );
-                                //       //     }).toList(),
-                                //       //   ),
-                                //       // );
-                                //     } else {
-                                //       return const Offstage();
-                                //     }
-                                //   },
-                                // ),
-
-                                child: SchedularTextField(
-                                    controller: ctlrCity,
-                                    labelText: AppString.city),
-                              ),
-                              const SizedBox(width: AppSize.s35),
-                              ///state
-                              Flexible(
-                                // child:FutureBuilder<List<StateData>>(
-                                //   future: getStateDropDown(context),
-                                //   builder: (context, snapshot) {
-                                //     if (snapshot.connectionState ==
-                                //         ConnectionState.waiting) {
-                                //       return CustomDropdownTextFieldsm(
-                                //         initialValue: 'Select',
-                                //         headText: 'State*',items: [],
-                                //         onChanged: (newValue) {
-                                //
-                                //         },);
-                                //     }
-                                //     if (snapshot.hasData) {
-                                //       List<DropdownMenuItem<String>> dropDownList = [];
-                                //       for (var i in snapshot.data!) {
-                                //         dropDownList.add(DropdownMenuItem<String>(
-                                //           child: Text(i.name),
-                                //           value: i.name,
-                                //         ));
-                                //       }
-                                //
-                                //       return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
-                                //         onChanged: (newValue) {
-                                //           for (var a in snapshot.data!) {
-                                //             if (a.name == newValue) {
-                                //               selectedStateEC = a.name!;
-                                //               //country = a
-                                //               // int? docType = a.companyOfficeID;
-                                //             }
-                                //           }
-                                //         },);
-                                //
-                                //       // return SchedularDropdown(
-                                //       //   labelText: 'State',
-                                //       //   // labelStyle: GoogleFonts.firaSans(
-                                //       //   //   fontSize: 12,
-                                //       //   //   color: Color(0xff575757),
-                                //       //   //   fontWeight: FontWeight.w400,
-                                //       //   // ),
-                                //       //   // labelFontSize: 12,
-                                //       //   items: dropDownList,
-                                //       //   onChanged: (newValue) {
-                                //       //     for (var a in snapshot.data!) {
-                                //       //       if (a.name == newValue) {
-                                //       //         selectedStatepr = a.name!;
-                                //       //         // stateId = a.stateId!;
-                                //       //         //  print("Dept ID ${stateId}");
-                                //       //         // int docType = a.employeeTypesId;
-                                //       //         // Do something with docType
-                                //       //       }
-                                //       //     }
-                                //       //   },
-                                //       // );
-                                //     } else {
-                                //       return const Offstage();
-                                //     }
-                                //   },
-                                // ),
-                                child: SchedularTextField(
-                                    controller: ctlrCity,
-                                    labelText: AppString.city),
-                              ),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: zipCodePCController,
-                                      onlyAllowNumbers: true,
-                                      labelText: "Zip Code*")),
-
-                            ],
-                          ),
-                          const SizedBox(height: AppSize.s16),
-                          providerState.isContactTrue ?  Row(
-                            children: [
-                              ///state
-                              Flexible(
-                                child:FutureBuilder<List<StateData>>(
-                                  future: getStateDropDown(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return CustomDropdownTextFieldsm(
-                                        initialValue: 'Select',
-                                        headText: 'State*',items: [],
-                                        onChanged: (newValue) {
-
-                                        },);
-                                    }
-                                    if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>> dropDownList = [];
-                                      for (var i in snapshot.data!) {
-                                        dropDownList.add(DropdownMenuItem<String>(
-                                          child: Text(i.name),
-                                          value: i.name,
-                                        ));
-                                      }
-
-                                      return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
-                                        onChanged: (newValue) {
-                                          for (var a in snapshot.data!) {
-                                            if (a.name == newValue) {
-                                              selectedStateEC = a.name!;
-                                              //country = a
-                                              // int? docType = a.companyOfficeID;
-                                            }
-                                          }
-                                        },);
-
-                                      // return SchedularDropdown(
-                                      //   labelText: 'State',
-                                      //   // labelStyle: GoogleFonts.firaSans(
-                                      //   //   fontSize: 12,
-                                      //   //   color: Color(0xff575757),
-                                      //   //   fontWeight: FontWeight.w400,
-                                      //   // ),
-                                      //   // labelFontSize: 12,
-                                      //   items: dropDownList,
-                                      //   onChanged: (newValue) {
-                                      //     for (var a in snapshot.data!) {
-                                      //       if (a.name == newValue) {
-                                      //         selectedStatepr = a.name!;
-                                      //         // stateId = a.stateId!;
-                                      //         //  print("Dept ID ${stateId}");
-                                      //         // int docType = a.employeeTypesId;
-                                      //         // Do something with docType
-                                      //       }
-                                      //     }
-                                      //   },
-                                      // );
-                                    } else {
-                                      return const Offstage();
-                                    }
-                                  },
-                                ),
-                              ),
-                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: zipCodePCController,
-                                      onlyAllowNumbers: true,
-                                      labelText: "Zip Code*")),
-                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: phoneNumberPCController,
-                                      phoneField:true,
-                                      labelText: "Phone Number*")),
-                            ],
-                          ):
-                          Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: phoneNumberPCController,
-                                      phoneField:true,
-                                      labelText: "Phone Number*")),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: emailPCController,
-                                      labelText: "Email")),
-                              // Empty container for alignment
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(child: Container()),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(child: Container()),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(child: Container()),
-                            ],
-                          ),
-                          const SizedBox(height: AppSize.s16),
-                        providerState.isContactTrue ?  Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: emailPCController,
-                                      labelText: "Email")),
-                              // Empty container for alignment
-                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(child: Container()),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(child: Container()),
-                            ],
-                          ) : const Offstage(),
-                          const SizedBox(height: AppSize.s16),
-                          CustomIconButtonConst(
-                              width: AppSize.s140,
-                              text: 'Add Caregiver',
-                              icon: Icons.add,
-                              onPressed: () {
-
-                              }),
-
-                        ],
-                      ),
+                        const SizedBox(height: AppSize.s16),
+                        CustomIconButtonConst(
+                            width: AppSize.s140,
+                            text: 'Add Caregiver',
+                            icon: Icons.add,
+                            onPressed: () {
+                              context.read<EmergencyContactProvider>().addCaregiver();
+                            }),
+                        const SizedBox(height: AppSize.s16),
+                        const Divider(),
+                      ],
                     ),
                   ),
 
@@ -1348,460 +1369,481 @@ class IntakeRelatedPartiesScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 35),
                     child: BlueBGHeadConst(HeadText: "Patient Representative*"),
                   ),
-                  IntakeFlowContainerConst(
-                    height: providerState.isContactTrue ?AppSize.s430 :AppSize.s370,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                spacing: 20,
-                                children: [
-                                  CheckboxTile(
-                                    title: 'Copy Emergency Contact',
-                                    initialValue: copyEmergencyContactPR,
-                                    onChanged: (value) {
-                                      // setState(() {
-                                      //
-                                      // });
-                                    },
-                                  ),
-                                  CheckboxTile(
-                                    title: 'Copy Primary Caregiver',
-                                    initialValue: copyPrimaryCaregiverPR,
-                                    onChanged: (value) {
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Column(
+                      children: [
+                      //   Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Row(
+                      //         mainAxisAlignment: MainAxisAlignment.start,
+                      //         spacing: 20,
+                      //         children: [
+                      //           CheckboxTile(
+                      //             title: 'Copy Emergency Contact',
+                      //             initialValue: copyEmergencyContactPR,
+                      //             onChanged: (value) {
+                      //               // setState(() {
+                      //               //
+                      //               // });
+                      //             },
+                      //           ),
+                      //           CheckboxTile(
+                      //             title: 'Copy Primary Caregiver',
+                      //             initialValue: copyPrimaryCaregiverPR,
+                      //             onChanged: (value) {
+                      //
+                      //             },
+                      //           )
+                      //         ],
+                      //       ),
+                      //       CheckboxTile(
+                      //         title: 'No Selected Representative',
+                      //         initialValue: noPRData,
+                      //         onChanged: (value) {
+                      //
+                      //         },
+                      //       )
+                      //
+                      //     ],
+                      //   ),
+                      //   const SizedBox(height: AppSize.s16),
+                      // providerState.isContactTrue ?  Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //             controller: firstNamePRController,
+                      //             labelText: 'First Name*',
+                      //
+                      //           )),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //             controller: lastNamePRController,
+                      //             labelText: 'Last Name*',
+                      //           )),
+                      //       SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
+                      //       Flexible(
+                      //         child:FutureBuilder<List<RelationshipData>>(
+                      //           future: getRelationshipDropDown(context),
+                      //           builder: (context, snapshot) {
+                      //             if (snapshot.connectionState ==
+                      //                 ConnectionState.waiting) {
+                      //               return CustomDropdownTextFieldsm(
+                      //                 initialValue: 'Select',
+                      //                 headText: 'Relationship',items: [],
+                      //                 onChanged: (newValue) {
+                      //
+                      //                 },);
+                      //             }
+                      //             if (snapshot.hasData) {
+                      //               List<DropdownMenuItem<String>> dropDownList = [];
+                      //               for (var i in snapshot.data!) {
+                      //                 dropDownList.add(DropdownMenuItem<String>(
+                      //                   child: Text(i.relationship!),
+                      //                   value: i.relationship,
+                      //                 ));
+                      //               }
+                      //
+                      //               return
+                      //                 CustomDropdownTextFieldsm(headText: 'Relationship*',dropDownMenuList: dropDownList,
+                      //                   onChanged: (newValue) {
+                      //                     for (var a in snapshot.data!) {
+                      //                       if (a.relationship == newValue) {
+                      //                         selectedRelationshipEC = a.relationship!;
+                      //                         //country = a
+                      //                         // int? docType = a.companyOfficeID;
+                      //                       }
+                      //                     }
+                      //                   },);
+                      //
+                      //
+                      //             } else {
+                      //               return const Offstage();
+                      //             }
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ):
+                      //   Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //             controller: firstNamePRController,
+                      //             labelText: 'First Name*',
+                      //
+                      //           )),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: lastNamePRController,
+                      //               labelText: 'Last Name*',
+                      //              )),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //         child:FutureBuilder<List<RelationshipData>>(
+                      //           future: getRelationshipDropDown(context),
+                      //           builder: (context, snapshot) {
+                      //             if (snapshot.connectionState ==
+                      //                 ConnectionState.waiting) {
+                      //               return CustomDropdownTextFieldsm(
+                      //                 initialValue: 'Select',
+                      //                 headText: 'Relationship',items: [],
+                      //                 onChanged: (newValue) {
+                      //
+                      //                 },);
+                      //             }
+                      //             if (snapshot.hasData) {
+                      //               List<DropdownMenuItem<String>> dropDownList = [];
+                      //               for (var i in snapshot.data!) {
+                      //                 dropDownList.add(DropdownMenuItem<String>(
+                      //                   child: Text(i.relationship!),
+                      //                   value: i.relationship,
+                      //                 ));
+                      //               }
+                      //
+                      //               return
+                      //                 CustomDropdownTextFieldsm(headText: 'Relationship*',dropDownMenuList: dropDownList,
+                      //                   onChanged: (newValue) {
+                      //                     for (var a in snapshot.data!) {
+                      //                       if (a.relationship == newValue) {
+                      //                         selectedRelationshipEC = a.relationship!;
+                      //                         //country = a
+                      //                         // int? docType = a.companyOfficeID;
+                      //                       }
+                      //                     }
+                      //                   },);
+                      //
+                      //
+                      //             } else {
+                      //               return const Offstage();
+                      //             }
+                      //           },
+                      //         ),
+                      //       ),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //           child: CustomDropdownTextFieldsm(headText: 'Role*',items: ['Health Care Decisions','A'],
+                      //             onChanged: (newValue) {
+                      //
+                      //             },)),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //           child: CustomDropdownTextFieldsm(headText: 'Type*',items: ['Legal Representative','A'],
+                      //             onChanged: (newValue) {
+                      //
+                      //             },)),
+                      //     ],
+                      //   ),
+                      //   const SizedBox(height: AppSize.s16),
+                      // providerState.isContactTrue ?  Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: CustomDropdownTextFieldsm(headText: 'Role*',items: ['Health Care Decisions','A'],
+                      //             onChanged: (newValue) {
+                      //
+                      //             },)),
+                      //       SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
+                      //       Flexible(
+                      //           child: CustomDropdownTextFieldsm(headText: 'Type*',items: ['Legal Representative','A'],
+                      //             onChanged: (newValue) {
+                      //
+                      //             },)),
+                      //       SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: streetPRController,
+                      //               icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
+                      //               labelText: "Street*")),
+                      //     ],
+                      //   ):
+                      //   Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: streetPRController,
+                      //               icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
+                      //               labelText: "Street*")),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: suitAptPRController,
+                      //               labelText: "Suite/Apt#")),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //         // child: FutureBuilder<List<CityData>>(
+                      //         //   future: getCityDropDown(context),
+                      //         //   builder: (context, snapshot) {
+                      //         //     if (snapshot.connectionState ==
+                      //         //         ConnectionState.waiting) {
+                      //         //       return CustomDropdownTextFieldsm(
+                      //         //         initialValue: 'Select',
+                      //         //         headText: 'City*',items: [],
+                      //         //         onChanged: (newValue) {
+                      //         //
+                      //         //         },);
+                      //         //     }
+                      //         //     if (snapshot.hasData) {
+                      //         //       List<DropdownMenuItem<String>> dropDownList = [];
+                      //         //       for (var i in snapshot.data!) {
+                      //         //         dropDownList.add(DropdownMenuItem<String>(
+                      //         //           child: Text(i.cityName!),
+                      //         //           value: i.cityName,
+                      //         //         ));
+                      //         //       }
+                      //         //
+                      //         //       return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
+                      //         //         onChanged: (newValue) {
+                      //         //           for (var a in snapshot.data!) {
+                      //         //             if (a.cityName == newValue) {
+                      //         //               selectedCityEC = a.cityName!;
+                      //         //               //country = a
+                      //         //               // int? docType = a.companyOfficeID;
+                      //         //             }
+                      //         //           }
+                      //         //         },);
+                      //         //
+                      //         //     } else {
+                      //         //       return const Offstage();
+                      //         //     }
+                      //         //   },
+                      //         // ),
+                      //
+                      //         child: SchedularTextField(
+                      //             controller: ctlrCity,
+                      //             labelText: AppString.city),
+                      //       ),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //         // child:FutureBuilder<List<StateData>>(
+                      //         //   future: getStateDropDown(context),
+                      //         //   builder: (context, snapshot) {
+                      //         //     if (snapshot.connectionState ==
+                      //         //         ConnectionState.waiting) {
+                      //         //       return CustomDropdownTextFieldsm(
+                      //         //         initialValue: 'Select',
+                      //         //         headText: 'State*',items: [],
+                      //         //         onChanged: (newValue) {
+                      //         //
+                      //         //         },);
+                      //         //     }
+                      //         //     if (snapshot.hasData) {
+                      //         //       List<DropdownMenuItem<String>> dropDownList = [];
+                      //         //       for (var i in snapshot.data!) {
+                      //         //         dropDownList.add(DropdownMenuItem<String>(
+                      //         //           child: Text(i.name),
+                      //         //           value: i.name,
+                      //         //         ));
+                      //         //       }
+                      //         //
+                      //         //       return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
+                      //         //         onChanged: (newValue) {
+                      //         //           for (var a in snapshot.data!) {
+                      //         //             if (a.name == newValue) {
+                      //         //               selectedStateEC = a.name!;
+                      //         //               //country = a
+                      //         //               // int? docType = a.companyOfficeID;
+                      //         //             }
+                      //         //           }
+                      //         //         },);
+                      //         //
+                      //         //
+                      //         //     } else {
+                      //         //       return const Offstage();
+                      //         //     }
+                      //         //   },
+                      //         // ),
+                      //         //
+                      //         child: SchedularTextField(
+                      //           labelText: "State*",
+                      //           controller: ctlrState,
+                      //         )
+                      //       ),
+                      //       const SizedBox(width: AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: zipCodePRController,
+                      //               onlyAllowNumbers: true,
+                      //               labelText: "Zip Code*")),
+                      //
+                      //     ],
+                      //   ),
+                      //   const SizedBox(height: AppSize.s16),
+                      // providerState.isContactTrue ?  Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: suitAptPRController,
+                      //               labelText: "Suite/Apt#")),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(
+                      //         // child: FutureBuilder<List<CityData>>(
+                      //         //   future: getCityDropDown(context),
+                      //         //   builder: (context, snapshot) {
+                      //         //     if (snapshot.connectionState ==
+                      //         //         ConnectionState.waiting) {
+                      //         //       return CustomDropdownTextFieldsm(
+                      //         //         initialValue: 'Select',
+                      //         //         headText: 'City*',items: [],
+                      //         //         onChanged: (newValue) {
+                      //         //
+                      //         //         },);
+                      //         //     }
+                      //         //     if (snapshot.hasData) {
+                      //         //       List<DropdownMenuItem<String>> dropDownList = [];
+                      //         //       for (var i in snapshot.data!) {
+                      //         //         dropDownList.add(DropdownMenuItem<String>(
+                      //         //           child: Text(i.cityName!),
+                      //         //           value: i.cityName,
+                      //         //         ));
+                      //         //       }
+                      //         //
+                      //         //       return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
+                      //         //         onChanged: (newValue) {
+                      //         //           for (var a in snapshot.data!) {
+                      //         //             if (a.cityName == newValue) {
+                      //         //               selectedCityEC = a.cityName!;
+                      //         //               //country = a
+                      //         //               // int? docType = a.companyOfficeID;
+                      //         //             }
+                      //         //           }
+                      //         //         },);
+                      //         //
+                      //         //     } else {
+                      //         //       return const Offstage();
+                      //         //     }
+                      //         //   },
+                      //         // ),
+                      //
+                      //         child: SchedularTextField(
+                      //             controller: ctlrCity,
+                      //             labelText: AppString.city),
+                      //       ),
+                      //       SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
+                      //       Flexible(
+                      //         // child:FutureBuilder<List<StateData>>(
+                      //         //   future: getStateDropDown(context),
+                      //         //   builder: (context, snapshot) {
+                      //         //     if (snapshot.connectionState ==
+                      //         //         ConnectionState.waiting) {
+                      //         //       return CustomDropdownTextFieldsm(
+                      //         //         initialValue: 'Select',
+                      //         //         headText: 'State*',items: [],
+                      //         //         onChanged: (newValue) {
+                      //         //
+                      //         //         },);
+                      //         //     }
+                      //         //     if (snapshot.hasData) {
+                      //         //       List<DropdownMenuItem<String>> dropDownList = [];
+                      //         //       for (var i in snapshot.data!) {
+                      //         //         dropDownList.add(DropdownMenuItem<String>(
+                      //         //           child: Text(i.name),
+                      //         //           value: i.name,
+                      //         //         ));
+                      //         //       }
+                      //         //
+                      //         //       return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
+                      //         //         onChanged: (newValue) {
+                      //         //           for (var a in snapshot.data!) {
+                      //         //             if (a.name == newValue) {
+                      //         //               selectedStateEC = a.name!;
+                      //         //               //country = a
+                      //         //               // int? docType = a.companyOfficeID;
+                      //         //             }
+                      //         //           }
+                      //         //         },);
+                      //         //
+                      //         //
+                      //         //     } else {
+                      //         //       return const Offstage();
+                      //         //     }
+                      //         //   },
+                      //         // ),
+                      //
+                      //         child: SchedularTextField(
+                      //           labelText: "State*",
+                      //           controller: ctlrState,
+                      //         )
+                      //       ),
+                      //     ],
+                      //   ):
+                      //   Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: phoneNumberPRController,
+                      //               phoneField:true,
+                      //               labelText: "Phone Number*")),
+                      //       SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: emailPRController,
+                      //               labelText: "Email")),
+                      //       // Empty container for alignment
+                      //       SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
+                      //       Flexible(child: Container()),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(child: Container()),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(child: Container()),
+                      //     ],
+                      //   ),
+                      //   const SizedBox(height: AppSize.s16),
+                      // providerState.isContactTrue ?  Row(
+                      //     children: [
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: zipCodePRController,
+                      //               onlyAllowNumbers: true,
+                      //               labelText: "Zip Code*")),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: phoneNumberPRController,
+                      //               phoneField:true,
+                      //               labelText: "Phone Number*")),
+                      //       SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
+                      //       Flexible(
+                      //           child: SchedularTextField(
+                      //               controller: emailPRController,
+                      //               labelText: "Email")),
+                      //     ],
+                      //   ):
+                      // const Offstage(),
+                    ///
+                        ///
+                        Consumer<EmergencyContactProvider>(
+                          builder: (context, provider, _) {
+                            return Column(
+                              children: provider.representativeKeys.asMap().entries.map((entry) {
+                                int index = entry.key;
+                                var key = entry.value;
+                                return Representative(
+                                  key: key,
+                                  index: index + 1,
+                                  onRemove: () => provider.removeRepresentative(key),
+                                  patientId: patientId,
+                                  isVisible: provider.isRepresentativeVisible,
+                                );
+                              }).toList(),
+                            );
+                          },
+                        ),
 
-                                    },
-                                  )
-                                ],
-                              ),
-                              CheckboxTile(
-                                title: 'No Selected Representative',
-                                initialValue: noPRData,
-                                onChanged: (value) {
 
-                                },
-                              )
-
-                            ],
-                          ),
-                          const SizedBox(height: AppSize.s16),
-                        providerState.isContactTrue ?  Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                    controller: firstNamePRController,
-                                    labelText: 'First Name*',
-
-                                  )),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                    controller: lastNamePRController,
-                                    labelText: 'Last Name*',
-                                  )),
-                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
-                              Flexible(
-                                child:FutureBuilder<List<RelationshipData>>(
-                                  future: getRelationshipDropDown(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return CustomDropdownTextFieldsm(
-                                        initialValue: 'Select',
-                                        headText: 'Relationship',items: [],
-                                        onChanged: (newValue) {
-
-                                        },);
-                                    }
-                                    if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>> dropDownList = [];
-                                      for (var i in snapshot.data!) {
-                                        dropDownList.add(DropdownMenuItem<String>(
-                                          child: Text(i.relationship!),
-                                          value: i.relationship,
-                                        ));
-                                      }
-
-                                      return
-                                        CustomDropdownTextFieldsm(headText: 'Relationship*',dropDownMenuList: dropDownList,
-                                          onChanged: (newValue) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.relationship == newValue) {
-                                                selectedRelationshipEC = a.relationship!;
-                                                //country = a
-                                                // int? docType = a.companyOfficeID;
-                                              }
-                                            }
-                                          },);
-
-
-                                    } else {
-                                      return const Offstage();
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
-                          ):
-                          Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                    controller: firstNamePRController,
-                                    labelText: 'First Name*',
-
-                                  )),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: lastNamePRController,
-                                      labelText: 'Last Name*',
-                                     )),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                child:FutureBuilder<List<RelationshipData>>(
-                                  future: getRelationshipDropDown(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return CustomDropdownTextFieldsm(
-                                        initialValue: 'Select',
-                                        headText: 'Relationship',items: [],
-                                        onChanged: (newValue) {
-
-                                        },);
-                                    }
-                                    if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>> dropDownList = [];
-                                      for (var i in snapshot.data!) {
-                                        dropDownList.add(DropdownMenuItem<String>(
-                                          child: Text(i.relationship!),
-                                          value: i.relationship,
-                                        ));
-                                      }
-
-                                      return
-                                        CustomDropdownTextFieldsm(headText: 'Relationship*',dropDownMenuList: dropDownList,
-                                          onChanged: (newValue) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.relationship == newValue) {
-                                                selectedRelationshipEC = a.relationship!;
-                                                //country = a
-                                                // int? docType = a.companyOfficeID;
-                                              }
-                                            }
-                                          },);
-
-
-                                    } else {
-                                      return const Offstage();
-                                    }
-                                  },
-                                ),
-                              ),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: CustomDropdownTextFieldsm(headText: 'Role*',items: ['Health Care Decisions','A'],
-                                    onChanged: (newValue) {
-
-                                    },)),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: CustomDropdownTextFieldsm(headText: 'Type*',items: ['Legal Representative','A'],
-                                    onChanged: (newValue) {
-
-                                    },)),
-                            ],
-                          ),
-                          const SizedBox(height: AppSize.s16),
-                        providerState.isContactTrue ?  Row(
-                            children: [
-                              Flexible(
-                                  child: CustomDropdownTextFieldsm(headText: 'Role*',items: ['Health Care Decisions','A'],
-                                    onChanged: (newValue) {
-
-                                    },)),
-                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
-                              Flexible(
-                                  child: CustomDropdownTextFieldsm(headText: 'Type*',items: ['Legal Representative','A'],
-                                    onChanged: (newValue) {
-
-                                    },)),
-                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: streetPRController,
-                                      icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
-                                      labelText: "Street*")),
-                            ],
-                          ):
-                          Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: streetPRController,
-                                      icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
-                                      labelText: "Street*")),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: suitAptPRController,
-                                      labelText: "Suite/Apt#")),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                // child: FutureBuilder<List<CityData>>(
-                                //   future: getCityDropDown(context),
-                                //   builder: (context, snapshot) {
-                                //     if (snapshot.connectionState ==
-                                //         ConnectionState.waiting) {
-                                //       return CustomDropdownTextFieldsm(
-                                //         initialValue: 'Select',
-                                //         headText: 'City*',items: [],
-                                //         onChanged: (newValue) {
-                                //
-                                //         },);
-                                //     }
-                                //     if (snapshot.hasData) {
-                                //       List<DropdownMenuItem<String>> dropDownList = [];
-                                //       for (var i in snapshot.data!) {
-                                //         dropDownList.add(DropdownMenuItem<String>(
-                                //           child: Text(i.cityName!),
-                                //           value: i.cityName,
-                                //         ));
-                                //       }
-                                //
-                                //       return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
-                                //         onChanged: (newValue) {
-                                //           for (var a in snapshot.data!) {
-                                //             if (a.cityName == newValue) {
-                                //               selectedCityEC = a.cityName!;
-                                //               //country = a
-                                //               // int? docType = a.companyOfficeID;
-                                //             }
-                                //           }
-                                //         },);
-                                //
-                                //     } else {
-                                //       return const Offstage();
-                                //     }
-                                //   },
-                                // ),
-
-                                child: SchedularTextField(
-                                    controller: ctlrCity,
-                                    labelText: AppString.city),
-                              ),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                // child:FutureBuilder<List<StateData>>(
-                                //   future: getStateDropDown(context),
-                                //   builder: (context, snapshot) {
-                                //     if (snapshot.connectionState ==
-                                //         ConnectionState.waiting) {
-                                //       return CustomDropdownTextFieldsm(
-                                //         initialValue: 'Select',
-                                //         headText: 'State*',items: [],
-                                //         onChanged: (newValue) {
-                                //
-                                //         },);
-                                //     }
-                                //     if (snapshot.hasData) {
-                                //       List<DropdownMenuItem<String>> dropDownList = [];
-                                //       for (var i in snapshot.data!) {
-                                //         dropDownList.add(DropdownMenuItem<String>(
-                                //           child: Text(i.name),
-                                //           value: i.name,
-                                //         ));
-                                //       }
-                                //
-                                //       return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
-                                //         onChanged: (newValue) {
-                                //           for (var a in snapshot.data!) {
-                                //             if (a.name == newValue) {
-                                //               selectedStateEC = a.name!;
-                                //               //country = a
-                                //               // int? docType = a.companyOfficeID;
-                                //             }
-                                //           }
-                                //         },);
-                                //
-                                //
-                                //     } else {
-                                //       return const Offstage();
-                                //     }
-                                //   },
-                                // ),
-                                //
-                                child: SchedularTextField(
-                                  labelText: "State*",
-                                  controller: ctlrState,
-                                )
-                              ),
-                              const SizedBox(width: AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: zipCodePRController,
-                                      onlyAllowNumbers: true,
-                                      labelText: "Zip Code*")),
-
-                            ],
-                          ),
-                          const SizedBox(height: AppSize.s16),
-                        providerState.isContactTrue ?  Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: suitAptPRController,
-                                      labelText: "Suite/Apt#")),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(
-                                // child: FutureBuilder<List<CityData>>(
-                                //   future: getCityDropDown(context),
-                                //   builder: (context, snapshot) {
-                                //     if (snapshot.connectionState ==
-                                //         ConnectionState.waiting) {
-                                //       return CustomDropdownTextFieldsm(
-                                //         initialValue: 'Select',
-                                //         headText: 'City*',items: [],
-                                //         onChanged: (newValue) {
-                                //
-                                //         },);
-                                //     }
-                                //     if (snapshot.hasData) {
-                                //       List<DropdownMenuItem<String>> dropDownList = [];
-                                //       for (var i in snapshot.data!) {
-                                //         dropDownList.add(DropdownMenuItem<String>(
-                                //           child: Text(i.cityName!),
-                                //           value: i.cityName,
-                                //         ));
-                                //       }
-                                //
-                                //       return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
-                                //         onChanged: (newValue) {
-                                //           for (var a in snapshot.data!) {
-                                //             if (a.cityName == newValue) {
-                                //               selectedCityEC = a.cityName!;
-                                //               //country = a
-                                //               // int? docType = a.companyOfficeID;
-                                //             }
-                                //           }
-                                //         },);
-                                //
-                                //     } else {
-                                //       return const Offstage();
-                                //     }
-                                //   },
-                                // ),
-
-                                child: SchedularTextField(
-                                    controller: ctlrCity,
-                                    labelText: AppString.city),
-                              ),
-                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
-                              Flexible(
-                                // child:FutureBuilder<List<StateData>>(
-                                //   future: getStateDropDown(context),
-                                //   builder: (context, snapshot) {
-                                //     if (snapshot.connectionState ==
-                                //         ConnectionState.waiting) {
-                                //       return CustomDropdownTextFieldsm(
-                                //         initialValue: 'Select',
-                                //         headText: 'State*',items: [],
-                                //         onChanged: (newValue) {
-                                //
-                                //         },);
-                                //     }
-                                //     if (snapshot.hasData) {
-                                //       List<DropdownMenuItem<String>> dropDownList = [];
-                                //       for (var i in snapshot.data!) {
-                                //         dropDownList.add(DropdownMenuItem<String>(
-                                //           child: Text(i.name),
-                                //           value: i.name,
-                                //         ));
-                                //       }
-                                //
-                                //       return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
-                                //         onChanged: (newValue) {
-                                //           for (var a in snapshot.data!) {
-                                //             if (a.name == newValue) {
-                                //               selectedStateEC = a.name!;
-                                //               //country = a
-                                //               // int? docType = a.companyOfficeID;
-                                //             }
-                                //           }
-                                //         },);
-                                //
-                                //
-                                //     } else {
-                                //       return const Offstage();
-                                //     }
-                                //   },
-                                // ),
-
-                                child: SchedularTextField(
-                                  labelText: "State*",
-                                  controller: ctlrState,
-                                )
-                              ),
-                            ],
-                          ):
-                          Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: phoneNumberPRController,
-                                      phoneField:true,
-                                      labelText: "Phone Number*")),
-                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: emailPRController,
-                                      labelText: "Email")),
-                              // Empty container for alignment
-                              SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
-                              Flexible(child: Container()),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(child: Container()),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(child: Container()),
-                            ],
-                          ),
-                          const SizedBox(height: AppSize.s16),
-                        providerState.isContactTrue ?  Row(
-                            children: [
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: zipCodePRController,
-                                      onlyAllowNumbers: true,
-                                      labelText: "Zip Code*")),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: phoneNumberPRController,
-                                      phoneField:true,
-                                      labelText: "Phone Number*")),
-                              SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
-                              Flexible(
-                                  child: SchedularTextField(
-                                      controller: emailPRController,
-                                      labelText: "Email")),
-                            ],
-                          ): const Offstage(),
-                          const SizedBox(height: AppSize.s16),
-                          CustomIconButtonConst(
-                              width:  AppSize.s170,
-                              text: 'Add Representative',
-                              icon: Icons.add,
-                              onPressed: () {
-
-                              }),
-
-                        ],
-                      ),
+                        const SizedBox(height: AppSize.s16),
+                        CustomIconButtonConst(
+                            width:  AppSize.s170,
+                            text: 'Add Representative',
+                            icon: Icons.add,
+                            onPressed: () {
+                              context.read<EmergencyContactProvider>().addRepresentative();
+                            }),
+                        const SizedBox(height: AppSize.s16),
+                        const Divider(),
+                      ],
                     ),
                   ),
                   const SizedBox(height: AppSize.s80),
