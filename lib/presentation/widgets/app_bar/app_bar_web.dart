@@ -268,7 +268,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           onTap: () async {
                                             //const url = "http://localhost:52425/#/home";
                                             const url =
-                                                "${AppConfig.dev}/#/home";
+                                                "${AppConfig.prod}/#/home";
                                             if (await canLaunch(url)) {
                                               await launch(url);
                                               //    Navigator.push(

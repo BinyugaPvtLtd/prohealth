@@ -176,8 +176,8 @@ class _App extends State<App> {
       routes: RoutesManager().getRoutes(token: widget.signedIn),
       onGenerateRoute: (settings) {
         var url = html.window.location.href;
-        String deployedUrl = "http://localhost:49619/#/onBordingWelcome";
-        // String deployedUrl = "${AppConfig.deployment}/#/onBordingWelcome";
+        // String deployedUrl = "http://localhost:49619/#/onBordingWelcome";
+        String deployedUrl = "${AppConfig.prodDeployment}/#/onBordingWelcome";
 
 
         if (url == deployedUrl){

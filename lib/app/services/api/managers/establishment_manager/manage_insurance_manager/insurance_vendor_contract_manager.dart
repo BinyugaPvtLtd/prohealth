@@ -23,6 +23,8 @@ Future<ApiData> addVendors(
           "officeId": officeId,
           "companyId": companyId,
         });
+    print("Response Status Code: ${response.statusCode}");
+    print("Response Data: ${response.data}");
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Vendor Addded");
       return ApiData(
@@ -38,8 +40,11 @@ Future<ApiData> addVendors(
     }
   } catch (e) {
     print("Error $e");
+
     return ApiData(
-        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+        statusCode: 404,
+        success: false,
+        message: AppString.somethingWentWrong);
   }
 }
 
@@ -68,6 +73,7 @@ Future<List<ManageVendorData>> companyVendorGet(BuildContext context,
         );
       }
       print("Companyy vendor data:::::${itemsList}");
+      print("Companyy vendor data:::::${response}");
     } else {
       print('Api Error');
       //return itemsList;
