@@ -150,6 +150,7 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+
                           Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
                           SizedBox(width: 15,),
                           Flexible(
