@@ -1,4 +1,6 @@
 class AppString {
+  static const String onboardingWelcome = "/onboardingWelcome";
+
   ///profile bar
   static const String profile = "Profile\n100%";
   static const String active = "Active";
@@ -14,8 +16,8 @@ class AppString {
   static const String addresss = "Address";
   static const String selectDept = "Select Department";
   static const String deleteUser = "Delete User";
-  static const String userDeletedsucc  ='User deleted successfully.';
-  static const String createUser  ='Create User';
+  static const String userDeletedsucc = 'User deleted successfully.';
+  static const String createUser = 'Create User';
 
   static const String houseaddress =
       "House No., Street No. Area City, Zip\nCode";
@@ -231,7 +233,6 @@ class AppString {
   static String expiry_date = "Expiry Date";
   static String expiry_type = "Expiry Type";
 
-
   static String add_new = "Add New";
   static String street = "Street";
   static String create = "Create";
@@ -314,7 +315,8 @@ class AppString {
 
   /// Clinical License
   static const String noDrivingLicense = "No available driving license!";
-  static const String noPractitionerLicense = "No available practitioner license!";
+  static const String noPractitionerLicense =
+      "No available practitioner license!";
 }
 
 ///mobile screen constant
@@ -323,16 +325,17 @@ class AppStringMobile {
   ///login screen
   static const String poweredBy = 'Powered by';
   static const String ssn = 'Social Security Number';
-  static const String  zone = 'Zone';
-  static const String  age = 'Age';
-  static const String  gender = 'Gender';
-  static const String  perEmail = 'Personal Email';
-  static const String  worEmail = 'Work Email';
-  static const String  service = 'Service';
-  static const String  worNo = 'Work Number';
-  static const String  repOff = 'Reporting Office';
-  static const String  summry = 'Summary';
+  static const String zone = 'Zone';
+  static const String age = 'Age';
+  static const String gender = 'Gender';
+  static const String perEmail = 'Personal Email';
+  static const String worEmail = 'Work Email';
+  static const String service = 'Service';
+  static const String worNo = 'Work Number';
+  static const String repOff = 'Reporting Office';
+  static const String summry = 'Summary';
 }
+
 class AppStringHRNoData {
   ///manage screen
   static const String employeeNoData = 'No available employement!';
@@ -346,15 +349,20 @@ class AppStringHRNoData {
   static const String timeOffNoData = 'No available time off!';
   static const String ackNoData = 'No available acknowledgement document!';
   static const String healthNoData = 'No available health record document!';
-  static const String compensationNoData = 'No available compensation document!';
+  static const String compensationNoData =
+      'No available compensation document!';
   static const String othersnNoData = 'No available others document!';
   static const String payRatesNoData = 'No available pay rates!';
+
   ///onboarding screen
   static const String nolegalDocData = 'No Legal Document available!';
   static const String noOnboardingData = 'No available onboarding data!';
-  static const String noOnboardEmpData = 'No available qualification employement!';
-  static const String noOnboardEdnData = 'No available qualification education!';
-  static const String noOnboardRefData = 'No available qualification referance!';
+  static const String noOnboardEmpData =
+      'No available qualification employement!';
+  static const String noOnboardEdnData =
+      'No available qualification education!';
+  static const String noOnboardRefData =
+      'No available qualification referance!';
   static const String noOnboardLicData = 'No available qualification license!';
   static const String noOnboardBanking = 'No available banking data!';
   static const String noOnboardAck = 'No available acknowledgment document!';
@@ -378,30 +386,27 @@ class AppStringLegalDocument {
   static const String directDeposit = 'Direct-Deposit';
   static const String standardOfCodeOfConduct = 'Standard of code of conduct';
   static const String sexualHarassmentPolicy = 'california-sexual-harassment';
-  static const String sexualHarassmentPolicyACK = 'Sexual harassment policy acknowledgment';
+  static const String sexualHarassmentPolicyACK =
+      'Sexual harassment policy acknowledgment';
   static const String preAuthorization = 'Pre Authorization';
   static const String prop65 = 'prop-65';
   static const String returnOfcompanyProperty = 'Return of company property';
   static const String hepB = 'Hep B';
   static const String tDap = 'T dap';
   static const String flu = 'Flu-vaccine-form';
-  static const String covidVaccine = 'February-covid-vaccination-policy-mandatory';
+  static const String covidVaccine =
+      'February-covid-vaccination-policy-mandatory';
   static const String i9 = 'i-9';
   static const String employmentApplication = 'Employment Application';
   static const String w4 = 'W4';
   static const String employeeHandbook = 'ProHealth-Employee-Handbook';
   static const String proHealthCellPhone = "Data-Cell_Agreement";
 
-
   static const String popupMsgHead = "Kindly fill these following fields.";
   static const String ZonesMsgHead = "Kindly add County, Zone and Zipcodes.";
-
-
-
-
 }
 
-class AppStringSMModule{
+class AppStringSMModule {
   static const String addressSM = 'Address';
   static const String pendingReferNoData = 'No available pending referrals!';
   static const String moveIntakeReferNoData = 'No available intake referrals!';

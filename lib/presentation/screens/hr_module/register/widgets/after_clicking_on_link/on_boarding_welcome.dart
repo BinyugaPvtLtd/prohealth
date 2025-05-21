@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/offer_letter_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/offer_letter_html_data/offer_letter_html.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
@@ -12,7 +13,7 @@ import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/top_row.dart';
 
 class OnBoardingWelcome extends StatelessWidget {
-  static const String routeName = "/onBordingWelcome";
+  static const String routeName = AppString.onboardingWelcome;
   const OnBoardingWelcome({
     Key? key,
   }) : super(key: key);
@@ -74,6 +75,15 @@ class OnBoardingWelcome extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
+                          color: Color(0xff686464),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        AppConfig.version,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
                           color: Color(0xff686464),
                         ),
                       ),
@@ -172,7 +182,8 @@ class OnBoardingCongratulation extends StatelessWidget {
   final int depID;
   const OnBoardingCongratulation({
     super.key,
-    required this.employeeId, required this.depID,
+    required this.employeeId,
+    required this.depID,
   });
   @override
   Widget build(BuildContext context) {
@@ -258,8 +269,8 @@ class OnBoardingCongratulation extends StatelessWidget {
                   height: 35,
                   child: ElevatedButton(
                     onPressed: () async {
-                      OfferLetterData offerLetterData =
-                          await GetOfferLetter(context, employeeId, AppConfig.templateId);
+                      OfferLetterData offerLetterData = await GetOfferLetter(
+                          context, employeeId, AppConfig.templateId);
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
@@ -270,25 +281,39 @@ class OnBoardingCongratulation extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MultiStepForm(
-                                    employeeID: employeeId, depID: depID,
+                                    employeeID: employeeId,
+                                    depID: depID,
                                   )),
                         );
-                      } else if (offerLetterData.statusCode == 200 || offerLetterData.statusCode == 201) {
+                      } else if (offerLetterData.statusCode == 200 ||
+                          offerLetterData.statusCode == 201) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
                                     OfferLetterDescriptionScreen(
-                                        employeeId: employeeId, depID: depID,)));
-                      } else if(offerLetterData.statusCode != 200 || offerLetterData.statusCode != 201 || offerLetterData.statusCode != 409){
-                        showDialog(context: context, builder:(BuildContext context){
-                          return FailedPopup(text: offerLetterData.message,);
-                        });
-                      } else{
+                                      employeeId: employeeId,
+                                      depID: depID,
+                                    )));
+                      } else if (offerLetterData.statusCode != 200 ||
+                          offerLetterData.statusCode != 201 ||
+                          offerLetterData.statusCode != 409) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return FailedPopup(
+                                text: offerLetterData.message,
+                              );
+                            });
+                      } else {
                         print("Something went wrong!");
-                        await showDialog(context: context, builder:(BuildContext context){
-                          return FailedPopup(text: offerLetterData.message,);
-                        });
+                        await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return FailedPopup(
+                                text: offerLetterData.message,
+                              );
+                            });
                       }
                     },
                     style: ElevatedButton.styleFrom(

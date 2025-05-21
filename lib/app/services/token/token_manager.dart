@@ -5,12 +5,9 @@ class TokenManager {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString("accessToken");
     bool? isOnBoardToken = await getIsOnBoardingToken();
-    if(isOnBoardToken){
+    if (isOnBoardToken) {
       token = sharedPreferences.getString("accessTokenRegister");
-    }else{
-      print('General screen :::::::');
-    }
-    print('Main Token :::: ${token}');
+    } else {}
     return token ?? "";
   }
 
@@ -31,18 +28,25 @@ class TokenManager {
     int? companyId = sharedPreferences.getInt("companyId");
     return companyId ?? 0;
   }
+
   static Future<int> getuserId() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     int? userId = sharedPreferences.getInt("userId");
     return userId ?? 0;
   }
+
   static Future<bool> getIsOnBoardingToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     bool? isOnBoarding = sharedPreferences.getBool("isOnBoarding");
     return isOnBoarding ?? false;
   }
 
-  static void setAccessToken({required String token, required String username, required int companyId, required int userID, required String email}) async {
+  static void setAccessToken(
+      {required String token,
+      required String username,
+      required int companyId,
+      required int userID,
+      required String email}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     print('User Name set $username');
     print("Token to set $token");
@@ -57,7 +61,13 @@ class TokenManager {
     sharedPreferences.setBool("isOnBoarding", false);
   }
 
-  static void setAccessRegisterToken({required String token, required String username, required int companyId, required String emailId, required int userID ,required int depID}) async {
+  static void setAccessRegisterToken(
+      {required String token,
+      required String username,
+      required int companyId,
+      required String emailId,
+      required int userID,
+      required int depID}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     print('userNameRegister set $username');
     print("accessTokenRegister Token to set $token");
@@ -72,7 +82,6 @@ class TokenManager {
     sharedPreferences.setInt("userID", userID);
     sharedPreferences.setInt("departmentId", depID);
     sharedPreferences.setBool("isOnBoarding", true);
-
   }
 
   static Future<int> getdepIdRegister() async {
@@ -108,5 +117,4 @@ class TokenManager {
     int? userIdRegistred = sharedPreferences.getInt("userID");
     return userIdRegistred ?? 0;
   }
-
 }

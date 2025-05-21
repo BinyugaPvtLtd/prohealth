@@ -4,7 +4,6 @@
 //   static const String dev = "https://resource.symmetry.care";
 //   static const String demo = "https://demoapp.symmetry.care";
 //   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
-//   // static const String deployment = "https://prohealth.symmetry.care";
 //   static const String deployment = "https://staging.symmetry.care";
 //   static const String version = "Version 1.0.7 (6) demo";
 //   ///
@@ -128,36 +127,41 @@ class AppConfig {
   // static const String demo = "https://demoapp.symmetry.care";
   static const String prod = "https://worker.symmetry.care";
   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
-  static const String prodDeployment = "https://prohealth.symmetry.care";
-  // static const String prodDeployment = "https://staging.symmetry.care";
-  static const String version = "Version 1.0.1 (1) prod";
+  static const String version = "Version 1.0.1 (2) prod";
+
   ///
   static const String local = "";
 
   static const String endpoint = prod;
   static const String dash = '-';
   static const int templateId = 2;
+
   /// Document type
   static const int corporateAndCompliance = 1;
   static const int vendorContracts = 2;
   static const int policiesAndProcedure = 3;
+
   ///CCD
   static const int subDocId1Licenses = 1;
   static const int subDocId2Adr = 2;
   static const int subDocId3CICCMedicalCR = 3;
   static const int subDocId4CapReport = 4;
   static const int subDocId5BalReport = 5;
+
   ///VC
   static const int subDocId6Leases = 6;
   static const int subDocId7SNF = 7;
   static const int subDocId8DME = 8;
   static const int subDocId9MD = 9;
   static const int subDocId10MISC = 10;
+
   /// Policies & procedures
   static const int subDocId0 = 0;
+
   ///health record form
   static const int empdocumentTypeMetaDataId = 1;
   static const int employeeDocumentTypeMetaDataId = 5;
+
   ///Employee Document types
   static const int healthDocId = 1;
   static const int certificationDocId = 2;
@@ -167,10 +171,12 @@ class AppConfig {
   static const int acknowledgementDocId = 5;
   static const int compensationDocId = 6;
   static const int performanceDocId = 7;
+
   /// All From HR EM
   static const int clinicalId = 1;
   static const int salesId = 2;
   static const int AdministrationId = 3;
+
   /// org string
   static const String notApplicable = "Not Applicable";
   static const String scheduled = "Scheduled";
@@ -180,30 +186,6 @@ class AppConfig {
   static const String misc = "MISC";
   static const String other = "Other";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ///local host
 // class AppConfig {

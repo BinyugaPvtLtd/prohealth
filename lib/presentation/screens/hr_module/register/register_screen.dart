@@ -1,18 +1,12 @@
-import 'dart:async';
+import 'dart:html' as html;
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
-import 'package:prohealth/app/resources/provider/navigation_provider.dart';
-import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/main_register_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
-import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/register_enroll_popup.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,8 +18,6 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
-import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
-import '../../../../data/api_data/establishment_data/user/user_modal.dart';
 import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 import '../../em_module/see_all_screen/widgets/user_popup_const_provider.dart';
 import '../../em_module/widgets/button_constant.dart';
@@ -36,7 +28,6 @@ import 'confirmation_constant.dart';
 class RegisterScreen extends StatelessWidget {
   final VoidCallback onBackPressed;
   final Function() onRefresh;
-
 
   const RegisterScreen({
     Key? key,
@@ -56,6 +47,8 @@ class RegisterScreen extends StatelessWidget {
       'Partial': 'Partial',
       'Completed': 'Completed',
     };
+
+    var baseUrl = html.window.location.origin;
 
     /// register enroll user
     TextEditingController newUserFirstNameController = TextEditingController();
@@ -77,7 +70,8 @@ class RegisterScreen extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
     currentPage = 1;
     itemsPerPage = 20;
-    final registerProviderState = Provider.of<HrRegisterProvider>(context,listen:false);
+    final registerProviderState =
+        Provider.of<HrRegisterProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       registerProviderState.fetchData(context);
       registerProviderState.fetchDropdownData(context);
@@ -86,1016 +80,1138 @@ class RegisterScreen extends StatelessWidget {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     return SingleChildScrollView(
       child: Consumer<HrRegisterProvider>(
-        builder: (context, registerProvider, child) {
-          return Column(
-            // Remove mainAxisAlignment if it's not needed
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 35),
-                        child: Container(
-                          child: Row(
-                            children: [
-                              InkWell(
-                                onTap: onBackPressed,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.arrow_back,
-                                      size: 20,
-                                      color: ColorManager.mediumgrey,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          builder: (context, registerProvider, child) {
+        return Column(
+          // Remove mainAxisAlignment if it's not needed
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(
                   children: [
-                    Column(
-                      children: [
-                        Row(
+                    Padding(
+                      padding: const EdgeInsets.only(left: 35),
+                      child: Container(
+                        child: Row(
                           children: [
-                            Text(' To open this form click here :    ', style: DocumentTypeDataStyle.customTextStyle(context)),
-                            SizedBox(width: 5,),
-                            TextButton(
-                              onPressed: () async {
-                             // const url = "http://localhost:49619/#/onBordingWelcome";
-                          const url = "${AppConfig.prodDeployment}/#/onBordingWelcome";
-                                //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                               // Provider.of<RouteProvider>(context,listen:false).navigateToPage(context, OnBoardingWelcome());
-                                //const url = "${AppConfig.deployment}/#/onBordingWelcome";
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },
-                              child: Text(
-                                  'https://prohealth.symmetry.care/register',
-                                style: RegisterLinkDataStyle.customTextStyle(context),
+                            InkWell(
+                              onTap: onBackPressed,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back,
+                                    size: 20,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-
-
-                    Column(
-                      children: [
-                        Container(
-                          width: 300,
-                          color: Colors.white,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              /// Select Dropdown button
-                          Column(
-                          children: [
-                               DropdownButton2<String>(
-                                value: registerProvider.selectedValue,
-                                onChanged: (String? newValue) {
-                                 if (newValue != null) {
-                                   if(newValue == 'Sort'){
-                                     registerProvider.fetchData(context,'Sort');
-                                   }else{
-                                     registerProvider.updateSelectedValue(newValue);
-                                   }
-                                  }},
-                                style: TransparentButtonTextConst.customTextStyle(context),
-                                iconStyleData: const IconStyleData(
-                                   icon: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Color(0xff50B5E5),
-                                  ),
-                                ),
-                                // iconSize: 20,
-                                underline: const SizedBox(),
-                                buttonStyleData: ButtonStyleData(
-                                  height: 31,
-                                  width: 130,
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 8), // Internal padding.
-                                  elevation: 2, // Shadow depth.
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: const Color(0xff000000).withOpacity(0.25),
-                                        blurRadius: 2,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  overlayColor: WidgetStateProperty.all(
-                                      Colors.grey.withOpacity(0.1)), // Background color when pressed.
-                                ),
-
-
-                                /// buttonPadding: const EdgeInsets.symmetric(horizontal: 8),
-                                // dropdownMaxHeight: 200,
-                                // dropdownDecoration: BoxDecoration(
-                                //   borderRadius: BorderRadius.circular(12),
-                                //   color: Colors.white,
-                                // ),
-                                // itemPadding: const EdgeInsets.symmetric(horizontal: 8), // Updated padding
-                                selectedItemBuilder: (context) =>
-                                    displayTextMap.keys.map((String value) {
-                                      return Align(
-                                        alignment: Alignment.center,
-                                        child: Text(displayTextMap[value]!),
-                                      );
-                                    }).toList(),
-                                items: displayTextMap.keys.map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(displayTextMap[value]!),
-                                  );
-                                }).toList(),
-                              ),
-
-                      ],
-                    ),
-                              SizedBox(width: 20),
-                              /// Enroll Button
-                              Container(
-                                height: AppSize.s30,
-                                width: AppSize.s140,
-                                child: CustomIconButton(
-                                  icon: Icons.add,
-                                  text: 'Enroll User',
-                                  onPressed: () async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return CustomDialogSEE(
-                                          title: "Enroll User",
-                                          lastNameController: newUserLastNameController,
-                                          emailController: newUserEmailController,
-                                          firstNameController: newUserFirstNameController,
-                                          passwordController: newUserPasswordController,
-                                          onCancel: () {
-                                            registerProvider.fetchData(context);
-                                          },
-                                        );
-                                      },
-                                    );
-                                    // setState(() {});
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: AppSize.s10),
-              // StreamBuilder to load and display user data
-              StreamBuilder<List<RegisterDataCompID>>(
-                stream: registerProvider.registerStream,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 150),
-                      child: Center(
-                        child: CircularProgressIndicator(color: ColorManager.blueprime),
-                      ),
-                    );
-                  }
-
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 150),
-                      child: Center(
-                        child: Text("No user available!", style: AllNoDataAvailable.customTextStyle(context)),
-                      ),
-                    );
-                  }
-
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 100),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        var data = snapshot.data![index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              // border: Border.all(
-                              //   color: const Color(0xff51B5E6),
-                              //   width: 0.5,
-                              // ),
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(Radius.circular(12)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey
-                                      .withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 4,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            height: 80,
-
-                            child: Column(
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ///status
-                                    Container(
-                                        width: AppSize.s90,
-                                        height: AppSize.s20,
-                                        decoration: BoxDecoration(
-                                          color:data.status == 'Opened'
-                                              ? Color(0xff1696C8)
-                                              : data.status == 'Partial'
-                                              ? Color(0xffCA8A04)
-                                              : data.status == 'Completed'
-                                              ? Color(0xff52A889)
-                                              : Color(0xffC30404),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft:
-                                              Radius.circular(12)),),
-                                        child: Center(
-                                          child: data.status == 'Notopen'
-                                              ? Text(
-                                            'Not Opened',
-                                            textAlign: TextAlign.center,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                                color: ColorManager.white,
-                                                fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w600),
-                                          )
-                                              :Text(
-                                              data.status,
-                                              textAlign: TextAlign.center,
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                  color: ColorManager.white,
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w600)),
-                                        )),
-                                  ],
-                                ),
-                                SizedBox(height: AppSize.s10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    // Expanded(
-                                    //   child: Row(
-                                    //     mainAxisAlignment: MainAxisAlignment.start,
-                                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                                    //     children: [
-                                    //       Text(
-                                    //         data.firstName.capitalizeFirst!,
-                                    //         style: DefineWorkWeekStyle.customTextStyle(context),
-                                    //       ),
-                                    //       SizedBox(width: MediaQuery.of(context).size.width/70),
-                                    //       Text(
-                                    //         data.lastName.capitalizeFirst!,
-                                    //         style: DefineWorkWeekStyle.customTextStyle(context),
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // ),
-                                    SizedBox(width: 5,),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(left: 10),
-                                        child: CustomRowname(   text1: data.firstName.capitalizeFirst!,
-                                          text2: data.lastName.capitalizeFirst!,),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: CustomRownew(   text1: 'Role :',
-                                        text2: data.role,),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: CustomRownew(   text1: 'Email :',
-                                        text2: data.email,),
-                                    ),
-                                    // Row(
-                                    //   children: [
-                                    //     Padding(
-                                    //       padding: const EdgeInsets.only(top: 2.0),
-                                    //       child: Icon(Icons.link,
-                                    //           size: 15, color: ColorManager.mediumgrey),
-                                    //     ),
-                                    //     SizedBox(width: MediaQuery.of(context).size.width / 40),
-                                    //     Text('Link',
-                                    //         style:
-                                    //         DocumentTypeDataStyle.customTextStyle(context)),
-                                    //     SizedBox(width: MediaQuery.of(context).size.width / 20),
-                                    //     data.status == 'Notopen'
-                                    //         ? const Text('')
-                                    //         : TextButton(
-                                    //       onPressed: () async {
-                                    //         //html.window.open('/onBordingWelcome',"_blank");
-                                    //         // const url = "http://localhost:59589/#/onBordingWelcome";
-                                    //         const url = "${AppConfig.deployment}/#/onBordingWelcome";
-                                    //         //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                                    //         //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
-                                    //         if (await canLaunch(url)) {
-                                    //           await launch(url);
-                                    //         } else {
-                                    //           throw 'Could not launch $url';
-                                    //         }
-                                    //       },
-                                    //       child: Text(
-                                    //         data.link!,
-                                    //         style: RegisterLinkDataStyle.customTextStyle(
-                                    //             context),
-                                    //       ),
-                                    //     ),
-                                    //     data.status == 'Notopen'
-                                    //         ? const Text('')
-                                    //         : InkWell(
-                                    //         onTap: () {
-                                    //           _copyToClipboard(
-                                    //               "${AppConfig.deployment}/#/onBordingWelcome");
-                                    //         },
-                                    //         child: Icon(
-                                    //           Icons.copy,
-                                    //           size: 15,
-                                    //           color: ColorManager.mediumgrey,
-                                    //         )),
-                                    //   ],
-                                    // ),
-                                    Expanded(
-                                      child: Column(
-
-                                        children: [
-                                          data.status == 'Notopen'
-                                              ? Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              CustomTextButton(
-                                                text: AppString.enroll,
-                                                onPressed: () async {
-                                                  // final enrollProviderState = Provider.of<HrEnrollEmployeeProvider>(context, listen: false);
-                                                  // List<AEClinicalDiscipline> passData = await HrAddEmplyClinicalDisciplinApi(context, data.deptId! );
-                                                 // final clinicalTypes = await HrAddEmplyClinicalDisciplinApi(context, data.deptId!);
-                                                 // final cities = await HrAddEmplyClinicalCityApi(context);
-                                                 // final offices = await getCompanyOfficeList(context);
-                                                  //final zones = await HrAddEmplyClinicalZoneApi(context);
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (_) => FutureBuilder<RegisterDataUserIDPrefill>(
-                                                      future: getRegisterEnrollPrefillUserId(context, data.userId),
-                                                      builder: (context, snapshotPrefill) {
-                                                        if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                          return Center(
-                                                            child: CircularProgressIndicator(color: ColorManager.blueprime),
-                                                          );
-                                                        }
-                                                        var firstName = snapshotPrefill.data!.firstName.toString();
-                                                        firstNameController = TextEditingController(text: firstName);
-
-                                                        var lastName = snapshotPrefill.data!.lastName.toString();
-                                                        lastNameController = TextEditingController(text: lastName);
-
-                                                        var email = snapshotPrefill.data!.email.toString();
-                                                        emailController =TextEditingController(text: email);
-
-                                                        return RegisterEnrollPopup(
-                                                          employeeId: data.employeeId,
-                                                          firstName: firstNameController,
-                                                          lastName: lastNameController,
-                                                          email: emailController,
-                                                          userId: snapshotPrefill.data!.userId,
-                                                          role: snapshotPrefill.data!.role,
-                                                          status: snapshotPrefill.data!.status,
-                                                          // depid :snapshotPrefill.data!.
-                                                          depId:snapshotPrefill.data!.departmentId,
-                                                          aEClinicalDiscipline: registerProvider.clinicalDisciplines, // Preloaded data
-                                                          cities: registerProvider.clinicalCities, // Pass cities data
-                                                          companyOffices: registerProvider.companyOffices, // Pass company office data
-                                                          zones: registerProvider.zone, // Pass zone data
-                                                          onPressed: () {
-                                                            Navigator.pop(context);
-                                                          },
-                                                          onReferesh: () {
-                                                            registerProvider.fetchData(context);
-                                                          },
-                                                         // aEClinicalDiscipline: passData,
-                                                        );
-                                                      },
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ],
-                                          )
-                                              : const SizedBox(width: 10),
-                                          data.status == 'Partial'
-                                              ? Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                width: AppSize.s110,
-                                                margin:
-                                                const EdgeInsets.only(right: AppMargin.m5),
-                                                child: CustomTextButton(
-                                                  color: ColorManager.blueprime,
-                                                  text: 'Activate',
-                                                  onPressed: () async {
-                                                    showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext context) {
-                                                          return ConfirmationPopup(
-                                                            loadingDuration: registerProvider.load,
-                                                            onCancel: () {
-                                                              Navigator.pop(context);
-                                                            },
-                                                            onConfirm: () async {
-                                                              registerProvider.loaderTrue();
-
-                                                              try {
-                                                                var response =
-                                                                await changeStatusUserPatch(
-                                                                    context, data.employeeId);
-                                                                registerProvider.fetchData(context);
-                                                                Navigator.pop(context);
-                                                              } catch (e) {
-                                                                print(
-                                                                    "Error during Onboarding: $e");
-                                                                // ScaffoldMessenger.of(context).showSnackBar(
-                                                                //   SnackBar(content: Text('Onboarding failed: $e')),
-                                                                // );
-                                                              } finally {
-                                                                registerProvider.loaderFalse();
-                                                              }
-                                                            },
-                                                            title: 'Confirm Activation',
-                                                            containerText:
-                                                            'Do you really want to complete?',
-                                                          );
-                                                        });
-                                                  },
-                                                ),
-                                              )
-                                            ],
-                                          )
-                                              : const SizedBox(width: 10),
-                                          data.status == 'Completed'
-                                              ? Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: AppSize.s110,
-                                                margin: const EdgeInsets.only(right: AppMargin.m5),
-                                                child: CustomTextButton(
-                                                  color: ColorManager.blueprime,
-                                                  text: 'Onboard',
-                                                  onPressed: () async {
-                                                    showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext context) {
-                                                          return ConfirmationPopup(
-                                                            loadingDuration: registerProvider.load,
-                                                            onCancel: () {
-                                                              Navigator.pop(context);
-                                                            },
-                                                            onConfirm: () async {
-                                                             registerProvider.loaderTrue();
-                                                              try {
-                                                                var response =
-                                                                await onboardingUserPatch(
-                                                                    context, data.employeeId);
-                                                                if (response.statusCode == 200 ||
-                                                                    response.statusCode == 201) {
-                                                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                                                  //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
-                                                                  // );
-                                                                  registerProvider.fetchData(context);
-                                                                  Navigator.pop(context);
-                                                                } else {
-                                                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                                                  //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
-                                                                  // );
-                                                                  Navigator.pop(context);
-                                                                }
-                                                              } catch (e) {
-                                                                print(
-                                                                    "Error during Onboarding: $e");
-                                                                // ScaffoldMessenger.of(context).showSnackBar(
-                                                                //   SnackBar(content: Text('Onboarding failed: $e')),
-                                                                // );
-                                                              } finally {
-                                                                registerProvider.loaderFalse();
-                                                              }
-                                                            },
-                                                            title: 'Confirm Onboarding',
-                                                            containerText:
-                                                            'Do you really want to onboard?',
-                                                          );
-                                                        });
-                                                  },
-                                                ),
-                                              )
-
-                                            ],
-                                          )
-                                              : const SizedBox(width: 10),
-                                          data.status == 'Opened'
-                                              ? Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                //color: Colors.red,
-                                                height: AppSize.s30,
-                                                // margin:
-                                                // const EdgeInsets.only(right: AppMargin.m5),
-                                                // child: CustomIconButton(
-                                                //   text: 'Onboard',
-                                                //   onPressed: () async {
-                                                //     showDialog(
-                                                //         context: context,
-                                                //         builder: (BuildContext context) {
-                                                //           return ConfirmationPopup(
-                                                //             loadingDuration: _isLoading,
-                                                //             onCancel: () {
-                                                //               Navigator.pop(context);
-                                                //             },
-                                                //             onConfirm: () async {
-                                                //               setState(() {
-                                                //                 _isLoading = true;
-                                                //               });
-                                                //
-                                                //               try {
-                                                //                 var response =
-                                                //                 await onboardingUserPatch(
-                                                //                     context, data.employeeId);
-                                                //                 if (response.statusCode == 200 ||
-                                                //                     response.statusCode == 201) {
-                                                //                   // ScaffoldMessenger.of(context).showSnackBar(
-                                                //                   //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
-                                                //                   // );
-                                                //                   fetchData();
-                                                //                   Navigator.pop(context);
-                                                //                 } else {
-                                                //                   // ScaffoldMessenger.of(context).showSnackBar(
-                                                //                   //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
-                                                //                   // );
-                                                //                   Navigator.pop(context);
-                                                //                 }
-                                                //               } catch (e) {
-                                                //                 print(
-                                                //                     "Error during Onboarding: $e");
-                                                //                 // ScaffoldMessenger.of(context).showSnackBar(
-                                                //                 //   SnackBar(content: Text('Onboarding failed: $e')),
-                                                //                 // );
-                                                //               } finally {
-                                                //                 setState(() {
-                                                //                   _isLoading = false;
-                                                //                 });
-                                                //               }
-                                                //             },
-                                                //             title: 'Confirm Onboarding',
-                                                //             containerText:
-                                                //             'Do you really want to onboard?',
-                                                //           );
-                                                //         });
-                                                //   },
-                                                // ),
-                                                width: 110,
-                                                margin:
-                                                const EdgeInsets.only(right: AppMargin.m5),
-                                              )
-                                            ],
-                                          )
-                                              : const SizedBox(width: 10),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(width: 20,)
-
-                                    // Row(
-                                    //   mainAxisAlignment: MainAxisAlignment.end,
-                                    //   crossAxisAlignment: CrossAxisAlignment.end,
-                                    //   children: [
-                                    //     data.status == 'Notopen'
-                                    //         ? Text(
-                                    //       'Not Opened',
-                                    //       style:
-                                    //       DocumentTypeDataStyle.customTextStyle(context),
-                                    //     )
-                                    //         : Text('Status',
-                                    //         style:
-                                    //         DocumentTypeDataStyle.customTextStyle(context)),
-                                    //     SizedBox(width: MediaQuery.of(context).size.width / 100),
-                                    //     data.status == 'Notopen'
-                                    //         ? const SizedBox(width: 10)
-                                    //         : Container(
-                                    //       width: 10.0,
-                                    //       height: 15.0,
-                                    //       decoration: BoxDecoration(
-                                    //         color: data.status == 'Opened'
-                                    //             ? const Color(0xff51B5E6)
-                                    //             : data.status == 'Partial'
-                                    //             ? const Color(0xffCA8A04)
-                                    //             : const Color(0xffB4DB4C),
-                                    //         shape: BoxShape.circle,
-                                    //       ),
-                                    //     ),
-                                    //     SizedBox(width: 5),
-                                    //     data.status == 'Notopen'
-                                    //         ? const SizedBox(width: 10)
-                                    //         : Text(data.status,
-                                    //         style: ConstTextFieldStyles.customTextStyle(
-                                    //           textColor: data.status == 'Opened'
-                                    //               ? Color(0xff51B5E6)
-                                    //               : data.status == 'Partial'
-                                    //               ? Color(0xffCA8A04)
-                                    //               : data.status == 'Completed'
-                                    //               ? Color(0xffB4DB4C)
-                                    //               : ColorManager.rednew,
-                                    //         )),
-                                    //   ],
-                                    // ),
-                                  ],
-                                ),
-                                // Padding(
-                                //   padding: EdgeInsets.only(
-                                //     left: MediaQuery.of(context).size.width / 130,
-                                //     top: MediaQuery.of(context).size.height / 120,
-                                //   ),
-                                //   child:
-                                //   Column(
-                                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                //     crossAxisAlignment: CrossAxisAlignment.start,
-                                //     children: [
-                                //       SizedBox(height: MediaQuery.of(context).size.height / 60),
-                                //       CustomRow(
-                                //         icon: Icons.email_outlined,
-                                //         text1: 'Email',
-                                //         text2: data.email,
-                                //       ),
-                                //       SizedBox(height: MediaQuery.of(context).size.height / 60),
-                                //
-                                //       ///link
-                                //       Row(
-                                //         children: [
-                                //           Padding(
-                                //             padding: const EdgeInsets.only(top: 2.0),
-                                //             child: Icon(Icons.link,
-                                //                 size: 15, color: ColorManager.mediumgrey),
-                                //           ),
-                                //           SizedBox(width: MediaQuery.of(context).size.width / 40),
-                                //           Text('Link',
-                                //               style:
-                                //               DocumentTypeDataStyle.customTextStyle(context)),
-                                //           SizedBox(width: MediaQuery.of(context).size.width / 20),
-                                //           data.status == 'Notopen'
-                                //               ? const Text('')
-                                //               : TextButton(
-                                //             onPressed: () async {
-                                //               //html.window.open('/onBordingWelcome',"_blank");
-                                //               // const url = "http://localhost:59589/#/onBordingWelcome";
-                                //               const url = "${AppConfig.deployment}/#/onBordingWelcome";
-                                //               //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                                //               //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
-                                //               if (await canLaunch(url)) {
-                                //                 await launch(url);
-                                //               } else {
-                                //                 throw 'Could not launch $url';
-                                //               }
-                                //             },
-                                //             child: Text(
-                                //               data.link!,
-                                //               style: RegisterLinkDataStyle.customTextStyle(
-                                //                   context),
-                                //             ),
-                                //           ),
-                                //           data.status == 'Notopen'
-                                //               ? const Text('')
-                                //               : InkWell(
-                                //               onTap: () {
-                                //                 _copyToClipboard(
-                                //                     "${AppConfig.deployment}/#/onBordingWelcome");
-                                //               },
-                                //               child: Icon(
-                                //                 Icons.copy,
-                                //                 size: 15,
-                                //                 color: ColorManager.mediumgrey,
-                                //               )),
-                                //         ],
-                                //       ),
-                                //       data.status == 'Notopen'
-                                //           ? Row(
-                                //         mainAxisAlignment: MainAxisAlignment.end,
-                                //         children: [
-                                //           Container(
-                                //             width: AppSize.s110,
-                                //             margin:
-                                //             const EdgeInsets.only(right: AppMargin.m5),
-                                //             child: CustomIconButton(
-                                //               text: AppString.enroll,
-                                //               onPressed: () async {
-                                //                 List<AEClinicalDiscipline> passData =
-                                //                 await HrAddEmplyClinicalDisciplinApi(
-                                //                     context, 1);
-                                //                 showDialog(
-                                //                   context: context,
-                                //                   builder: (_) => FutureBuilder<
-                                //                       RegisterDataUserIDPrefill>(
-                                //                     future: getRegisterEnrollPrefillUserId(
-                                //                         context, data.userId),
-                                //                     builder: (context, snapshotPrefill) {
-                                //                       if (snapshotPrefill.connectionState ==
-                                //                           ConnectionState.waiting) {
-                                //                         return Center(
-                                //                           child: CircularProgressIndicator(
-                                //                               color: ColorManager.blueprime),
-                                //                         );
-                                //                       }
-                                //                       var firstName = snapshotPrefill
-                                //                           .data!.firstName
-                                //                           .toString();
-                                //                       firstNameController =
-                                //                           TextEditingController(
-                                //                               text: firstName);
-                                //
-                                //                       var lastName = snapshotPrefill
-                                //                           .data!.lastName
-                                //                           .toString();
-                                //                       lastNameController =
-                                //                           TextEditingController(
-                                //                               text: lastName);
-                                //
-                                //                       var email = snapshotPrefill.data!.email
-                                //                           .toString();
-                                //                       emailController =
-                                //                           TextEditingController(text: email);
-                                //
-                                //                       return RegisterEnrollPopup(
-                                //                         employeeId: data.employeeId,
-                                //                         firstName: firstNameController,
-                                //                         lastName: lastNameController,
-                                //                         email: emailController,
-                                //                         userId: snapshotPrefill.data!.userId,
-                                //                         role: snapshotPrefill.data!.role,
-                                //                         status: snapshotPrefill.data!.status,
-                                //                         onPressed: () {
-                                //                           Navigator.pop(context);
-                                //                         },
-                                //                         onReferesh: () {
-                                //                           setState(() {
-                                //                             fetchData();
-                                //                           });
-                                //                         },
-                                //                         aEClinicalDiscipline: passData,
-                                //                       );
-                                //                     },
-                                //                   ),
-                                //                 );
-                                //               },
-                                //             ),
-                                //           ),
-                                //         ],
-                                //       )
-                                //           : const SizedBox(width: 10),
-                                //       data.status == 'Partial'
-                                //           ? Row(
-                                //         mainAxisAlignment: MainAxisAlignment.end,
-                                //         crossAxisAlignment: CrossAxisAlignment.end,
-                                //         children: [
-                                //           Container(
-                                //             width: AppSize.s100,
-                                //             margin:
-                                //             const EdgeInsets.only(right: AppMargin.m5),
-                                //             child: CustomIconButton(
-                                //               text: 'Activate',
-                                //               onPressed: () async {
-                                //                 showDialog(
-                                //                     context: context,
-                                //                     builder: (BuildContext context) {
-                                //                       return ConfirmationPopup(
-                                //                         loadingDuration: _isLoading,
-                                //                         onCancel: () {
-                                //                           Navigator.pop(context);
-                                //                         },
-                                //                         onConfirm: () async {
-                                //                           setState(() {
-                                //                             _isLoading = true;
-                                //                           });
-                                //
-                                //                           try {
-                                //                             var response =
-                                //                             await changeStatusUserPatch(
-                                //                                 context, data.employeeId);
-                                //                             fetchData();
-                                //                             Navigator.pop(context);
-                                //                           } catch (e) {
-                                //                             print(
-                                //                                 "Error during Onboarding: $e");
-                                //                             // ScaffoldMessenger.of(context).showSnackBar(
-                                //                             //   SnackBar(content: Text('Onboarding failed: $e')),
-                                //                             // );
-                                //                           } finally {
-                                //                             setState(() {
-                                //                               _isLoading = false;
-                                //                             });
-                                //                           }
-                                //                         },
-                                //                         title: 'Confirm Activation',
-                                //                         containerText:
-                                //                         'Do you really want to complete?',
-                                //                       );
-                                //                     });
-                                //               },
-                                //             ),
-                                //           )
-                                //         ],
-                                //       )
-                                //           : const SizedBox(width: 10),
-                                //       data.status == 'Completed'
-                                //           ? Row(
-                                //         mainAxisAlignment: MainAxisAlignment.end,
-                                //         crossAxisAlignment: CrossAxisAlignment.end,
-                                //         children: [
-                                //           Container(
-                                //             width: AppSize.s100,
-                                //             margin:
-                                //             const EdgeInsets.only(right: AppMargin.m5),
-                                //             child: CustomIconButton(
-                                //               text: 'Onboard',
-                                //               onPressed: () async {
-                                //                 showDialog(
-                                //                     context: context,
-                                //                     builder: (BuildContext context) {
-                                //                       return ConfirmationPopup(
-                                //                         loadingDuration: _isLoading,
-                                //                         onCancel: () {
-                                //                           Navigator.pop(context);
-                                //                         },
-                                //                         onConfirm: () async {
-                                //                           setState(() {
-                                //                             _isLoading = true;
-                                //                           });
-                                //
-                                //                           try {
-                                //                             var response =
-                                //                             await onboardingUserPatch(
-                                //                                 context, data.employeeId);
-                                //                             if (response.statusCode == 200 ||
-                                //                                 response.statusCode == 201) {
-                                //                               // ScaffoldMessenger.of(context).showSnackBar(
-                                //                               //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
-                                //                               // );
-                                //                               fetchData();
-                                //                               Navigator.pop(context);
-                                //                             } else {
-                                //                               // ScaffoldMessenger.of(context).showSnackBar(
-                                //                               //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
-                                //                               // );
-                                //                               Navigator.pop(context);
-                                //                             }
-                                //                           } catch (e) {
-                                //                             print(
-                                //                                 "Error during Onboarding: $e");
-                                //                             // ScaffoldMessenger.of(context).showSnackBar(
-                                //                             //   SnackBar(content: Text('Onboarding failed: $e')),
-                                //                             // );
-                                //                           } finally {
-                                //                             setState(() {
-                                //                               _isLoading = false;
-                                //                             });
-                                //                           }
-                                //                         },
-                                //                         title: 'Confirm Onboarding',
-                                //                         containerText:
-                                //                         'Do you really want to onboard?',
-                                //                       );
-                                //                     });
-                                //               },
-                                //             ),
-                                //           )
-                                //         ],
-                                //       )
-                                //           : const SizedBox(width: 10),
-                                //       data.status == 'Opened'
-                                //           ? Row(
-                                //         mainAxisAlignment: MainAxisAlignment.end,
-                                //         crossAxisAlignment: CrossAxisAlignment.end,
-                                //         children: [
-                                //           Container(
-                                //             color: Colors.red,
-                                //             height: AppSize.s30,
-                                //             // margin:
-                                //             // const EdgeInsets.only(right: AppMargin.m5),
-                                //             // child: CustomIconButton(
-                                //             //   text: 'Onboard',
-                                //             //   onPressed: () async {
-                                //             //     showDialog(
-                                //             //         context: context,
-                                //             //         builder: (BuildContext context) {
-                                //             //           return ConfirmationPopup(
-                                //             //             loadingDuration: _isLoading,
-                                //             //             onCancel: () {
-                                //             //               Navigator.pop(context);
-                                //             //             },
-                                //             //             onConfirm: () async {
-                                //             //               setState(() {
-                                //             //                 _isLoading = true;
-                                //             //               });
-                                //             //
-                                //             //               try {
-                                //             //                 var response =
-                                //             //                 await onboardingUserPatch(
-                                //             //                     context, data.employeeId);
-                                //             //                 if (response.statusCode == 200 ||
-                                //             //                     response.statusCode == 201) {
-                                //             //                   // ScaffoldMessenger.of(context).showSnackBar(
-                                //             //                   //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
-                                //             //                   // );
-                                //             //                   fetchData();
-                                //             //                   Navigator.pop(context);
-                                //             //                 } else {
-                                //             //                   // ScaffoldMessenger.of(context).showSnackBar(
-                                //             //                   //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
-                                //             //                   // );
-                                //             //                   Navigator.pop(context);
-                                //             //                 }
-                                //             //               } catch (e) {
-                                //             //                 print(
-                                //             //                     "Error during Onboarding: $e");
-                                //             //                 // ScaffoldMessenger.of(context).showSnackBar(
-                                //             //                 //   SnackBar(content: Text('Onboarding failed: $e')),
-                                //             //                 // );
-                                //             //               } finally {
-                                //             //                 setState(() {
-                                //             //                   _isLoading = false;
-                                //             //                 });
-                                //             //               }
-                                //             //             },
-                                //             //             title: 'Confirm Onboarding',
-                                //             //             containerText:
-                                //             //             'Do you really want to onboard?',
-                                //             //           );
-                                //             //         });
-                                //             //   },
-                                //             // ),
-                                //           )
-                                //         ],
-                                //       )
-                                //           : const SizedBox(width: 10),
-                                //     ],
-                                //   ),
-                                // ),
-                              ],
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(' To open this form click here :    ',
+                              style: DocumentTypeDataStyle.customTextStyle(
+                                  context)),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              String url =
+                                  "${baseUrl}/#${AppString.onboardingWelcome}";
+                              if (await canLaunch(url)) {
+                                await launch(url);
+                              } else {
+                                throw 'Could not launch $url';
+                              }
+                            },
+                            child: Text(
+                              '${baseUrl}/#${AppString.onboardingWelcome}',
+                              style: RegisterLinkDataStyle.customTextStyle(
+                                  context),
                             ),
                           ),
-                        );
-                      },
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: 300,
+                        color: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            /// Select Dropdown button
+                            Column(
+                              children: [
+                                DropdownButton2<String>(
+                                  value: registerProvider.selectedValue,
+                                  onChanged: (String? newValue) {
+                                    if (newValue != null) {
+                                      if (newValue == 'Sort') {
+                                        registerProvider.fetchData(
+                                            context, 'Sort');
+                                      } else {
+                                        registerProvider
+                                            .updateSelectedValue(newValue);
+                                      }
+                                    }
+                                  },
+                                  style: TransparentButtonTextConst
+                                      .customTextStyle(context),
+                                  iconStyleData: const IconStyleData(
+                                    icon: Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Color(0xff50B5E5),
+                                    ),
+                                  ),
+                                  // iconSize: 20,
+                                  underline: const SizedBox(),
+                                  buttonStyleData: ButtonStyleData(
+                                    height: 31,
+                                    width: 130,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8), // Internal padding.
+                                    elevation: 2, // Shadow depth.
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                          color: const Color(0xff50B5E5),
+                                          width: 1.2),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: const Color(0xff000000)
+                                              .withOpacity(0.25),
+                                          blurRadius: 2,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    overlayColor: WidgetStateProperty.all(
+                                        Colors.grey.withOpacity(
+                                            0.1)), // Background color when pressed.
+                                  ),
+
+                                  /// buttonPadding: const EdgeInsets.symmetric(horizontal: 8),
+                                  // dropdownMaxHeight: 200,
+                                  // dropdownDecoration: BoxDecoration(
+                                  //   borderRadius: BorderRadius.circular(12),
+                                  //   color: Colors.white,
+                                  // ),
+                                  // itemPadding: const EdgeInsets.symmetric(horizontal: 8), // Updated padding
+                                  selectedItemBuilder: (context) =>
+                                      displayTextMap.keys.map((String value) {
+                                    return Align(
+                                      alignment: Alignment.center,
+                                      child: Text(displayTextMap[value]!),
+                                    );
+                                  }).toList(),
+                                  items:
+                                      displayTextMap.keys.map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(displayTextMap[value]!),
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 20),
+
+                            /// Enroll Button
+                            Container(
+                              height: AppSize.s30,
+                              width: AppSize.s140,
+                              child: CustomIconButton(
+                                icon: Icons.add,
+                                text: 'Enroll User',
+                                onPressed: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return CustomDialogSEE(
+                                        title: "Enroll User",
+                                        lastNameController:
+                                            newUserLastNameController,
+                                        emailController: newUserEmailController,
+                                        firstNameController:
+                                            newUserFirstNameController,
+                                        passwordController:
+                                            newUserPasswordController,
+                                        onCancel: () {
+                                          registerProvider.fetchData(context);
+                                        },
+                                      );
+                                    },
+                                  );
+                                  // setState(() {});
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: AppSize.s10),
+            // StreamBuilder to load and display user data
+            StreamBuilder<List<RegisterDataCompID>>(
+              stream: registerProvider.registerStream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 150),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                          color: ColorManager.blueprime),
                     ),
                   );
-                },
-              ),
-            ],
-          );
-        }
-      ),
+                }
+
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 150),
+                    child: Center(
+                      child: Text("No user available!",
+                          style: AllNoDataAvailable.customTextStyle(context)),
+                    ),
+                  );
+                }
+
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 100),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      var data = snapshot.data![index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            // border: Border.all(
+                            //   color: const Color(0xff51B5E6),
+                            //   width: 0.5,
+                            // ),
+                            color: Colors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          height: 80,
+                          child: Column(
+                            //mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ///status
+                                  Container(
+                                      width: AppSize.s90,
+                                      height: AppSize.s20,
+                                      decoration: BoxDecoration(
+                                        color: data.status == 'Opened'
+                                            ? Color(0xff1696C8)
+                                            : data.status == 'Partial'
+                                                ? Color(0xffCA8A04)
+                                                : data.status == 'Completed'
+                                                    ? Color(0xff52A889)
+                                                    : Color(0xffC30404),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(12)),
+                                      ),
+                                      child: Center(
+                                        child: data.status == 'Notopen'
+                                            ? Text(
+                                                'Not Opened',
+                                                textAlign: TextAlign.center,
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                        color:
+                                                            ColorManager.white,
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                              )
+                                            : Text(data.status,
+                                                textAlign: TextAlign.center,
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                        color:
+                                                            ColorManager.white,
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight:
+                                                            FontWeight.w600)),
+                                      )),
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  // Expanded(
+                                  //   child: Row(
+                                  //     mainAxisAlignment: MainAxisAlignment.start,
+                                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                                  //     children: [
+                                  //       Text(
+                                  //         data.firstName.capitalizeFirst!,
+                                  //         style: DefineWorkWeekStyle.customTextStyle(context),
+                                  //       ),
+                                  //       SizedBox(width: MediaQuery.of(context).size.width/70),
+                                  //       Text(
+                                  //         data.lastName.capitalizeFirst!,
+                                  //         style: DefineWorkWeekStyle.customTextStyle(context),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: CustomRowname(
+                                        text1: data.firstName.capitalizeFirst!,
+                                        text2: data.lastName.capitalizeFirst!,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: CustomRownew(
+                                      text1: 'Role :',
+                                      text2: data.role,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: CustomRownew(
+                                      text1: 'Email :',
+                                      text2: data.email,
+                                    ),
+                                  ),
+                                  // Row(
+                                  //   children: [
+                                  //     Padding(
+                                  //       padding: const EdgeInsets.only(top: 2.0),
+                                  //       child: Icon(Icons.link,
+                                  //           size: 15, color: ColorManager.mediumgrey),
+                                  //     ),
+                                  //     SizedBox(width: MediaQuery.of(context).size.width / 40),
+                                  //     Text('Link',
+                                  //         style:
+                                  //         DocumentTypeDataStyle.customTextStyle(context)),
+                                  //     SizedBox(width: MediaQuery.of(context).size.width / 20),
+                                  //     data.status == 'Notopen'
+                                  //         ? const Text('')
+                                  //         : TextButton(
+                                  //       onPressed: () async {
+                                  //         //html.window.open('/onBordingWelcome',"_blank");
+                                  //         // const url = "http://localhost:59589/#/onBordingWelcome";
+                                  //         const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                                  //         //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                                  //         //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                                  //         if (await canLaunch(url)) {
+                                  //           await launch(url);
+                                  //         } else {
+                                  //           throw 'Could not launch $url';
+                                  //         }
+                                  //       },
+                                  //       child: Text(
+                                  //         data.link!,
+                                  //         style: RegisterLinkDataStyle.customTextStyle(
+                                  //             context),
+                                  //       ),
+                                  //     ),
+                                  //     data.status == 'Notopen'
+                                  //         ? const Text('')
+                                  //         : InkWell(
+                                  //         onTap: () {
+                                  //           _copyToClipboard(
+                                  //               "${AppConfig.deployment}/#/onBordingWelcome");
+                                  //         },
+                                  //         child: Icon(
+                                  //           Icons.copy,
+                                  //           size: 15,
+                                  //           color: ColorManager.mediumgrey,
+                                  //         )),
+                                  //   ],
+                                  // ),
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        data.status == 'Notopen'
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  CustomTextButton(
+                                                    text: AppString.enroll,
+                                                    onPressed: () async {
+                                                      // final enrollProviderState = Provider.of<HrEnrollEmployeeProvider>(context, listen: false);
+                                                      // List<AEClinicalDiscipline> passData = await HrAddEmplyClinicalDisciplinApi(context, data.deptId! );
+                                                      // final clinicalTypes = await HrAddEmplyClinicalDisciplinApi(context, data.deptId!);
+                                                      // final cities = await HrAddEmplyClinicalCityApi(context);
+                                                      // final offices = await getCompanyOfficeList(context);
+                                                      //final zones = await HrAddEmplyClinicalZoneApi(context);
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (_) =>
+                                                            FutureBuilder<
+                                                                RegisterDataUserIDPrefill>(
+                                                          future:
+                                                              getRegisterEnrollPrefillUserId(
+                                                                  context,
+                                                                  data.userId),
+                                                          builder: (context,
+                                                              snapshotPrefill) {
+                                                            if (snapshotPrefill
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return Center(
+                                                                child: CircularProgressIndicator(
+                                                                    color: ColorManager
+                                                                        .blueprime),
+                                                              );
+                                                            }
+                                                            var firstName =
+                                                                snapshotPrefill
+                                                                    .data!
+                                                                    .firstName
+                                                                    .toString();
+                                                            firstNameController =
+                                                                TextEditingController(
+                                                                    text:
+                                                                        firstName);
+
+                                                            var lastName =
+                                                                snapshotPrefill
+                                                                    .data!
+                                                                    .lastName
+                                                                    .toString();
+                                                            lastNameController =
+                                                                TextEditingController(
+                                                                    text:
+                                                                        lastName);
+
+                                                            var email =
+                                                                snapshotPrefill
+                                                                    .data!.email
+                                                                    .toString();
+                                                            emailController =
+                                                                TextEditingController(
+                                                                    text:
+                                                                        email);
+
+                                                            return RegisterEnrollPopup(
+                                                              employeeId: data
+                                                                  .employeeId,
+                                                              firstName:
+                                                                  firstNameController,
+                                                              lastName:
+                                                                  lastNameController,
+                                                              email:
+                                                                  emailController,
+                                                              userId:
+                                                                  snapshotPrefill
+                                                                      .data!
+                                                                      .userId,
+                                                              role:
+                                                                  snapshotPrefill
+                                                                      .data!
+                                                                      .role,
+                                                              status:
+                                                                  snapshotPrefill
+                                                                      .data!
+                                                                      .status,
+                                                              // depid :snapshotPrefill.data!.
+                                                              depId: snapshotPrefill
+                                                                  .data!
+                                                                  .departmentId,
+                                                              aEClinicalDiscipline:
+                                                                  registerProvider
+                                                                      .clinicalDisciplines, // Preloaded data
+                                                              cities: registerProvider
+                                                                  .clinicalCities, // Pass cities data
+                                                              companyOffices:
+                                                                  registerProvider
+                                                                      .companyOffices, // Pass company office data
+                                                              zones: registerProvider
+                                                                  .zone, // Pass zone data
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              onReferesh: () {
+                                                                registerProvider
+                                                                    .fetchData(
+                                                                        context);
+                                                              },
+                                                              // aEClinicalDiscipline: passData,
+                                                            );
+                                                          },
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              )
+                                            : const SizedBox(width: 10),
+                                        data.status == 'Partial'
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Container(
+                                                    width: AppSize.s110,
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right:
+                                                                AppMargin.m5),
+                                                    child: CustomTextButton(
+                                                      color: ColorManager
+                                                          .blueprime,
+                                                      text: 'Activate',
+                                                      onPressed: () async {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return ConfirmationPopup(
+                                                                loadingDuration:
+                                                                    registerProvider
+                                                                        .load,
+                                                                onCancel: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                onConfirm:
+                                                                    () async {
+                                                                  registerProvider
+                                                                      .loaderTrue();
+
+                                                                  try {
+                                                                    var response =
+                                                                        await changeStatusUserPatch(
+                                                                            context,
+                                                                            data.employeeId);
+                                                                    registerProvider
+                                                                        .fetchData(
+                                                                            context);
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  } catch (e) {
+                                                                    print(
+                                                                        "Error during Onboarding: $e");
+                                                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                                                    //   SnackBar(content: Text('Onboarding failed: $e')),
+                                                                    // );
+                                                                  } finally {
+                                                                    registerProvider
+                                                                        .loaderFalse();
+                                                                  }
+                                                                },
+                                                                title:
+                                                                    'Confirm Activation',
+                                                                containerText:
+                                                                    'Do you really want to complete?',
+                                                              );
+                                                            });
+                                                      },
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            : const SizedBox(width: 10),
+                                        data.status == 'Completed'
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: AppSize.s110,
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right:
+                                                                AppMargin.m5),
+                                                    child: CustomTextButton(
+                                                      color: ColorManager
+                                                          .blueprime,
+                                                      text: 'Onboard',
+                                                      onPressed: () async {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return ConfirmationPopup(
+                                                                loadingDuration:
+                                                                    registerProvider
+                                                                        .load,
+                                                                onCancel: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                onConfirm:
+                                                                    () async {
+                                                                  registerProvider
+                                                                      .loaderTrue();
+                                                                  try {
+                                                                    var response =
+                                                                        await onboardingUserPatch(
+                                                                            context,
+                                                                            data.employeeId);
+                                                                    if (response.statusCode ==
+                                                                            200 ||
+                                                                        response.statusCode ==
+                                                                            201) {
+                                                                      // ScaffoldMessenger.of(context).showSnackBar(
+                                                                      //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+                                                                      // );
+                                                                      registerProvider
+                                                                          .fetchData(
+                                                                              context);
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    } else {
+                                                                      // ScaffoldMessenger.of(context).showSnackBar(
+                                                                      //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+                                                                      // );
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    }
+                                                                  } catch (e) {
+                                                                    print(
+                                                                        "Error during Onboarding: $e");
+                                                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                                                    //   SnackBar(content: Text('Onboarding failed: $e')),
+                                                                    // );
+                                                                  } finally {
+                                                                    registerProvider
+                                                                        .loaderFalse();
+                                                                  }
+                                                                },
+                                                                title:
+                                                                    'Confirm Onboarding',
+                                                                containerText:
+                                                                    'Do you really want to onboard?',
+                                                              );
+                                                            });
+                                                      },
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            : const SizedBox(width: 10),
+                                        data.status == 'Opened'
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Container(
+                                                    //color: Colors.red,
+                                                    height: AppSize.s30,
+                                                    // margin:
+                                                    // const EdgeInsets.only(right: AppMargin.m5),
+                                                    // child: CustomIconButton(
+                                                    //   text: 'Onboard',
+                                                    //   onPressed: () async {
+                                                    //     showDialog(
+                                                    //         context: context,
+                                                    //         builder: (BuildContext context) {
+                                                    //           return ConfirmationPopup(
+                                                    //             loadingDuration: _isLoading,
+                                                    //             onCancel: () {
+                                                    //               Navigator.pop(context);
+                                                    //             },
+                                                    //             onConfirm: () async {
+                                                    //               setState(() {
+                                                    //                 _isLoading = true;
+                                                    //               });
+                                                    //
+                                                    //               try {
+                                                    //                 var response =
+                                                    //                 await onboardingUserPatch(
+                                                    //                     context, data.employeeId);
+                                                    //                 if (response.statusCode == 200 ||
+                                                    //                     response.statusCode == 201) {
+                                                    //                   // ScaffoldMessenger.of(context).showSnackBar(
+                                                    //                   //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+                                                    //                   // );
+                                                    //                   fetchData();
+                                                    //                   Navigator.pop(context);
+                                                    //                 } else {
+                                                    //                   // ScaffoldMessenger.of(context).showSnackBar(
+                                                    //                   //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+                                                    //                   // );
+                                                    //                   Navigator.pop(context);
+                                                    //                 }
+                                                    //               } catch (e) {
+                                                    //                 print(
+                                                    //                     "Error during Onboarding: $e");
+                                                    //                 // ScaffoldMessenger.of(context).showSnackBar(
+                                                    //                 //   SnackBar(content: Text('Onboarding failed: $e')),
+                                                    //                 // );
+                                                    //               } finally {
+                                                    //                 setState(() {
+                                                    //                   _isLoading = false;
+                                                    //                 });
+                                                    //               }
+                                                    //             },
+                                                    //             title: 'Confirm Onboarding',
+                                                    //             containerText:
+                                                    //             'Do you really want to onboard?',
+                                                    //           );
+                                                    //         });
+                                                    //   },
+                                                    // ),
+                                                    width: 110,
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right:
+                                                                AppMargin.m5),
+                                                  )
+                                                ],
+                                              )
+                                            : const SizedBox(width: 10),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  )
+
+                                  // Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.end,
+                                  //   crossAxisAlignment: CrossAxisAlignment.end,
+                                  //   children: [
+                                  //     data.status == 'Notopen'
+                                  //         ? Text(
+                                  //       'Not Opened',
+                                  //       style:
+                                  //       DocumentTypeDataStyle.customTextStyle(context),
+                                  //     )
+                                  //         : Text('Status',
+                                  //         style:
+                                  //         DocumentTypeDataStyle.customTextStyle(context)),
+                                  //     SizedBox(width: MediaQuery.of(context).size.width / 100),
+                                  //     data.status == 'Notopen'
+                                  //         ? const SizedBox(width: 10)
+                                  //         : Container(
+                                  //       width: 10.0,
+                                  //       height: 15.0,
+                                  //       decoration: BoxDecoration(
+                                  //         color: data.status == 'Opened'
+                                  //             ? const Color(0xff51B5E6)
+                                  //             : data.status == 'Partial'
+                                  //             ? const Color(0xffCA8A04)
+                                  //             : const Color(0xffB4DB4C),
+                                  //         shape: BoxShape.circle,
+                                  //       ),
+                                  //     ),
+                                  //     SizedBox(width: 5),
+                                  //     data.status == 'Notopen'
+                                  //         ? const SizedBox(width: 10)
+                                  //         : Text(data.status,
+                                  //         style: ConstTextFieldStyles.customTextStyle(
+                                  //           textColor: data.status == 'Opened'
+                                  //               ? Color(0xff51B5E6)
+                                  //               : data.status == 'Partial'
+                                  //               ? Color(0xffCA8A04)
+                                  //               : data.status == 'Completed'
+                                  //               ? Color(0xffB4DB4C)
+                                  //               : ColorManager.rednew,
+                                  //         )),
+                                  //   ],
+                                  // ),
+                                ],
+                              ),
+                              // Padding(
+                              //   padding: EdgeInsets.only(
+                              //     left: MediaQuery.of(context).size.width / 130,
+                              //     top: MediaQuery.of(context).size.height / 120,
+                              //   ),
+                              //   child:
+                              //   Column(
+                              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       SizedBox(height: MediaQuery.of(context).size.height / 60),
+                              //       CustomRow(
+                              //         icon: Icons.email_outlined,
+                              //         text1: 'Email',
+                              //         text2: data.email,
+                              //       ),
+                              //       SizedBox(height: MediaQuery.of(context).size.height / 60),
+                              //
+                              //       ///link
+                              //       Row(
+                              //         children: [
+                              //           Padding(
+                              //             padding: const EdgeInsets.only(top: 2.0),
+                              //             child: Icon(Icons.link,
+                              //                 size: 15, color: ColorManager.mediumgrey),
+                              //           ),
+                              //           SizedBox(width: MediaQuery.of(context).size.width / 40),
+                              //           Text('Link',
+                              //               style:
+                              //               DocumentTypeDataStyle.customTextStyle(context)),
+                              //           SizedBox(width: MediaQuery.of(context).size.width / 20),
+                              //           data.status == 'Notopen'
+                              //               ? const Text('')
+                              //               : TextButton(
+                              //             onPressed: () async {
+                              //               //html.window.open('/onBordingWelcome',"_blank");
+                              //               // const url = "http://localhost:59589/#/onBordingWelcome";
+                              //               const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                              //               //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                              //               //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                              //               if (await canLaunch(url)) {
+                              //                 await launch(url);
+                              //               } else {
+                              //                 throw 'Could not launch $url';
+                              //               }
+                              //             },
+                              //             child: Text(
+                              //               data.link!,
+                              //               style: RegisterLinkDataStyle.customTextStyle(
+                              //                   context),
+                              //             ),
+                              //           ),
+                              //           data.status == 'Notopen'
+                              //               ? const Text('')
+                              //               : InkWell(
+                              //               onTap: () {
+                              //                 _copyToClipboard(
+                              //                     "${AppConfig.deployment}/#/onBordingWelcome");
+                              //               },
+                              //               child: Icon(
+                              //                 Icons.copy,
+                              //                 size: 15,
+                              //                 color: ColorManager.mediumgrey,
+                              //               )),
+                              //         ],
+                              //       ),
+                              //       data.status == 'Notopen'
+                              //           ? Row(
+                              //         mainAxisAlignment: MainAxisAlignment.end,
+                              //         children: [
+                              //           Container(
+                              //             width: AppSize.s110,
+                              //             margin:
+                              //             const EdgeInsets.only(right: AppMargin.m5),
+                              //             child: CustomIconButton(
+                              //               text: AppString.enroll,
+                              //               onPressed: () async {
+                              //                 List<AEClinicalDiscipline> passData =
+                              //                 await HrAddEmplyClinicalDisciplinApi(
+                              //                     context, 1);
+                              //                 showDialog(
+                              //                   context: context,
+                              //                   builder: (_) => FutureBuilder<
+                              //                       RegisterDataUserIDPrefill>(
+                              //                     future: getRegisterEnrollPrefillUserId(
+                              //                         context, data.userId),
+                              //                     builder: (context, snapshotPrefill) {
+                              //                       if (snapshotPrefill.connectionState ==
+                              //                           ConnectionState.waiting) {
+                              //                         return Center(
+                              //                           child: CircularProgressIndicator(
+                              //                               color: ColorManager.blueprime),
+                              //                         );
+                              //                       }
+                              //                       var firstName = snapshotPrefill
+                              //                           .data!.firstName
+                              //                           .toString();
+                              //                       firstNameController =
+                              //                           TextEditingController(
+                              //                               text: firstName);
+                              //
+                              //                       var lastName = snapshotPrefill
+                              //                           .data!.lastName
+                              //                           .toString();
+                              //                       lastNameController =
+                              //                           TextEditingController(
+                              //                               text: lastName);
+                              //
+                              //                       var email = snapshotPrefill.data!.email
+                              //                           .toString();
+                              //                       emailController =
+                              //                           TextEditingController(text: email);
+                              //
+                              //                       return RegisterEnrollPopup(
+                              //                         employeeId: data.employeeId,
+                              //                         firstName: firstNameController,
+                              //                         lastName: lastNameController,
+                              //                         email: emailController,
+                              //                         userId: snapshotPrefill.data!.userId,
+                              //                         role: snapshotPrefill.data!.role,
+                              //                         status: snapshotPrefill.data!.status,
+                              //                         onPressed: () {
+                              //                           Navigator.pop(context);
+                              //                         },
+                              //                         onReferesh: () {
+                              //                           setState(() {
+                              //                             fetchData();
+                              //                           });
+                              //                         },
+                              //                         aEClinicalDiscipline: passData,
+                              //                       );
+                              //                     },
+                              //                   ),
+                              //                 );
+                              //               },
+                              //             ),
+                              //           ),
+                              //         ],
+                              //       )
+                              //           : const SizedBox(width: 10),
+                              //       data.status == 'Partial'
+                              //           ? Row(
+                              //         mainAxisAlignment: MainAxisAlignment.end,
+                              //         crossAxisAlignment: CrossAxisAlignment.end,
+                              //         children: [
+                              //           Container(
+                              //             width: AppSize.s100,
+                              //             margin:
+                              //             const EdgeInsets.only(right: AppMargin.m5),
+                              //             child: CustomIconButton(
+                              //               text: 'Activate',
+                              //               onPressed: () async {
+                              //                 showDialog(
+                              //                     context: context,
+                              //                     builder: (BuildContext context) {
+                              //                       return ConfirmationPopup(
+                              //                         loadingDuration: _isLoading,
+                              //                         onCancel: () {
+                              //                           Navigator.pop(context);
+                              //                         },
+                              //                         onConfirm: () async {
+                              //                           setState(() {
+                              //                             _isLoading = true;
+                              //                           });
+                              //
+                              //                           try {
+                              //                             var response =
+                              //                             await changeStatusUserPatch(
+                              //                                 context, data.employeeId);
+                              //                             fetchData();
+                              //                             Navigator.pop(context);
+                              //                           } catch (e) {
+                              //                             print(
+                              //                                 "Error during Onboarding: $e");
+                              //                             // ScaffoldMessenger.of(context).showSnackBar(
+                              //                             //   SnackBar(content: Text('Onboarding failed: $e')),
+                              //                             // );
+                              //                           } finally {
+                              //                             setState(() {
+                              //                               _isLoading = false;
+                              //                             });
+                              //                           }
+                              //                         },
+                              //                         title: 'Confirm Activation',
+                              //                         containerText:
+                              //                         'Do you really want to complete?',
+                              //                       );
+                              //                     });
+                              //               },
+                              //             ),
+                              //           )
+                              //         ],
+                              //       )
+                              //           : const SizedBox(width: 10),
+                              //       data.status == 'Completed'
+                              //           ? Row(
+                              //         mainAxisAlignment: MainAxisAlignment.end,
+                              //         crossAxisAlignment: CrossAxisAlignment.end,
+                              //         children: [
+                              //           Container(
+                              //             width: AppSize.s100,
+                              //             margin:
+                              //             const EdgeInsets.only(right: AppMargin.m5),
+                              //             child: CustomIconButton(
+                              //               text: 'Onboard',
+                              //               onPressed: () async {
+                              //                 showDialog(
+                              //                     context: context,
+                              //                     builder: (BuildContext context) {
+                              //                       return ConfirmationPopup(
+                              //                         loadingDuration: _isLoading,
+                              //                         onCancel: () {
+                              //                           Navigator.pop(context);
+                              //                         },
+                              //                         onConfirm: () async {
+                              //                           setState(() {
+                              //                             _isLoading = true;
+                              //                           });
+                              //
+                              //                           try {
+                              //                             var response =
+                              //                             await onboardingUserPatch(
+                              //                                 context, data.employeeId);
+                              //                             if (response.statusCode == 200 ||
+                              //                                 response.statusCode == 201) {
+                              //                               // ScaffoldMessenger.of(context).showSnackBar(
+                              //                               //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+                              //                               // );
+                              //                               fetchData();
+                              //                               Navigator.pop(context);
+                              //                             } else {
+                              //                               // ScaffoldMessenger.of(context).showSnackBar(
+                              //                               //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+                              //                               // );
+                              //                               Navigator.pop(context);
+                              //                             }
+                              //                           } catch (e) {
+                              //                             print(
+                              //                                 "Error during Onboarding: $e");
+                              //                             // ScaffoldMessenger.of(context).showSnackBar(
+                              //                             //   SnackBar(content: Text('Onboarding failed: $e')),
+                              //                             // );
+                              //                           } finally {
+                              //                             setState(() {
+                              //                               _isLoading = false;
+                              //                             });
+                              //                           }
+                              //                         },
+                              //                         title: 'Confirm Onboarding',
+                              //                         containerText:
+                              //                         'Do you really want to onboard?',
+                              //                       );
+                              //                     });
+                              //               },
+                              //             ),
+                              //           )
+                              //         ],
+                              //       )
+                              //           : const SizedBox(width: 10),
+                              //       data.status == 'Opened'
+                              //           ? Row(
+                              //         mainAxisAlignment: MainAxisAlignment.end,
+                              //         crossAxisAlignment: CrossAxisAlignment.end,
+                              //         children: [
+                              //           Container(
+                              //             color: Colors.red,
+                              //             height: AppSize.s30,
+                              //             // margin:
+                              //             // const EdgeInsets.only(right: AppMargin.m5),
+                              //             // child: CustomIconButton(
+                              //             //   text: 'Onboard',
+                              //             //   onPressed: () async {
+                              //             //     showDialog(
+                              //             //         context: context,
+                              //             //         builder: (BuildContext context) {
+                              //             //           return ConfirmationPopup(
+                              //             //             loadingDuration: _isLoading,
+                              //             //             onCancel: () {
+                              //             //               Navigator.pop(context);
+                              //             //             },
+                              //             //             onConfirm: () async {
+                              //             //               setState(() {
+                              //             //                 _isLoading = true;
+                              //             //               });
+                              //             //
+                              //             //               try {
+                              //             //                 var response =
+                              //             //                 await onboardingUserPatch(
+                              //             //                     context, data.employeeId);
+                              //             //                 if (response.statusCode == 200 ||
+                              //             //                     response.statusCode == 201) {
+                              //             //                   // ScaffoldMessenger.of(context).showSnackBar(
+                              //             //                   //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+                              //             //                   // );
+                              //             //                   fetchData();
+                              //             //                   Navigator.pop(context);
+                              //             //                 } else {
+                              //             //                   // ScaffoldMessenger.of(context).showSnackBar(
+                              //             //                   //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+                              //             //                   // );
+                              //             //                   Navigator.pop(context);
+                              //             //                 }
+                              //             //               } catch (e) {
+                              //             //                 print(
+                              //             //                     "Error during Onboarding: $e");
+                              //             //                 // ScaffoldMessenger.of(context).showSnackBar(
+                              //             //                 //   SnackBar(content: Text('Onboarding failed: $e')),
+                              //             //                 // );
+                              //             //               } finally {
+                              //             //                 setState(() {
+                              //             //                   _isLoading = false;
+                              //             //                 });
+                              //             //               }
+                              //             //             },
+                              //             //             title: 'Confirm Onboarding',
+                              //             //             containerText:
+                              //             //             'Do you really want to onboard?',
+                              //             //           );
+                              //             //         });
+                              //             //   },
+                              //             // ),
+                              //           )
+                              //         ],
+                              //       )
+                              //           : const SizedBox(width: 10),
+                              //     ],
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      }),
     );
   }
-
-
-
 
   // @override
   // Widget build(BuildContext context) {
@@ -1374,7 +1490,6 @@ class RegisterScreen extends StatelessWidget {
   //     registerController.add(filteredData);
   //   }
   // }
-
 
   // Widget buildDataContainer(RegisterDataCompID data) {
   //   return Container(
@@ -1797,10 +1912,6 @@ class RegisterScreen extends StatelessWidget {
   //     ),
   //   );
   // }
-
-
-
-
 
   ////
   // Widget buildDatContainer(RegisterDataCompID data) {
