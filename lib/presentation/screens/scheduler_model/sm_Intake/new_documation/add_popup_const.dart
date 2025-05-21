@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../app/resources/color.dart';
@@ -21,6 +22,27 @@ class AddPopupConstant extends StatefulWidget {
 }
 
 class _AddPopupConstantState extends State<AddPopupConstant> {
+
+  String fileName = '';
+  dynamic _filePath;
+  bool _fileAbove20Mb = false;
+
+  void pickAckFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
+    if (result != null) {
+      _filePath = result.files.first.bytes;
+      fileName = result.files.first.name;
+      _fileAbove20Mb = !isAbove20MB;
+      //notifyListeners();
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -138,7 +160,9 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                     isAsterisk: false,
                     heading: AppString.upload_document,
                     content: InkWell(
-                      onTap:(){},
+                      onTap:()async{
+                        pickAckFile();
+                      },
                       child: Container(
                         height: AppSize.s30,
                         width: AppSize.s354,
@@ -160,13 +184,26 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      "",
+                                      fileName,
                                       style: DocumentTypeDataStyle.customTextStyle(context),
                                     ),
                                   ),
                                   IconButton(
-                                    padding: EdgeInsets.all(4),
-                                    onPressed: (){},
+                                    padding: const EdgeInsets.all(4),
+                                    onPressed: ()async{
+                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                        type: FileType.custom,
+                                        allowedExtensions: ['pdf'],
+                                      );
+                                      final fileSize = result?.files.first.size; // File size in bytes
+                                      final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
+                                      if (result != null) {
+                                        _filePath = result.files.first.bytes;
+                                        fileName = result.files.first.name;
+                                        _fileAbove20Mb = !isAbove20MB;
+                                        //notifyListeners();
+                                      }
+                                    },
                                     icon: Icon(
                                       Icons.file_upload_outlined,
                                       color: ColorManager.black,

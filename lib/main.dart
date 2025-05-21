@@ -12,6 +12,7 @@ import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_demographics/widgets/patients_plan_care/planer_notifier.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_orders/intake_orders_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -78,6 +79,7 @@ Future<void> main() async {
           ChangeNotifierProvider(create: (_) => FormBuilderProvider()),
           ChangeNotifierProvider(create: (_) => HrProgressMultiStape()),
           ChangeNotifierProvider(create: (_) => SmIntakeProviderManager()),
+          ChangeNotifierProvider(create: (_) => PriDiagnosisProvider()),
           // ChangeNotifierProvider(create: (_) => SmIntegrationProviderManager()),
           ChangeNotifierProvider(create: (_) => DiagnosisProvider()),
           ChangeNotifierProvider(
