@@ -158,10 +158,10 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
         borderRadius: BorderRadius.circular(15.0),
       ),
       backgroundColor: Colors.white,
-      child: Container(
+      child: SizedBox(
         //width: MediaQuery.of(context).size.width * 0.2,
         width: 420,
-        height: MediaQuery.of(context).size.height * 0.55,
+       // height: MediaQuery.of(context).size.height * 0.55,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -219,54 +219,53 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
             SizedBox(height: MediaQuery.of(context).size.height / 50),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.05,     //20,
+                  vertical: 20),
               child: Form(
                 key: _formKey,
                 child: Column(
                   // mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     // Email Input Field
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width / 5,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Email',style: AllPopupHeadings.customTextStyle(context)),
-                            SizedBox(height: 5),
-                            TextFormField(
-                              cursorColor: Colors.black,
-                              controller: emailController,
-                              style: onlyFormDataStyle.customTextStyle(context),
-                              decoration: InputDecoration(
-                                isDense: true,
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide: const BorderSide(color: Color(0xffB1B1B1)),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide: const BorderSide(color: Color(0xffB1B1B1)),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide: const BorderSide(color: Color(0xffB1B1B1)),
-                                ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Email',style: AllPopupHeadings.customTextStyle(context)),
+                          SizedBox(height: 5),
+                          TextFormField(
+                            cursorColor: Colors.black,
+                            controller: emailController,
+                            style: onlyFormDataStyle.customTextStyle(context),
+                            decoration: InputDecoration(
+                              isDense: true,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: const BorderSide(color: Color(0xffB1B1B1)),
                               ),
-                              onChanged: (value) {
-                                setState(() {
-                                  emailEntered = _isEmailValid(value);
-                                });
-                              },
-                              onFieldSubmitted: (value) {
-                                FocusScope.of(context).requestFocus(getOtpButtonFocusNode);
-                                _pressGetOtpButton();  // Trigger the OTP button press
-                              },
-
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: const BorderSide(color: Color(0xffB1B1B1)),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: const BorderSide(color: Color(0xffB1B1B1)),
+                              ),
                             ),
-                          ],
-                        ),
+                            onChanged: (value) {
+                              setState(() {
+                                emailEntered = _isEmailValid(value);
+                              });
+                            },
+                            onFieldSubmitted: (value) {
+                              FocusScope.of(context).requestFocus(getOtpButtonFocusNode);
+                              _pressGetOtpButton();  // Trigger the OTP button press
+                            },
+
+                          ),
+                        ],
                       ),
                     ),
 

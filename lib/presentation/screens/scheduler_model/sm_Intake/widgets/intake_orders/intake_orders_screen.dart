@@ -18,6 +18,44 @@ import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
+
+import 'package:flutter/material.dart';
+
+class PriDiagnosisProvider with ChangeNotifier {
+  final List<GlobalKey<PriDiagonsisState>> _priDiagonsisKeys = [
+    GlobalKey<PriDiagonsisState>() // 👈 One default diagnosis form
+  ];
+  bool _isVisible = false;
+
+  List<GlobalKey<PriDiagonsisState>> get referenceFormKeys => _priDiagonsisKeys;
+  bool get isVisible => _isVisible;
+
+  void addReferenceForm() {
+    _priDiagonsisKeys.add(GlobalKey<PriDiagonsisState>());
+    notifyListeners();
+  }
+
+  void removeReferenceForm(GlobalKey<PriDiagonsisState> key) {
+    _priDiagonsisKeys.remove(key);
+    notifyListeners();
+  }
+
+  void toggleVisibility() {
+    _isVisible = !_isVisible;
+    notifyListeners();
+  }
+
+  void setVisibility(bool value) {
+    _isVisible = value;
+    notifyListeners();
+  }
+}
+
+
+
+
+
+
 class SMIntakeOrdersScreen extends StatelessWidget {
   final int patientId;
   const SMIntakeOrdersScreen({super.key, required this.patientId});
@@ -38,8 +76,10 @@ class SMIntakeOrdersScreen extends StatelessWidget {
   //   );
   // }
 
+
   @override
   Widget build(BuildContext context) {
+
     TextEditingController receivedDateController = TextEditingController();
     TextEditingController orderDateController = TextEditingController();
     TextEditingController caseManagerController = TextEditingController();
@@ -98,8 +138,9 @@ class SMIntakeOrdersScreen extends StatelessWidget {
       //   ),
       // ),
       Consumer<SmIntakeProviderManager>(
-          builder: (context,providerState,child) {
-           return Padding(
+          builder: (context, providerState, child) {
+            final priDiagnosisProvider = Provider.of<PriDiagnosisProvider>(context);
+            return Padding(
              padding: const EdgeInsets.only(top: 5),
              child: SingleChildScrollView(
               child: Column(
@@ -486,7 +527,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             const SizedBox(width: AppSize.s10,),
                             SchedularTextField(
                               isIconVisible:true,
-                              enable: false,
+
                               width: 350,
                               controller: trackingNotesController,
                               labelText: '',
@@ -504,81 +545,97 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      Container(
-                        child:  ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 4, // Adjust as needed
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: AppPadding.p35,vertical: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(height: 90,width: 5,color: ColorManager.greenDark,),
-                                      const SizedBox(width: AppSize.s30,),
-                                      Expanded(
-                                        child: SchedularTextField(
-                                          controller: possibleDiagnosisController,
-                                          labelText: 'Possible Diagnosis',
-                                          enable: false,
-                                        )
-                                      ),
-                                      const SizedBox(width: AppSize.s60,),
-                                      Expanded(
-                                        child: SchedularTextField(
-                                          controller: icdCodeController,
-                                          labelText: 'ICD Code',
-                                          enable: false,
 
-                                        )
-                                      ),
-                                      const SizedBox(width: AppSize.s60,),
-                                      Expanded(
-                                        child: SchedularTextField(
-                                          isIconVisible: true,
-                                          enable: false,
-                                          controller: pDGMAcceptController,
-                                          labelText: 'PDGM - Acceptable',
-                                        ),
-                                      ),
-                                      const SizedBox(width: AppSize.s30,),
-                                   providerState.isContactTrue ? const Offstage() :  Expanded(
-                                        child: Container(
-                                          height: 30,
-                                          width: AppSize.s354,
-                                        ),
-                                      ),
-                                      providerState.isContactTrue ? const Offstage() :  const SizedBox(width: AppSize.s30,),
-                                      providerState.isContactTrue?const SizedBox()  :Expanded(
-                                        child: Container(
-                                          height: 30,
-                                          width: AppSize.s354,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  const Divider(),
-                                  // Divider(
-                                  //   color: ColorManager.containerBorderGrey,
-                                  //   thickness: 1,
-                                  //   height: 1,
-                                  // ),
-                                  const SizedBox(height: AppSize.s15,),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+
+                      Column(
+                        children: priDiagnosisProvider.referenceFormKeys.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          GlobalKey<PriDiagonsisState> key = entry.value;
+
+                          return PriDiagonsis(
+                            key: key,
+                            index: index + 1,
+                            onRemove: () => priDiagnosisProvider.removeReferenceForm(key),
+                            isVisible: priDiagnosisProvider.isVisible,
+                          );
+                        }).toList(), // ✅ Convert to list, and no need for spread operator
                       ),
+
+                      // Container(
+                      //   child:  ListView.builder(
+                      //     shrinkWrap: true,
+                      //     itemCount: 4, // Adjust as needed
+                      //     itemBuilder: (context, index) {
+                      //       return Padding(
+                      //         padding:  EdgeInsets.symmetric(horizontal: AppPadding.p35,vertical: 20),
+                      //         child: Column(
+                      //           crossAxisAlignment: CrossAxisAlignment.start,
+                      //           children: [
+                      //             Row(
+                      //               children: [
+                      //                 Container(height: 90,width: 5,color: ColorManager.greenDark,),
+                      //                 const SizedBox(width: AppSize.s30,),
+                      //                 Expanded(
+                      //                   child: SchedularTextField(
+                      //                     controller: possibleDiagnosisController,
+                      //                     labelText: 'Possible Diagnosis',
+                      //                     enable: false,
+                      //                   )
+                      //                 ),
+                      //                 const SizedBox(width: AppSize.s60,),
+                      //                 Expanded(
+                      //                   child: SchedularTextField(
+                      //                     controller: icdCodeController,
+                      //                     labelText: 'ICD Code',
+                      //                     enable: false,
+                      //
+                      //                   )
+                      //                 ),
+                      //                 const SizedBox(width: AppSize.s60,),
+                      //                 Expanded(
+                      //                   child: SchedularTextField(
+                      //                     isIconVisible: true,
+                      //                     enable: false,
+                      //                     controller: pDGMAcceptController,
+                      //                     labelText: 'PDGM - Acceptable',
+                      //                   ),
+                      //                 ),
+                      //                 const SizedBox(width: AppSize.s30,),
+                      //              providerState.isContactTrue ? const Offstage() :  Expanded(
+                      //                   child: Container(
+                      //                     height: 30,
+                      //                     width: AppSize.s354,
+                      //                   ),
+                      //                 ),
+                      //                 providerState.isContactTrue ? const Offstage() :  const SizedBox(width: AppSize.s30,),
+                      //                 providerState.isContactTrue?const SizedBox()  :Expanded(
+                      //                   child: Container(
+                      //                     height: 30,
+                      //                     width: AppSize.s354,
+                      //                   ),
+                      //                 )
+                      //               ],
+                      //             ),
+                      //             const Divider(),
+                      //             // Divider(
+                      //             //   color: ColorManager.containerBorderGrey,
+                      //             //   thickness: 1,
+                      //             //   height: 1,
+                      //             // ),
+                      //             const SizedBox(height: AppSize.s15,),
+                      //           ],
+                      //         ),
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
                       const SizedBox(height: AppSize.s16),
                       CustomIconButtonConst(
                           width: 150,
                           text: 'Add Diagnosis',
                           icon: Icons.add,
                           onPressed: () {
-
+                            priDiagnosisProvider.addReferenceForm();
                           }),
                       const SizedBox(height: AppSize.s16),
                       const Divider()
@@ -732,13 +789,13 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'Dementia',
                                   initialValue: isDementia,
                                   isInfoIconVisible: true,
                                   onChanged: (value) {},
                                 ),
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'Catheter Care',
                                   initialValue: isCatheterCare,
                                   isInfoIconVisible: true,
@@ -752,13 +809,13 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'Wound Care',
                                   initialValue: isWoundCare,
                                   isInfoIconVisible: true,
                                   onChanged: (value) {},
                                 ),
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'Zen Med',
                                   initialValue: isZenMed,
                                   onChanged: (value) {},
@@ -771,13 +828,13 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'Ortho Patient',
                                   initialValue: isOrthoPatient,
                                   isInfoIconVisible: true,
                                   onChanged: (value) {},
                                 ),
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'PT/INR',
                                   initialValue: isPtInr,
                                   isInfoIconVisible: true,
@@ -791,13 +848,13 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'Labs Ordered',
                                   initialValue: isLabsOrder,
                                   isInfoIconVisible: true,
                                   onChanged: (value) {},
                                 ),
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'Infusion/IV',
                                   initialValue: isInfusionIv,
                                   isInfoIconVisible: true,
@@ -811,13 +868,13 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'Ostomy Care',
                                   initialValue: isOstomyCare,
                                   isInfoIconVisible: true,
                                   onChanged: (value) {},
                                 ),
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'Rehospitalization Risk',
                                   initialValue: isRehospicRisk,
                                   isInfoIconVisible: true,
@@ -831,13 +888,13 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'ECH',
                                   initialValue: isEch,
                                   isInfoIconVisible: true,
                                   onChanged: (value) {},
                                 ),
-                                CheckboxTile(
+                                ExpCheckboxTile(
                                   title: 'ECH SNF',
                                   initialValue: isEchSnf,
                                   isInfoIconVisible: true,
@@ -1016,5 +1073,100 @@ class SMIntakeOrdersScreen extends StatelessWidget {
          }
        );
 
+  }
+}
+
+
+
+
+
+
+
+class PriDiagonsis extends StatefulWidget {
+  // final int diagosisID;
+  final VoidCallback onRemove;
+  final int index;
+  final bool isVisible;
+  const PriDiagonsis({super.key, required this.onRemove, required this.index, required this.isVisible});
+
+  @override
+  PriDiagonsisState createState() => PriDiagonsisState();
+}
+
+class PriDiagonsisState extends State<PriDiagonsis> {
+
+
+  TextEditingController possibleDiagnosisController = TextEditingController();
+  TextEditingController icdCodeController = TextEditingController();
+  TextEditingController pDGMAcceptController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    final primDiagonsisProvider = Provider.of<SmIntakeProviderManager>(context, listen: false);
+
+    return Column(
+      children: [
+        Padding(
+          padding:  EdgeInsets.symmetric(horizontal: AppPadding.p35,vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(height: 90,width: 5,color: ColorManager.greenDark,),
+                  const SizedBox(width: AppSize.s30,),
+                  Expanded(
+                      child: SchedularTextField(
+                        controller: possibleDiagnosisController,
+                        labelText: 'Possible Diagnosis',
+                     //   enable: true,
+                      )
+                  ),
+                  const SizedBox(width: AppSize.s60,),
+                  Expanded(
+                      child: SchedularTextField(
+                        controller: icdCodeController,
+                        labelText: 'ICD Code',
+                       // enable: true,
+
+                      )
+                  ),
+                  const SizedBox(width: AppSize.s60,),
+                  Expanded(
+                    child: SchedularTextField(
+                      isIconVisible: true,
+                     // enable: true,
+                      controller: pDGMAcceptController,
+                      labelText: 'PDGM - Acceptable',
+                    ),
+                  ),
+                  const SizedBox(width: AppSize.s30,),
+                  primDiagonsisProvider.isContactTrue ? const Offstage() :  Expanded(
+                    child: Container(
+                      height: 30,
+                      width: AppSize.s354,
+                    ),
+                  ),
+                  primDiagonsisProvider.isContactTrue ? const Offstage() :  const SizedBox(width: AppSize.s30,),
+                  primDiagonsisProvider.isContactTrue?const SizedBox()  :Expanded(
+                    child: Container(
+                      height: 30,
+                      width: AppSize.s354,
+                    ),
+                  )
+                ],
+              ),
+              const Divider(),
+              // Divider(
+              //   color: ColorManager.containerBorderGrey,
+              //   thickness: 1,
+              //   height: 1,
+              // ),
+              const SizedBox(height: AppSize.s15,),
+            ],
+          ),
+        )
+      ],
+    );
   }
 }

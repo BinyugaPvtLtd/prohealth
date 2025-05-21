@@ -9,6 +9,7 @@ import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../em_module/widgets/button_constant.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
@@ -87,7 +88,9 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomAddButtonsm(
+                        CustomIconButtonConst(
+                          icon: Icons.add,
+                          width: 150,
                           onPressed: () {
                             showDialog(
                               context: context,
@@ -129,7 +132,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomAddButtonsm(
+                        CustomIconButtonConst(
+                          icon: Icons.add,  width: 150,
                             onPressed: () {
                             showDialog(
                               context: context,
@@ -306,7 +310,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomAddButtonsm(
+                        CustomIconButtonConst(
+                          icon: Icons.add,  width: 150,
                           onPressed: () {
                             showDialog(
                               context: context,
@@ -347,7 +352,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomAddButtonsm(
+                        CustomIconButtonConst(
+                          icon: Icons.add,  width: 150,
                           onPressed: () {
                             showDialog(
                               context: context,
