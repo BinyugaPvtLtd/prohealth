@@ -176,34 +176,41 @@ class _App extends State<App> {
       routes: RoutesManager().getRoutes(token: widget.signedIn),
       onGenerateRoute: (settings) {
         var url = html.window.location.href;
-        if (url == "${AppConfig.dev}/#/onBordingWelcome"){
+        String deployedUrl = "http://localhost:49619/#/onBordingWelcome";
+        // String deployedUrl = "${AppConfig.deployment}/#/onBordingWelcome";
+
+
+        if (url == deployedUrl){
           //  if (url == "http://localhost:53323/#/onBordingWelcome") {
           Provider.of<RouteProvider>(context, listen: false)
               .setRoute('/onBordingWelcome');
         }
         final routeProvider =
         Provider.of<RouteProvider>(context, listen: false);
-
-        final route = routeProvider.currentRoute;
+        var route = routeProvider.currentRoute;
         print("current Route :" + route.toString());
-
-        switch (route) {
+        if(url == deployedUrl) {
+          route = '/onBordingWelcome';
+        }
+          switch (route) {
           case '/':
-            if (settings.name != "/") {
-              return MaterialPageRoute(
-                builder: (context) => SplashScreen(
-                  onFinish: () =>
-                      Navigator.of(context).pushReplacementNamed(route),
-                ),
-              );
-            } else if (widget.signedIn == false) {
-              return MaterialPageRoute(
-                builder: (context) => SplashScreen(
-                  onFinish: () => Navigator.of(context)
-                      .popAndPushNamed(LoginScreen.routeName),
-                ),
-              );
-            }
+
+              if (settings.name != "/") {
+                return MaterialPageRoute(
+                  builder: (context) => SplashScreen(
+                    onFinish: () =>
+                        Navigator.of(context).pushReplacementNamed(route),
+                  ),
+                );
+              }
+              else if (widget.signedIn == false) {
+                return MaterialPageRoute(
+                  builder: (context) => SplashScreen(
+                    onFinish: () => Navigator.of(context)
+                        .popAndPushNamed(LoginScreen.routeName),
+                  ),
+                );
+              }
           case '/onBordingWelcome':
             // widget.signedIn?(){}:setToken();
             return MaterialPageRoute(
