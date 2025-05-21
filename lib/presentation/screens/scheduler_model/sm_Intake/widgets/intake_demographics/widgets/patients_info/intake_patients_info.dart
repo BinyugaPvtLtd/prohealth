@@ -150,9 +150,8 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 35),
                       child: BlueBGHeadConst(HeadText: "Contact Information"),
                     ),
-
                     IntakeFlowContainerConst(
-                      height:providerState.isContactTrue ? AppSize.s640:AppSize.s500,
+                      height:providerState.isContactTrue ? AppSize.s640:AppSize.s430,
                       child: Column(
                         children: [
                         providerState.isContactTrue ?  Row(
@@ -655,7 +654,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: AppSize.s40),
+                    // SizedBox(height: AppSize.s30),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 35),
                       child: BlueBGHeadConst(HeadText: "Additional Information"),

@@ -416,3 +416,12 @@ class DocDefineTableDataID {
     );
   }
 }
+
+class FaintTextColor {
+  static TextStyle customTextStyle(BuildContext context){
+    return TextStyle(fontWeight: FontWeight.w400,
+    fontSize: FontSize.s12,
+    color: ColorManager.fmediumgrey,
+    fontStyle: FontStyle.italic);
+  }
+}

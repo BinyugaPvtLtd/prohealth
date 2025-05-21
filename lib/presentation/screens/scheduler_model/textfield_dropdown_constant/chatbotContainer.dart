@@ -480,7 +480,7 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
                           onPressed: () {
                             print("Pin icon clicked");
                           },
-                          icon: Icon(Icons.attach_file_outlined,color: ColorManager.greylight),
+                          icon: Icon(Icons.attachment_outlined,color: ColorManager.greylight),
                         ),
                         IconButton(
                           splashColor: Colors.transparent,

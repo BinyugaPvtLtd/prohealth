@@ -345,7 +345,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                         ),
 
                                         Expanded(
-                                          flex: 1,
+                                          flex: 2,
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -385,6 +385,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                   Expanded(
                                                     child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
                                                       Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
                                                       SizedBox(height: AppSize.s5),
@@ -405,7 +406,20 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                 hoverColor: Colors.transparent,
                                                 splashColor: Colors.transparent,
                                                 highlightColor: Colors.transparent,
-                                                child: Image.asset("images/sm/contact_text.png",height: 55,)
+                                                //child: Image.asset("images/sm/contact_text.png",height: 55,)
+                                                child: Column(
+                                                  children: [
+                                                    SizedBox(height: 6,),
+                                                    Image.asset("images/sm/contact_icon.png",height: 25,),
+                                                    SizedBox(height: 8,),
+                                                    Text("Contact",
+                                                      style: TextStyle(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: Color(0xFF2F6D8A),
+                                                      ),)
+                                                  ],
+                                                )
                                                 ,onTap: _toggleChatbotVisibility,),
                                             ],
                                           ),
@@ -426,7 +440,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                   SizedBox(height: 10,),
                                                   Text("Non-Admit",
                                                     style: TextStyle(
-                                                      fontSize: FontSize.s11,
+                                                      fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w600,
                                                       color: Color(0xFF2F6D8A),
                                                     ),)

@@ -253,7 +253,7 @@ class RPAutoSyncScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        const SizedBox(height: AppSize.s5),
+                                        const SizedBox(height: AppSize.s12),
                                       ],
                                     ),
                                   ),

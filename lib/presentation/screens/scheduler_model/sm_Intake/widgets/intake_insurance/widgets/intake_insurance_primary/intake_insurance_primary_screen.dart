@@ -35,6 +35,8 @@ class IntakePrimaryScreen extends StatelessWidget {
     TextEditingController pharmaType = TextEditingController();
     TextEditingController pharmaCategory = TextEditingController();
     TextEditingController pharmaSuitApt = TextEditingController();
+    TextEditingController city = TextEditingController();
+    TextEditingController state = TextEditingController();
     TextEditingController pharmacyaddress = TextEditingController();
     TextEditingController pharmacyzipcode = TextEditingController();
     TextEditingController pharmaPolicyHicNo = TextEditingController();
@@ -169,6 +171,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmacyaddress,
+                                      icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                                       labelText: 'Street*')),
                               const SizedBox(width: AppSize.s35),
                               Flexible(
@@ -182,6 +185,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                               Flexible(
                                   child: SchedularTextField(
                                       controller: pharmacyaddress,
+                                      icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                                       labelText: 'Street*')),
                               const SizedBox(width: AppSize.s35),
                               Flexible(
@@ -190,75 +194,79 @@ class IntakePrimaryScreen extends StatelessWidget {
                                       labelText: 'Suite/Apt#')),
                               const SizedBox(width: AppSize.s35),
                               Flexible(
-                                child: FutureBuilder<List<CityData>>(
-                                  future: getCityDropDown(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return SchedularTextField(
-                                        controller: dummyCtrl,
-                                        labelText: 'City',);
-                                    }
-                                    if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>> dropDownList = [];
-                                      for (var i in snapshot.data!) {
-                                        dropDownList.add(DropdownMenuItem<String>(
-                                          child: Text(i.cityName!),
-                                          value: i.cityName,
-                                        ));
-                                      }
-                                      return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
-                                          onChanged: (newValue) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.cityName == newValue) {
-                                                pharmacycity = a.cityName!;
-                                                //country = a
-                                                // int? docType = a.companyOfficeID;
-                                              }
-                                            }
-                                          });
-                                    } else {
-                                      return const Offstage();
-                                    }
-                                  },
-                                ),
-                                // child: SchedularTextField(
-                                //     controller: pharmacycity, labelText: 'City'),
+                                // child: FutureBuilder<List<CityData>>(
+                                //   future: getCityDropDown(context),
+                                //   builder: (context, snapshot) {
+                                //     if (snapshot.connectionState ==
+                                //         ConnectionState.waiting) {
+                                //       return SchedularTextField(
+                                //         controller: dummyCtrl,
+                                //         labelText: 'City',);
+                                //     }
+                                //     if (snapshot.hasData) {
+                                //       List<DropdownMenuItem<String>> dropDownList = [];
+                                //       for (var i in snapshot.data!) {
+                                //         dropDownList.add(DropdownMenuItem<String>(
+                                //           child: Text(i.cityName!),
+                                //           value: i.cityName,
+                                //         ));
+                                //       }
+                                //       return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
+                                //           onChanged: (newValue) {
+                                //             for (var a in snapshot.data!) {
+                                //               if (a.cityName == newValue) {
+                                //                 pharmacycity = a.cityName!;
+                                //                 //country = a
+                                //                 // int? docType = a.companyOfficeID;
+                                //               }
+                                //             }
+                                //           });
+                                //     } else {
+                                //       return const Offstage();
+                                //     }
+                                //   },
+                                // ),
+                                child: SchedularTextField(
+                                    controller: city, labelText: 'City*'),
                               ),
                               const SizedBox(width: AppSize.s35),
                               Flexible(
-                                child:FutureBuilder<List<StateData>>(
-                                  future: getStateDropDown(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return SchedularTextField(
-                                          controller: dummyCtrl,
-                                          labelText: 'State');
-                                    }
-                                    if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>> dropDownList = [];
-                                      for (var i in snapshot.data!) {
-                                        dropDownList.add(DropdownMenuItem<String>(
-                                          child: Text(i.name),
-                                          value: i.name,
-                                        ));
-                                      }
-                                      return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
-                                          onChanged: (newValue) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.name == newValue) {
-                                                pharmacystate = a.name;
-                                                //country = a
-                                                // int? docType = a.companyOfficeID;
-                                              }
-                                            }
-                                          });
-                                    } else {
-                                      return const Offstage();
-                                    }
-                                  },
-                                ),
+                                // child:FutureBuilder<List<StateData>>(
+                                //   future: getStateDropDown(context),
+                                //   builder: (context, snapshot) {
+                                //     if (snapshot.connectionState ==
+                                //         ConnectionState.waiting) {
+                                //       return SchedularTextField(
+                                //           controller: dummyCtrl,
+                                //           labelText: 'State');
+                                //     }
+                                //     if (snapshot.hasData) {
+                                //       List<DropdownMenuItem<String>> dropDownList = [];
+                                //       for (var i in snapshot.data!) {
+                                //         dropDownList.add(DropdownMenuItem<String>(
+                                //           child: Text(i.name),
+                                //           value: i.name,
+                                //         ));
+                                //       }
+                                //       return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
+                                //           onChanged: (newValue) {
+                                //             for (var a in snapshot.data!) {
+                                //               if (a.name == newValue) {
+                                //                 pharmacystate = a.name;
+                                //                 //country = a
+                                //                 // int? docType = a.companyOfficeID;
+                                //               }
+                                //             }
+                                //           });
+                                //     } else {
+                                //       return const Offstage();
+                                //     }
+                                //   },
+                                // ),
+                                child:  SchedularTextField(
+                                    labelText: "State*",
+                                    controller: state,
+                                  )
                               ),
                               const SizedBox(width: AppSize.s35),
                               Flexible(
@@ -274,74 +282,78 @@ class IntakePrimaryScreen extends StatelessWidget {
                           providerstate.isContactTrue ?  Row(
                             children: [
                               Flexible(
-                                child: FutureBuilder<List<CityData>>(
-                                  future: getCityDropDown(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return SchedularTextField(
-                                        controller: dummyCtrl,
-                                        labelText: 'City',);
-                                    }
-                                    if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>> dropDownList = [];
-                                      for (var i in snapshot.data!) {
-                                        dropDownList.add(DropdownMenuItem<String>(
-                                          child: Text(i.cityName!),
-                                          value: i.cityName,
-                                        ));
-                                      }
-                                      return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
-                                          onChanged: (newValue) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.cityName == newValue) {
-                                                pharmacycity = a.cityName!;
-                                                //country = a
-                                                // int? docType = a.companyOfficeID;
-                                              }
-                                            }
-                                          });
-                                    } else {
-                                      return const Offstage();
-                                    }
-                                  },
-                                ),
-                                // child: SchedularTextField(
-                                //     controller: pharmacycity, labelText: 'City'),
+                                // child: FutureBuilder<List<CityData>>(
+                                //   future: getCityDropDown(context),
+                                //   builder: (context, snapshot) {
+                                //     if (snapshot.connectionState ==
+                                //         ConnectionState.waiting) {
+                                //       return SchedularTextField(
+                                //         controller: dummyCtrl,
+                                //         labelText: 'City',);
+                                //     }
+                                //     if (snapshot.hasData) {
+                                //       List<DropdownMenuItem<String>> dropDownList = [];
+                                //       for (var i in snapshot.data!) {
+                                //         dropDownList.add(DropdownMenuItem<String>(
+                                //           child: Text(i.cityName!),
+                                //           value: i.cityName,
+                                //         ));
+                                //       }
+                                //       return CustomDropdownTextFieldsm(headText: 'City*',dropDownMenuList: dropDownList,
+                                //           onChanged: (newValue) {
+                                //             for (var a in snapshot.data!) {
+                                //               if (a.cityName == newValue) {
+                                //                 pharmacycity = a.cityName!;
+                                //                 //country = a
+                                //                 // int? docType = a.companyOfficeID;
+                                //               }
+                                //             }
+                                //           });
+                                //     } else {
+                                //       return const Offstage();
+                                //     }
+                                //   },
+                                // ),
+                                child: SchedularTextField(
+                                    controller: city, labelText: 'City*'),
                               ),
                               const SizedBox(width: AppSize.s35),
                               Flexible(
-                                child:FutureBuilder<List<StateData>>(
-                                  future: getStateDropDown(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return SchedularTextField(
-                                          controller: dummyCtrl,
-                                          labelText: 'State');
-                                    }
-                                    if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>> dropDownList = [];
-                                      for (var i in snapshot.data!) {
-                                        dropDownList.add(DropdownMenuItem<String>(
-                                          child: Text(i.name),
-                                          value: i.name,
-                                        ));
-                                      }
-                                      return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
-                                          onChanged: (newValue) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.name == newValue) {
-                                                pharmacystate = a.name;
-                                                //country = a
-                                                // int? docType = a.companyOfficeID;
-                                              }
-                                            }
-                                          });
-                                    } else {
-                                      return const Offstage();
-                                    }
-                                  },
+                                // child:FutureBuilder<List<StateData>>(
+                                //   future: getStateDropDown(context),
+                                //   builder: (context, snapshot) {
+                                //     if (snapshot.connectionState ==
+                                //         ConnectionState.waiting) {
+                                //       return SchedularTextField(
+                                //           controller: dummyCtrl,
+                                //           labelText: 'State');
+                                //     }
+                                //     if (snapshot.hasData) {
+                                //       List<DropdownMenuItem<String>> dropDownList = [];
+                                //       for (var i in snapshot.data!) {
+                                //         dropDownList.add(DropdownMenuItem<String>(
+                                //           child: Text(i.name),
+                                //           value: i.name,
+                                //         ));
+                                //       }
+                                //       return CustomDropdownTextFieldsm(headText: 'State*',dropDownMenuList: dropDownList,
+                                //           onChanged: (newValue) {
+                                //             for (var a in snapshot.data!) {
+                                //               if (a.name == newValue) {
+                                //                 pharmacystate = a.name;
+                                //                 //country = a
+                                //                 // int? docType = a.companyOfficeID;
+                                //               }
+                                //             }
+                                //           });
+                                //     } else {
+                                //       return const Offstage();
+                                //     }
+                                //   },
+                                // ),
+                                child: SchedularTextField(
+                                  labelText: "State*",
+                                  controller: state,
                                 ),
                               ),
                               const SizedBox(width: AppSize.s35),
@@ -562,11 +574,11 @@ class IntakePrimaryScreen extends StatelessWidget {
                       ),
                    // ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 35),
-                    child: BlueBGHeadConst(HeadText: "Suggested Care & Diagnosis"),
-                  ),
-                  const SizedBox(height: AppSize.s40),
+                  // const Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 35),
+                  //   child: BlueBGHeadConst(HeadText: "Suggested Care & Diagnosis"),
+                  // ),
+                  const SizedBox(height: AppSize.s5),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 35),
                     child: BlueBGHeadConst(HeadText: "Attachments"),
@@ -687,6 +699,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                             width: 150,
                             text: 'Add Attachment',
                             icon: Icons.add,
+                            color: ColorManager.bluebottom,
                             onPressed: () {
 
                             }),])),

@@ -26,7 +26,8 @@ class IntakeFlowContainerConst extends StatelessWidget {
           // borderRadius: BorderRadius.circular(5),
           // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
           border: Border(
-            bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey),
+            bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey,//Color(0xFFE9E9E9)
+            ),
               ),//all(width: 1, color: Color(0xFFBCBCBC)),
           // boxShadow: [
           //   BoxShadow(
@@ -37,19 +38,7 @@ class IntakeFlowContainerConst extends StatelessWidget {
           //   ),
           // ],
         ),
-        child:
-        // isColorVisible!?Row(
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   children: [
-        //     VerticalDivider(
-        //       color: dividerColor,
-        //       thickness: 2,
-        //     ),
-        //     SizedBox(width: 16,),
-        //     child
-        //   ],
-        // ) :
-        child,
+        child: child,
       ),
     );
   }
