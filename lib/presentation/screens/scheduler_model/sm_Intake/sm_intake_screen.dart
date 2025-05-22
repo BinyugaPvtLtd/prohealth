@@ -160,6 +160,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
           ),
         ),
       ),
+
       body: Row(
         children: [
           Flexible(
