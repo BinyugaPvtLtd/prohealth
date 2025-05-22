@@ -82,12 +82,14 @@ class RegisterEnrollPopup extends StatelessWidget {
     final TextEditingController speciality = TextEditingController();
     double textFieldWidth = MediaQuery.of(context).size.width/10;
     double textFieldHeight = 38;
+    List<AEClinicalDiscipline> _clinicalDisciplines = [];
     final enrollProviderState = Provider.of<HrEnrollEmployeeProvider>(context,listen:false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       enrollProviderState.clearValidationText();
       enrollProviderState.enrollServicesList(context);
+     // enrollProviderState.fetchDeptDropdownData(context, depId);
     });
-
+   // Provider.of<HrRegisterProvider>(context, listen: false).fetchDeptDropdownData(context, depId);
     return Consumer<HrEnrollEmployeeProvider>(
       builder: (context, providerState,child) {
         return Dialog(
@@ -371,29 +373,30 @@ class RegisterEnrollPopup extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  CustomDropdownTextField(
-                                    headText: depId == AppConfig.clinicalId
-                                        ? 'Select Clinical Type'
-                                        : depId == AppConfig.salesId
-                                        ? 'Select Sales Type'
-                                        : depId == AppConfig.AdministrationId
-                                        ? 'Select Admin Type'
-                                        : 'Unknown',
-                                    items: aEClinicalDiscipline.map((e) => e.empType!).toList(),
-                                    onChanged: (newValue) {
-                                      for (var a in aEClinicalDiscipline) {
-                                        if (a.empType == newValue) {
-                                          providerState.validateField(
-                                            a.empType!,
-                                            'Please Select Clinical Type',
-                                            providerState.setClinicalTypeError,
-                                          );
-                                          clinicialName = a.empType!;
-                                          clinicalId = a.employeeTypesId;
-                                        }
-                                      }
-                                    },
-                                  ),
+                                       CustomDropdownTextField(
+                                        headText: depId == AppConfig.clinicalId
+                                            ? 'Select Clinical Type'
+                                            : depId == AppConfig.salesId
+                                            ? 'Select Sales Type'
+                                            : depId == AppConfig.AdministrationId
+                                            ? 'Select Admin Type'
+                                            : 'Unknown',
+                                        items: providerState.clinicalDisciplines.map((e) => e.empType!).toList(),
+                                        onChanged: (newValue) {
+                                          for (var a in providerState.clinicalDisciplines) {
+                                            if (a.empType == newValue) {
+                                              providerState.validateField(
+                                                a.empType!,
+                                                'Please Select Clinical Type',
+                                                providerState.setClinicalTypeError,
+                                              );
+                                              clinicialName = a.empType!;
+                                              clinicalId = a.employeeTypesId;
+                                            }
+                                          }
+                                        },
+                                      ),
+
                                   providerState.clinicalType != null
                                       ? Padding(
                                     padding: const EdgeInsets.only(left: 5),
