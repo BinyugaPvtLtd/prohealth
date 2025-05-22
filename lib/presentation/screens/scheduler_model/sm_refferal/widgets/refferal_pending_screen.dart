@@ -688,7 +688,6 @@ class RefferalPendingScreen extends StatelessWidget {
                                                           width: 16,
                                                         ),
                                                         onPressed: () async{
-
                                                         var response = await addPatientIntakeDemographich(context: context, ptId: snapshot.data![index].ptId);
                                                         if(response.statusCode == 200 || response.statusCode == 201){
                                                           //onMoveToIntake();

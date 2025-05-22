@@ -8,4 +8,8 @@ class PatientIntakeRepo{
   static  String getPatientDemographichWithPtId({required int ptId}){
     return "$demographich/patient/$ptId";
   }
+
+  static String updatePatientDemographich({required int id}){
+    return "$demographich/$id";
+  }
 }
