@@ -34,7 +34,7 @@ class HrRegisterProvider extends ChangeNotifier {
   List<CompanyOfficeListData> get companyOffices => _companyOffices!;
   List<AEClinicalZone> get zone => _zone!;
 
-  Future<void> fetchDropdownData(BuildContext context) async {
+  Future<void> fetchDropdownData(BuildContext context,) async {
     _load = true;
     notifyListeners();
 
@@ -121,7 +121,7 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
 
   bool isLoading = true;
   List<EnrollServices> _enrollService = [];
-
+  List<AEClinicalDiscipline>? _clinicalDisciplines;
 
   String get generatedURL => _generatedURL;
   bool get load => _load;
@@ -138,6 +138,7 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
   String? get expiryTypeError => _expiryTypeError;
   bool get isFormValid => _isFormValid;
   List<EnrollServices> get enrollService => _enrollService;
+  List<AEClinicalDiscipline> get clinicalDisciplines => _clinicalDisciplines!;
   // List<AEClinicalDiscipline>? _clinicalDisciplines;
   // List<AEClinicalCity>? _clinicalCities;
   // List<CompanyOfficeListData>? _companyOffices;
@@ -162,7 +163,9 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
   //   notifyListeners();
   // }
 
-
+  void fetchDeptDropdownData(BuildContext context,int deptId) async {
+      _clinicalDisciplines = await HrAddEmplyClinicalDisciplinApi(context, deptId);
+  }
 void loaderTrue(){
     _load = true;
     notifyListeners();

@@ -35,10 +35,10 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
   final PageController intakeContactPageController = PageController(initialPage: 0);
   int _selectedIndex = 0;
   int callerLogSelectIndex = 0;
-
+  int patientId = 1;
 
   void intakeSelectButton(int index) {
-    if (index == 0 ) {
+    if (index == 0 || patientId != 0) {
       setState(() {
         _selectedIndex = index;
       });
@@ -50,7 +50,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
     }
   }
   void intakeContactSelectButton(int index) {
-    if (index == 0 ) {
+    if (index == 0 || patientId != 0) {
       setState(() {
         callerLogSelectIndex = index;
       });
