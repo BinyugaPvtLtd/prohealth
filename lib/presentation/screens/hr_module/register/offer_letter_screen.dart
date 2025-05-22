@@ -550,18 +550,26 @@ class OfferLetterScreen extends StatelessWidget {
                               const SizedBox(width: 30),
                               Row(
                                 children: [
-                                  Text(
-                                    hrProviderState.salary.isNotEmpty
-                                        ? "\$ ${hrProviderState.salary}"
-                                        : "Not Defined",
-                                    style:
-                                        DocumentTypeDataStyle.customTextStyle(
-                                                context)
-                                            .copyWith(
-                                      color:
-                                          ColorManager.black, // Asterisk color
+                                  SizedBox(
+                                    width: 120, // Set this to an appropriate fixed width
+                                    child: Text(
+                                      hrProviderState.salary.isNotEmpty
+                                          ? "\$ ${hrProviderState.salary}"
+                                          : "Not Defined",
+                                      style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                        color: ColorManager.black, // Asterisk color
+                                      ),
+                                      overflow: TextOverflow.ellipsis, // Optional: handles overflow gracefully
                                     ),
                                   ),
+                                  // Text(
+                                  //   hrProviderState.salary.isNotEmpty
+                                  //       ? "\$ ${hrProviderState.salary}"
+                                  //       : "Not Defined",
+                                  //   style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                  //     color: ColorManager.black, // Asterisk color
+                                  //   ),
+                                  // ),
                                   const SizedBox(width: 30),
                                   Row(
                                     children: [
@@ -574,9 +582,7 @@ class OfferLetterScreen extends StatelessWidget {
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
                                                   shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12.0),
+                                                    borderRadius: BorderRadius.circular(12.0),
                                                   ),
                                                   titlePadding: EdgeInsets.zero,
                                                   title: Container(
@@ -593,44 +599,27 @@ class OfferLetterScreen extends StatelessWidget {
                                                           width: double.infinity,
                                                           decoration: const BoxDecoration(
                                                             color: Color(0xff1696C8),
-                                                            borderRadius:
-                                                                BorderRadius.only(
+                                                            borderRadius: BorderRadius.only(
                                                               topLeft: Radius.circular(12.0),
                                                               topRight: Radius.circular(12.0),
                                                             ),
                                                           ),
-                                                          padding:
-                                                              const EdgeInsets.only(right: 5, bottom: 5),
+                                                          padding: const EdgeInsets.only(right: 5, bottom: 5),
                                                           child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .end,
+                                                            mainAxisAlignment: MainAxisAlignment.end,
                                                             children: [
                                                               Center(
-                                                                child:
-                                                                    IconButton(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  icon:
-                                                                      const Icon(
+                                                                child: IconButton(
+                                                                  splashColor: Colors.transparent,
+                                                                  highlightColor: Colors.transparent,
+                                                                  hoverColor: Colors.transparent,
+                                                                  icon: const Icon(
                                                                     Icons.close,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    size:
-                                                                        IconSize
-                                                                            .I18,
+                                                                    color: Colors.white,
+                                                                    size: IconSize.I18,
                                                                   ),
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
+                                                                  onPressed: () {
+                                                                    Navigator.of(context).pop();
                                                                   },
                                                                 ),
                                                               ),
@@ -638,103 +627,60 @@ class OfferLetterScreen extends StatelessWidget {
                                                           ),
                                                         ),
                                                         Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical: 15.0,
-                                                                  horizontal: 16.0),
+                                                          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
                                                           child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
                                                               // Display the appropriate text based on dropdown selection
-                                                              dropdownValue ==
-                                                                      'Salaried'
+                                                              dropdownValue == 'Salaried'
                                                                   ? Text(
                                                                       'Salary',
-                                                                      style: DefineWorkWeekStyle
-                                                                          .customTextStyle(
-                                                                              context),
+                                                                      style: DefineWorkWeekStyle.customTextStyle(context),
                                                                     )
                                                                   : Text(
                                                                       'Per Visit',
-                                                                      style: DefineWorkWeekStyle
-                                                                          .customTextStyle(
-                                                                              context),
+                                                                      style: DefineWorkWeekStyle.customTextStyle(context),
                                                                     ),
                                                               SizedBox(
-                                                                height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .height /
-                                                                    30,
+                                                                height: MediaQuery.of(context).size.height / 30,
                                                               ),
                                                               Container(
                                                                 height: 30,
-                                                                child:
-                                                                    TextFormField(
+                                                                child: TextFormField(
                                                                   cursorColor: Colors.black,
                                                                   style: DocumentTypeDataStyle.customTextStyle(context),
                                                                   decoration: InputDecoration(
-                                                                    prefix: const Text(
-                                                                            "\$ "),
-                                                                    hintText:
-                                                                        '0.00',
-                                                                    hintStyle: DocumentTypeDataStyle
-                                                                        .customTextStyle(
-                                                                            context),
-                                                                    enabledBorder:
-                                                                        OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              8.0),
+                                                                    prefix: const Text("\$ "),
+                                                                    hintText: '0.00',
+                                                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                                                    enabledBorder: OutlineInputBorder(
+                                                                      borderRadius: BorderRadius.circular(8.0),
                                                                       borderSide: const BorderSide(
-                                                                          color: Color(
-                                                                              0xff51B5E6),
-                                                                          width:
-                                                                              1.0),
+                                                                          color: Color(0xff51B5E6),
+                                                                          width: 1.0),
                                                                     ),
-                                                                    focusedBorder:
-                                                                        OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              8.0),
+                                                                    focusedBorder: OutlineInputBorder(
+                                                                      borderRadius: BorderRadius.circular(8.0),
                                                                       borderSide: const BorderSide(
-                                                                          color: Color(
-                                                                              0xff51B5E6),
-                                                                          width:
-                                                                              1.0),
+                                                                          color: Color(0xff51B5E6),
+                                                                          width: 1.0),
                                                                     ),
-                                                                    border:
-                                                                        OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              8.0),
-                                                                      borderSide: const BorderSide(
-                                                                          color: Color(
-                                                                              0xff51B5E6),
-                                                                          width:
-                                                                              1.0),
+                                                                    border: OutlineInputBorder(
+                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                      borderSide: const BorderSide(color: Color(0xff51B5E6),
+                                                                          width: 1.0),
                                                                     ),
-                                                                    contentPadding: const EdgeInsets
-                                                                        .symmetric(
-                                                                        horizontal:
-                                                                            16.0,
-                                                                        vertical:
-                                                                            12.0),
+                                                                    contentPadding: const EdgeInsets.symmetric(
+                                                                        horizontal: 16.0,
+                                                                        vertical: 12.0),
                                                                   ),
                                                                       keyboardType: TextInputType.numberWithOptions(decimal: true),
                                                                       inputFormatters: [
                                                                         FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}$')),
                                                                       ],
-                                                                  onChanged:
-                                                                      (value) {
-                                                                    hrProviderState
-                                                                        .addSalary(
-                                                                            value);
-                                                                    print(
-                                                                        "Salary:: ${hrProviderState.salary}");
+                                                                  onChanged: (value) {
+                                                                    hrProviderState.addSalary(value);
+                                                                    print("Salary:: ${hrProviderState.salary}");
                                                                   },
                                                                 ),
                                                               ),
@@ -742,40 +688,23 @@ class OfferLetterScreen extends StatelessWidget {
                                                                 height: MediaQuery.of(context).size.height / 20,
                                                               ),
                                                               Center(
-                                                                child:
-                                                                    ElevatedButton(
-                                                                  onPressed:
-                                                                      () {
+                                                                child: ElevatedButton(
+                                                                  onPressed: () {
                                                                     // Handle the submit action
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
+                                                                    Navigator.of(context).pop();
                                                                   },
-                                                                  style: ElevatedButton
-                                                                      .styleFrom(
-                                                                    backgroundColor:
-                                                                        const Color(
-                                                                            0xff1696C8),
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12),
+                                                                  style: ElevatedButton.styleFrom(
+                                                                    backgroundColor: const Color(0xff1696C8),
+                                                                    shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(12),
                                                                     ),
                                                                   ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                        horizontal:
-                                                                            24.0,
-                                                                        vertical:
-                                                                            8.0),
-                                                                    child: Text(
-                                                                      'Submit',
-                                                                      style: BlueButtonTextConst
-                                                                          .customTextStyle(
-                                                                              context),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.symmetric(
+                                                                        horizontal: 24.0,
+                                                                        vertical: 8.0),
+                                                                    child: Text('Submit',
+                                                                      style: BlueButtonTextConst.customTextStyle(context),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -791,34 +720,27 @@ class OfferLetterScreen extends StatelessWidget {
                                             );
                                           },
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                const Color(0xff1696C8),
+                                            backgroundColor: const Color(0xff1696C8),
                                             foregroundColor: Colors.white,
                                             shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
+                                              borderRadius: BorderRadius.circular(10),
                                             ),
                                           ),
                                           child: dropdownValue == 'Salaried'
                                               ? Text(
                                                   'Add',
-                                                  style: BlueButtonTextConst
-                                                      .customTextStyle(context),
+                                                  style: BlueButtonTextConst.customTextStyle(context),
                                                 )
                                               : Text(
                                                   'Add Visit',
-                                                  style: BlueButtonTextConst
-                                                      .customTextStyle(context),
+                                                  style: BlueButtonTextConst.customTextStyle(context),
                                                 ),
                                         ),
                                       ),
                                       Text(
                                         ' *', // Asterisk
-                                        style: DocumentTypeDataStyle
-                                                .customTextStyle(context)
-                                            .copyWith(
-                                          color: ColorManager
-                                              .red, // Asterisk color
+                                        style: DocumentTypeDataStyle.customTextStyle(context)
+                                            .copyWith(color: ColorManager.red, // Asterisk color
                                         ),
                                       )
                                     ],

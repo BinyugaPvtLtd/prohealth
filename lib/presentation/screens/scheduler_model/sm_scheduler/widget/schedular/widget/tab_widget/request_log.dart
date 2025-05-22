@@ -154,9 +154,11 @@ class _RequestlogState extends State<Requestlog> {
                       children: [
                       Icon(Icons.add,size: 15,color: Color(0xff1595C7),),
                       Icon(Icons.send_outlined,size: 15,color: Color(0xff1595C7),),
-                      Icon(Icons.mail_outline_outlined,size: 15,color: Color(0xffFEBD4D),),
+                        Image.asset('images/sm/mail.png', height: 14,     ),
+                      // Icon(Icons.mail_outline_outlined,size: 15,color: Color(0xffFEBD4D),),
                       Icon(Icons.close,size:15,color: Color(0xffC40606),),
-                      Icon(Icons.add_alert_rounded,size: 15,color: Color(0xff1595C7),)
+                        Image.asset('images/sm/bell.png', height: 14,   ),
+                     // Icon(Icons.add_alert_rounded,size: 15,color: Color(0xff1595C7),)
                     ],),
                     Column(
                       spacing: 21,

@@ -1641,14 +1641,14 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                       color: Colors.white,
                                                       borderRadius:
                                                       BorderRadius.circular(4),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: const Color(0xff000000).withOpacity(0.25),
-                                                          spreadRadius: 0,
-                                                          blurRadius: 4,
-                                                          offset: const Offset(0, 2),
-                                                        ),
-                                                      ],
+                                                      // boxShadow: [
+                                                      //   BoxShadow(
+                                                      //     color: const Color(0xff000000).withOpacity(0.25),
+                                                      //     spreadRadius: 0,
+                                                      //     blurRadius: 4,
+                                                      //     offset: const Offset(0, 2),
+                                                      //   ),
+                                                      // ],
                                                     ),
                                                     height: AppSize.s65,
                                                     child: Padding(
@@ -1879,6 +1879,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                       ),
                                                     )),
                                               ),
+                                              Divider()
                                             ],
                                           );
                                         }),
