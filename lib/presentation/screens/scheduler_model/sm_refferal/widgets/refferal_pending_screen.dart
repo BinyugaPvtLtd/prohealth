@@ -27,7 +27,7 @@ import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
-class RefferalPendingScreen extends StatelessWidget {
+class RefferalPendingScreen extends StatefulWidget {
   final VoidCallback onEyeButtonPressed;
   final VoidCallback onAutoSyncPressed;
   final VoidCallback onMergeDuplicatePressed;
@@ -37,6 +37,11 @@ class RefferalPendingScreen extends StatelessWidget {
       required this.onEyeButtonPressed,required this.onAutoSyncPressed,
       required this.onMergeDuplicatePressed, required this.onMoveToIntake});
 
+  @override
+  State<RefferalPendingScreen> createState() => _RefferalPendingScreenState();
+}
+
+class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
   List<String> hardcodedItems = [
     'All',
     'Referral App',
@@ -44,8 +49,55 @@ class RefferalPendingScreen extends StatelessWidget {
     'E-Referrals',
     'Manual',
   ];
+
+  // final int itemsPerPage = 10;
+  //
+  // final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
+
+
+  final StreamController<List<PatientModel>> _streamController = StreamController();
+   TextEditingController _searchController = TextEditingController();
   final int itemsPerPage = 10;
-  final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData(); // Fetch once when screen loads
+  }
+
+  void fetchData() {
+    final providerContact = Provider.of<SmIntakeProviderManager>(context, listen: false);
+    getPatientReffrealsData(
+      context: context,
+      pageNo: 1,
+      nbrOfRows: 9999,
+      isIntake: 'false',
+      isArchived: 'false',
+      isScheduled: 'false',
+      searchName: _searchController.text.isEmpty ? 'all' : _searchController.text,
+      marketerId: providerContact.marketerId,
+      referralSourceId: providerContact.referralSourceId,
+      pcpId: providerContact.pcpId,
+    ).then((data) {
+      _streamController.add(data);
+    });
+  }
+
+  void _performSearch() {
+    final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
+    provider.setCurrentPage(1); // Reset pagination
+    fetchData(); // Trigger search
+  }
+
+
+  @override
+  void dispose() {
+    _streamController.close();
+    _searchController.dispose();
+    super.dispose();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +105,7 @@ class RefferalPendingScreen extends StatelessWidget {
     //final currentPage = pageProvider.currentPage;
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
-    TextEditingController _searchController = TextEditingController();
+ // TextEditingController _searchController = TextEditingController();
     return Stack(
       children: [
         Padding(
@@ -70,7 +122,7 @@ class RefferalPendingScreen extends StatelessWidget {
                       CustomSearchFieldSM(
                         searchController: _searchController,
                         width: 440,
-                        onPressed: () {},
+                        onPressed: _performSearch,
                       ),
                       SizedBox(
                         width: AppSize.s20,
@@ -97,7 +149,7 @@ class RefferalPendingScreen extends StatelessWidget {
                       text: "Auto Sync",
                       onPressed: ()async{
                         providerContact.toogleAppBar();
-                        onAutoSyncPressed();
+                        widget.onAutoSyncPressed();
                       },
                     ),
                   )
@@ -115,16 +167,16 @@ class RefferalPendingScreen extends StatelessWidget {
                 child: StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    getPatientReffrealsData(context: context,
-                        pageNo: 1, nbrOfRows: 9999,
-                       // pageNo: currentPage, nbrOfRows: itemsPerPage,
-                        isIntake: 'false', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
-                        marketerId: providerContact.marketerId,
-                        referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
-                      _streamController.add(data);
-                    }).catchError((error) {
-                      // Handle error
-                    });
+                    // getPatientReffrealsData(context: context,
+                    //     pageNo: 1, nbrOfRows: 9999,
+                    //    // pageNo: currentPage, nbrOfRows: itemsPerPage,
+                    //     isIntake: 'false', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                    //     marketerId: providerContact.marketerId,
+                    //     referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
+                    //   _streamController.add(data);
+                    // }).catchError((error) {
+                    //   // Handle error
+                    // });
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 60),
@@ -647,7 +699,7 @@ class RefferalPendingScreen extends StatelessWidget {
                                                   InkWell(
                                                     onTap: () async {
                                                       try {
-                                                        onEyeButtonPressed();
+                                                        widget.onEyeButtonPressed();
                                                         providerReferrals.passPatientId(patientIdNo: item.ptId);
                                                       } catch (e) {
                                                         print("Error: $e");

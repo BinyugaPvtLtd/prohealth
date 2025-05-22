@@ -89,6 +89,7 @@ class CustomSearchFieldSM extends StatelessWidget {
         textCapitalization: TextCapitalization.words,
         style: DocumentTypeDataStyle.customTextStyle(context),
         controller: searchController,
+        onChanged: (_) => onPressed(),
         decoration: InputDecoration(
           filled: true,
           fillColor: Color(0xFFF8F8F8),
