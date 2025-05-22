@@ -281,9 +281,10 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                         height: AppSize.s2,
                                                       ),
                                                       Text(
-                                                        archieved.intakeTime != null
-                                                            ? DateFormat.jm().format(DateTime.parse(archieved.intakeTime!))
-                                                            : '',
+                                                        DateFormat.jm().format(snapshot.data![index].createdAt),
+                                                        // archieved.intakeTime != null
+                                                        //     ? DateFormat.jm().format(DateTime.parse(archieved.intakeTime!))
+                                                        //     : '',
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon
                                                             .commonStyle(

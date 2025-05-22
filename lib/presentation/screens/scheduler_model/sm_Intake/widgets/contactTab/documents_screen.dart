@@ -89,8 +89,8 @@ class _ContactDocumentScreenState extends State<ContactDocumentScreen> {
                             isName = value ?? false;
                           });
                         },
-                        side: const BorderSide(color: Color(0xFF1696C8),width: 2), // 👈 blue border color
-                        activeColor:Color(0xFF1696C8),
+                        side:  BorderSide(color: ColorManager.blueprime,width: 2), // 👈 blue border color
+                        activeColor:ColorManager.blueprime,
                       ),
                       SizedBox(width: 3,),
                       Text("Insurance Claim", style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
@@ -379,7 +379,7 @@ class FileThumbnail extends StatelessWidget {
               child: Icon(
                 Icons.close,
                 size: 16,
-                color: Colors.black,
+                color: ColorManager.mediumgrey,
               ),
             ),
           ),

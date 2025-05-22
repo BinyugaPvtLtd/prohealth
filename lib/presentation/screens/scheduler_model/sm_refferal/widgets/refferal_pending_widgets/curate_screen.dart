@@ -145,7 +145,7 @@ class _CurateScreenState extends State<CurateScreen> {
                                   topLeft: Radius.circular(8),
                                   topRight: Radius.circular(8)),
                               border: const Border(
-                                  top: BorderSide(color: Color(0xFF1696C8),width: 5)
+                                  top: BorderSide(color: Color(0xFF1696C8),width: 3)
                               ),
                             ),
                             child: Row(

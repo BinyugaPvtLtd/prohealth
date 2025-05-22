@@ -150,8 +150,9 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+
                           Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
-                          SizedBox(width: 25,),
+                          SizedBox(width: 15,),
                           Flexible(
                             child: Text(
                               "132 My Street,Lane no 123,  Sacramento 12401",

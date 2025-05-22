@@ -113,6 +113,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                       Flexible(
                           child: SchedularTextField(
                             controller: streetController,
+                            icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                             labelText: 'Street*',
                           )),
                       SizedBox(width: AppSize.s35),
@@ -163,8 +164,9 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                               labelText: "Email")),
                     //  SizedBox(width: AppSize.s35),
                       SizedBox(width: AppSize.s35),
-                      providerState.isContactTrue ?Offstage() :  Flexible(
-                          child: SizedBox(child: Image.asset("images/sm/contact_text.png",height: 60,),)),
+                      providerState.isContactTrue ?Offstage() : Flexible(child: Container()),
+                      // providerState.isContactTrue ?Offstage() :  Flexible(
+                      //     child: SizedBox(child: Image.asset("images/sm/contact_text.png",height: 60,),)),
                       providerState.isContactTrue ?Offstage() : SizedBox(width: AppSize.s35),
                       providerState.isContactTrue ?Offstage() :  Flexible(child: SizedBox(width:0)),
                     ],
@@ -239,8 +241,11 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                             isIconVisible: true,
                           )),
                       SizedBox(width: AppSize.s35),
-                      Flexible(
-                          child: SizedBox(child: Image.asset("images/sm/contact_text.png",height: 60,),)),
+                      Flexible(child: Container()),
+                      SizedBox(width: AppSize.s35),
+                      Flexible(child: Container()),
+                      // Flexible(
+                      //     child: SizedBox(child: Image.asset("images/sm/contact_text.png",height: 60,),)),
                       SizedBox(width: AppSize.s35),
                       providerState.isContactTrue ?Offstage() : Flexible(
                           child: SchedularTextField(
@@ -316,6 +321,10 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                           child: SchedularTextField(
                             width: 250 ,
                               controller: pecosController,
+                              textStyle: TextStyle(fontWeight: FontWeight.w700,
+                              fontSize: FontSize.s14,
+                              color: ColorManager.greenDark,
+                              ),
                               labelText: "PECOS Status"),
                         ),
                       ),
