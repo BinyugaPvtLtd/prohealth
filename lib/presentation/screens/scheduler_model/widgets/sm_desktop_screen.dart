@@ -194,6 +194,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
+
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Consumer<SmIntakeProviderManager>(
@@ -391,203 +392,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
 
                    ],),
-                  ///2nd  buttons
-                  // _showAutoScreen
-                  //     ? SizedBox(height: 30,)
-                  //     : Container(
-                  // color: Colors.pink,
-                  //   margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p40),
-                  //   child:
-                  //   Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //     children: [
-                  //       Expanded(
-                  //         child: Obx(
-                  //               () => Padding(
-                  //                 padding: const EdgeInsets.only(left:27),
-                  //                 child: CustomTitleButton(
-                  //                                           height: AppSize.s30,
-                  //                                           width: AppSize.s100,
-                  //                                           onPressed: () {
-                  //                 //companyAll(context);
-                  //                 myController.selectButton(0);
-                  //                 _pageController.jumpToPage(0,
-                  //                     // duration: Duration(milliseconds: 500),
-                  //                     // curve: Curves.ease
-                  //                 );
-                  //                 onPageChanged(0);
-                  //                 pgeControllerId = 0;
-                  //                 providerContact.toogleContactProviderclear();
-                  //                                           },
-                  //                                           text: 'Dashboard',
-                  //                                           isSelected: myController.selectedIndex.value == 0,
-                  //                                         ),
-                  //               ),
-                  //         ),
-                  //       ),
-                  //       SizedBox(
-                  //         width: AppSize.s80,
-                  //       ),
-                  //       Expanded(
-                  //         child: Obx(
-                  //               () => CustomTitleButton(
-                  //             height: AppSize.s30,
-                  //             width: AppSize.s140,
-                  //             onPressed: () {
-                  //
-                  //               //companyByIdApi(context,);
-                  //               // companyDetailsApi(context,5);
-                  //               myController.selectButton(1);
-                  //               _pageController.jumpToPage(1,
-                  //                   // duration: Duration(milliseconds: 500),
-                  //                   // curve: Curves.ease
-                  //               );
-                  //               onPageChanged(1);
-                  //               pgeControllerId = 1;
-                  //               providerContact.toogleContactProviderclear();
-                  //             },
-                  //             text: 'Referrals',
-                  //             isSelected: myController.selectedIndex.value == 1,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       SizedBox(
-                  //         width: AppSize.s80,
-                  //       ),
-                  //       Expanded(
-                  //         child: Obx(
-                  //               () => CustomTitleButton(
-                  //             height: AppSize.s30,
-                  //             width: AppSize.s140,
-                  //             onPressed: () {
-                  //
-                  //               //companyByIdApi(context,);
-                  //               // companyDetailsApi(context,5);
-                  //               myController.selectButton(2);
-                  //               _pageController.jumpToPage(2,
-                  //                   // duration: Duration(milliseconds: 500),
-                  //                   // curve: Curves.ease
-                  //               );
-                  //               onPageChanged(2);
-                  //               pgeControllerId = 2;
-                  //               providerContact.toogleContactProviderclear();
-                  //             },
-                  //             text: 'Intake',
-                  //             isSelected: myController.selectedIndex.value == 2||myController.selectedIndex.value == 7,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //
-                  //       SizedBox(
-                  //         width: AppSize.s80,
-                  //       ),
-                  //
-                  //       Expanded(
-                  //         child: Obx(
-                  //               () => CustomTitleButton(
-                  //             height: AppSize.s30,
-                  //             width: AppSize.s140,
-                  //             onPressed: () {
-                  //
-                  //               //companyByIdApi(context,);
-                  //               // companyDetailsApi(context,5);
-                  //               myController.selectButton(3);
-                  //               _pageController.jumpToPage(3,
-                  //                   // duration: Duration(milliseconds: 500),
-                  //                   // curve: Curves.ease
-                  //               );
-                  //               onPageChanged(3);
-                  //               pgeControllerId = 3;
-                  //               providerContact.toogleContactProviderclear();
-                  //             },
-                  //             text: 'Scheduler',
-                  //             isSelected: myController.selectedIndex.value == 3,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       SizedBox(
-                  //         width: AppSize.s80,
-                  //       ),
-                  //       Expanded(
-                  //         child: Obx(
-                  //               () => CustomTitleButton(
-                  //             height: AppSize.s30,
-                  //             width: AppSize.s140,
-                  //             onPressed: () {
-                  //
-                  //               //companyByIdApi(context,);
-                  //               // companyDetailsApi(context,5);
-                  //               myController.selectButton(4);
-                  //               _pageController.jumpToPage(4,
-                  //                   // duration: Duration(milliseconds: 500),
-                  //                   // curve: Curves.ease
-                  //               );
-                  //               onPageChanged(4);
-                  //               pgeControllerId = 4;
-                  //               providerContact.toogleContactProviderclear();
-                  //             },
-                  //             text: 'Calender',
-                  //             isSelected: myController.selectedIndex.value == 4,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       SizedBox(
-                  //         width: AppSize.s80,
-                  //       ),
-                  //
-                  //       Expanded(
-                  //         child: Obx(
-                  //               () => CustomTitleButton(
-                  //             height: AppSize.s30,
-                  //             width: AppSize.s140,
-                  //             onPressed: () {
-                  //
-                  //               //companyByIdApi(context,);
-                  //               // companyDetailsApi(context,5);
-                  //               myController.selectButton(5);
-                  //               _pageController.jumpToPage(5,
-                  //                   // duration: Duration(milliseconds: 500),
-                  //                   // curve: Curves.ease
-                  //               );
-                  //               onPageChanged(5);
-                  //               pgeControllerId = 5;
-                  //               providerContact.toogleContactProviderclear();
-                  //             },
-                  //             text: 'Live View',
-                  //             isSelected: myController.selectedIndex.value == 5,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       SizedBox(
-                  //         width: AppSize.s80,
-                  //       ),
-                  //       Expanded(
-                  //         child: Obx(
-                  //               () => CustomTitleButton(
-                  //             height: AppSize.s30,
-                  //             width: AppSize.s140,
-                  //             onPressed: () {
-                  //
-                  //               //companyByIdApi(context,);
-                  //               // companyDetailsApi(context,5);
-                  //               myController.selectButton(6);
-                  //               _pageController.jumpToPage(6,
-                  //                   // duration: Duration(milliseconds: 500),
-                  //                   // curve: Curves.ease
-                  //               );
-                  //               onPageChanged(6);
-                  //               pgeControllerId = 6;
-                  //               providerContact.toogleContactProviderclear();
-                  //             },
-                  //             text: 'Requests',
-                  //             isSelected: myController.selectedIndex.value == 6,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       //Expanded(child: Container(),flex: 2,)
-                  //     ],
-                  //   ),
-                  // ),
+
                   Expanded(
                     flex: 8,
                     child: _showHighestCaseViewMoreScreen
@@ -665,7 +470,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                         Container(color:Colors.white),
                         SMIntakeScreen(onGoBackPressed: () {
                           //Navigator.pop(context);
-                        }, patientId: 0,)
+                        },)
 
 
                         // WhitelabellingScreen()

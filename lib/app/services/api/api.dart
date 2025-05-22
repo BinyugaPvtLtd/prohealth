@@ -17,9 +17,15 @@ class Api {
           Navigator.pushNamedAndRemoveUntil(
               buildContext, LoginScreen.routeName, (route) => false);
         }
+       // User with ID 0 not found
+        // Invalid Employee ID , record not found for EmployeeId:0
         if (error.response!.statusCode == 404) {
           print(":::::");
-          print(error.response!.data);
+          print(error.response!.data['message']);
+         if(error.response!.data['message'] == 'User with ID 0 not found'){
+           Navigator.pushNamedAndRemoveUntil(
+               buildContext, LoginScreen.routeName, (route) => false);
+         }
         }
         if (error.response!.statusCode == 401) {
           print(error.response!.data);

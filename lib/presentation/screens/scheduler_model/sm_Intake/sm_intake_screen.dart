@@ -23,8 +23,7 @@ import 'new_phsician_info/physician_info_tab.dart';
 
 class SMIntakeScreen extends StatefulWidget {
   final VoidCallback onGoBackPressed;
-  final int patientId;
-  const SMIntakeScreen({super.key, required this.onGoBackPressed, required this.patientId});
+  const SMIntakeScreen({super.key, required this.onGoBackPressed, });
 
   @override
   State<SMIntakeScreen> createState() => _SMIntakeScreenState();
@@ -36,10 +35,10 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
   final PageController intakeContactPageController = PageController(initialPage: 0);
   int _selectedIndex = 0;
   int callerLogSelectIndex = 0;
-  int patientId = 51;
+
 
   void intakeSelectButton(int index) {
-    if (index == 0 || patientId != 0) {
+    if (index == 0 ) {
       setState(() {
         _selectedIndex = index;
       });
@@ -51,7 +50,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
     }
   }
   void intakeContactSelectButton(int index) {
-    if (index == 0 || patientId != 0) {
+    if (index == 0 ) {
       setState(() {
         callerLogSelectIndex = index;
       });
@@ -503,19 +502,17 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                           children: [
                             SmIntakeDemographicsScreen(
                               onPatientIdGenerated: (int id) {
-                                setState(() {
-                                  patientId = id;
-                                });
+
                               }, iButtonClickd: (){
                                 toggleLeftSidebar();
                                 providerContact.toogleContactProvider();},
                             ),
                             // SMIntakeReferralScreen(patientId: patientId),
                             DocumationScreenTab(),
-                            IntakeInsuranceScreen(patientId: patientId),
+                            IntakeInsuranceScreen(patientId: 0),
                             PhysicianInfoTab(),
-                            SMIntakeOrdersScreen(patientId: patientId),
-                            SmIntakeInitialContactScreen(patientId: patientId, onOpenContact: () {
+                            SMIntakeOrdersScreen(patientId: 0),
+                            SmIntakeInitialContactScreen(patientId: 0, onOpenContact: () {
                               toggleSidebar();
                               providerContact.toogleContactProvider();
                             },),

@@ -1,7 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:flutter/material.dart';
 import 'dart:html' as html;
+
+import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/resources/provider/version_provider.dart';
@@ -86,15 +87,12 @@ class _LoginWebState extends State<LoginWeb> {
 
   @override
   Widget build(BuildContext context) {
-    final providerState = Provider.of<VersionProviderManager>(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      providerState.getVersionManager(context);
-    });
     return Scaffold(
       body: LoginBaseConstant(
           onTap: () {},
           titleText: AppString.login,
-          textAction: providerState.refreshVersionText,
+          textAction:
+              Provider.of<VersionProviderManager>(context).refreshVersionText,
           child: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(24),
@@ -111,13 +109,15 @@ class _LoginWebState extends State<LoginWeb> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                         Text(
-                           // // "Version 1.0.3 (4) demo",
-                           // providerState.versionText,
+                        Text(
+                          // // "Version 1.0.3 (4) demo",
+                          // providerState.versionText,
                           AppConfig.version,
                           style: TextStyle(
                             fontSize: 10,
-                          ),),
+                          ),
+                        ),
+
                         ///textfield Email
                         Padding(
                           padding: EdgeInsets.symmetric(
@@ -145,7 +145,9 @@ class _LoginWebState extends State<LoginWeb> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return AppString.enteremail;
-                              }if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                              }
+                              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                  .hasMatch(value)) {
                                 return AppString.entervalidemail;
                               }
                               return null;
@@ -159,12 +161,12 @@ class _LoginWebState extends State<LoginWeb> {
                         Center(
                           child: _isSendingEmail
                               ? SizedBox(
-                                height: AppSize.s40,
-                                width: AppSize.s40,
-                                child: CircularProgressIndicator(
+                                  height: AppSize.s40,
+                                  width: AppSize.s40,
+                                  child: CircularProgressIndicator(
                                     color: ColorManager.blueprime,
                                   ),
-                              )
+                                )
                               : CustomButton(
                                   borderRadius: 28,
                                   height: AppSize.s40,

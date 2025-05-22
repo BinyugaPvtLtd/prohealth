@@ -43,11 +43,11 @@ Future<ApiData> addPatientIntakeDemographich(
 }
 
 /// Demographic patient data
-Future<List<DemographicPatientDataModel>> getDemographichPatientDetail({
+Future<DemographicPatientDataModel> getDemographichPatientDetail({
   required BuildContext context,
   required int patientId
 }) async {
-  List<DemographicPatientDataModel> itemsData = [];
+  var itemsData;
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -66,8 +66,8 @@ Future<List<DemographicPatientDataModel>> getDemographichPatientDetail({
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      for (var item in response.data) {
-        itemsData.add(DemographicPatientDataModel(
+      final item = response.data;
+        itemsData = DemographicPatientDataModel(
             demoId: item['demo_Id']??0,
             fkPtId: item['fk_pt_id']??0,
             demoFirstName: item['demo_firstName']??'',
@@ -100,8 +100,8 @@ Future<List<DemographicPatientDataModel>> getDemographichPatientDetail({
             fkRaceEthnicity: item['fk_raceEthnicity']??0,
             fkMaritalStatus: item['fk_maritalStatus']??0,
             demoCreatedAt: item['demo_created_at'] != null ? convertIsoToDayMonthYear(item['demo_created_at']) : '',
-        ));
-      }
+        );
+
     }
     else {
       print("patient demographic error");

@@ -1,12 +1,14 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+
 import '../../../../../../app/resources/color.dart';
 
- /// new code
+/// new code
 class LoginBaseConstant extends StatelessWidget {
   LoginBaseConstant(
       {Key? key,
@@ -25,8 +27,9 @@ class LoginBaseConstant extends StatelessWidget {
   final double? containerHeight;
   final double? containerWidth;
   final EdgeInsetsGeometry? textActionPadding;
-  final SvgPicture backImg = SvgPicture.asset("images/background.svg",);
-
+  final SvgPicture backImg = SvgPicture.asset(
+    "images/background.svg",
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +51,14 @@ class LoginBaseConstant extends StatelessWidget {
                         alignment: Alignment.bottomRight,
                         child: SvgPicture.asset(
                           key: UniqueKey(),
-                          placeholderBuilder: (BuildContext context) => Container(
+                          placeholderBuilder: (BuildContext context) =>
+                              Container(
                             width: 25,
                             height: 25,
                             child: Center(
-                              child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                              child: CircularProgressIndicator(
+                                color: ColorManager.blueprime,
+                              ),
                             ),
                           ),
                           'images/vector.svg',
@@ -69,7 +75,7 @@ class LoginBaseConstant extends StatelessWidget {
                         Align(
                           alignment: Alignment.topLeft,
                           child: SvgPicture.asset(
-                            key: UniqueKey(),
+                              key: UniqueKey(),
                               'images/vector1.svg',
                               height: MediaQuery.of(context).size.height / 1,
                               width: MediaQuery.of(context).size.width),
@@ -105,7 +111,7 @@ class LoginBaseConstant extends StatelessWidget {
                           flex: 1,
                           child: Container(
                             decoration: const BoxDecoration(
-                           // color: Colors.green,
+                              // color: Colors.green,
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(25),
                                   topLeft: Radius.circular(25)),
@@ -117,7 +123,8 @@ class LoginBaseConstant extends StatelessWidget {
                               children: [
                                 Text(
                                   titleText,
-                                  style: LoginFlowHeading.customTextStyle(context),
+                                  style:
+                                      LoginFlowHeading.customTextStyle(context),
                                 ),
                                 SizedBox(height: 20),
                                 child,
@@ -129,15 +136,18 @@ class LoginBaseConstant extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        padding: const EdgeInsets.only(right: 35),
-                                       //color: ColorManager.red,
+                                        padding:
+                                            const EdgeInsets.only(right: 35),
+                                        //color: ColorManager.red,
                                         alignment: Alignment.centerRight,
                                         child: InkWell(
                                           onTap: onTap,
                                           child: Text(
                                             textAction,
-                                            textAlign: TextAlign.end,
-                                            style:LoginFlowBase.customTextStyle(context),
+                                            textAlign: TextAlign.center,
+                                            style:
+                                                LoginFlowBase.customTextStyle(
+                                                    context),
                                           ),
                                         ),
                                       ),
@@ -166,10 +176,11 @@ class LoginBaseConstant extends StatelessWidget {
                                   key: UniqueKey(),
                                   'images/logo_login.png',
                                   width: MediaQuery.of(context).size.width / 5,
-                                  height: MediaQuery.of(context).size.height / 5,
+                                  height:
+                                      MediaQuery.of(context).size.height / 5,
                                 ),
                                 Expanded(
-                                  child:  SvgPicture.asset(
+                                  child: SvgPicture.asset(
                                     key: UniqueKey(),
                                     'images/amico.svg',
                                     // fit: BoxFit.fill,

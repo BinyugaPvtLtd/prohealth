@@ -252,6 +252,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     setState(() {
       searchSelect = true;
       firstResult = result;
+      myController.selectButton(1);
+      _pageController =
+          PageController(initialPage: 1);
       print('search value ${searchSelect}');
     });
   }

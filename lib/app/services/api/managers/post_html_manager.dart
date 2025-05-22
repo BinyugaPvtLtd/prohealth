@@ -8,7 +8,7 @@ class HtmlPostRequiest{
     // Log the string
     print("Endpoint: $endpoint");
     // Base URL
-    String baseUrl = "${AppConfig.dev}";
+    String baseUrl = "${AppConfig.prod}";
     // Full endpoint (dynamically changing based on the passed string)
     String fullUrl = "$baseUrl$endpoint";
 

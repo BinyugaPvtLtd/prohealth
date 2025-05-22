@@ -12,6 +12,7 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../../../widgets/app_clickable_widget.dart';
+import '../../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import '../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../textfield_dropdown_constant/chatbotContainer.dart';
 
@@ -49,6 +50,7 @@ class InformationUpdateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
+    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
     TextEditingController _searchController = TextEditingController();
     int fetchedPatientId = 0; // Replace this with your actual patientId
     //handlePatientId(fetchedPatientId);
@@ -456,7 +458,10 @@ class InformationUpdateScreen extends StatelessWidget {
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
                                                       hoverColor: Colors.transparent,
-                                                      onTap: selectUploadButton,
+                                                      onTap: (){
+                                                        selectUploadButton();
+                                                        providerPatientId.passPatientId(patientIdNo: snapshot.data![index].ptId);
+                                                      },
                                                       child:Column(
                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [

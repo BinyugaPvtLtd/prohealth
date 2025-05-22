@@ -173,7 +173,7 @@ void loaderTrue(){
   }
 
   Future<String> generateUrlLink() async {
-    final String url = '${AppConfig.deployment}/#/onBordingWelcome';
+    final String url = '${AppConfig.prod}/#/onBordingWelcome';
     _generatedURL = url;
     print('Generated URL: $_generatedURL');
     return url;
