@@ -134,11 +134,11 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(height: 20,),
+                                      const SizedBox(height: 40,),
                                       Align(
                                         alignment: Alignment.topCenter,
                                         child: Text('Records for Others Duplicates',style: CustomTextStylesCommon.commonStyle(
-                                            color:Color(0xFF51B5E6),
+                                            color:const Color(0xFF51B5E6),
                                             fontWeight: FontWeight.w700,fontSize: 12)),
                                       ),
                                       Padding(
@@ -471,35 +471,35 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                   ),
                                       ),
                   const SizedBox(height: AppSize.s10),
-                 providerContact.isLeftSidebarOpen ? Container(
-                    child: InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        onTap:(){},
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 10),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.arrow_back,
-                                size: IconSize.I16,
-                                color: ColorManager.mediumgrey,
-
-                              ),
-                              SizedBox(width: 5,),
-                              Text(
-                                'Go Back',
-                                style:TextStyle(
-                                  fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorManager.mediumgrey,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
-                  ) : Offstage(),
+                 // providerContact.isLeftSidebarOpen ? Container(
+                 //    child: InkWell(
+                 //        splashColor: Colors.transparent,
+                 //        highlightColor: Colors.transparent,
+                 //        hoverColor: Colors.transparent,
+                 //        onTap:(){},
+                 //        child: Padding(
+                 //          padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 10),
+                 //          child: Row(
+                 //            children: [
+                 //              Icon(
+                 //                Icons.arrow_back,
+                 //                size: IconSize.I16,
+                 //                color: ColorManager.mediumgrey,
+                 //
+                 //              ),
+                 //              SizedBox(width: 5,),
+                 //              Text(
+                 //                'Go Back',
+                 //                style:TextStyle(
+                 //                  fontSize: FontSize.s14,
+                 //                  fontWeight: FontWeight.w700,
+                 //                  color: ColorManager.mediumgrey,
+                 //                ),
+                 //              ),
+                 //            ],
+                 //          ),
+                 //        )),
+                 //  ) : Offstage(),
                   Expanded(
                     flex: 1,
                     child: Padding(

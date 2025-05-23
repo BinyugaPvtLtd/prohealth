@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/intake/all_intake_manager.dart';
@@ -141,34 +142,36 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20,),
-                        // InkWell(
-                        //     splashColor: Colors.transparent,
-                        //     highlightColor: Colors.transparent,
-                        //     hoverColor: Colors.transparent,
-                        //     onTap:(){},
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 10),
-                        //       child: Row(
-                        //         children: [
-                        //           Icon(
-                        //             Icons.arrow_back,
-                        //             size: IconSize.I16,
-                        //             color: ColorManager.mediumgrey,
-                        //
-                        //           ),
-                        //           SizedBox(width: 5,),
-                        //           Text(
-                        //             'Go Back',
-                        //            style:TextStyle(
-                        //              fontSize: FontSize.s14,
-                        //              fontWeight: FontWeight.w700,
-                        //              color: ColorManager.mediumgrey,
-                        //            ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     )),
+                        //SizedBox(height: 10,),
+                        providerState.isLeftSidebarOpen ? Container(
+                          child: InkWell(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              onTap:(){},
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 10),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.arrow_back,
+                                      size: IconSize.I16,
+                                      color: ColorManager.mediumgrey,
+
+                                    ),
+                                    SizedBox(width: 5,),
+                                    Text(
+                                      'Go Back',
+                                      style:TextStyle(
+                                        // fontSize: FontSize.s14,
+                                        fontWeight: FontWeight.w700,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ) : Offstage(),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 35),
                           child: BlueBGHeadConst(HeadText: "Contact Information"),

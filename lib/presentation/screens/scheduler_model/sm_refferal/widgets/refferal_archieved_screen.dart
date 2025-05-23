@@ -23,10 +23,15 @@ import '../../../em_module/company_identity/widgets/whitelabelling/success_popup
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
-class RefferalArchievedScreen extends StatelessWidget {
+class RefferalArchievedScreen extends StatefulWidget {
   final VoidCallback onEyeButtonPressed;
    RefferalArchievedScreen({super.key, required this.onEyeButtonPressed});
 
+  @override
+  State<RefferalArchievedScreen> createState() => _RefferalArchievedScreenState();
+}
+
+class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
   ///checkbox
   bool _isChecked = false;
 
@@ -38,17 +43,61 @@ class RefferalArchievedScreen extends StatelessWidget {
     'Manual',
   ];
 
+  final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
+
+  final TextEditingController _searchController = TextEditingController();
+
   final int itemsPerPage = 10;
 
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+    fetchData(); // Initial load
+  }
 
-  final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
+  void _onSearchChanged() {
+    fetchData();
+  }
+
+  void fetchData() async {
+    final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
+
+    try {
+      final data = await getPatientReffrealsData(
+        context: context,
+        pageNo: 1,
+        nbrOfRows: 9999,
+        isIntake: 'false',
+        isArchived: 'true',
+        isScheduled: 'false',
+        searchName: _searchController.text.isEmpty ? 'all' : _searchController.text,
+        marketerId: provider.marketerId,
+        referralSourceId: provider.referralSourceId,
+        pcpId: provider.pcpId,
+      );
+      _streamController.add(data);
+    } catch (e) {
+      _streamController.addError("Error loading archived referrals");
+    }
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    _streamController.close();
+    super.dispose();
+  }
+
+  // final int itemsPerPage = 10;
   @override
   Widget build(BuildContext context) {
     final archievedProvider = Provider.of<SmIntakeProviderManager>(context);
     final currentPage = archievedProvider.currentPageaa;
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
-    TextEditingController _searchController = TextEditingController();
+   // TextEditingController _searchController = TextEditingController();
     return Stack(
       children: [
         Padding(
@@ -63,7 +112,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                   CustomSearchFieldSM(
                     searchController: _searchController,
                     width: 440,
-                    onPressed: (){},
+                    onPressed: _onSearchChanged,
                   ),
                   SizedBox(width: AppSize.s20,),
                   IconButton(
@@ -83,13 +132,13 @@ class RefferalArchievedScreen extends StatelessWidget {
                 child: StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 9999, isIntake: 'false', isArchived: 'true', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
-                        marketerId: providerContact.marketerId,
-                        referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
-                      _streamController.add(data);
-                    }).catchError((error) {
-                      // Handle error
-                    });
+                    // getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 9999, isIntake: 'false', isArchived: 'true', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                    //     marketerId: providerContact.marketerId,
+                    //     referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
+                    //   _streamController.add(data);
+                    // }).catchError((error) {
+                    //   // Handle error
+                    // });
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 76),
@@ -508,7 +557,7 @@ class RefferalArchievedScreen extends StatelessWidget {
                                                 InkWell(
                                                   onTap: () async {
                                                     try {
-                                                      onEyeButtonPressed();
+                                                      widget.onEyeButtonPressed();
                                                       providerReferrals.passPatientId(patientIdNo: archieved.ptId);
                                                     } catch (e) {
                                                       print("Error: $e");
