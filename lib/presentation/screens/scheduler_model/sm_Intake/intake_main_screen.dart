@@ -72,6 +72,7 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
           ? SMIntakeScreen(onGoBackPressed: goBackToInitialScreen, ) // Render the SMIntakeScreen when switched
           : Column(
         children: [
+
           /// Tab bar
           Container(
             margin: const EdgeInsets.symmetric(vertical: AppPadding.p10),
