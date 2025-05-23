@@ -8,8 +8,11 @@ import 'package:provider/provider.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
+import '../../../../../../../../app/services/api/managers/sm_module_manager/intake/related_parties_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/sm_intake_manager/intake_demographics/intake_demographic_dropdown_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
+import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographics_dropdown_data.dart';
+import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/related_parties_data.dart';
 import '../../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
@@ -17,104 +20,7 @@ import '../../../../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
 import 'package:flutter/material.dart';
 
-class EmergencyContactProvider extends ChangeNotifier {
-  // === Emergency Contact State ===
-  final List<GlobalKey<AddEemergencyContactState>> _addEmergencyContactKeys = [];
-  bool _isEmergencyVisible = false;
 
-  // === Primary Caregiver State ===
-  final List<GlobalKey<PrimaryCaregiverState>> _primaryCaregiverKeys = [];
-  bool _isCaregiverVisible = false;
-
-  // === Representative State ===
-  final List<GlobalKey<RepresentativeState>> _representativeKeys = [];
-  bool _isRepresentativeVisible = false;
-
-  // === Constructor ===
-  EmergencyContactProvider() {
-    if (_addEmergencyContactKeys.isEmpty) {
-      addEmergency(initial: true);
-    }
-    if (_primaryCaregiverKeys.isEmpty) {
-      addCaregiver(initial: true);
-    }
-    if (_representativeKeys.isEmpty) {
-      addRepresentative(initial: true);
-    }
-  }
-
-  // === Emergency Contact Methods ===
-  List<GlobalKey<AddEemergencyContactState>> get addEmergencyContactKeys => _addEmergencyContactKeys;
-  bool get isEmergencyVisible => _isEmergencyVisible;
-
-  void addEmergency({bool initial = false}) {
-    _addEmergencyContactKeys.add(GlobalKey<AddEemergencyContactState>());
-    if (!initial) notifyListeners();
-  }
-
-  void removeEmergency(GlobalKey<AddEemergencyContactState> key) {
-    _addEmergencyContactKeys.remove(key);
-    notifyListeners();
-  }
-
-  void setEmergencyVisibility(bool value) {
-    _isEmergencyVisible = value;
-    notifyListeners();
-  }
-
-  void toggleEmergencyVisibility() {
-    _isEmergencyVisible = !_isEmergencyVisible;
-    notifyListeners();
-  }
-
-  // === Primary Caregiver Methods ===
-  List<GlobalKey<PrimaryCaregiverState>> get primaryCaregiverKeys => _primaryCaregiverKeys;
-  bool get isCaregiverVisible => _isCaregiverVisible;
-
-  void addCaregiver({bool initial = false}) {
-    _primaryCaregiverKeys.add(GlobalKey<PrimaryCaregiverState>());
-    if (!initial) notifyListeners();
-  }
-
-  void removeCaregiver(GlobalKey<PrimaryCaregiverState> key) {
-    _primaryCaregiverKeys.remove(key);
-    notifyListeners();
-  }
-
-  void setCaregiverVisibility(bool value) {
-    _isCaregiverVisible = value;
-    notifyListeners();
-  }
-
-  void toggleCaregiverVisibility() {
-    _isCaregiverVisible = !_isCaregiverVisible;
-    notifyListeners();
-  }
-
-  // === Representative Methods ===
-  List<GlobalKey<RepresentativeState>> get representativeKeys => _representativeKeys;
-  bool get isRepresentativeVisible => _isRepresentativeVisible;
-
-  void addRepresentative({bool initial = false}) {
-    _representativeKeys.add(GlobalKey<RepresentativeState>());
-    if (!initial) notifyListeners();
-  }
-
-  void removeRepresentative(GlobalKey<RepresentativeState> key) {
-    _representativeKeys.remove(key);
-    notifyListeners();
-  }
-
-  void setRepresentativeVisibility(bool value) {
-    _isRepresentativeVisible = value;
-    notifyListeners();
-  }
-
-  void toggleRepresentativeVisibility() {
-    _isRepresentativeVisible = !_isRepresentativeVisible;
-    notifyListeners();
-  }
-}
 
 
 
@@ -134,33 +40,79 @@ class AddEemergencyContact extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
-  const AddEemergencyContact({super.key, required this.patientId, required this.onRemove, required this.index, required this.isVisible});
+  final List<EmergencyContactData> emergencyContactData;
+  final Function(int index, EmergencyContactData updatedModel) onChanged;
+   AddEemergencyContact({super.key, required this.patientId, required this.onRemove, required this.index, required this.isVisible, required this.emergencyContactData, required this.onChanged});
 
   @override
   AddEemergencyContactState createState() => AddEemergencyContactState();
 }
 
 class AddEemergencyContactState extends State<AddEemergencyContact> {
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController streetController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController suitAptController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController zipCodeController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.emergencyContactData.length >= widget.index) {
+      final data = widget.emergencyContactData[widget.index];
+      firstNameController.text = data.firstName;
+      lastNameController.text = data.lastName;
+      suitAptController.text = data.suite;
+      streetController.text = data.street;
+      stateController.text = data.state;
+      cityController.text = data.city;
+      phoneNumberController.text = data.phoneNumber;
+      zipCodeController.text = data.zipCode;
+      emailController.text = data.email;
+    }
+
+    firstNameController.addListener(_updateModel);
+    lastNameController.addListener(_updateModel);
+    suitAptController.addListener(_updateModel);
+    streetController.addListener(_updateModel);
+    stateController.addListener(_updateModel);
+    cityController.addListener(_updateModel);
+    phoneNumberController.addListener(_updateModel);
+    zipCodeController.addListener(_updateModel);
+    emailController.addListener(_updateModel);
+  }
+  void _updateModel() {
+    final updatedModel = EmergencyContactData(
+        contactId: 0,
+        fk_pt_id: 0,
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        fk_Relationship: 1,
+        street: streetController.text,
+        suite: suitAptController.text,
+        city: cityController.text,
+        state: stateController.text,
+        zipCode: zipCodeController.text,
+        phoneNumber: phoneNumberController.text,
+        email: emailController.text
+
+    );
+
+    widget.onChanged(widget.index, updatedModel);
+  }
   @override
   Widget build(BuildContext context) {
-
-    TextEditingController firstNameController = TextEditingController();
-    TextEditingController lastNameController = TextEditingController();
-    TextEditingController streetController = TextEditingController();
-    TextEditingController stateController = TextEditingController();
-    TextEditingController cityController = TextEditingController();
-    TextEditingController suitAptController = TextEditingController();
-    TextEditingController phoneNumberController = TextEditingController();
-    TextEditingController zipCodeController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-
+    print('First name ${firstNameController.text}');
     String? selectedRelationshipEC;
-
     final AddemergencyProvider = Provider.of<SmIntakeProviderManager>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.index > 1)
+        if (widget.index >= 1)
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: SizedBox(
@@ -1240,33 +1192,81 @@ class Representative extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
-  const Representative({super.key, required this.patientId, required this.onRemove, required this.index, required this.isVisible});
+  final List<PatientRepresentativeData> patientRepresentativeData;
+  final Function(int index, PatientRepresentativeData updatedModel) onChanged;
+   Representative({super.key, required this.patientId, required this.onRemove, required this.index, required this.isVisible, required this.patientRepresentativeData, required this.onChanged});
 
   @override
   RepresentativeState createState() => RepresentativeState();
 }
 
 class RepresentativeState extends State<Representative> {
+  TextEditingController firstNamePRController = TextEditingController();
+
+  TextEditingController lastNamePRController = TextEditingController();
+  TextEditingController streetPRController = TextEditingController();
+
+  TextEditingController ctlrCity = TextEditingController();
+  TextEditingController suitAptPRController = TextEditingController();
+  TextEditingController phoneNumberPRController = TextEditingController();
+
+  TextEditingController zipCodePRController = TextEditingController();
+
+  TextEditingController emailPRController = TextEditingController();
+
+  TextEditingController ctlrState = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.patientRepresentativeData.length >= widget.index) {
+      final data = widget.patientRepresentativeData[widget.index];
+      firstNamePRController.text = data.firstName;
+      lastNamePRController.text = data.lastName;
+      suitAptPRController.text = data.suite;
+      streetPRController.text = data.street;
+      ctlrCity.text = data.city;
+      phoneNumberPRController.text = data.phoneNumber;
+      zipCodePRController.text = data.zipCode;
+      emailPRController.text = data.email;
+    }
+
+    firstNamePRController.addListener(_updateModel);
+    lastNamePRController.addListener(_updateModel);
+    suitAptPRController.addListener(_updateModel);
+    streetPRController.addListener(_updateModel);
+    ctlrCity.addListener(_updateModel);
+    phoneNumberPRController.addListener(_updateModel);
+    zipCodePRController.addListener(_updateModel);
+    emailPRController.addListener(_updateModel);
+  }
+  void _updateModel() {
+    final updatedModel = PatientRepresentativeData(
+        representiveId: 0,
+        fk_pt_id: 0,
+        firstName: firstNamePRController.text,
+        lastName: lastNamePRController.text,
+        fk_Relationship: 1,
+        street: streetPRController.text,
+        suite: suitAptPRController.text,
+        city: ctlrCity.text,
+        zipCode: zipCodePRController.text,
+        phoneNumber: phoneNumberPRController.text,
+        email: emailPRController.text, state: '', RoleId: 0, typeId: 0
+
+    );
+
+    widget.onChanged(widget.index, updatedModel);
+  }
   @override
   Widget build(BuildContext context) {
     final RepresentativeProvider = Provider.of<SmIntakeProviderManager>(context, listen: false);
 
-   TextEditingController firstNamePRController = TextEditingController();
 
-   TextEditingController lastNamePRController = TextEditingController();
-   TextEditingController streetPRController = TextEditingController();
-
-    TextEditingController ctlrCity = TextEditingController();
-   TextEditingController suitAptPRController = TextEditingController();
-TextEditingController phoneNumberPRController = TextEditingController();
-
-   TextEditingController zipCodePRController = TextEditingController();
-
-   TextEditingController emailPRController = TextEditingController();
-
-    TextEditingController ctlrState = TextEditingController();
 
     String? selectedRelationshipEC;
+    String? selectedRole;
+    String? selectedType;
 
     bool copyEmergencyContactPR = false;
     bool copyPrimaryCaregiverPR = false;
@@ -1305,7 +1305,7 @@ TextEditingController phoneNumberPRController = TextEditingController();
                   ),
                 ],
               ),
-              (widget.index > 1)
+              (widget.index >= 1)
                   ? IconButton(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
@@ -1440,16 +1440,84 @@ TextEditingController phoneNumberPRController = TextEditingController();
             ),
             const SizedBox(width: AppSize.s35),
             Flexible(
-                child: CustomDropdownTextFieldsm(headText: 'Role*',items: ['Health Care Decisions','A'],
-                  onChanged: (newValue) {
+                child: FutureBuilder<List<RelatedPartiesRoleData>>(
+                  future: getRelataedRoleDropDown(context: context),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return CustomDropdownTextFieldsm(
+                        initialValue: 'Select',
+                        headText: 'Role*',items: [],
+                        onChanged: (newValue) {
 
-                  },)),
+                        },);
+                    }
+                    if (snapshot.hasData) {
+                      List<DropdownMenuItem<String>> dropDownList = [];
+                      for (var i in snapshot.data!) {
+                        dropDownList.add(DropdownMenuItem<String>(
+                          child: Text(i.roleName!),
+                          value: i.roleName,
+                        ));
+                      }
+
+                      return
+                        CustomDropdownTextFieldsm(headText: 'Role*',dropDownMenuList: dropDownList,
+                          onChanged: (newValue) {
+                            for (var a in snapshot.data!) {
+                              if (a.roleName == newValue) {
+                                selectedRole = a.roleName!;
+                                //country = a
+                                // int? docType = a.companyOfficeID;
+                              }
+                            }
+                          },);
+
+
+                    } else {
+                      return const Offstage();
+                    }
+                  },
+                ),),
             const SizedBox(width: AppSize.s35),
             Flexible(
-                child: CustomDropdownTextFieldsm(headText: 'Type*',items: ['Legal Representative','A'],
-                  onChanged: (newValue) {
+              child: FutureBuilder<List<RelatedPatiesTypeData>>(
+                future: getRelataedTypeDropDown(context: context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return CustomDropdownTextFieldsm(
+                      initialValue: 'Select',
+                      headText: 'Type*',items: [],
+                      onChanged: (newValue) {
 
-                  },)),
+                      },);
+                  }
+                  if (snapshot.hasData) {
+                    List<DropdownMenuItem<String>> dropDownList = [];
+                    for (var i in snapshot.data!) {
+                      dropDownList.add(DropdownMenuItem<String>(
+                        child: Text(i.typeName!),
+                        value: i.typeName,
+                      ));
+                    }
+
+                    return
+                      CustomDropdownTextFieldsm(headText: 'Type*',dropDownMenuList: dropDownList,
+                        onChanged: (newValue) {
+                          for (var a in snapshot.data!) {
+                            if (a.typeName == newValue) {
+                              selectedType = a.typeName!;
+                              //country = a
+                              // int? docType = a.companyOfficeID;
+                            }
+                          }
+                        },);
+                  } else {
+                    return const Offstage();
+                  }
+                },
+              ),),
           ],
         ),
         const SizedBox(height: AppSize.s16),
