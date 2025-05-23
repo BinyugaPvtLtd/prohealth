@@ -21,6 +21,7 @@ import '../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_scre
 
 class AddPopupConstant extends StatefulWidget {
   final String title;
+
    AddPopupConstant({super.key, required this.title});
 
   @override
