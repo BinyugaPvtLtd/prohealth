@@ -22,24 +22,75 @@ import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 
-class RefferalMoveToIntakeScreen extends StatelessWidget {
+class RefferalMoveToIntakeScreen extends StatefulWidget {
   final VoidCallback onEyeButtonPressed;
   final VoidCallback onMergeDuplicatePressed;
   RefferalMoveToIntakeScreen({super.key, required this.onEyeButtonPressed, required this.onMergeDuplicatePressed});
 
+  @override
+  State<RefferalMoveToIntakeScreen> createState() => _RefferalMoveToIntakeScreenState();
+}
+
+class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen> {
   bool _isChecked = false;
 
   List<String> hardcodedItems = ['All','Referral App','E-Fax','E-Referrals','Manual',];
 
+  // final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
   final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>();
+
+  final TextEditingController _searchController = TextEditingController();
+
   final int itemsPerPage = 10;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+    _fetchData(); // Initial load
+  }
+
+  void _onSearchChanged() {
+    _fetchData();
+  }
+
+  void _fetchData() async {
+    final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
+
+    try {
+      final data = await getPatientReffrealsData(
+        context: context,
+        pageNo: 1,
+        nbrOfRows: 9999,
+        isIntake: 'true',
+        isArchived: 'false',
+        isScheduled: 'false',
+        searchName: _searchController.text.isEmpty ? 'all' : _searchController.text,
+        marketerId: provider.marketerId,
+        referralSourceId: provider.referralSourceId,
+        pcpId: provider.pcpId,
+      );
+      _streamController.add(data);
+    } catch (e) {
+      _streamController.addError("Failed to load data");
+    }
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    _streamController.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final intakeProvider = Provider.of<SmIntakeProviderManager>(context);
     // final currentPage = intakeProvider.currentPagemm;
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
     final providerReferrals = Provider.of<DiagnosisProvider>(context,listen: false);
-    TextEditingController _searchController = TextEditingController();
+   // TextEditingController _searchController = TextEditingController();
     return Stack(
       children: [
         Padding(
@@ -52,7 +103,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                   CustomSearchFieldSM(
                     searchController: _searchController,
                     width: 440,
-                    onPressed: (){},
+                    onPressed: _onSearchChanged,
                   ),
                   SizedBox(width: AppSize.s20,),
                   IconButton(
@@ -88,13 +139,13 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                 child: StreamBuilder<List<PatientModel>>(
                     stream: _streamController.stream,
                     builder: (context,snapshot) {
-                      getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 9999, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
-                          marketerId: providerContact.marketerId,
-                          referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
-                        _streamController.add(data);
-                      }).catchError((error) {
-                        // Handle error
-                      });
+                      // getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 9999, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                      //     marketerId: providerContact.marketerId,
+                      //     referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
+                      //   _streamController.add(data);
+                      // }).catchError((error) {
+                      //   // Handle error
+                      // });
                       if(snapshot.connectionState == ConnectionState.waiting){
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 76),
@@ -442,7 +493,7 @@ class RefferalMoveToIntakeScreen extends StatelessWidget {
                                                     InkWell(
                                                       onTap: () async {
                                                         try {
-                                                          onEyeButtonPressed();
+                                                          widget.onEyeButtonPressed();
                                                           providerReferrals.passPatientId(patientIdNo: movetointake.ptId);
                                                         }
                                                         catch (e){

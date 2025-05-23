@@ -6,12 +6,16 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
+import '../../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/intake/all_intake_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/sm_intake_manager/intake_demographics/intake_demographic_dropdown_manager.dart';
+import '../../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographic_patient_data.dart';
 import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographics_dropdown_data.dart';
+import '../../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -47,6 +51,13 @@ class IntakePatientsDatatInfo extends StatelessWidget {
     String? selectedReligion;
     String? selectedMaritalStatus;
     String? dateOfDeath;
+    int primaryLanguageid = 0;
+    int countyId = 0;
+    int zoneId = 0;
+    int residentialId = 0;
+    int maritalStatusId = 0;
+
+
     TextEditingController ctlrMedicalRecord = TextEditingController();
     TextEditingController ctlrfirstName = TextEditingController();
     TextEditingController ctlrLastName = TextEditingController();
@@ -54,7 +65,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
     TextEditingController ctlrDate = TextEditingController();
     TextEditingController ctlrStreet = TextEditingController();
     TextEditingController ctlrZipCode = TextEditingController();
-    TextEditingController ctlrApartment = TextEditingController();
+    TextEditingController ctlrSuitApt = TextEditingController();
     TextEditingController ctlrCity = TextEditingController();
     TextEditingController ctlrState = TextEditingController();
     TextEditingController ctlrPrimaryContact = TextEditingController();
@@ -73,6 +84,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
     TextEditingController residencyController = TextEditingController();
     TextEditingController maritalStatusController = TextEditingController();
     TextEditingController countryController = TextEditingController();
+    TextEditingController zoneController = TextEditingController();
     final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
     return Scaffold(
       backgroundColor: ColorManager.white,
@@ -84,6 +96,11 @@ class IntakePatientsDatatInfo extends StatelessWidget {
               child: CircularProgressIndicator(color: ColorManager.blueprime,),
             );
           }
+          primaryLanguageid = snapshotPatient.data!.fkSpokenLanguage;
+          countyId = snapshotPatient.data!.fkCountryId;
+          zoneId = snapshotPatient.data!.fkZoneId;
+          residentialId = snapshotPatient.data!.fkResidenceTypeId;
+          maritalStatusId = snapshotPatient.data!.fkMaritalStatus;
            ctlrMedicalRecord = TextEditingController(text: snapshotPatient.data!.demoMiddleInitial);
            ctlrfirstName = TextEditingController(text: snapshotPatient.data!.demoFirstName);
            ctlrLastName = TextEditingController(text: snapshotPatient.data!.demoLastName);
@@ -91,7 +108,8 @@ class IntakePatientsDatatInfo extends StatelessWidget {
            ctlrDate = TextEditingController(text: snapshotPatient.data!.demoDob);
            ctlrStreet = TextEditingController(text: snapshotPatient.data!.demoStreet);
            ctlrZipCode = TextEditingController(text: snapshotPatient.data!.demoZipcode);
-           // ctlrApartment = TextEditingController(text: snapshotPatient.data.demo);
+           ctlrState = TextEditingController(text: snapshotPatient.data!.demoState);
+            ctlrSuitApt = TextEditingController(text: snapshotPatient.data!.demoSuite);
            ctlrCity = TextEditingController(text: snapshotPatient.data!.demoCity);
            ctlrPrimaryContact = TextEditingController(text: snapshotPatient.data!.demoPrimaryContact);
            ctlrSecondContact = TextEditingController(text: snapshotPatient.data!.demoSecondaryContact);
@@ -103,7 +121,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
            locationNotesController = TextEditingController(text: snapshotPatient.data!.demoLocationNotes);
            primaryContactNameController = TextEditingController(text: snapshotPatient.data!.demoPrimaryContactName);
            cahpsContactController = TextEditingController(text: snapshotPatient.data!.demoCahpsContact);
-           secondaryPhoneController = TextEditingController(text:snapshotPatient.data!.demoSecondaryPhone );
+           secondaryPhoneController = TextEditingController(text:snapshotPatient.data!.demoSecondaryContactName );
            secEmailController = TextEditingController(text:snapshotPatient.data!.demoSecondaryEmail );
            // primaryLanguageController = TextEditingController(text:snapshotPatient.data.demoPr );
           return Consumer<SmIntakeProviderManager>(
@@ -122,34 +140,36 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20,),
-                        // InkWell(
-                        //     splashColor: Colors.transparent,
-                        //     highlightColor: Colors.transparent,
-                        //     hoverColor: Colors.transparent,
-                        //     onTap:(){},
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 10),
-                        //       child: Row(
-                        //         children: [
-                        //           Icon(
-                        //             Icons.arrow_back,
-                        //             size: IconSize.I16,
-                        //             color: ColorManager.mediumgrey,
-                        //
-                        //           ),
-                        //           SizedBox(width: 5,),
-                        //           Text(
-                        //             'Go Back',
-                        //            style:TextStyle(
-                        //              fontSize: FontSize.s14,
-                        //              fontWeight: FontWeight.w700,
-                        //              color: ColorManager.mediumgrey,
-                        //            ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     )),
+                        //SizedBox(height: 10,),
+                        providerState.isLeftSidebarOpen ? Container(
+                          child: InkWell(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              onTap:(){},
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 10),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.arrow_back,
+                                      size: IconSize.I16,
+                                      color: ColorManager.mediumgrey,
+
+                                    ),
+                                    SizedBox(width: 5,),
+                                    Text(
+                                      'Go Back',
+                                      style:TextStyle(
+                                        // fontSize: FontSize.s14,
+                                        fontWeight: FontWeight.w700,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ) : Offstage(),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 35),
                           child: BlueBGHeadConst(HeadText: "Contact Information"),
@@ -236,7 +256,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
-                                          controller: ctlrApartment,
+                                          controller: ctlrSuitApt,
                                           labelText: "Suit/Apt#")),
                                 ],
                               ):
@@ -251,7 +271,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
-                                          controller: ctlrApartment,
+                                          controller: ctlrSuitApt,
                                           labelText: "Suit/Apt#")),
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
@@ -400,6 +420,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                 for (var a in snapshot.data!) {
                                                   if (a.description == newValue) {
                                                     selectedRace = a.description;
+                                                    residentialId = a.id;
                                                     //country = a
                                                     // int? docType = a.companyOfficeID;
                                                   }
@@ -418,14 +439,43 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                         labelText: 'Facility Name',
                                       )),
                                   SizedBox(width: AppSize.s35),
-                                  Flexible(
-                                      child:  CustomDropdownTextFieldsm(
-                                          headText: 'Zone*',
-                                          items: ['','',],
-                                          //dropDownMenuList: dropDownList,
-                                          onChanged: (newValue) {
 
-                                          })
+                                  Flexible(
+                                      child:  FutureBuilder<List<AEClinicalZone>>(
+                                        future: HrAddEmplyClinicalZoneApi(context),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState == ConnectionState.waiting) {
+                                            return SchedularTextField(
+                                                controller: zoneController, labelText: 'Zone*');
+                                          }
+                                          if (snapshot.hasData) {
+                                            List<DropdownMenuItem<String>> dropDownList = [];
+                                            for (var i in snapshot.data!) {
+                                              dropDownList.add(DropdownMenuItem<String>(
+                                                child: Text(i.zoneName!),
+                                                value: i.zoneName,
+                                              ));
+
+                                            }
+
+                                            return CustomDropdownTextFieldsm(
+                                                headText: 'Zone*',
+                                                dropDownMenuList: dropDownList,
+                                                onChanged: (newValue) {
+                                                  for (var a in snapshot.data!) {
+                                                    if (a.zoneName == newValue) {
+                                                      // selectedCountry = a.zoneName!;
+                                                      zoneId = a.zoneID!;
+                                                      //country = a
+                                                      // int? docType = a.companyOfficeID;
+                                                    }
+                                                  }
+                                                });
+                                          } else {
+                                            return const Offstage();
+                                          }
+                                        },
+                                      ),
                                       // SchedularTextField(
                                       //   controller: zoneController,
                                       //   labelText: 'Zone*',
@@ -570,13 +620,41 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                               providerState.isContactTrue ?  Row(
                                 children: [
                                   Flexible(
-                                      child:  CustomDropdownTextFieldsm(
-                                          headText: 'Zone*',
-                                          items: ['','',],
-                                          //dropDownMenuList: dropDownList,
-                                          onChanged: (newValue) {
+                                      child:  FutureBuilder<List<AEClinicalZone>>(
+                                        future: HrAddEmplyClinicalZoneApi(context),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState == ConnectionState.waiting) {
+                                            return SchedularTextField(
+                                                controller: zoneController, labelText: 'Zone*');
+                                          }
+                                          if (snapshot.hasData) {
+                                            List<DropdownMenuItem<String>> dropDownList = [];
+                                            for (var i in snapshot.data!) {
+                                              dropDownList.add(DropdownMenuItem<String>(
+                                                child: Text(i.zoneName!),
+                                                value: i.zoneName,
+                                              ));
 
-                                          })
+                                            }
+
+                                            return CustomDropdownTextFieldsm(
+                                                headText: 'Zone*',
+                                                dropDownMenuList: dropDownList,
+                                                onChanged: (newValue) {
+                                                  for (var a in snapshot.data!) {
+                                                    if (a.zoneName == newValue) {
+                                                      // selectedCountry = a.zoneName!;
+                                                      zoneId = a.zoneID!;
+                                                      //country = a
+                                                      // int? docType = a.companyOfficeID;
+                                                    }
+                                                  }
+                                                });
+                                          } else {
+                                            return const Offstage();
+                                          }
+                                        },
+                                      ),
                                       // SchedularTextField(
                                       //   controller: zoneController,
                                       //   labelText: 'Zone*',
@@ -845,6 +923,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                       for (var a in snapshot.data!) {
                                                         if (a.languageSpoken == newValue) {
                                                           selectedLanguage = a.languageSpoken!;
+                                                          primaryLanguageid = a.languageSpokenId;
                                                           //country = a
                                                           // int? docType = a.companyOfficeID;
                                                         }
@@ -909,6 +988,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                       for (var a in snapshot.data!) {
                                                         if (a.maritalStatus == newValue) {
                                                           selectedMaritalStatus = a.maritalStatus!;
+                                                          maritalStatusId = a.maritalStatusId;
                                                           //country = a
                                                           // int? docType = a.companyOfficeID;
                                                         }
@@ -950,106 +1030,61 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                             CustomElevatedButton(
                               width: AppSize.s110,
                               text: AppString.save,
-                              onPressed: (){},
+                              onPressed: ()async{
+                                print('Demo id ${snapshotPatient.data!.demoId}');
+                                var responseUpdate = await patchPatientIntakeDemographich(
+                                  context: context,
+                                  demoId: snapshotPatient.data!.demoId,
+                                  fk_pt_id: snapshotPatient.data!.fkPtId,
+                                  demoFirstName: ctlrfirstName.text,
+                                  demoMiddleInitial: ctlrMedicalRecord.text,
+                                  demoLastName: ctlrLastName.text,
+                                  demoSuffix: ctlrSuffix.text,
+                                  demoStreet: ctlrStreet.text,
+                                  demoSuite: ctlrSuitApt.text,
+                                  demoCity: ctlrCity.text,
+                                  demoState: ctlrState.text,
+                                  demoZipcode: ctlrZipCode.text,
+                                  fkCountryId: countyId,
+                                  fkResidenceTypeId: residentialId,
+                                  demoFacilityName: facilityNameController.text,
+                                  fkZoneId: zoneId,
+                                  demoLocationNotes: locationNotesController.text,
+                                  demoPrimaryContact: ctlrPrimaryContact.text,
+                                  demoPrimaryContactName: primaryContactNameController.text,
+                                  demoPrimaryPhone: ctlrPrimeNo.text,
+                                  demoPrimaryEmail: ctlrEmail.text,
+                                  demoCahpsContact: cahpsContactController.text,
+                                  demoSecondaryContact: ctlrSecondContact.text,
+                                  demoSecondaryContactName: secondaryPhoneController.text,
+                                  demoSecondaryPhone: ctlrSecNo.text,
+                                  demoSecondaryEmail: secEmailController.text,
+                                  demoDob: "${ctlrDate.text}T00:00:00.000Z",
+                                  fkGender: snapshotPatient.data!.fkGender,// pass dynamic id
+                                  fkSpokenLanguage: primaryLanguageid,
+                                  demoSocialSecurity: ctlrSocialSec.text,
+                                  fkRaceEthnicity: snapshotPatient.data!.fkRaceEthnicity, // pass dynamic id
+                                  fkMaritalStatus: maritalStatusId,
+                                );
+                                if(responseUpdate.statusCode == 200 || responseUpdate.statusCode == 201){
+                                  //onMoveToIntake();
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AddSuccessPopup(
+                                        message: 'Patient Info Updated Successfully',
+                                      );
+                                    },
+                                  );
+                                }else{
+                                  print('Api error');
+                                }
+
+                              },
                             ),
                           ],
                         ),
                         SizedBox(height: AppSize.s30),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(right: 40.0),
-                        //   child: Container(
-                        //     height: AppSize.s26,
-                        //     width: AppSize.s102,
-                        //     child:
-                        //     ElevatedButton(
-                        //       onPressed: () async {
-                        //         final companyId = await TokenManager.getCompanyId();
-                        //         // String? dateOfDeath = ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text;
-                        //         ApiData result = await IntakeInfoSave(
-                        //           context,
-                        //           widget.ctlrSos.text,
-                        //           //"2024-08-12",
-                        //           widget.ctlrMedicalRecord.text,
-                        //           selectedStatus!.toString() ?? '',
-                        //           // 'Pending',
-                        //           widget.ctlrfirstName.text,
-                        //           widget.ctlrLastName.text,
-                        //           widget.ctlrMI.text,
-                        //           widget.ctlrSuffix.text,
-                        //           widget.statusType ?? '',
-                        //           //"2024-08-12",
-                        //           widget.ctlrDate.text,
-                        //           widget.ctlrStreet.text,
-                        //           selectedState!.toString(),
-                        //           // "291000",//
-                        //           widget.ctlrZipCode.text,
-                        //           widget.ctlrApartment.text,
-                        //           selectedcity!.toString(),
-                        //           selectedCountry.toString() ?? '',
-                        //           widget.ctlrMajorStreet.text,
-                        //           widget.ctlrPrimeNo.text,
-                        //           widget.ctlrSecNo.text,
-                        //           widget.ctlrEmail.text,
-                        //           widget.ctlrSocialSec.text,
-                        //           selectedLanguage.toString() ?? '',
-                        //           widget.ctlrDischargeResaon.text,
-                        //           selectedRace.toString() ?? '',
-                        //           selectedReligion.toString() ?? '',
-                        //           selectedMaritalStatus.toString() ?? '',
-                        //           //"2024-08-12",
-                        //           // ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
-                        //           widget.ctlrDateOfDeath.text.isEmpty ? null : widget.ctlrDateOfDeath.text,
-                        //
-                        //           1,
-                        //           'At Land OSC',
-                        //           'case',
-                        //           'Type',
-                        //           companyId,
-                        //         );
-                        //
-                        //         if (result.success) {
-                        //           patientId = result.patientId!;
-                        //           widget.onPatientIdGenerated(patientId);
-                        //           widget.ctlrMedicalRecord.clear();
-                        //           widget.ctlrfirstName.clear();
-                        //           widget.ctlrLastName.clear();
-                        //           widget.ctlrMI.clear();
-                        //           widget.ctlrSuffix.clear();
-                        //           widget.ctlrStreet.clear();
-                        //           widget.ctlrZipCode.clear();
-                        //           widget.ctlrApartment.clear();
-                        //           widget.ctlrCity.clear();
-                        //           widget.ctlrMajorStreet.clear();
-                        //           widget.ctlrPrimeNo.clear();
-                        //           widget.ctlrSecNo.clear();
-                        //           widget.ctlrEmail.clear();
-                        //           widget.ctlrSocialSec.clear();
-                        //           widget.ctlrDischargeResaon.clear();
-                        //         } else {
-                        //
-                        //         }
-                        //       },
-                        //       child: Text(
-                        //         AppString.save,
-                        //         style: GoogleFonts.firaSans(
-                        //           fontSize: FontSize.s14,
-                        //           fontWeight: FontWeightManager.bold,
-                        //           color: ColorManager.white,
-                        //         ),
-                        //       ),
-                        //       style: ElevatedButton.styleFrom(
-                        //         padding: const EdgeInsets.symmetric(
-                        //           horizontal: 25,
-                        //           vertical: 10,
-                        //         ),
-                        //         backgroundColor: ColorManager.blueprime,
-                        //         shape: RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.circular(12),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // )
                       ],
                     ),
                   ),
