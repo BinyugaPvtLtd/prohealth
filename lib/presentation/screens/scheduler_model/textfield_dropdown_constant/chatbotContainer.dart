@@ -473,14 +473,17 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
                     suffixIcon: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          onPressed: () {
-                            print("Pin icon clicked");
-                          },
-                          icon: Icon(Icons.attachment_outlined,color: ColorManager.greylight),
+                        Transform.rotate(
+                          angle:  -0.785398, // 45 degrees in radians (π/4)
+                          child: IconButton(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent ,
+                            hoverColor: Colors.transparent,
+                            onPressed: () {
+                              print("Pin icon clicked");
+                            },
+                            icon: Icon(Icons.attachment_outlined, color: ColorManager.greylight),
+                          ),
                         ),
                         IconButton(
                           splashColor: Colors.transparent,

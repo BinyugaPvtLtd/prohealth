@@ -853,7 +853,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                             style: CustomTextStylesCommon.commonStyle(
                                                 color: ColorManager.mediumgrey,
                                                 fontSize: FontSize.s14,
-                                                fontWeight: FontWeight.w600),
+                                                fontWeight: FontWeight.w700),
                                           ),
                                           const SizedBox(height: 40),
                                           Row(
@@ -923,7 +923,7 @@ SizedBox(height: 10,),
                                           ),
                                           const SizedBox(height: 20),
                                           SizedBox(
-                                            height: 140,
+                                            height: 145,
                                             child: ListView.builder(
                                               scrollDirection: Axis.horizontal,
                                               itemCount: 4,
@@ -1045,17 +1045,20 @@ SizedBox(height: 10,),
                                       child: Image.asset("images/sm/contact_icon.png",height: 20,)
                                       ,onTap: (){},),
                                    const SizedBox(width: 20,),
-                                    Text(
-                                      "Accepted",
-                                      style: CustomTextStylesCommon.commonStyle(
-                                          color: ColorManager.greenDark,
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeight.w600),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 15),
+                                      child: Text(
+                                        "Accepted",
+                                        style: CustomTextStylesCommon.commonStyle(
+                                            color: ColorManager.greenDark,
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     ),
                                   //  SizedBox(width: 20,),
                                     Container(
                                       height: 25,
-                                      width:100,
+                                      width:90,
                                       child: ElevatedButton(
                                         onPressed: () {
                                           setState(() {
@@ -1065,13 +1068,13 @@ SizedBox(height: 10,),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: ColorManager.bluebottom,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(20),
+                                            borderRadius: BorderRadius.circular(15),
                                           ),
                                         //  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12), // optional
                                         ),
                                         child: Text("Assign",  style: CustomTextStylesCommon.commonStyle(
                                             color: ColorManager.white,
-                                            fontSize: FontSize.s14,
+                                            fontSize: FontSize.s13,
                                             fontWeight: FontWeight.w600),),
                                       ),
                                     ),

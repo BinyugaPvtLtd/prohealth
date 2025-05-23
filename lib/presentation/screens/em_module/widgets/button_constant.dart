@@ -140,7 +140,7 @@ class CustomElevatedButton extends StatefulWidget {
     this.width = 150,
     this.height = 35.0,
     this.style,
-    this.child,  this.loadingDuration,
+    this.child,  this.loadingDuration = 3,
   }) : super(key: key);
 
   @override
@@ -152,11 +152,12 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
   bool  _isSubmitting= false;
 
   void _handlePress() {
+
     setState(() {
       _isLoading = true;
     });
 
-    widget.onPressed.call();
+    widget.onPressed();
     Future.delayed(Duration(seconds: widget.loadingDuration!), () {
       setState(() {
         _isLoading = false;
@@ -168,8 +169,13 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
     return SizedBox(
       width: widget.width,
       height: widget.height,
-      child: ElevatedButton(
-        onPressed: widget.isSelectShow! ? widget.onPressed : null,
+      child: _isLoading ? Center(
+        child: SizedBox(child: SizedBox(
+          width: 25,
+            height: 25,
+            child: CircularProgressIndicator(color: ColorManager.blueprime,))),
+      ) :ElevatedButton(
+        onPressed: widget.isSelectShow! ? _handlePress : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: widget.color ?? ColorManager.bluebottom,
           foregroundColor: widget.textColor,

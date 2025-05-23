@@ -18,6 +18,8 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
+import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 import '../../em_module/see_all_screen/widgets/user_popup_const_provider.dart';
 import '../../em_module/widgets/button_constant.dart';
@@ -70,6 +72,7 @@ class RegisterScreen extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
     currentPage = 1;
     itemsPerPage = 20;
+    List<AEClinicalDiscipline> _aEClinicalDiscipline = [];
     final registerProviderState =
         Provider.of<HrRegisterProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -485,7 +488,8 @@ class RegisterScreen extends StatelessWidget {
                                                     text: AppString.enroll,
                                                     onPressed: () async {
                                                       // final enrollProviderState = Provider.of<HrEnrollEmployeeProvider>(context, listen: false);
-                                                      // List<AEClinicalDiscipline> passData = await HrAddEmplyClinicalDisciplinApi(context, data.deptId! );
+                                                      Provider.of<HrEnrollEmployeeProvider>(context,listen: false).fetchDeptDropdownData(context, data.deptId!);
+                                                      // _aEClinicalDiscipline = await HrAddEmplyClinicalDisciplinApi(context, data.deptId!);
                                                       // final clinicalTypes = await HrAddEmplyClinicalDisciplinApi(context, data.deptId!);
                                                       // final cities = await HrAddEmplyClinicalCityApi(context);
                                                       // final offices = await getCompanyOfficeList(context);
@@ -566,8 +570,7 @@ class RegisterScreen extends StatelessWidget {
                                                                   .data!
                                                                   .departmentId,
                                                               aEClinicalDiscipline:
-                                                                  registerProvider
-                                                                      .clinicalDisciplines, // Preloaded data
+                                                              Provider.of<HrEnrollEmployeeProvider>(context,listen: false).clinicalDisciplines, // Preloaded data
                                                               cities: registerProvider
                                                                   .clinicalCities, // Pass cities data
                                                               companyOffices:
