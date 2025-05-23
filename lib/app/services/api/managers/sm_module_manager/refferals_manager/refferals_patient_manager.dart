@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
@@ -632,8 +633,6 @@ Future<List<PatientDocumentsData>> getReffrealsPatientDocuments({
             rptd_url: item['rptd_url']??'',
             rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
             rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--"
-
-
         ));
       }
       }
@@ -647,6 +646,188 @@ Future<List<PatientDocumentsData>> getReffrealsPatientDocuments({
     return itemsData;
   }
 }
+///patient-document/patient/{patientId}/{documentType}
+Future<List<PatientDocumentsData>> getReffrealsPatientDocumentsByDocType({
+  required BuildContext context,
+  required int patientId,
+  required int documentType,
+}) async {
+  List<PatientDocumentsData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientDocumentByDocType(patientId: patientId,documentType: documentType),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDocumentsData(
+            rptd_id: item['rptd_id']??0,
+            fk_pt_id: item['fk_pt_id']??0,
+            rptd_url: item['rptd_url']??'',
+            rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
+            rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--"
+        ));
+      }
+    }
+    else {
+      print("patient Document error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+///patient document billing attachment
+Future<List<PatientDocumentsBillingData>> getReffrealsPatientDocumentsBillingAttachment({
+  required BuildContext context,
+  required int patientId,
+}) async {
+  List<PatientDocumentsBillingData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientDocumentByDocType(patientId: patientId,documentType: AppConfig.billingAttachment),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDocumentsBillingData(
+            rptd_id: item['rptd_id']??0,
+            fk_pt_id: item['fk_pt_id']??0,
+            rptd_url: item['rptd_url']??'',
+            rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
+            rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--"
+        ));
+      }
+    }
+    else {
+      print("patient Document error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+///patient document F2f
+Future<List<PatientDocumentsFtwoFData>> getReffrealsPatientDocumentsFaceTwoFace({
+  required BuildContext context,
+  required int patientId,
+}) async {
+  List<PatientDocumentsFtwoFData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientDocumentByDocType(patientId: patientId,documentType: AppConfig.f2fEncounter),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDocumentsFtwoFData(
+            rptd_id: item['rptd_id']??0,
+            fk_pt_id: item['fk_pt_id']??0,
+            rptd_url: item['rptd_url']??'',
+            rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
+            rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--"
+        ));
+      }
+    }
+    else {
+      print("patient Document error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+///patient document Consent
+Future<List<PatientDocumentsConsentData>> getReffrealsPatientDocumentsConsent({
+  required BuildContext context,
+  required int patientId,
+  required int doctypeId,
+}) async {
+  List<PatientDocumentsConsentData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientDocumentByDocType(patientId: patientId,documentType: doctypeId),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDocumentsConsentData(
+            rptd_id: item['rptd_id']??0,
+            fk_pt_id: item['fk_pt_id']??0,
+            rptd_url: item['rptd_url']??'',
+            rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
+            rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--"
+        ));
+      }
+    }
+    else {
+      print("patient Document error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
 /// Add Patient documents
 Future<ApiData> postReferralPatientDocuments(
     {
@@ -654,6 +835,11 @@ Future<ApiData> postReferralPatientDocuments(
       required int fk_pt_id,
       required String rptd_url,
       required int rptd_created_by,
+      int? rptd_document_type,
+      DateTime? rptd_F2FDate,
+      int? fk_marketerId,
+      DateTime? rptd_visitNote,
+      DateTime? rptd_F2Fappointment,
     }) async {
   try {
     var response = await Api(context).post(
@@ -661,7 +847,12 @@ Future<ApiData> postReferralPatientDocuments(
       data: {
         "fk_pt_id": fk_pt_id,
         "document_name": rptd_url,
-        "rptd_created_by": rptd_created_by
+        "rptd_created_by": rptd_created_by,
+        "rptd_document_type": rptd_document_type,
+        "rptd_F2FDate": rptd_F2FDate,
+        "fk_marketerId": fk_marketerId,
+        "rptd_visitNote": rptd_visitNote,
+        "rptd_F2Fappointment": rptd_F2Fappointment,
       }
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

@@ -25,7 +25,6 @@ class IntakePatientsDatatInfo extends StatelessWidget {
   final Widget childState;
  // final Widget childCity;
   final Widget childCountry;
-
   final Widget childStatus;
   final VoidCallback isIButtonPressed;
 
@@ -33,7 +32,6 @@ class IntakePatientsDatatInfo extends StatelessWidget {
       {super.key,
       required this.childState,
      // required this.childCity,
-
       required this.childCountry, required this.childStatus, required this.isIButtonPressed});
   @override
   Widget build(BuildContext context) {
@@ -943,13 +941,14 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                           spacing: 10,
                           children: [
                             CustomButtonTransparent(
+                              width: AppSize.s110,
                               text: "Skip",
                               onPressed: () {
 
                               },
                             ),
                             CustomElevatedButton(
-                              width: AppSize.s100,
+                              width: AppSize.s110,
                               text: AppString.save,
                               onPressed: (){},
                             ),

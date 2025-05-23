@@ -1,5 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/textfield_dropdown_constant/schedular_textfield_const.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -9,9 +11,13 @@ import '../../../../../app/resources/establishment_resources/establishment_strin
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
+import '../../../../../data/api_data/api_data.dart';
+import '../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../em_module/widgets/button_constant.dart';
 import '../../../em_module/widgets/dialogue_template.dart';
 import '../../../em_module/widgets/header_content_const.dart';
+import '../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 
 class AddPopupConstant extends StatefulWidget {
   final String title;
@@ -26,6 +32,7 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
   String fileName = '';
   dynamic _filePath;
   bool _fileAbove20Mb = false;
+  TextEditingController DocNameController = TextEditingController();
 
   void pickAckFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -41,214 +48,185 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
       //notifyListeners();
     }
   }
-
+  String? selectedFileName;
 
   @override
   Widget build(BuildContext context) {
+    final diagnosisProvider = Provider.of<DiagnosisProvider>(context,listen: false);
+    final int patientId = diagnosisProvider.patientId;
 
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      backgroundColor: Colors.white,
-      child: Container(
-        width: 400,
-        height: 450,
+    return DialogueTemplate(width: 400, height: 300, body: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              height: 40,
-              decoration: const BoxDecoration(
-                color: Color(0xff1696C8),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(13),
-                  topRight: Radius.circular(13),
+            // SchedularTextField(
+            //   isIconVisible: true,
+            //   labelText:  AppString.name_of_the_document,
+            //   controller: DocNameController,),
+            // SizedBox(height: 10,),
+            /// upload  doc
+            HeaderContentConst(
+              isAsterisk: false,
+              styleHeading: SMTextfieldHeadings.customTextStyle(context),
+              heading: AppString.upload_document,
+              content: InkWell(
+                onTap:()async{
+                  pickAckFile();
+                },
+                child: Container(
+                  height: AppSize.s30,
+                  // width: AppSize.s354,
+                  padding: EdgeInsets.only(left: AppPadding.p10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorManager.containerBorderGrey,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) localSetState) {
+                      return Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                fileName,
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                              ),
+                            ),
+                            IconButton(
+                              padding: const EdgeInsets.all(4),
+                              onPressed: () async {
+                                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['pdf'],
+                                );
+                                if (result != null) {
+                                  final fileSize = result.files.first.size;
+                                  final isAbove20MB = fileSize > (20 * 1024 * 1024);
+
+                                  setState(() {
+                                    _filePath = result.files.first.bytes;
+                                    fileName = result.files.first.name;
+                                    _fileAbove20Mb = !isAbove20MB;
+                                  });
+
+                                  // This updates the UI inside the StatefulBuilder
+                                  localSetState(() {});
+                                }
+                              },
+                              icon: Icon(
+                                Icons.file_upload_outlined,
+                                color: ColorManager.black,
+                                size: 20,
+                              ),
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 25),
-                    child:  Text(
-                      widget.title,
-                      style:PopupBlueBarText.customTextStyle(context),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-
-                ],
-              ),
             ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  HeaderContentConst(
-                    isAsterisk: false,
-                    heading: AppString.type_of_the_document,
-                    content: Container(
-                      width: 354,
-                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "",
-                            style: DocumentTypeDataStyle.customTextStyle(context),
-                          ),
-                          Icon(
-                            Icons.arrow_drop_down,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  ///
-                  HeaderContentConst(
-                    isAsterisk: false,
-                    heading: AppString.name_of_the_document,
-                    content: Container(
-                      width: 354,
-                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "",
-                            style: DocumentTypeDataStyle.customTextStyle(context),
-                          ),
-                          Icon(
-                            Icons.arrow_drop_down,
-                            color: Colors.transparent,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  /// upload  doc
-                  HeaderContentConst(
-                    isAsterisk: false,
-                    heading: AppString.upload_document,
-                    content: InkWell(
-                      onTap:()async{
-                        pickAckFile();
-                      },
-                      child: Container(
-                        height: AppSize.s30,
-                        width: AppSize.s354,
-                        padding: EdgeInsets.only(left: AppPadding.p10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: ColorManager.containerBorderGrey,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: StatefulBuilder(
-                          builder: (BuildContext context,
-                              void Function(void Function()) setState) {
-                            return Padding(
-                              padding: const EdgeInsets.all(0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      fileName,
-                                      style: DocumentTypeDataStyle.customTextStyle(context),
-                                    ),
-                                  ),
-                                  IconButton(
-                                    padding: const EdgeInsets.all(4),
-                                    onPressed: ()async{
-                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                        type: FileType.custom,
-                                        allowedExtensions: ['pdf'],
-                                      );
-                                      final fileSize = result?.files.first.size; // File size in bytes
-                                      final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
-                                      if (result != null) {
-                                        _filePath = result.files.first.bytes;
-                                        fileName = result.files.first.name;
-                                        _fileAbove20Mb = !isAbove20MB;
-                                        //notifyListeners();
-                                      }
-                                    },
-                                    icon: Icon(
-                                      Icons.file_upload_outlined,
-                                      color: ColorManager.black,
-                                      size: 20,
-                                    ),
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-
-                ],
-              ),
-            ),
-
-Spacer(),
-Padding(
-  padding: const EdgeInsets.symmetric(vertical: 20),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      CustomElevatedButton(
-        width: AppSize.s105,
-        height: AppSize.s30,
-        text: AppStringEM.submit,
-        onPressed: () {},
-      ),
-    ],
-  ),
-)
-
-
-
           ],
         ),
       ),
+    ],
+        bottomButtons: Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomElevatedButton(
+                width: AppSize.s105,
+                height: AppSize.s30,
+                text: AppStringEM.submit,
+                onPressed: () async {
+                  // if (_filePath == null || fileName.isEmpty) {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     SnackBar(content: Text("Please select a file first.")),
+                  //   );
+                  //   return;
+                  // }
 
-    );
+                  ApiData apiData = await postReferralPatientDocuments(
+                    context: context,
+                    fk_pt_id: patientId,
+                    rptd_url: fileName,
+                    rptd_created_by: 0,
+                    rptd_document_type: 1,
+                  );
+
+                  if (apiData.statusCode == 200 || apiData.statusCode == 201) {
+                    var uploadPatientDoc = await uploadPatientReffrelsDocuments(
+                      context: context,
+                      rptd_id: apiData.rptd_id!,
+                      documentFile: _filePath,
+                      documentName: fileName,
+                    );
+
+                    if (uploadPatientDoc.success == true) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const AddSuccessPopup(
+                            message: 'Document Uploaded Successfully',
+                          );
+                        },
+                      );
+                    }
+                  }
+                },
+
+//                 onPressed: () async {
+//                   FilePickerResult? result = await FilePicker.platform.pickFiles(
+//                     type: FileType.custom,
+//                     allowedExtensions: ['pdf'],
+//                   );
+//                   if (result != null) {
+//                     setState(() {
+//                       selectedFileName = result.files.single.name;
+//                     });
+//                   ApiData apiData =  await postReferralPatientDocuments(
+//                       context: context,
+//                       fk_pt_id: patientId,
+//                       rptd_url: fileName,//result.files.first.name,
+//                       rptd_created_by: 0,//snapshot.data!.marketer.employeeId
+//                       rptd_document_type: 1,
+//                   );
+//                   if(apiData.statusCode == 200 || apiData.statusCode == 201){
+//                     var uploadPatientDoc = await uploadPatientReffrelsDocuments(context: context,
+//                         rptd_id: apiData.rptd_id!,
+//                         documentFile: result.files.first.bytes,
+//                         documentName: result.files.first.name);
+//                     if(uploadPatientDoc.success == true){
+//                       showDialog(
+//                         context: context,
+//                         builder: (BuildContext context) {
+//                           return const AddSuccessPopup(
+//                             message: 'Document Uploaded Successfully',
+//                           );
+//                         },
+//                       );
+//                     }
+//                   }
+// }
+//                 },
+              ),
+            ],
+          ),
+        ),
+        title: widget.title);
 
 
 
@@ -256,7 +234,60 @@ Padding(
   }
 }
 
-
+// HeaderContentConst(
+//   isAsterisk: false,
+//   heading: AppString.type_of_the_document,
+//   content: Container(
+//     width: 354,
+//     padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+//     decoration: BoxDecoration(
+//       color: ColorManager.white,
+//       borderRadius: BorderRadius.circular(10),
+//       border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+//     ),
+//     child: Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         Text(
+//           "",
+//           style: DocumentTypeDataStyle.customTextStyle(context),
+//         ),
+//         Icon(
+//           Icons.arrow_drop_down,
+//           color: Colors.black,
+//         ),
+//       ],
+//     ),
+//   ),
+// ),
+// SizedBox(height: 10,),
+///
+// HeaderContentConst(
+//   isAsterisk: false,
+//   heading: AppString.name_of_the_document,
+//   content: Container(
+//     width: 354,
+//     padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+//     decoration: BoxDecoration(
+//       color: ColorManager.white,
+//       borderRadius: BorderRadius.circular(10),
+//       border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+//     ),
+//     child: Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         Text(
+//           "",
+//           style: DocumentTypeDataStyle.customTextStyle(context),
+//         ),
+//         Icon(
+//           Icons.arrow_drop_down,
+//           color: Colors.transparent,
+//         ),
+//       ],
+//     ),
+//   ),
+// ),
 
 
 
