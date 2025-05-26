@@ -1471,7 +1471,7 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                           dashPattern: [6, 3],
                           borderType: BorderType.RRect,
                           radius: const Radius.circular(12),
-                         // borderPadding: EdgeInsets.symmetric(horizontal: 10),
+                          borderPadding: const EdgeInsets.only(right: 0.5),
                           child: Container(
                             width: double.infinity,
                             height: 80,

@@ -694,7 +694,8 @@ class _CurateScreenState extends State<CurateScreen> {
                                             height: 10,
                                           ),
                                           StatefulBuilder(
-                                            builder: (BuildContext context, void Function(void Function()) setState) {return  Row(
+                                            builder: (BuildContext context, void Function(void Function()) setState) {return
+                                              Row(
                                               children: [
                                                 SMCheckbox(
                                                   value: confirmInsChecked,

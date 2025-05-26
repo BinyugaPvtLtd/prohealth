@@ -346,20 +346,22 @@ class _PendingPageViewState extends State<PendingPageView> {
 
                                         Expanded(
                                           flex: 2,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("San Josaquin z3",
-                                                style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: ColorManager.mediumgrey,),),
+                                          child: Center(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text("San Josaquin z3",
+                                                  style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.mediumgrey,),),
 
-                                              SizedBox(height: AppSize.s5),
-                                              Text("58244",
-                                                style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: ColorManager.mediumgrey,),),
-                                            ],
+                                                SizedBox(height: AppSize.s5),
+                                                Text("58244",
+                                                  style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.mediumgrey,),),
+                                              ],
+                                            ),
                                           ),
                                         ),
 
@@ -378,7 +380,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                       Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                                      SizedBox(height: AppSize.s5),
+                                                      SizedBox(height: AppSize.s8),
                                                       Text("SOC Date : ",style: DocDefineTableDataID.customTextStyle(context),),
                                                     ],),
                                                   ),
@@ -388,7 +390,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                       mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
                                                       Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-                                                      SizedBox(height: AppSize.s5),
+                                                      SizedBox(height: AppSize.s8),
                                                       Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
                                                     ],),
                                                   )
@@ -406,20 +408,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                 hoverColor: Colors.transparent,
                                                 splashColor: Colors.transparent,
                                                 highlightColor: Colors.transparent,
-                                                //child: Image.asset("images/sm/contact_text.png",height: 55,)
-                                                child: Column(
-                                                  children: [
-                                                    SizedBox(height: 6,),
-                                                    Image.asset("images/sm/contact_icon.png",height: 25,),
-                                                    SizedBox(height: 8,),
-                                                    Text("Contact",
-                                                      style: TextStyle(
-                                                        fontSize: FontSize.s12,
-                                                        fontWeight: FontWeight.w600,
-                                                        color: Color(0xFF2F6D8A),
-                                                      ),)
-                                                  ],
-                                                )
+                                                child: Image.asset("images/sm/contact_text.png",height: 55,)
                                                 ,onTap: _toggleChatbotVisibility,),
                                             ],
                                           ),
@@ -440,7 +429,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                   SizedBox(height: 10,),
                                                   Text("Non-Admit",
                                                     style: TextStyle(
-                                                      fontSize: FontSize.s12,
+                                                      fontSize: FontSize.s11,
                                                       fontWeight: FontWeight.w600,
                                                       color: Color(0xFF2F6D8A),
                                                     ),)
