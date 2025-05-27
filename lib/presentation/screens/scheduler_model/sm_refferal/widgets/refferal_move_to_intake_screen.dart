@@ -46,12 +46,12 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
   @override
   void initState() {
     super.initState();
-    _searchController.addListener(_onSearchChanged);
-    _fetchData(); // Initial load
+    // _searchController.addListener(_onSearchChanged);
+    // _fetchData(); // Initial load
   }
 
   void _onSearchChanged() {
-    _fetchData();
+    // _fetchData();
   }
 
   void _fetchData() async {
@@ -78,9 +78,9 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
   @override
   void dispose() {
-    _searchController.removeListener(_onSearchChanged);
-    _searchController.dispose();
-    _streamController.close();
+    // _searchController.removeListener(_onSearchChanged);
+    // _searchController.dispose();
+    // _streamController.close();
     super.dispose();
   }
 
@@ -139,13 +139,13 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                 child: StreamBuilder<List<PatientModel>>(
                     stream: _streamController.stream,
                     builder: (context,snapshot) {
-                      // getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 9999, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
-                      //     marketerId: providerContact.marketerId,
-                      //     referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
-                      //   _streamController.add(data);
-                      // }).catchError((error) {
-                      //   // Handle error
-                      // });
+                      getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 9999, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                          marketerId: providerContact.marketerId,
+                          referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
+                        _streamController.add(data);
+                      }).catchError((error) {
+                        // Handle error
+                      });
                       if(snapshot.connectionState == ConnectionState.waiting){
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 76),

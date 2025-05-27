@@ -62,7 +62,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
   @override
   void initState() {
     super.initState();
-    fetchData(); // Fetch once when screen loads
+    //fetchData(); // Fetch once when screen loads
   }
 
   void fetchData() {
@@ -84,16 +84,16 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
   }
 
   void _performSearch() {
-    final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
-    provider.setCurrentPage(1); // Reset pagination
-    fetchData(); // Trigger search
+    // final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
+    // provider.setCurrentPage(1); // Reset pagination
+   // fetchData(); // Trigger search
   }
 
 
   @override
   void dispose() {
-    _streamController.close();
-    _searchController.dispose();
+    // _streamController.close();
+    // _searchController.dispose();
     super.dispose();
   }
 
@@ -167,16 +167,16 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                 child: StreamBuilder<List<PatientModel>>(
                   stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    // getPatientReffrealsData(context: context,
-                    //     pageNo: 1, nbrOfRows: 9999,
-                    //    // pageNo: currentPage, nbrOfRows: itemsPerPage,
-                    //     isIntake: 'false', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
-                    //     marketerId: providerContact.marketerId,
-                    //     referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
-                    //   _streamController.add(data);
-                    // }).catchError((error) {
-                    //   // Handle error
-                    // });
+                    getPatientReffrealsData(context: context,
+                        pageNo: 1, nbrOfRows: 9999,
+                       // pageNo: currentPage, nbrOfRows: itemsPerPage,
+                        isIntake: 'false', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                        marketerId: providerContact.marketerId,
+                        referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
+                      _streamController.add(data);
+                    }).catchError((error) {
+                      // Handle error
+                    });
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 60),
