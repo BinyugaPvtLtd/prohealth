@@ -154,6 +154,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                       enabled: widget.enable == null ? true : false,
                       controller: widget.controller,
                       obscureText: _obscureText,
+                     onChanged: widget.onChanged,
                      // keyboardType: widget.keyboardType,
                       cursorHeight: 17,
                       cursorColor: Colors.black,

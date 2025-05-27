@@ -153,16 +153,16 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
 
   void _handlePress() {
 
-    setState(() {
-      _isLoading = true;
-    });
+    // setState(() {
+    //   _isLoading = true;
+    // });
 
     widget.onPressed();
-    Future.delayed(Duration(seconds: widget.loadingDuration!), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    // Future.delayed(Duration(seconds: widget.loadingDuration!), () {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // });
   }
   @override
   Widget build(BuildContext context) {
@@ -175,7 +175,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
             height: 25,
             child: CircularProgressIndicator(color: ColorManager.blueprime,))),
       ) :ElevatedButton(
-        onPressed: widget.isSelectShow! ? _handlePress : null,
+        onPressed: widget.isSelectShow! ? widget.onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: widget.color ?? ColorManager.bluebottom,
           foregroundColor: widget.textColor,

@@ -153,7 +153,7 @@ Future<List<PatientRepresentativeData>> getPatientRepresentative({
 }) async {
   List<PatientRepresentativeData> itemsList = [];
   try {
-    final response = await Api(context).get(path: RelatedPartiesRepo.getEmergencyContact(ptId: ptId));
+    final response = await Api(context).get(path: RelatedPartiesRepo.getRelatedRepresentive(ptId: ptId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsList.add(
@@ -182,5 +182,63 @@ Future<List<PatientRepresentativeData>> getPatientRepresentative({
   } catch (e) {
     print("Error $e");
     return itemsList;
+  }
+}
+
+
+Future<ApiData> addPatientRepresentative(
+    {
+      required BuildContext context,
+      required int fk_pt_id,
+      required String firstName,
+      required String lastname,
+      required int relationshipId,
+      required String street,
+      required String suite,
+      required String city,
+      required String state,
+      required String zipCode,
+      required String phoneNumber,
+      required String email,
+      required int fk_role,
+      required int fk_type
+    }) async {
+  try {
+    var response = await Api(context).post(
+        path: RelatedPartiesRepo.addRelatedRepresentive(),
+        data: {
+          "fk_pt_id": fk_pt_id,
+          "firstName": firstName,
+          "lastName": lastname,
+          "fk_Relationship": relationshipId,
+          "street": street,
+          "suite": suite,
+          "city": city,
+          "state": state,
+          "zipCode": zipCode,
+          "phoneNumber": phoneNumber,
+          "email": email,
+          "fk_role": fk_role,
+          "fk_type": fk_type
+        }
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Patient Representative  added ");
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: true,
+        message: response.statusMessage!,
+      );
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
