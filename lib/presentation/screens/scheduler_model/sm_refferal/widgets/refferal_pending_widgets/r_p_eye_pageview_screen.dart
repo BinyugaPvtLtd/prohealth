@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -1492,8 +1493,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                   ApiData apiData =  await postReferralPatientDocuments(
                                       context: context,
                                       fk_pt_id: patientId,
-                                      rptd_url: result.files.first.name,
-                                      rptd_created_by: snapshot.data!.marketer.employeeId);
+                                      document_name: result.files.first.name,
+                                      rptd_document_type: AppConfig.defaultAttachment,
+                                      rptd_content: "");
                                   if(apiData.statusCode == 200 || apiData.statusCode == 201){
                                     var uploadPatientDoc = await uploadPatientReffrelsDocuments(context: context,
                                         rptd_id: apiData.rptd_id!,
