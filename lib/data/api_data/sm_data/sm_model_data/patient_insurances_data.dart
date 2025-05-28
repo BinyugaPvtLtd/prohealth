@@ -54,12 +54,14 @@ class PatientDocumentsFtwoFData{
   final String rptd_url;
   final String documentName;
   final String rptd_created_at;
+  final String rptd_content;
   final int rptd_created_by;
 
 
   PatientDocumentsFtwoFData({required this.rptd_id,
     required this.documentName,
     required this.fk_pt_id,
+    required this.rptd_content,
     required this.rptd_url, required this.rptd_created_at, required this.rptd_created_by,});
 }
 ///patient document Consent

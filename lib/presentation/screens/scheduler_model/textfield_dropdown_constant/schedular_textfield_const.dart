@@ -344,7 +344,8 @@ class _SchedularTextFieldcheckboxState extends State<SchedularTextFieldcheckbox>
                       child: TextFormField(
                         focusNode: widget.focusNode,
                         autofocus: true,
-                        enabled: widget.enable == null ? true : false,
+                        enabled: widget.enable ?? false,
+                        //enabled:  widget.enable == null ? true : false,
                         controller: widget.controller,
                         // keyboardType: widget.keyboardType,
                         cursorHeight: 17,
