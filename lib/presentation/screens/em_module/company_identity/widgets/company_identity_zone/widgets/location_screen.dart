@@ -4,7 +4,8 @@ import 'dart:html' as html; // For browser back button
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:prohealth/app/constants/app_config.dart'; // Replace with your actual config path
+import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/color.dart'; // Replace with your actual config path
 
 class MapScreen extends StatefulWidget {
   final LatLng initialLocation;
@@ -166,9 +167,22 @@ class _MapScreenState extends State<MapScreen> {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: _confirmSelection,
-                  child: Text("Confirm"),
+                Row(
+                  spacing: 30,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                      side: BorderSide(color: ColorManager.blueprime)),
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: Text("Cancel",style: TextStyle(color: ColorManager.blueprime),),
+                    ),
+                    ElevatedButton(
+                      onPressed: _confirmSelection,
+                      child: Text("Confirm"),
+                    ),
+                  ],
                 ),
               ],
             ),
