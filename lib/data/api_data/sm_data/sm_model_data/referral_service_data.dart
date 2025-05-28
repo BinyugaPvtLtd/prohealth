@@ -38,3 +38,15 @@ class PatientPhysicianMasterData{
     required this.phy_contact});
 
 }
+
+
+class PatientMarketerData{
+  final int employeeId;
+  final String firstName;
+  final String lastName;
+  final int departmentId;
+  final int employeeTypeId;
+  PatientMarketerData({
+    required this.employeeTypeId,
+    required this.employeeId, required this.firstName, required this.lastName, required this.departmentId});
+}

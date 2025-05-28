@@ -763,3 +763,36 @@ Future<ApiData> uploadPatientReffrelsDocuments({
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+
+/// Marketer data
+Future<List<PatientMarketerData>> getMarketerWithDeptId({
+  required BuildContext context,
+  required int deptId
+}) async {
+  List<PatientMarketerData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getMarketerIdWithData(deptId: deptId),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientMarketerData(
+            employeeId: item['employeeId']??0,
+            firstName: item['firstName']??'--',
+            lastName: item['lastName']??'--',
+            departmentId: item['departmentId']??0, employeeTypeId: item['employeeTypeId']??0
+        ));
+      }
+    }
+    else {
+      print("Marketer data error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}

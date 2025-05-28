@@ -3,6 +3,7 @@ class PatientRefferalsRepo{
   static String serviceRefferals = '/services-master';
   static String employeeClinical = '/employee-types/GetClinicianType';
   static String patientInsuarnce = '/insurances-master';
+  static String marketerApi = '/employees/department';
 
   /// patient document
   static String patientDocument = '/patient-document/patient';
@@ -63,5 +64,10 @@ class PatientRefferalsRepo{
 
   static  String patientReffrealsSources(){
     return "$patientRefferalsMaster";
+  }
+
+  /// marketer data
+  static  String getMarketerIdWithData({required int deptId}){
+    return "$marketerApi/$deptId";
   }
 }
