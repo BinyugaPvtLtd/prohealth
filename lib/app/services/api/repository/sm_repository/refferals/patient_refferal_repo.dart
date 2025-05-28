@@ -14,6 +14,7 @@ class PatientRefferalsRepo{
   /// filter master repo
   static String patientRefferalsMaster = '/referral-sources';
   static String patientPhysicianMaster = '/physician-master';
+  static String patientDiagnosisiMaster = '/diagnosis-master';
 
 
   static  String getPatientRefferals({required int pageNo, required int nbrOfRows, required String isIntake, required String isArchived,required String isScheduled, required String searchName, required String marketerId,required String referralSourceId, required String pcpId}){
@@ -73,5 +74,9 @@ class PatientRefferalsRepo{
   /// marketer data
   static  String getMarketerIdWithData({required int deptId}){
     return "$marketerApi/$deptId";
+  }
+
+  static  String getDiagnosisMaster(){
+    return "$patientDiagnosisiMaster";
   }
 }

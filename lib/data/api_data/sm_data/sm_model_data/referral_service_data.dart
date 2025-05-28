@@ -50,3 +50,12 @@ class PatientMarketerData{
     required this.employeeTypeId,
     required this.employeeId, required this.firstName, required this.lastName, required this.departmentId});
 }
+
+class PatientDiagnosisMasterData{
+  final int dgnId;
+  final String dgnName;
+  final String dgnCode;
+
+  PatientDiagnosisMasterData({required this.dgnId, required this.dgnName, required this.dgnCode});
+
+}
