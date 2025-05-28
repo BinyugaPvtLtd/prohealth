@@ -54,6 +54,10 @@
 //   static const String month = "Month";
 //   static const String misc = "MISC";
 //   static const String other = "Other";
+// ///SM
+// static const int clinicianAttachment = 1;
+// static const int billingAttachment = 2;
+// static const int consent = 3;
 // }
 
 ///dev instance
@@ -64,7 +68,7 @@ class AppConfig {
   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
   // static const String deployment = "https://prohealth.symmetry.care";
   static const String deployment = "https://staging.symmetry.care";
-  static const String version = "Version 1.0.1 (6) dev";
+  static const String version = "Version 1.0.1 (7) dev";
   static const String local = "";
   static const String prod = "";
   static const String endpoint = dev;
@@ -119,6 +123,12 @@ class AppConfig {
   static const String year = "Year";
   static const String month = "Month";
   static const String misc = "MISC";
+
+  ///SM
+  static const int defaultAttachment = 0;
+  static const int clinicianAttachment = 1;
+  static const int billingAttachment = 2;
+  static const int consent = 3;
 }
 ///worker instance
 // class AppConfig {
@@ -185,6 +195,10 @@ class AppConfig {
 //   static const String month = "Month";
 //   static const String misc = "MISC";
 //   static const String other = "Other";
+// ///SM
+// static const int clinicianAttachment = 1;
+// static const int billingAttachment = 2;
+// static const int consent = 3;
 // }
 
 ///local host
@@ -250,4 +264,8 @@ class AppConfig {
 //   static const String year = "Year";
 //   static const String month = "Month";
 //   static const String misc = "MISC";
+// ///SM
+// static const int clinicianAttachment = 1;
+// static const int billingAttachment = 2;
+// static const int consent = 3;
 // }

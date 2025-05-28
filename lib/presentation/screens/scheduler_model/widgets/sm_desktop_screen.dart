@@ -31,6 +31,7 @@ import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../sm_Intake/intake_main_screen.dart';
 import '../sm_scheduler/widget/schedular/schedular_new_screen.dart';
 import '../sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';
+import '../sm_scheduler/widget/schedular_create/widget/calender_const.dart';
 
 class SMDesktopScreen extends StatefulWidget {
   final ValueChanged<String?>? onChanged;
@@ -191,6 +192,19 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   }
   ///checkbox
   bool _isChecked = false;
+  bool isShowingCalenderPageview = false;
+  void switchToCalenderPageviweScreen() {
+    setState(() {
+      isShowingCalenderPageview  = true;
+    });
+  }
+
+  void goBackToInitialFromCalenderScreen() {
+    setState(() {
+      isShowingCalenderPageview  = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
@@ -395,7 +409,9 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
                   Expanded(
                     flex: 8,
-                    child: _showHighestCaseViewMoreScreen
+                    child:  isShowingCalenderPageview ?
+                    CalenderConstant(onBack: goBackToInitialFromCalenderScreen,) :
+                    _showHighestCaseViewMoreScreen
                     ? HigestCaseViewMoreScreen(
                       onGoBackHigestCase:  () {
                         setState(() {
@@ -465,7 +481,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                         }); }, patientInfoData: _totalPatients,),
                        // SMIntakeScreen(),
                         NewSchedulerScreen(),
-                        SmCalenderScreen(),
+                        SmCalenderScreen(onCalenderSearchPressed: switchToCalenderPageviweScreen,),
                         SmLiveViewMapScreen(),
                         Container(color:Colors.white),
                         SMIntakeScreen(onGoBackPressed: () {

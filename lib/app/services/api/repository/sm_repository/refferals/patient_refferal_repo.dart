@@ -51,6 +51,10 @@ class PatientRefferalsRepo{
   static  String deletePatientDocument({required int id}){
     return "$patientDocumentDelete/$id";
   }
+  ///patient-document/patient/{patientId}/{documentType}
+  static  String getPatientDocumentByDocType({required int patientId, required int documentType}){
+    return "$patientDocument/$patientId/$documentType";
+  }
 
   static  String attachPatientDocument({required int rptd_id}){
     return "$patientDocumentAttach/$rptd_id";

@@ -7,11 +7,12 @@ class HeaderContentConst extends StatelessWidget {
   final Widget content;
   final bool isAsterisk;
   final bool isDoc;
-
+  final TextStyle? styleHeading;
   const HeaderContentConst({
     super.key,
     required this.heading,
     required this.content,
+    this.styleHeading,
     this.isAsterisk = false, // Default value is false
     this.isDoc = false, // Default value is false
   });
@@ -27,7 +28,7 @@ class HeaderContentConst extends StatelessWidget {
           RichText(
             text: TextSpan(
               text: heading, // Main heading text
-              style: AllPopupHeadings.customTextStyle(context), // Main style
+              style: styleHeading ?? AllPopupHeadings.customTextStyle(context), // Main style
               children: [
                 if (isAsterisk)
                   TextSpan(

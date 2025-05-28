@@ -369,6 +369,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_calender/widge
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular_create/widget/edit_calender_schedule_popup.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../../../app/resources/value_manager.dart';
 import 'assign_visit_pop_up.dart';
 
 class CalenderConstant extends StatefulWidget {
@@ -423,19 +424,19 @@ class _CalenderConstantState extends State<CalenderConstant> {
       curve: Curves.ease,
     );
   }
-
-  void goBack() {
-    if (selectedIndex > 0) {
-      setState(() {
-        selectedIndex--;
-      });
-      _pageController.animateToPage(
-        selectedIndex,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.ease,
-      );
-    }
-  }
+  //
+  // void goBack() {
+  //   if (selectedIndex > 0) {
+  //     setState(() {
+  //       selectedIndex--;
+  //     });
+  //     _pageController.animateToPage(
+  //       selectedIndex,
+  //       duration: const Duration(milliseconds: 500),
+  //       curve: Curves.ease,
+  //     );
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return PageView(
@@ -456,17 +457,43 @@ class _CalenderConstantState extends State<CalenderConstant> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextButton.icon(
-                          onPressed: widget.onBack,
-                          label: Text(
-                            'Back',
-                            style: CustomTextStylesCommon.commonStyle(
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.textBlack),
+                        InkWell(
+                          hoverColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: widget.onBack,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Icon(
+                                  Icons.arrow_back,
+                                  size: IconSize.I16,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
+                              Text(
+                                "Back",
+                                style: CustomTextStylesCommon.commonStyle(
+                                  color: ColorManager.mediumgrey,
+                                  fontSize: FontSize.s14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            ],
                           ),
-                          icon: Icon(Icons.keyboard_arrow_left_rounded, color: ColorManager.textBlack),
                         ),
+                        // TextButton.icon(
+                        //   onPressed: widget.onBack,
+                        //   label: Text(
+                        //     'Back',
+                        //     style: CustomTextStylesCommon.commonStyle(
+                        //         fontSize: FontSize.s14,
+                        //         fontWeight: FontWeight.w500,
+                        //         color: ColorManager.textBlack),
+                        //   ),
+                        //   icon: Icon(Icons.keyboard_arrow_left_rounded, color: ColorManager.textBlack),
+                        // ),
                         Row(
                           children: [
                           ElevatedButton(
@@ -573,7 +600,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
             ),
           ),
         ),
-        PatientDetailsCalender(onBack: goBack,),
+        PatientDetailsCalender(onBack: widget.onBack,),
       ],
     );
   }

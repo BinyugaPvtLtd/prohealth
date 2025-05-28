@@ -1109,7 +1109,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
-                                          child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ? IconSize.I18 :IconSize.I22,)
+                                          child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ? IconSize.I20 :IconSize.I22,)
                                           ,onTap:(){},),
                                         // IconButton(
                                         //   splashColor: Colors.transparent,
@@ -1134,7 +1134,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                             Icons.print_outlined,
                                             color: Color(0xFF686464),
                                           ),
-                                          iconSize: IconSize.I22,
+                                          iconSize: providerState.isContactTrue?IconSize.I20 :IconSize.I22,
                                         ),
                                         const SizedBox(width: AppSize.s10,),
                                         ///download
@@ -1149,7 +1149,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
-                                          iconSize: IconSize.I22,
+                                          iconSize: providerState.isContactTrue?IconSize.I20 :IconSize.I22,
                                         ),
                                         const SizedBox(width: AppSize.s10,),
                                         ///delete
@@ -1163,7 +1163,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
-                                          iconSize:IconSize.I22,
+                                          iconSize: providerState.isContactTrue?IconSize.I20 :IconSize.I22,
                                         ),
                                       ],
                                     )

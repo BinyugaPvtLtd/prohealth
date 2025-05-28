@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
@@ -631,9 +632,9 @@ Future<List<PatientDocumentsData>> getReffrealsPatientDocuments({
             fk_pt_id: item['fk_pt_id']??0,
             rptd_url: item['rptd_url']??'',
             rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
-            rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--"
-
-
+            rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--",
+            rptd_document_type: item['rptd_document_type'] ?? 0,
+            rptd_content: item['rptd_content'] ?? ""
         ));
       }
       }
@@ -647,21 +648,214 @@ Future<List<PatientDocumentsData>> getReffrealsPatientDocuments({
     return itemsData;
   }
 }
+///patient-document/patient/{patientId}/{documentType}
+Future<List<PatientDocumentsData>> getReffrealsPatientDocumentsByDocType({
+  required BuildContext context,
+  required int patientId,
+  required int documentType,
+}) async {
+  List<PatientDocumentsData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate).toLocal(); // toLocal() if you want local timezone
+
+    // Format date and time separated by a comma
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd, HH:mm:ss');
+
+    // Format the datetime
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientDocumentByDocType(patientId: patientId,documentType: documentType),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDocumentsData(
+            rptd_id: item['rptd_id']??0,
+            fk_pt_id: item['fk_pt_id']??0,
+            rptd_url: item['rptd_url']??'',
+            rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
+            rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--",
+            rptd_document_type: item['rptd_document_type'] ?? 0,
+            rptd_content: item['rptd_content'] ?? ""
+        ));
+      }
+    }
+    else {
+      print("patient Document error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+///patient document billing attachment
+Future<List<PatientDocumentsBillingData>> getReffrealsPatientDocumentsBillingAttachment({
+  required BuildContext context,
+  required int patientId,
+}) async {
+  List<PatientDocumentsBillingData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientDocumentByDocType(patientId: patientId,documentType: AppConfig.billingAttachment),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDocumentsBillingData(
+            rptd_id: item['rptd_id']??0,
+            fk_pt_id: item['fk_pt_id']??0,
+            rptd_url: item['rptd_url']??'',
+            rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
+            rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--",
+            rptd_document_type: item['rptd_document_type'] ?? 0,
+            rptd_content: item['rptd_content'] ?? ""
+        ));
+      }
+    }
+    else {
+      print("patient Document error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+///patient document F2f
+// Future<List<PatientDocumentsFtwoFData>> getReffrealsPatientDocumentsFaceTwoFace({
+//   required BuildContext context,
+//   required int patientId,
+// }) async {
+//   List<PatientDocumentsFtwoFData> itemsData = [];
+//   String convertIsoToDayMonthYear(String isoDate) {
+//     // Parse ISO date string to DateTime object
+//     DateTime dateTime = DateTime.parse(isoDate);
+//
+//     // Create a DateFormat object to format the date
+//     DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+//
+//     // Format the date into "dd mm yy" format
+//     String formattedDate = dateFormat.format(dateTime);
+//
+//     return formattedDate;
+//   }
+//   try {
+//     final response = await Api(context).get(
+//       path: PatientRefferalsRepo.getPatientDocumentByDocType(patientId: patientId,documentType: AppConfig.f2fEncounter),
+//     );
+//
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       for (var item in response.data) {
+//         itemsData.add(PatientDocumentsFtwoFData(
+//             rptd_id: item['rptd_id']??0,
+//             fk_pt_id: item['fk_pt_id']??0,
+//             rptd_url: item['rptd_url']??'',
+//             rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
+//             rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--"
+//         ));
+//       }
+//     }
+//     else {
+//       print("patient Document error");
+//     }
+//
+//     return itemsData;
+//   } catch (e) {
+//     print("error: $e");
+//     return itemsData;
+//   }
+// }
+
+///patient document Consent
+Future<List<PatientDocumentsConsentData>> getReffrealsPatientDocumentsConsent({
+  required BuildContext context,
+  required int patientId,
+  required int doctypeId,
+}) async {
+  List<PatientDocumentsConsentData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientDocumentByDocType(patientId: patientId,documentType: doctypeId),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDocumentsConsentData(
+            rptd_id: item['rptd_id']??0,
+            fk_pt_id: item['fk_pt_id']??0,
+            rptd_url: item['rptd_url']??'',
+            rptd_created_at: convertIsoToDayMonthYear(item['rptd_created_at'])??'',
+            rptd_created_by: item['rptd_id']??0, documentName: item['document_name']??"--",
+            rptd_document_type: item['rptd_document_type'] ?? 0,
+            rptd_content: item['rptd_content'] ?? ""
+
+        ));
+      }
+    }
+    else {
+      print("patient Document error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
 /// Add Patient documents
 Future<ApiData> postReferralPatientDocuments(
     {
       required BuildContext context,
       required int fk_pt_id,
-      required String rptd_url,
-      required int rptd_created_by,
+      required String document_name,
+      //required int rptd_created_by,
+      int? rptd_document_type,
+      required String rptd_content,
+
     }) async {
   try {
     var response = await Api(context).post(
       path: PatientRefferalsRepo.addPatientDocument(),
       data: {
         "fk_pt_id": fk_pt_id,
-        "document_name": rptd_url,
-        "rptd_created_by": rptd_created_by
+        "document_name": document_name,
+        "rptd_document_type": rptd_document_type,
+        "rptd_content": rptd_content,
       }
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -742,14 +936,14 @@ Future<ApiData> uploadPatientReffrelsDocuments({
     );
     print("Response ${response.toString()}");
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Patient Documents uploded");
+      print("Patient Documents uploded intake");
       // orgDocumentGet(context);
-      var uploadResponse = response.data;
-      int documentId = uploadResponse['employeeDocumentId'];
+      //var uploadResponse = response.data;
+     // int documentId = uploadResponse['employeeDocumentId'];
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!,documentId:documentId );
+          message: response.statusMessage! );
     } else {
       print("Error 1");
       return ApiData(
