@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import 'dart:html' as html; // For browser back button
 
 class MapScreen extends StatefulWidget {
   final LatLng initialLocation;
@@ -23,6 +24,10 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     _selectedLocation = widget.initialLocation;
+    html.window.onPopState.listen((event) {
+      if (Navigator.canPop(context)) {
+        Navigator.of(context).pop();
+      }});
   }
 
   void _onMapCreated(GoogleMapController controller) {

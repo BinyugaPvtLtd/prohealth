@@ -218,7 +218,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   double? _longitude;
   String? selectedCounty;
   String selectedZipCodeCounty = 'Select County';
-  String selectedZipCodeZone =" ";
+  String selectedZipCodeZone ="Select Zone";
   int docZoneId = 0;
   int countyId = 0;
   int countySortId = 0;
@@ -441,14 +441,14 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             }),
                         countyError != null
                             ? Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  countyError!,
-                                  style: CommonErrorMsg.customTextStyle(context),
-                                ),
-                              ],
-                            )
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              countyError!,
+                              style: CommonErrorMsg.customTextStyle(context),
+                            ),
+                          ],
+                        )
                             : SizedBox(height: 12),
                       ],
                     ),
@@ -473,19 +473,19 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       ),
                     ),
                     SizedBox(height: AppSize.s5),
-            FutureBuilder<List<AllCountyZoneGet>>(
+                    FutureBuilder<List<AllCountyZoneGet>>(
                         future:  getZoneByCounty(context, widget.officeId, countyId, 1, 200),
                         //stream: _zoneController.stream,
                         builder: (context, snapshotZone) {
-                          getZoneByCounty(
-                              context,
-                              widget.officeId,
-                              countyId,
-                              1,
-                              200)
-                              .then((data) {
-                            _zoneController.add(data);
-                          }).catchError((error) {});
+                          // getZoneByCounty(
+                          //     context,
+                          //     widget.officeId,
+                          //     countyId,
+                          //     1,
+                          //     200)
+                          //     .then((data) {
+                          //   _zoneController.add(data);
+                          // }).catchError((error) {});
                           if (snapshotZone.connectionState == ConnectionState.waiting) {
                             return Column(
                               children: [
@@ -506,11 +506,17 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                       padding: const EdgeInsets
                                           .symmetric(
                                           horizontal: AppPadding.p10),
-                                      child: Text(
-                                        selectedZipCodeZone,
-                                        //  AppString.dataNotFound,
-                                        style:
-                                        AllNoDataAvailable.customTextStyle(context),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            selectedZipCodeZone == "Select Zone" ? '' : selectedZipCodeZone,
+                                            //  AppString.dataNotFound,
+                                            style:
+                                            AllNoDataAvailable.customTextStyle(context),
+                                          ),
+                                          selectedZipCodeZone == "Select Zone" ?SizedBox() :Icon(Icons.arrow_drop_down)
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -584,10 +590,10 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                               );
                             }
                             // if (selectedZipCodeZone == null) {
-                            selectedZipCodeZone =
-                                snapshotZone.data![0].zoneName;
+                            // selectedZipCodeZone =
+                            //     snapshotZone.data![0].zoneName;
                             // }
-                            docZoneId = snapshotZone.data![0].zoneId;
+                            // docZoneId = snapshotZone.data![0].zoneId;
                             return Column(
                               children: [
                                 CICCDropdown(
@@ -620,18 +626,18 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                 SizedBox(height: AppSize.s10),
                 StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {
-                  return SMTextfieldAsteric(
-                    controller: widget.zipcodeController,
-                    keyboardType: TextInputType.text,
-                    text: 'Zip Code',
-                    onChanged: (value){
-                      setState(() {
-                        zipcodeError =widget.zipcodeController.text.isEmpty
-                            ? 'Zip Code Field Cannot Be Empty'
-                            : null;
-                      });
-                    },
-                  );},
+                    return SMTextfieldAsteric(
+                      controller: widget.zipcodeController,
+                      keyboardType: TextInputType.text,
+                      text: 'Zip Code',
+                      onChanged: (value){
+                        setState(() {
+                          zipcodeError =widget.zipcodeController.text.isEmpty
+                              ? 'Zip Code Field Cannot Be Empty'
+                              : null;
+                        });
+                      },
+                    );},
                 ),
                 zipcodeError != null ?
                 Row(
@@ -646,6 +652,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                 ) : SizedBox(height: AppSize.s12,),
                 SizedBox(height: AppSize.s6),
                 // Location Picker Section
+
                 Row(
                   children: [
                     TextButton(
