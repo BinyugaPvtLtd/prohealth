@@ -811,7 +811,9 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
   int countyId =0;
   String zoneNameText = '';
   String countyNameText= '';
-  late Future<List<SortByZoneData>> _zoneFuture;
+  final StreamController<List<AllCountyZoneGet>> _zoneController =
+  StreamController<List<AllCountyZoneGet>>.broadcast();
+  // late Future<List<SortByZoneData>> _zoneFuture;
 
   @override
   void initState() {
@@ -823,7 +825,8 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
     zoneNameText = widget.zoneName;
     countyNameText = widget.countyName;
     super.initState();
-    _zoneFuture = ZoneZipcodeDropdown(widget.officeId, context); // Initialize Future once
+    // _zoneFuture = getZoneByCounty(context, widget.officeId, countyId, 1, 200);
+    //ZoneZipcodeDropdown(widget.officeId, context); // Initialize Future once
 
   }
   void _pickLocation() async {
@@ -976,14 +979,6 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                           int docType = 0;
                           List<DropdownMenuItem<String>> dropDownTypesList = [];
                           for(var i in snapshotZone.data!){
-                            // if(widget.countyName == countyNameText){
-                            //   dropDownTypesList.add(
-                            //       DropdownMenuItem<String>(
-                            //         child: Text(countyNameText),
-                            //         value: countyNameText,
-                            //       ));
-                            // }
-
                             dropDownTypesList.add(
                               DropdownMenuItem<String>(
                                 value: i.countyName,
@@ -1036,9 +1031,19 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                     ),
                   ),
                   SizedBox(height: AppSize.s5),
-                  FutureBuilder<List<SortByZoneData>>(
-                      future: _zoneFuture,// PayRateZoneDropdown(context),
+                  // FutureBuilder<List<SortByZoneData>>(
+                  FutureBuilder<List<AllCountyZoneGet>>(
+                      future: getZoneByCounty(context, widget.officeId, countyId, 1, 200),
                       builder: (context,snapshotZone) {
+                        getZoneByCounty(
+                            context,
+                            widget.officeId,
+                            countyId,
+                            1,
+                            200)
+                            .then((data) {
+                          _zoneController.add(data);
+                        }).catchError((error) {});
                         if(snapshotZone.connectionState == ConnectionState.waiting){
                           return Container(
                             height: AppSize.s30,
@@ -1278,6 +1283,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
     );
   }
 }
+
 
 ///zone
 class AddZonePopup extends StatefulWidget {
