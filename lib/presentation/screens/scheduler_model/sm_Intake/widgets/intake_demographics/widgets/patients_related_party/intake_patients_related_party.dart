@@ -2129,7 +2129,7 @@ class _IntakeRelatedPartiesScreenState extends State<IntakeRelatedPartiesScreen>
                                           );
                                         },
                                       );
-                                       await loadInitialemergencyData();
+
                                       setState(() {
                                         isLoading = false; // End loading
                                       });
@@ -2158,29 +2158,6 @@ class _IntakeRelatedPartiesScreenState extends State<IntakeRelatedPartiesScreen>
                               final state = key.currentState!;
                               print('Prefill PR state ${state.prefillDataRepresent}');
                               try {
-                                // Only check file size if "Currently Working" is selected (checkbox is checked)
-                                //if (state.isChecked) {
-                                // Check if a file is uploaded and if it is under 20MB
-                                // if ((state.fileName != null || state.finalPath != null)) {
-                                // // Check the file size
-                                // File file = File(state.finalPath!);
-                                // int fileSizeInBytes = await file.length(); // Get file size in bytes
-                                // int fileSizeInMB = fileSizeInBytes ~/ (1024 * 1024); // Convert to MB
-                                //
-                                // if (fileSizeInMB > 20) {
-                                // // Show "File is too large!" error message if the file exceeds 20MB
-                                // showDialog(
-                                // context: context,
-                                // builder: (BuildContext context) {
-                                // return AddErrorPopup(
-                                // message: 'File is too large! Max size is 20MB.',
-                                // );
-                                // },
-                                // );
-                                // return; // Exit the function if the file is too large
-                                // }
-                                // }
-                                // }
                                 if(state.prefillDataRepresent == false){
                                   // Proceed with posting the employment data if the conditions are met
                                   var response = await addPatientRepresentative(
@@ -2209,12 +2186,6 @@ class _IntakeRelatedPartiesScreenState extends State<IntakeRelatedPartiesScreen>
                                         );
                                       },
                                     );
-                                    await loadInitialrepresentative();
-                                    setState(() {
-                                      isLoading = false; // End loading
-                                    });
-
-
                                   } else {
                                     await showDialog(
                                       context: context,
@@ -2235,6 +2206,8 @@ class _IntakeRelatedPartiesScreenState extends State<IntakeRelatedPartiesScreen>
                               }
                             }
                           }finally{
+                            loadInitialrepresentative();
+                            loadInitialemergencyData();
                             setState(() {
                               isLoading = false; // Start loading
                             });
@@ -2403,7 +2376,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                   controller: firstNameController,
                   labelText: 'First Name*',
                   onChanged: (value){
-                    if(value.isNotEmpty && value != firstNameController.text){
+                    if(value.isNotEmpty ){
                       isPrefill= false;
                     }
                   },
@@ -2414,7 +2387,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                   controller: lastNameController,
                   labelText: 'Last Name*',
                   onChanged: (value){
-                    if(value.isNotEmpty&& value != lastNameController.text){
+                    if(value.isNotEmpty){
                       isPrefill= false;
                     }
                   },
@@ -2447,6 +2420,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         for (var a in snapshot.data!) {
                           if (a.relationship == newValue) {
                             selectedRelationshipEC = a.relationship!;
+                            relationShipId = a.relationshipId;
 
                             //country = a
                             // int? docType = a.companyOfficeID;
@@ -2470,7 +2444,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                   controller: firstNameController,
                   labelText: 'First Name*',
                   onChanged: (value){
-                    if(value.isNotEmpty&& value != firstNameController.text){
+                    if(value.isNotEmpty){
                       isPrefill= false;
                     }
                   },
@@ -2481,7 +2455,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                   controller: lastNameController,
                   labelText: 'Last Name*',
                   onChanged: (value){
-                    if(value.isNotEmpty&& value != lastNameController.text){
+                    if(value.isNotEmpty){
                       isPrefill= false;
                     }
                   },
@@ -2514,6 +2488,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         for (var a in snapshot.data!) {
                           if (a.relationship == newValue) {
                             selectedRelationshipEC = a.relationship!;
+                            relationShipId = a.relationshipId;
                             //country = a
                             // int? docType = a.companyOfficeID;
                           }
@@ -2541,7 +2516,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     onChanged: (value){
-                      if(value.isNotEmpty&& value != streetController.text){
+                      if(value.isNotEmpty){
                         isPrefill= false;
                       }
                     },
@@ -2552,7 +2527,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     onChanged: (value){
-                      if(value.isNotEmpty && value != suitAptController.text){
+                      if(value.isNotEmpty){
                         isPrefill= false;
                       }
                     },
@@ -2600,7 +2575,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
               ///
               child: SchedularTextField(
                   onChanged: (value){
-                    if(value.isNotEmpty&& value != cityController.text){
+                    if(value.isNotEmpty){
                       isPrefill= false;
                     }
                   },
@@ -2614,7 +2589,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     onChanged: (value){
-                      if(value.isNotEmpty&& value != streetController.text){
+                      if(value.isNotEmpty){
                         isPrefill= false;
                       }
                     },
@@ -2625,7 +2600,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     onChanged: (value){
-                      if(value.isNotEmpty&& value != suitAptController.text){
+                      if(value.isNotEmpty){
                         isPrefill= false;
                       }
                     },
@@ -2673,7 +2648,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
               ///
               child: SchedularTextField(
                   onChanged: (value){
-                    if(value.isNotEmpty&& value != cityController.text){
+                    if(value.isNotEmpty){
                       isPrefill= false;
                     }
                   },
@@ -2723,7 +2698,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
               ///
               child: SchedularTextField(
                   onChanged: (value){
-                    if(value.isNotEmpty&& value != stateController.text){
+                    if(value.isNotEmpty){
                       isPrefill= false;
                     }
                   },
@@ -2734,7 +2709,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     onChanged: (value){
-                      if(value.isNotEmpty&& value != zipCodeController.text){
+                      if(value.isNotEmpty){
                         isPrefill= false;
                       }
                     },
@@ -2789,7 +2764,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
               ///
               child: SchedularTextField(
                   onChanged: (value){
-                    if(value.isNotEmpty&& value != stateController.text){
+                    if(value.isNotEmpty){
                       isPrefill= false;
                     }
                   },
@@ -2800,7 +2775,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     onChanged: (value){
-                      if(value.isNotEmpty&& value != zipCodeController.text){
+                      if(value.isNotEmpty){
                         isPrefill= false;
                       }
                     },
@@ -2811,7 +2786,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     onChanged: (value){
-                      if(value.isNotEmpty && value != phoneNumberController.text){
+                      if(value.isNotEmpty ){
                         isPrefill= false;
                       }
                     },
@@ -2825,7 +2800,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     onChanged: (value){
-                      if(value.isNotEmpty&& value != phoneNumberController.text){
+                      if(value.isNotEmpty){
                         isPrefill= false;
                       }
                     },
@@ -2836,7 +2811,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     onChanged: (value){
-                      if(value.isNotEmpty&& value != emailController.text){
+                      if(value.isNotEmpty){
                         isPrefill= false;
                       }
                     },
@@ -2857,7 +2832,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             Flexible(
                 child: SchedularTextField(
                     onChanged: (value){
-                      if(value.isNotEmpty&& value != emailController.text){
+                      if(value.isNotEmpty){
                         isPrefill= false;
                       }
                     },
