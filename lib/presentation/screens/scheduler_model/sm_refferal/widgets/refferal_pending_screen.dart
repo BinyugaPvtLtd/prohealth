@@ -59,40 +59,58 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
    TextEditingController _searchController = TextEditingController();
   final int itemsPerPage = 10;
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   //fetchData(); // Fetch once when screen loads
+  // }
+  //
+  // void fetchData() {
+  //   final providerContact = Provider.of<SmIntakeProviderManager>(context, listen: false);
+  //   getPatientReffrealsData(
+  //     context: context,
+  //     pageNo: 1,
+  //     nbrOfRows: 9999,
+  //     isIntake: 'false',
+  //     isArchived: 'false',
+  //     isScheduled: 'false',
+  //     searchName: _searchController.text.isEmpty ? 'all' : _searchController.text,
+  //     marketerId: providerContact.marketerId,
+  //     referralSourceId: providerContact.referralSourceId,
+  //     pcpId: providerContact.pcpId,
+  //   ).then((data) {
+  //     _streamController.add(data);
+  //   });
+  // }
+  //
+  // void _performSearch() {
+  //   // final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
+  //   // provider.setCurrentPage(1); // Reset pagination
+  //  // fetchData(); // Trigger search
+  // }
+
+
   @override
   void initState() {
     super.initState();
-    //fetchData(); // Fetch once when screen loads
-  }
 
-  void fetchData() {
-    final providerContact = Provider.of<SmIntakeProviderManager>(context, listen: false);
-    getPatientReffrealsData(
-      context: context,
-      pageNo: 1,
-      nbrOfRows: 9999,
-      isIntake: 'false',
-      isArchived: 'false',
-      isScheduled: 'false',
-      searchName: _searchController.text.isEmpty ? 'all' : _searchController.text,
-      marketerId: providerContact.marketerId,
-      referralSourceId: providerContact.referralSourceId,
-      pcpId: providerContact.pcpId,
-    ).then((data) {
-      _streamController.add(data);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
+
+      provider.setCurrentScreen(RefferalFilterScreenType.pending);
+      provider.filterIdIntegration(
+        context: context,
+        marketerId: 'all',
+        sourceId: 'all',
+        pcpId: 'all',
+      );
     });
-  }
-
-  void _performSearch() {
-    // final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
-    // provider.setCurrentPage(1); // Reset pagination
-   // fetchData(); // Trigger search
   }
 
 
   @override
   void dispose() {
-    // _streamController.close();
+    _streamController.close();
     // _searchController.dispose();
     super.dispose();
   }
@@ -120,9 +138,16 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                   Row(
                     children: [
                       CustomSearchFieldSM(
-                        searchController: _searchController,
+                        searchController: pageProvider.searchController,
                         width: 440,
-                        onPressed: _performSearch,
+                        onPressed:() {
+                          pageProvider.filterIdIntegration(
+                            context: context,
+                            marketerId: pageProvider.marketerId,
+                            sourceId: pageProvider.referralSourceId,
+                            pcpId: pageProvider.pcpId,
+                          );
+                        },
                       ),
                       SizedBox(
                         width: AppSize.s20,
@@ -165,7 +190,9 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
               ),
               Flexible(
                 child: StreamBuilder<List<PatientModel>>(
-                  stream: _streamController.stream,
+                    stream:  Provider.of<SmIntakeProviderManager>(context).patientReferralsStream,
+
+                    // stream: _streamController.stream,
                   builder: (context,snapshot) {
                     getPatientReffrealsData(context: context,
                         pageNo: 1, nbrOfRows: 9999,

@@ -548,7 +548,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                     Text(
                                       "Filters",
                                       style: TextStyle(
-                                          fontSize: 16, fontWeight: FontWeight.bold),
+                                          fontSize: 16, fontWeight: FontWeight.bold, color: ColorManager.mediumgrey,),
                                     ),
 
                                   ],
@@ -559,7 +559,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                _isCheckedListMaster = List<bool>.filled(hRAllData.length, false);
                                _physicianList = List<bool>.filled(patientPhysicianMasterData.length, false);
                                providerState.filterIdIntegration(marketerId: 'all',
-                                   sourceId: 'all', pcpId: 'all');
+                                   sourceId: 'all', pcpId: 'all', context: context);
                                //providerState.toggleFilter();
                              }, child: Text("CLEAR ALL"))
                             ],
@@ -577,7 +577,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               children: [
                                 Text(
                                   "Marketer",
-                                  style: AllHRTableData.customTextStyle(context),
+                                  style: Filterhead.customTextStyle(context),
                                 ),
                                 Icon(
                                   providerState.MContainerVisible
@@ -623,6 +623,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
                                                         // Call API only when a checkbox is checked
                                                         providerState.filterIdIntegration(
+                                                          context: context,
                                                           marketerId: hRAllData[index].employeeTypesId.toString(),
                                                           sourceId: 'all',
                                                           pcpId: 'all',
@@ -665,7 +666,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Order Received Date",
-                                    style: AllHRTableData.customTextStyle(context)),
+                                    style: Filterhead.customTextStyle(context)),
                                 Icon(
                                   providerState.OContainerVisible
                                       ? Icons.keyboard_arrow_up
@@ -699,7 +700,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Referral Source",
-                                    style: AllHRTableData.customTextStyle(context)),
+                                    style: Filterhead.customTextStyle(context)),
                                 Icon(
                                   providerState.RContainerVisible
                                       ? Icons.keyboard_arrow_up
@@ -725,6 +726,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                     child: Column(
                                                                   children: [
                                     TextField(
+                                      style: DocumentTypeDataStyle.customTextStyle(context),
                                       decoration: InputDecoration(
                                         hintText: 'Search...',
                                         prefixIcon: Icon(Icons.search,
@@ -765,7 +767,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                                 providerState.filterIdIntegration(
                                                     marketerId: 'all',
                                                     sourceId: patientRefferalSourcesData[index].ref_source_id.toString(),
-                                                    pcpId: 'all');
+                                                    pcpId: 'all', context: context);
                                               }
                                               // If value is false (unchecking), do nothing
                                             });
@@ -801,7 +803,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Agency",
-                                    style: AllHRTableData.customTextStyle(context)),
+                                    style: Filterhead.customTextStyle(context)),
                                 Icon(
                                   providerState.AContainerVisible
                                       ? Icons.keyboard_arrow_up
@@ -835,7 +837,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Insurance",
-                                    style: AllHRTableData.customTextStyle(context)),
+                                    style: Filterhead.customTextStyle(context)),
                                 Icon(
                                   providerState.IContainerVisible
                                       ? Icons.keyboard_arrow_up
@@ -869,7 +871,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Insurance Category",
-                                    style: AllHRTableData.customTextStyle(context)),
+                                    style: Filterhead.customTextStyle(context)),
                                 Icon(
                                   providerState.ICContainerVisible
                                       ? Icons.keyboard_arrow_up
@@ -890,6 +892,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               ? Column(
                             children: [
                               TextField(
+                                style: DocumentTypeDataStyle.customTextStyle(context),
                                 decoration: InputDecoration(
                                   hintText: 'Search...',
                                   prefixIcon: Icon(Icons.search,
@@ -963,7 +966,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Potential Discharge Date",
-                                    style: AllHRTableData.customTextStyle(context)),
+                                    style: Filterhead.customTextStyle(context)),
                                 Icon(
                                   providerState.PContainerVisible
                                       ? Icons.keyboard_arrow_up
@@ -1038,7 +1041,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Physician",
-                                    style: AllHRTableData.customTextStyle(context)),
+                                    style: Filterhead.customTextStyle(context)),
                                 Icon(
                                   providerState.PContainerVisible
                                       ? Icons.keyboard_arrow_up
@@ -1081,6 +1084,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
                                                         // Call API only when a checkbox is checked
                                                         providerState.filterIdIntegration(
+                                                          context: context,
                                                           marketerId: 'all',
                                                           sourceId: 'all',
                                                           pcpId: patientPhysicianMasterData[index].phy_id.toString(),

@@ -46,35 +46,44 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
   @override
   void initState() {
     super.initState();
-    // _searchController.addListener(_onSearchChanged);
-    // _fetchData(); // Initial load
-  }
 
-  void _onSearchChanged() {
-    // _fetchData();
-  }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
 
-  void _fetchData() async {
-    final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
-
-    try {
-      final data = await getPatientReffrealsData(
-        context: context,
-        pageNo: 1,
-        nbrOfRows: 9999,
-        isIntake: 'true',
-        isArchived: 'false',
-        isScheduled: 'false',
-        searchName: _searchController.text.isEmpty ? 'all' : _searchController.text,
-        marketerId: provider.marketerId,
-        referralSourceId: provider.referralSourceId,
-        pcpId: provider.pcpId,
-      );
-      _streamController.add(data);
-    } catch (e) {
-      _streamController.addError("Failed to load data");
-    }
+      provider.setCurrentScreen(RefferalFilterScreenType.intake);
+    provider.filterIdIntegration(
+      context: context,
+      marketerId: 'all',
+      sourceId: 'all',
+      pcpId: 'all',
+    );
+    });
   }
+  // void _onSearchChanged() {
+  //   // _fetchData();
+  // }
+  //
+  // void _fetchData() async {
+  //   final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
+  //
+  //   try {
+  //     final data = await getPatientReffrealsData(
+  //       context: context,
+  //       pageNo: 1,
+  //       nbrOfRows: 9999,
+  //       isIntake: 'true',
+  //       isArchived: 'false',
+  //       isScheduled: 'false',
+  //       searchName: _searchController.text.isEmpty ? 'all' : _searchController.text,
+  //       marketerId: provider.marketerId,
+  //       referralSourceId: provider.referralSourceId,
+  //       pcpId: provider.pcpId,
+  //     );
+  //     _streamController.add(data);
+  //   } catch (e) {
+  //     _streamController.addError("Failed to load data");
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -101,9 +110,16 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomSearchFieldSM(
-                    searchController: _searchController,
+                    searchController:intakeProvider.searchController,
                     width: 440,
-                    onPressed: _onSearchChanged,
+                    onPressed:  () {
+                      intakeProvider.filterIdIntegration(
+                        context: context,
+                        marketerId: intakeProvider.marketerId,
+                        sourceId: intakeProvider.referralSourceId,
+                        pcpId: intakeProvider.pcpId,
+                      );
+                    },
                   ),
                   SizedBox(width: AppSize.s20,),
                   IconButton(
@@ -137,7 +153,9 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
               SizedBox(height: AppSize.s20,),
               Flexible(
                 child: StreamBuilder<List<PatientModel>>(
-                    stream: _streamController.stream,
+                    stream:  Provider.of<SmIntakeProviderManager>(context).patientReferralsStream,
+
+                    // stream: _streamController.stream,
                     builder: (context,snapshot) {
                       getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 9999, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                           marketerId: providerContact.marketerId,

@@ -134,169 +134,169 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const SizedBox(height: 40,),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Text('Records for Others Duplicates',style: CustomTextStylesCommon.commonStyle(
-                                            color:const Color(0xFF51B5E6),
-                                            fontWeight: FontWeight.w700,fontSize: 12)),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 15),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 2.0),
-                                              child: CustomDropdownsmi(
-
-                                                  width:150,
-                                                  isAstric:false,
-                                                  hintText: "Erica T",
-                                                  iconColor: ColorManager.mediumgrey,
-                                                  initialValue: selectedValue,
-                                                  headText: "", // Default fallback if depId doesn't match any of the expected values
-                                                  items: items,
-
-                                                  onChanged: (newValue) {
-                                                    // for (var a in snapshot.data!) {
-                                                    //   if (a.empType == newValue) {
-                                                    //     clinicialName = a.empType!;
-                                                    //     clinicalId = a.employeeTypesId!;
-                                                    //     print("Dept ID'''''' ${clinicalId}");
-                                                    //     print("';';';''''''''Dept ID ${clinicialName}");
-                                                    //     // Do something with docType
-                                                    //   }
-                                                    // }
-                                                  },
-                                                ),
-                                            ),
-
-
-                                            ///
-                                            // Container(
-                                            //   width:150,
-                                            //   height: 32,
-                                            //   child: DropdownButtonFormField<String>(
-                                            //     value: selectedValue,
-                                            //     decoration: InputDecoration(
-                                            //       border: UnderlineInputBorder(), // Only underline
-                                            //       enabledBorder: UnderlineInputBorder(
-                                            //         borderSide: BorderSide(color: Colors.grey),
-                                            //       ),
-                                            //       focusedBorder: UnderlineInputBorder(
-                                            //         borderSide: BorderSide(color: Color(0xFF686464)),
-                                            //       ),
-                                            //     ),
-                                            //     style: TextStyle(fontSize: 10),
-                                            //     icon: Icon(Icons.arrow_drop_down), // Down arrow icon
-                                            //     items: items.map((String value) {
-                                            //       return DropdownMenuItem<String>(
-                                            //         value: value,
-                                            //         child: Text(value),
-                                            //       );
-                                            //     }).toList(),
-                                            //     onChanged: (String? newValue) {
-                                            //       setState(() {
-                                            //         selectedValue = newValue;
-                                            //       });
-                                            //     },
-                                            //   ),
-                                            // ),
-                                            Text('You',style: CustomTextStylesCommon.commonStyle(
-                                                color:Color(0xFF7F7F7F),
-                                                fontWeight: FontWeight.w400,fontSize: 14),)
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          spacing: 15,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              spacing: 15,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.only(left: 10),
-                                                  child: Text('First Name*',style: CustomTextStylesCommon.commonStyle(
-                                                      color:Color(0xFF575757),
-                                                      fontWeight: FontWeight.w700,fontSize: 12)),
-                                                ),
-                                                Container(
-                                                  width: 130,
-                                                  height: 50,
-                                                  padding: const EdgeInsets.all(8),
-                                                // padding: EdgeInsets.symmetric(vertical: 10,horizontal: 25),
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFFEEEEEE),
-                                                    borderRadius: BorderRadius.circular(2),
-                                                  ),
-                                                  child: Text('Erica',style: CustomTextStylesCommon.commonStyle(
-                                                      color:Color(0xFF7F7F7F),
-                                                      fontWeight: FontWeight.w400,fontSize: 12)),
-                                                )
-                                              ],
-                                            ),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              spacing: 15,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.only(left: 10),
-                                                  child: Text('Last Name*',style: CustomTextStylesCommon.commonStyle(
-                                                      color:Color(0xFF575757),
-                                                      fontWeight: FontWeight.w700,fontSize: 12)),
-                                                ),
-                                                Container(
-                                                  width:130,
-                                                  height: 50,
-                                                  padding: const EdgeInsets.all(8),
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFFEEEEEE),
-                                                    borderRadius: BorderRadius.circular(2),
-                                                  ),
-                                                  child: Text('Erica2',style: CustomTextStylesCommon.commonStyle(
-                                                      color:Color(0xFF7F7F7F),
-                                                      fontWeight: FontWeight.w400,fontSize: 12)),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 10),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          spacing: 10,
-                                          children: [
-                                            CustomButtonTransparent(
-                                              width: AppSize.s120,
-                                              height: 28,
-                                              borderRadius: 14,
-                                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w700,
-                                                color: ColorManager.blueprime,),
-                                              text: "Accept Theirs",
-                                              onPressed: () {},
-                                            ),
-                                            CustomElevatedButton(
-                                              width: AppSize.s120,
-                                              height: 28,
-                                              borderRadius: 14,
-                                              text: "Keep Yours",
-                                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w700,
-                                                color: ColorManager.white,),
-                                              onPressed: (){},
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                      const SizedBox(height: 100,),
+                                      // Align(
+                                      //   alignment: Alignment.topCenter,
+                                      //   child: Text('Records for Others Duplicates',style: CustomTextStylesCommon.commonStyle(
+                                      //       color:const Color(0xFF51B5E6),
+                                      //       fontWeight: FontWeight.w700,fontSize: 12)),
+                                      // ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
+                                      //   child: Row(
+                                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      //     children: [
+                                      //
+                                      //       Padding(
+                                      //         padding: const EdgeInsets.only(left: 2.0),
+                                      //         child: CustomDropdownsmi(
+                                      //
+                                      //             width:150,
+                                      //             isAstric:false,
+                                      //             hintText: "Erica T",
+                                      //             iconColor: ColorManager.mediumgrey,
+                                      //             initialValue: selectedValue,
+                                      //             headText: "", // Default fallback if depId doesn't match any of the expected values
+                                      //             items: items,
+                                      //
+                                      //             onChanged: (newValue) {
+                                      //               // for (var a in snapshot.data!) {
+                                      //               //   if (a.empType == newValue) {
+                                      //               //     clinicialName = a.empType!;
+                                      //               //     clinicalId = a.employeeTypesId!;
+                                      //               //     print("Dept ID'''''' ${clinicalId}");
+                                      //               //     print("';';';''''''''Dept ID ${clinicialName}");
+                                      //               //     // Do something with docType
+                                      //               //   }
+                                      //               // }
+                                      //             },
+                                      //           ),
+                                      //       ),
+                                      //
+                                      //
+                                      //       ///
+                                      //       // Container(
+                                      //       //   width:150,
+                                      //       //   height: 32,
+                                      //       //   child: DropdownButtonFormField<String>(
+                                      //       //     value: selectedValue,
+                                      //       //     decoration: InputDecoration(
+                                      //       //       border: UnderlineInputBorder(), // Only underline
+                                      //       //       enabledBorder: UnderlineInputBorder(
+                                      //       //         borderSide: BorderSide(color: Colors.grey),
+                                      //       //       ),
+                                      //       //       focusedBorder: UnderlineInputBorder(
+                                      //       //         borderSide: BorderSide(color: Color(0xFF686464)),
+                                      //       //       ),
+                                      //       //     ),
+                                      //       //     style: TextStyle(fontSize: 10),
+                                      //       //     icon: Icon(Icons.arrow_drop_down), // Down arrow icon
+                                      //       //     items: items.map((String value) {
+                                      //       //       return DropdownMenuItem<String>(
+                                      //       //         value: value,
+                                      //       //         child: Text(value),
+                                      //       //       );
+                                      //       //     }).toList(),
+                                      //       //     onChanged: (String? newValue) {
+                                      //       //       setState(() {
+                                      //       //         selectedValue = newValue;
+                                      //       //       });
+                                      //       //     },
+                                      //       //   ),
+                                      //       // ),
+                                      //       Text('You',style: CustomTextStylesCommon.commonStyle(
+                                      //           color:Color(0xFF7F7F7F),
+                                      //           fontWeight: FontWeight.w400,fontSize: 14),)
+                                      //     ],
+                                      //   ),
+                                      // ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.symmetric(vertical: 8),
+                                      //   child: Row(
+                                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      //     spacing: 15,
+                                      //     children: [
+                                      //       Column(
+                                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                                      //         spacing: 15,
+                                      //         children: [
+                                      //           Padding(
+                                      //             padding: const EdgeInsets.only(left: 10),
+                                      //             child: Text('First Name*',style: CustomTextStylesCommon.commonStyle(
+                                      //                 color:Color(0xFF575757),
+                                      //                 fontWeight: FontWeight.w700,fontSize: 12)),
+                                      //           ),
+                                      //           Container(
+                                      //             width: 130,
+                                      //             height: 50,
+                                      //             padding: const EdgeInsets.all(8),
+                                      //           // padding: EdgeInsets.symmetric(vertical: 10,horizontal: 25),
+                                      //             decoration: BoxDecoration(
+                                      //               color: Color(0xFFEEEEEE),
+                                      //               borderRadius: BorderRadius.circular(2),
+                                      //             ),
+                                      //             child: Text('Erica',style: CustomTextStylesCommon.commonStyle(
+                                      //                 color:Color(0xFF7F7F7F),
+                                      //                 fontWeight: FontWeight.w400,fontSize: 12)),
+                                      //           )
+                                      //         ],
+                                      //       ),
+                                      //       Column(
+                                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                                      //         spacing: 15,
+                                      //         children: [
+                                      //           Padding(
+                                      //             padding: const EdgeInsets.only(left: 10),
+                                      //             child: Text('Last Name*',style: CustomTextStylesCommon.commonStyle(
+                                      //                 color:Color(0xFF575757),
+                                      //                 fontWeight: FontWeight.w700,fontSize: 12)),
+                                      //           ),
+                                      //           Container(
+                                      //             width:130,
+                                      //             height: 50,
+                                      //             padding: const EdgeInsets.all(8),
+                                      //             decoration: BoxDecoration(
+                                      //               color: Color(0xFFEEEEEE),
+                                      //               borderRadius: BorderRadius.circular(2),
+                                      //             ),
+                                      //             child: Text('Erica2',style: CustomTextStylesCommon.commonStyle(
+                                      //                 color:Color(0xFF7F7F7F),
+                                      //                 fontWeight: FontWeight.w400,fontSize: 12)),
+                                      //           )
+                                      //         ],
+                                      //       )
+                                      //     ],
+                                      //   ),
+                                      // ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.only(top: 10),
+                                      //   child: Row(
+                                      //     mainAxisAlignment: MainAxisAlignment.end,
+                                      //     spacing: 10,
+                                      //     children: [
+                                      //       CustomButtonTransparent(
+                                      //         width: AppSize.s120,
+                                      //         height: 28,
+                                      //         borderRadius: 14,
+                                      //         style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                      //           fontWeight: FontWeight.w700,
+                                      //           color: ColorManager.blueprime,),
+                                      //         text: "Accept Theirs",
+                                      //         onPressed: () {},
+                                      //       ),
+                                      //       CustomElevatedButton(
+                                      //         width: AppSize.s120,
+                                      //         height: 28,
+                                      //         borderRadius: 14,
+                                      //         text: "Keep Yours",
+                                      //         style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                      //           fontWeight: FontWeight.w700,
+                                      //           color: ColorManager.white,),
+                                      //         onPressed: (){},
+                                      //       ),
+                                      //     ],
+                                      //   ),
+                                      // ),
                                       Padding(
                                         padding: const EdgeInsets.only(bottom: 5),
                                         child: Divider(color: Color(0xFFD9D9D9),thickness: 1,),

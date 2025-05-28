@@ -48,45 +48,77 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
   final TextEditingController _searchController = TextEditingController();
 
   final int itemsPerPage = 10;
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // _searchController.addListener(_onSearchChanged);
+  //   // fetchData(); // Initial load
+  // }
+  // //
+  // SmIntakeProviderManager get providerContact =>
+  //     Provider.of<SmIntakeProviderManager>(context, listen: false);
+  // void _onSearchChanged() {
+  //   providerContact.filterIdIntegration(
+  //     context: context,
+  //     marketerId: providerContact.marketerId,
+  //     sourceId: providerContact.referralSourceId,
+  //     pcpId: providerContact.pcpId,
+  //   );
+  // }
+
+
+  // void fetchData() async {
+  //   final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
+  //
+  //   try {
+  //     final data = await getPatientReffrealsData(
+  //       context: context,
+  //       pageNo: 1,
+  //       nbrOfRows: 9999,
+  //       isIntake: 'false',
+  //       isArchived: 'true',
+  //       isScheduled: 'false',
+  //       searchName: _searchController.text.isEmpty ? 'all' : _searchController.text,
+  //       marketerId: provider.marketerId,
+  //       referralSourceId: provider.referralSourceId,
+  //       pcpId: provider.pcpId,
+  //     );
+  //     _streamController.add(data);
+  //   } catch (e) {
+  //     _streamController.addError("Error loading archived referrals");
+  //   }
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   // _searchController.removeListener(_onSearchChanged);
+  //   // _searchController.dispose();
+  //   // _streamController.close();
+  //   super.dispose();
+  // }
+  //
+
 
   @override
   void initState() {
     super.initState();
-    // _searchController.addListener(_onSearchChanged);
-    // fetchData(); // Initial load
-  }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
 
-  void _onSearchChanged() {
-    //fetchData();
-  }
-
-  void fetchData() async {
-    final provider = Provider.of<SmIntakeProviderManager>(context, listen: false);
-
-    try {
-      final data = await getPatientReffrealsData(
-        context: context,
-        pageNo: 1,
-        nbrOfRows: 9999,
-        isIntake: 'false',
-        isArchived: 'true',
-        isScheduled: 'false',
-        searchName: _searchController.text.isEmpty ? 'all' : _searchController.text,
-        marketerId: provider.marketerId,
-        referralSourceId: provider.referralSourceId,
-        pcpId: provider.pcpId,
-      );
-      _streamController.add(data);
-    } catch (e) {
-      _streamController.addError("Error loading archived referrals");
-    }
+      provider.setCurrentScreen(RefferalFilterScreenType.archive);
+    provider.filterIdIntegration(
+      context: context,
+      marketerId: 'all',
+      sourceId: 'all',
+      pcpId: 'all',
+    );
+  });
   }
 
   @override
   void dispose() {
-    // _searchController.removeListener(_onSearchChanged);
-    // _searchController.dispose();
-    // _streamController.close();
+    _streamController.close();
     super.dispose();
   }
 
@@ -110,9 +142,16 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomSearchFieldSM(
-                    searchController: _searchController,
+                    searchController: archievedProvider.searchController,
                     width: 440,
-                    onPressed: _onSearchChanged,
+                    onPressed: () {
+                      archievedProvider.filterIdIntegration(
+                        context: context,
+                        marketerId: archievedProvider.marketerId,
+                        sourceId: archievedProvider.referralSourceId,
+                        pcpId: archievedProvider.pcpId,
+                      );
+                    },
                   ),
                   SizedBox(width: AppSize.s20,),
                   IconButton(
@@ -130,7 +169,8 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
               SizedBox(height: AppSize.s20,),
               Flexible(
                 child: StreamBuilder<List<PatientModel>>(
-                  stream: _streamController.stream,
+                   stream:  Provider.of<SmIntakeProviderManager>(context).patientReferralsStream,
+                 // stream: _streamController.stream,
                   builder: (context,snapshot) {
                     getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 9999, isIntake: 'false', isArchived: 'true', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                         marketerId: providerContact.marketerId,
@@ -180,13 +220,12 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                             Expanded(
                               child: ListView.builder(
                                 itemCount: paginatedItems.length + 1, // Add one for pagination widget
-                             //   itemCount: paginatedItems.length, // ✅ Correct count
+                                                           //   itemCount: paginatedItems.length, // ✅ Correct count
                                 itemBuilder: (BuildContext context, int index) {
                                   if (index < paginatedItems.length) {
                                     final archieved = paginatedItems[index];
                                     return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 7,),
+                                      padding: const EdgeInsets.symmetric(vertical: 7,),
                                       child: Container(
                                         decoration: BoxDecoration(
                                           color: ColorManager.white,
@@ -216,7 +255,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                           mainAxisAlignment: MainAxisAlignment
                                               .center,
                                           children: [
-
+                              
                                             ///condition wise
                                             // Row(
                                             //     mainAxisAlignment: MainAxisAlignment.end,
@@ -315,15 +354,10 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                               .ptLastName}",
                                                           textAlign: TextAlign
                                                               .center,
-                                                          style: CustomTextStylesCommon
-                                                              .commonStyle(
-                                                            fontSize: FontSize
-                                                                .s12,
-                                                            fontWeight: FontWeight
-                                                                .w700,
-                                                            color:
-                                                            ColorManager
-                                                                .mediumgrey,
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: ColorManager.mediumgrey,
                                                           ),
                                                         ),
                                                         SizedBox(
@@ -371,7 +405,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                       ],
                                                     ),
                                                   ),
-
+                              
                                                   // SizedBox(width: AppSize.s35),
                                                   Expanded(
                                                     flex: 4,
@@ -651,7 +685,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                           context),
                                                     ),
                                                   ),
-
+                              
                                                   // SizedBox(width: AppSize.s15),
                                                   InkWell(
                                                     onTap: () async {
@@ -677,7 +711,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                             .bluebottom,
                                                       ),
                                                     ),
-
+                              
                                                   ),
                                                   SizedBox(width: AppSize.s15),
                                                   Column(
@@ -687,18 +721,13 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                     MainAxisAlignment.center,
                                                     children: [
                                                       InkWell(
-                                                          hoverColor:
-                                                          Colors.transparent,
-                                                          splashColor:
-                                                          Colors.transparent,
-                                                          highlightColor:
-                                                          Colors.transparent,
+                                                          hoverColor: Colors.transparent,
+                                                          splashColor: Colors.transparent,
+                                                          highlightColor: Colors.transparent,
                                                           onTap: () {},
                                                           child: Icon(
                                                             Icons.phone,
-                                                            color:
-                                                            ColorManager
-                                                                .bluebottom,
+                                                            color: ColorManager.bluebottom,
                                                             size: IconSize.I18,
                                                           )),
                                                       SizedBox(
@@ -706,15 +735,10 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                       ),
                                                       Text(
                                                         "Call",
-                                                        style: CustomTextStylesCommon
-                                                            .commonStyle(
-                                                          fontSize: FontSize
-                                                              .s10,
-                                                          fontWeight: FontWeight
-                                                              .w700,
-                                                          color:
-                                                          ColorManager
-                                                              .bluebottom,
+                                                        style: CustomTextStylesCommon.commonStyle(
+                                                          fontSize: FontSize.s10,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: ColorManager.bluebottom,
                                                         ),
                                                       )
                                                     ],
@@ -724,18 +748,13 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                     onTap: () async {
                                                       var response = await updateReferralPatient(
                                                           context: context,
-                                                          patientId: archieved
-                                                              .ptId,
+                                                          patientId: archieved.ptId,
                                                           isIntake: false,
                                                           isArchived: false,
                                                           isUpdatePatiendData: false);
-                                                      if (response.statusCode ==
-                                                          200 || response
-                                                          .statusCode == 201) {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (
-                                                              BuildContext context) {
+                                                      if (response.statusCode == 200 || response.statusCode == 201) {
+                                                        showDialog(context: context,
+                                                          builder: (BuildContext context) {
                                                             return AddSuccessPopup(
                                                               message: 'Data Updated Successfully',
                                                             );
@@ -746,38 +765,28 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                       }
                                                     },
                                                     child: Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Image.asset(
                                                           "images/sm/sm_refferal/Restore.png",
                                                           height: 16,
                                                           width: 18,
-                                                          color: ColorManager
-                                                              .bluebottom,
+                                                          color: ColorManager.bluebottom,
                                                         ),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
+                                                        SizedBox(height: 10,),
                                                         Text(
                                                           "Restore",
-                                                          style: CustomTextStylesCommon
-                                                              .commonStyle(
-                                                            fontSize: FontSize
-                                                                .s10,
-                                                            fontWeight: FontWeight
-                                                                .w700,
-                                                            color:
-                                                            ColorManager
-                                                                .bluebottom,
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            fontSize: FontSize.s10,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: ColorManager.bluebottom,
                                                           ),
                                                         )
                                                       ],
                                                     ),
                                                   )
-
+                              
                                                   // Expanded(
                                                   //   flex: 3,
                                                   //   child: Row(
@@ -836,7 +845,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                   //     ],
                                                   //   ),
                                                   // ),
-
+                              
                                                   ///dont delete
                                                   // Expanded(
                                                   //   flex: 1,
@@ -883,37 +892,49 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                               ),
                                             ),
                                             Container(height: AppSize.s12,),
-
+                              
                                           ],
                                         ),
                                       ),
                                     );
                                   } else {
                                     // 👇 This is the last item: the pagination widget
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16),
-                                      child: PaginationControlsWidget(
-                                        currentPage: currentPage,
-                                        items: items,
-                                        itemsPerPage: itemsPerPage,
-                                        onPreviousPagePressed: () {
-                                          if (currentPage > 1) {
-                                            archievedProvider.aaCurrentPage(
-                                                currentPage - 1);
-                                          }
-                                        },
-                                        onPageNumberPressed: (pageNumber) {
-                                          archievedProvider.aaCurrentPage(
-                                              pageNumber);
-                                        },
-                                        onNextPagePressed: () {
-                                          if (currentPage < totalPages) {
-                                            archievedProvider.aaCurrentPage(
-                                                currentPage + 1);
-                                          }
-                                        },
-                                      ),
+                              
+                                    final isLastPage = currentPage == totalPages;
+                                    final remainingSlots = itemsPerPage - paginatedItems.length;
+                                    const estimatedItemHeight = 80; // adjust to match your item
+                                    final extraPaddingHeight = isLastPage
+                                        ? (remainingSlots * estimatedItemHeight).toDouble()
+                                        : 0.0;
+                                    return Column(
+                                      children: [
+                                        if (extraPaddingHeight > 0)
+                                          SizedBox(height: extraPaddingHeight),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 16),
+                                          child: PaginationControlsWidget(
+                              
+                              
+                                            currentPage: currentPage,
+                                            items: items,
+                                            itemsPerPage: itemsPerPage,
+                                            onPreviousPagePressed: () {
+                                              if (currentPage > 1) {
+                                                archievedProvider.aaCurrentPage(currentPage - 1);
+                                              }
+                                            },
+                                            onPageNumberPressed: (pageNumber) {
+                                              archievedProvider.aaCurrentPage(pageNumber);
+                                            },
+                                            onNextPagePressed: () {
+                                              if (currentPage < totalPages) {
+                                                archievedProvider.aaCurrentPage(currentPage + 1);
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
                                     );
                                   }
                                 }),
