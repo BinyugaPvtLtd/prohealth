@@ -9,6 +9,8 @@ class PatientRefferalsRepo{
   static String patientDocument = '/patient-document/patient';
   static String patientDocumentAdd = '/patient-document/add';
   static String patientDocumentDelete = '/patient-document';
+  static String f2fPatient = '/f2f/patient';
+  static String f2fDocument = '/f2f/document';
   static String patientDocumentAttach = '/patient-document/attach-document';
 
   /// filter master repo
@@ -57,6 +59,14 @@ class PatientRefferalsRepo{
     return "$patientDocument/$patientId/$documentType";
   }
 
+  ///f2f/patient/{patientId}
+  static  String getPatientDocumentF2FIntake({required int patientId}){
+    return "$f2fPatient/$patientId";
+  }
+
+  static  String deleteF2FDocument({required int id}){
+    return "$f2fDocument/$id";
+  }
   static  String attachPatientDocument({required int rptd_id}){
     return "$patientDocumentAttach/$rptd_id";
   }

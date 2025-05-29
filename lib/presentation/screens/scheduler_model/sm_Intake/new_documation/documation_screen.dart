@@ -87,10 +87,10 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
     final diagnosisProvider = Provider.of<DiagnosisProvider>(context,listen: false);
     final int patientId = diagnosisProvider.patientId;
     return Consumer<SmIntakeProviderManager>(
-      builder: (context,providerState,child) {
-        return Padding(
-          padding: const EdgeInsets.only(top: 5),
-          child: SingleChildScrollView(
+        builder: (context,providerState,child) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 35),
                 child: Column(
@@ -111,8 +111,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                         Text(
                           'Missing Paperwork: Therapy Notes',
                           style: TextStyle(fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w300,
-                            color: Color(0xFFC30909)),)
+                              fontWeight: FontWeight.w300,
+                              color: Color(0xFFC30909)),)
                       ],),
                     SizedBox(height: AppSize.s10,),
                     BlueBGHeadConst(HeadText: "Clinical Attachments*"),
@@ -144,54 +144,55 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                 ));
                           }
                           if(snapshotDoc.hasData){
-                   return Container(
-                     child: ListView.builder(
-                         shrinkWrap: true,
-                         itemCount: snapshotDoc.data!.length,
-                         itemBuilder: (context,index){
-                           return FileInfoCard(
-                             content: snapshotDoc.data![index].rptd_content,
-                             documentName: snapshotDoc.data![index].documentName,
-                             fileUrl: snapshotDoc.data![index].rptd_url,
-                             fileName: snapshotDoc.data![index].documentName,// "Erica Thompson REF.pdf",
-                             uploadedInfo: providerState.isContactTrue
-                                 ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
-                                 : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
-                             isContact: providerState.isContactTrue,
-                             // onHistoryTap: () {},
-                             // onTelegramTap: () {},
-                             onPrintTap: () {},
-                             onDownloadTap: () {},
-                             onDeleteTap: () async {
-                               setState(() {
-                                 isLoading = true;
-                               });
-                               try {
-                                 var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
-                                 if(response.statusCode == 200  || response.statusCode == 201) {
-                                   // Navigator.pop(context);
-                                   // Future.delayed(Duration(seconds: 1));
-                                   showDialog(
-                                     context: context,
-                                     builder: (BuildContext context) => const DeleteSuccessPopup(),
-                                   );
-                                 }
-                               } finally {
-                                 setState(() {
-                                   isLoading = false;
-                                   //Navigator.pop(context);
-                                 });
-                               }
-                             },
-                           );
-                         }),
-                   );
-                    }else{
-                    return const SizedBox();
-                    }
+                            return Container(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshotDoc.data!.length,
+                                  itemBuilder: (context,index){
+                                    print("login name is :::::::::::: $loginName");
+                                    return FileInfoCard(
+                                      content: snapshotDoc.data![index].rptd_content,
+                                      documentName: snapshotDoc.data![index].documentName,
+                                      fileUrl: snapshotDoc.data![index].rptd_url,
+                                      fileName: snapshotDoc.data![index].documentName,// "Erica Thompson REF.pdf",
+                                      uploadedInfo: providerState.isContactTrue
+                                          ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
+                                          : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
+                                      isContact: providerState.isContactTrue,
+                                      // onHistoryTap: () {},
+                                      // onTelegramTap: () {},
+                                      onPrintTap: () {},
+                                      onDownloadTap: () {},
+                                      onDeleteTap: () async {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        try {
+                                          var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
+                                          if(response.statusCode == 200  || response.statusCode == 201) {
+                                            // Navigator.pop(context);
+                                            // Future.delayed(Duration(seconds: 1));
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                            );
+                                          }
+                                        } finally {
+                                          setState(() {
+                                            isLoading = false;
+                                            //Navigator.pop(context);
+                                          });
+                                        }
+                                      },
+                                    );
+                                  }),
+                            );
+                          }else{
+                            return const SizedBox();
+                          }
 
-                  }
-                  ),
+                        }
+                    ),
                     SizedBox(height: AppSize.s20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -245,64 +246,64 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                           }
                           if(snapshotDoc.hasData){
                             return Container(
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshotDoc.data!.length,
-                          itemBuilder: (context,index){
-                            return FileInfoCard(
-                              content: snapshotDoc.data![index].rptd_content,
-                              documentName: snapshotDoc.data![index].documentName,
-                              fileUrl: snapshotDoc.data![index].rptd_url,
-                              fileName: snapshotDoc.data![index].documentName,
-                              uploadedInfo: providerState.isContactTrue
-                                  ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
-                                  : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
-                              isContact: providerState.isContactTrue,
-                              // onHistoryTap: () {},
-                              // onTelegramTap: () {},
-                              onPrintTap: () {},
-                              onDownloadTap: () {},
-                              onDeleteTap: () async {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                try {
-                                  var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
-                                  if(response.statusCode == 200  || response.statusCode == 201) {
-                                    // Navigator.pop(context);
-                                    // Future.delayed(Duration(seconds: 1));
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) => const DeleteSuccessPopup(),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshotDoc.data!.length,
+                                  itemBuilder: (context,index){
+                                    return FileInfoCard(
+                                      content: snapshotDoc.data![index].rptd_content,
+                                      documentName: snapshotDoc.data![index].documentName,
+                                      fileUrl: snapshotDoc.data![index].rptd_url,
+                                      fileName: snapshotDoc.data![index].documentName,
+                                      uploadedInfo: providerState.isContactTrue
+                                          ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
+                                          : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
+                                      isContact: providerState.isContactTrue,
+                                      // onHistoryTap: () {},
+                                      // onTelegramTap: () {},
+                                      onPrintTap: () {},
+                                      onDownloadTap: () {},
+                                      onDeleteTap: () async {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        try {
+                                          var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
+                                          if(response.statusCode == 200  || response.statusCode == 201) {
+                                            // Navigator.pop(context);
+                                            // Future.delayed(Duration(seconds: 1));
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                            );
+                                          }
+                                        } finally {
+                                          setState(() {
+                                            isLoading = false;
+                                            //Navigator.pop(context);
+                                          });
+                                        }
+                                        // setState(() async{
+                                        //
+                                        //   Navigator.pop(context);
+                                        // });
+                                      },
                                     );
-                                  }
-                                } finally {
-                                  setState(() {
-                                    isLoading = false;
-                                    //Navigator.pop(context);
-                                  });
-                                }
-                                // setState(() async{
-                                //
-                                //   Navigator.pop(context);
-                                // });
-                              },
+                                  }),
                             );
-                          }),
-                    );
-                    }else{
-                    return const SizedBox();
-                    }
+                          }else{
+                            return const SizedBox();
+                          }
 
-                  }
-                  ),
+                        }
+                    ),
                     SizedBox(height: AppSize.s20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomIconButtonConst(
                           icon: Icons.add,  width: 150,
-                            onPressed: () {
+                          onPressed: () {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -310,7 +311,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                               },
                             );
                           },
-                            text: "Add Attachment",
+                          text: "Add Attachment",
                         ),
                       ],
                     ),
@@ -318,254 +319,257 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                     SizedBox(height: AppSize.s30,),
                     BlueBGHeadConst(HeadText: "Face to Face Encounter"),
                     SizedBox(height: AppSize.s10,),
-            Column(
-              children: [
-                if (!isCreating)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomIconButtonConst(
-                        icon: Icons.add,
-                        width: 100,
-                        onPressed: () {
-                          setState(() {
-                            isCreating = true;
-                          });
-                        },
-                        text: "Create",
-                      ),
-                    ],
-                  ),
-
-                if (isCreating) ...[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: Row(
+                    Column(
                       children: [
-                        Flexible(
-                          child: SchedularTextField(
-                            controller: ffdateController,
-                            labelText: 'F2F Date:',
-                            enable: true,
-                            showDatePicker: true,
-                            onChanged: (_) => _checkFormValidity(),
+                        if (!isCreating)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomIconButtonConst(
+                                icon: Icons.add,
+                                width: 100,
+                                onPressed: () {
+                                  setState(() {
+                                    isCreating = true;
+                                  });
+                                },
+                                text: "Create",
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(width: 30),
-                        Flexible(
-                          child:  FutureBuilder<List<PatientMarketerData>>(
-                            future: getMarketerWithDeptId(context: context, deptId: AppConfig.salesId),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return SchedularTextField(
-                                    controller:residencyController ,
-                                    labelText: 'Marketer');
-                              }
-                              if (snapshot.hasData) {
-                                List<DropdownMenuItem<String>> dropDownList = [];
-                                for (var i in snapshot.data!) {
-                                  dropDownList.add(DropdownMenuItem<String>(
-                                    child: Text(i.firstName),
-                                    value: i.firstName,
-                                  ));
+
+                        if (isCreating) ...[
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: SchedularTextField(
+                                    controller: ffdateController,
+                                    labelText: 'F2F Date:',
+                                    enable: true,
+                                    showDatePicker: true,
+                                    onChanged: (_) => _checkFormValidity(),
+                                  ),
+                                ),
+                                SizedBox(width: 30),
+                                Flexible(
+                                  child:  FutureBuilder<List<PatientMarketerData>>(
+                                    future: getMarketerWithDeptId(context: context, deptId: AppConfig.salesId),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                        return SchedularTextField(
+                                            controller:residencyController ,
+                                            labelText: 'Marketer');
+                                      }
+                                      if (snapshot.hasData) {
+                                        List<DropdownMenuItem<String>> dropDownList = [];
+                                        for (var i in snapshot.data!) {
+                                          dropDownList.add(DropdownMenuItem<String>(
+                                            child: Text(i.firstName),
+                                            value: i.firstName,
+                                          ));
+                                        }
+
+                                        return CustomDropdownTextFieldsm(
+                                            headText: 'Marketer',
+                                            dropDownMenuList: dropDownList,
+                                            onChanged: (newValue) {
+                                              for (var a in snapshot.data!) {
+                                                if (a.firstName == newValue) {
+                                                  selectedMarketer = a.firstName;
+                                                 // _checkFormValidity();
+                                                  //country = a
+                                                  // int? docType = a.companyOfficeID;
+                                                }
+                                              }
+                                            });
+                                      } else {
+                                        return const Offstage();
+                                      }
+                                    },
+                                  ),
+                                ),
+                                SizedBox(width: 30),
+                                Flexible(
+                                    child: SchedularTextFieldcheckbox(
+                                      controller: postOpDateController,
+                                      labelText: 'Post-op Visit Note Needed',
+                                      showDatePicker: true,
+                                      hintText: 'Select date',
+                                      enable: isPostOpChecked, // 🔁 Dynamically controlled
+                                      initialCheckboxValue: isPostOpChecked,
+                                      onCheckboxChanged: (bool? newValue) {
+                                        setState(() {
+                                          isPostOpChecked = newValue ?? false; // 🔁 Update enabled state
+                                        });
+                                      },
+                                    )
+
+
+                                ),
+                                // Flexible(
+                                //   child: SchedularTextFieldcheckbox(
+                                //     enable: true,
+                                //     controller: ffpostController,
+                                //     labelText: 'Post-op Visit Note Needed',
+                                //     showDatePicker: true,
+                                //     initialCheckboxValue: true,
+                                //     onChanged: (_) => _checkFormValidity(),
+                                //     onCheckboxChanged: (_) {},
+                                //   ),
+                                // ),
+                                SizedBox(width: 30),
+                                Flexible(
+                                  child: SchedularTextFieldcheckbox(
+                                    enable: isAppointmentChecked,
+                                    controller: ffappoController,
+                                    labelText: 'F2F Appointment Needed',
+                                    showDatePicker: true,
+                                    initialCheckboxValue: isAppointmentChecked,
+                                    onChanged: (_) => _checkFormValidity(),
+                                    onCheckboxChanged: (bool? newValue) {
+                                      setState(() {
+                                        isAppointmentChecked = newValue ?? false;
+                                      });
+                                    },
+                                  ),
+
+                                ),
+                                // Flexible(
+                                //   child: SchedularTextFieldcheckbox(
+                                //     enable: true,
+                                //     controller: ffappoController,
+                                //     labelText: 'F2F Appointment Needed',
+                                //     showDatePicker: true,
+                                //     initialCheckboxValue: false,
+                                //     onChanged: (_) => _checkFormValidity(),
+                                //     onCheckboxChanged: (_) {},
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                          ),
+
+                          SizedBox(height: 20),
+
+                          // 🔄 STREAMBUILDER
+                          StreamBuilder<List<PatientDocumentsFtwoFData>>(
+                              stream: _streamControllerF2F.stream,
+                              builder: (context,snapshotDoc) {
+                                getReffrealsPatientDocumentsFaceTwoFace(context: context, patientId: patientId,).then((data) {
+                                  _streamControllerF2F.add(data);
+                                }).catchError((error) {
+                                  // Handle error
+                                });
+                                if(snapshotDoc.connectionState == ConnectionState.waiting){
+                                  return Center(
+                                    child: SizedBox(
+                                        height: 30,
+                                        width: 30,
+                                        child: CircularProgressIndicator(color: ColorManager.blueprime,)),
+                                  );
+                                }
+                                if(snapshotDoc.data!.isEmpty){
+                                  return Center(
+                                      child: Padding(
+                                        padding:const EdgeInsets.symmetric(vertical: 76),
+                                        child: Text(
+                                          AppStringSMModule.patientDocNoData,
+                                          style: AllNoDataAvailable.customTextStyle(context),
+                                        ),
+                                      ));
+                                }
+                                if(snapshotDoc.hasData){
+                                  return  Column(
+                                    children: [
+
+                                      Container(
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: snapshotDoc.data!.length,
+                                            itemBuilder: (context,index){
+                                              return FileInfoCard(
+                                                content: snapshotDoc.data![index].rptd_content,
+                                                documentName: snapshotDoc.data![index].documents.first.f2f_doc_name,//snapshotDoc.data![index].documentName,
+                                                fileUrl: snapshotDoc.data![index].documents.isNotEmpty
+                                                    ? snapshotDoc.data![index].documents.first.f2f_doc_url
+                                                    : '',
+                                                fileName: snapshotDoc.data![index].documents.first.f2f_doc_name,//snapshotDoc.data![index].documentName,
+                                                uploadedInfo: providerState.isContactTrue
+                                                    ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
+                                                    : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
+                                                isContact: providerState.isContactTrue,
+                                                // onHistoryTap: () {},
+                                                // onTelegramTap: () {},
+                                                onPrintTap: () {},
+                                                onDownloadTap: () {},
+                                                onDeleteTap: ()
+                                                async {
+                                                  setState(() {
+                                                    isLoading = true;
+                                                  });
+                                                  try {
+                                                    var response =  await deleteFTwoFDocument(context: context, id: snapshotDoc.data![index].documents.first.f2f_doc_id, );
+                                                    if(response.statusCode == 200  || response.statusCode == 201) {
+                                                      // Navigator.pop(context);
+                                                      // Future.delayed(Duration(seconds: 1));
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                                      );
+                                                    }
+                                                  } finally {
+                                                    setState(() {
+                                                      isLoading = false;
+                                                      //Navigator.pop(context);
+                                                    });
+                                                  }
+                                                  // setState(() async{
+                                                  //
+                                                  //   Navigator.pop(context);
+                                                  // });
+                                                },
+                                              );
+                                            }),
+                                      )  ],
+                                  );
+                                }else{
+                                  return const SizedBox();
                                 }
 
-                                return  CustomDropdownTextFieldsm(
-                                    headText: 'Marketer',
-                                    dropDownMenuList: dropDownList,
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.firstName == newValue) {
-                                          selectedMarketer = a.firstName;
-                                          _checkFormValidity();
-                                          //country = a
-                                          // int? docType = a.companyOfficeID;
-                                        }
-                                      }
-                                    });
-                              } else {
-    return const Offstage();
-    }
-  },
-  ),
-                        ),
-                        SizedBox(width: 30),
-                        Flexible(
-                          child: SchedularTextFieldcheckbox(
-                            controller: postOpDateController,
-                            labelText: 'Post-op Visit Note Needed',
-                            showDatePicker: true,
-                            hintText: 'Select date',
-                            enable: isPostOpChecked, // 🔁 Dynamically controlled
-                            initialCheckboxValue: isPostOpChecked,
-                            onCheckboxChanged: (bool? newValue) {
-                              setState(() {
-                                isPostOpChecked = newValue ?? false; // 🔁 Update enabled state
-                              });
-                            },
-                          )
-
-
-                        ),
-                        // Flexible(
-                        //   child: SchedularTextFieldcheckbox(
-                        //     enable: true,
-                        //     controller: ffpostController,
-                        //     labelText: 'Post-op Visit Note Needed',
-                        //     showDatePicker: true,
-                        //     initialCheckboxValue: true,
-                        //     onChanged: (_) => _checkFormValidity(),
-                        //     onCheckboxChanged: (_) {},
-                        //   ),
-                        // ),
-                        SizedBox(width: 30),
-                        Flexible(
-                          child: SchedularTextFieldcheckbox(
-                            enable: isAppointmentChecked,
-                            controller: ffappoController,
-                            labelText: 'F2F Appointment Needed',
-                            showDatePicker: true,
-                            initialCheckboxValue: isAppointmentChecked,
-                            onChanged: (_) => _checkFormValidity(),
-                            onCheckboxChanged: (bool? newValue) {
-                              setState(() {
-                                isAppointmentChecked = newValue ?? false;
-                              });
-                            },
+                              }
                           ),
 
-                        ),
-                        // Flexible(
-                        //   child: SchedularTextFieldcheckbox(
-                        //     enable: true,
-                        //     controller: ffappoController,
-                        //     labelText: 'F2F Appointment Needed',
-                        //     showDatePicker: true,
-                        //     initialCheckboxValue: false,
-                        //     onChanged: (_) => _checkFormValidity(),
-                        //     onCheckboxChanged: (_) {},
-                        //   ),
-                        // ),
+                          SizedBox(height: 20),
+
+                          // 🟩 ATTACH BUTTON
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomIconButtonConst(
+                                icon: Icons.add,
+                                width: 150,
+                                text: "Add Attachment",
+                                onPressed: isFormValid
+                                    ? () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => AddPopupConstant(
+                                      title: 'Add Face to Face Attachment',
+                                      docTypeId: 0,
+                                    ),
+                                  );
+                                }
+                                    : (){}, // disabled if not valid
+                              ),
+                            ],
+                          ),
+                        ],
                       ],
                     ),
-                  ),
 
-                  SizedBox(height: 20),
-
-                  // 🔄 STREAMBUILDER
-                  StreamBuilder<List<PatientDocumentsFtwoFData>>(
-                      stream: _streamControllerF2F.stream,
-                      builder: (context,snapshotDoc) {
-                        // getReffrealsPatientDocumentsFaceTwoFace(context: context, patientId: patientId,).then((data) {
-                        //   _streamControllerF2F.add(data);
-                        // }).catchError((error) {
-                        //   // Handle error
-                        // });
-                        if(snapshotDoc.connectionState == ConnectionState.waiting){
-                          return Center(
-                            child: SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: CircularProgressIndicator(color: ColorManager.blueprime,)),
-                          );
-                        }
-                        if(snapshotDoc.data!.isEmpty){
-                          return Center(
-                              child: Padding(
-                                padding:const EdgeInsets.symmetric(vertical: 76),
-                                child: Text(
-                                  AppStringSMModule.patientDocNoData,
-                                  style: AllNoDataAvailable.customTextStyle(context),
-                                ),
-                              ));
-                        }
-                        if(snapshotDoc.hasData){
-                          return  Column(
-                            children: [
-
-                              Container(
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: snapshotDoc.data!.length,
-                                    itemBuilder: (context,index){
-                                      return FileInfoCard(
-                                        content: snapshotDoc.data![index].rptd_content,
-                                        documentName: snapshotDoc.data![index].documentName,
-                                        fileUrl: snapshotDoc.data![index].rptd_url,
-                                        fileName: snapshotDoc.data![index].documentName,
-                                        uploadedInfo: providerState.isContactTrue
-                                            ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
-                                            : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
-                                        isContact: providerState.isContactTrue,
-                                        // onHistoryTap: () {},
-                                        // onTelegramTap: () {},
-                                        onPrintTap: () {},
-                                        onDownloadTap: () {},
-                                        onDeleteTap: () async {
-                                          setState(() {
-                                            isLoading = true;
-                                          });
-                                          try {
-                                            var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
-                                            if(response.statusCode == 200  || response.statusCode == 201) {
-                                              // Navigator.pop(context);
-                                              // Future.delayed(Duration(seconds: 1));
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) => const DeleteSuccessPopup(),
-                                              );
-                                            }
-                                          } finally {
-                                            setState(() {
-                                              isLoading = false;
-                                              //Navigator.pop(context);
-                                            });
-                                          }
-                                          // setState(() async{
-                                          //
-                                          //   Navigator.pop(context);
-                                          // });
-                                        },
-                                      );
-                                    }),
-                              )  ],
-                          );
-                        }else{
-                          return const SizedBox();
-                        }
-
-                      }
-                  ),
-
-                  SizedBox(height: 20),
-
-                  // 🟩 ATTACH BUTTON
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomIconButtonConst(
-                        icon: Icons.add,
-                        width: 150,
-                        text: "Add Attachment",
-                        onPressed: isFormValid
-                            ? () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => AddPopupConstant(
-                              title: 'Add Face to Face Attachment',
-                              docTypeId: 0,
-                            ),
-                          );
-                        }
-                            : (){}, // disabled if not valid
-                      ),
-                    ],
-                  ),
-                ],
-              ],
-            ),
-
-            /// f2f old
+                    /// f2f old
                     // Column(
                     //   children: [
                     //     Row(
@@ -856,56 +860,56 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                           }
                           if(snapshotDoc.hasData){
                             return Container(
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshotDoc.data!.length,
-                          itemBuilder: (context,index){
-                            return FileInfoCard(
-                              content: snapshotDoc.data![index].rptd_content,
-                              documentName: snapshotDoc.data![index].documentName,
-                              fileUrl: snapshotDoc.data![index].rptd_url,
-                              fileName: snapshotDoc.data![index].documentName,
-                              uploadedInfo: providerState.isContactTrue
-                                  ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
-                                  : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
-                              isContact: providerState.isContactTrue,
-                              // onHistoryTap: () {},
-                              // onTelegramTap: () {},
-                              onPrintTap: () {},
-                              onDownloadTap: () {},
-                              onDeleteTap: () async {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                try {
-                                  var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
-                                  if(response.statusCode == 200  || response.statusCode == 201) {
-                                    // Navigator.pop(context);
-                                    // Future.delayed(Duration(seconds: 1));
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) => const DeleteSuccessPopup(),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshotDoc.data!.length,
+                                  itemBuilder: (context,index){
+                                    return FileInfoCard(
+                                      content: snapshotDoc.data![index].rptd_content,
+                                      documentName: snapshotDoc.data![index].documentName,
+                                      fileUrl: snapshotDoc.data![index].rptd_url,
+                                      fileName: snapshotDoc.data![index].documentName,
+                                      uploadedInfo: providerState.isContactTrue
+                                          ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
+                                          : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
+                                      isContact: providerState.isContactTrue,
+                                      // onHistoryTap: () {},
+                                      // onTelegramTap: () {},
+                                      onPrintTap: () {},
+                                      onDownloadTap: () {},
+                                      onDeleteTap: () async {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        try {
+                                          var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
+                                          if(response.statusCode == 200  || response.statusCode == 201) {
+                                            // Navigator.pop(context);
+                                            // Future.delayed(Duration(seconds: 1));
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                            );
+                                          }
+                                        } finally {
+                                          setState(() {
+                                            isLoading = false;
+                                            //Navigator.pop(context);
+                                          });
+                                        }
+                                        // setState(() async{
+                                        //
+                                        //   Navigator.pop(context);
+                                        // });
+                                      },
                                     );
-                                  }
-                                } finally {
-                                  setState(() {
-                                    isLoading = false;
-                                    //Navigator.pop(context);
-                                  });
-                                }
-                                // setState(() async{
-                                //
-                                //   Navigator.pop(context);
-                                // });
-                              },
+                                  }),
                             );
-                          }),
-                    );
-                      }else{
-                      return const SizedBox();
-                      }
+                          }else{
+                            return const SizedBox();
+                          }
 
-                    }
+                        }
                     ),
                     SizedBox(height: AppSize.s20,),
                     Row(
@@ -951,8 +955,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                 ),
               ),
             ),
-        );
-      }
+          );
+        }
     );
 
   }

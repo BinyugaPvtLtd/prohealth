@@ -57,7 +57,6 @@ class _SmAppBarState extends State<SmAppBar> with SingleTickerProviderStateMixin
     print("loginEmail login ${loginEmail}");
     return loginEmail!;
   }
-
   @override
   Widget build(BuildContext context) {
     return Material(
