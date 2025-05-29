@@ -40,17 +40,23 @@ class IntakePatientsDatatInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? status = '';
-
+    String? getNameFromId(int id, List<DropdownMenuItem<String>> dropDownList) {
+      final item = dropDownList.firstWhere(
+            (element) => element.value == id,
+        orElse: () => DropdownMenuItem(value: '', child: Text('')),
+      );
+      return (item.child as Text).data;
+    }
     String? statustype;
     String? selectedStatus;
-    String? selectedCountry;
-    String? selectedRace;
+    String selectedCountry = 'Select';
+    String selectedRace = 'Select';
     String? selectedState;
     String? selectedcity;
-    String? selectedLanguage;
+    String selectedLanguage = 'Select';
     String? selectedReligion;
-    String? selectedMaritalStatus;
-    String? dateOfDeath;
+    String selectedMaritalStatus = 'Select';
+    String selectedZone = 'Select';
     int primaryLanguageid = 0;
     int countyId = 0;
     int zoneId = 0;
@@ -384,6 +390,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                   for (var a in snapshot.data!) {
                                                     if (a.name == newValue) {
                                                       selectedCountry = a.name!;
+                                                      countyId = a.countryId;
                                                       //country = a
                                                       // int? docType = a.companyOfficeID;
                                                     }
@@ -520,6 +527,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                   for (var a in snapshot.data!) {
                                                     if (a.name == newValue) {
                                                       selectedCountry = a.name!;
+                                                      countyId = a.countryId;
                                                       //country = a
                                                       // int? docType = a.companyOfficeID;
                                                     }
@@ -556,6 +564,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                 for (var a in snapshot.data!) {
                                                   if (a.description == newValue) {
                                                     selectedRace = a.description;
+                                                    residentialId = a.id;
                                                     //country = a
                                                     // int? docType = a.companyOfficeID;
                                                   }
@@ -980,7 +989,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                     value: i.maritalStatus,
                                                   ));
                                                 }
-
+                                                selectedMaritalStatus = getNameFromId(maritalStatusId,dropDownList)!;
                                                 return CustomDropdownTextFieldsm(
                                                     headText: 'Marital Status',
                                                     dropDownMenuList: dropDownList,

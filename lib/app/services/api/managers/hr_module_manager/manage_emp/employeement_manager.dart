@@ -298,12 +298,13 @@ Future<ApiData> uploadlinceses({
     var response = await Api(context).post(
       path:ManageReposotory.uploadlinceses(licensedId:licensedId),
       data: {
-        'base64':documents
+        'base64':documents,
+        'documentName':documentName
       },
     );
     print("Response ${response.toString()}");
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print(" license uploded");
+      print("license uploded");
       // orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,
