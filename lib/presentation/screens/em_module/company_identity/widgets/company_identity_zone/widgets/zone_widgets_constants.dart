@@ -183,6 +183,8 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
 class AddZipCodePopup extends StatefulWidget {
   final String title;
   final String officeId;
+  final double officeLat;
+  final double officeLong;
   final TextEditingController countynameController;
   final TextEditingController zipcodeController;
   final TextEditingController mapController;
@@ -203,7 +205,7 @@ class AddZipCodePopup extends StatefulWidget {
     // this.cityNameController,
     this.onPickLocation,
     this.locationText,
-    this.locationController, required this.officeId,
+    this.locationController, required this.officeId, required this.officeLat, required this.officeLong,
   });
 
   @override
@@ -222,7 +224,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   int docZoneId = 0;
   int countyId = 0;
   int countySortId = 0;
-  String? locationError;
+  // String? locationError;
   String? countyError;
   String? zoneError;
 
@@ -252,7 +254,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
               _updateLocation(latlong);
 
               // Hide locationError as soon as a valid location is picked
-              locationError = null;
+              // locationError = null;
             });
           },
         ),
@@ -266,7 +268,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
         _longitude = pickedLocation.longitude;
 
         // Ensure error message is hidden if a valid location is selected
-        locationError = null;
+        // locationError = null;
       });
     }
   }
@@ -291,12 +293,12 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
         isValid = false;
       }
 
-      locationError = (_latitude == null || _longitude == null)
-          ? 'Please select location'
-          : null;
-      if (locationError != null) {
-        isValid = false;
-      }
+      // locationError = (_latitude == null || _longitude == null)
+      //     ? 'Please select location'
+      //     : null;
+      // if (locationError != null) {
+      //   isValid = false;
+      // }
 
       countyError = (selectedZipCodeCounty == 'Select County')
           ? 'Please select a county'
@@ -314,6 +316,13 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
     });
 
     return isValid;
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    _selectedLocation = LatLng(widget.officeLat, widget.officeLong);
+    print('default office lat long ${_selectedLocation}');
+    super.initState();
   }
 
   @override
@@ -689,11 +698,11 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                     ),
                   ],
                 ),
-                locationError != null ?
-                Text(
-                  locationError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ) : SizedBox(height: AppSize.s12,),
+                // locationError != null ?
+                // Text(
+                //   locationError!,
+                //   style: CommonErrorMsg.customTextStyle(context),
+                // ) : SizedBox(height: AppSize.s12,),
               ],
             ),
           ),

@@ -17,6 +17,8 @@ import '../../../../app/resources/value_manager.dart';
 typedef BackButtonCallBack = void Function(bool val);
 
 class ManageWidget extends StatefulWidget {
+  final double officeLat;
+  final double officeLon;
   final String officeID;
   final int companyID;
   final int companyOfficeId;
@@ -30,7 +32,7 @@ class ManageWidget extends StatefulWidget {
     required this.officeName,
     required this.backButtonCallBack,
     required this.companyID,
-    required this.companyOfficeId, required this.stateName, required this.countryName,
+    required this.companyOfficeId, required this.stateName, required this.countryName, required this.officeLat, required this.officeLon,
     // required this.selectedIndex,
     // required this.selectButton,
   }) : super(key: key);
@@ -361,6 +363,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         companyID: widget.companyID,
                         officeId: widget.officeID,
                         docId: docID, stateName: widget.stateName, countryName: widget.countryName,
+                        officeLat: widget.officeLat, officeLon: widget.officeLon,
                       ),
                       CiCorporateComplianceScreen(
                         docId: AppConfig.corporateAndCompliance,
