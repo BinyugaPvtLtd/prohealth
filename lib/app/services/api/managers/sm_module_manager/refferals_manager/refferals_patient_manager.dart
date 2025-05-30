@@ -453,7 +453,6 @@ Future<ApiData> updateReferralPatient(
         "pt_summary": summary,
         "fk_srv_id":serviceId,
         "fk_pt_discplines":disciplineIds,
-
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -488,7 +487,6 @@ Future<List<ServicePatientReffralsData>> getReferealsServiceList({
     final response = await Api(context).get(
       path: PatientRefferalsRepo.getReffrealsServiceData(),
     );
-
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsData.add(ServicePatientReffralsData(
@@ -499,7 +497,6 @@ Future<List<ServicePatientReffralsData>> getReferealsServiceList({
     } else {
       print("patient referrals Services error");
     }
-
     return itemsData;
   } catch (e) {
     print("error: $e");
