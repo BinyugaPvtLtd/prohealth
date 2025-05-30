@@ -61,6 +61,22 @@ class PatientDiagnosisMasterData{
 }
 
 
+class PatientDiagnosisWithIdData {
+  final int dgnId;
+  final int ptId;
+  final int fkDgnId;
+  final bool pdgm;
+  final bool isPrimary;
+  final String dgnName;
+  final String dgnCode;
+  final int colorId;
+
+  PatientDiagnosisWithIdData({required this.dgnName, required this.dgnCode, required this.colorId,
+    required this.dgnId, required this.ptId, required this.fkDgnId, required this.pdgm, required this.isPrimary});
+
+}
+
+
 
 class ReferralSourcesData{
   final int refsouid;

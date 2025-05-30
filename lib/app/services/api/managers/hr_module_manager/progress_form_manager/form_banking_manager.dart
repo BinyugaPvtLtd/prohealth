@@ -78,7 +78,8 @@ Future<ApiData> uploadcheck({
     var response = await Api(context).post(
       path:ManageReposotory.uploadcheck(empBankingId: empBankingId),
       data: {
-        'base64':documents
+        'base64':documents,
+        'documentName':documentName,
       },
     );
     print("Response ${response.toString()}");

@@ -21,10 +21,12 @@ class ApiData {
   final int? otherDocId;
   /// SM variables
   final int? rptd_id;
+  final int? patientInsuranceDocId;
   ApiData(
       {this.officeId,
         this.employeeEnrollId,
         this.rptd_id,
+        this.patientInsuranceDocId,
       required this.statusCode,
       required this.success,
       required this.message,

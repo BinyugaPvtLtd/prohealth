@@ -453,7 +453,7 @@ Future<ApiData> updateReferralPatient(
         "pt_summary": summary,
         "fk_srv_id":serviceId,
         "fk_pt_discplines":disciplineIds,
-         "fk_rpti_id":insuranceId
+        "fk_rpti_id": insuranceId,
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -488,7 +488,6 @@ Future<List<ServicePatientReffralsData>> getReferealsServiceList({
     final response = await Api(context).get(
       path: PatientRefferalsRepo.getReffrealsServiceData(),
     );
-
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsData.add(ServicePatientReffralsData(
@@ -499,7 +498,6 @@ Future<List<ServicePatientReffralsData>> getReferealsServiceList({
     } else {
       print("patient referrals Services error");
     }
-
     return itemsData;
   } catch (e) {
     print("error: $e");
@@ -1041,6 +1039,119 @@ Future<List<PatientMarketerData>> getMarketerWithDeptId({
   } catch (e) {
     print("error: $e");
     return itemsData;
+  }
+}
+
+/// Patient diagnosis
+
+Future<List<PatientDiagnosisWithIdData>> getPatientDiagnosisData({
+  required BuildContext context,
+  required int ptId
+}) async {
+  List<PatientDiagnosisWithIdData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientDiagnosisWithPtId(ptId: ptId),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDiagnosisWithIdData(
+            dgnId: item['rpt_dgn_id']??0,
+            ptId: item['fk_pt_id']??0,
+            fkDgnId: item['fk_dgn_id']??0,
+            pdgm: item['rpt_pdgm']??false,
+            isPrimary: item['rpt_isPrimary']??false,
+            dgnName: item['dgn_name']??'',
+            dgnCode: item['dgn_code']??'',
+            colorId: item['color']??0
+        ));
+      }
+    }
+    else {
+      print("Diagnosis data error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+
+Future<ApiData> addPatientDiagnosis(
+    {
+      required BuildContext context,
+      required int dgnId,
+      required int fk_pt_id,
+
+    }) async {
+  try {
+    var response = await Api(context).post(
+        path: PatientRefferalsRepo.addPatientDiagnosis(),
+        data: {
+          "fk_pt_id": fk_pt_id,
+          "fk_dgn_id": dgnId,
+          "rpt_pdgm": false,
+          "rpt_isPrimary": false
+        }
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Patient Diagnosis added ");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!,
+          );
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+Future<ApiData> patchDiagnosisData(
+    {
+      required BuildContext context,
+      required int recordId,
+      required int dgnId,
+      required int fk_pt_id,
+
+    }) async {
+  try {
+    var response = await Api(context).patch(
+        path: PatientRefferalsRepo.patchPatientDiagnosis(id: recordId),
+        data: {
+          "fk_pt_id": fk_pt_id,
+          "fk_dgn_id": dgnId,
+        }
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Patient Diagnosis Updated ");
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: true,
+        message: response.statusMessage!,
+      );
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
 

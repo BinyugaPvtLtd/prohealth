@@ -26,6 +26,10 @@ class PatientRefferalsRepo{
 
   ///
   static String referalsources = '/referral-sources';
+  /// patient diagnosis
+  static String patientDiagnosisGet = '/referral-patient-diagnosis/patient';
+  static String patientDiagnosisAdd = '/referral-patient-diagnosis';
+
 
   static  String getPatientRefferals({required int pageNo, required int nbrOfRows, required String isIntake, required String isArchived,required String isScheduled, required String searchName, required String marketerId,required String referralSourceId, required String pcpId}){
     return "$patientRefferals/$pageNo/$nbrOfRows/$isIntake/$isArchived/$isScheduled/$searchName/$marketerId/$referralSourceId/$pcpId";
@@ -114,5 +118,18 @@ class PatientRefferalsRepo{
 
   static String getReferalpath(){
     return "$referalsources";
+  }
+
+  /// Patient diagnosis
+  static  String getPatientDiagnosisWithPtId({required int ptId}){
+    return "$patientDiagnosisGet/$ptId";
+  }
+
+  static  String addPatientDiagnosis(){
+    return "$patientDiagnosisAdd";
+  }
+
+  static  String patchPatientDiagnosis({required int id}){
+    return "$patientDiagnosisAdd/$id";
   }
 }
