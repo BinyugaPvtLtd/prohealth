@@ -266,7 +266,8 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
 
 class AddSuccessPopup extends StatefulWidget {
   final String message;
-  const AddSuccessPopup({super.key, required this.message});
+  final String? title;
+  const AddSuccessPopup({super.key, this.title,required this.message});
 
   @override
   State<AddSuccessPopup> createState() => _AddSuccessPopupState();
@@ -315,7 +316,10 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(
+                    child: widget.title != null ? Text(
+                      widget.title!,
+                      style:  PopupBlueBarText.customTextStyle(context),
+                    ) : Text(
                       "Success",
                       style:  PopupBlueBarText.customTextStyle(context),
                     ),
