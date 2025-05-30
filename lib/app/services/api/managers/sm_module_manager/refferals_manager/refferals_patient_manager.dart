@@ -1043,3 +1043,146 @@ Future<List<PatientMarketerData>> getMarketerWithDeptId({
     return itemsData;
   }
 }
+
+
+
+///f2f/add
+Future<ApiData> F2FAddDocuments({
+  required BuildContext context,
+  required int fk_pt_id,
+  required String rptd_F2FDate,
+  required int fk_marketerId,
+  required String rptd_visitNote,
+  required String rptd_F2Fappointment,
+  String? expiryDate
+}) async {
+  try {
+    // String documents = await
+    // AppFilePickerBase64.getEncodeBase64(
+    //     bytes: documentFile);
+    // print("File :::${documents}" );
+    var response = await Api(context).post(
+      path: PatientRefferalsRepo.addF2F(),
+      data: {
+        'fk_pt_id':fk_pt_id,
+        'rptd_F2FDate':rptd_F2FDate,
+        'fk_marketerId':fk_marketerId,
+        'rptd_visitNote':rptd_visitNote,
+        "rptd_F2Fappointment":rptd_F2Fappointment
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("f2f add");
+      // orgDocumentGet(context);
+      var uploadResponse = response.data;
+      int documentId = uploadResponse['f2f_id'];
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!,
+          f2f_id: documentId);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///f2f/document/add
+Future<ApiData> uploadF2FDocumentsAdd({
+  required BuildContext context,
+  required int fk_f2f_id,
+  required String f2f_doc_url,
+  required String f2f_doc_name,
+  required String f2f_doc_content,
+}) async {
+  try {
+    // String documents = await
+    // AppFilePickerBase64.getEncodeBase64(
+    //     bytes: documentFile);
+   // print("File :::${documents}" );
+    var response = await Api(context).post(
+      path: PatientRefferalsRepo.addDocumentF2FAdd(),
+      data: {
+        'fk_f2f_id':fk_f2f_id,
+        "f2f_doc_url":f2f_doc_url,
+        "f2f_doc_name":f2f_doc_name,
+        "f2f_doc_content": f2f_doc_content,
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("F2f Documents 2nd post uploded intake");
+      // orgDocumentGet(context);
+      var uploadResponse = response.data;
+      int documentId = uploadResponse['f2f_doc_id'];
+      print("Upload Document f2f Response Data: ${response.data}");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!,
+          f2f_doc_id: documentId,);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+
+
+/// f2f document upload base64
+Future<ApiData> uploadF2FDocumentsBase64({
+  required BuildContext context,
+  required int f2f_doc_id,
+  required dynamic documentFile,
+  required String documentName,
+}) async {
+  try {
+    String documents = await
+    AppFilePickerBase64.getEncodeBase64(
+        bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path: PatientRefferalsRepo.addDocumentF2FAttach(f2f_doc_id: f2f_doc_id),
+      data: {
+        'base64':documents,
+        "documentName":documentName
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("F2F Documents uploded base 64");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage! );
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}

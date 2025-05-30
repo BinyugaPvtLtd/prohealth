@@ -205,6 +205,212 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
   }
 }
 
+///f2f doc add
+class AddF2FPopupConstant extends StatefulWidget {
+  final String title;
+  final String ffDate;
+  final int marketerId;
+  final String postOpDate;
+  final String visitNote;
+  final int docTypeId;
+  const AddF2FPopupConstant({super.key, required this.title,
+    required this.ffDate,
+    required this.marketerId,
+    required this.postOpDate,
+    required this.visitNote,
+    required this.docTypeId,});
+
+  @override
+  State<AddF2FPopupConstant> createState() => _AddF2FPopupConstantState();
+}
+
+class _AddF2FPopupConstantState extends State<AddF2FPopupConstant> {
+  String fileName = '';
+  dynamic _filePath;
+  bool _fileAbove20Mb = false;
+  TextEditingController DocNameController = TextEditingController();
+
+  void pickAckFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
+    if (result != null) {
+      _filePath = result.files.first.bytes;
+      fileName = result.files.first.name;
+      _fileAbove20Mb = !isAbove20MB;
+      //notifyListeners();
+    }
+  }
+  String? selectedFileName;
+
+  @override
+  Widget build(BuildContext context) {
+    final diagnosisProvider = Provider.of<DiagnosisProvider>(context,listen: false);
+    final int patientId = diagnosisProvider.patientId;
+
+    return DialogueTemplate(width: 400, height: 320, body: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            /// upload  doc
+            HeaderContentConst(
+              isAsterisk: false,
+              styleHeading: SMTextfieldHeadings.customTextStyle(context),
+              heading: AppString.upload_document,
+              content: InkWell(
+                onTap:()async{
+                  pickAckFile();
+                },
+                child: Container(
+                  height: AppSize.s30,
+                  // width: AppSize.s354,
+                  padding: EdgeInsets.only(left: AppPadding.p10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorManager.containerBorderGrey,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) localSetState) {
+                      return Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                fileName,
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                              ),
+                            ),
+                            IconButton(
+                              padding: const EdgeInsets.all(4),
+                              onPressed: () async {
+                                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['pdf'],
+                                );
+                                if (result != null) {
+                                  final fileSize = result.files.first.size;
+                                  final isAbove20MB = fileSize > (20 * 1024 * 1024);
+
+                                  setState(() {
+                                    _filePath = result.files.first.bytes;
+                                    fileName = result.files.first.name;
+                                    _fileAbove20Mb = !isAbove20MB;
+                                  });
+
+                                  // This updates the UI inside the StatefulBuilder
+                                  localSetState(() {});
+                                }
+                              },
+                              icon: Icon(
+                                Icons.file_upload_outlined,
+                                color: ColorManager.black,
+                                size: 20,
+                              ),
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+
+                ),
+              ),
+            ),
+            SizedBox(height: 10,),
+            SchedularTextField(
+              isIconVisible: true,
+              labelText:  "Content of Document",
+              controller: DocNameController,),
+          ],
+        ),
+      ),
+    ],
+        bottomButtons: Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomElevatedButton(
+                width: AppSize.s105,
+                height: AppSize.s30,
+                text: AppStringEM.submit,
+                onPressed: () async {
+                  // if (_filePath == null || fileName.isEmpty) {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     SnackBar(content: Text("Please select a file first.")),
+                  //   );
+                  //   return;
+                  // }
+
+                  print("maketer id ::::::::: ${widget.marketerId}");
+                  ApiData apiData = await F2FAddDocuments(
+                    context: context,
+                    fk_pt_id: patientId,
+                    rptd_F2FDate: widget.ffDate,
+                    fk_marketerId: widget.marketerId,
+                    rptd_visitNote: widget.visitNote,
+                    rptd_F2Fappointment: widget.postOpDate,
+                  );
+
+                  print(apiData.f2f_id);
+                  if (apiData.statusCode == 200 || apiData.statusCode == 201) {
+                    var F2FAdd = await uploadF2FDocumentsAdd(
+                      context: context,
+                      fk_f2f_id: apiData.f2f_id!,
+                      f2f_doc_url: "--",
+                      f2f_doc_name: fileName,
+                      f2f_doc_content: DocNameController.text,
+                    );
+
+                    print(F2FAdd.f2f_doc_id);
+                  if (F2FAdd.statusCode == 200 || F2FAdd.statusCode == 201) {
+                    var uploadF2FDoc = await uploadF2FDocumentsBase64(
+                      context: context,
+                      f2f_doc_id: F2FAdd.f2f_doc_id!,
+                      documentFile: _filePath,
+                      documentName: fileName,
+                    );
+
+                    print(uploadF2FDoc.statusCode);
+                    if (uploadF2FDoc.statusCode == 200 || uploadF2FDoc.statusCode == 201) {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const AddSuccessPopup(
+                            message: 'Document Uploaded Successfully',
+                          );
+                        },
+                      );
+                    }
+                    }
+                  }
+                  },
+              ),
+            ],
+          ),
+        ),
+        title: widget.title);
+
+
+
+
+  }
+}
+
 // HeaderContentConst(
 //   isAsterisk: false,
 //   heading: AppString.type_of_the_document,
@@ -409,7 +615,7 @@ class FileInfoCard extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    content,
+                    "Content: $content",
                     style: CustomTextStylesCommon.commonStyle(
                       fontSize: FontSize.s12,
                       fontWeight: FontWeight.w600,
