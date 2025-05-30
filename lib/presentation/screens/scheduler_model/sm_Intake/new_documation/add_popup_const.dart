@@ -31,7 +31,8 @@ class AddPopupConstant extends StatefulWidget {
 }
 
 class _AddPopupConstantState extends State<AddPopupConstant> {
-
+  bool isLoading = false;
+  bool fileAbove20Mb = false;
   String fileName = '';
   dynamic _filePath;
   bool _fileAbove20Mb = false;
@@ -71,7 +72,24 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
               heading: AppString.upload_document,
               content: InkWell(
                 onTap:()async{
-                  pickAckFile();
+                  //pickAckFile();
+                  FilePickerResult? result = await FilePicker.platform.pickFiles(
+                    type: FileType.custom,
+                    allowedExtensions: ['pdf'],
+                  );
+                  if (result != null) {
+                    final fileSize = result.files.first.size;
+                    final isAbove20MB = fileSize > (20 * 1024 * 1024);
+
+                    setState(() {
+                      _filePath = result.files.first.bytes;
+                      fileName = result.files.first.name;
+                      _fileAbove20Mb = !isAbove20MB;
+                    });
+
+                    // This updates the UI inside the StatefulBuilder
+                   // localSetState(() {});
+                  }
                 },
                 child: Container(
                   height: AppSize.s30,
@@ -94,7 +112,7 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                             Expanded(
                               child: Text(
                                 fileName,
-                                style: DocumentTypeDataStyle.customTextStyle(context),
+                                style: DropdownItemStyle.customTextStyle(context),
                               ),
                             ),
                             IconButton(
@@ -150,11 +168,39 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomElevatedButton(
+              isLoading
+                  ? SizedBox(
+                height: 30,
+                width: 30,
+                child: CircularProgressIndicator(
+                  color: ColorManager.blueprime,
+                ),
+              )
+                  : CustomElevatedButton(
                 width: AppSize.s105,
                 height: AppSize.s30,
                 text: AppStringEM.submit,
                 onPressed: () async {
+                  if (_filePath != null && fileName.isNotEmpty && !_fileAbove20Mb) {
+                    await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'File is too large!',
+                        );
+                      },
+                    );
+
+                    setState(() {
+                      isLoading = false;
+                    });
+
+                    return; // Early return to stop further execution
+                  }
+
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
                   // if (_filePath == null || fileName.isEmpty) {
                   //   ScaffoldMessenger.of(context).showSnackBar(
                   //     SnackBar(content: Text("Please select a file first.")),
@@ -191,6 +237,9 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                         },
                       );
                     }
+                    setState(() {
+                      isLoading = false; // End loading
+                    });
                   }
                 },
               ),

@@ -624,8 +624,8 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                                         // Call API only when a checkbox is checked
                                                         providerState.filterIdIntegration(
                                                           context: context,
-                                                          marketerId: hRAllData[index].employeeTypesId.toString(),
-                                                          marketerId: hRAllData[index].employeeTypeId.toString(),
+                                                         // marketerId: hRAllData[index].employeeTypesId.toString(),
+                                                         marketerId: hRAllData[index].employeeTypeId.toString(),
                                                           sourceId: 'all',
                                                           pcpId: 'all',
                                                         );

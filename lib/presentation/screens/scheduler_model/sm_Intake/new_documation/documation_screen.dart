@@ -46,7 +46,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
   final StreamController<List<PatientDocumentsBillingData>> _streamControllerBillingAttachment = StreamController<List<PatientDocumentsBillingData>>.broadcast();
   final StreamController<List<PatientDocumentsFtwoFData>> _streamControllerF2F = StreamController<List<PatientDocumentsFtwoFData>>.broadcast();
   final StreamController<List<PatientDocumentsConsentData>> _streamControllerConsent = StreamController<List<PatientDocumentsConsentData>>.broadcast();
-  String? loginName = '';
+ // String? loginName = '';
   bool isCreating = false;
   bool isPostOpChecked = false;
   TextEditingController postOpDateController = TextEditingController();
@@ -61,12 +61,18 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
   //         selectedDropdownItem != null &&
   //         isPostOpChecked &&
   //         isAppointmentChecked;
+  String? loginName = '';
 
-  Future<String> user() async {
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+    // You can also load your stream data here if needed
+  }
+
+  Future<void> _loadUserName() async {
     loginName = await TokenManager.getUserName();
-    //loginName = userName;
-    print("UserName login ${loginName}");
-    return loginName!;
+    setState(() {});  // triggers rebuild so loginName is available
   }
 
 

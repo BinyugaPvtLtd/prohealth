@@ -674,9 +674,8 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                   Expanded(
                                                     flex: 3,
                                                     child: Text(
-                                                      "${archieved.marketer
-                                                          .firstName} ${archieved
-                                                          .marketer.lastName}",
+                                                      "${archieved.marketer.firstName}"
+                                                          " ${archieved.marketer.lastName}",
                                                       textAlign: TextAlign
                                                           .center,
                                                       style: DocDefineTableData
