@@ -213,8 +213,7 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                           .toList();
 
                       return ScrollConfiguration(
-                        behavior: ScrollConfiguration.of(context)
-                            .copyWith(scrollbars: false),
+                        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                         child: Column(
                           children: [
                             Expanded(

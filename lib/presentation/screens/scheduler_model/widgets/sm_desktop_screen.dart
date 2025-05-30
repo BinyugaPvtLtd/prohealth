@@ -1093,6 +1093,30 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                                       // If value is false (unchecking), do nothing
                                                     });
                                                   }
+
+                                                  ///
+
+                                                  // onChanged: (bool? value) {
+                                                  //   setState(() {
+                                                  //     if (value == true) {
+                                                  //       // Uncheck all other checkboxes
+                                                  //       for (int i = 0; i < _physicianList.length; i++) {
+                                                  //         _physicianList[i] = false;
+                                                  //       }
+                                                  //       _physicianList[index] = true;
+                                                  //
+                                                  //       // Call API only when a checkbox is checked
+                                                  //       providerState.filterIdIntegration(
+                                                  //         context: context,
+                                                  //         marketerId: 'all',
+                                                  //         sourceId: 'all',
+                                                  //         pcpId: patientPhysicianMasterData[index].phy_id.toString(),
+                                                  //       );
+                                                  //     }
+                                                  //     // If value is false (unchecking), do nothing
+                                                  //   });
+                                                  // }
+                                                ///
                                                 // onChanged: (bool? value) {
                                                 //   setState(() {
                                                 //     _isCheckedListMaster[index] = value!;

@@ -432,7 +432,7 @@ class Filterhead {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: FontSize.s13,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
     );
