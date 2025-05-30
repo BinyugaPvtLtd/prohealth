@@ -704,12 +704,12 @@ Future<List<PatientDocumentsBillingData>> getReffrealsPatientDocumentsBillingAtt
   List<PatientDocumentsBillingData> itemsData = [];
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
-    DateTime dateTime = DateTime.parse(isoDate);
+    DateTime dateTime = DateTime.parse(isoDate).toLocal(); // toLocal() if you want local timezone
 
-    // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    // Format date and time separated by a comma
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd, HH:mm:ss');
 
-    // Format the date into "dd mm yy" format
+    // Format the datetime
     String formattedDate = dateFormat.format(dateTime);
 
     return formattedDate;
@@ -751,12 +751,12 @@ Future<List<PatientDocumentsFtwoFData>> getReffrealsPatientDocumentsFaceTwoFace(
   List<PatientDocumentsFtwoFData> itemsData = [];
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
-    DateTime dateTime = DateTime.parse(isoDate);
+    DateTime dateTime = DateTime.parse(isoDate).toLocal(); // toLocal() if you want local timezone
 
-    // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    // Format date and time separated by a comma
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd, HH:mm:ss');
 
-    // Format the date into "dd mm yy" format
+    // Format the datetime
     String formattedDate = dateFormat.format(dateTime);
 
     return formattedDate;
@@ -820,12 +820,12 @@ Future<List<PatientDocumentsConsentData>> getReffrealsPatientDocumentsConsent({
   List<PatientDocumentsConsentData> itemsData = [];
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
-    DateTime dateTime = DateTime.parse(isoDate);
+    DateTime dateTime = DateTime.parse(isoDate).toLocal(); // toLocal() if you want local timezone
 
-    // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    // Format date and time separated by a comma
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd, HH:mm:ss');
 
-    // Format the date into "dd mm yy" format
+    // Format the datetime
     String formattedDate = dateFormat.format(dateTime);
 
     return formattedDate;

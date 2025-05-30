@@ -19,6 +19,7 @@ import '../../../../../data/api_data/sm_data/sm_model_data/patient_insurances_da
 import '../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../em_module/widgets/button_constant.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
@@ -163,27 +164,47 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                       // onTelegramTap: () {},
                                       onPrintTap: () {},
                                       onDownloadTap: () {},
-                                      onDeleteTap: () async {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        try {
-                                          var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
-                                          if(response.statusCode == 200  || response.statusCode == 201) {
-                                            // Navigator.pop(context);
-                                            // Future.delayed(Duration(seconds: 1));
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) => const DeleteSuccessPopup(),
-                                            );
-                                          }
-                                        } finally {
-                                          setState(() {
-                                            isLoading = false;
-                                            //Navigator.pop(context);
-                                          });
-                                        }
-                                      },
+                                      onDeleteTap: () async{
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function())setState) {
+                                                    return DeletePopup(
+                                                      loadingDuration: isLoading,
+                                                      title: 'Delete Document',
+                                                      onCancel: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      onDelete: () async {
+                                                        setState(() {
+                                                          isLoading = true;
+                                                        });
+                                                        try {
+                                                          var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
+                                                          if(response.statusCode == 200  || response.statusCode == 201) {
+                                                            Navigator.pop(context);
+                                                            // Future.delayed(Duration(seconds: 1));
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                                            );
+                                                          }
+                                                        } finally {
+                                                          setState(() {
+                                                            isLoading = false;
+                                                            //Navigator.pop(context);
+                                                          });
+                                                        }
+                                                        // setState(() async{
+                                                        //
+                                                        //   Navigator.pop(context);
+                                                        // });
+                                                      },
+                                                    );
+                                                  },
+                                                ));
+                                      }
                                     );
                                   }),
                             );
@@ -199,7 +220,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                       children: [
                         CustomIconButtonConst(
                           icon: Icons.add,
-                          width: 150,
+                          width: AppSize.s150,
+                          color: ColorManager.bluebottom,
                           onPressed: () {
                             showDialog(
                               context: context,
@@ -263,30 +285,46 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                       // onTelegramTap: () {},
                                       onPrintTap: () {},
                                       onDownloadTap: () {},
-                                      onDeleteTap: () async {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        try {
-                                          var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
-                                          if(response.statusCode == 200  || response.statusCode == 201) {
-                                            // Navigator.pop(context);
-                                            // Future.delayed(Duration(seconds: 1));
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) => const DeleteSuccessPopup(),
-                                            );
-                                          }
-                                        } finally {
-                                          setState(() {
-                                            isLoading = false;
-                                            //Navigator.pop(context);
-                                          });
-                                        }
-                                        // setState(() async{
-                                        //
-                                        //   Navigator.pop(context);
-                                        // });
+                                      onDeleteTap: () async{
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function())setState) {
+                                                    return DeletePopup(
+                                                      loadingDuration: isLoading,
+                                                      title: 'Delete Document',
+                                                      onCancel: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      onDelete: () async {
+                                                        setState(() {
+                                                          isLoading = true;
+                                                        });
+                                                        try {
+                                                          var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
+                                                          if(response.statusCode == 200  || response.statusCode == 201) {
+                                                            Navigator.pop(context);
+                                                            // Future.delayed(Duration(seconds: 1));
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                                            );
+                                                          }
+                                                        } finally {
+                                                          setState(() {
+                                                            isLoading = false;
+                                                            //Navigator.pop(context);
+                                                          });
+                                                        }
+                                                        // setState(() async{
+                                                        //
+                                                        //   Navigator.pop(context);
+                                                        // });
+                                                      },
+                                                    );
+                                                  },
+                                                ));
                                       },
                                     );
                                   }),
@@ -302,7 +340,9 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomIconButtonConst(
-                          icon: Icons.add,  width: 150,
+                          icon: Icons.add,
+                          width: AppSize.s150,
+                          color: ColorManager.bluebottom,
                           onPressed: () {
                             showDialog(
                               context: context,
@@ -326,8 +366,11 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomIconButtonConst(
+                                paddingLeft: AppPadding.p40,
+                                paddingRight: AppPadding.p40,
                                 icon: Icons.add,
-                                width: 100,
+                                width: AppSize.s150,
+                                color: ColorManager.bluebottom,
                                 onPressed: () {
                                   setState(() {
                                     isCreating = true;
@@ -481,39 +524,40 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                       ));
                                 }
                                 if(snapshotDoc.hasData){
-                                  return  Column(
+                                  return Column(
                                     children: [
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(), // prevent scroll conflict
+                                        itemCount: snapshotDoc.data!.length,
+                                        itemBuilder: (context, index) {
+                                          final f2fData = snapshotDoc.data![index];
+                                          final documents = f2fData.documents ?? [];
 
-                                      Container(
-                                        child: ListView.builder(
-                                            shrinkWrap: true,
-                                            itemCount: snapshotDoc.data!.length,
-                                            itemBuilder: (context,index){
+                                          return Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: documents.map((doc) {
                                               return FileInfoCard(
-                                                content: snapshotDoc.data![index].rptd_content,
-                                                documentName: snapshotDoc.data![index].documents.first.f2f_doc_name,//snapshotDoc.data![index].documentName,
-                                                fileUrl: snapshotDoc.data![index].documents.isNotEmpty
-                                                    ? snapshotDoc.data![index].documents.first.f2f_doc_url
-                                                    : '',
-                                                fileName: snapshotDoc.data![index].documents.first.f2f_doc_name,//snapshotDoc.data![index].documentName,
+                                                content: doc.f2f_doc_content,
+                                                documentName: doc.f2f_doc_name,
+                                                fileUrl: doc.f2f_doc_url,
+                                                fileName: doc.f2f_doc_name,
                                                 uploadedInfo: providerState.isContactTrue
                                                     ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
                                                     : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
                                                 isContact: providerState.isContactTrue,
-                                                // onHistoryTap: () {},
-                                                // onTelegramTap: () {},
                                                 onPrintTap: () {},
                                                 onDownloadTap: () {},
-                                                onDeleteTap: ()
-                                                async {
+                                                onDeleteTap: () async {
                                                   setState(() {
                                                     isLoading = true;
                                                   });
                                                   try {
-                                                    var response =  await deleteFTwoFDocument(context: context, id: snapshotDoc.data![index].documents.first.f2f_doc_id, );
-                                                    if(response.statusCode == 200  || response.statusCode == 201) {
-                                                      // Navigator.pop(context);
-                                                      // Future.delayed(Duration(seconds: 1));
+                                                    var response = await deleteFTwoFDocument(
+                                                      context: context,
+                                                      id: doc.f2f_doc_id,
+                                                    );
+                                                    if (response.statusCode == 200 || response.statusCode == 201) {
                                                       showDialog(
                                                         context: context,
                                                         builder: (BuildContext context) => const DeleteSuccessPopup(),
@@ -522,25 +566,75 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                                   } finally {
                                                     setState(() {
                                                       isLoading = false;
-                                                      //Navigator.pop(context);
                                                     });
                                                   }
-                                                  // setState(() async{
-                                                  //
-                                                  //   Navigator.pop(context);
-                                                  // });
                                                 },
                                               );
-                                            }),
-                                      )  ],
+                                            }).toList(),
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   );
+                                  //   Column(
+                                  //   children: [
+                                  //
+                                  //     Container(
+                                  //       child: ListView.builder(
+                                  //           shrinkWrap: true,
+                                  //           itemCount: snapshotDoc.data!.length,
+                                  //           itemBuilder: (context,index){
+                                  //             return FileInfoCard(
+                                  //               content: snapshotDoc.data![index].rptd_content,
+                                  //               documentName: snapshotDoc.data![index].documents!.first.f2f_doc_name,//snapshotDoc.data![index].documentName,
+                                  //               fileUrl: snapshotDoc.data![index].documents!.isNotEmpty
+                                  //                   ? snapshotDoc.data![index].documents!.first.f2f_doc_url
+                                  //                   : '',
+                                  //               fileName: snapshotDoc.data![index].documents!.first.f2f_doc_name,//snapshotDoc.data![index].documentName,
+                                  //               uploadedInfo: providerState.isContactTrue
+                                  //                   ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
+                                  //                   : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
+                                  //               isContact: providerState.isContactTrue,
+                                  //               // onHistoryTap: () {},
+                                  //               // onTelegramTap: () {},
+                                  //               onPrintTap: () {},
+                                  //               onDownloadTap: () {},
+                                  //               onDeleteTap: ()
+                                  //               async {
+                                  //                 setState(() {
+                                  //                   isLoading = true;
+                                  //                 });
+                                  //                 try {
+                                  //                   var response =  await deleteFTwoFDocument(context: context, id: snapshotDoc.data![index].documents!.first.f2f_doc_id, );
+                                  //                   if(response.statusCode == 200  || response.statusCode == 201) {
+                                  //                     // Navigator.pop(context);
+                                  //                     // Future.delayed(Duration(seconds: 1));
+                                  //                     showDialog(
+                                  //                       context: context,
+                                  //                       builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                  //                     );
+                                  //                   }
+                                  //                 } finally {
+                                  //                   setState(() {
+                                  //                     isLoading = false;
+                                  //                     //Navigator.pop(context);
+                                  //                   });
+                                  //                 }
+                                  //                 // setState(() async{
+                                  //                 //
+                                  //                 //   Navigator.pop(context);
+                                  //                 // });
+                                  //               },
+                                  //             );
+                                  //           }),
+                                  //     )  ],
+                                  // );
                                 }else{
                                   return const SizedBox();
                                 }
 
                               }
                           ),
-
                           SizedBox(height: 20),
 
                           // 🟩 ATTACH BUTTON
@@ -549,7 +643,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                             children: [
                               CustomIconButtonConst(
                                 icon: Icons.add,
-                                width: 150,
+                                width: AppSize.s150,
+                                color: ColorManager.bluebottom,
                                 text: "Add Attachment",
                                 onPressed: isFormValid
                                     ? () {
@@ -877,30 +972,46 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                       // onTelegramTap: () {},
                                       onPrintTap: () {},
                                       onDownloadTap: () {},
-                                      onDeleteTap: () async {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        try {
-                                          var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
-                                          if(response.statusCode == 200  || response.statusCode == 201) {
-                                            // Navigator.pop(context);
-                                            // Future.delayed(Duration(seconds: 1));
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) => const DeleteSuccessPopup(),
-                                            );
-                                          }
-                                        } finally {
-                                          setState(() {
-                                            isLoading = false;
-                                            //Navigator.pop(context);
-                                          });
-                                        }
-                                        // setState(() async{
-                                        //
-                                        //   Navigator.pop(context);
-                                        // });
+                                      onDeleteTap: () async{
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function())setState) {
+                                                    return DeletePopup(
+                                                      loadingDuration: isLoading,
+                                                      title: 'Delete Document',
+                                                      onCancel: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      onDelete: () async {
+                                                        setState(() {
+                                                          isLoading = true;
+                                                        });
+                                                        try {
+                                                          var response =  await deletePatientDocument(context: context, docId: snapshotDoc.data![index].rptd_id, );
+                                                          if(response.statusCode == 200  || response.statusCode == 201) {
+                                                            Navigator.pop(context);
+                                                            // Future.delayed(Duration(seconds: 1));
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                                            );
+                                                          }
+                                                        } finally {
+                                                          setState(() {
+                                                            isLoading = false;
+                                                            //Navigator.pop(context);
+                                                          });
+                                                        }
+                                                        // setState(() async{
+                                                        //
+                                                        //   Navigator.pop(context);
+                                                        // });
+                                                      },
+                                                    );
+                                                  },
+                                                ));
                                       },
                                     );
                                   }),
@@ -916,7 +1027,9 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomIconButtonConst(
-                          icon: Icons.add,  width: 150,
+                          icon: Icons.add,
+                          width: AppSize.s150,
+                          color: ColorManager.bluebottom,
                           onPressed: () {
                             showDialog(
                               context: context,

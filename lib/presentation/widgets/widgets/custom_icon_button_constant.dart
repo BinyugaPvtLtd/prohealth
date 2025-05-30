@@ -15,10 +15,14 @@ class CustomIconButtonConst extends StatelessWidget {
   final double? height;
   final bool? enabled;
   final Color? color;
+  final double? paddingLeft;
+  final double? paddingRight;
 
   const CustomIconButtonConst({
     this.text,
     this.icon,
+    this.paddingLeft,
+    this.paddingRight,
     required this.onPressed,
     this.width,
     this.color,
@@ -45,7 +49,7 @@ class CustomIconButtonConst extends StatelessWidget {
           ),
           child:
           Padding(
-            padding: EdgeInsets.only(left: AppPadding.p8,right: AppPadding.p15, top: AppPadding.p5,bottom: AppPadding.p5),
+            padding: EdgeInsets.only(left: paddingLeft?? AppPadding.p8,right: paddingRight ?? AppPadding.p15, top: AppPadding.p5,bottom: AppPadding.p5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,

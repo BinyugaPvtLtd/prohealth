@@ -78,13 +78,13 @@ class PatientDocumentsFtwoFData{
   final String rptd_created_at;
   final String rptd_content;
   final int rptd_created_by;
-  final List<FTwoFDocumentsModel> documents;
+  final List<FTwoFDocumentsModel>? documents;
 
   PatientDocumentsFtwoFData({required this.f2f_id,
     required this.documentName,
     required this.fk_pt_id,
     required this.fk_marketerId,
-    required this.documents,
+    this.documents,
     this.rptd_visitNote,
     this.rptd_F2Fappointment,
     required this.rptd_content,
