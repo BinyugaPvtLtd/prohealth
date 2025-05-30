@@ -424,9 +424,9 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                       setState(() {
                                         countyError = null;
                                       });
-                                      selectedZipCodeCounty = val;
                                       for (var a in snapshotZone.data!) {
                                         if (a.countyName == val) {
+                                          selectedZipCodeCounty = val;
                                           docType = a.countyId;
                                           print("County id :: ${a.companyId}");
                                           countyId = docType;
@@ -441,14 +441,14 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             }),
                         countyError != null
                             ? Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              countyError!,
-                              style: CommonErrorMsg.customTextStyle(context),
-                            ),
-                          ],
-                        )
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  countyError!,
+                                  style: CommonErrorMsg.customTextStyle(context),
+                                ),
+                              ],
+                            )
                             : SizedBox(height: 12),
                       ],
                     ),
@@ -593,7 +593,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             // selectedZipCodeZone =
                             //     snapshotZone.data![0].zoneName;
                             // }
-                            // docZoneId = snapshotZone.data![0].zoneId;
+                           // docZoneId = snapshotZone.data![0].zoneId;
                             return Column(
                               children: [
                                 CICCDropdown(
@@ -626,18 +626,18 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                 SizedBox(height: AppSize.s10),
                 StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {
-                    return SMTextfieldAsteric(
-                      controller: widget.zipcodeController,
-                      keyboardType: TextInputType.text,
-                      text: 'Zip Code',
-                      onChanged: (value){
-                        setState(() {
-                          zipcodeError =widget.zipcodeController.text.isEmpty
-                              ? 'Zip Code Field Cannot Be Empty'
-                              : null;
-                        });
-                      },
-                    );},
+                  return SMTextfieldAsteric(
+                    controller: widget.zipcodeController,
+                    keyboardType: TextInputType.text,
+                    text: 'Zip Code',
+                    onChanged: (value){
+                      setState(() {
+                        zipcodeError =widget.zipcodeController.text.isEmpty
+                            ? 'Zip Code Field Cannot Be Empty'
+                            : null;
+                      });
+                    },
+                  );},
                 ),
                 zipcodeError != null ?
                 Row(
@@ -653,42 +653,42 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                 SizedBox(height: AppSize.s6),
                 // Location Picker Section
 
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: _pickLocation,
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                      ),
-                      child: Text(
-                        'Pick Location',
-                        style: TextStyle(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w600,
-                          color: ColorManager.bluelight,
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: _pickLocation,
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                        ),
+                        child: Text(
+                          'Pick Location',
+                          style: TextStyle(
+                            fontSize: FontSize.s14,
+                            fontWeight: FontWeight.w600,
+                            color: ColorManager.bluelight,
+                          ),
                         ),
                       ),
-                    ),
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: ColorManager.granitegray,
-                      size: AppSize.s18,
-                    ),
-                    SizedBox(width: AppSize.s10),
-                    Padding(
-                      padding: const EdgeInsets.only(left: AppPadding.p10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            _location,
-                            style: AllNoDataAvailable.customTextStyle(context),
-                          ),
-                        ],
+                      Icon(
+                        Icons.location_on_outlined,
+                        color: ColorManager.granitegray,
+                        size: AppSize.s18,
                       ),
-                    ),
-                  ],
-                ),
+                      SizedBox(width: AppSize.s10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: AppPadding.p10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              _location,
+                              style: AllNoDataAvailable.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 locationError != null ?
                 Text(
                   locationError!,
@@ -811,9 +811,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
   int countyId =0;
   String zoneNameText = '';
   String countyNameText= '';
-  final StreamController<List<AllCountyZoneGet>> _zoneController =
-  StreamController<List<AllCountyZoneGet>>.broadcast();
-  // late Future<List<SortByZoneData>> _zoneFuture;
+  late Future<List<SortByZoneData>> _zoneFuture;
 
   @override
   void initState() {
@@ -825,8 +823,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
     zoneNameText = widget.zoneName;
     countyNameText = widget.countyName;
     super.initState();
-    // _zoneFuture = getZoneByCounty(context, widget.officeId, countyId, 1, 200);
-    //ZoneZipcodeDropdown(widget.officeId, context); // Initialize Future once
+    _zoneFuture = ZoneZipcodeDropdown(widget.officeId, context); // Initialize Future once
 
   }
   void _pickLocation() async {
@@ -979,6 +976,14 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                           int docType = 0;
                           List<DropdownMenuItem<String>> dropDownTypesList = [];
                           for(var i in snapshotZone.data!){
+                            // if(widget.countyName == countyNameText){
+                            //   dropDownTypesList.add(
+                            //       DropdownMenuItem<String>(
+                            //         child: Text(countyNameText),
+                            //         value: countyNameText,
+                            //       ));
+                            // }
+
                             dropDownTypesList.add(
                               DropdownMenuItem<String>(
                                 value: i.countyName,
@@ -1031,19 +1036,9 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                     ),
                   ),
                   SizedBox(height: AppSize.s5),
-                  // FutureBuilder<List<SortByZoneData>>(
-                  FutureBuilder<List<AllCountyZoneGet>>(
-                      future: getZoneByCounty(context, widget.officeId, countyId, 1, 200),
+                  FutureBuilder<List<SortByZoneData>>(
+                      future: _zoneFuture,// PayRateZoneDropdown(context),
                       builder: (context,snapshotZone) {
-                        getZoneByCounty(
-                            context,
-                            widget.officeId,
-                            countyId,
-                            1,
-                            200)
-                            .then((data) {
-                          _zoneController.add(data);
-                        }).catchError((error) {});
                         if(snapshotZone.connectionState == ConnectionState.waiting){
                           return Container(
                             height: AppSize.s30,
@@ -1283,7 +1278,6 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
     );
   }
 }
-
 
 ///zone
 class AddZonePopup extends StatefulWidget {

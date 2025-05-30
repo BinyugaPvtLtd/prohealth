@@ -642,7 +642,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
-                                child: Image.asset("images/sm/telegram.png", height:  providerstate.isContactTrue?IconSize.I18 :IconSize.I22,),
+                                child: Image.asset("images/sm/telegram.png", height:  providerstate.isContactTrue?IconSize.I20 :IconSize.I22,),
                                 onTap: () {
                                 },
                               ),
@@ -657,7 +657,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                   Icons.print_outlined,
                                   color: Color(0xFF686464),
                                 ),
-                                iconSize: providerstate.isContactTrue?IconSize.I18 :IconSize.I22,
+                                iconSize: providerstate.isContactTrue?IconSize.I20 :IconSize.I22,
                               ),
                               const SizedBox(width: AppSize.s10,),
                               ///download
@@ -672,7 +672,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
-                                iconSize: providerstate.isContactTrue?IconSize.I18 :IconSize.I22,
+                                iconSize: providerstate.isContactTrue?IconSize.I20 :IconSize.I22,
                               ),
                               const SizedBox(width: AppSize.s10,),
                               ///delete
@@ -686,7 +686,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
-                                iconSize:providerstate.isContactTrue?IconSize.I18 :IconSize.I22,
+                                iconSize:providerstate.isContactTrue?IconSize.I20 :IconSize.I22,
                               ),
                             ],
                           )

@@ -31,6 +31,7 @@ import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../sm_Intake/intake_main_screen.dart';
 import '../sm_scheduler/widget/schedular/schedular_new_screen.dart';
 import '../sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';
+import '../sm_scheduler/widget/schedular_create/widget/calender_const.dart';
 
 class SMDesktopScreen extends StatefulWidget {
   final ValueChanged<String?>? onChanged;
@@ -170,7 +171,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
   List<PatientRefferalSourcesData> patientRefferalSourcesData = [];
   List<PatientPhysicianMasterData> patientPhysicianMasterData = [];
-  List<HRAllData> hRAllData = [];
+  List<PatientMarketerData> hRAllData = [];
   List<bool> _isCheckedList = [];
   List<bool> _isCheckedListMaster = [];
   List<bool> _physicianList = [];
@@ -178,7 +179,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   int _totalPatients = 0;
   
   Future<void> loadInitialData() async {
-    hRAllData = await getAllHrDeptWise(context,AppConfig.salesId);
+    hRAllData = await getMarketerWithDeptId( context: context, deptId: AppConfig.salesId);
     patientRefferalSourcesData = await getPatientreferralsMaster(context: context,);
     patientPhysicianMasterData = await getPatientPhysicianMaster(context: context);
     _parientModel =  await getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 20, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: 'all',
@@ -191,6 +192,19 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   }
   ///checkbox
   bool _isChecked = false;
+  bool isShowingCalenderPageview = false;
+  void switchToCalenderPageviweScreen() {
+    setState(() {
+      isShowingCalenderPageview  = true;
+    });
+  }
+
+  void goBackToInitialFromCalenderScreen() {
+    setState(() {
+      isShowingCalenderPageview  = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
@@ -395,7 +409,9 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
                   Expanded(
                     flex: 8,
-                    child: _showHighestCaseViewMoreScreen
+                    child:  isShowingCalenderPageview ?
+                    CalenderConstant(onBack: goBackToInitialFromCalenderScreen,) :
+                    _showHighestCaseViewMoreScreen
                     ? HigestCaseViewMoreScreen(
                       onGoBackHigestCase:  () {
                         setState(() {
@@ -465,7 +481,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                         }); }, patientInfoData: _totalPatients,),
                        // SMIntakeScreen(),
                         NewSchedulerScreen(),
-                        SmCalenderScreen(),
+                        SmCalenderScreen(onCalenderSearchPressed: switchToCalenderPageviweScreen,),
                         SmLiveViewMapScreen(),
                         Container(color:Colors.white),
                         SMIntakeScreen(onGoBackPressed: () {
@@ -607,7 +623,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
                                                         // Call API only when a checkbox is checked
                                                         providerState.filterIdIntegration(
-                                                          marketerId: hRAllData[index].employeeTypesId.toString(),
+                                                          marketerId: hRAllData[index].employeeTypeId.toString(),
                                                           sourceId: 'all',
                                                           pcpId: 'all',
                                                         );
@@ -624,7 +640,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                                 // },
                                               ),
                                               Text(
-                                                "${ hRAllData[index].empType}",
+                                                "${ hRAllData[index].firstName} ${hRAllData[index].lastName}",
                                                 style: DocDefineTableDataID.customTextStyle(
                                                     context),
                                               ),

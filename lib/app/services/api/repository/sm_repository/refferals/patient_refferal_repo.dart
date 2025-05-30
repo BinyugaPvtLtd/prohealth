@@ -3,6 +3,7 @@ class PatientRefferalsRepo{
   static String serviceRefferals = '/services-master';
   static String employeeClinical = '/employee-types/GetClinicianType';
   static String patientInsuarnce = '/insurances-master';
+  static String marketerApi = '/employees/department';
 
   /// patient document
   static String patientDocument = '/patient-document/patient';
@@ -13,6 +14,11 @@ class PatientRefferalsRepo{
   /// filter master repo
   static String patientRefferalsMaster = '/referral-sources';
   static String patientPhysicianMaster = '/physician-master';
+  static String patientDiagnosisiMaster = '/diagnosis-master';
+
+  /// patient diagnosis
+  static String patientDiagnosisGet = '/referral-patient-diagnosis/patient';
+  static String patientDiagnosisAdd = '/referral-patient-diagnosis';
 
 
   static  String getPatientRefferals({required int pageNo, required int nbrOfRows, required String isIntake, required String isArchived,required String isScheduled, required String searchName, required String marketerId,required String referralSourceId, required String pcpId}){
@@ -50,6 +56,10 @@ class PatientRefferalsRepo{
   static  String deletePatientDocument({required int id}){
     return "$patientDocumentDelete/$id";
   }
+  ///patient-document/patient/{patientId}/{documentType}
+  static  String getPatientDocumentByDocType({required int patientId, required int documentType}){
+    return "$patientDocument/$patientId/$documentType";
+  }
 
   static  String attachPatientDocument({required int rptd_id}){
     return "$patientDocumentAttach/$rptd_id";
@@ -63,5 +73,27 @@ class PatientRefferalsRepo{
 
   static  String patientReffrealsSources(){
     return "$patientRefferalsMaster";
+  }
+
+  /// marketer data
+  static  String getMarketerIdWithData({required int deptId}){
+    return "$marketerApi/$deptId";
+  }
+
+  static  String getDiagnosisMaster(){
+    return "$patientDiagnosisiMaster";
+  }
+
+  /// Patient diagnosis
+  static  String getPatientDiagnosisWithPtId({required int ptId}){
+    return "$patientDiagnosisGet/$ptId";
+  }
+
+  static  String addPatientDiagnosis(){
+    return "$patientDiagnosisAdd";
+  }
+
+  static  String patchPatientDiagnosis({required int id}){
+    return "$patientDiagnosisAdd/$id";
   }
 }

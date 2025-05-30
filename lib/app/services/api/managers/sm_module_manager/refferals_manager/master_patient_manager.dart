@@ -69,3 +69,34 @@ Future<List<PatientRefferalSourcesData>> getPatientreferralsMaster({
     return itemsData;
   }
 }
+
+///  patient Diagnosis master
+Future<List<PatientDiagnosisMasterData>> getPatientDiagnosisMaster({
+  required BuildContext context,
+}) async {
+  List<PatientDiagnosisMasterData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getDiagnosisMaster(),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientDiagnosisMasterData(
+            dgnId: item['dgn_id']??0,
+            dgnName: item['dgn_name']??'',
+            dgnCode: item['dgn_code']??''
+
+        ));
+      }
+    }
+    else {
+      print("patient Diagnosis master");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}

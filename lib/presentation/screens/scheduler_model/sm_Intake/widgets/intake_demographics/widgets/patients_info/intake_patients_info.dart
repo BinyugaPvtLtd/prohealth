@@ -29,7 +29,6 @@ class IntakePatientsDatatInfo extends StatelessWidget {
   final Widget childState;
  // final Widget childCity;
   final Widget childCountry;
-
   final Widget childStatus;
   final VoidCallback isIButtonPressed;
 
@@ -37,22 +36,27 @@ class IntakePatientsDatatInfo extends StatelessWidget {
       {super.key,
       required this.childState,
      // required this.childCity,
-
       required this.childCountry, required this.childStatus, required this.isIButtonPressed});
   @override
   Widget build(BuildContext context) {
     String? status = '';
-
+    String? getNameFromId(int id, List<DropdownMenuItem<String>> dropDownList) {
+      final item = dropDownList.firstWhere(
+            (element) => element.value == id,
+        orElse: () => DropdownMenuItem(value: '', child: Text('')),
+      );
+      return (item.child as Text).data;
+    }
     String? statustype;
     String? selectedStatus;
-    String? selectedCountry;
-    String? selectedRace;
+    String selectedCountry = 'Select';
+    String selectedRace = 'Select';
     String? selectedState;
     String? selectedcity;
-    String? selectedLanguage;
+    String selectedLanguage = 'Select';
     String? selectedReligion;
-    String? selectedMaritalStatus;
-    String? dateOfDeath;
+    String selectedMaritalStatus = 'Select';
+    String selectedZone = 'Select';
     int primaryLanguageid = 0;
     int countyId = 0;
     int zoneId = 0;
@@ -386,6 +390,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                   for (var a in snapshot.data!) {
                                                     if (a.name == newValue) {
                                                       selectedCountry = a.name!;
+                                                      countyId = a.countryId;
                                                       //country = a
                                                       // int? docType = a.companyOfficeID;
                                                     }
@@ -522,6 +527,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                   for (var a in snapshot.data!) {
                                                     if (a.name == newValue) {
                                                       selectedCountry = a.name!;
+                                                      countyId = a.countryId;
                                                       //country = a
                                                       // int? docType = a.companyOfficeID;
                                                     }
@@ -558,6 +564,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                 for (var a in snapshot.data!) {
                                                   if (a.description == newValue) {
                                                     selectedRace = a.description;
+                                                    residentialId = a.id;
                                                     //country = a
                                                     // int? docType = a.companyOfficeID;
                                                   }
@@ -982,7 +989,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                     value: i.maritalStatus,
                                                   ));
                                                 }
-
+                                                selectedMaritalStatus = getNameFromId(maritalStatusId,dropDownList)!;
                                                 return CustomDropdownTextFieldsm(
                                                     headText: 'Marital Status',
                                                     dropDownMenuList: dropDownList,
@@ -1023,13 +1030,14 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                           spacing: 10,
                           children: [
                             CustomButtonTransparent(
+                              width: AppSize.s110,
                               text: "Skip",
                               onPressed: () {
 
                               },
                             ),
                             CustomElevatedButton(
-                              width: AppSize.s100,
+                              width: AppSize.s110,
                               text: AppString.save,
                               onPressed: ()async{
                                 print('Demo id ${snapshotPatient.data!.demoId}');

@@ -154,6 +154,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                       enabled: widget.enable == null ? true : false,
                       controller: widget.controller,
                       obscureText: _obscureText,
+                     onChanged: widget.onChanged,
                      // keyboardType: widget.keyboardType,
                       cursorHeight: 17,
                       cursorColor: Colors.black,
@@ -330,89 +331,96 @@ class _SchedularTextFieldcheckboxState extends State<SchedularTextFieldcheckbox>
                   hoverColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onTap:widget.showDatePicker ? ()=> _selectDate(context):null,
-                  child: AbsorbPointer(
-                    absorbing: widget.showDatePicker,
-                    child: Container(
-                      width: widget.width,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: TextFormField(
-                        focusNode: widget.focusNode,
-                        autofocus: true,
-                        enabled: widget.enable == null ? true : false,
-                        controller: widget.controller,
-                        // keyboardType: widget.keyboardType,
-                        cursorHeight: 17,
-                        cursorColor: Colors.black,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: InputDecoration(
-                          suffixIcon: widget.showDatePicker
-                              ? GestureDetector(
-                            onTap: () => _selectDate(context),
-                            child: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,size: IconSize.I22,),
-                          )
-                              : widget.icon,
-                          prefix: widget.prefixWidget,
-                          prefixIcon: widget.suffixIcon,
-                          hintText: widget.hintText,
-                          prefixStyle: AllHRTableData.customTextStyle(context),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(bottom:20, left: AppPadding.p15),
+                  onTap:widget.showDatePicker ? _checkboxValue == false ?(){}:()=> _selectDate(context):null,
+                  child: IgnorePointer(
+                    ignoring: _checkboxValue == false,
+                    child: AbsorbPointer(
+                      absorbing: widget.showDatePicker,
+                      child: Container(
+                        width: widget.width,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        style: TableSubHeading.customTextStyle(context),
-                        //validator: widget.validator,
-                        onTap: widget.onChange,
-                        validator: widget.validator,
-                        inputFormatters: widget.phoneField! ? [
-                          PhoneNumberInputFormatter()
-                        ]: [],
-                        // onTap: widget.onChange,
+                        child: TextFormField(
+                          focusNode: widget.focusNode,
+                          autofocus: true,
+                          enabled: widget.enable ?? false,
+                          //enabled:  widget.enable == null ? true : false,
+                          controller: widget.controller,
+                          // keyboardType: widget.keyboardType,
+                          cursorHeight: 17,
+                          cursorColor: Colors.black,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          decoration: InputDecoration(
+                            suffixIcon: widget.showDatePicker
+                                ? _checkboxValue == false ?GestureDetector(
+                              onTap: (){},
+                              child: Icon(Icons.calendar_month_outlined,color: ColorManager.grey,size: IconSize.I22,),
+                            ) :GestureDetector(
+                              onTap: () => _selectDate(context),
+                              child: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,size: IconSize.I22,),
+                            )
+                                : widget.icon,
+                            prefix: widget.prefixWidget,
+                            prefixIcon: widget.suffixIcon,
+                            hintText: widget.hintText,
+                            prefixStyle: AllHRTableData.customTextStyle(context),
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.only(bottom:20, left: AppPadding.p15),
+                          ),
+                          style: TableSubHeading.customTextStyle(context),
+                          //validator: widget.validator,
+                          onTap: widget.onChange,
+                          validator: widget.validator,
+                          inputFormatters: widget.phoneField! ? [
+                            PhoneNumberInputFormatter()
+                          ]: [],
+                          // onTap: widget.onChange,
+                        ),
+                        // TextFormField(
+                        //   textCapitalization: TextCapitalization.sentences,
+                        //   controller: _controller,
+                        //   cursorHeight: 17,
+                        //   style: DocumentTypeDataStyle.customTextStyle(context),
+                        //   cursorColor: ColorManager.black,
+                        //   decoration: InputDecoration(
+                        //     contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
+                        //     labelText: widget.labelText,
+                        //     labelStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                        //     border: const OutlineInputBorder(),
+                        //     focusedBorder: OutlineInputBorder(
+                        //       borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+                        //     ),
+                        //     suffixIcon: widget.suffixIcon != null
+                        //         ? GestureDetector(
+                        //       onTap: () async {
+                        //         // Open the date picker when the calendar icon is tapped
+                        //         DateTime? pickedDate = await showDatePicker(
+                        //           context: context,
+                        //           initialDate: DateTime.now(),
+                        //           firstDate: DateTime(1900),
+                        //           lastDate: DateTime(2101),
+                        //         );
+                        //
+                        //         if (pickedDate != null) {
+                        //           // Format the date and set it into the text field
+                        //           String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                        //           _controller.text = formattedDate;
+                        //         }
+                        //       },
+                        //       child: widget.suffixIcon,
+                        //     )
+                        //         : null,
+                        //     // Do not show any icon if suffixIcon is null
+                        // ),
+                        //   validator: widget.validator,
+                        //   inputFormatters: widget.phoneField! ? [
+                        //     PhoneNumberInputFormatter()
+                        //   ]: [],
+                        // )
                       ),
-                      // TextFormField(
-                      //   textCapitalization: TextCapitalization.sentences,
-                      //   controller: _controller,
-                      //   cursorHeight: 17,
-                      //   style: DocumentTypeDataStyle.customTextStyle(context),
-                      //   cursorColor: ColorManager.black,
-                      //   decoration: InputDecoration(
-                      //     contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
-                      //     labelText: widget.labelText,
-                      //     labelStyle:  DocumentTypeDataStyle.customTextStyle(context),
-                      //     border: const OutlineInputBorder(),
-                      //     focusedBorder: OutlineInputBorder(
-                      //       borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-                      //     ),
-                      //     suffixIcon: widget.suffixIcon != null
-                      //         ? GestureDetector(
-                      //       onTap: () async {
-                      //         // Open the date picker when the calendar icon is tapped
-                      //         DateTime? pickedDate = await showDatePicker(
-                      //           context: context,
-                      //           initialDate: DateTime.now(),
-                      //           firstDate: DateTime(1900),
-                      //           lastDate: DateTime(2101),
-                      //         );
-                      //
-                      //         if (pickedDate != null) {
-                      //           // Format the date and set it into the text field
-                      //           String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                      //           _controller.text = formattedDate;
-                      //         }
-                      //       },
-                      //       child: widget.suffixIcon,
-                      //     )
-                      //         : null,
-                      //     // Do not show any icon if suffixIcon is null
-                      // ),
-                      //   validator: widget.validator,
-                      //   inputFormatters: widget.phoneField! ? [
-                      //     PhoneNumberInputFormatter()
-                      //   ]: [],
-                      // )
                     ),
                   ),
                 ),
