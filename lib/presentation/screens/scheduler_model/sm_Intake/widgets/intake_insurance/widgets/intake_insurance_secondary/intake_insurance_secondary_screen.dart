@@ -1,4 +1,8 @@
+import 'dart:async';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -9,12 +13,20 @@ import '../../../../../../../../app/resources/establishment_resources/establish_
 import '../../../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../app/services/api/managers/sm_module_manager/intake/patient_insurance_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/sm_intake_manager/intake_demographics/intake_demographic_dropdown_manager.dart';
+import '../../../../../../../../data/api_data/api_data.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
+import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/patient_insurance_data.dart';
+import '../../../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../../../../em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../../../../hr_module/onboarding/download_doc_const.dart';
+import '../../../../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import '../../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../widgets/constant_widgets/dropdown_constant_sm.dart';
@@ -26,6 +38,7 @@ class IntakeSecondaryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
     TextEditingController pharmaSelectDB = TextEditingController();
     TextEditingController pharmaName = TextEditingController();
     TextEditingController pharmaphone = TextEditingController();
@@ -49,7 +62,8 @@ class IntakeSecondaryScreen extends StatelessWidget {
     TextEditingController effectivetoController = TextEditingController();
     TextEditingController authorizze1 = TextEditingController();
     TextEditingController authorize2 = TextEditingController();
-
+    final StreamController<List<PatientInsuranceDocumentData>> _streamControllerDoc = StreamController<List<PatientInsuranceDocumentData>>.broadcast();
+    bool _isLoading = false;
     String? statustype;
     String? dmeSupplies;
     String? pharmacydd;
@@ -1056,129 +1070,224 @@ class IntakeSecondaryScreen extends StatelessWidget {
                       child: BlueBGHeadConst(HeadText: "Attachments"),
                     ),
                     Container(
-                        height: AppSize.s200,
+
                         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p40,vertical: AppPadding.p15 ),
                         //child: SingleChildScrollView(
                         child: Column(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                                child: Container(
-                                  height: AppSize.s65,
-                                   padding: const EdgeInsets.only(right: AppPadding.p30, ),
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.white,
-                                    border: Border(
-                                      bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey),
-                                    ),
-                                  ),
-                                  child:Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const VerticalDivider(
-                                          color: Color(0xFF50B5E5),
-                                          thickness: 4.5,
+                              StreamBuilder<List<PatientInsuranceDocumentData>>(
+                                  stream: _streamControllerDoc.stream,
+                                  builder: (context, snapshotDoc){
+                                    getPatientEmergencyContact(context: context, ptId: diagnosisProvider.patientId,).then((data) {
+                                      _streamControllerDoc.add(data);
+                                    }).catchError((error) {
+                                      // Handle error
+                                    });
+                                    if(snapshotDoc.connectionState == ConnectionState.waiting){
+                                      return Center(
+                                        child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                      );
+                                    }
+                                    if(snapshotDoc.data!.isEmpty){
+                                      return Center(
+                                          child: Padding(
+                                            padding:const EdgeInsets.symmetric(vertical: 76),
+                                            child: Text(
+                                              AppStringSMModule.patientInsuranceDocNoData,
+                                              style: AllNoDataAvailable.customTextStyle(context),
+                                            ),
+                                          ));
+                                    }
+                                    if(snapshotDoc.hasData){
+                                      return  Container(
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: snapshotDoc.data!.length,
+                                            itemBuilder: (context,index) {
+                                              var fileUrl = snapshotDoc.data![index].docUrl;
+                                              var formatedData = DateFormat('yyyy/MM/dd').format(snapshotDoc.data![index].createdAt);
+                                              return snapshotDoc.data![index].isPrimary == true? Offstage():Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 40.0,vertical: 10),
+                                                child: Container(
+                                                  height: AppSize.s65,
+                                                  // padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
+                                                  decoration: BoxDecoration(
+                                                    color: ColorManager.white,
+                                                    // borderRadius: BorderRadius.circular(5),
+                                                    // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
+                                                    border: Border(
+                                                      bottom: BorderSide(width: 0.5,color: ColorManager.lightGrey),
+                                                    ),//all(width: 1, color: Color(0xFFBCBCBC)),
+                                                  ),child:Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        const VerticalDivider(
+                                                          color: Color(0xFF50B5E5),
+                                                          thickness: 4.5,
+                                                        ),
+                                                        const SizedBox(width: AppSize.s20,),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.center,
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text('${snapshotDoc.data![index].docName}',
+                                                                style: DocDefineTableData.customTextStyle(context)),
+                                                            const SizedBox(height: AppSize.s8,),
+                                                            Text("Uploaded $formatedData, ${DateFormat.jm().format(snapshotDoc.data![index].createdAt)} PST by Henry, Rebecca",
+                                                                style:  DocDefineTableDataID.customTextStyle(context)),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      children: [
+                                                        // InkWell(
+                                                        //   splashColor: Colors.transparent,
+                                                        //   highlightColor: Colors.transparent,
+                                                        //   hoverColor: Colors.transparent,
+                                                        //   child: Image.asset("images/sm/telegram.png", height:  providerstate.isContactTrue?IconSize.I20 :IconSize.I22,),
+                                                        //   onTap: () {
+                                                        //   },
+                                                        // ),
+                                                        // const SizedBox(width: AppSize.s10,),
+                                                        IconButton(
+                                                          splashColor: Colors.transparent,
+                                                          highlightColor: Colors.transparent,
+                                                          hoverColor: Colors.transparent,
+                                                          onPressed: () {
+                                                            downloadFile(fileUrl);
+                                                          },
+                                                          icon: const Icon(
+                                                            Icons.print_outlined,
+                                                            color: Color(0xFF686464),
+                                                          ),
+                                                          iconSize: providerState.isContactTrue?IconSize.I20 :IconSize.I22,
+                                                        ),
+                                                        const SizedBox(width: AppSize.s10,),
+                                                        ///download
+                                                        PdfDownloadButton(apiUrl: snapshotDoc.data![index].docUrl,// policiesdata.docurl,
+                                                          iconsize: IconSize.I22,
+                                                          documentName: snapshotDoc.data![index].docName,
+                                                          iconColor: Color(0xFF686464),//policiesdata.docName!
+                                                        ),
+                                                        const SizedBox(width: AppSize.s10,),
+                                                        ///delete
+                                                        IconButton(
+                                                          onPressed: () async{
+                                                            showDialog(
+                                                                context: context,
+                                                                builder: (context) =>
+                                                                    StatefulBuilder(
+                                                                      builder: (BuildContext context, void Function(void Function())setState) {
+                                                                        return DeletePopup(
+                                                                          loadingDuration: _isLoading,
+                                                                          title: 'Delete Document',
+                                                                          onCancel: () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          onDelete: () async {
+                                                                            setState(() {
+                                                                              _isLoading = true;
+                                                                            });
+                                                                            try {
+                                                                              var response =  await deletePatientInsuranceDocument(context: context, documentId: snapshotDoc.data![index].insuranceDocumentId, );
+                                                                              if(response.statusCode == 200  || response.statusCode == 201) {
+                                                                                Navigator.pop(context);
+                                                                                // Future.delayed(Duration(seconds: 1));
+                                                                                showDialog(
+                                                                                  context: context,
+                                                                                  builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                                                                );
+                                                                              }
+                                                                            } finally {
+                                                                              setState(() {
+                                                                                _isLoading = false;
+                                                                                //Navigator.pop(context);
+                                                                              });
+                                                                            }
+                                                                            // setState(() async{
+                                                                            //
+                                                                            //   Navigator.pop(context);
+                                                                            // });
+                                                                          },
+                                                                        );
+                                                                      },
+                                                                    ));
+                                                          },
+                                                          icon: const Icon(
+                                                            Icons.delete_outline,
+                                                            color: Color(0xFF686464),
+                                                          ),
+                                                          splashColor: Colors.transparent,
+                                                          highlightColor: Colors.transparent,
+                                                          hoverColor: Colors.transparent,
+                                                          iconSize:providerState.isContactTrue?IconSize.I20 :IconSize.I22,
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                                ),
+                                              );
+                                            }
                                         ),
-                                        const SizedBox(width: AppSize.s20,),
-                                        Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            Text('Eligibility.pdf',
-                                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w600,
-                                                color: ColorManager.mediumgrey,),),
-                                            const SizedBox(height: AppSize.s8,),
-                                            Text("Uploaded 1/26/2025, 8:17:00 AM PST by Henry, Rebecca",
-                                              style:  TextStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w300,fontStyle: FontStyle.italic,
-                                                color: ColorManager.granitegray,),),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          child: Image.asset("images/sm/telegram.png",height: providerState.isContactTrue ? IconSize.I20 :IconSize.I22,)
-                                          ,onTap:(){},),
-                                        // IconButton(
-                                        //   splashColor: Colors.transparent,
-                                        //   highlightColor: Colors.transparent,
-                                        //   hoverColor: Colors.transparent,
-                                        //   onPressed: () {
-                                        //   },
-                                        //   icon: Icon(
-                                        //     Icons.near_me_outlined,
-                                        //     color: Color(0xFF686464),
-                                        //   ),
-                                        //   iconSize: IconSize.I22,
-                                        // ),
-                                        const SizedBox(width: AppSize.s13,),
-                                        IconButton(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          onPressed: () {
-                                          },
-                                          icon: const Icon(
-                                            Icons.print_outlined,
-                                            color: Color(0xFF686464),
-                                          ),
-                                          iconSize: providerState.isContactTrue?IconSize.I20 :IconSize.I22,
-                                        ),
-                                        const SizedBox(width: AppSize.s10,),
-                                        ///download
-                                        IconButton(
-                                          onPressed: () {
-
-                                          },
-                                          icon: const Icon(
-                                            Icons.save_alt_outlined,
-                                            color: Color(0xFF686464),
-                                          ),
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          iconSize: providerState.isContactTrue?IconSize.I20 :IconSize.I22,
-                                        ),
-                                        const SizedBox(width: AppSize.s10,),
-                                        ///delete
-                                        IconButton(
-                                          onPressed: () {
-                                          },
-                                          icon: const Icon(
-                                            Icons.delete_outline,
-                                            color: Color(0xFF686464),
-                                          ),
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          iconSize: providerState.isContactTrue?IconSize.I20 :IconSize.I22,
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                ),
+                                      );
+                                    }
+                                    else{
+                                      return SizedBox();
+                                    }
+                                  }
                               ),
                               const SizedBox(height: AppSize.s25),
-                              CustomIconButtonConst(
+                        StatefulBuilder(
+                            builder: (BuildContext context, StateSetter setState){
+                              return CustomIconButtonConst(
                                   width: 150,
                                   text: 'Add Attachment',
                                   icon: Icons.add,
-                                  onPressed: () {
+                                  color: ColorManager.bluebottom,
+                                  onPressed: () async{
+                                    FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                      type: FileType.custom,
+                                      allowedExtensions: ['svg', 'png', 'jpg', 'gif','pdf'],
+                                    );
+                                    if (result != null) {
+                                      print('file name ${result.files.first.name}');
+                                      ApiData apiData =  await addPatientInsuranceDocuments(
+                                        context: context,
+                                        ptId: diagnosisProvider.patientId,
+                                        documentUrl: '--',
+                                        documentName: result.files.first.name,
+                                        isPrimary: false,
+                                      );
+                                      if(apiData.statusCode == 200 || apiData.statusCode == 201){
+                                        var uploadPatientDoc = await uploadPatientInsuranceDocuments(
+                                          context: context,
+                                          documentId: apiData.patientInsuranceDocId!,
+                                          documentFile: result.files.first.bytes,
+                                          documentName: result.files.first.name,
+                                        );
+                                        if(uploadPatientDoc.success == true){
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return const AddSuccessPopup(
+                                                message: 'Document Uploaded Successfully',
+                                              );
+                                            },
+                                          );
+                                        }
+                                      }
 
-                                  }),])),
+                                    }
+                                  });}
+                        ),])),
                     const SizedBox(height: AppSize.s60),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

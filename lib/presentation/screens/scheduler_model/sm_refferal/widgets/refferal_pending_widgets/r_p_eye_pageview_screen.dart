@@ -782,13 +782,19 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 25, top: 6),
-                          child: Text(
-                            'Mark as Primary',
-                            style: AllPopupHeadings.customTextStyle(context),
+                          Opacity(
+                            opacity: selectedType == 'Self Pay' ? 0.2 :  0.9,
+                            child: IgnorePointer(
+                              ignoring: selectedType == 'Self Pay',
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 25, top: 6),
+                              child: Text(
+                                'Mark as Primary',
+                                style: AllPopupHeadings.customTextStyle(context),
+                              ),
+                            ),
+                                                    ),
                           ),
-                        ),
                         const SizedBox(height: 10),
                         // Container(
                         //   color: selectedType == 'Self Pay' ? Colors.grey.shade200 : Colors.transparent,
@@ -1391,8 +1397,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     ],
                                     bottomButtons: dgnAddLoader ? Center(
                                       child: SizedBox(
-                                        height: 25,
-                                          width: 25,
+                                        height: 30,
+                                          width: 30,
                                           child: CircularProgressIndicator(color: ColorManager.blueprime,)),
                                     ):CustomElevatedButton(
                                       text: 'Add',
@@ -1416,6 +1422,18 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                               },
                                             );
                                           }
+                                          if(response.statusCode == 400){
+                                            Navigator.pop(context);
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return  AddSuccessPopup(
+                                                  title: "Error",
+                                                  message: response.message,
+                                                );
+                                              },
+                                            );
+                                          }
                                         }finally{
                                           setState(() {
                                             dgnAddLoader = false;
@@ -1428,7 +1446,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                               //Provider.of<DiagnosisProvider>(context, listen: false).addDiagnosis();
                                 // providerAddState.setVisibility(true);
                                 // providerAddState.addDiagnosis();
-
                             },
                           ),
                         ),],
@@ -1962,91 +1979,6 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                                 iconsize: IconSize.I22,
                                                                 documentName: snapshotDoc.data![index].documentName,//policiesdata.docName!
                                                               ),
-                                                              // SizedBox(width: AppSize.s10,),
-                                                              // ///edit
-                                                              // IconButton(
-                                                              //   onPressed: (){},
-                                                              //   //     () {
-                                                              //   //   showDialog(
-                                                              //   //     context: context,
-                                                              //   //     builder: (context) {
-                                                              //   //       return FutureBuilder<
-                                                              //   //           MCorporateCompliancePreFillModal>(
-                                                              //   //         future: getPrefillNewOrgOfficeDocument(
-                                                              //   //             context,
-                                                              //   //             policiesdata
-                                                              //   //                 .orgOfficeDocumentId),
-                                                              //   //         builder: (context,
-                                                              //   //             snapshotPrefill) {
-                                                              //   //           if (snapshotPrefill
-                                                              //   //               .connectionState ==
-                                                              //   //               ConnectionState
-                                                              //   //                   .waiting) {
-                                                              //   //             return Center(
-                                                              //   //               child:
-                                                              //   //               CircularProgressIndicator(
-                                                              //   //                 color: ColorManager
-                                                              //   //                     .blueprime,
-                                                              //   //               ),
-                                                              //   //             );
-                                                              //   //           }
-                                                              //   //
-                                                              //   //           var calender =
-                                                              //   //               snapshotPrefill
-                                                              //   //                   .data!
-                                                              //   //                   .expiry_date;
-                                                              //   //           calenderController =
-                                                              //   //               TextEditingController(
-                                                              //   //                 text: snapshotPrefill
-                                                              //   //                     .data!
-                                                              //   //                     .expiry_date,
-                                                              //   //               );
-                                                              //   //           return StatefulBuilder(
-                                                              //   //             builder: (BuildContext
-                                                              //   //             context,
-                                                              //   //                 void Function(void Function())
-                                                              //   //                 setState) {
-                                                              //   //               return VCScreenPopupEditConst(
-                                                              //   //                 fileName: snapshotPrefill
-                                                              //   //                     .data!
-                                                              //   //                     .fileName,
-                                                              //   //                 url: snapshotPrefill.data!.url,
-                                                              //   //                 expiryDate: snapshotPrefill.data!.expiry_date,
-                                                              //   //                 title: EditPopupString.editPolicy,
-                                                              //   //                 loadingDuration: _isLoading,
-                                                              //   //                 officeId: widget.officeId,
-                                                              //   //                 docTypeMetaIdCC: widget.docID,
-                                                              //   //                 selectedSubDocId: widget.subDocID,
-                                                              //   //                 //orgDocId: manageCCADR.orgOfficeDocumentId,
-                                                              //   //                 orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
-                                                              //   //                 orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
-                                                              //   //                 docName: snapshotPrefill.data!.docName,
-                                                              //   //                 selectedExpiryType: snapshotPrefill.data!.expType,
-                                                              //   //                 documentType: AppStringEM.policiesAndProcedures,
-                                                              //   //                 documentSubType: '',
-                                                              //   //                 isOthersDocs: snapshotPrefill.data!.isOthersDocs,
-                                                              //   //                 idOfDoc: snapshotPrefill.data!.idOfDocument,
-                                                              //   //                 expiryType: snapshotPrefill.data!.expType,
-                                                              //   //                 threshhold: snapshotPrefill.data!.threshould,
-                                                              //   //               );
-                                                              //   //             },
-                                                              //   //           );
-                                                              //   //         },
-                                                              //   //       );
-                                                              //   //     },
-                                                              //   //   );
-                                                              //   // },
-                                                              //   icon: Icon(
-                                                              //     Icons.edit_outlined,
-                                                              //     size:IconSize.I22,color: IconColorManager.bluebottom,
-                                                              //   ),
-                                                              //   splashColor:
-                                                              //   Colors.transparent,
-                                                              //   highlightColor:
-                                                              //   Colors.transparent,
-                                                              //   hoverColor:
-                                                              //   Colors.transparent,
-                                                              // ),
                                                               const SizedBox(width: AppSize.s10,),
                                                               ///delete
                                                               IconButton(

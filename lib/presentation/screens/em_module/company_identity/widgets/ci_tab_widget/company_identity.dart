@@ -59,6 +59,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   String selectedOfficeName = '';
   String selectedStateName = '';
   String selectedCountryName = '';
+  double selectedofficeLat = 0.0;
+  double selectedOfficeLong = 0.0;
   int selectedCompId = 0;
   int selectedCompOfficeId = 0;
   // bool _isSubmitting = false;
@@ -66,11 +68,15 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   void showManageScreenFunction(
       {required String officeId,
         officeName,
+        required double officeLat,
+        required double officeLong,
         required int compId,
         required int companyOfficeId,
         required String stateName,
         required String countryName}) {
     setState(() {
+      selectedofficeLat = officeLat;
+      selectedOfficeLong = officeLong;
       selectedStateName = stateName;
       selectedCountryName = countryName;
       selectedOfficeID = officeId;
@@ -508,6 +514,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                                 countryName:
                                                                 paginatedData[index]
                                                                     .countryName,
+                                                                officeLat: double.parse(paginatedData[index].lat) ,
+                                                                officeLong: double.parse(paginatedData[index].long),
                                                               );
                                                             },
                                                           ),
@@ -599,7 +607,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               },
               companyOfficeId: selectedCompOfficeId,
               stateName: selectedStateName,
-              countryName: selectedCountryName,
+              countryName: selectedCountryName, officeLat: selectedofficeLat, officeLong: selectedOfficeLong,
             ),
           ),
 

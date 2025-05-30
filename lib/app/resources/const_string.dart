@@ -412,6 +412,7 @@ class AppStringSMModule {
   static const String moveIntakeReferNoData = 'No available intake referrals!';
   static const String archivedReferNoData = 'No available archived referrals!';
   static const String patientDocNoData = 'No available patient documents!';
+  static const String patientInsuranceDocNoData = 'No insurance documents!';
   static const String patientDiagnosisNoData = 'No diagnosis documents!';
   static const String infoUpdateNoData = 'No available information update!';
 }
