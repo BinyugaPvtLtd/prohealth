@@ -171,7 +171,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
   List<PatientRefferalSourcesData> patientRefferalSourcesData = [];
   List<PatientPhysicianMasterData> patientPhysicianMasterData = [];
-  List<HRAllData> hRAllData = [];
+  List<PatientMarketerData> hRAllData = [];
   List<bool> _isCheckedList = [];
   List<bool> _isCheckedListMaster = [];
   List<bool> _physicianList = [];
@@ -179,7 +179,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   int _totalPatients = 0;
   
   Future<void> loadInitialData() async {
-    hRAllData = await getAllHrDeptWise(context,AppConfig.salesId);
+    hRAllData = await getMarketerWithDeptId( context: context, deptId: AppConfig.salesId);
     patientRefferalSourcesData = await getPatientreferralsMaster(context: context,);
     patientPhysicianMasterData = await getPatientPhysicianMaster(context: context);
     _parientModel =  await getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 20, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: 'all',
@@ -625,6 +625,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                                         providerState.filterIdIntegration(
                                                           context: context,
                                                           marketerId: hRAllData[index].employeeTypesId.toString(),
+                                                          marketerId: hRAllData[index].employeeTypeId.toString(),
                                                           sourceId: 'all',
                                                           pcpId: 'all',
                                                         );
@@ -641,7 +642,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                                 // },
                                               ),
                                               Text(
-                                                "${ hRAllData[index].empType}",
+                                                "${ hRAllData[index].firstName} ${hRAllData[index].lastName}",
                                                 style: DocDefineTableDataID.customTextStyle(
                                                     context),
                                               ),

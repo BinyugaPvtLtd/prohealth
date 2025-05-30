@@ -57,8 +57,7 @@
 // ///SM
 // static const int clinicianAttachment = 1;
 // static const int billingAttachment = 2;
-// static const int f2fEncounter = 3;
-// static const int consent = 4;
+// static const int consent = 3;
 // }
 
 ///dev instance
@@ -126,10 +125,10 @@ class AppConfig {
   static const String misc = "MISC";
 
   ///SM
+  static const int defaultAttachment = 0;
   static const int clinicianAttachment = 1;
   static const int billingAttachment = 2;
-  static const int f2fEncounter = 3;
-  static const int consent = 4;
+  static const int consent = 3;
 }
 ///worker instance
 // class AppConfig {
@@ -199,8 +198,7 @@ class AppConfig {
 // ///SM
 // static const int clinicianAttachment = 1;
 // static const int billingAttachment = 2;
-// static const int f2fEncounter = 3;
-// static const int consent = 4;
+// static const int consent = 3;
 // }
 
 ///local host
@@ -269,6 +267,5 @@ class AppConfig {
 // ///SM
 // static const int clinicianAttachment = 1;
 // static const int billingAttachment = 2;
-// static const int f2fEncounter = 3;
-// static const int consent = 4;
+// static const int consent = 3;
 // }

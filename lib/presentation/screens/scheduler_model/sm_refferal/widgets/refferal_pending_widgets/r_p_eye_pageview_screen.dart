@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -17,18 +18,22 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/provider/sm_provider/sm_integration_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/master_patient_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/patient_insurances_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../../../widgets/error_popups/delete_success_popup.dart';
+import '../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../../../em_module/company_identity/widgets/manage_history_version.dart';
 import '../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../em_module/widgets/button_constant.dart';
+import '../../../../em_module/widgets/dialogue_template.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../widgets/constant_widgets/dropdown_constant_sm.dart';
@@ -173,6 +178,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   var MedicalSocialServices = '';
   var HomeHealthAide = '';
   var Dietician = '';
+  int dgnIdSelected = 0;
+  String dgnNameSelected = 'Select';
 
   @override
   void initState() {
@@ -205,7 +212,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
   //   );
   // }
   int? selectedRptiId;
-
+  TextEditingController possible = TextEditingController();
+  TextEditingController icd = TextEditingController();
+  TextEditingController pdgm = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
@@ -1146,47 +1155,103 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                       ///diagnosis
                       const BlueBGHeadConst(HeadText: "Diagnosis"),
                       const SizedBox(height: AppSize.s10,),
-                      Consumer<DiagnosisProvider>(
-                        builder: (context, providerAddState, _) {
-                          return Column(
-                            children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
-                              int index = entry.key;
-                              GlobalKey<_DiagosisListState> key = entry.value;
-                              List<PatientDiagnosesModel> data = providerAddState.diagnosisData;
-
-                              return DiagosisList(
-                                key: key,
-                                index: index,
-                                onRemove: () => providerAddState.removeDiagnosis(key),
-                                isVisible: providerAddState.isVisible,
-                                diagnosisData: data,
-                                onChanged: (int index, PatientDiagnosesModel updatedModel) {
-                                  providerAddState.updateDiagnosis(index, updatedModel);
-                                },
-                              );
-                            }).toList(),
-                          );
-                        },
-                      ),
+                      // Consumer<DiagnosisProvider>(
+                      //   builder: (context, providerAddState, _) {
+                      //     return Column(
+                      //       children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
+                      //         int index = entry.key;
+                      //         GlobalKey<_DiagosisListState> key = entry.value;
+                      //         List<PatientDiagnosesModel> data = providerAddState.diagnosisData;
+                      //
+                      //         return DiagosisList(
+                      //           key: key,
+                      //           index: index,
+                      //           onRemove: () => providerAddState.removeDiagnosis(key),
+                      //           isVisible: providerAddState.isVisible,
+                      //           diagnosisData: data,
+                      //           onChanged: (int index, PatientDiagnosesModel updatedModel) {
+                      //             providerAddState.updateDiagnosis(index, updatedModel);
+                      //           },
+                      //         );
+                      //       }).toList(),
+                      //     );
+                      //   },
+                      // ),
 
                       ///
-                      // Column(
-                      //   children: providerAddState.diagnosisKeys.asMap().entries.map((entry) {
-                      //     int index = entry.key;
-                      //     GlobalKey<_DiagosisListState> key = entry.value;
-                      //     List<PatientDiagnosesModel> data = providerAddState.diagnosisData;
-                      //
-                      //     return DiagosisList(
-                      //       key: key,
-                      //       index: index,
-                      //       onRemove: () => providerAddState.removeDiagnosis(key),
-                      //       isVisible: providerAddState.isVisible, diagnosisData: data,
-                      //       onChanged: (int index, PatientDiagnosesModel updatedModel) {
-                      //       //  providerAddState.updateDiagnosis(index, updatedModel);
-                      //       },
-                      //     );
-                      //   }).toList(),
-                      // ),
+                      Column(
+                        children: [
+                          ...List.generate(snapshot.data!.patientDiagnoses.length, (index){
+                            possible = TextEditingController(text: snapshot.data!.patientDiagnoses[index].dgnName);
+                            icd = TextEditingController(text: snapshot.data!.patientDiagnoses[index].dgnCode);
+                            pdgm = TextEditingController(text: snapshot.data!.patientDiagnoses[index].rpt_pdgm ? 'YES' : 'NO');
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(height: 90,width: 5,color: snapshot.data!.patientDiagnoses[index].color == 0
+                                          ? ColorManager.red
+                                          : snapshot.data!.patientDiagnoses[index].color == 1
+                                          ? ColorManager.greenDark
+                                          : Colors.white,),
+                                      const SizedBox(width: AppSize.s30,),
+                                      Expanded(
+                                        child: SMTextFConst(controller: possible,
+                                            isAsteric: false,
+                                            isIcon: true,
+                                            keyboardType: TextInputType.text, text: "Possible Diagnosis"),
+                                      ),
+                                      const SizedBox(width: AppSize.s60,),
+                                      Expanded(
+                                        child: SMTextFConst(controller: icd,
+                                            isAsteric: false,
+                                            isIcon: true,
+                                            keyboardType: TextInputType.text, text: "ICD Code"),
+                                      ),
+                                      const SizedBox(width: AppSize.s60,),
+                                      Expanded(
+                                        child: SMTextFConst(controller: pdgm,
+                                            isAsteric: false,
+                                            isIcon: false,
+                                            textColor: snapshot.data!.patientDiagnoses[index].color == 0
+                                                ? ColorManager.red
+                                                : snapshot.data!.patientDiagnoses[index].color == 1
+                                                ? ColorManager.greenDark
+                                                : Colors.black,
+                                            keyboardType: TextInputType.text, text: "PDGM - Acceptable"),
+                                      ),
+                                      const SizedBox(width: AppSize.s30,),
+                                      Expanded(
+                                        child: Container(
+                                          height: 30,
+                                          width: AppSize.s354,
+                                        ),
+                                      ),
+                                      const SizedBox(width: AppSize.s30,),
+                                      Expanded(
+                                        child: Container(
+                                          height: 30,
+                                          width: AppSize.s354,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(
+                                    color: ColorManager.containerBorderGrey,
+                                    thickness: 1,
+                                    height: 2,
+                                  ),
+                                  const SizedBox(height: AppSize.s30,),
+                                ],
+                              ),
+                            );
+                          })
+                          ]
+
+                      ),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -1200,7 +1265,118 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                             textSize: FontSize.s12,
                             text: "Add Diagnosis",
                             onPressed: ()async {
-                              Provider.of<DiagnosisProvider>(context, listen: false).addDiagnosis();
+                              showDialog(context: context, builder: (BuildContext context){
+                                return DialogueTemplate(
+                                  title: "Add Diagnosis",
+                                  width: AppSize.s407,
+                                  height: AppSize.s260,
+                                  body: [
+                                    Padding(padding: EdgeInsets.symmetric(horizontal: AppPadding.p13),
+                                    child: Column(
+                                      children: [
+                                        FutureBuilder<
+                                            List<PatientDiagnosisMasterData>>(
+                                            future: getPatientDiagnosisMaster(context: context),
+                                            builder: (context, snapshotDgn) {
+                                              if (snapshotDgn.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return Container(
+                                                  width: 354,
+                                                  height: 30,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: ColorManager
+                                                            .containerBorderGrey,
+                                                        width: AppSize.s1),
+                                                    borderRadius:
+                                                    BorderRadius.circular(4),
+                                                  ),
+                                                  child: const Text(
+                                                    "",
+                                                    //AppString.dataNotFound,
+                                                  ),
+                                                );
+                                              }
+                                              if (snapshotDgn.data!.isEmpty) {
+                                                return Container(
+                                                  width: 354,
+                                                  height: 30,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: ColorManager
+                                                            .containerBorderGrey,
+                                                        width: AppSize.s1),
+                                                    borderRadius:
+                                                    BorderRadius.circular(4),
+                                                  ),
+                                                  child: Align(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 10),
+                                                      child: Text(
+                                                          'No Diagnosis',
+                                                          //AppString.dataNotFound,
+                                                          style: DocumentTypeDataStyle.customTextStyle(context)
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+
+                                              if (snapshotDgn.hasData) {
+                                                List dropDown = [];
+                                                int docType = 0;
+                                                List<DropdownMenuItem<String>>
+                                                dropDownTypesList = [];
+                                                dropDownTypesList.add(
+                                                    const DropdownMenuItem<String>(
+                                                      child: Text('Select Diagnosis'),
+                                                      value: 'Select Diagnosis',
+                                                    ));
+                                                for (var i in snapshotDgn.data!) {
+                                                  dropDownTypesList.add(
+                                                    DropdownMenuItem<String>(
+                                                      value: i.dgnName,
+                                                      child: Text(i.dgnName),
+                                                    ),
+                                                  );
+                                                }
+                                                // if (snapshotDgn == null) {
+                                                //   dgnNameSelected = 'Select County';
+                                                // }
+
+                                                return CICCDropdown(
+                                                    initialValue:
+                                                    dgnNameSelected,
+                                                    onChange: (val) {
+                                                      for (var a
+                                                      in snapshotDgn.data!) {
+                                                        if (a.dgnName == val) {
+                                                          dgnNameSelected = a.dgnName;
+                                                          docType = a.dgnId;
+                                                          dgnIdSelected = docType;
+                                                        }
+                                                      }
+                                                      print(":::${docType}");
+
+                                                    },
+                                                    items: dropDownTypesList);
+                                              }
+                                              return const SizedBox();
+                                            }),
+                                      ],
+                                    ),)
+                                  ],
+                                  bottomButtons: CustomElevatedButton(
+                                    text: 'Add',
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                  },),
+                                );
+                              });
+                              //Provider.of<DiagnosisProvider>(context, listen: false).addDiagnosis();
                                 // providerAddState.setVisibility(true);
                                 // providerAddState.addDiagnosis();
 
@@ -1492,8 +1668,9 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                   ApiData apiData =  await postReferralPatientDocuments(
                                       context: context,
                                       fk_pt_id: patientId,
-                                      rptd_url: result.files.first.name,
-                                      rptd_created_by: snapshot.data!.marketer.employeeId);
+                                      document_name: result.files.first.name,
+                                      rptd_document_type: AppConfig.defaultAttachment,
+                                      rptd_content: "");
                                   if(apiData.statusCode == 200 || apiData.statusCode == 201){
                                     var uploadPatientDoc = await uploadPatientReffrelsDocuments(context: context,
                                         rptd_id: apiData.rptd_id!,

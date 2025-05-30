@@ -19,8 +19,12 @@ class PdfDownloadButton extends StatelessWidget {
   final String apiUrl;
   final String documentName;
   final double? iconsize;
+  final Color? iconColor;
 
-  PdfDownloadButton({required this.apiUrl, required this.documentName, this.iconsize});
+  PdfDownloadButton({required this.apiUrl,
+    required this.documentName,
+    this.iconColor,
+    this.iconsize});
 
   Future<void> _downloadPdf() async {
     try {
@@ -52,7 +56,7 @@ class PdfDownloadButton extends StatelessWidget {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
-      icon: Icon(Icons.save_alt_outlined, size: iconsize ?? IconSize.I22, color: Color(0xff1696C8),),
+      icon: Icon(Icons.save_alt_outlined, size: iconsize ?? IconSize.I22, color: iconColor ?? Color(0xff1696C8),),
       onPressed: _downloadPdf,
     );
   }
