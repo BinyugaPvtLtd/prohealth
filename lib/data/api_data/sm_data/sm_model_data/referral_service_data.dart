@@ -59,3 +59,15 @@ class PatientDiagnosisMasterData{
   PatientDiagnosisMasterData({required this.dgnId, required this.dgnName, required this.dgnCode});
 
 }
+
+
+
+class ReferralSourcesData{
+  final int refsouid;
+  final String sourcename ;
+  final String description;
+  final String imgurl ;
+  final String docname;
+
+  ReferralSourcesData({required this.refsouid, required this.sourcename, required this.description, required this.imgurl, required this.docname, });
+}

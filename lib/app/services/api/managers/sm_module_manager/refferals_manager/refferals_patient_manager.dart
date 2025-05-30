@@ -1043,3 +1043,42 @@ Future<List<PatientMarketerData>> getMarketerWithDeptId({
     return itemsData;
   }
 }
+
+
+
+
+
+
+
+Future<List<ReferralSourcesData>> getReferalSourceDD({
+  required BuildContext context,
+
+}) async {
+  List<ReferralSourcesData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getReferalpath(),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(ReferralSourcesData(
+          refsouid: item['ref_source_id']??0,
+          sourcename: item['source_name']??'--',
+          description: item['description']??'--',
+          imgurl: item['referral_source_img_url']??'--',
+          docname: item['documentName']??'--',
+
+        ));
+      }
+    }
+    else {
+      print("Marketer data error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}

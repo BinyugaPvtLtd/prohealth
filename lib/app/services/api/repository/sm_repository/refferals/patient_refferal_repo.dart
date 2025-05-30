@@ -23,6 +23,10 @@ class PatientRefferalsRepo{
   static String f2fDocAdd = '/f2f/document/add';
   static String f2fDocAttach = '/f2f/document/attach/';
 
+
+  ///
+  static String referalsources = '/referral-sources';
+
   static  String getPatientRefferals({required int pageNo, required int nbrOfRows, required String isIntake, required String isArchived,required String isScheduled, required String searchName, required String marketerId,required String referralSourceId, required String pcpId}){
     return "$patientRefferals/$pageNo/$nbrOfRows/$isIntake/$isArchived/$isScheduled/$searchName/$marketerId/$referralSourceId/$pcpId";
   }
@@ -106,5 +110,9 @@ class PatientRefferalsRepo{
 
   static  String getDiagnosisMaster(){
     return "$patientDiagnosisiMaster";
+  }
+
+  static String getReferalpath(){
+    return "$referalsources";
   }
 }
