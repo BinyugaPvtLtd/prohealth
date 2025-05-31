@@ -75,3 +75,15 @@ class PatientDiagnosisWithIdData {
     required this.dgnId, required this.ptId, required this.fkDgnId, required this.pdgm, required this.isPrimary});
 
 }
+
+
+
+class ReferralSourcesData{
+  final int refsouid;
+  final String sourcename ;
+  final String description;
+  final String imgurl ;
+  final String docname;
+
+  ReferralSourcesData({required this.refsouid, required this.sourcename, required this.description, required this.imgurl, required this.docname, });
+}

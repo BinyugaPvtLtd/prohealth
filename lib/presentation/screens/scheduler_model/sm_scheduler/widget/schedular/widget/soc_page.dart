@@ -336,21 +336,23 @@ class _SocPageViewState extends State<SocPageView> {
                                       ),
 
                                       Expanded(
-                                        flex: 1,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("San Josaquin z3",
-                                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorManager.mediumgrey,),),
+                                        flex: 2,
+                                        child: Center(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text("San Josaquin z3",
+                                                style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: ColorManager.mediumgrey,),),
 
-                                            SizedBox(height: AppSize.s5),
-                                            Text("58244",
-                                              style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorManager.mediumgrey,),),
-                                          ],
+                                              SizedBox(height: AppSize.s5),
+                                              Text("58244",
+                                                style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: ColorManager.mediumgrey,),),
+                                            ],
+                                          ),
                                         ),
                                       ),
 
@@ -369,7 +371,7 @@ class _SocPageViewState extends State<SocPageView> {
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       Text("Referral Date : ",style: DocDefineTableDataID.customTextStyle(context),),
-                                                      SizedBox(height: AppSize.s5),
+                                                      SizedBox(height: AppSize.s8),
                                                       Text("SOC Date : ",style: DocDefineTableDataID.customTextStyle(context),),
                                                     ],),
                                                 ),
@@ -378,7 +380,7 @@ class _SocPageViewState extends State<SocPageView> {
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
-                                                      SizedBox(height: AppSize.s5),
+                                                      SizedBox(height: AppSize.s8),
                                                       Text("2023/25/05",style: DocDefineTableData.customTextStyle(context),),
                                                     ],),
                                                 )

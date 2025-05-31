@@ -104,9 +104,9 @@ class IntakeSecondaryScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 35),
                       child: BlueBGHeadConst(HeadText: "Policy Details"),
                     ),
-                    IntakeFlowContainerConst(
-                      height: providerState.isContactTrue ? AppSize.s540  :AppSize.s374,
-                      containerPadding: providerState.isContactTrue ? const EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) : null,
+                    Container(
+                      //height: providerState.isContactTrue ? AppSize.s540  :null,
+                      padding: providerState.isContactTrue ? const EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) :  const EdgeInsets.symmetric(horizontal: 50,vertical: 25),
                       //child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -519,56 +519,60 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                   )),
                             ],
                           ) : const Offstage(),
-                          const SizedBox(height: AppSize.s16),
-                          providerState.isContactTrue ?SizedBox(
-                            width: 200,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                              Flexible(
-                              child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                      Text('Insurance Verified',
-                                      style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :SMTextfieldHeadings.customTextStyle(context)
-                                      //AllPopupHeadings.customTextStyle(context)
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                      children: [
-                                      Expanded(
-                                      child: CustomRadioListTileSMp(
-                                      title: 'Yes',
-                                      value: 'Yes',
-                                      groupValue: statustype,
-                                      onChanged: (value) {
-                                      // setState(() {
-                                      statustype = value;
-                                      // });
-                                      },
-                                      ),
-                                      ),
+                         // const SizedBox(height: AppSize.s16),
+                          providerState.isContactTrue ?Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: SizedBox(
+                              width: 200,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                Flexible(
+                                child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                        Text('Insurance Verified',
+                                        style:providerState.isContactTrue ?SMTextfieldResponsiveHeadings.customTextStyle(context)  :SMTextfieldHeadings.customTextStyle(context)
+                                        //AllPopupHeadings.customTextStyle(context)
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                        children: [
+                                        Expanded(
+                                        child: CustomRadioListTileSMp(
+                                        title: 'Yes',
+                                        value: 'Yes',
+                                        groupValue: statustype,
+                                        onChanged: (value) {
+                                        // setState(() {
+                                        statustype = value;
+                                        // });
+                                        },
+                                        ),
+                                        ),
 
-                                      Expanded(
-                                      child: CustomRadioListTileSMp(
-                                      title: 'No',
-                                      value: 'No',
-                                      groupValue: statustype,
-                                      onChanged: (value) {
-                                      // setState(() {
-                                      statustype = value;
-                                      // });
-                                      },
-                                      ),
-                                      ),
-                                      ],
-                                      ),
-                                      ],
-                                      ),
-                                      ),
-                              ],
+                                        Expanded(
+                                        child: CustomRadioListTileSMp(
+                                        title: 'No',
+                                        value: 'No',
+                                        groupValue: statustype,
+                                        onChanged: (value) {
+                                        // setState(() {
+                                        statustype = value;
+                                        // });
+                                        },
+                                        ),
+                                        ),
+                                        ],
+                                        ),
+                                        ],
+                                        ),
+                                        ),
+                                ],
+                              ),
                             ),
                           ):const Offstage(),
+                          const Divider()
                         ],
                       ),
                       // ),

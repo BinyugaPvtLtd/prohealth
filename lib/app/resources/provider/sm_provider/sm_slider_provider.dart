@@ -1,4 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+
+import '../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
+import '../../../services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 
 class SmIntakeProviderManager extends ChangeNotifier{
   bool _isContactTrue = false;
@@ -8,9 +13,9 @@ class SmIntakeProviderManager extends ChangeNotifier{
   bool _isLeftSidebarOpen = false;
   bool _isAutoSyncScreenVisible = false;
   int _initialIndex = 0;
-  String _marketerId = 'all';
-  String _referralSourceId = 'all';
-  String _pcpId = 'all';
+  // String _marketerId = 'all';
+  // String _referralSourceId = 'all';
+  // String _pcpId = 'all';
 
 
   // Referal filter
@@ -156,12 +161,131 @@ class SmIntakeProviderManager extends ChangeNotifier{
     notifyListeners();
   }
 
-  void filterIdIntegration({required String marketerId, required String sourceId, required String pcpId}){
+  // void filterIdIntegration({required String marketerId, required String sourceId, required String pcpId}){
+  //   _marketerId = marketerId;
+  //   _referralSourceId = sourceId;
+  //   _pcpId = pcpId;
+  //   notifyListeners();
+  //}
+
+
+  // List<PatientModel> _allItems = [];
+  //
+  // List<PatientModel> get allItems => _allItems;
+  //
+  // final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>.broadcast();
+  //
+  // Stream<List<PatientModel>> get patientReferralsStream => _streamController.stream;
+  //
+  // final TextEditingController _searchController = TextEditingController();
+  //
+  //
+  //
+  //
+  // Future<void> filterIdIntegrationaa({
+  //   required BuildContext context,
+  //   required String marketerId,
+  //   required String sourceId,
+  //   required String pcpId,
+  // }) async {
+  //   try {
+  //     final data = await getPatientReffrealsData(
+  //       context: context,
+  //       pageNo: 1,
+  //       nbrOfRows: 9999,
+  //       isIntake: 'false',
+  //       isArchived: 'true',
+  //       isScheduled: 'false',
+  //       searchName: _searchController.text.isEmpty ? 'all' : _searchController.text,
+  //       marketerId: marketerId,
+  //       referralSourceId: sourceId,
+  //       pcpId: pcpId,
+  //     );
+  //     _streamController.add(data);
+  //   } catch (e) {
+  //     print('Error fetching data: $e');
+  //   }
+  // }
+
+
+
+
+  String _marketerId = 'all';
+  String _referralSourceId = 'all';
+  String _pcpId = 'all';
+
+  final TextEditingController searchController = TextEditingController();
+  final StreamController<List<PatientModel>> _streamController = StreamController<List<PatientModel>>.broadcast();
+
+  RefferalFilterScreenType _currentScreen = RefferalFilterScreenType.pending;
+
+  // Getter for screen type
+  RefferalFilterScreenType get currentScreen => _currentScreen;
+
+  // Stream getter
+  Stream<List<PatientModel>> get patientReferralsStream => _streamController.stream;
+
+  // Set current screen
+  void setCurrentScreen(RefferalFilterScreenType screen) {
+    _currentScreen = screen;
+    notifyListeners();
+  }
+
+  void updateSearchText(String searchText) {
+    searchController.text = searchText;
+    notifyListeners();
+  }
+
+  Future<void> filterIdIntegration({
+    required BuildContext context,
+    required String marketerId,
+    required String sourceId,
+    required String pcpId,
+  }) async {
     _marketerId = marketerId;
     _referralSourceId = sourceId;
     _pcpId = pcpId;
     notifyListeners();
+    await _applyFilters(context: context);
   }
+
+  Future<void> _applyFilters({required BuildContext context}) async {
+    try {
+      String isIntake = 'false';
+      String isArchived = 'false';
+
+      switch (_currentScreen) {
+        case RefferalFilterScreenType.archive:
+          isArchived = 'true';
+          break;
+        case RefferalFilterScreenType.intake:
+          isIntake = 'true';
+          break;
+        case RefferalFilterScreenType.pending:
+          break;
+      }
+
+      final data = await getPatientReffrealsData(
+        context: context,
+        pageNo: 1,
+        nbrOfRows: 9999,
+        isIntake: isIntake,
+        isArchived: isArchived,
+        isScheduled: 'false',
+        searchName: searchController.text.isEmpty ? 'all' : searchController.text,
+        marketerId: _marketerId,
+        referralSourceId: _referralSourceId,
+        pcpId: _pcpId,
+      );
+
+      _streamController.add(data);
+    } catch (e) {
+      print("Error applying filters: $e");
+      _streamController.addError("Failed to load data");
+    }
+  }
+
+
 
 }
 
@@ -169,3 +293,8 @@ class SmIntakeProviderManager extends ChangeNotifier{
 
 
 
+enum RefferalFilterScreenType {
+  pending,
+  intake,
+  archive,
+}

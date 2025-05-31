@@ -1243,7 +1243,7 @@ class _generalFormState extends State<generalForm> {
         'covreage',
         //'employment',
         gendertype.toString(),
-        'Partial',
+        //'',
         // 'service',
         '',
         'resumeurl',

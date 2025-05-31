@@ -305,7 +305,7 @@ class SMTabbarscheduler extends StatelessWidget {
               Container(
                 //color: Colors.red,
                 width: width ?? 170,
-                height: 40,
+                height: 30,
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(

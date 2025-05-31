@@ -6,12 +6,15 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:prohealth/presentation/screens/scheduler_model/textfield_dropdown_constant/schedular_textfield_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
+import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../em_module/widgets/button_constant.dart';
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -58,6 +61,7 @@ class PriDiagnosisProvider with ChangeNotifier {
 
 class SMIntakeOrdersScreen extends StatelessWidget {
   final int patientId;
+
   const SMIntakeOrdersScreen({super.key, required this.patientId});
 
 
@@ -106,6 +110,12 @@ class SMIntakeOrdersScreen extends StatelessWidget {
     bool isRehospicRisk = false;
     bool isEch = false;
     bool isEchSnf = false;
+
+    String? selectedMarketer =" ";
+    String? selectedSource =" ";
+    TextEditingController residencyController = TextEditingController();
+
+
     return
       // backgroundColor: ColorManager.white,
       // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -486,19 +496,132 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  CustomDropdownTextFieldsm(
-                                    width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                    isIconVisible: false,
-                                    headText: 'Marketer',
-                                    onChanged: (newValue) {
-                                    },),
-                                  const SizedBox(height: AppSize.s14,),
-                                  CustomDropdownTextFieldsm(
-                                    width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                    headText: 'Referral Source',
-                                    onChanged: (newValue) {
+                                  FutureBuilder<List<PatientMarketerData>>(
+                                    future: getMarketerWithDeptId(context: context, deptId: AppConfig.salesId),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.waiting) {
 
-                                    },),
+                                        // return  Container(
+                                        //   width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                        //   padding: const EdgeInsets.only(bottom: 3, top: 4, left: AppPadding.p10,right: AppPadding.p7),
+                                        //   decoration: BoxDecoration(
+                                        //     border: Border.all(color: Colors.grey),
+                                        //     borderRadius: BorderRadius.circular(8),
+                                        //   ),
+                                        //   child: Row(
+                                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        //     children: [
+                                        //       Text(
+                                        //         "",
+                                        //         style: DropdownItemStyle.customTextStyle(context),// TableSubHeading.customTextStyle(context),//DocumentTypeDataStyle.customTextStyle(context),
+                                        //       ),
+                                        //       Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime,),
+                                        //     ],
+                                        //   ),
+                                        // );
+                                        return SchedularTextField(
+                                            width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                            controller:residencyController ,
+                                            labelText: 'Marketer');
+                                      }
+                                      if (snapshot.hasData) {
+                                        List<DropdownMenuItem<String>> dropDownList = [];
+                                        for (var i in snapshot.data!) {
+                                          dropDownList.add(DropdownMenuItem<String>(
+                                            child: Text(i.firstName),
+                                            value: i.firstName,
+                                          ));
+                                        }
+
+                                        return CustomDropdownTextFieldsm(
+                                            width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                            headText: 'Marketer',
+                                            dropDownMenuList: dropDownList,
+                                            onChanged: (newValue) {
+                                              for (var a in snapshot.data!) {
+                                                if (a.firstName == newValue) {
+                                                  selectedMarketer = a.firstName;
+                                                  // _checkFormValidity();
+                                                  //country = a
+                                                  // int? docType = a.companyOfficeID;
+                                                }
+                                              }
+                                            });
+                                      } else {
+                                        return const Offstage();
+                                      }
+                                    },
+                                  ),
+                                  // CustomDropdownTextFieldsm(
+                                  //   width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                  //   isIconVisible: false,
+                                  //   headText: 'Marketer',
+                                  //   onChanged: (newValue) {
+                                  //   },),
+                                  const SizedBox(height: AppSize.s14,),
+                                  FutureBuilder<List<ReferralSourcesData>>(
+                                    future: getReferalSourceDD(context: context,),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.waiting) {
+
+                                        // return  Container(
+                                        //   width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                        //   padding: const EdgeInsets.only(bottom: 3, top: 4, left: AppPadding.p10,right: AppPadding.p7),
+                                        //   decoration: BoxDecoration(
+                                        //     border: Border.all(color: Colors.grey),
+                                        //     borderRadius: BorderRadius.circular(8),
+                                        //   ),
+                                        //   child: Row(
+                                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        //     children: [
+                                        //       Text(
+                                        //         "",
+                                        //         style: DropdownItemStyle.customTextStyle(context),// TableSubHeading.customTextStyle(context),//DocumentTypeDataStyle.customTextStyle(context),
+                                        //       ),
+                                        //       Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime,),
+                                        //     ],
+                                        //   ),
+                                        // );
+                                        return SchedularTextField(
+                                            width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                            controller:residencyController ,
+                                            labelText: 'Referral Source');
+                                      }
+                                      if (snapshot.hasData) {
+                                        List<DropdownMenuItem<String>> dropDownList = [];
+                                        for (var i in snapshot.data!) {
+                                          dropDownList.add(DropdownMenuItem<String>(
+                                            child: Text(i.sourcename),
+                                            value: i.sourcename,
+                                          ));
+                                        }
+
+                                        return CustomDropdownTextFieldsm(
+                                            width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                            headText: 'Referral Source',
+                                            dropDownMenuList: dropDownList,
+                                            onChanged: (newValue) {
+                                              for (var a in snapshot.data!) {
+                                                if (a.sourcename == newValue) {
+                                                  selectedSource = a.sourcename;
+                                                  // _checkFormValidity();
+                                                  //country = a
+                                                  // int? docType = a.companyOfficeID;
+                                                }
+                                              }
+                                            });
+                                      } else {
+                                        return const Offstage();
+                                      }
+                                    },
+                                  ),
+
+                                  // CustomDropdownTextFieldsm(
+                                  //   width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                  //   headText: 'Referral Source',
+                                  //   onChanged: (newValue) {
+                                  //
+                                  //   },),
                                   const SizedBox(height: AppSize.s14,),
                                   SchedularTextField(
                                     width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,

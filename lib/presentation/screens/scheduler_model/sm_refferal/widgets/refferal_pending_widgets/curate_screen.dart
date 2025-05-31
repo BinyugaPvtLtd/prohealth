@@ -693,25 +693,29 @@ class _CurateScreenState extends State<CurateScreen> {
                                           SizedBox(
                                             height: 10,
                                           ),
-                                          Row(
-                                            children: [
-                                              SMCheckbox(
-                                                value: confirmInsChecked,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    confirmInsChecked = value!;
-                                                  });
-                                                },
-                                              ),
-                                              SizedBox(
-                                                width: AppSize.s5,
-                                              ),
-                                              Text(
-                                                "Do you have secondary Insurance ? ",
-                                                style: DocDefineTableDataID
-                                                    .customTextStyle(context),
-                                              )
-                                            ],
+                                          StatefulBuilder(
+                                            builder: (BuildContext context, void Function(void Function()) setState) {return
+                                              Row(
+                                              children: [
+                                                SMCheckbox(
+                                                  value: confirmInsChecked,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      confirmInsChecked = value!;
+                                                    });
+                                                  },
+                                                ),
+                                                SizedBox(
+                                                  width: AppSize.s5,
+                                                ),
+                                                Text(
+                                                  "Do you have secondary Insurance ? ",
+                                                  style: DocDefineTableDataID
+                                                      .customTextStyle(context),
+                                                )
+                                              ],
+                                            );  },
+
                                           ),
                                           SizedBox(
                                             height: 15,
