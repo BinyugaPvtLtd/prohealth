@@ -101,7 +101,7 @@ class ProfileBar extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Profile\n${snapshot.data!.percentage}%",
+                                    "Profile ${snapshot.data!.percentage}%",
                                     style: ThemeManagerWhite.customTextStyle(context).copyWith(
                                       fontSize: (int.tryParse(snapshot.data!.percentage) ?? 0) <= 10 ? 7 : null,
                                     ),
