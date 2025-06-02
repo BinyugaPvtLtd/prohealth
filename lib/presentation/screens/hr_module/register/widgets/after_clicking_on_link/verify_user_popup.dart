@@ -509,7 +509,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         ? Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 55),
+                        padding: const EdgeInsets.only(right: 2),
                         child: Text(
                           '00:${_remainingTime.toString().padLeft(2, '0')}',
                           style: onlyFormDataStyle.customTextStyle(context),
@@ -529,7 +529,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 55),
+                          padding: const EdgeInsets.only(right: 2),
                           child: Text(
                             'Resend OTP',
                             style: TextStyle(
