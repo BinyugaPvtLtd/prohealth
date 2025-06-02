@@ -191,8 +191,8 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
         children: [
           Center(
             child: Text(
-              'Acknowledgements',
-              style:FormHeading.customTextStyle(context)
+                'Acknowledgements',
+                style:FormHeading.customTextStyle(context)
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 30),
@@ -273,7 +273,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                       itemBuilder: (context, index) {
                         final document = documents[index];
                         final fileName =
-                            index < _fileNames.length ? _fileNames[index] : '';
+                        index < _fileNames.length ? _fileNames[index] : '';
                         // Assign or retrieve the docSetupId dynamically here
                         int setupId = document.employeeDocTypesetupId; // Assuming 'setupId' is a property of the document
                         print("Document");
@@ -296,7 +296,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                                 padding: const EdgeInsets.symmetric(horizontal: 20),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       document.docName,
@@ -435,20 +435,18 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                   color: ColorManager.blueprime,
                 ),
               )
-              :CustomButton(
+                  :CustomButton(
                 width: 117,
                 height: 30,
                 text: 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-                  bool skipFinally = false;  // Flag to skip the finally block
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
 
                   try {
-                    setState(() {
-                      isLoading = true; // Start loading
-                    });
-
                     if (finalPaths == null || finalPaths.isEmpty) {
                       await showDialog(
                         context: context,
@@ -458,67 +456,66 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                           );
                         },
                       );
-                    } else {
-                      if (fileAbove20Mb) {
-                        try {
-                          // Loop through each form and extract data to post
-                          for (int i = 0; i < finalPaths.length; i++) {
-                            if (finalPaths[i] != null) {
-                              await uploadDocuments(
-                                context: context,
-                                employeeDocumentMetaId: AppConfig.employeeDocumentTypeMetaDataId,
-                                employeeDocumentTypeSetupId: docSetupId[i],
-                                employeeId: widget.employeeID,
-                                documentFile: finalPaths[i]!,
-                                documentName: _fileNames[i],
-                              );
-                            }
-                          }
+                      return; // Stop further execution
+                    }
 
-                          await showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const AddSuccessPopup(
-                                message: 'Document Uploaded Successfully',
-                              );
-                            },
+                    if (!fileAbove20Mb) {
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddErrorPopup(
+                            message: 'File is too large!',
                           );
+                        },
+                      );
+                      return; // Stop further execution, but still go to `finally` to stop loading
+                    }
 
-                        } catch (e) {
-                          await showDialog(
+                    // File is valid, proceed with upload
+                    try {
+                      for (int i = 0; i < finalPaths.length; i++) {
+                        if (finalPaths[i] != null) {
+                          await uploadDocuments(
                             context: context,
-                            builder: (BuildContext context) {
-                              return const AddFailePopup(
-                                message: 'Failed To Upload Document',
-                              );
-                            },
+                            employeeDocumentMetaId: AppConfig.employeeDocumentTypeMetaDataId,
+                            employeeDocumentTypeSetupId: docSetupId[i],
+                            employeeId: widget.employeeID,
+                            documentFile: finalPaths[i]!,
+                            documentName: _fileNames[i],
                           );
                         }
-                      } else {
-                        // If file is too large, show the error and set the flag to skip the finally block
-                        await showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddErrorPopup(
-                              message: 'File is too large!',
-                            );
-                          },
-                        );
-
-                        skipFinally = true;  // Set the flag to skip the finally block
-                        return;  // Exit early to avoid executing the finally block
                       }
+
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const AddSuccessPopup(
+                            message: 'Document Uploaded Successfully',
+                          );
+                        },
+                      );
+
+                      // ✅ Only call onSave if everything succeeded
+                      widget.onSave();
+
+                    } catch (e) {
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const AddFailePopup(
+                            message: 'Failed To Upload Document',
+                          );
+                        },
+                      );
                     }
                   } finally {
-                    // Only execute the finally block if the file is not too large
-                    if (!skipFinally) {
-                      setState(() {
-                        isLoading = false; // End loading
-                      });
-                      widget.onSave();  // Call onSave if the file is not too large
-                    }
+                    // ✅ Always stop loading
+                    setState(() {
+                      isLoading = false;
+                    });
                   }
                 },
+
                 child: Text(
                   'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
@@ -526,88 +523,88 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
               ),
 
               //               : CustomButton(
-    //             width: 117,
-    //             height: 30,
-    //             text: 'Save',
-    //             style:BlueButtonTextConst.customTextStyle(context),
-    //             borderRadius: 12,
-    //             onPressed: () async {
-    //             try{
-    //               setState(() {
-    //                 isLoading = true; // Start loading
-    //               });
-    //               if (finalPaths == null || finalPaths.isEmpty) {
-    //                 // if (finalPath == null || finalPath.isEmpty) {
-    //                 await showDialog(
-    //                   context: context,
-    //                   builder: (BuildContext context) {
-    //                     return VendorSelectNoti(
-    //                       message: 'Please Select File',
-    //                     );
-    //                   },
-    //                 );
-    //
-    //
-    //               } else {
-    //                 if (fileAbove20Mb) {
-    //                   try {
-    //                     // Loop through each form and extract data to post
-    //                     for (int i = 0; i < finalPaths.length; i++) {
-    //                       if (finalPaths[i] != null) {
-    //                         await uploadDocuments(
-    //                           context: context,
-    //                           employeeDocumentMetaId: AppConfig.employeeDocumentTypeMetaDataId,
-    //                           employeeDocumentTypeSetupId: docSetupId[i],
-    //                           employeeId: widget.employeeID,
-    //                           documentFile: finalPaths[i]!,
-    //                           documentName: _fileNames[i],
-    //                         );
-    //                       }
-    //                     }
-    //
-    //                     await showDialog(context: context,
-    //                       builder: (BuildContext context) {
-    //                         return const AddSuccessPopup(
-    //                           message: 'Document Uploaded Successfully',
-    //                         );
-    //                       },
-    //                     );
-    //
-    //                   } catch (e) {
-    //
-    //                     await showDialog(
-    //                       context: context,
-    //                       builder: (BuildContext context) {
-    //                         return const AddFailePopup(
-    //                           message: 'Failed To Upoad Document',
-    //                         );
-    //                       },
-    //                     );
-    //                   }
-    //                 }  else{
-    //                   showDialog(
-    //                     context: context,
-    //                     builder: (BuildContext context) {
-    //                       return AddErrorPopup(
-    //                         message: 'File is too large!',
-    //                       );
-    //                     },
-    //                   );
-    //                 }
-    //               }
-    //             }finally{
-    //               setState(() {
-    //                 isLoading = false; // End loading
-    //               });
-    //                widget.onSave();
-    //             }
-    // },
-    //             child:  Text(
-    //               'Save',
-    //               style: BlueButtonTextConst.customTextStyle(context),
-    //             ),
-    //
-    //           ),
+              //             width: 117,
+              //             height: 30,
+              //             text: 'Save',
+              //             style:BlueButtonTextConst.customTextStyle(context),
+              //             borderRadius: 12,
+              //             onPressed: () async {
+              //             try{
+              //               setState(() {
+              //                 isLoading = true; // Start loading
+              //               });
+              //               if (finalPaths == null || finalPaths.isEmpty) {
+              //                 // if (finalPath == null || finalPath.isEmpty) {
+              //                 await showDialog(
+              //                   context: context,
+              //                   builder: (BuildContext context) {
+              //                     return VendorSelectNoti(
+              //                       message: 'Please Select File',
+              //                     );
+              //                   },
+              //                 );
+              //
+              //
+              //               } else {
+              //                 if (fileAbove20Mb) {
+              //                   try {
+              //                     // Loop through each form and extract data to post
+              //                     for (int i = 0; i < finalPaths.length; i++) {
+              //                       if (finalPaths[i] != null) {
+              //                         await uploadDocuments(
+              //                           context: context,
+              //                           employeeDocumentMetaId: AppConfig.employeeDocumentTypeMetaDataId,
+              //                           employeeDocumentTypeSetupId: docSetupId[i],
+              //                           employeeId: widget.employeeID,
+              //                           documentFile: finalPaths[i]!,
+              //                           documentName: _fileNames[i],
+              //                         );
+              //                       }
+              //                     }
+              //
+              //                     await showDialog(context: context,
+              //                       builder: (BuildContext context) {
+              //                         return const AddSuccessPopup(
+              //                           message: 'Document Uploaded Successfully',
+              //                         );
+              //                       },
+              //                     );
+              //
+              //                   } catch (e) {
+              //
+              //                     await showDialog(
+              //                       context: context,
+              //                       builder: (BuildContext context) {
+              //                         return const AddFailePopup(
+              //                           message: 'Failed To Upoad Document',
+              //                         );
+              //                       },
+              //                     );
+              //                   }
+              //                 }  else{
+              //                   showDialog(
+              //                     context: context,
+              //                     builder: (BuildContext context) {
+              //                       return AddErrorPopup(
+              //                         message: 'File is too large!',
+              //                       );
+              //                     },
+              //                   );
+              //                 }
+              //               }
+              //             }finally{
+              //               setState(() {
+              //                 isLoading = false; // End loading
+              //               });
+              //                widget.onSave();
+              //             }
+              // },
+              //             child:  Text(
+              //               'Save',
+              //               style: BlueButtonTextConst.customTextStyle(context),
+              //             ),
+              //
+              //           ),
               const SizedBox(
                 width: AppSize.s30,
               ),
