@@ -395,7 +395,8 @@ class InformationUpdateScreen extends StatelessWidget {
                                                 hoverColor: Colors.transparent,
                                                 onTap: (){
                                                   selectUploadButton();
-                                                  // providerPatientId.passPatientId(patientIdNo: snapshot.data![index].ptId);
+                                                   // providerPatientId.passPatientId(patientIdNo: snapshot.data![index].ptId);
+                                                   providerPatientId.passPatientId(patientIdNo: 1);
                                                 },
                                                 child:Column(
                                                   mainAxisAlignment: MainAxisAlignment.center,
