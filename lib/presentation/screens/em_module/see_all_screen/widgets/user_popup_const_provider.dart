@@ -378,10 +378,33 @@ class CustomDialogSEE extends StatefulWidget {
 
 class _CustomDialogSEEState extends State<CustomDialogSEE> {
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _generatePassword();
+  // }
+  //
+  // void _generatePassword() {
+  //   final random = Random();
+  //   final characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
+  //   String password = '';
+  //   for (int i = 0; i < 8; i++) {
+  //     password += characters[random.nextInt(characters.length)];
+  //   }
+  //   setState(() {
+  //     widget.passwordController.text = password;
+  //   });
+  // }
+
+
   @override
   void initState() {
     super.initState();
-    _generatePassword();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _generatePassword();
+      }
+    });
   }
 
   void _generatePassword() {
@@ -391,10 +414,10 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
     for (int i = 0; i < 8; i++) {
       password += characters[random.nextInt(characters.length)];
     }
-    setState(() {
-      widget.passwordController.text = password;
-    });
+    widget.passwordController.text = password;
   }
+
+
 
   void _copyToClipboard() {
     Clipboard.setData(ClipboardData(text: widget.passwordController.text)).then((_) {
@@ -415,30 +438,61 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
   bool isLoading = false;
 
   bool _isFormValid = true;
+  // String? _validateTextField(String value, String fieldName) {
+  //   if (value.isEmpty) {
+  //     _isFormValid = false;
+  //     return "Please Enter $fieldName";
+  //   }
+  //   return null;
+  // }
+
   String? _validateTextField(String value, String fieldName) {
-    if (value.isEmpty) {
-      _isFormValid = false;
-      return "Please Enter $fieldName";
-    }
-    return null;
+    return value.isEmpty ? "Please enter $fieldName" : null;
   }
 
+  // void _validateForm() {
+  //   bool isFormValid = true;
+  //   setState(() {
+  //     _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
+  //     _emailDocError = _validateTextField(widget.emailController.text, 'Email');
+  //     _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
+  //     _PasswordDocError = _validateTextField(widget.passwordController.text, 'Password');
+  //     if (selectedDeptId == null || selectedDeptId == 0) {  // Assuming 1 is the default "Select Department"
+  //       _departmentError = "Please select a department";
+  //       isFormValid = false;
+  //     } else {
+  //       _departmentError = null;
+  //     }
+  //   });
+  //   _isFormValid = isFormValid;
+  // }
+
   void _validateForm() {
-    bool isFormValid = true;
+    final nameError = _validateTextField(widget.firstNameController.text, 'First Name');
+    final lastNameError = _validateTextField(widget.lastNameController.text, 'Last Name');
+    final emailError = _validateTextField(widget.emailController.text, 'Email');
+    final passwordError = _validateTextField(widget.passwordController.text, 'Password');
+    final deptError = (selectedDeptId == null || selectedDeptId == 0)
+        ? "Please select a department"
+        : null;
+
     setState(() {
-      _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
-      _emailDocError = _validateTextField(widget.emailController.text, 'Email');
-      _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
-      _PasswordDocError = _validateTextField(widget.passwordController.text, 'Password');
-      if (selectedDeptId == null || selectedDeptId == 0) {  // Assuming 1 is the default "Select Department"
-        _departmentError = "Please select a department";
-        isFormValid = false;
-      } else {
-        _departmentError = null;
-      }
+      _nameDocError = nameError;
+      _stateDocError = lastNameError;
+      _emailDocError = emailError;
+      _PasswordDocError = passwordError;
+      _departmentError = deptError;
     });
-    _isFormValid = isFormValid;
+
+    _isFormValid = [
+      nameError,
+      lastNameError,
+      emailError,
+      passwordError,
+      deptError
+    ].every((error) => error == null);
   }
+
 
 
   var deptId = 1;
@@ -472,9 +526,9 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                 keyboardType: TextInputType.text,
                 text: "First Name",
                   onChange: () {
-                    if (_nameDocError!.isNotEmpty) {
+                    if (_nameDocError != null) {
                       setState(() {
-                        _nameDocError = null; // Clear error on valid input
+                        _nameDocError = null;
                       });
                     }
                   }
@@ -492,11 +546,11 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                 keyboardType: TextInputType.text,
                 text: 'Last Name',
                   onChange: () {
-                if (_stateDocError!.isNotEmpty) {
-                  setState(() {
-                    _stateDocError = null; // Clear error on valid input
-                  });
-                }
+                    if (_stateDocError != null) {
+                      setState(() {
+                        _stateDocError = null;
+                      });
+                    }
               }
               ),
               _stateDocError != null ?
@@ -579,9 +633,9 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   keyboardType: TextInputType.emailAddress,
                   text: 'Email',
                   onChange: () {
-                    if (_emailDocError!.isNotEmpty) {
+                    if (_emailDocError != null) {
                       setState(() {
-                        _emailDocError = null; // Clear error on valid input
+                        _emailDocError = null;
                       });
                     }
                   }),
@@ -637,9 +691,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
           _validateForm();
 
           // Check if form is valid
-          if (!_isFormValid) {
-            return; // Do not proceed if form isn't valid
-          }
+          if (!_isFormValid) return; // Stop here if form is invalid
 
           // Check if password length is sufficient
           if (widget.passwordController.text.length < 6) {
