@@ -86,6 +86,8 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
   String? _nameDocError;
   String? _expiryTypeError;
   bool fileAbove20Mb = false;
+
+
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
@@ -760,7 +762,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                       context: context,
                       builder: (BuildContext context) {
                         return AddErrorPopup(
-                          message: 'Request entity too large! File size exceeds limit.',
+                          message: 'File is too large!',
                         );
                       },
                     );
@@ -792,7 +794,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                     context: context,
                     builder: (BuildContext context) {
                       return AddErrorPopup(
-                        message: 'Request entity to large!',
+                        message: 'File is too large!',
                       );
                     },
                   );
@@ -833,6 +835,8 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
           }
         },
       )
+
+
           : CustomElevatedButton(
           width: AppSize.s105,
           height: AppSize.s30,
@@ -841,6 +845,17 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
             _validateForm();
             if (!_isFormValid) {
               return; // Stop here if the form is not valid
+            }
+            if (!fileAbove20Mb) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddErrorPopup(
+                    message: 'File is too large!',
+                  );
+                },
+              );
+              return;
             }
             setState(() {
               loading = true;
@@ -933,7 +948,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                       context: context,
                       builder: (BuildContext context) {
                         return AddErrorPopup(
-                          message: 'Request entity to large!',
+                          message: 'File is too large!',
                         );
                       },
                     );
