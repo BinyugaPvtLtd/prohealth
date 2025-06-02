@@ -541,6 +541,8 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                 // SizedBox(width: AppSize.s15),
                                                 InkWell(
                                                   onTap: () {
+                                                    widget.onEyeButtonPressed();
+                                                    providerReferrals.passPatientId(patientIdNo: 1);
                                                   },
                                                   child: Container(
                                                     width: AppSize.s20,
