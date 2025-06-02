@@ -378,10 +378,33 @@ class CustomDialogSEE extends StatefulWidget {
 
 class _CustomDialogSEEState extends State<CustomDialogSEE> {
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _generatePassword();
+  // }
+  //
+  // void _generatePassword() {
+  //   final random = Random();
+  //   final characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
+  //   String password = '';
+  //   for (int i = 0; i < 8; i++) {
+  //     password += characters[random.nextInt(characters.length)];
+  //   }
+  //   setState(() {
+  //     widget.passwordController.text = password;
+  //   });
+  // }
+
+
   @override
   void initState() {
     super.initState();
-    _generatePassword();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _generatePassword();
+      }
+    });
   }
 
   void _generatePassword() {
@@ -391,10 +414,10 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
     for (int i = 0; i < 8; i++) {
       password += characters[random.nextInt(characters.length)];
     }
-    setState(() {
-      widget.passwordController.text = password;
-    });
+    widget.passwordController.text = password;
   }
+
+
 
   void _copyToClipboard() {
     Clipboard.setData(ClipboardData(text: widget.passwordController.text)).then((_) {
@@ -415,30 +438,61 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
   bool isLoading = false;
 
   bool _isFormValid = true;
+  // String? _validateTextField(String value, String fieldName) {
+  //   if (value.isEmpty) {
+  //     _isFormValid = false;
+  //     return "Please Enter $fieldName";
+  //   }
+  //   return null;
+  // }
+
   String? _validateTextField(String value, String fieldName) {
-    if (value.isEmpty) {
-      _isFormValid = false;
-      return "Please Enter $fieldName";
-    }
-    return null;
+    return value.isEmpty ? "Please enter $fieldName" : null;
   }
 
+  // void _validateForm() {
+  //   bool isFormValid = true;
+  //   setState(() {
+  //     _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
+  //     _emailDocError = _validateTextField(widget.emailController.text, 'Email');
+  //     _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
+  //     _PasswordDocError = _validateTextField(widget.passwordController.text, 'Password');
+  //     if (selectedDeptId == null || selectedDeptId == 0) {  // Assuming 1 is the default "Select Department"
+  //       _departmentError = "Please select a department";
+  //       isFormValid = false;
+  //     } else {
+  //       _departmentError = null;
+  //     }
+  //   });
+  //   _isFormValid = isFormValid;
+  // }
+
   void _validateForm() {
-    bool isFormValid = true;
+    final nameError = _validateTextField(widget.firstNameController.text, 'First Name');
+    final lastNameError = _validateTextField(widget.lastNameController.text, 'Last Name');
+    final emailError = _validateTextField(widget.emailController.text, 'Email');
+    final passwordError = _validateTextField(widget.passwordController.text, 'Password');
+    final deptError = (selectedDeptId == null || selectedDeptId == 0)
+        ? "Please select a department"
+        : null;
+
     setState(() {
-      _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
-      _emailDocError = _validateTextField(widget.emailController.text, 'Email');
-      _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
-      _PasswordDocError = _validateTextField(widget.passwordController.text, 'Password');
-      if (selectedDeptId == null || selectedDeptId == 0) {  // Assuming 1 is the default "Select Department"
-        _departmentError = "Please select a department";
-        isFormValid = false;
-      } else {
-        _departmentError = null;
-      }
+      _nameDocError = nameError;
+      _stateDocError = lastNameError;
+      _emailDocError = emailError;
+      _PasswordDocError = passwordError;
+      _departmentError = deptError;
     });
-    _isFormValid = isFormValid;
+
+    _isFormValid = [
+      nameError,
+      lastNameError,
+      emailError,
+      passwordError,
+      deptError
+    ].every((error) => error == null);
   }
+
 
 
   var deptId = 1;
@@ -467,43 +521,43 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SMTextfieldAsteric(
-                hintText: "First Name",
-                controller: widget.firstNameController,
-                keyboardType: TextInputType.text,
-                text: "First Name",
+                  hintText: "First Name",
+                  controller: widget.firstNameController,
+                  keyboardType: TextInputType.text,
+                  text: "First Name",
                   onChange: () {
-                    if (_nameDocError!.isNotEmpty) {
+                    if (_nameDocError != null) {
                       setState(() {
-                        _nameDocError = null; // Clear error on valid input
+                        _nameDocError = null;
                       });
                     }
                   }
               ),
               _nameDocError != null ?
-                Text(
-                  _nameDocError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ): SizedBox(height: AppSize.s12,),
+              Text(
+                _nameDocError!,
+                style: CommonErrorMsg.customTextStyle(context),
+              ): SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s10,),
               ///
               SMTextfieldAsteric(
-                hintText: 'Last Name',
-                controller: widget.lastNameController,
-                keyboardType: TextInputType.text,
-                text: 'Last Name',
+                  hintText: 'Last Name',
+                  controller: widget.lastNameController,
+                  keyboardType: TextInputType.text,
+                  text: 'Last Name',
                   onChange: () {
-                if (_stateDocError!.isNotEmpty) {
-                  setState(() {
-                    _stateDocError = null; // Clear error on valid input
-                  });
-                }
-              }
+                    if (_stateDocError != null) {
+                      setState(() {
+                        _stateDocError = null;
+                      });
+                    }
+                  }
               ),
               _stateDocError != null ?
-                Text(
-                  _stateDocError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ) : SizedBox(height: AppSize.s12,),
+              Text(
+                _stateDocError!,
+                style: CommonErrorMsg.customTextStyle(context),
+              ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s12,),
               RichText(
                 text: TextSpan(
@@ -574,22 +628,22 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   : SizedBox(height: AppSize.s14,),
               SizedBox(height: AppSize.s9,),
               SMTextfieldAsteric(
-                hintText: 'Email',
+                  hintText: 'Email',
                   controller: widget.emailController,
                   keyboardType: TextInputType.emailAddress,
                   text: 'Email',
                   onChange: () {
-                    if (_emailDocError!.isNotEmpty) {
+                    if (_emailDocError != null) {
                       setState(() {
-                        _emailDocError = null; // Clear error on valid input
+                        _emailDocError = null;
                       });
                     }
                   }),
               _emailDocError != null ?  // Display error if any
-                Text(
-                  _emailDocError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ) : SizedBox(height: AppSize.s12,),
+              Text(
+                _emailDocError!,
+                style: CommonErrorMsg.customTextStyle(context),
+              ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s12,),
               Padding(
                 padding: const EdgeInsets.only(left: 1),
@@ -611,10 +665,10 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                 onSuffixIconPressed: _copyToClipboard,
               ),
               _PasswordDocError != null ?
-                Text(
-                  _PasswordDocError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ) : SizedBox(height: AppSize.s12,),
+              Text(
+                _PasswordDocError!,
+                style: CommonErrorMsg.customTextStyle(context),
+              ) : SizedBox(height: AppSize.s12,),
             ],
           ),
         )
@@ -637,9 +691,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
           _validateForm();
 
           // Check if form is valid
-          if (!_isFormValid) {
-            return; // Do not proceed if form isn't valid
-          }
+          if (!_isFormValid) return; // Stop here if form is invalid
 
           // Check if password length is sufficient
           if (widget.passwordController.text.length < 6) {
@@ -687,7 +739,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
               selectedDeptId = AppConfig.AdministrationId;
             } else {
               // Handle other errors, such as email already used
-            showDialog(
+              showDialog(
                 context: context,
                 builder: (BuildContext context) => FailedPopup(text: response.message),
               );
@@ -735,7 +787,7 @@ class CustomTextFieldWithIcon extends StatefulWidget {
     required this.keyboardType,
     required this.text,
     required this.cursorHeight,
-     this.labelText,
+    this.labelText,
     this.labelStyle,
     required this.labelFontSize,
     this.errorText,
@@ -749,13 +801,13 @@ class CustomTextFieldWithIcon extends StatefulWidget {
 }
 
 class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
-   bool hasError = false;
+  bool hasError = false;
 
-   @override
-   void initState() {
-     super.initState();
-     hasError = false;
-   }
+  @override
+  void initState() {
+    super.initState();
+    hasError = false;
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -789,7 +841,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
           ),
           labelText: widget.labelText,
           labelStyle: DocumentTypeDataStyle.customTextStyle(context),
-           errorText: hasError ? widget.errorText : null,
+          errorText: hasError ? widget.errorText : null,
           suffixIcon: IconButton(
             icon: widget.suffixIcon ?? Icon(Icons.copy, size: IconSize.I14,color: Colors.black),
             onPressed: widget.onSuffixIconPressed,
@@ -805,8 +857,8 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
 /// edit user
 class EditUserPopUp extends StatefulWidget {
   final String title;
- final String deptName;
- final int userId;
+  final String deptName;
+  final int userId;
   final String firstname;
   final String lastname;
   final String email;
@@ -817,7 +869,7 @@ class EditUserPopUp extends StatefulWidget {
       {required this.title,
         required this.userId,
         this.enable,
-  required this.deptName,
+        required this.deptName,
         required this.firstname,
         required this.lastname, required this.email,
         required this.departmentId, required this.department});
@@ -926,8 +978,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                      'Select Department',
-                      style: AllPopupHeadings.customTextStyle(context),
+                    'Select Department',
+                    style: AllPopupHeadings.customTextStyle(context),
 
                   ),
                 ],
@@ -998,8 +1050,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
               ),
               SizedBox(height: AppSize.s20,),
               SMTextfieldAsteric(controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  text: 'Email',
+                keyboardType: TextInputType.emailAddress,
+                text: 'Email',
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                     setState(() {
@@ -1041,13 +1093,13 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
               : widget.email;
 
           var responce = await updateUserPatch(
-          context:
-          context,
-          userId: widget.userId,
-          firstName: FName,
-          lastName:LDocName,
-          deptId: selectedDeptId!,
-          email:EDocName
+              context:
+              context,
+              userId: widget.userId,
+              firstName: FName,
+              lastName:LDocName,
+              deptId: selectedDeptId!,
+              email:EDocName
 
           );
 

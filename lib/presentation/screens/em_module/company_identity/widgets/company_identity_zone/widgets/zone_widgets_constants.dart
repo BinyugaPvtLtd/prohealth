@@ -449,16 +449,19 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                               return const SizedBox();
                             }),
                         countyError != null
-                            ? Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              countyError!,
-                              style: CommonErrorMsg.customTextStyle(context),
-                            ),
-                          ],
-                        )
-                            : SizedBox(height: 12),
+                            ? Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                              Text(
+                                countyError!,
+                                style: CommonErrorMsg.customTextStyle(context),
+                              ),
+                                ],
+                              ),
+                            )
+                            : SizedBox(height: 16),
                       ],
                     ),
                   ],
@@ -633,20 +636,17 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                   ],
                 ),
                 SizedBox(height: AppSize.s10),
-                StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setState) {
-                    return SMTextfieldAsteric(
-                      controller: widget.zipcodeController,
-                      keyboardType: TextInputType.text,
-                      text: 'Zip Code',
-                      onChanged: (value){
-                        setState(() {
-                          zipcodeError =widget.zipcodeController.text.isEmpty
-                              ? 'Zip Code Field Cannot Be Empty'
-                              : null;
-                        });
-                      },
-                    );},
+                SMTextfieldAsteric(
+                  controller: widget.zipcodeController,
+                  keyboardType: TextInputType.text,
+                  text: 'Zip Code',
+                  onChanged: (value){
+                    setState(() {
+                      zipcodeError =widget.zipcodeController.text.isEmpty
+                          ? 'Zip Code Field Cannot Be Empty'
+                          : null;
+                    });
+                  },
                 ),
                 zipcodeError != null ?
                 Row(

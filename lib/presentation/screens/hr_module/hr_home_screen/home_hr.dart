@@ -252,9 +252,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     setState(() {
       searchSelect = true;
       firstResult = result;
-      myController.selectButton(1);
-      _pageController =
-          PageController(initialPage: 1);
+
       print('search value ${searchSelect}');
     });
   }
@@ -370,6 +368,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final providerState = Provider.of<HrSearchProviderManager>(context,listen: false);
     return WillPopScope(
       onWillPop: _onWillPop,
       //     () async{
@@ -776,6 +775,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                           isDropdownAvailability,
                                                           availabilityName:
                                                           dropdownAvailability);
+                                                      myController.selectButton(1);
+                                                      _pageController =
+                                                          PageController(initialPage: 1);
                                                     });
                                                   },
                                                   clearFilter: (reportingOfficeId != '' || dropdownLicenseStatus != '' || dropdownAvailability != '' || selectedZoneId != 0)
@@ -841,41 +843,96 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                     .width /
                                     90,
                               ),
-                              Obx(
-                                    () => Padding(
-                                  padding:
-                                  const EdgeInsets.only(top: 5),
-                                  child: DZoneButton(
-                                    isSelected: myController
-                                        .selectedIndex.value ==
-                                        4,
-                                    onTap: () {
-                                      myController.selectButton(4);
-                                      setState(() {
-                                        isSelected = true;
-                                        print(
-                                            "IsDZone : ${isSelected}");
-                                        _searchByFilter(
-                                            zoneId: selectedZoneId,
-                                            isZoneSelectedBool:
-                                            isZoneSelected,
-                                            isReportingOffice:
-                                            isReportingOfficeId,
-                                            officeName:
-                                            reportingOfficeId,
-                                            isLicensesSelected:
-                                            isDropdownLicenseStatus,
-                                            licenseStatusName:
-                                            dropdownLicenseStatus,
-                                            isSelectAvailability:
-                                            isDropdownAvailability,
-                                            availabilityName:
-                                            dropdownAvailability);
-                                      });
-                                    },
-                                  ),
-                                ),
-                              )
+                              StatefulBuilder(
+                                  builder: (BuildContext context, StateSetter setState) {
+                                    return Padding(
+                                      padding:
+                                      const EdgeInsets.only(top: 5),
+                                      child: DZoneButton(
+                                        isSelected:  isSelected == true,
+                                        onTap: isSelected == false ? () async{
+                                          // myController.selectButton(4);
+                                          final usrId = await TokenManager.getuserId();
+                                          List<ApiDataFilter> result = await postSearchByFilter(
+                                              context,
+                                              false, // patientProfileSearch
+                                              '', // profileName
+                                              isReportingOfficeId, // officeLocationSearch
+                                              reportingOfficeId, // officeId
+                                              isZoneSelected, // zoneSearch
+                                              selectedZoneId, // zoneId
+                                              isDropdownLicenseStatus, // licenseSearch
+                                              dropdownLicenseStatus, // licenseStatus
+                                              isDropdownAvailability, // availabilitySearch
+                                              dropdownAvailability,
+                                              isSelected,
+                                              usrId
+                                            // availability
+                                          ) as List<ApiDataFilter>;
+                                          setState(() {
+                                            isSelected = true;
+                                            print(
+                                                "IsDZone : ${isSelected}");
+                                            searchSelect = true;
+                                            firstResult = result;
+
+                                            print('search value ${searchSelect}');
+                                            // _searchByFilter(
+                                            //     zoneId: selectedZoneId,
+                                            //     isZoneSelectedBool:
+                                            //     isZoneSelected,
+                                            //     isReportingOffice:
+                                            //     isReportingOfficeId,
+                                            //     officeName:
+                                            //     reportingOfficeId,
+                                            //     isLicensesSelected:
+                                            //     isDropdownLicenseStatus,
+                                            //     licenseStatusName:
+                                            //     dropdownLicenseStatus,
+                                            //     isSelectAvailability:
+                                            //     isDropdownAvailability,
+                                            //     availabilityName:
+                                            //     dropdownAvailability);
+                                            // myController.selectButton(1);
+                                            // _pageController =
+                                            //     PageController(initialPage: 1);
+                                          });
+                                        } : (){
+                                          providerState.clearFilter();
+                                          // Force UI update for dropdowns to show 'Select'
+                                          providerState.avalableTextChange(changeText: 'Select');
+                                          providerState.expTypeTextChange(changeText: 'Select');
+                                          providerState.officeTextChange(changeText: 'Select');
+                                          providerState.zoneTextChange(changeText: 'Select');
+                                          // myController.selectButton(0);
+                                          setState(() {
+                                            isSelected = false;
+                                            // Reset all dropdown variables
+                                            dropdownLicenseStatus = '';
+                                            dropdownAvailability = '';
+                                            reportingOfficeId = '';
+                                            dropdownAbbrevation = '';
+                                            _selectedValue = null;
+                                            selectedZoneId = 0;
+
+                                            // Reset boolean visibility flags
+                                            isDropDownAbbreavation = false;
+                                            isDropdownLicenseStatus = false;
+                                            isDropdownAvailability = false;
+                                            isReportingOfficeId = false;
+                                            isZoneSelected = false;
+                                            isSelectedBox = false;
+
+                                            // Call provider method to reset the selections
+
+                                            // Hide the Clear button
+                                            searchSelect = false;
+                                          });
+                                        },
+                                      ),
+                                    );}
+                              ),
+
                             ],
                           )
                               : SizedBox(width: 1),
