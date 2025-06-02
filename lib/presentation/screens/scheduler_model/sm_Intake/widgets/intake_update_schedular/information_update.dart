@@ -125,503 +125,432 @@ class InformationUpdateScreen extends StatelessWidget {
                   ),
                   SizedBox(height: AppSize.s30,),
                   Expanded(
-                      child: StreamBuilder<List<PatientModel>>(
-                        stream: _streamController.stream,
-                        builder: (context,snapshot) {
-                          getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 20, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
-                              marketerId: providerContact.marketerId,
-                              referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
-                            _streamController.add(data);
-                          }).catchError((error) {
-                            // Handle error
-                          });
-                          if(snapshot.connectionState == ConnectionState.waiting){
+                      child:
+                      ScrollConfiguration(
+                        behavior: ScrollBehavior().copyWith(scrollbars: false),
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                            // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                            // EmployeeDocumentModal employeedoc = paginatedData[index];
                             return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 76),
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: ColorManager.blueprime,
-                                ),
-                              ),
-                            );
-                          }
-                          if (snapshot.data!.isEmpty) {
-                            return Center(
-                                child: Padding(
-                                  padding:const EdgeInsets.symmetric(vertical: 76),
-                                  child: Text(
-                                    AppStringSMModule.infoUpdateNoData,
-                                    style: AllNoDataAvailable.customTextStyle(context),
+                              padding: const EdgeInsets.only(top: 7.0),
+                              child: IntakeContainer(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border:  Border(
+                                      left: BorderSide(
+                                        color: ColorManager.red,
+                                        width: 6,
+                                      ),
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(10),
+                                        // bottomRight: Radius.circular(12),
+                                        // topRight: Radius.circular(12),
+                                        topLeft: Radius.circular(12)),
                                   ),
-                                ));
-                          }
-                          if(snapshot.hasData){
-                            return ScrollConfiguration(
-                              behavior: ScrollBehavior().copyWith(scrollbars: false),
-                              child: ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) {
-                                  //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                                  // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                                  // EmployeeDocumentModal employeedoc = paginatedData[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.only(top: 7.0),
-                                    child: IntakeContainer(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border:  Border(
-                                            left: BorderSide(
-                                              color: snapshot.data![index].thresould == 0
-                                                  ? ColorManager.greenDark
-                                                  : snapshot.data![index].thresould == 1
-                                                  ? const Color(0xFFFEBD4D)
-                                                  : ColorManager.red,
-                                              width: 6,
-                                            ),
-                                          ),
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(10),
-                                              // bottomRight: Radius.circular(12),
-                                              // topRight: Radius.circular(12),
-                                              topLeft: Radius.circular(12)),
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                crossAxisAlignment: CrossAxisAlignment.end,
-                                                children:[
-                                                  Container(
-                                                      width: AppSize.s60,
-                                                      height: AppSize.s15,
-                                                      decoration: BoxDecoration(
-                                                        color: ColorManager.bluebottom.withOpacity(0.12),
-                                                        borderRadius: BorderRadius.only(topRight: Radius.circular(8)),),
-                                                      child: Center(
-                                                        child: Text(
-                                                            'Chart #${snapshot.data![index].ptChartNo}',
-                                                            textAlign: TextAlign.center,
-                                                            style: CustomTextStylesCommon.commonStyle(
-                                                                color:  Color(0xFF1696C8),
-                                                                fontSize: FontSize.s11,
-                                                                fontWeight: FontWeight.w700)),
-                                                      )),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children:[
+                                            Container(
+                                                width: AppSize.s60,
+                                                height: AppSize.s15,
+                                                decoration: BoxDecoration(
+                                                  color: ColorManager.bluebottom.withOpacity(0.12),
+                                                  borderRadius: BorderRadius.only(topRight: Radius.circular(8)),),
+                                                child: Center(
+                                                  child: Text(
+                                                      'Chart #1',
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                          color:  Color(0xFF1696C8),
+                                                          fontSize: FontSize.s11,
+                                                          fontWeight: FontWeight.w700)),
+                                                )),
 
-                                                ]
-                                            ),
+                                          ]
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p30),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
                                             Padding(
-                                              padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p30),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                              child:   CircleAvatar(
+                                                radius: 21,
+                                                backgroundColor: Colors.transparent,
+                                                child: Image.asset("images/profilepic.png"),
+                                              )
+                                            ),
+                                            SizedBox(width: 10,),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                                    child:  ClipOval(
-                                                      child: snapshot.data![index].ptImgUrl == 'imgurl' ||
-                                                          snapshot.data![index].ptImgUrl == null
-                                                          ? CircleAvatar(
-                                                        radius: 22,
-                                                        backgroundColor: Colors.transparent,
-                                                        child: Image.asset("images/profilepic.png"),
-                                                      )
-                                                          : Image.network(
-                                                        snapshot.data![index].ptImgUrl!,
-                                                        loadingBuilder: (context, child, loadingProgress) {
-                                                          if (loadingProgress == null) {
-                                                            return child;
-                                                          } else {
-                                                            return Center(
-                                                              child: CircularProgressIndicator(
-                                                                value: loadingProgress.expectedTotalBytes != null
-                                                                    ? loadingProgress.cumulativeBytesLoaded /
-                                                                    (loadingProgress.expectedTotalBytes ?? 1)
-                                                                    : null,
-                                                              ),
-                                                            );
-                                                          }
-                                                        },
-                                                        errorBuilder: (context, error, stackTrace) {
-                                                          return CircleAvatar(
-                                                            radius: 21,
-                                                            backgroundColor: Colors.transparent,
-                                                            child: Image.asset("images/profilepic.png"),
-                                                          );
-                                                        },
-                                                        fit: BoxFit.cover,
-                                                        height: 40,
-                                                        width: 40,
-                                                      ),
-                                                    ),
+                                                  Text(
+                                                    "John Smith",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: ColorManager.mediumgrey,),
                                                   ),
-                                                  SizedBox(width: 10,),
-                                                  Expanded(
-                                                    flex: 2,
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        Text(
-                                                          "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
+                                                  SizedBox(height: 5,),
+                                                  Text(
+                                                    "Intake Date: 4/30/25",
+                                                    textAlign: TextAlign.center,
+                                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: ColorManager.mediumgrey,),
+                                                  ),
+                                                  SizedBox(height: 3,),
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          "Potential DC Date :",
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                            fontWeight: FontWeight.w700,
+                                                            fontWeight: FontWeight.w600,
                                                             color: ColorManager.mediumgrey,),
                                                         ),
-                                                        SizedBox(height: 5,),
-                                                        Text(
-                                                          "Intake Date: ${snapshot.data![index].ptRefferalDate}",
+                                                      ),
+                                                      Flexible(
+                                                        child: Text(
+                                                          "11/26/2024",
                                                           textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                                             fontWeight: FontWeight.w400,
                                                             color: ColorManager.mediumgrey,),
                                                         ),
-                                                        SizedBox(height: 3,),
-                                                        Row(
-                                                          children: [
-                                                            Flexible(
-                                                              child: Text(
-                                                                "Potential DC Date :",
-                                                                textAlign: TextAlign.center,
-                                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                                  fontWeight: FontWeight.w600,
-                                                                  color: ColorManager.mediumgrey,),
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: Text(
-                                                                " 11/26/2024",
-                                                                textAlign: TextAlign.center,
-                                                                style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  color: ColorManager.mediumgrey,),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 2,
-                                                    child:  Center(
-                                                      child: Text(snapshot.data![index].referralSource.sourceName,
-                                                        textAlign: TextAlign.start,
-                                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: ColorManager.textBlack,),
                                                       ),
-                                                    ),
-                                                    // child: Row(
-                                                    //   children: [
-                                                    //     Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
-                                                    //     // Image.asset(
-                                                    //     //     "images/sm/location.png",
-                                                    //     //   height: 25,width: 26,fit: BoxFit.fill,
-                                                    //     // ),
-                                                    //     SizedBox(width: 10,),
-                                                    //     Text(
-                                                    //       " Apollo Hospital, Washington DC",
-                                                    //       textAlign: TextAlign.start,
-                                                    //       style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                                    //         fontWeight: FontWeight.w400,
-                                                    //         color: ColorManager.textBlack,),
-                                                    //     ),
-                                                    //   ],
-                                                    // ),
+                                                    ],
                                                   ),
-                                                  SizedBox(width: 20),
-                                                  SizedBox(width: MediaQuery.of(context).size.width/35,),
-                                                  Expanded(
-                                                    flex: 5,
-                                                    child: Wrap(
-                                                      spacing: 5,
-                                                      children: [
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Demographics"),
-                                                        // SizedBox(width: 15,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Documentation"),
-                                                        //  SizedBox(width: 15,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Insurance"),
-                                                        // SizedBox(width: 15,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Physician Info"),
-                                                        //  SizedBox(width: 15,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Orders"),
-                                                        // SizedBox(width: 15,),
-                                                        SMDashboardMenuButtons(
-                                                            onTap: (int index) {
-                                                              //_selectButton(index);
-                                                            },
-                                                            index: 0,
-                                                            grpIndex: 0,
-                                                            heading: "Initial Contact"),
-
-                                                      ],
-
-                                                      // children: [
-                                                      //   Padding(
-                                                      //     padding: const EdgeInsets.only(top:30.0),
-                                                      //     child: Row(
-                                                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      //       crossAxisAlignment: CrossAxisAlignment.center,
-                                                      //       children: [
-                                                      //         SMDashboardMenuButtons(
-                                                      //             onTap: (int index) {
-                                                      //               //_selectButton(index);
-                                                      //             },
-                                                      //             index: 0,
-                                                      //             grpIndex: 0,
-                                                      //             heading: "Demographics"),
-                                                      //        // SizedBox(width: 15,),
-                                                      //         SMDashboardMenuButtons(
-                                                      //             onTap: (int index) {
-                                                      //               //_selectButton(index);
-                                                      //             },
-                                                      //             index: 0,
-                                                      //             grpIndex: 0,
-                                                      //             heading: "Documentation"),
-                                                      //       //  SizedBox(width: 15,),
-                                                      //         SMDashboardMenuButtons(
-                                                      //             onTap: (int index) {
-                                                      //               //_selectButton(index);
-                                                      //             },
-                                                      //             index: 0,
-                                                      //             grpIndex: 0,
-                                                      //             heading: "Insurance"),
-                                                      //        // SizedBox(width: 15,),
-                                                      //         SMDashboardMenuButtons(
-                                                      //             onTap: (int index) {
-                                                      //               //_selectButton(index);
-                                                      //             },
-                                                      //             index: 0,
-                                                      //             grpIndex: 0,
-                                                      //             heading: "Physician Info"),
-                                                      //       //  SizedBox(width: 15,),
-                                                      //         SMDashboardMenuButtons(
-                                                      //             onTap: (int index) {
-                                                      //               //_selectButton(index);
-                                                      //             },
-                                                      //             index: 0,
-                                                      //             grpIndex: 0,
-                                                      //             heading: "Orders"),
-                                                      //        // SizedBox(width: 15,),
-                                                      //         SMDashboardMenuButtons(
-                                                      //             onTap: (int index) {
-                                                      //               //_selectButton(index);
-                                                      //             },
-                                                      //             index: 0,
-                                                      //             grpIndex: 0,
-                                                      //             heading: "Initial Contact"),
-                                                      //
-                                                      //       ],
-                                                      //
-                                                      //     ),
-                                                      //   ),
-                                                      // ],
-                                                    ),
-                                                  ),
-                                                  // SizedBox(width: 20,),
-
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: InkWell(
-                                                      splashColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      onTap: (){
-                                                        selectUploadButton();
-                                                        providerPatientId.passPatientId(patientIdNo: snapshot.data![index].ptId);
-                                                      },
-                                                      child:Column(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Image.asset("images/sm/cloud_uploade.png",height: 20,width: 20,),
-                                                          // Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
-                                                          SizedBox(height: 8,),
-                                                          Text("Update",
-                                                            style: TextStyle(
-                                                              fontSize: FontSize.s11,
-                                                              fontWeight: FontWeight.w600,
-                                                              color: Color(0xFF2F6D8A),
-                                                            ),)
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: InkWell(
-                                                      splashColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      onTap: (){},
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          SizedBox(height: 3,),
-                                                          Image.asset("images/sm/move_to_s.png",height: 20,width: 20,),
-                                                          SizedBox(height: 6,),
-                                                          Text(" Move to\nScheduler",
-                                                            style: TextStyle(
-                                                              fontSize: FontSize.s11,
-                                                              fontWeight: FontWeight.w600,
-                                                              color: Color(0xFF2F6D8A),
-                                                            ),)
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: InkWell(
-                                                        splashColor: Colors.transparent,
-                                                        highlightColor: Colors.transparent,
-                                                        hoverColor: Colors.transparent,
-                                                        onTap: (){},
-                                                        child:Column(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            Icon(Icons.block_flipped,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
-                                                            SizedBox(height: 8,),
-                                                            Text("Non-Admit",
-                                                              style: TextStyle(
-                                                                fontSize: FontSize.s11,
-                                                                fontWeight: FontWeight.w600,
-                                                                color: Color(0xFF2F6D8A),
-                                                              ),)
-                                                          ],
-                                                        )
-                                                    ),
-                                                  ),
-
-
-
-                                                  ///conditional button don't delete
-                                                  //   Container(
-                                                  //     height:33,
-                                                  //     width: 160,
-                                                  //     child: ElevatedButton(
-                                                  //      // icon: Image.asset("images/sm/calendar.png",height: 20,width: 20,),
-                                                  //       onPressed: (){
-                                                  //         showDialog(context: context, builder: (context) => ViewDetailsPopup());
-                                                  //       },
-                                                  //       style: ElevatedButton.styleFrom(
-                                                  //         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                                  //         backgroundColor: ColorManager.white,
-                                                  //         shape: RoundedRectangleBorder(
-                                                  //           borderRadius: BorderRadius.circular(12),
-                                                  //           side: BorderSide(color: ColorManager.bluebottom),
-                                                  //         ),
-                                                  //       ), child: Text(
-                                                  //         "Update",
-                                                  //         style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                                  //           fontWeight: FontWeight.w500,
-                                                  //           color: ColorManager.bluebottom,)
-                                                  //     ),
-                                                  //     ),
-                                                  //   ),
-                                                  ///old blue button
-                                                  // Expanded(
-                                                  //   child: Container(
-                                                  //     height:33,
-                                                  //     width: 160,
-                                                  //     child: ElevatedButton.icon(
-                                                  //       icon: Padding(
-                                                  //         padding: const EdgeInsets.only(right: 15.0),
-                                                  //         child: Icon(Icons.edit_outlined,size: 20,),
-                                                  //       ),
-                                                  //       onPressed:onUpdateButtonPressed,
-                                                  //       //     (){
-                                                  //       //   Navigator.push(context, MaterialPageRoute(builder: (context) => SMIntakeScreen()));
-                                                  //       //   //showDialog(context: context, builder: (context) => ViewDetailsPopup());
-                                                  //       // },
-                                                  //
-                                                  //       style: ElevatedButton.styleFrom(
-                                                  //         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                                  //         backgroundColor: ColorManager.bluebottom,
-                                                  //         shape: RoundedRectangleBorder(
-                                                  //           borderRadius: BorderRadius.circular(12),
-                                                  //           side: BorderSide(color: ColorManager.dashListviewData),
-                                                  //         ),
-                                                  //       ), label: Text(
-                                                  //               "Update",
-                                                  //               style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                                  //               fontWeight: FontWeight.w500,
-                                                  //               color: ColorManager.white,)
-                                                  //               ),
-                                                  //     ),
-                                                  //   ),
-                                                  // ),
-                                                  // Container(
-                                                  //   height:33,
-                                                  //   width: 160,
-                                                  //   child: ElevatedButton.icon(
-                                                  //     icon: Image.asset("images/sm/move.png",height: 20,width: 20,),
-                                                  //     onPressed: (){
-                                                  //       showDialog(context: context, builder: (context) => ViewDetailsPopup());
-                                                  //     },
-                                                  //     style: ElevatedButton.styleFrom(
-                                                  //       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                                  //       backgroundColor: ColorManager.white,
-                                                  //       shape: RoundedRectangleBorder(
-                                                  //         borderRadius: BorderRadius.circular(12),
-                                                  //         side: BorderSide(color: ColorManager.bluebottom),
-                                                  //       ),
-                                                  //     ), label: Text(
-                                                  //       "Move to Schedular",
-                                                  //       style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                                  //         fontWeight: FontWeight.w500,
-                                                  //         color: ColorManager.bluebottom,)
-                                                  //   ),
-                                                  //   ),
-                                                  // ),
-                                                ],),
+                                                ],
+                                              ),
                                             ),
-                                            SizedBox(height: AppSize.s5),
-                                          ],
-                                        ),
+                                            Expanded(
+                                              flex: 2,
+                                              child:  Center(
+                                                child: Text("Prohealth App",
+                                                  textAlign: TextAlign.start,
+                                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ColorManager.textBlack,),
+                                                ),
+                                              ),
+                                              // child: Row(
+                                              //   children: [
+                                              //     Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
+                                              //     // Image.asset(
+                                              //     //     "images/sm/location.png",
+                                              //     //   height: 25,width: 26,fit: BoxFit.fill,
+                                              //     // ),
+                                              //     SizedBox(width: 10,),
+                                              //     Text(
+                                              //       " Apollo Hospital, Washington DC",
+                                              //       textAlign: TextAlign.start,
+                                              //       style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                              //         fontWeight: FontWeight.w400,
+                                              //         color: ColorManager.textBlack,),
+                                              //     ),
+                                              //   ],
+                                              // ),
+                                            ),
+                                            SizedBox(width: 20),
+                                            SizedBox(width: MediaQuery.of(context).size.width/35,),
+                                            Expanded(
+                                              flex: 5,
+                                              child: Wrap(
+                                                spacing: 5,
+                                                children: [
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Demographics"),
+                                                  // SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Documentation"),
+                                                  //  SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Insurance"),
+                                                  // SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Physician Info"),
+                                                  //  SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Orders"),
+                                                  // SizedBox(width: 15,),
+                                                  SMDashboardMenuButtons(
+                                                      onTap: (int index) {
+                                                        //_selectButton(index);
+                                                      },
+                                                      index: 0,
+                                                      grpIndex: 0,
+                                                      heading: "Initial Contact"),
+
+                                                ],
+
+                                                // children: [
+                                                //   Padding(
+                                                //     padding: const EdgeInsets.only(top:30.0),
+                                                //     child: Row(
+                                                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                //       crossAxisAlignment: CrossAxisAlignment.center,
+                                                //       children: [
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Demographics"),
+                                                //        // SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Documentation"),
+                                                //       //  SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Insurance"),
+                                                //        // SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Physician Info"),
+                                                //       //  SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Orders"),
+                                                //        // SizedBox(width: 15,),
+                                                //         SMDashboardMenuButtons(
+                                                //             onTap: (int index) {
+                                                //               //_selectButton(index);
+                                                //             },
+                                                //             index: 0,
+                                                //             grpIndex: 0,
+                                                //             heading: "Initial Contact"),
+                                                //
+                                                //       ],
+                                                //
+                                                //     ),
+                                                //   ),
+                                                // ],
+                                              ),
+                                            ),
+                                            // SizedBox(width: 20,),
+
+                                            Expanded(
+                                              flex: 1,
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                onTap: (){
+                                                  selectUploadButton();
+                                                  // providerPatientId.passPatientId(patientIdNo: snapshot.data![index].ptId);
+                                                },
+                                                child:Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Image.asset("images/sm/cloud_uploade.png",height: 20,width: 20,),
+                                                    // Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
+                                                    SizedBox(height: 8,),
+                                                    Text("Update",
+                                                      style: TextStyle(
+                                                        fontSize: FontSize.s11,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: Color(0xFF2F6D8A),
+                                                      ),)
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                onTap: (){},
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(height: 3,),
+                                                    Image.asset("images/sm/move_to_s.png",height: 20,width: 20,),
+                                                    SizedBox(height: 6,),
+                                                    Text(" Move to\nScheduler",
+                                                      style: TextStyle(
+                                                        fontSize: FontSize.s11,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: Color(0xFF2F6D8A),
+                                                      ),)
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: InkWell(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  onTap: (){},
+                                                  child:Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Icon(Icons.block_flipped,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
+                                                      SizedBox(height: 8,),
+                                                      Text("Non-Admit",
+                                                        style: TextStyle(
+                                                          fontSize: FontSize.s11,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: Color(0xFF2F6D8A),
+                                                        ),)
+                                                    ],
+                                                  )
+                                              ),
+                                            ),
+
+
+
+                                            ///conditional button don't delete
+                                            //   Container(
+                                            //     height:33,
+                                            //     width: 160,
+                                            //     child: ElevatedButton(
+                                            //      // icon: Image.asset("images/sm/calendar.png",height: 20,width: 20,),
+                                            //       onPressed: (){
+                                            //         showDialog(context: context, builder: (context) => ViewDetailsPopup());
+                                            //       },
+                                            //       style: ElevatedButton.styleFrom(
+                                            //         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                            //         backgroundColor: ColorManager.white,
+                                            //         shape: RoundedRectangleBorder(
+                                            //           borderRadius: BorderRadius.circular(12),
+                                            //           side: BorderSide(color: ColorManager.bluebottom),
+                                            //         ),
+                                            //       ), child: Text(
+                                            //         "Update",
+                                            //         style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            //           fontWeight: FontWeight.w500,
+                                            //           color: ColorManager.bluebottom,)
+                                            //     ),
+                                            //     ),
+                                            //   ),
+                                            ///old blue button
+                                            // Expanded(
+                                            //   child: Container(
+                                            //     height:33,
+                                            //     width: 160,
+                                            //     child: ElevatedButton.icon(
+                                            //       icon: Padding(
+                                            //         padding: const EdgeInsets.only(right: 15.0),
+                                            //         child: Icon(Icons.edit_outlined,size: 20,),
+                                            //       ),
+                                            //       onPressed:onUpdateButtonPressed,
+                                            //       //     (){
+                                            //       //   Navigator.push(context, MaterialPageRoute(builder: (context) => SMIntakeScreen()));
+                                            //       //   //showDialog(context: context, builder: (context) => ViewDetailsPopup());
+                                            //       // },
+                                            //
+                                            //       style: ElevatedButton.styleFrom(
+                                            //         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                            //         backgroundColor: ColorManager.bluebottom,
+                                            //         shape: RoundedRectangleBorder(
+                                            //           borderRadius: BorderRadius.circular(12),
+                                            //           side: BorderSide(color: ColorManager.dashListviewData),
+                                            //         ),
+                                            //       ), label: Text(
+                                            //               "Update",
+                                            //               style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            //               fontWeight: FontWeight.w500,
+                                            //               color: ColorManager.white,)
+                                            //               ),
+                                            //     ),
+                                            //   ),
+                                            // ),
+                                            // Container(
+                                            //   height:33,
+                                            //   width: 160,
+                                            //   child: ElevatedButton.icon(
+                                            //     icon: Image.asset("images/sm/move.png",height: 20,width: 20,),
+                                            //     onPressed: (){
+                                            //       showDialog(context: context, builder: (context) => ViewDetailsPopup());
+                                            //     },
+                                            //     style: ElevatedButton.styleFrom(
+                                            //       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                            //       backgroundColor: ColorManager.white,
+                                            //       shape: RoundedRectangleBorder(
+                                            //         borderRadius: BorderRadius.circular(12),
+                                            //         side: BorderSide(color: ColorManager.bluebottom),
+                                            //       ),
+                                            //     ), label: Text(
+                                            //       "Move to Schedular",
+                                            //       style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            //         fontWeight: FontWeight.w500,
+                                            //         color: ColorManager.bluebottom,)
+                                            //   ),
+                                            //   ),
+                                            // ),
+                                          ],),
                                       ),
-                                    ),
-                                  );
-                                },
+                                      SizedBox(height: AppSize.s5),
+                                    ],
+                                  ),
+                                ),
                               ),
                             );
-                          }else{
-                            return SizedBox();
-                          }
-
-                        }
-                      )),
+                          },
+                        ),
+                      ))
                   ///pagination code dont delete
                   // PaginationControlsWidget(
                   //   currentPage: currentPage,
