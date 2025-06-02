@@ -31,8 +31,8 @@ class PatientRefferalsRepo{
   ///
   static String referalsources = '/referral-sources';
   /// patient diagnosis
-  static String patientDiagnosisGet = '/referral-patient-diagnosis/patient';
-  static String patientDiagnosisAdd = '/referral-patient-diagnosis';
+ // static String patientDiagnosisGet = '/referral-patient-diagnosis/patient';
+ // static String patientDiagnosisAdd = '/referral-patient-diagnosis';
 
 
   static  String getPatientRefferals({required int pageNo, required int nbrOfRows, required String isIntake, required String isArchived,required String isScheduled, required String searchName, required String marketerId,required String referralSourceId, required String pcpId}){
