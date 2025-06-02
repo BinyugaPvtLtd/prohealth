@@ -298,7 +298,8 @@ Future<ApiData> uploadlinceses({
     var response = await Api(context).post(
       path:ManageReposotory.uploadlinceses(licensedId:licensedId),
       data: {
-        'base64':documents
+        'base64':documents,
+        'documentName':documentName
       },
     );
     print("Response ${response.toString()}");

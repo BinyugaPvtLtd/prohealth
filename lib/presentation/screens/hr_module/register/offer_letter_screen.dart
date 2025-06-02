@@ -140,7 +140,7 @@ class OfferLetterScreen extends StatelessWidget {
     TextEditingController verbalAcceptanceController = TextEditingController();
     TextEditingController patientsController = TextEditingController();
     //final StreamController<List<ZipcodeByCountyIdAndZoneIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
-
+    TextEditingController _salaryController = TextEditingController();
     String selectedDropdownValue = 'Per day';
     String dropdownValue = 'Salaried';
     final providerState =
@@ -647,6 +647,7 @@ class OfferLetterScreen extends StatelessWidget {
                                                               Container(
                                                                 height: 30,
                                                                 child: TextFormField(
+                                                                  controller: _salaryController,
                                                                   cursorColor: Colors.black,
                                                                   style: DocumentTypeDataStyle.customTextStyle(context),
                                                                   decoration: InputDecoration(
@@ -679,8 +680,8 @@ class OfferLetterScreen extends StatelessWidget {
                                                                         FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}$')),
                                                                       ],
                                                                   onChanged: (value) {
-                                                                    hrProviderState.addSalary(value);
-                                                                    print("Salary:: ${hrProviderState.salary}");
+                                                                    // hrProviderState.addSalary(value);
+                                                                    // print("Salary:: ${hrProviderState.salary}");
                                                                   },
                                                                 ),
                                                               ),
@@ -691,6 +692,8 @@ class OfferLetterScreen extends StatelessWidget {
                                                                 child: ElevatedButton(
                                                                   onPressed: () {
                                                                     // Handle the submit action
+                                                                    hrProviderState.addSalary(_salaryController.text);
+                                                                    print("Salary:: ${hrProviderState.salary}");
                                                                     Navigator.of(context).pop();
                                                                   },
                                                                   style: ElevatedButton.styleFrom(

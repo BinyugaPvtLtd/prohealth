@@ -86,12 +86,29 @@ class _MapScreenState extends State<MapScreen> {
           Positioned(
             top: 40,
             right: 16,
-            child: CustomElevatedButton(
-            width: AppSize.s120,
-            height: AppSize.s32,
-              text: "Confirm",
-              color: ColorManager.blueprime,
-              onPressed: _confirmSelection,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              spacing: 30,
+              children: [
+                CustomElevatedButton(
+                  width: AppSize.s120,
+                  height: AppSize.s32,
+                  text: "Cancel",
+                  textColor: ColorManager.blueprime,
+                  style: TextStyle(color:  ColorManager.blueprime),
+                  color: ColorManager.white,
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
+                CustomElevatedButton(
+                width: AppSize.s120,
+                height: AppSize.s32,
+                  text: "Confirm",
+                  color: ColorManager.blueprime,
+                  onPressed: _confirmSelection,
+                ),
+              ],
             )
           ),
         ],

@@ -789,6 +789,8 @@ class EditZipCodePopup extends StatefulWidget {
   final String longitude;
   final String zoneName;
   final String countyName;
+  final String lat;
+  final String long;
   final Future<void> Function() onSavePressed;
   EditZipCodePopup({
     super.key,
@@ -801,7 +803,7 @@ class EditZipCodePopup extends StatefulWidget {
     // this.cityNameController,
     required this.latitude, required this.longitude, required this.zoneId, required this.countyId,
     required this.zipCodes, required this.zipCodeSetupId,
-    required this.officeId, required this.zoneName, required this.countyName,
+    required this.officeId, required this.zoneName, required this.countyName, required this.lat, required this.long,
   });
 
   @override
@@ -833,6 +835,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
     countyId = widget.countyId;
     zoneNameText = widget.zoneName;
     countyNameText = widget.countyName;
+    _location = "Lat ${widget.lat} lng ${widget.long}";
     super.initState();
     // _zoneFuture = getZoneByCounty(context, widget.officeId, countyId, 1, 200);
     //ZoneZipcodeDropdown(widget.officeId, context); // Initialize Future once
