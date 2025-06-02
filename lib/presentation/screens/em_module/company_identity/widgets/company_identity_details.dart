@@ -19,15 +19,17 @@ import '../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../widgets/button_constant.dart';
 
 class CIDetailsScreen extends StatefulWidget {
-  CIDetailsScreen(
-      {super.key,
+  CIDetailsScreen({
+        super.key,
         required this.officeId,
         required this.docTD,
         required this.companyId,
         required int companyID,
         required this.companyOfficeid,
         required this.stateName,
-        required this.countryName, required this.updateOfficeName});
+        required this.countryName,
+        required this.updateOfficeName
+      });
   final String stateName;
   final String countryName;
   final int companyId;
@@ -86,6 +88,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
     });
   }
   bool _isLoading = false;
+  bool showHcoError = false;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -171,6 +174,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                     builder: (BuildContext context,
                                         void Function(void Function())
                                         setState) {
+
                                       return Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -197,109 +201,147 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                               }
                                                               var hcoNumber = snapshot.data!.hcoNumber;
                                                               hcoNumControllerPrefill = TextEditingController(text: snapshot.data!.hcoNumber);
-                                                              return DialogueTemplate(
-                                                                width: AppSize.s420,
-                                                                height: AppSize.s250,
-                                                                body: [
-                                                                  SMTextfieldAsteric(
-                                                                    controller:
-                                                                    hcoNumControllerPrefill,
-                                                                    keyboardType:
-                                                                    TextInputType.text,
-                                                                    text: AppStringEM.hcoNum,
-                                                                  ),
-                                                                ],
-                                                                bottomButtons: CustomElevatedButton(
-                                                                    width: AppSize.s105,
-                                                                    height: AppSize.s30,
-                                                                    text: AppStringEM.save, //submit
-                                                                    onPressed: () async {
-                                                                      await updateServices(
-                                                                          serviceDetail.officeServiceId,
-                                                                          widget.officeId,
-                                                                          serviceDetail.serviceName,
-                                                                          serviceDetail.serviceId,
-                                                                          serviceDetail.npiNum,
-                                                                          serviceDetail.medicareNum,
-                                                                          hcoNumber == hcoNumControllerPrefill
-                                                                              .text ? hcoNumber : hcoNumControllerPrefill.text);
-                                                                      hcoNumControllerPrefill.clear();
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                      showDialog(
-                                                                        context: context,
-                                                                        builder: (BuildContext context) {
-                                                                          return AddSuccessPopup(
-                                                                            message: 'Service edited successfully.',
-                                                                          );
+                                                              return StatefulBuilder(
+                                                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                  // bool showHcoError = false;
+                                                                  return DialogueTemplate(
+                                                                    width: AppSize.s420,
+                                                                    height: AppSize.s250,
+                                                                    body: [
+                                                                      SMTextfieldAsteric(
+                                                                        controller:
+                                                                        hcoNumControllerPrefill,
+                                                                        keyboardType:
+                                                                        TextInputType.text,
+                                                                        text: AppStringEM.hcoNum,
+                                                                        onChanged: (value) {
+                                                                          if (showHcoError && value.trim().isNotEmpty) {
+                                                                            setState(() {
+                                                                              showHcoError = false; // ✅ hide error as user types
+                                                                            });
+                                                                          }
                                                                         },
-                                                                      );
+                                                                      ),
 
-                                                                      }),
-                                                                  title: 'Edit Service',
-                                                                );
-                                                              }
-                                                          );
-                                                        });
-                                                  },
-                                                  icon: Icon(
-                                                      Icons.mode_edit_outline_outlined,
-                                                      size: IconSize.I20,
-                                                      color: Colors.white),
-                                                ),
-                                                // SizedBox(width:2),
-                                                IconButton(
-                                                  splashColor:
-                                                  Colors.transparent,
-                                                  hoverColor:
-                                                  Colors.transparent,
-                                                  highlightColor:
-                                                  Colors.transparent,
-                                                  onPressed: () async {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          StatefulBuilder(
-                                                            builder: (BuildContext context, void Function(void Function()) setState) {
-                                                              return DeletePopup(
-                                                                  title: DeletePopupString.deleteService,
-                                                                  loadingDuration: _isLoading,
-                                                                  onCancel: () {
-                                                                    Navigator.pop(context);
-                                                                  }, onDelete:
-                                                                  () async {
-                                                                setState(() {
-                                                                  _isLoading = true;
-                                                                });
-                                                                try {
-                                                                  await deleteService(serviceDetail.officeServiceId);
+                                                                      showHcoError
+                                                                          ? Padding(
+                                                                        padding: const EdgeInsets.only(top: 4.0, left: 12),
+                                                                        child: Row(
+                                                                          children: [
+                                                                            Text(
+                                                                              'HCO Number cannot be empty',
+                                                                              style: TextStyle(
+                                                                                color: Colors.red,
+                                                                                fontSize: 10,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      )
+                                                                          : SizedBox(height: 14),
+                                                                    ],
+                                                                    bottomButtons: CustomElevatedButton(
+                                                                        width: AppSize.s105,
+                                                                        height: AppSize.s30,
+                                                                        text: AppStringEM.save, //submit
+                                                                        onPressed: () async {
+
+                                                                          if (hcoNumControllerPrefill.text.isEmpty) {
+                                                                            setState(() {
+                                                                              showHcoError = true;
+                                                                            });
+                                                                            return;
+                                                                          }
+
+                                                                          await updateServices(
+                                                                              serviceDetail.officeServiceId,
+                                                                              widget.officeId,
+                                                                              serviceDetail.serviceName,
+                                                                              serviceDetail.serviceId,
+                                                                              serviceDetail.npiNum,
+                                                                              serviceDetail.medicareNum,
+                                                                              hcoNumber == hcoNumControllerPrefill
+                                                                                  .text ? hcoNumber : hcoNumControllerPrefill.text);
+                                                                          hcoNumControllerPrefill.clear();
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                          showDialog(
+                                                                            context: context,
+                                                                            builder: (BuildContext context) {
+                                                                              return AddSuccessPopup(
+                                                                                message: 'Service edited successfully.',
+                                                                              );
+                                                                            },
+                                                                          );
+
+                                                                        }),
+                                                                    title: 'Edit Service',
+                                                                  );
+                                                                },
+
+                                                              );
+                                                            }
+                                                        );
+                                                      });
+                                                },
+                                                icon: Icon(
+                                                    Icons.mode_edit_outline_outlined,
+                                                    size: IconSize.I20,
+                                                    color: Colors.white),
+                                              ),
+                                              // SizedBox(width:2),
+                                              IconButton(
+                                                splashColor:
+                                                Colors.transparent,
+                                                hoverColor:
+                                                Colors.transparent,
+                                                highlightColor:
+                                                Colors.transparent,
+                                                onPressed: () async {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        StatefulBuilder(
+                                                          builder: (BuildContext context, void Function(void Function()) setState) {
+                                                            return DeletePopup(
+                                                                title: DeletePopupString.deleteService,
+                                                                loadingDuration: _isLoading,
+                                                                onCancel: () {
                                                                   Navigator.pop(context);
-                                                                  showDialog(context: context, builder: (context) => DeleteSuccessPopup());
-                                                                } finally {
-                                                                  setState(() {
-                                                                    _isLoading = false;
-                                                                  });
-                                                                }
+                                                                }, onDelete:
+                                                                () async {
+                                                              setState(() {
+                                                                _isLoading = true;
                                                               });
-                                                            },
-                                                          ),
-                                                    );
-                                                  },
-                                                  icon: Icon(
-                                                      Icons.delete_outline_outlined,
-                                                      size: IconSize.I20,
-                                                      color: Colors.white),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        );
-                                      },
-                                    ),
+                                                              try {
+                                                                await deleteService(serviceDetail.officeServiceId);
+                                                                Navigator.pop(context);
+                                                                showDialog(context: context, builder: (context) => DeleteSuccessPopup());
+                                                              } finally {
+                                                                setState(() {
+                                                                  _isLoading = false;
+                                                                });
+                                                              }
+                                                            });
+                                                          },
+                                                        ),
+                                                  );
+                                                },
+                                                icon: Icon(
+                                                    Icons.delete_outline_outlined,
+                                                    size: IconSize.I20,
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      );
+                                    },
                                   ),
-                                  SizedBox(
-                                    height: AppSize.s10,
-                                  ),
+                                ),
+                                SizedBox(
+                                  height: AppSize.s10,
+                                ),
 
                                 /// HCO number
                                 Padding(
@@ -535,7 +577,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         height: AppSize.s30,
                         text: AppStringEM.save,
                         onPressed: () async {
-                         var response = await patchCompanyOffice(
+                          var response = await patchCompanyOffice(
                               context,
                               widget.companyOfficeid,
                               widget.officeId,
