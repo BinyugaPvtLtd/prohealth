@@ -16,6 +16,10 @@ class PatientRefferalsRepo{
   static String patientPhysicianMaster = '/physician-master';
   static String patientDiagnosisiMaster = '/diagnosis-master';
 
+  /// patient diagnosis
+  static String patientDiagnosisGet = '/referral-patient-diagnosis/patient';
+  static String patientDiagnosisAdd = '/referral-patient-diagnosis';
+
   ///f2f document
   static String f2fPatient = '/f2f/patient';
   static String f2fDocument = '/f2f/document';
