@@ -15,6 +15,7 @@ import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/referral_service_data.dart';
+import '../../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../em_module/widgets/button_constant.dart';
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -53,6 +54,7 @@ class PriDiagnosisProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+
 
 
 
@@ -115,6 +117,8 @@ class SMIntakeOrdersScreen extends StatelessWidget {
     String? selectedSource =" ";
     TextEditingController residencyController = TextEditingController();
 
+    List<String> trueSelectedList = [];
+    List<String> falseSelectedList = [];
 
     return
       // backgroundColor: ColorManager.white,
@@ -179,7 +183,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                           crossAxisAlignment:CrossAxisAlignment.start,
                           children: [
                             Expanded(
-                              flex: 1,
+                              flex: 2,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -217,9 +221,9 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             ),
 
                             Expanded(
-                              flex: 2,
+                              flex: 3,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 100),
+                                padding: const EdgeInsets.only(left: 0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -335,6 +339,104 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+
+                                    ///api
+                                    // FutureBuilder<List<EmployeeClinicalData>>(
+                                    //   future: getEmployeeClinicalInReffreals(context: context),
+                                    //   builder: (context, snapshot) {
+                                    //     if (snapshot.connectionState == ConnectionState.waiting) {
+                                    //       return const Center(child: CircularProgressIndicator());
+                                    //     }
+                                    //
+                                    //     if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+                                    //       return const SizedBox.shrink();
+                                    //     }
+                                    //
+                                    //     final clinicalData = snapshot.data!;
+                                    //
+                                    //     final titleMapping = {
+                                    //       'Nursing': ['Nurse'],
+                                    //       'Speech Therapy': ['Speech Therapist'],
+                                    //       'Occupational Therapy': ['Occupational Therapist'],
+                                    //       'Physical Therapy': ['Therapist'],
+                                    //       'Home Health Aide': ['Clinical'],
+                                    //       'Medical Social Services': ['Clinical'],
+                                    //       'Dietician': ['Dietician'],
+                                    //     };
+                                    //
+                                    //     bool shouldShowCheckbox(String title) {
+                                    //       final keywords = titleMapping[title];
+                                    //       if (keywords == null) return false;
+                                    //       return clinicalData.any((e) =>
+                                    //           keywords.any((keyword) =>
+                                    //           e.empType.trim().toLowerCase() == keyword.trim().toLowerCase()));
+                                    //     }
+                                    //
+                                    //     final visibleTitles = titleMapping.keys
+                                    //         .where((title) => shouldShowCheckbox(title))
+                                    //         .toList();
+                                    //
+                                    //     // Group into columns of 3
+                                    //     List<List<String>> columnGroups = [];
+                                    //     for (int i = 0; i < visibleTitles.length; i += 3) {
+                                    //       columnGroups.add(
+                                    //         visibleTitles.sublist(
+                                    //           i,
+                                    //           i + 3 > visibleTitles.length ? visibleTitles.length : i + 3,
+                                    //         ),
+                                    //       );
+                                    //     }
+                                    //
+                                    //     return Container(
+                                    //      // width: providerState.isContactTrue ? AppSize.s350 : AppSize.s480,
+                                    //       padding: const EdgeInsets.all(12),
+                                    //       child: Row(
+                                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                                    //         children: columnGroups.map((group) {
+                                    //           return Padding(
+                                    //             padding: const EdgeInsets.only(right: 20.0),
+                                    //             child: Column(
+                                    //               crossAxisAlignment: CrossAxisAlignment.start,
+                                    //               children: group.map((title) {
+                                    //                 return StatefulBuilder(
+                                    //                   builder: (context, setTileState) {
+                                    //                     bool isChecked = false;
+                                    //
+                                    //                     return SizedBox(
+                                    //                       width: 200,
+                                    //                       child: ExpCheckboxTile(
+                                    //                         title: title,
+                                    //                         initialValue: isChecked,
+                                    //                         onChanged: (value) {
+                                    //                           setTileState(() {
+                                    //                             isChecked = value ?? false;
+                                    //
+                                    //                             if (isChecked) {
+                                    //                               if (!trueSelectedList.contains(title)) {
+                                    //                                 trueSelectedList.add(title);
+                                    //                               }
+                                    //                               falseSelectedList.remove(title);
+                                    //                             } else {
+                                    //                               if (!falseSelectedList.contains(title)) {
+                                    //                                 falseSelectedList.add(title);
+                                    //                               }
+                                    //                               trueSelectedList.remove(title);
+                                    //                             }
+                                    //                           });
+                                    //                         },
+                                    //                       ),
+                                    //                     );
+                                    //                   },
+                                    //                 );
+                                    //               }).toList(),
+                                    //             ),
+                                    //           );
+                                    //         }).toList(),
+                                    //       ),
+                                    //     );
+                                    //   },
+                                    // )
+
                                   ],
                                 ),
                               ),
@@ -492,9 +594,9 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                             // ),
 
                             Expanded(
-                              flex: 1,
+                              flex: 2,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   FutureBuilder<List<PatientMarketerData>>(
                                     future: getMarketerWithDeptId(context: context, deptId: AppConfig.salesId),
@@ -533,20 +635,23 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                           ));
                                         }
 
-                                        return CustomDropdownTextFieldsm(
-                                            width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                            headText: 'Marketer',
-                                            dropDownMenuList: dropDownList,
-                                            onChanged: (newValue) {
-                                              for (var a in snapshot.data!) {
-                                                if (a.firstName == newValue) {
-                                                  selectedMarketer = a.firstName;
-                                                  // _checkFormValidity();
-                                                  //country = a
-                                                  // int? docType = a.companyOfficeID;
+                                        return Padding(
+                                          padding:  const EdgeInsets.symmetric(vertical: 4),
+                                          child: CustomDropdownTextFieldsm(
+                                              width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                              headText: 'Marketer',
+                                              dropDownMenuList: dropDownList,
+                                              onChanged: (newValue) {
+                                                for (var a in snapshot.data!) {
+                                                  if (a.firstName == newValue) {
+                                                    selectedMarketer = a.firstName;
+                                                    // _checkFormValidity();
+                                                    //country = a
+                                                    // int? docType = a.companyOfficeID;
+                                                  }
                                                 }
-                                              }
-                                            });
+                                              }),
+                                        );
                                       } else {
                                         return const Offstage();
                                       }
@@ -596,20 +701,23 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                           ));
                                         }
 
-                                        return CustomDropdownTextFieldsm(
-                                            width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                            headText: 'Referral Source',
-                                            dropDownMenuList: dropDownList,
-                                            onChanged: (newValue) {
-                                              for (var a in snapshot.data!) {
-                                                if (a.sourcename == newValue) {
-                                                  selectedSource = a.sourcename;
-                                                  // _checkFormValidity();
-                                                  //country = a
-                                                  // int? docType = a.companyOfficeID;
+                                        return Padding(
+                                          padding: const  EdgeInsets.symmetric(vertical: 4),
+                                          child: CustomDropdownTextFieldsm(
+                                              width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
+                                              headText: 'Referral Source',
+                                              dropDownMenuList: dropDownList,
+                                              onChanged: (newValue) {
+                                                for (var a in snapshot.data!) {
+                                                  if (a.sourcename == newValue) {
+                                                    selectedSource = a.sourcename;
+                                                    // _checkFormValidity();
+                                                    //country = a
+                                                    // int? docType = a.companyOfficeID;
+                                                  }
                                                 }
-                                              }
-                                            });
+                                              }),
+                                        );
                                       } else {
                                         return const Offstage();
                                       }

@@ -165,6 +165,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
     // Handle the picked location after returning from MapScreen
     if (pickedLocation != null) {
       locationProvider.updateLocation(pickedLocation);
+      _locationError = null;
     }
   }
   @override
@@ -447,14 +448,14 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           ),
                         ],
                       ),
-                      if (_locationError != null)
-                        Padding(
+                      _locationError != null
+                       ? Padding(
                           padding: const EdgeInsets.only(top: 2),
                           child: Text(
                               _locationError!,
                               style: CommonErrorMsg.customTextStyle(context)
                           ),
-                        ),
+                        ) :SizedBox(height: AppSize.s12,),
                     ],
                   )
                 ]),

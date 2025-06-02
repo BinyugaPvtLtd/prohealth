@@ -22,11 +22,15 @@ class ApiData {
   /// SM variables
   final int? rptd_id;
   final int? patientInsuranceDocId;
+  final int? f2f_id;
+  final int? f2f_doc_id;
   ApiData(
       {this.officeId,
         this.employeeEnrollId,
         this.rptd_id,
         this.patientInsuranceDocId,
+        this.f2f_id,
+        this.f2f_doc_id,
       required this.statusCode,
       required this.success,
       required this.message,

@@ -74,7 +74,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
     loginName = await TokenManager.getUserName();
     setState(() {});  // triggers rebuild so loginName is available
   }
-
+  int marketerId = 0;
 
   bool isFormValid = false;
   String? selectedMarketer;
@@ -83,11 +83,14 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
   void _checkFormValidity() {
     setState(() {
       isFormValid = ffdateController.text.isNotEmpty &&
-          ffpostController.text.isNotEmpty &&
+          postOpDateController.text.isNotEmpty &&
           ffappoController.text.isNotEmpty &&
-          selectedMarketer != null;
+          selectedMarketer != null &&
+          isPostOpChecked &&
+          isAppointmentChecked;
     });
   }
+
   TextEditingController residencyController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -362,8 +365,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                         ),
                       ],
                     ),
-                    ///
                     SizedBox(height: AppSize.s30,),
+
                     BlueBGHeadConst(HeadText: "Face to Face Encounter"),
                     SizedBox(height: AppSize.s10,),
                     Column(
@@ -394,116 +397,116 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                             child: Row(
                               children: [
                                 Flexible(
-                                  child: SchedularTextField(
-                                    controller: ffdateController,
-                                    labelText: 'F2F Date:',
-                                    enable: true,
-                                    showDatePicker: true,
-                                    onChanged: (_) => _checkFormValidity(),
-                                  ),
-                                ),
-                                SizedBox(width: 30),
-                                Flexible(
-                                  child:  FutureBuilder<List<PatientMarketerData>>(
-                                    future: getMarketerWithDeptId(context: context, deptId: AppConfig.salesId),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
-                                        return SchedularTextField(
-                                            controller:residencyController ,
-                                            labelText: 'Marketer');
-                                      }
-                                      if (snapshot.hasData) {
-                                        List<DropdownMenuItem<String>> dropDownList = [];
-                                        for (var i in snapshot.data!) {
-                                          dropDownList.add(DropdownMenuItem<String>(
-                                            child: Text(i.firstName),
-                                            value: i.firstName,
-                                          ));
-                                        }
-
-                                        return CustomDropdownTextFieldsm(
-                                            headText: 'Marketer',
-                                            dropDownMenuList: dropDownList,
-                                            onChanged: (newValue) {
-                                              for (var a in snapshot.data!) {
-                                                if (a.firstName == newValue) {
-                                                  selectedMarketer = a.firstName;
-                                                 // _checkFormValidity();
-                                                  //country = a
-                                                  // int? docType = a.companyOfficeID;
-                                                }
-                                              }
-                                            });
-                                      } else {
-                                        return const Offstage();
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(width: 30),
-                                Flexible(
-                                    child: SchedularTextFieldcheckbox(
-                                      controller: postOpDateController,
-                                      labelText: 'Post-op Visit Note Needed',
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: SchedularTextField(
+                                      controller: ffdateController,
+                                      labelText: 'F2F Date:',
+                                      enable: true,
                                       showDatePicker: true,
-                                      hintText: 'Select date',
-                                      enable: isPostOpChecked, // 🔁 Dynamically controlled
-                                      initialCheckboxValue: isPostOpChecked,
-                                      onCheckboxChanged: (bool? newValue) {
-                                        setState(() {
-                                          isPostOpChecked = newValue ?? false; // 🔁 Update enabled state
-                                        });
-                                      },
-                                    )
-
-
+                                      onChanged: (_) => _checkFormValidity(),
+                                    ),
+                                  ),
                                 ),
-                                // Flexible(
-                                //   child: SchedularTextFieldcheckbox(
-                                //     enable: true,
-                                //     controller: ffpostController,
-                                //     labelText: 'Post-op Visit Note Needed',
-                                //     showDatePicker: true,
-                                //     initialCheckboxValue: true,
-                                //     onChanged: (_) => _checkFormValidity(),
-                                //     onCheckboxChanged: (_) {},
-                                //   ),
-                                // ),
                                 SizedBox(width: 30),
                                 Flexible(
-                                  child: SchedularTextFieldcheckbox(
-                                    enable: isAppointmentChecked,
-                                    controller: ffappoController,
-                                    labelText: 'F2F Appointment Needed',
-                                    showDatePicker: true,
-                                    initialCheckboxValue: isAppointmentChecked,
-                                    onChanged: (_) => _checkFormValidity(),
-                                    onCheckboxChanged: (bool? newValue) {
-                                      setState(() {
-                                        isAppointmentChecked = newValue ?? false;
-                                      });
-                                    },
+                                  child:  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: StatefulBuilder(
+                                      builder: (BuildContext context, StateSetter setState) {
+                                        print(isFormValid);
+                                        return FutureBuilder<List<PatientMarketerData>>(
+                                          future: getMarketerWithDeptId(context: context, deptId: AppConfig.salesId),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState == ConnectionState.waiting) {
+                                              return SchedularTextField(
+                                                  controller: residencyController ,
+                                                  labelText: 'Marketer');
+                                            }
+                                            if (snapshot.hasData) {
+                                              List<DropdownMenuItem<String>> dropDownList = [];
+                                              for (var i in snapshot.data!) {
+                                                dropDownList.add(DropdownMenuItem<String>(
+                                                  child: Text(i.firstName),
+                                                  value: i.firstName,
+                                                ));
+                                              }
+
+                                             return CustomDropdownTextFieldsm(
+                                                  headText: 'Marketer',
+                                                  dropDownMenuList: dropDownList,
+                                                  value: selectedMarketer,
+                                                  onChanged: (newValue) {
+                                                    for (var a in snapshot.data!) {
+                                                      if (a.firstName == newValue) {
+                                                        selectedMarketer = a.firstName;
+                                                       _checkFormValidity();
+                                                        //country = a
+                                                        marketerId = a.employeeId;
+                                                      }
+                                                    }
+                                                  });
+                                            } else {
+                                              return const Offstage();
+                                            }
+                                          },
+                                        );
+                                      }
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 30),
+                                Flexible(
+                                    child: StatefulBuilder(
+                                        builder: (BuildContext context, StateSetter setState) {
+                                          print(isFormValid);
+                                          return SchedularTextFieldcheckbox(
+                                          controller: postOpDateController,
+                                          labelText: 'Post-op Visit Note Needed',
+                                          showDatePicker: true,
+                                          hintText: 'Select Date',
+                                          enable: isPostOpChecked, // 🔁 Dynamically controlled
+                                          initialCheckboxValue: isPostOpChecked,
+                                          onCheckboxChanged: (bool? newValue) {
+                                            setState(() {
+                                              isPostOpChecked = newValue ?? false; // 🔁 Update enabled state
+                                            });
+                                            _checkFormValidity();
+                                          },
+                                        );
+                                      }
+                                    )
+                                ),
+                                SizedBox(width: 30),
+                                Flexible(
+                                  child: StatefulBuilder(
+                                      builder: (BuildContext context, StateSetter setState) {
+                                        print(isFormValid);
+                                        return SchedularTextFieldcheckbox(
+                                        hintText: "MM/DD/YY",
+                                        enable: isAppointmentChecked,
+                                        controller: ffappoController,
+                                        labelText: 'F2F Appointment Needed',
+                                        showDatePicker: true,
+                                        initialCheckboxValue: isAppointmentChecked,
+                                        //onChanged: (_) => _checkFormValidity(),
+                                        onCheckboxChanged: (bool? newValue) {
+                                          setState(() {
+                                            isAppointmentChecked = newValue ?? false;
+                                          });
+                                          _checkFormValidity();
+                                        },
+                                      );
+                                    }
                                   ),
 
                                 ),
-                                // Flexible(
-                                //   child: SchedularTextFieldcheckbox(
-                                //     enable: true,
-                                //     controller: ffappoController,
-                                //     labelText: 'F2F Appointment Needed',
-                                //     showDatePicker: true,
-                                //     initialCheckboxValue: false,
-                                //     onChanged: (_) => _checkFormValidity(),
-                                //     onCheckboxChanged: (_) {},
-                                //   ),
-                                // ),
                               ],
                             ),
                           ),
 
                           SizedBox(height: 20),
 
-                          // 🔄 STREAMBUILDER
                           StreamBuilder<List<PatientDocumentsFtwoFData>>(
                               stream: _streamControllerF2F.stream,
                               builder: (context,snapshotDoc) {
@@ -583,59 +586,6 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                       ),
                                     ],
                                   );
-                                  //   Column(
-                                  //   children: [
-                                  //
-                                  //     Container(
-                                  //       child: ListView.builder(
-                                  //           shrinkWrap: true,
-                                  //           itemCount: snapshotDoc.data!.length,
-                                  //           itemBuilder: (context,index){
-                                  //             return FileInfoCard(
-                                  //               content: snapshotDoc.data![index].rptd_content,
-                                  //               documentName: snapshotDoc.data![index].documents!.first.f2f_doc_name,//snapshotDoc.data![index].documentName,
-                                  //               fileUrl: snapshotDoc.data![index].documents!.isNotEmpty
-                                  //                   ? snapshotDoc.data![index].documents!.first.f2f_doc_url
-                                  //                   : '',
-                                  //               fileName: snapshotDoc.data![index].documents!.first.f2f_doc_name,//snapshotDoc.data![index].documentName,
-                                  //               uploadedInfo: providerState.isContactTrue
-                                  //                   ? "Uploaded ${snapshotDoc.data![index].rptd_created_at}\nAM PST by $loginName"
-                                  //                   : "Uploaded ${snapshotDoc.data![index].rptd_created_at}AM PST by $loginName",
-                                  //               isContact: providerState.isContactTrue,
-                                  //               // onHistoryTap: () {},
-                                  //               // onTelegramTap: () {},
-                                  //               onPrintTap: () {},
-                                  //               onDownloadTap: () {},
-                                  //               onDeleteTap: ()
-                                  //               async {
-                                  //                 setState(() {
-                                  //                   isLoading = true;
-                                  //                 });
-                                  //                 try {
-                                  //                   var response =  await deleteFTwoFDocument(context: context, id: snapshotDoc.data![index].documents!.first.f2f_doc_id, );
-                                  //                   if(response.statusCode == 200  || response.statusCode == 201) {
-                                  //                     // Navigator.pop(context);
-                                  //                     // Future.delayed(Duration(seconds: 1));
-                                  //                     showDialog(
-                                  //                       context: context,
-                                  //                       builder: (BuildContext context) => const DeleteSuccessPopup(),
-                                  //                     );
-                                  //                   }
-                                  //                 } finally {
-                                  //                   setState(() {
-                                  //                     isLoading = false;
-                                  //                     //Navigator.pop(context);
-                                  //                   });
-                                  //                 }
-                                  //                 // setState(() async{
-                                  //                 //
-                                  //                 //   Navigator.pop(context);
-                                  //                 // });
-                                  //               },
-                                  //             );
-                                  //           }),
-                                  //     )  ],
-                                  // );
                                 }else{
                                   return const SizedBox();
                                 }
@@ -643,27 +593,31 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                               }
                           ),
                           SizedBox(height: 20),
-
-                          // 🟩 ATTACH BUTTON
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomIconButtonConst(
                                 icon: Icons.add,
                                 width: AppSize.s150,
-                                color: ColorManager.bluebottom,
+                                color: ColorManager.bluebottom ,
                                 text: "Add Attachment",
-                                onPressed: isFormValid
-                                    ? () {
+                                onPressed:
+                                // isFormValid
+                                //     ?
+                                    () {
                                   showDialog(
                                     context: context,
-                                    builder: (_) => AddPopupConstant(
+                                    builder: (_) => AddF2FPopupConstant(
                                       title: 'Add Face to Face Attachment',
+                                      ffDate: ffdateController.text.trim(),
+                                      marketerId: marketerId,
+                                      postOpDate: postOpDateController.text.trim(),
+                                      visitNote: ffappoController.text.trim(),
                                       docTypeId: 0,
                                     ),
                                   );
                                 }
-                                    : (){}, // disabled if not valid
+                                   // : (){}, // disabled if not valid
                               ),
                             ],
                           ),
