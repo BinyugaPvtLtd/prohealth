@@ -139,9 +139,8 @@ class OfferLetterScreen extends StatelessWidget {
     TextEditingController startDateController = TextEditingController();
     TextEditingController verbalAcceptanceController = TextEditingController();
     TextEditingController patientsController = TextEditingController();
-    TextEditingController salaryController = TextEditingController();
     //final StreamController<List<ZipcodeByCountyIdAndZoneIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
-
+    TextEditingController _salaryController = TextEditingController();
     String selectedDropdownValue = 'Per day';
     String dropdownValue = 'Salaried';
     final providerState =
@@ -648,7 +647,7 @@ class OfferLetterScreen extends StatelessWidget {
                                                               Container(
                                                                 height: 30,
                                                                 child: TextFormField(
-                                                                  controller: salaryController,
+                                                                  controller: _salaryController,
                                                                   cursorColor: Colors.black,
                                                                   style: DocumentTypeDataStyle.customTextStyle(context),
                                                                   decoration: InputDecoration(
@@ -693,7 +692,7 @@ class OfferLetterScreen extends StatelessWidget {
                                                                 child: ElevatedButton(
                                                                   onPressed: () {
                                                                     // Handle the submit action
-                                                                    hrProviderState.addSalary(salaryController.text);
+                                                                    hrProviderState.addSalary(_salaryController.text);
                                                                     print("Salary:: ${hrProviderState.salary}");
                                                                     Navigator.of(context).pop();
                                                                   },

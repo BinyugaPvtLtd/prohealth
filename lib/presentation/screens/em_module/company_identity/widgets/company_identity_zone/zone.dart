@@ -21,7 +21,7 @@ import '../vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
 
 class CiZone extends StatefulWidget {
   final double officeLat;
-  final double officeLong;
+  final double officeLon;
   final int companyID;
   final String officeId;
   final int docId;
@@ -33,7 +33,7 @@ class CiZone extends StatefulWidget {
       required this.countryName,
       required this.companyID,
       required this.officeId,
-      required this.docId, required this.officeLat, required this.officeLong});
+      required this.docId, required this.officeLat, required this.officeLon});
 
   @override
   State<CiZone> createState() => _CiOrgDocumentState();
@@ -487,7 +487,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                           });
                         },
                         mapController: mapController,
-                        locationController: locationController, officeLat: widget.officeLat, officeLong: widget.officeLong,
+                        locationController: locationController, officeLat: widget.officeLat, officeLong: widget.officeLon,
                       );
                     });
               }),

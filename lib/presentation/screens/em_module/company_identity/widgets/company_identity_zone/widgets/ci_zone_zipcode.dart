@@ -44,7 +44,10 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
   }
   LatLng _selectedLocation = LatLng(37.7749, -122.4194);
   String _location = 'Lat/Long not selected'; // Default text
-
+  String truncateWithEllipsis(String text, int maxLength) {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength).trimRight() + '';
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -250,6 +253,8 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     // cityController = TextEditingController(text: snapshotPrefill.data!.city.toString());
                                                     zipcodeController = TextEditingController(text: snapshotPrefill.data!.zipcode.toString());
                                                     return EditZipCodePopup(
+                                                      lat: truncateWithEllipsis(snapshotPrefill.data!.latitude!,7),
+                                                      long: truncateWithEllipsis(snapshotPrefill.data!.longitude!,8),
                                                       zoneName:zoneName,
                                                       countyName:countyName,
                                                       title: 'Edit Zip Code',

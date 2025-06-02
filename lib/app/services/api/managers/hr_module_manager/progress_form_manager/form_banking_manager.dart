@@ -79,7 +79,7 @@ Future<ApiData> uploadcheck({
       path:ManageReposotory.uploadcheck(empBankingId: empBankingId),
       data: {
         'base64':documents,
-        'documentName':documentName,
+        'documentName':documentName
       },
     );
     print("Response ${response.toString()}");

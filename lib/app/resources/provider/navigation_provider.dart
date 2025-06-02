@@ -35,7 +35,7 @@ class RouteProvider with ChangeNotifier {
     print("route set to $route");
 
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('lastRoute', route); // Persist the route
+    await prefs.setString('lastRoute', route);
   }
 
   /// Navigator provider
