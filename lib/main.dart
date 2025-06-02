@@ -9,6 +9,7 @@ import 'package:prohealth/app/resources/provider/office_location.dart';
 import 'package:prohealth/app/resources/provider/office_location.dart';
 import 'package:prohealth/app/resources/provider/version_provider.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/define_holidays.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_demographics/widgets/patients_plan_care/planer_notifier.dart';
@@ -70,6 +71,7 @@ Future<void> main() async {
           //   create: (_) => EditUserProvider(),
           // ),
           ChangeNotifierProvider(create: (context) => VersionProviderManager()),
+          ChangeNotifierProvider(create: (_) => DefineHolidaysProvider()),
           ChangeNotifierProvider(create: (_) => HrSearchProviderManager()),
           ChangeNotifierProvider(create: (_) => LocationProvider()),
           ChangeNotifierProvider(create: (_) => HrManageProvider()),
@@ -84,6 +86,7 @@ Future<void> main() async {
           // ChangeNotifierProvider(create: (_) => SmIntegrationProviderManager()),
           ChangeNotifierProvider(create: (_) => DiagnosisProvider()),
           ChangeNotifierProvider(create: (_) => EmergencyContactProvider()),
+
 
           ChangeNotifierProvider(
               create: (context) => AddressProvider(
@@ -121,7 +124,7 @@ bool isChrome() {
 
   // Additional check: Chrome should have 'google' in the vendor property
   bool isGoogleVendor =
-      html.window.navigator.vendor.toLowerCase().contains('google');
+  html.window.navigator.vendor.toLowerCase().contains('google');
 
   return isChrome && isGoogleVendor;
 }
