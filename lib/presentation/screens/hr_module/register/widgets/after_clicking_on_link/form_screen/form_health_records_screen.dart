@@ -416,92 +416,167 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-                  bool skipFinally = false; // Flag to skip the finally block
+                  setState(() {
+                    isLoading = true;
+                  });
 
                   try {
-                    setState(() {
-                      isLoading = true; // Start loading
-                    });
-
                     if (finalPaths == null || finalPaths.isEmpty) {
                       await showDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return VendorSelectNoti(
-                            message: 'Please Select File',
-                          );
-                        },
+                        builder: (_) => VendorSelectNoti(message: 'Please Select File'),
                       );
-                    } else {
-                      if (fileAbove20Mb) {
-                        try {
-                          // Loop through each form and extract data to post
-                          for (int i = 0; i < finalPaths.length; i++) {
-                            if (finalPaths[i] != null) {
-                              var response = await uploadDocuments(
-                                context: context,
-                                employeeDocumentMetaId: AppConfig.empdocumentTypeMetaDataId,
-                                employeeDocumentTypeSetupId: docSetupId[i],
-                                employeeId: widget.employeeID,
-                                documentFile: finalPaths[i]!,
-                                documentName: _fileNames[i],
-                              );
-                              print("Document Uploaded response ${response}");
+                      return;
+                    }
 
-                              if (response.statusCode == 200 || response.statusCode == 201) {
-                                await showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AddSuccessPopup(
-                                      message: 'Document Uploaded Successfully',
-                                    );
-                                  },
-                                );
-                              } else {
-                                await showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      FailedPopup(text: "Failed To Upload Document"),
-                                );
-                              }
-                            }
-                          }
-                        } catch (e) {
-                          await showDialog(
-                            context: context,
-                            builder: (BuildContext context) => const FourNotFourPopup(),
-                          );
-                        }
-                      } else {
-                        // If file is too large, show error and set the flag to skip `finally`
-                        await showDialog(
+                    if (!fileAbove20Mb) {
+                      await showDialog(
+                        context: context,
+                        builder: (_) => AddErrorPopup(message: 'File is too large!'),
+                      );
+                      return;
+                    }
+
+                    // Proceed with upload
+                    for (int i = 0; i < finalPaths.length; i++) {
+                      if (finalPaths[i] != null) {
+                        var response = await uploadDocuments(
                           context: context,
-                          builder: (BuildContext context) {
-                            return AddErrorPopup(
-                              message: 'File is too large!',
-                            );
-                          },
+                          employeeDocumentMetaId: AppConfig.empdocumentTypeMetaDataId,
+                          employeeDocumentTypeSetupId: docSetupId[i],
+                          employeeId: widget.employeeID,
+                          documentFile: finalPaths[i]!,
+                          documentName: _fileNames[i],
                         );
 
-                        skipFinally = true; // Set the flag to skip the finally block
-                        return; // Exit early to prevent the finally block from executing
+                        if (response.statusCode == 200 || response.statusCode == 201) {
+                          await showDialog(
+                            context: context,
+                            builder: (_) => AddSuccessPopup(message: 'Document Uploaded Successfully'),
+                          );
+                        } else {
+                          await showDialog(
+                            context: context,
+                            builder: (_) => FailedPopup(text: "Failed To Upload Document"),
+                          );
+                        }
                       }
                     }
+
+                    // ✅ Only call this if upload went through
+                    widget.onSave();
+
+                  } catch (e) {
+                    await showDialog(
+                      context: context,
+                      builder: (_) => const FourNotFourPopup(),
+                    );
                   } finally {
-                    if (!skipFinally) {
-                      // Only execute the finally block if the file is not too large
-                      setState(() {
-                        isLoading = false; // End loading
-                      });
-                      widget.onSave();
-                    }
+                    // Always stop loading
+                    setState(() {
+                      isLoading = false;
+                    });
                   }
                 },
-                child: Text(
-                  'Save',
-                  style: BlueButtonTextConst.customTextStyle(context),
-                ),
+
               ),
+
+
+
+
+              // :CustomButton(
+              //   width: 117,
+              //   height: 30,
+              //   text: 'Save',
+              //   style: BlueButtonTextConst.customTextStyle(context),
+              //   borderRadius: 12,
+              //   onPressed: () async {
+              //     bool skipFinally = false; // Flag to skip the finally block
+              //
+              //     try {
+              //       setState(() {
+              //         isLoading = true; // Start loading
+              //       });
+              //
+              //       if (finalPaths == null || finalPaths.isEmpty) {
+              //         await showDialog(
+              //           context: context,
+              //           builder: (BuildContext context) {
+              //             return VendorSelectNoti(
+              //               message: 'Please Select File',
+              //             );
+              //           },
+              //         );
+              //       } else {
+              //         if (fileAbove20Mb) {
+              //           try {
+              //             // Loop through each form and extract data to post
+              //             for (int i = 0; i < finalPaths.length; i++) {
+              //               if (finalPaths[i] != null) {
+              //                 var response = await uploadDocuments(
+              //                   context: context,
+              //                   employeeDocumentMetaId: AppConfig.empdocumentTypeMetaDataId,
+              //                   employeeDocumentTypeSetupId: docSetupId[i],
+              //                   employeeId: widget.employeeID,
+              //                   documentFile: finalPaths[i]!,
+              //                   documentName: _fileNames[i],
+              //                 );
+              //                 print("Document Uploaded response ${response}");
+              //
+              //                 if (response.statusCode == 200 || response.statusCode == 201) {
+              //                   await showDialog(
+              //                     context: context,
+              //                     builder: (BuildContext context) {
+              //                       return AddSuccessPopup(
+              //                         message: 'Document Uploaded Successfully',
+              //                       );
+              //                     },
+              //                   );
+              //                 } else {
+              //                   await showDialog(
+              //                     context: context,
+              //                     builder: (BuildContext context) =>
+              //                         FailedPopup(text: "Failed To Upload Document"),
+              //                   );
+              //                 }
+              //               }
+              //             }
+              //           } catch (e) {
+              //             await showDialog(
+              //               context: context,
+              //               builder: (BuildContext context) => const FourNotFourPopup(),
+              //             );
+              //           }
+              //         } else {
+              //           // If file is too large, show error and set the flag to skip `finally`
+              //           await showDialog(
+              //             context: context,
+              //             builder: (BuildContext context) {
+              //               return AddErrorPopup(
+              //                 message: 'File is too large!',
+              //               );
+              //             },
+              //           );
+              //
+              //           skipFinally = true; // Set the flag to skip the finally block
+              //           return; // Exit early to prevent the finally block from executing
+              //         }
+              //       }
+              //     } finally {
+              //       if (!skipFinally) {
+              //         // Only execute the finally block if the file is not too large
+              //         setState(() {
+              //           isLoading = false; // End loading
+              //         });
+              //         widget.onSave();
+              //       }
+              //     }
+              //   },
+              //   child: Text(
+              //     'Save',
+              //     style: BlueButtonTextConst.customTextStyle(context),
+              //   ),
+              // ),
 
               //     :CustomButton(
               //   width: 117,
