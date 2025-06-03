@@ -167,7 +167,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         ),
                         Expanded(
                           child: Text(
-                            'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
+                            'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, In case of declination, please upload a signed copy of the declination form.',
                             textAlign: TextAlign.start,
                             style:ZoneDataStyle.customTextStyle(context),
                           ),
