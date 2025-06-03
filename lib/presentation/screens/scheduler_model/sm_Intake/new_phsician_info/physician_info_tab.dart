@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/intake/intake_physician_info_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/office_location_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,9 @@ import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../../data/api_data/sm_data/sm_intake_data/sm_physician_info/physician_info.dart';
 import '../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import '../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
@@ -23,6 +26,7 @@ class PhysicianInfoTab extends StatefulWidget {
 
 class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
 
+  TextEditingController physicianIdController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController lastController = TextEditingController();
   TextEditingController suffixController = TextEditingController();
@@ -41,14 +45,52 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
   TextEditingController pecosController = TextEditingController();
   TextEditingController verificationController = TextEditingController();
   TextEditingController trakingController = TextEditingController();
-
-
+  PhysicianInfoPrefillData? _prefillData;
   String? statustype;
 
   @override
+  void initState() {
+    super.initState();
+    _prefillPhysicianData();
+  }
+
+  Future<void> _prefillPhysicianData() async {
+    final provider = Provider.of<DiagnosisProvider>(context, listen: false);
+    try {
+      List<PhysicianInfoPrefillData> prefilledData =  await getPhysicianInfoById(context: context, patientId: provider.patientId);
+      if (prefilledData.isNotEmpty) {
+        final data = prefilledData.first;
+        setState(() {
+          physicianIdController = TextEditingController(text: data.phyId.toString());
+          nameController.text = data.phyFirstName;
+          lastController.text = data.phyLastName;
+          suffixController.text = data.phySuffix ?? '';
+          streetController.text = data.phyStreet ?? '';
+          suitapiController.text = data.phySuite ?? '';
+          cityController.text = data.phyCity ?? '';
+          stateController.text = data.phyState ?? '';
+          zipcodeController.text = data.phyZipCode ?? '';
+          phonenumberController.text = data.phyContact;
+          faxnumController.text = data.phyFax ?? '';
+          emailController.text = data.phyEmail;
+        //  npiController.text = data.phyNPI.toString();
+          upiController.text = data.phyUPI ?? '';
+          protocalController.text = data.phyProtocols ?? '';
+          noteController.text = data.phyNotes ?? '';
+          verificationController.text = data.phyVerificationDetails ?? '';
+          trakingController.text = data.phyTrackingNotes ?? '';
+          pecosController.text = data.phyPicoNo;
+        });
+      }
+    } catch (e) {
+      print('Failed to load prefilled data: $e');
+    }
+  }
+  @override
   Widget build(BuildContext context) {
-    return
- Consumer<SmIntakeProviderManager>(
+    final diagnosisProvider = Provider.of<DiagnosisProvider>(context,listen: false);
+    final int patientId = diagnosisProvider.patientId;
+    return Consumer<SmIntakeProviderManager>(
    builder: (context,providerState,child) {
      return SingleChildScrollView(
       child: Padding(
@@ -66,10 +108,8 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
 
                 ],),
             ),
-
             BlueBGHeadConst(HeadText: "Certifying F2F Physician Or Allowed Practitioner"),
             SizedBox(height: AppSize.s10,),
-
             Padding(
               padding: EdgeInsets.only(left: 25, right: providerState.isContactTrue ? 0 : 25),
               child: Column(
@@ -78,13 +118,18 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                   Row(
                     children: [
                       Flexible(
-                        child: CustomDropdownTextFieldsm(
-                            headText: 'Select from Database',
-                            items: ['Spouse','Patient',],
-                            //dropDownMenuList: dropDownList,
-                            onChanged: (newValue) {
-
-                            }),
+                        child:
+                        SchedularTextField(labelText: 'Select from Database',
+                          controller: physicianIdController,
+                          enable: true,
+                        ),
+                        // CustomDropdownTextFieldsm(
+                        //     headText: 'Select from Database',
+                        //     items: ['Spouse','Patient',],
+                        //     //dropDownMenuList: dropDownList,
+                        //     onChanged: (newValue) {
+                        //
+                        //     }),
                       ),
                       SizedBox(width: AppSize.s35),
                       Flexible(
@@ -438,15 +483,46 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                         style: TransparentButtonTextConst.customTextStyle(context),
                       ),),
                   ),
-
-
                   const SizedBox(width: AppSize.s30,),
                   Container(
                     //color: Colors.white,
                     width: 117,
                     height: 30,
                     child: ElevatedButton(
-                      onPressed: (){},
+                      //onPressed: (){},
+                      onPressed: ()async{
+                        try {
+                          var response = await  updatePhysicianMasterPatch(
+                              context: context,
+                              phyId: int.parse(physicianIdController.text),
+                              phyFirstName: nameController.text,
+                              phyLastName: lastController.text,
+                              phySuffix: suffixController.text,
+                              phyPicoNo: pecosController.text,
+                              phyPicoStatus: true,
+                              phyEmail: emailController.text,
+                              phyContact: phonenumberController.text,
+                              phyStreet: streetController.text,
+                              phySuite: suitapiController.text,
+                              phyCity: cityController.text,
+                              phyState: stateController.text,
+                              phyZipCode: zipcodeController.text,
+                              phyFax: faxnumController.text,
+                              phyNPI: int.parse(physicianIdController.text),
+                              phyUPI: upiController.text,
+                              phyProtocols: protocalController.text,
+                              phyNotes: noteController.text,
+                              phyVerified: true,
+                              phyVerificationDetails: verificationController.text,
+                              phyTrackingNotes: trakingController.text);
+
+                        } catch (e) {
+                          print('Error saving physician info: $e');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('An error occurred while saving')),
+                          );
+                        }
+                      },
                       style: ElevatedButton.styleFrom(backgroundColor:ColorManager.bluebottom,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
