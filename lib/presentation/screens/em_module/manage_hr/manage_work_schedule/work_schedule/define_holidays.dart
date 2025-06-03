@@ -99,7 +99,9 @@ class DefineHolidays extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DefineHolidaysProvider>(
       builder: (context, provider, child) {
-        provider.fetchHolidays(context);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          provider.fetchHolidays(context);
+        });
         int totalItems = provider.holidays.length;
         int totalPages = (totalItems / provider.itemsPerPage).ceil();
         List<DefineHolidayData> paginatedData = provider.holidays
@@ -159,7 +161,7 @@ class DefineHolidays extends StatelessWidget {
                         if (!snapshot.hasData || snapshot.data!.isEmpty) {
                           return Center(
                             child: Text(
-                              ErrorMessageString.noEmpType,
+                              ErrorMessageString.noHoliday,
                               style: AllNoDataAvailable.customTextStyle(context),
                             ),
                           );

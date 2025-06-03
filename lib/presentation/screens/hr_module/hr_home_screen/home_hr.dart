@@ -189,6 +189,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     } else if (searchSelect == true) {
       print("Search using hanBurger");
       data1 = await firstResult;
+      print('faya ${data1}');
       _searchResults =
           data1.map((e) => e.firstName + " " + e.lastName).toList();
       print(_searchResults);
