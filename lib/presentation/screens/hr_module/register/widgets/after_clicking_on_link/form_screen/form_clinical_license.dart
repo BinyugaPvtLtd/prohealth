@@ -201,7 +201,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                 children: [
                                   Flexible(
                                     child: Text(
-                                      'Upload Immunization records in pdf, jpg or png  format',
+                                      'Upload Immunization records in pdf format',
                                       style: onlyFormDataStyle
                                           .customTextStyle(context),
                                     ),

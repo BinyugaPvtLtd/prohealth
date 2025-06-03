@@ -569,8 +569,8 @@ class RegisterScreen extends StatelessWidget {
                                                               depId: snapshotPrefill
                                                                   .data!
                                                                   .departmentId,
-                                                              aEClinicalDiscipline:
-                                                              Provider.of<HrEnrollEmployeeProvider>(context,listen: false).clinicalDisciplines, // Preloaded data
+                                                              // aEClinicalDiscipline:
+                                                              // Provider.of<HrEnrollEmployeeProvider>(context,listen: false).clinicalDisciplines, // Preloaded data
                                                               cities: registerProvider
                                                                   .clinicalCities, // Pass cities data
                                                               companyOffices:
