@@ -16,10 +16,10 @@ class WorkScheduleProvider extends ChangeNotifier {
 
   void selectButton(int index) {
     _selectedIndex = index;
-    _pageController.animateToPage(
+    _pageController.jumpToPage(
       index,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.ease,
+      //duration: const Duration(milliseconds: 500),
+      //curve: Curves.ease,
     );
     notifyListeners();
   }
