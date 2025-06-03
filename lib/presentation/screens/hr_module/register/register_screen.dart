@@ -488,7 +488,7 @@ class RegisterScreen extends StatelessWidget {
                                                     text: AppString.enroll,
                                                     onPressed: () async {
                                                       // final enrollProviderState = Provider.of<HrEnrollEmployeeProvider>(context, listen: false);
-                                                      Provider.of<HrEnrollEmployeeProvider>(context,listen: false).fetchDeptDropdownData(context, data.deptId!);
+
                                                       // _aEClinicalDiscipline = await HrAddEmplyClinicalDisciplinApi(context, data.deptId!);
                                                       // final clinicalTypes = await HrAddEmplyClinicalDisciplinApi(context, data.deptId!);
                                                       // final cities = await HrAddEmplyClinicalCityApi(context);
@@ -505,10 +505,12 @@ class RegisterScreen extends StatelessWidget {
                                                                   data.userId),
                                                           builder: (context,
                                                               snapshotPrefill) {
+                                                            Provider.of<HrEnrollEmployeeProvider>(context,listen: false).fetchDeptDropdownData(context, data.deptId!);
                                                             if (snapshotPrefill
                                                                     .connectionState ==
                                                                 ConnectionState
                                                                     .waiting) {
+
                                                               return Center(
                                                                 child: CircularProgressIndicator(
                                                                     color: ColorManager
@@ -569,8 +571,8 @@ class RegisterScreen extends StatelessWidget {
                                                               depId: snapshotPrefill
                                                                   .data!
                                                                   .departmentId,
-                                                              aEClinicalDiscipline:
-                                                              Provider.of<HrEnrollEmployeeProvider>(context,listen: false).clinicalDisciplines, // Preloaded data
+                                                              // aEClinicalDiscipline:
+                                                              // Provider.of<HrEnrollEmployeeProvider>(context,listen: false).clinicalDisciplines, // Preloaded data
                                                               cities: registerProvider
                                                                   .clinicalCities, // Pass cities data
                                                               companyOffices:

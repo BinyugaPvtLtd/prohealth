@@ -167,7 +167,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         ),
                         Expanded(
                           child: Text(
-                            'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
+                            'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, In case of declination, please upload a signed copy of the declination form.',
                             textAlign: TextAlign.start,
                             style:ZoneDataStyle.customTextStyle(context),
                           ),
@@ -275,7 +275,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                         SizedBox(height: 8),
                                         Flexible(
                                           child: Text(
-                                            'Upload Physical Exam records in pdf, jpg or png format',
+                                            'Upload Physical Exam records in pdf format',
                                             style:  onlyFormDataStyle.customTextStyle(context),
                                           ),
                                         ),
