@@ -1162,7 +1162,7 @@ Future<ApiData> patchDiagnosisData(
 
 
 
-
+///referal dd
 Future<List<ReferralSourcesData>> getReferalSourceDD({
   required BuildContext context,
 
@@ -1335,5 +1335,118 @@ Future<ApiData> uploadF2FDocumentsBase64({
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+
+
+
+
+/// special order
+Future<List<SpacialOrderData>> getSpecialOrder({
+  required BuildContext context,
+}) async {
+  List<SpacialOrderData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getspecialorderpath(),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(SpacialOrderData(
+            spcialorderid: item['specialOrderId'] ?? 0,
+            spcialordername: item['specialorderName'] ?? '',
+            description: item['description'] ?? '',
+            createdat: item['createdAt'] ?? '',
+            updatedat: item['updatedAt'] ?? ''
+        ));
+      }
+    } else {
+      print("special order type error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+
+
+
+
+Future<ApiData> postOrderPatient({
+  required BuildContext context,
+  required int patientid,
+  required List<int> specialOrderId,
+  required String dateReceived,
+  required String orderdate,
+  required List<int> ptDisciplines,
+  required int merkatereid,
+  required int refersourceid,
+  required String casemanger,
+  required String trackingnote,
+  required bool ordersignature,
+} ) async {
+  try {
+    // print("/////// pt id ${patientid}");
+    // print("///////ssss ${specialOrderId}");
+    // print("///////ddddd ${dateReceived}");
+    // print("///ooooo ${orderdate}");
+    // print("///optdddd ${ptDisciplines}");
+    // print("///oommmm ${merkatereid}");
+    // print("///ooooorrrrr ${refersourceid}");
+    // print("///ooooocccccc ${casemanger}");
+    // print("///ooooottttt ${trackingnote}");
+    // print("///ooooossssss ${ordersignature}");
+
+
+    var response = await Api(context).post(
+      path: PatientRefferalsRepo.addPatientorder(), // Replace with your actual endpoint
+      data: {
+        "pt_id": patientid,
+        "specialOrderId": specialOrderId,
+        "dateReceived": "${dateReceived}T00:00:00Z"  ,     //dateReceived,      //"${effectiveDate}T00:00:00Z"
+        "orderDate": "${orderdate}T00:00:00Z" ,
+        "pt_disciplines": ptDisciplines,
+        "fk_marketerId": merkatereid,
+        "fk_ref_source_id": refersourceid,
+        "caseManager": casemanger,
+        "trackingNotes": trackingnote,
+        "ordersSignedDate": ordersignature,
+      },
+    );
+    print("📥 Received response:");
+    print("Status Code: ${response.statusCode}");
+    print("Response Data: ${response.data}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Order posted successfully");
+
+      var responseData = response.data;
+
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: true,
+        message: response.statusMessage ?? "Success",
+        banckingId: responseData['orderId'], // Adjust key if needed
+      );
+    } else {
+      print("Order post failed: ${response.statusCode}");
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: false,
+        message: response.data['message'] ?? "Something went wrong",
+      );
+    }
+  } catch (e) {
+    print("Error posting order: $e");
+    return ApiData(
+      statusCode: 404,
+      success: false,
+      message: AppString.somethingWentWrong,
+    );
   }
 }

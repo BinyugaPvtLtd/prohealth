@@ -302,3 +302,41 @@ class EmployeeClinicalData{
   EmployeeClinicalData({required this.emptypeId, required this.empType,
   required this.color, required this.abbreviation, required this.deptId});
 }
+
+
+class SpacialOrderData{
+  final int spcialorderid;
+  final String spcialordername;
+  final String description;
+  final String createdat;
+  final String updatedat;
+
+  SpacialOrderData({required this.spcialorderid, required this.spcialordername, required this.description, required this.createdat, required this.updatedat});
+}
+
+
+
+
+
+
+class AddOrderData{
+  final int  patientid;
+  final List<int> specialOrderId;
+  final String dateReceived;
+  final String orderdate;
+  final List<int> ptDisciplines;
+  final int  merkatereid;
+  final int refersourceid ;
+  final String casemanger;
+  final String trackingnote;
+  final bool ordersignature;
+
+  AddOrderData({
+    required this.patientid,
+    required this.specialOrderId,
+    required this.dateReceived,
+    required this.orderdate,
+    required this.ptDisciplines, required this.merkatereid,
+    required this.refersourceid, required this.casemanger,
+    required this.trackingnote, required this.ordersignature});
+}

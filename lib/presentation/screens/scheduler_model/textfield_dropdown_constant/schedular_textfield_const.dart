@@ -23,6 +23,7 @@ class SchedularTextField extends StatefulWidget {
   final TextStyle? textStyle;
   //final TextInputType keyboardType;
   final Icon? suffixIcon;
+  final Color textColor;
   final FormFieldValidator<String>? validator;
   final double? width;
   final ValueChanged<String>? onChanged;
@@ -39,9 +40,11 @@ class SchedularTextField extends StatefulWidget {
   final VoidCallback? isIClicked;
   final bool? isPasswordField;
 
+
    SchedularTextField({
     Key? key,
      this.isIClicked,
+     this.textColor = const Color(0xff686464),
      this.textStyle,
      this.isIconVisible = false,
     this.phoneField = false,
@@ -186,7 +189,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.only(bottom:AppPadding.p20, left: AppPadding.p10),
                       ),
-                      style: widget.textStyle ?? DropdownItemStyle.customTextStyle(context),
+                      style:TableSubHeading.customTextStyleWithColor(context,widget.textColor),
                       //validator: widget.validator,
                       onTap: widget.onChange,
                       validator: widget.validator,
