@@ -10,6 +10,7 @@ import 'package:prohealth/app/resources/provider/office_location.dart';
 import 'package:prohealth/app/resources/provider/version_provider.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/define_holidays.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/add_holiday_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_demographics/widgets/patients_plan_care/planer_notifier.dart';
@@ -70,6 +71,7 @@ Future<void> main() async {
           // ChangeNotifierProvider(
           //   create: (_) => EditUserProvider(),
           // ),
+          ChangeNotifierProvider(create: (context) => AddHolidayProvider()),
           ChangeNotifierProvider(create: (context) => VersionProviderManager()),
           ChangeNotifierProvider(create: (_) => DefineHolidaysProvider()),
           ChangeNotifierProvider(create: (_) => HrSearchProviderManager()),
