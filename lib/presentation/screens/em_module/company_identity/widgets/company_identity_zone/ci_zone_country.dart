@@ -44,7 +44,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
       currentPage = pageNumber;
     });
   }
-    @override
+  @override
   Widget build(BuildContext context) {
     return  Padding(
       padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
@@ -66,7 +66,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                     child: Center(
                       child: Text(
                           AppStringEM.srno,
-                        style: TableHeading.customTextStyle(context)
+                          style: TableHeading.customTextStyle(context)
                       ),
                     ),
                   ),
@@ -74,7 +74,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                     child: Center(
                       child: Text(
                           AppStringEM.name,
-                        style: TableHeading.customTextStyle(context)
+                          style: TableHeading.customTextStyle(context)
                       ),
                     ),
                   ),
@@ -82,15 +82,15 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                     child: Center(
                       child: Text(
                           AppStringEM.zones,
-                        style: TableHeading.customTextStyle(context)
+                          style: TableHeading.customTextStyle(context)
                       ),
                     ),
                   ),
                   Expanded(
                     child: Center(
                       child: Text(
-                        AppStringEM.actions,
-                        style: TableHeading.customTextStyle(context)
+                          AppStringEM.actions,
+                          style: TableHeading.customTextStyle(context)
                       ),
                     ),
                   ),
@@ -142,140 +142,141 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                               String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                               AllCountyGet county = paginatedData[index];
                               return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 8),
-                            Container(
-                                decoration: BoxDecoration(
-                                  color: ColorManager.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: ColorManager.black.withOpacity(0.25),
-                                      spreadRadius: 0,
-                                      blurRadius: 4,
-                                      offset: const Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                height: AppSize.s56,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                             formattedSerialNumber,
-                                            style:  TableSubHeading.customTextStyle(context),
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 8),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(4),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: ColorManager.black.withOpacity(0.25),
+                                            spreadRadius: 0,
+                                            blurRadius: 4,
+                                            offset: const Offset(0, 2),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                      // Text(''),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                              county.countyName.toString(),
-                                          textAlign:TextAlign.center,
-                                            style:  TableSubHeading.customTextStyle(context),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                              county.zoneName.toString(),
-                                            style:  TableSubHeading.customTextStyle(context),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              IconButton(
-                                                splashColor: Colors.transparent,
-                                                  hoverColor: Colors.transparent,
-                                                  highlightColor: Colors.transparent,
-                                                  onPressed: (){
-                                                showDialog(context: context, builder: (context){
-                                                  return FutureBuilder<CountyPrefillGet>(
-                                                    future: countyPrefillGet(context,county.countyId),
-                                                    builder: (context,snapshotPrefill) {
-                                                      if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                        return Center(
-                                                          child: CircularProgressIndicator(color: ColorManager.blueprime,),
-                                                        );
-                                                      }
-                                                      var countyName = snapshotPrefill.data!.countyName;
-                                                      countynameController = TextEditingController(text:snapshotPrefill.data!.countyName );
+                                      height: AppSize.s56,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  formattedSerialNumber,
+                                                  style:  TableSubHeading.customTextStyle(context),
+                                                ),
+                                              ),
+                                            ),
+                                            // Text(''),
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  county.countyName.toString(),
+                                                  textAlign:TextAlign.center,
+                                                  style:  TableSubHeading.customTextStyle(context),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  county.zoneName.toString(),
+                                                  style:  TableSubHeading.customTextStyle(context),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Center(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    IconButton(
+                                                      splashColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      onPressed: (){
+                                                        showDialog(context: context, builder: (context){
+                                                          return FutureBuilder<CountyPrefillGet>(
+                                                              future: countyPrefillGet(context,county.countyId),
+                                                              builder: (context,snapshotPrefill) {
+                                                                if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                                  return Center(
+                                                                    child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                                                  );
+                                                                }
+                                                                var countyName = snapshotPrefill.data!.countyName;
+                                                                countynameController = TextEditingController(text:snapshotPrefill.data!.countyName );
 
-                                                      var stateName = snapshotPrefill.data!.state;
-                                                      stateController = TextEditingController(text: snapshotPrefill.data!.state);
+                                                                var stateName = snapshotPrefill.data!.state;
+                                                                stateController = TextEditingController(text: snapshotPrefill.data!.state);
 
-                                                      var countryName = snapshotPrefill.data!.country;
-                                                      countyController = TextEditingController(text:snapshotPrefill.data!.country);
+                                                                var countryName = snapshotPrefill.data!.country;
+                                                                countyController = TextEditingController(text:snapshotPrefill.data!.country);
 
-                                                      return CIZoneAddPopup(
-                                                        buttonTitle: AppStringEM.save,
-                                                        onSavePressed: ()async{
-                                                          var response = await updateCounty(context, county.countyId,
-                                                              countyName == countynameController.text ? countyName.toString() : countynameController.text,
-                                                              stateName.toString(),
-                                                              countryName.toString(),
-                                                              "37.0902°",
-                                                              "95.7129°", widget.companyID, widget.officeId);
-                                                          if(response.statusCode == 200 || response.statusCode == 201){
-                                                            Navigator.pop(context);
-                                                            showDialog(
-                                                              context: context,
-                                                              builder: (BuildContext context) {
-                                                                return AddSuccessPopup(
-                                                                  message: 'County Edited Successfully',
+                                                                return CIZoneAddPopup(
+                                                                  buttonTitle: AppStringEM.save,
+                                                                  onSavePressed: ()async{
+                                                                    var response = await updateCounty(context, county.countyId,
+                                                                        countyName == countynameController.text ? countyName.toString() : countynameController.text,
+                                                                        stateName.toString(),
+                                                                        countryName.toString(),
+                                                                        "37.0902°",
+                                                                        "95.7129°", widget.companyID, widget.officeId);
+                                                                    if(response.statusCode == 200 || response.statusCode == 201){
+                                                                      Navigator.pop(context);
+                                                                      showDialog(
+                                                                        context: context,
+                                                                        builder: (BuildContext context) {
+                                                                          return AddSuccessPopup(
+                                                                            message: 'County Edited Successfully',
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                                      Navigator.pop(context);
+                                                                      showDialog(
+                                                                        context: context,
+                                                                        builder: (BuildContext context) => const FourNotFourPopup(),
+                                                                      );
+                                                                    }
+                                                                    else {
+                                                                      Navigator.pop(context);
+                                                                      showDialog(
+                                                                        context: context,
+                                                                        builder: (BuildContext context) => FailedPopup(text: response.message),
+                                                                      );
+                                                                    }
+                                                                    getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
+                                                                      data.sort((a, b) => b.countyId.compareTo(a.countyId));
+                                                                      _contyController.add(data);
+                                                                    }).catchError((error){});
+
+                                                                  },
+                                                                  title: 'Edit County',
+                                                                  title1: 'County Name',
+                                                                  countynameController: countynameController,
                                                                 );
-                                                              },
-                                                            );
-                                                          }else if(response.statusCode == 400 || response.statusCode == 404){
-                                                            Navigator.pop(context);
-                                                            showDialog(
-                                                              context: context,
-                                                              builder: (BuildContext context) => const FourNotFourPopup(),
-                                                            );
-                                                          }
-                                                          else {
-                                                            Navigator.pop(context);
-                                                            showDialog(
-                                                              context: context,
-                                                              builder: (BuildContext context) => FailedPopup(text: response.message),
-                                                            );
-                                                          }
-                                                          getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
-                                                            _contyController.add(data);
-                                                          }).catchError((error){});
-
-                                                        },
-                                                        title: 'Edit County',
-                                                        title1: 'County Name',
-                                                        countynameController: countynameController,
-                                                        );
-                                                    }
-                                                  );
-                                                });
-                                              }, icon: Icon(Icons.edit_outlined,
-                                                size:IconSize.I22,color: IconColorManager.bluebottom,),),
-                                            ],
-                                          ),
+                                                              }
+                                                          );
+                                                        });
+                                                      }, icon: Icon(Icons.edit_outlined,
+                                                      size:IconSize.I22,color: IconColorManager.bluebottom,),),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                )),
-                          ],
-                        );
-                                      }),
+                                      )),
+                                ],
+                              );
+                            }),
                       ),
                       // Pagination Controls
                       PaginationControlsWidget(
@@ -300,10 +301,10 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                       ),
                     ],
                   );
-      }
-        return Offstage();
-      },
-      ),
+                }
+                return Offstage();
+              },
+            ),
           ),
         ],
       ),
