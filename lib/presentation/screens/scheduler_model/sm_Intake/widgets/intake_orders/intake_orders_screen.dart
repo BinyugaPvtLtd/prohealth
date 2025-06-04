@@ -87,7 +87,14 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
   @override
   void initState() {
     super.initState();
-    _prefillData(); // Loads the data before the build method runs
+
+    _prefillData();
+    // ✅ Ensure patientId is set in DiagnosisProvider before fetching
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
+    //   diagnosisProvider.patientId;
+    //   _prefillData();
+    // }); // Loads the data before the build method runs
   }
 
 
@@ -118,12 +125,62 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
         });
 
         // ✅ Use provider to set ordersSigned
-        priDiagnosisProvider.toggleOrdersSignAndDate(firstOrder.ordersSignedDate);
+        // final isSigned = firstOrder.ordersSignedDate == true;
+        // priDiagnosisProvider.toggleOrdersSignAndDate(isSigned);
+        // ✅ Update Provider outside of setState
+        priDiagnosisProvider.toggleOrdersSignAndDate(firstOrder.ordersSignedDate == false);
+
       }
     } catch (e) {
       print("❌ Error in _prefillData: $e");
     }
   }
+
+
+  // Future<void> _prefillData() async {
+  //   try {
+  //     final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
+  //     final priDiagnosisProvider = Provider.of<PriDiagnosisProvider>(context, listen: false);
+  //
+  //     final patientId = diagnosisProvider.patientId;
+  //     print("👤 Current Patient ID: $patientId");
+  //
+  //     final orders = await getPatientOrderprifill(
+  //       context: context,
+  //       patientId: patientId,
+  //     );
+  //
+  //     print("📦 Orders fetched: ${orders.length}");
+  //
+  //     if (orders.isNotEmpty) {
+  //       final firstOrder = orders.first;
+  //
+  //       // ✅ Only update checkbox if patientId matches
+  //       if (firstOrder.patientId == patientId) {
+  //         priDiagnosisProvider.toggleOrdersSignAndDate(firstOrder.ordersSignedDate == true);
+  //         print("☑️ Checkbox updated to: ${firstOrder.ordersSignedDate}");
+  //       } else {
+  //         print("❌ Checkbox not updated — patientId mismatch");
+  //       }
+  //
+  //       // ✅ Always update text fields and lists
+  //       setState(() {
+  //         receivedDateController.text = firstOrder.dateReceived;
+  //         orderDateController.text = firstOrder.orderDate;
+  //         caseManagerController.text = firstOrder.caseManager;
+  //         trackingNotesController.text = firstOrder.trackingNotes;
+  //         trueSelectedList = firstOrder.ptDisciplines;
+  //         Marketerid = firstOrder.marketerId;
+  //         refersourceid = firstOrder.referralSourceId;
+  //         selectedOrderIds = firstOrder.specialOrderIds;
+  //       });
+  //     } else {
+  //       print("❌ No orders returned.");
+  //     }
+  //   } catch (e) {
+  //     print("❌ Error in _prefillData: $e");
+  //   }
+  // }
 
 
 
@@ -146,7 +203,7 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
   TextEditingController caseManagerController = TextEditingController();
   TextEditingController trackingNotesController = TextEditingController();
   int? Marketerid = 0;
-  String? selectedSource =" ";
+  String? selectedSource ="Select";
   int? refersourceid = 0;
   TextEditingController residencyController = TextEditingController();
 
@@ -164,7 +221,7 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
      return Consumer<SmIntakeProviderManager>(
           builder: (context, providerState, child) {
             final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
-            final priDiagnosisProvider = Provider.of<PriDiagnosisProvider>(context, listen: false);
+          //  final priDiagnosisProvider = Provider.of<PriDiagnosisProvider>(context, listen: false);
             return Padding(
              padding: const EdgeInsets.only(top: 5),
              child: SingleChildScrollView(
