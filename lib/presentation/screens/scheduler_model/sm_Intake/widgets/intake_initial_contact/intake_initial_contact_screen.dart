@@ -69,13 +69,13 @@ class SmIntakeInitialContactScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: snapshot.data!.isEmpty ? 1 : snapshot.data!.length,
                         itemBuilder: (context,index) {
-                           isDementia = snapshot.data![index].introCallComplete;
-                           isCatheterCare = snapshot.data![index].demographicsConfirmed;
-                           isWoundCare = snapshot.data![index].patientIsHome;
-                           isZenMed = snapshot.data![index].consentsNeeded;
-                           isOrthoPatient = snapshot.data![index].representativePresentSoc;
-                           isPtInr = snapshot.data![index].sendConsentsForSign;
-                           patientDcDateController = TextEditingController(text: snapshot.data![index].potentialDcDate);
+                           isDementia = snapshot.data!.isEmpty? false:snapshot.data![index].introCallComplete;
+                           isCatheterCare = snapshot.data!.isEmpty? false:snapshot.data![index].demographicsConfirmed;
+                           isWoundCare = snapshot.data!.isEmpty? false:snapshot.data![index].patientIsHome;
+                           isZenMed = snapshot.data!.isEmpty? false:snapshot.data![index].consentsNeeded;
+                           isOrthoPatient = snapshot.data!.isEmpty? false:snapshot.data![index].representativePresentSoc;
+                           isPtInr = snapshot.data!.isEmpty? false:snapshot.data![index].sendConsentsForSign;
+                           patientDcDateController = TextEditingController(text: snapshot.data!.isEmpty? '':snapshot.data![index].potentialDcDate);
                           return Container(
                               padding: EdgeInsets.only(top: 60),
                               height: 190,

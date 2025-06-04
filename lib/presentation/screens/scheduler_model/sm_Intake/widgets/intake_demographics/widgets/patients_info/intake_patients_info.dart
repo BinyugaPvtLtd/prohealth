@@ -129,6 +129,9 @@ class IntakePatientsDatatInfo extends StatelessWidget {
            cahpsContactController = TextEditingController(text: snapshotPatient.data!.demoCahpsContact);
            secondaryPhoneController = TextEditingController(text:snapshotPatient.data!.demoSecondaryContactName );
            secEmailController = TextEditingController(text:snapshotPatient.data!.demoSecondaryEmail );
+          // selectedCountry = snapshotPatient.data!.countyName;
+          // selectedMaritalStatus = snapshotPatient.data!.maritalStatusName;
+          // selectedZone = snapshotPatient.data!.zoneName;
            // primaryLanguageController = TextEditingController(text:snapshotPatient.data.demoPr );
           return Consumer<SmIntakeProviderManager>(
             builder: (context,providerState,child) {
