@@ -275,7 +275,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                         SizedBox(height: 8),
                                         Flexible(
                                           child: Text(
-                                            'Upload Physical Exam records in pdf, jpg or png format',
+                                            'Upload Physical Exam records in pdf format',
                                             style:  onlyFormDataStyle.customTextStyle(context),
                                           ),
                                         ),
