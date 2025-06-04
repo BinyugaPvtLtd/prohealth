@@ -121,7 +121,7 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
 
   bool isLoading = true;
   List<EnrollServices> _enrollService = [];
-  List<AEClinicalDiscipline>? _clinicalDisciplines;
+  List<AEClinicalDiscipline> _clinicalDisciplines = [];
 
   String get generatedURL => _generatedURL;
   bool get load => _load;
@@ -138,7 +138,7 @@ class HrEnrollEmployeeProvider extends ChangeNotifier{
   String? get expiryTypeError => _expiryTypeError;
   bool get isFormValid => _isFormValid;
   List<EnrollServices> get enrollService => _enrollService;
-  List<AEClinicalDiscipline> get clinicalDisciplines => _clinicalDisciplines!;
+  List<AEClinicalDiscipline> get clinicalDisciplines => _clinicalDisciplines;
   // List<AEClinicalDiscipline>? _clinicalDisciplines;
   // List<AEClinicalCity>? _clinicalCities;
   // List<CompanyOfficeListData>? _companyOffices;

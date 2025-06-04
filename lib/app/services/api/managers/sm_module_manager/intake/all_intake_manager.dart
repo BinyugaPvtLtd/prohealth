@@ -66,7 +66,18 @@ Future<DemographicPatientDataModel> getDemographichPatientDetail({
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
+      print('county data ${response.data['country']['name']}');
+      print('residence_type data ${response.data['residence_type']['detail']}');
+      print('zone data ${response.data['zone']['zoneName']}');
+      print('maritalStatus data ${response.data['maritalStatus']['maritalStatus']}');
         itemsData = DemographicPatientDataModel(
+          countyName:  response.data['country']['name']??'Select',
+          fkResidenceTypeName: response.data['residence_type']['detail']??'Select',
+          zoneName: response.data['zone']['zoneName']??'Select',
+          genderName: 'Select',
+          spokenLanguageName: 'Select',
+          RaceEthniname: 'Select',
+          maritalStatusName: response.data['maritalStatus']['maritalStatus']??'Select',
             demoId: response.data['demo_id']??0,
             fkPtId: response.data['fk_pt_id']??0,
             demoFirstName: response.data['demo_firstName']??'',
@@ -99,6 +110,7 @@ Future<DemographicPatientDataModel> getDemographichPatientDetail({
             fkRaceEthnicity: response.data['fk_raceEthnicity']??0,
             fkMaritalStatus: response.data['fk_maritalStatus']??0,
             demoCreatedAt: response.data['demo_created_at'] != null ? convertIsoToDayMonthYear(response.data['demo_created_at']) : '',
+
         );
 
     }

@@ -380,7 +380,7 @@ class RegisterEnrollPopup extends StatelessWidget {
                                             : depId == AppConfig.AdministrationId
                                             ? 'Select Admin Type'
                                             : 'Unknown',
-                                        items: providerState.clinicalDisciplines.isEmpty ? [''] : providerState.clinicalDisciplines.map((e) => e.empType!).toList(),
+                                        items:providerState.clinicalDisciplines.isEmpty ? [''] : providerState.clinicalDisciplines.map((e) => e.empType!).toList(),
                                         onChanged: (newValue) {
                                           for (var a in providerState.clinicalDisciplines) {
                                             if (a.empType == newValue) {

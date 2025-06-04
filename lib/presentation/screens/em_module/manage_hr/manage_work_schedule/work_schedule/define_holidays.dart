@@ -83,7 +83,7 @@ class DefineHolidaysProvider with ChangeNotifier {
 class DefineHolidays extends StatelessWidget {
   final TextEditingController holidayNameController = TextEditingController();
   final TextEditingController calenderController = TextEditingController();
-
+  final StreamController<List<DefineHolidayData>> streamHolidayDataController = StreamController<List<DefineHolidayData>>.broadcast();
   DefineHolidays({Key? key}) : super(key: key);
 
   String convertDayMonthYearToIso(String dayMonthYear) {
@@ -97,17 +97,14 @@ class DefineHolidays extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int _currentPage = 1;
+    final int _itemsPerPage = 10;
     return Consumer<DefineHolidaysProvider>(
       builder: (context, provider, child) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          provider.fetchHolidays(context);
-        });
-        int totalItems = provider.holidays.length;
-        int totalPages = (totalItems / provider.itemsPerPage).ceil();
-        List<DefineHolidayData> paginatedData = provider.holidays
-            .skip((provider.currentPage - 1) * provider.itemsPerPage)
-            .take(provider.itemsPerPage)
-            .toList();
+        // WidgetsBinding.instance.addPostFrameCallback((_) {
+        //   provider.fetchHolidays(context);
+        // });
+
 
         return Padding(
           padding: EdgeInsets.symmetric(
@@ -129,13 +126,11 @@ class DefineHolidays extends StatelessWidget {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return ChangeNotifierProvider(
-                              create: (_) => AddHolidayProvider(),
-                              child: AddHolidayPopup(
-                                  onSave: () async {
-                                    await provider.fetchHolidays(context);  // Refresh data after saving
-                                  }
-                              ));
+                          return AddHolidayPopup(
+                              onSave: () async {
+                                //await provider.fetchHolidays(context);  // Refresh data after saving
+                              }
+                          );
                         });
                   },
                 ),
@@ -145,10 +140,10 @@ class DefineHolidays extends StatelessWidget {
               SizedBox(height: AppSize.s10),
               Expanded(
                 child: StreamBuilder<List<DefineHolidayData>>(
-                  stream: provider.holidayData.stream,
+                  stream: streamHolidayDataController.stream,
                   builder: (context, snapshot) {
                     holidaysListGet(context).then((data) {
-                      provider.holidayData.add(data);
+                      streamHolidayDataController.add(data);
                     }).catchError((error) {});
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -166,15 +161,20 @@ class DefineHolidays extends StatelessWidget {
                         ),
                       );
                     }
-
+                    int totalItems = snapshot.data!.length;
+                    int totalPages = (totalItems / provider.itemsPerPage).ceil();
+                    List<DefineHolidayData> paginatedData = snapshot.data!
+                        .skip((provider.currentPage - 1) * provider.itemsPerPage)
+                        .take(provider.itemsPerPage)
+                        .toList();
                     return Column(
                       children: [
                         Expanded(
                           child: ListView.builder(
-                            itemCount: paginatedData.length,
+                            itemCount: totalItems,
                             itemBuilder: (context, index) {
                               int serialNumber =
-                                  (provider.currentPage - 1) * provider.itemsPerPage + index + 1;
+                                  (_currentPage - 1) * _itemsPerPage + index + 1;
                               String formattedSerialNumber =
                               serialNumber.toString().padLeft(2, '0');
                               DefineHolidayData defineData = paginatedData[index];
@@ -326,20 +326,23 @@ class DefineHolidays extends StatelessWidget {
                           ),
                         ),
                         PaginationControlsWidget(
-                          currentPage: provider.currentPage,
-                          items: provider.holidays,
-                          itemsPerPage: provider.itemsPerPage,
+                          currentPage: _currentPage,
+                          items: snapshot.data!,
+                          itemsPerPage: _itemsPerPage,
                           onPreviousPagePressed: () {
-                            if (provider.currentPage > 1) {
-                              provider.updatePageNumber(provider.currentPage - 1);
+                            if (_currentPage > 1) {
+                              _currentPage = _currentPage - 1;
+                              //provider.updatePageNumber(provider.currentPage - 1);
                             }
                           },
                           onPageNumberPressed: (pageNumber) {
-                            provider.updatePageNumber(pageNumber);
+                            _currentPage = pageNumber;
+                            //provider.updatePageNumber(pageNumber);
                           },
                           onNextPagePressed: () {
-                            if (provider.currentPage < totalPages) {
-                              provider.updatePageNumber(provider.currentPage + 1);
+                            if (_currentPage < totalPages) {
+                              _currentPage = _currentPage + 1;
+                              // provider.updatePageNumber(provider.currentPage + 1);
                             }
                           },
                         ),
