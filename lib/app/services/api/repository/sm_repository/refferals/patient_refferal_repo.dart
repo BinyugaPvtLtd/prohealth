@@ -32,6 +32,7 @@ class PatientRefferalsRepo{
   static String referalsources = '/referral-sources';
   static String spacialorder = '/orders/special';
   static String orderpatient = '/orders/patient';
+  static String orderpatientprifill = '/orders/patient/by-patient';
 
   /// patient diagnosis
  // static String patientDiagnosisGet = '/referral-patient-diagnosis/patient';
@@ -147,5 +148,9 @@ class PatientRefferalsRepo{
   ///order screen post
   static  String addPatientorder(){
     return "$orderpatient";
+  }
+//prifill
+  static  String getPatientorderbyid({required int pt_id}){
+    return "$orderpatientprifill/$pt_id";
   }
 }

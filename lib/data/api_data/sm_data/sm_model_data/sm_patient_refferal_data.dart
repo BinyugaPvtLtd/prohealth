@@ -340,3 +340,34 @@ class AddOrderData{
     required this.refersourceid, required this.casemanger,
     required this.trackingnote, required this.ordersignature});
 }
+
+
+
+
+class PatientOrderData {
+  final int orderId;
+  final int patientId;
+  final List<int> specialOrderIds;
+  final String dateReceived;
+  final String orderDate;
+  final List<int> ptDisciplines;
+  final int marketerId;
+  final int referralSourceId;
+  final String caseManager;
+  final String trackingNotes;
+  final bool ordersSignedDate;
+
+  PatientOrderData({
+    required this.orderId,
+    required this.patientId,
+    required this.specialOrderIds,
+    required this.dateReceived,
+    required this.orderDate,
+    required this.ptDisciplines,
+    required this.marketerId,
+    required this.referralSourceId,
+    required this.caseManager,
+    required this.trackingNotes,
+    required this.ordersSignedDate,
+  });
+}

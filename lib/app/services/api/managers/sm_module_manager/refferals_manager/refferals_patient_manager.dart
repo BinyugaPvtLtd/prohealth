@@ -1450,3 +1450,56 @@ Future<ApiData> postOrderPatient({
     );
   }
 }
+
+
+
+
+
+Future<List<PatientOrderData>> getPatientOrderprifill({
+    required BuildContext context, required int patientId})
+async {
+
+  String convertIsoToDayMonthYear(String isoDate) {
+    DateTime dateTime = DateTime.parse(isoDate);
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+
+ List<PatientOrderData> itemsData = [];
+
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientorderbyid(pt_id: patientId),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        String formattedReceivedDate = convertIsoToDayMonthYear(item['dateReceived']);
+        String formattedOrderDate = convertIsoToDayMonthYear(item['orderDate']);
+
+        itemsData.add(PatientOrderData(
+          orderId: item['orderId'] ?? 0,
+          patientId: item['pt_id'] ?? 0,
+          specialOrderIds: List<int>.from(item['specialOrderId'] ?? []),
+          dateReceived: formattedReceivedDate,
+          orderDate: formattedOrderDate,
+          ptDisciplines: List<int>.from(item['pt_disciplines'] ?? []),
+          marketerId: item['fk_marketerId'] ?? 0,
+          referralSourceId: item['fk_ref_source_id'] ?? 0,
+          caseManager: item['caseManager'] ?? "--",
+          trackingNotes: item['trackingNotes'] ?? "--",
+          ordersSignedDate: item['ordersSignedDate'] ?? false,
+        ));
+      }
+    } else {
+      print("⚠️ Failed to fetch patient orders: ${response.statusCode}");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("❌ Error fetching patient order form: $e");
+    return itemsData;
+  }
+}

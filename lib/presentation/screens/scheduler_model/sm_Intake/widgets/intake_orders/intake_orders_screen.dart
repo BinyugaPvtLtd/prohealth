@@ -36,130 +36,135 @@ import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 import 'package:flutter/material.dart';
 
 class PriDiagnosisProvider with ChangeNotifier {
-
   bool _ordersSignAndDate = false;
+  bool _isLoading = false;
 
   bool get ordersSignAndDate => _ordersSignAndDate;
+  bool get isLoading => _isLoading;
 
   void toggleOrdersSignAndDate(bool? value) {
     _ordersSignAndDate = value ?? false;
     notifyListeners();
   }
 
+  void setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 }
 
 
 
 
-class SMIntakeOrdersScreen extends StatelessWidget {
+
+class SMIntakeOrdersScreen extends StatefulWidget {
   final int patientId;
 
    SMIntakeOrdersScreen({super.key,
     required this.patientId
    });
 
+  @override
+  State<SMIntakeOrdersScreen> createState() => _SMIntakeOrdersScreenState();
+}
 
+class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
   // int selectedIndex = 0;
-  // final PageController smIntakePageController = PageController();
-  //
-  // void selectButton(int index) {
-  //   setState(() {
-  //     selectedIndex = index;
-  //   });
-  //
-  //   smIntakePageController.animateToPage(
-  //     index,
-  //     duration: const Duration(milliseconds: 500),
-  //     curve: Curves.ease,
-  //   );
-  // }
-
-  //final StreamController<List<PatientDocumentsData>> _streamController = StreamController<List<PatientDocumentsData>>.broadcast();
   final StreamController<List<PatientDiagnosisWithIdData>> _streamDignosis = StreamController<List<PatientDiagnosisWithIdData>>.broadcast();
+
   TextEditingController possible = TextEditingController();
+
   TextEditingController icd = TextEditingController();
+
   TextEditingController pdgm = TextEditingController();
+
   int dgnIdSelected = 0;
+
   String dgnNameSelected = 'Select';
+
   bool dgnAddLoader = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _prefillData(); // Loads the data before the build method runs
+  }
+
+
+
+
+  Future<void> _prefillData() async {
+    try {
+      final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
+      final priDiagnosisProvider = Provider.of<PriDiagnosisProvider>(context, listen: false);
+
+      final orders = await getPatientOrderprifill(
+        context: context,
+        patientId: diagnosisProvider.patientId,
+      );
+
+      if (orders.isNotEmpty) {
+        final firstOrder = orders.first;
+
+        setState(() {
+          receivedDateController.text = firstOrder.dateReceived;
+          orderDateController.text = firstOrder.orderDate;
+          caseManagerController.text = firstOrder.caseManager;
+          trackingNotesController.text = firstOrder.trackingNotes;
+          trueSelectedList = firstOrder.ptDisciplines;
+          Marketerid = firstOrder.marketerId;
+          refersourceid = firstOrder.referralSourceId;
+          selectedOrderIds = firstOrder.specialOrderIds;
+        });
+
+        // ✅ Use provider to set ordersSigned
+        priDiagnosisProvider.toggleOrdersSignAndDate(firstOrder.ordersSignedDate);
+      }
+    } catch (e) {
+      print("❌ Error in _prefillData: $e");
+    }
+  }
+
+
+
+  @override
+  void dispose() {
+    possible.dispose();
+    icd.dispose();
+    pdgm.dispose();
+    receivedDateController.dispose();
+    orderDateController.dispose();
+    caseManagerController.dispose();
+    trackingNotesController.dispose();
+    residencyController.dispose();
+    _streamDignosis.close();
+    super.dispose();
+  }
+
+  TextEditingController receivedDateController = TextEditingController();
+  TextEditingController orderDateController = TextEditingController();
+  TextEditingController caseManagerController = TextEditingController();
+  TextEditingController trackingNotesController = TextEditingController();
+  int? Marketerid = 0;
+  String? selectedSource =" ";
+  int? refersourceid = 0;
+  TextEditingController residencyController = TextEditingController();
+
+  String? selectedMarketer ="Select";
+  List<int> trueSelectedList = [];
+  List<int> falseSelectedList = [];
+  Map<String, Set<int>> selectedTitleToIds = {};
+
+   List<int> selectedOrderIds = [];
+
+
   @override
   Widget build(BuildContext context) {
 
-    TextEditingController receivedDateController = TextEditingController();
-    TextEditingController orderDateController = TextEditingController();
-    TextEditingController caseManagerController = TextEditingController();
-    TextEditingController trackingNotesController = TextEditingController();
-    TextEditingController possibleDiagnosisController = TextEditingController();
-    TextEditingController icdCodeController = TextEditingController();
-    TextEditingController pDGMAcceptController = TextEditingController();
-    //bool ordersSignAndDate = false;
-    bool isNursing = false;
-    bool isPhysicalThe = false;
-    bool isOccupationalThe = false;
-    bool isSpeechThe = false;
-    bool isMedicalSocialThe = false;
-    //
-    bool isDementia = false;
-    bool isCatheterCare = false;
-    bool isWoundCare = false;
-    bool isZenMed = false;
-    bool isOrthoPatient = false;
-    bool isPtInr = false;
-    bool isLabsOrder = false;
-    bool isInfusionIv = false;
-    bool isOstomyCare = false;
-    bool isRehospicRisk = false;
-    bool isEch = false;
-    bool isEchSnf = false;
-
-    String? selectedMarketer =" ";
-    int? Marketerid = 0;
-    String? selectedSource =" ";
-    int? refersourceid = 0;
-    TextEditingController residencyController = TextEditingController();
-
-
-    List<int> trueSelectedList = [];
-    List<int> falseSelectedList = [];
-    Map<String, Set<int>> selectedTitleToIds = {};
-
-    final List<int> selectedOrderIds = [];
-
-    return
-      // backgroundColor: ColorManager.white,
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.only(right: 90), // Shift left by 10
-      //   child: FloatingActionButton(
-      //     onPressed: () {
-      //       // Your onPressed action here
-      //     },
-      //     backgroundColor: ColorManager.bluebottom,
-      //     child: Padding(
-      //       padding: const EdgeInsets.all(5),
-      //       child: Column(
-      //         mainAxisAlignment: MainAxisAlignment.center,
-      //         children: [
-      //           Icon(Icons.call,size: 22,),
-      //           SizedBox(height: 3,),
-      //           Text(
-      //             "Contact",
-      //             style: CustomTextStylesCommon.commonStyle(
-      //               fontSize: FontSize.s10,
-      //               fontWeight: FontWeight.w500,
-      //               color: ColorManager.white,
-      //             ),
-      //             textAlign: TextAlign.center,
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
-      Consumer<SmIntakeProviderManager>(
+     return Consumer<SmIntakeProviderManager>(
           builder: (context, providerState, child) {
             final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
-            final priDiagnosisProvider = Provider.of<PriDiagnosisProvider>(context);
+            final priDiagnosisProvider = Provider.of<PriDiagnosisProvider>(context, listen: false);
             return Padding(
              padding: const EdgeInsets.only(top: 5),
              child: SingleChildScrollView(
@@ -213,15 +218,36 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                   const SizedBox(height: AppSize.s14,),
                                   SizedBox(
                                     width: 210,
-                                    child: ExpCheckboxTile(
-                                      title: 'Orders Signed and Date',
-                                      initialValue: priDiagnosisProvider.ordersSignAndDate,
-                                      isInfoIconVisible: true,
-                                      onChanged: (value) {
-                                        priDiagnosisProvider.toggleOrdersSignAndDate(value);
+                                    child: Consumer<PriDiagnosisProvider>(
+                                      builder: (context, priDiagnosisProvider, child) {
+                                        return ExpCheckboxTile(
+                                          title: 'Orders Signed and Date',
+                                          initialValue: priDiagnosisProvider.ordersSignAndDate,
+                                          isInfoIconVisible: true,
+                                          onChanged: (value) {
+                                            priDiagnosisProvider.toggleOrdersSignAndDate(value);
+                                          },
+                                        );
                                       },
                                     ),
                                   ),
+                                  ///
+
+
+
+
+
+                                  // SizedBox(
+                                  //   width: 210,
+                                  //   child: ExpCheckboxTile(
+                                  //     title: 'Orders Signed and Date',
+                                  //     initialValue: priDiagnosisProvider.ordersSignAndDate,
+                                  //     isInfoIconVisible: true,
+                                  //     onChanged: (value) {
+                                  //       priDiagnosisProvider.toggleOrdersSignAndDate(value);
+                                  //     },
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -499,9 +525,56 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                           spacing: 20.0,
                           runSpacing: 12.0,
                           children: visibleTitles.map((title) {
-                            return StatefulBuilder(
+                            // return StatefulBuilder(
+                            //   builder: (context, setTileState) {
+                            //     bool isChecked = false;
+                            //
+                            //     return SizedBox(
+                            //       width: 180,
+                            //       child: ExpCheckboxTile(
+                            //         title: title,
+                            //         initialValue: isChecked,
+                            //         onChanged: (value) {
+                            //           setTileState(() {
+                            //             isChecked = value ?? false;
+                            //             final ids = titleToEmpTypeIds[title]!;
+                            //
+                            //             if (isChecked) {
+                            //               for (var id in ids) {
+                            //                 if (!trueSelectedList.contains(id)) {
+                            //                   trueSelectedList.add(id);
+                            //                 }
+                            //                 falseSelectedList.remove(id);
+                            //               }
+                            //               selectedTitleToIds[title] = ids;
+                            //             } else {
+                            //               for (var id in ids) {
+                            //                 if (!falseSelectedList.contains(id)) {
+                            //                   falseSelectedList.add(id);
+                            //                 }
+                            //                 trueSelectedList.remove(id);
+                            //               }
+                            //               selectedTitleToIds.remove(title);
+                            //             }
+                            //
+                            //             // 🔍 Print selected IDs and titles
+                            //             print("✅ Selected Titles and IDs:");
+                            //             selectedTitleToIds.forEach((key, value) {
+                            //               print('Title: $key, IDs: ${value.join(", ")}');
+                            //             });
+                            //           });
+                            //         },
+                            //
+                            //       ),
+                            //     );
+                            //   },
+                            // );
+
+                           return StatefulBuilder(
                               builder: (context, setTileState) {
-                                bool isChecked = false;
+                                // Check if any ID for this title is in trueSelectedList
+                                final ids = titleToEmpTypeIds[title]!;
+                                bool isChecked = ids.any((id) => trueSelectedList.contains(id));
 
                                 return SizedBox(
                                   width: 180,
@@ -511,7 +584,6 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                     onChanged: (value) {
                                       setTileState(() {
                                         isChecked = value ?? false;
-                                        final ids = titleToEmpTypeIds[title]!;
 
                                         if (isChecked) {
                                           for (var id in ids) {
@@ -531,18 +603,20 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                           selectedTitleToIds.remove(title);
                                         }
 
-                                        // 🔍 Print selected IDs and titles
+                                        // Optional: print updated list
                                         print("✅ Selected Titles and IDs:");
                                         selectedTitleToIds.forEach((key, value) {
                                           print('Title: $key, IDs: ${value.join(", ")}');
                                         });
                                       });
                                     },
-
                                   ),
                                 );
                               },
                             );
+
+
+
                           }).toList(),
                         ),
                       );
@@ -716,24 +790,7 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState == ConnectionState.waiting) {
 
-                                        // return  Container(
-                                        //   width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                        //   padding: const EdgeInsets.only(bottom: 3, top: 4, left: AppPadding.p10,right: AppPadding.p7),
-                                        //   decoration: BoxDecoration(
-                                        //     border: Border.all(color: Colors.grey),
-                                        //     borderRadius: BorderRadius.circular(8),
-                                        //   ),
-                                        //   child: Row(
-                                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        //     children: [
-                                        //       Text(
-                                        //         "",
-                                        //         style: DropdownItemStyle.customTextStyle(context),// TableSubHeading.customTextStyle(context),//DocumentTypeDataStyle.customTextStyle(context),
-                                        //       ),
-                                        //       Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime,),
-                                        //     ],
-                                        //   ),
-                                        // );
+
                                         return SchedularTextField(
                                             width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
                                             controller:residencyController ,
@@ -746,7 +803,12 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                             child: Text(i.firstName),
                                             value: i.firstName,
                                           ));
+                                          if (i.employeeId == Marketerid ) {
+                                            selectedMarketer = i.firstName;
+                                          }
                                         }
+                                        String initialValue = selectedMarketer ?? "Select";
+
 
                                         return Padding(
                                           padding:  const EdgeInsets.symmetric(vertical: 4),
@@ -754,6 +816,8 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                               width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
                                               headText: 'Marketer',
                                               dropDownMenuList: dropDownList,
+                                              //initialValue:selectedMarketer ,
+                                              hintText:initialValue ,
                                               onChanged: (newValue) {
                                                 for (var a in snapshot.data!) {
                                                   if (a.firstName == newValue) {
@@ -772,36 +836,15 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                       }
                                     },
                                   ),
-                                  // CustomDropdownTextFieldsm(
-                                  //   width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                  //   isIconVisible: false,
-                                  //   headText: 'Marketer',
-                                  //   onChanged: (newValue) {
-                                  //   },),
+
+
                                   const SizedBox(height: AppSize.s14,),
                                   FutureBuilder<List<ReferralSourcesData>>(
                                     future: getReferalSourceDD(context: context,),
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState == ConnectionState.waiting) {
 
-                                        // return  Container(
-                                        //   width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                        //   padding: const EdgeInsets.only(bottom: 3, top: 4, left: AppPadding.p10,right: AppPadding.p7),
-                                        //   decoration: BoxDecoration(
-                                        //     border: Border.all(color: Colors.grey),
-                                        //     borderRadius: BorderRadius.circular(8),
-                                        //   ),
-                                        //   child: Row(
-                                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        //     children: [
-                                        //       Text(
-                                        //         "",
-                                        //         style: DropdownItemStyle.customTextStyle(context),// TableSubHeading.customTextStyle(context),//DocumentTypeDataStyle.customTextStyle(context),
-                                        //       ),
-                                        //       Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime,),
-                                        //     ],
-                                        //   ),
-                                        // );
+
                                         return SchedularTextField(
                                             width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
                                             controller:residencyController ,
@@ -814,13 +857,18 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                             child: Text(i.sourcename),
                                             value: i.sourcename,
                                           ));
+                                          if (i.refsouid == refersourceid) {
+                                            selectedSource = i.sourcename;
+                                          }
                                         }
+                                        String initialValue =  selectedSource ?? "Select";
 
                                         return Padding(
                                           padding: const  EdgeInsets.symmetric(vertical: 4),
                                           child: CustomDropdownTextFieldsm(
                                               width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
                                               headText: 'Referral Source',
+                                              hintText: initialValue,
                                               dropDownMenuList: dropDownList,
                                               onChanged: (newValue) {
                                                 for (var a in snapshot.data!) {
@@ -840,12 +888,6 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                                     },
                                   ),
 
-                                  // CustomDropdownTextFieldsm(
-                                  //   width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
-                                  //   headText: 'Referral Source',
-                                  //   onChanged: (newValue) {
-                                  //
-                                  //   },),
                                   const SizedBox(height: AppSize.s14,),
                                   SchedularTextField(
                                     width:providerState.isContactTrue ? AppSize.s190 :AppSize.s300,
@@ -1470,85 +1512,137 @@ class SMIntakeOrdersScreen extends StatelessWidget {
                       //     ),
                       //   ],
                       // ),
+////////
+                      ///
+                      // FutureBuilder<List<SpacialOrderData>>(
+                      //   future: getSpecialOrder(context: context),
+                      //   builder: (context, snapshot) {
+                      //     if (snapshot.connectionState == ConnectionState.waiting) {
+                      //       return const Center(child: CircularProgressIndicator());
+                      //     } else if (snapshot.hasError) {
+                      //       return const Text("Failed to load special orders.");
+                      //     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      //       return const Text("No special orders found.");
+                      //     }
+                      //
+                      //     final specialOrders = snapshot.data!;
+                      //
+                      //     // ✅ Print names from API
+                      //     for (var order in specialOrders) {
+                      //       print("API returned: ${order.spcialordername}");
+                      //     }
+                      //
+                      //     final Map<int, bool> selectedOrders = {
+                      //       for (var item in specialOrders) item.spcialorderid: false,
+                      //     };
+                      //
+                      //   //  return final List<int> selectedOrderIds = [];
+                      //
+                      //     return Wrap(
+                      //       spacing: 16.0,
+                      //       runSpacing: 16.0,
+                      //       children: specialOrders.map((order) {
+                      //         return StatefulBuilder(
+                      //           builder: (context, setTileState) {
+                      //             bool isChecked = selectedOrderIds.contains(order.spcialorderid);
+                      //
+                      //             return SizedBox(
+                      //               width: 180,
+                      //               child: ExpCheckboxTile(
+                      //                 title: order.spcialordername,
+                      //                 initialValue: isChecked,
+                      //                 isInfoIconVisible: true,
+                      //                 onChanged: (value) {
+                      //                   setTileState(() {
+                      //                     if (value == true) {
+                      //                       if (!selectedOrderIds.contains(order.spcialorderid)) {
+                      //                         selectedOrderIds.add(order.spcialorderid);
+                      //                       }
+                      //                     } else {
+                      //                       selectedOrderIds.remove(order.spcialorderid);
+                      //                     }
+                      //
+                      //                     // 🔍 Print current selected IDs in order
+                      //                     print("Selected Order IDs in Order: $selectedOrderIds");
+                      //                   });
+                      //                 },
+                      //               ),
+                      //             );
+                      //           },
+                      //         );
+                      //       }).toList(),
+                      //     );
+                      //
+                      //     // return Wrap(
+                      //     //   spacing: 16.0,
+                      //     //   runSpacing: 16.0,
+                      //     //   children: specialOrders.map((order) {
+                      //     //     return SizedBox(
+                      //     //       width: 180,
+                      //     //       child: ExpCheckboxTile(
+                      //     //         title: order.spcialordername,
+                      //     //         initialValue: selectedOrders[order.spcialorderid] ?? false,
+                      //     //         isInfoIconVisible: true,
+                      //     //         onChanged: (value) {
+                      //     //           selectedOrders[order.spcialorderid] = value!;
+                      //     //         },
+                      //     //       ),
+                      //     //     );
+                      //     //   }).toList(),
+                      //     // );
+                      //   },
+                      // ),
+                        ///
+                        FutureBuilder<List<SpacialOrderData>>(
+                          future: getSpecialOrder(context: context),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return const Center(child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return const Text("Failed to load special orders.");
+                            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                              return const Text("No special orders found.");
+                            }
 
-                      FutureBuilder<List<SpacialOrderData>>(
-                        future: getSpecialOrder(context: context),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return const Center(child: CircularProgressIndicator());
-                          } else if (snapshot.hasError) {
-                            return const Text("Failed to load special orders.");
-                          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                            return const Text("No special orders found.");
-                          }
+                            final specialOrders = snapshot.data!;
 
-                          final specialOrders = snapshot.data!;
+                            return Wrap(
+                              spacing: 16.0,
+                              runSpacing: 16.0,
+                              children: specialOrders.map((order) {
+                                return StatefulBuilder(
+                                  builder: (context, setTileState) {
+                                    bool isChecked = selectedOrderIds.contains(order.spcialorderid);
 
-                          // ✅ Print names from API
-                          for (var order in specialOrders) {
-                            print("API returned: ${order.spcialordername}");
-                          }
-
-                          final Map<int, bool> selectedOrders = {
-                            for (var item in specialOrders) item.spcialorderid: false,
-                          };
-
-                        //  return final List<int> selectedOrderIds = [];
-
-                          return Wrap(
-                            spacing: 16.0,
-                            runSpacing: 16.0,
-                            children: specialOrders.map((order) {
-                              return StatefulBuilder(
-                                builder: (context, setTileState) {
-                                  bool isChecked = selectedOrderIds.contains(order.spcialorderid);
-
-                                  return SizedBox(
-                                    width: 180,
-                                    child: ExpCheckboxTile(
-                                      title: order.spcialordername,
-                                      initialValue: isChecked,
-                                      isInfoIconVisible: true,
-                                      onChanged: (value) {
-                                        setTileState(() {
-                                          if (value == true) {
-                                            if (!selectedOrderIds.contains(order.spcialorderid)) {
-                                              selectedOrderIds.add(order.spcialorderid);
+                                    return SizedBox(
+                                      width: 180,
+                                      child: ExpCheckboxTile(
+                                        title: order.spcialordername,
+                                        initialValue: isChecked,
+                                        isInfoIconVisible: true,
+                                        onChanged: (value) {
+                                          setTileState(() {
+                                            if (value == true) {
+                                              if (!selectedOrderIds.contains(order.spcialorderid)) {
+                                                selectedOrderIds.add(order.spcialorderid);
+                                              }
+                                            } else {
+                                              selectedOrderIds.remove(order.spcialorderid);
                                             }
-                                          } else {
-                                            selectedOrderIds.remove(order.spcialorderid);
-                                          }
 
-                                          // 🔍 Print current selected IDs in order
-                                          print("Selected Order IDs in Order: $selectedOrderIds");
-                                        });
-                                      },
-                                    ),
-                                  );
-                                },
-                              );
-                            }).toList(),
-                          );
+                                            print("✅ Selected Special Order IDs: $selectedOrderIds");
+                                          });
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+                              }).toList(),
+                            );
+                          },
+                        ),
 
-                          // return Wrap(
-                          //   spacing: 16.0,
-                          //   runSpacing: 16.0,
-                          //   children: specialOrders.map((order) {
-                          //     return SizedBox(
-                          //       width: 180,
-                          //       child: ExpCheckboxTile(
-                          //         title: order.spcialordername,
-                          //         initialValue: selectedOrders[order.spcialorderid] ?? false,
-                          //         isInfoIconVisible: true,
-                          //         onChanged: (value) {
-                          //           selectedOrders[order.spcialorderid] = value!;
-                          //         },
-                          //       ),
-                          //     );
-                          //   }).toList(),
-                          // );
-                        },
-                      ),
+                        ///
 
                         const Padding(
                           padding: EdgeInsets.only(top: 10),
@@ -1568,39 +1662,122 @@ class SMIntakeOrdersScreen extends StatelessWidget {
 
                         },
                       ),
-                      CustomElevatedButton(
-                        width: AppSize.s100,
-                        text: AppString.save,
-                        onPressed: ()async{
 
-                          print('🔽 Submitting Data to API:');
+                      Consumer<PriDiagnosisProvider>(
+                        builder: (context, priDiagnosisProvider, child) {
+                          return priDiagnosisProvider.isLoading
+                              ? const SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(),
+                          )
+                              : CustomElevatedButton(
+                            width: AppSize.s100,
+                            text: AppString.save,
+                            onPressed: () async {
+                              priDiagnosisProvider.setLoading(true);
 
-                          print('📌 Patient ID: ${diagnosisProvider.patientId}');
-                          print('📝 Selected Special Order IDs: $selectedOrderIds');
-                          print('📅 Date Received: ${receivedDateController.text}');
-                          print('📅 Order Date: ${orderDateController.text}');
-                          print('🩺 Selected PT Discipline IDs: $trueSelectedList');
-                          print('📈 Marketer ID: $Marketerid');
-                          print('📊 Referral Source ID: $refersourceid');
-                          print('👩‍⚕️ Case Manager: ${caseManagerController.text}');
-                          print('🗒️ Tracking Notes: ${trackingNotesController.text}');
-                          print('✍️ Order Signature + Date: ${priDiagnosisProvider.ordersSignAndDate}');
+                              final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
 
-                          await postOrderPatient(
-                            context: context,
-                            patientid: diagnosisProvider.patientId, // patientid
-                            specialOrderId: selectedOrderIds,    //      [1, 2], // specialOrderId
-                            dateReceived:receivedDateController.text, // dateReceived
-                            orderdate: orderDateController.text, // orderDate
-                            ptDisciplines:  trueSelectedList,         //  [3, 4], // ptDisciplines
-                            merkatereid:  Marketerid!, // merkatereid
-                            refersourceid: refersourceid!, // refersourceid
-                            casemanger: caseManagerController.text, // casemanger
-                            trackingnote: trackingNotesController.text, // trackingnote
-                            ordersignature: priDiagnosisProvider.ordersSignAndDate,
+                              // ✅ Print all relevant data before API call
+                              print('🔽 Submitting Data to API:');
+                              print('📌 Patient ID: ${diagnosisProvider.patientId}');
+                              print('📝 Selected Special Order IDs: $selectedOrderIds');
+                              print('📅 Date Received: ${receivedDateController.text}');
+                              print('📅 Order Date: ${orderDateController.text}');
+                              print('🩺 Selected PT Discipline IDs: $trueSelectedList');
+                              print('📈 Marketer ID: $Marketerid');
+                              print('📊 Referral Source ID: $refersourceid');
+                              print('👩‍⚕️ Case Manager: ${caseManagerController.text}');
+                              print('🗒️ Tracking Notes: ${trackingNotesController.text}');
+                              print('✍️ Order Signature + Date: ${priDiagnosisProvider.ordersSignAndDate}');
+
+                              // 🔁 API Call
+                              var response = await postOrderPatient(
+                                context: context,
+                                patientid: diagnosisProvider.patientId,
+                                specialOrderId: selectedOrderIds,
+                                dateReceived: receivedDateController.text,
+                                orderdate: orderDateController.text,
+                                ptDisciplines: trueSelectedList,
+                                merkatereid: Marketerid!,
+                                refersourceid: refersourceid!,
+                                casemanger: caseManagerController.text,
+                                trackingnote: trackingNotesController.text,
+                                ordersignature: priDiagnosisProvider.ordersSignAndDate,
+                              );
+
+                              if (response.statusCode == 200 || response.statusCode == 201) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return const AddSuccessPopup(
+                                      message: 'Patient Order Updated Successfully',
+                                    );
+                                  },
+                                );
+                              } else {
+                                print('❌ API error: ${response.statusCode}');
+                              }
+
+                              priDiagnosisProvider.setLoading(false);
+                            },
                           );
                         },
                       ),
+
+
+
+                      ///
+                      ///
+                      ///
+            //           CustomElevatedButton(
+            //             width: AppSize.s100,
+            //             text: AppString.save,
+            //             onPressed: ()async{
+            //
+            //
+            //               print('🔽 Submitting Data to API:');
+            //
+            //               print('📌 Patient ID: ${diagnosisProvider.patientId}');
+            //               print('📝 Selected Special Order IDs: $selectedOrderIds');
+            //               print('📅 Date Received: ${receivedDateController.text}');
+            //               print('📅 Order Date: ${orderDateController.text}');
+            //               print('🩺 Selected PT Discipline IDs: $trueSelectedList');
+            //               print('📈 Marketer ID: $Marketerid');
+            //               print('📊 Referral Source ID: $refersourceid');
+            //               print('👩‍⚕️ Case Manager: ${caseManagerController.text}');
+            //               print('🗒️ Tracking Notes: ${trackingNotesController.text}');
+            //               print('✍️ Order Signature + Date: ${priDiagnosisProvider.ordersSignAndDate}');
+            //
+            //         var  response =  await postOrderPatient(
+            //                 context: context,
+            //                 patientid: diagnosisProvider.patientId, // patientid
+            //                 specialOrderId: selectedOrderIds,    //      [1, 2], // specialOrderId
+            //                 dateReceived:receivedDateController.text, // dateReceived
+            //                 orderdate: orderDateController.text, // orderDate
+            //                 ptDisciplines:  trueSelectedList,         //  [3, 4], // ptDisciplines
+            //                 merkatereid:  Marketerid!, // merkatereid
+            //                 refersourceid: refersourceid!, // refersourceid
+            //                 casemanger: caseManagerController.text, // casemanger
+            //                 trackingnote: trackingNotesController.text, // trackingnote
+            //                 ordersignature: priDiagnosisProvider.ordersSignAndDate,
+            //               );
+            //         if (response.statusCode ==200 || response.statusCode==201){
+            // showDialog(
+            // context: context,
+            // builder: (BuildContext context) {
+            // return const AddSuccessPopup(
+            // message: 'Patient Order Updated Successfully',
+            // );
+            // },
+            // );
+            // }else{
+            // print('Api error');
+            // }
+            //
+            //             },
+            //           ),
                     ],
                   ),
                   const SizedBox(height: AppSize.s30),
