@@ -253,6 +253,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                             );
                                                           }
                                                           getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
+                                                            data.sort((a, b) => b.countyId.compareTo(a.countyId));
                                                             _contyController.add(data);
                                                           }).catchError((error){});
 
