@@ -202,6 +202,7 @@ class FinanceProvider with ChangeNotifier {
 class FinanceScreen extends StatelessWidget {
   const FinanceScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -351,27 +352,27 @@ class FinanceScreen extends StatelessWidget {
                                   print("serviceId ;;;;;;;;;;;;;;;;;;; ${financeProvider.serviceId}");
                                   print("empTypeId ;;;;;;;;;;;;;;;;;;; ${financeProvider.empTypeId}");
                                   return FutureBuilder<List<VisitListDataByServiceId>>(
-                                    future:  getVisitListByServiceId(context: context, serviceId: financeProvider.serviceId),
-                                    builder: (context, snapshot) {
-                                      if(snapshot.connectionState == ConnectionState.waiting){
-                                        return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
+                                      future:  getVisitListByServiceId(context: context, serviceId: financeProvider.serviceId),
+                                      builder: (context, snapshot) {
+                                        if(snapshot.connectionState == ConnectionState.waiting){
+                                          return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
+                                        }
+                                        return ChangeNotifierProvider(
+                                          create: (_) => PayRatesProvider(),
+                                          child: PayRateAddPopup(
+                                            onSave: () {
+                                              provider.fetchPayRates(context, financeProvider.serviceId, financeProvider.empTypeId);
+                                            },
+                                            serviceId: financeProvider.serviceId ?? "",
+                                            empTypeId: financeProvider.empTypeId ?? 0,
+                                            fixPayRatesController: TextEditingController(),
+                                            visitTypeTextActive: true,
+                                            payRatesController: TextEditingController(),
+                                            perMilesController: TextEditingController(),
+                                            title: AddPopupString.addPayrate, visitList: snapshot.data!,
+                                          ),
+                                        );
                                       }
-                                      return ChangeNotifierProvider(
-                                        create: (_) => PayRatesProvider(),
-                                        child: PayRateAddPopup(
-                                          onSave: () {
-                                            provider.fetchPayRates(context, financeProvider.serviceId, financeProvider.empTypeId);
-                                          },
-                                          serviceId: financeProvider.serviceId ?? "",
-                                          empTypeId: financeProvider.empTypeId ?? 0,
-                                          fixPayRatesController: TextEditingController(),
-                                          visitTypeTextActive: true,
-                                          payRatesController: TextEditingController(),
-                                          perMilesController: TextEditingController(),
-                                          title: AddPopupString.addPayrate, visitList: snapshot.data!,
-                                        ),
-                                      );
-                                    }
                                   );
                                 },
                               );
