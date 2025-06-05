@@ -400,6 +400,7 @@ class PayRateAddPopup extends StatelessWidget {
                       );
                     },
                   );
+                  // Navigator.pop(context);
                 }else if(response.statusCode == 400 || response.statusCode == 404){
                   Navigator.pop(context);
                   showDialog(
