@@ -190,7 +190,6 @@ class _AddPopupConstantState extends State<AddPopupConstant> {
                         );
                       },
                     );
-
                     setState(() {
                       isLoading = false;
                     });
