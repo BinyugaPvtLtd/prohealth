@@ -77,7 +77,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
   int marketerId = 0;
 
   bool isFormValid = false;
-  String? selectedMarketer;
+  String selectedMarketer = 'Select';
 
 // Add this inside initState if needed to listen for changes.
   void _checkFormValidity() {
@@ -85,13 +85,14 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
       isFormValid = ffdateController.text.isNotEmpty &&
           postOpDateController.text.isNotEmpty &&
           ffappoController.text.isNotEmpty &&
-          selectedMarketer != null &&
+          // selectedMarketer != null &&
           isPostOpChecked &&
           isAppointmentChecked;
     });
   }
 
   TextEditingController residencyController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final diagnosisProvider = Provider.of<DiagnosisProvider>(context,listen: false);
@@ -414,6 +415,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: StatefulBuilder(
                                       builder: (BuildContext context, StateSetter setState) {
+                                        residencyController = TextEditingController(text:selectedMarketer);
                                         print(isFormValid);
                                         return FutureBuilder<List<PatientMarketerData>>(
                                           future: getMarketerWithDeptId(context: context, deptId: AppConfig.salesId),
@@ -469,7 +471,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                           initialCheckboxValue: isPostOpChecked,
                                           onCheckboxChanged: (bool? newValue) {
                                             setState(() {
-                                              isPostOpChecked = newValue ?? false; // 🔁 Update enabled state
+                                              isPostOpChecked = newValue ?? false;
+                                              isPostOpChecked == true ?'':postOpDateController.clear();// 🔁 Update enabled state
                                             });
                                             _checkFormValidity();
                                           },
@@ -493,6 +496,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                         onCheckboxChanged: (bool? newValue) {
                                           setState(() {
                                             isAppointmentChecked = newValue ?? false;
+                                            isAppointmentChecked == true ?'':ffappoController.clear();
                                           });
                                           _checkFormValidity();
                                         },

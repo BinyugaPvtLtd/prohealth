@@ -43,7 +43,7 @@ class SchedularTextField extends StatefulWidget {
     Key? key,
      this.isIClicked,
      this.textStyle,
-     this.isIconVisible = false,
+     this.isIconVisible = true,
     this.phoneField = false,
     required this.labelText,
     this.initialValue,

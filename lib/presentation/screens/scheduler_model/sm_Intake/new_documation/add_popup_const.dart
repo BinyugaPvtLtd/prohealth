@@ -276,6 +276,7 @@ class AddF2FPopupConstant extends StatefulWidget {
 class _AddF2FPopupConstantState extends State<AddF2FPopupConstant> {
   String fileName = '';
   dynamic _filePath;
+  bool isLoading = false;
   bool _fileAbove20Mb = false;
   TextEditingController DocNameController = TextEditingController();
 
@@ -392,7 +393,13 @@ class _AddF2FPopupConstantState extends State<AddF2FPopupConstant> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomElevatedButton(
+              isLoading ?Center(
+                child: SizedBox(
+                  width: 25,
+                  height: 25,
+                  child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                ),
+              ) :CustomElevatedButton(
                 width: AppSize.s105,
                 height: AppSize.s30,
                 text: AppStringEM.submit,
@@ -404,49 +411,59 @@ class _AddF2FPopupConstantState extends State<AddF2FPopupConstant> {
                   //   return;
                   // }
 
-                  print("maketer id ::::::::: ${widget.marketerId}");
-                  ApiData apiData = await F2FAddDocuments(
-                    context: context,
-                    fk_pt_id: patientId,
-                    rptd_F2FDate: widget.ffDate,
-                    fk_marketerId: widget.marketerId,
-                    rptd_visitNote: widget.visitNote,
-                    rptd_F2Fappointment: widget.postOpDate,
-                  );
-
-                  print(apiData.f2f_id);
-                  if (apiData.statusCode == 200 || apiData.statusCode == 201) {
-                    var F2FAdd = await uploadF2FDocumentsAdd(
+                  try{
+                    setState(() {
+                      isLoading = true;
+                    });
+                    print("maketer id ::::::::: ${widget.marketerId}");
+                    ApiData apiData = await F2FAddDocuments(
                       context: context,
-                      fk_f2f_id: apiData.f2f_id!,
-                      f2f_doc_url: "--",
-                      f2f_doc_name: fileName,
-                      f2f_doc_content: DocNameController.text,
+                      fk_pt_id: patientId,
+                      rptd_F2FDate: widget.ffDate,
+                      fk_marketerId: widget.marketerId,
+                      rptd_visitNote: widget.visitNote,
+                      rptd_F2Fappointment: widget.postOpDate,
                     );
 
-                    print(F2FAdd.f2f_doc_id);
-                  if (F2FAdd.statusCode == 200 || F2FAdd.statusCode == 201) {
-                    var uploadF2FDoc = await uploadF2FDocumentsBase64(
-                      context: context,
-                      f2f_doc_id: F2FAdd.f2f_doc_id!,
-                      documentFile: _filePath,
-                      documentName: fileName,
-                    );
-
-                    print(uploadF2FDoc.statusCode);
-                    if (uploadF2FDoc.statusCode == 200 || uploadF2FDoc.statusCode == 201) {
-                      Navigator.pop(context);
-                      showDialog(
+                    print(apiData.f2f_id);
+                    if (apiData.statusCode == 200 || apiData.statusCode == 201) {
+                      var F2FAdd = await uploadF2FDocumentsAdd(
                         context: context,
-                        builder: (BuildContext context) {
-                          return const AddSuccessPopup(
-                            message: 'Document Uploaded Successfully',
-                          );
-                        },
+                        fk_f2f_id: apiData.f2f_id!,
+                        f2f_doc_url: "--",
+                        f2f_doc_name: fileName,
+                        f2f_doc_content: DocNameController.text,
                       );
+
+                      print(F2FAdd.f2f_doc_id);
+                      if (F2FAdd.statusCode == 200 || F2FAdd.statusCode == 201) {
+                        var uploadF2FDoc = await uploadF2FDocumentsBase64(
+                          context: context,
+                          f2f_doc_id: F2FAdd.f2f_doc_id!,
+                          documentFile: _filePath,
+                          documentName: fileName,
+                        );
+
+                        print(uploadF2FDoc.statusCode);
+                        if (uploadF2FDoc.statusCode == 200 || uploadF2FDoc.statusCode == 201) {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const AddSuccessPopup(
+                                message: 'Document Uploaded Successfully',
+                              );
+                            },
+                          );
+                        }
+                      }
                     }
-                    }
+                  }finally{
+                    setState(() {
+                      isLoading = false;
+                    });
                   }
+
                   },
               ),
             ],

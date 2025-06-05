@@ -14,6 +14,7 @@ import '../../../../../../app/services/api/managers/sm_module_manager/sm_intake_
 import '../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographic_patient_data.dart';
+import '../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographich_ai_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographics_dropdown_data.dart';
 import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../em_module/widgets/button_constant.dart';
@@ -77,7 +78,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
   @override
   void initState() {
     super.initState();
-
+    fetchAIdemoData();
     _animationLeftController = AnimationController(
       duration: Duration(milliseconds: 300),
       vsync: this,
@@ -97,13 +98,21 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
       }
     });
   }
+  late AIDemographichModelData fetchedData;
+  Future<void> fetchAIdemoData() async{
+    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+    fetchedData = await getAIDemographichData(context: context, ptId: providerPatientId.patientId);
+    setState(() {
+      //fetchedData = Data;
+    });
+    // fetchedData = data;
+  }
   String? selectedValue;
 
   final List<String> items = ['Option 1', 'Option 2', 'Option 3'];
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
-    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
         return Row(
           children: [
             isSidebarLeftOpen == true ?   Flexible(
@@ -509,6 +518,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           IntakePatientsDatatInfo(
+                            // aIDemographichModelData: fetchedData,
                             childStatus: FutureBuilder<List<PatientStatusData>>(
                               future: StatusChange(context),
                               builder: (context, snapshot) {

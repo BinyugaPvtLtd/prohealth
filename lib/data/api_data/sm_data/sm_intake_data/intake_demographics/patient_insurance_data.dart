@@ -5,9 +5,9 @@ class PatientInsuranceDocumentData{
   final String docName;
   final bool isPrimary;
   final DateTime createdAt;
-  final int createdBy;
+  final String createdBy;
   final String updatedAt;
-  final int updatedBy;
+  final String updatedBy;
 
   PatientInsuranceDocumentData({
     required this.insuranceDocumentId,

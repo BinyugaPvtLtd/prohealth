@@ -38,10 +38,9 @@ Future<List<PatientInsuranceDocumentData>> getPatientEmergencyContact({
             isPrimary: item['is_primary']??false,
             docName: item['document_name']??'',
             createdAt: DateTime.parse(item['insuranceCreatedAt']),
-            createdBy: item['insuranceCreatedBy']??0,
+            createdBy: item['insuranceCreatedBy']??'--',
             updatedAt: item['insuranceUpdatedAt'] != null ? convertIsoToDayMonthYear(item['insuranceUpdatedAt']) :'0000-00-00T00:00:00.000Z',
-            updatedBy: item['insuranceUpdatedBy']??0
-
+            updatedBy: item['insuranceUpdatedBy']??'--',
 
         ));
       }

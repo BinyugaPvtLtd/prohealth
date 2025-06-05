@@ -14,6 +14,7 @@ import '../../../../../../../../app/services/api/managers/sm_module_manager/sm_i
 import '../../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographic_patient_data.dart';
+import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographich_ai_data.dart';
 import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographics_dropdown_data.dart';
 import '../../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -30,23 +31,28 @@ class IntakePatientsDatatInfo extends StatelessWidget {
  // final Widget childCity;
   final Widget childCountry;
   final Widget childStatus;
+  // late AIDemographichModelData aIDemographichModelData;
   final VoidCallback isIButtonPressed;
 
   IntakePatientsDatatInfo(
       {super.key,
       required this.childState,
      // required this.childCity,
-      required this.childCountry, required this.childStatus, required this.isIButtonPressed});
+      required this.childCountry,
+        required this.childStatus,
+        required this.isIButtonPressed,
+        // required this.aIDemographichModelData
+      });
   @override
   Widget build(BuildContext context) {
     String? status = '';
-    String? getNameFromId(int id, List<DropdownMenuItem<String>> dropDownList) {
-      final item = dropDownList.firstWhere(
-            (element) => element.value == id,
-        orElse: () => DropdownMenuItem(value: '', child: Text('')),
-      );
-      return (item.child as Text).data;
-    }
+    // String? getNameFromId(int id, List<DropdownMenuItem<String>> dropDownList) {
+    //   final item = dropDownList.firstWhere(
+    //         (element) => element.value == id,
+    //     orElse: () => DropdownMenuItem(value: '', child: Text('')),
+    //   );
+    //   return (item.child as Text).data;
+    // }
     String? statustype;
     String? selectedStatus;
     String selectedCountry = 'Select';
@@ -102,11 +108,17 @@ class IntakePatientsDatatInfo extends StatelessWidget {
               child: CircularProgressIndicator(color: ColorManager.blueprime,),
             );
           }
+          print('Page error ${snapshotPatient.error}');
           primaryLanguageid = snapshotPatient.data!.fkSpokenLanguage;
           countyId = snapshotPatient.data!.fkCountryId;
           zoneId = snapshotPatient.data!.fkZoneId;
           residentialId = snapshotPatient.data!.fkResidenceTypeId;
           maritalStatusId = snapshotPatient.data!.fkMaritalStatus;
+          selectedCountry = snapshotPatient.data!.countyName;
+          selectedRace = snapshotPatient.data!.fkResidenceTypeName ;
+          selectedLanguage = snapshotPatient.data!.spokenLanguageName;
+          selectedMaritalStatus = snapshotPatient.data!.maritalStatusName;
+          selectedZone = snapshotPatient.data!.zoneName;
            ctlrMedicalRecord = TextEditingController(text: snapshotPatient.data!.demoMiddleInitial);
            ctlrfirstName = TextEditingController(text: snapshotPatient.data!.demoFirstName);
            ctlrLastName = TextEditingController(text: snapshotPatient.data!.demoLastName);
@@ -129,10 +141,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
            cahpsContactController = TextEditingController(text: snapshotPatient.data!.demoCahpsContact);
            secondaryPhoneController = TextEditingController(text:snapshotPatient.data!.demoSecondaryContactName );
            secEmailController = TextEditingController(text:snapshotPatient.data!.demoSecondaryEmail );
-          // selectedCountry = snapshotPatient.data!.countyName;
-          // selectedMaritalStatus = snapshotPatient.data!.maritalStatusName;
-          // selectedZone = snapshotPatient.data!.zoneName;
-           // primaryLanguageController = TextEditingController(text:snapshotPatient.data.demoPr );
+
           return Consumer<SmIntakeProviderManager>(
             builder: (context,providerState,child) {
               return Center(
@@ -192,6 +201,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                        // isIconVisible: aIDemographichModelData.demoFirstNameI.isEmpty ? true : false,
                                         isIClicked: isIButtonPressed,
                                         controller: ctlrfirstName,
                                         labelText: 'First Name*',
@@ -215,6 +225,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                        // isIconVisible: aIDemographichModelData.demoFirstNameI.isEmpty ? true : false,
                                         isIClicked: isIButtonPressed,
                                     controller: ctlrfirstName,
                                     labelText: 'First Name*',
@@ -387,6 +398,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                             }
 
                                             return CustomDropdownTextFieldsm(
+                                              initialValue: selectedCountry,
                                                 headText: 'Country*',
                                                 dropDownMenuList: dropDownList,
                                                 onChanged: (newValue) {
@@ -424,6 +436,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                           }
 
                                           return CustomDropdownTextFieldsm(
+                                            initialValue: selectedRace,
                                               headText: 'Residence Type',
                                               dropDownMenuList: dropDownList,
                                               onChanged: (newValue) {
@@ -469,6 +482,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                             }
 
                                             return CustomDropdownTextFieldsm(
+                                              initialValue: selectedZone,
                                                 headText: 'Zone*',
                                                 dropDownMenuList: dropDownList,
                                                 onChanged: (newValue) {
@@ -476,6 +490,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                     if (a.zoneName == newValue) {
                                                       // selectedCountry = a.zoneName!;
                                                       zoneId = a.zoneID!;
+                                                      selectedZone = a.zoneName!;
                                                       //country = a
                                                       // int? docType = a.companyOfficeID;
                                                     }
@@ -524,6 +539,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                             }
 
                                             return CustomDropdownTextFieldsm(
+                                              initialValue: selectedCountry,
                                                 headText: 'Country*',
                                                 dropDownMenuList: dropDownList,
                                                 onChanged: (newValue) {
@@ -561,6 +577,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                           }
 
                                           return CustomDropdownTextFieldsm(
+                                            initialValue: selectedRace,
                                               headText: 'Residence Type',
                                               dropDownMenuList: dropDownList,
                                               onChanged: (newValue) {
@@ -650,6 +667,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                             }
 
                                             return CustomDropdownTextFieldsm(
+                                              initialValue: selectedZone,
                                                 headText: 'Zone*',
                                                 dropDownMenuList: dropDownList,
                                                 onChanged: (newValue) {
@@ -657,6 +675,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                     if (a.zoneName == newValue) {
                                                       // selectedCountry = a.zoneName!;
                                                       zoneId = a.zoneID!;
+                                                      selectedZone = a.zoneName!;
                                                       //country = a
                                                       // int? docType = a.companyOfficeID;
                                                     }
@@ -929,6 +948,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                 }
 
                                                 return CustomDropdownTextFieldsm(
+                                                  initialValue: selectedLanguage,
                                                     headText: 'Language Spoken',
                                                     dropDownMenuList: dropDownList,
                                                     onChanged: (newValue) {
@@ -992,8 +1012,9 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                                     value: i.maritalStatus,
                                                   ));
                                                 }
-                                                selectedMaritalStatus = getNameFromId(maritalStatusId,dropDownList)!;
+                                                selectedMaritalStatus = snapshotPatient.data!.maritalStatusName;
                                                 return CustomDropdownTextFieldsm(
+                                                  initialValue: selectedMaritalStatus,
                                                     headText: 'Marital Status',
                                                     dropDownMenuList: dropDownList,
                                                     onChanged: (newValue) {

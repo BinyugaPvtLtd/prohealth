@@ -618,7 +618,7 @@ class FinanceScreen extends StatelessWidget {
                                                                                 typeOfVisitId: finance.typeOfVisitId, companyId: companyId,
                                                                               );
                                                                               provider.updatePayRate(updatedPayRate);
-
+                                                                              provider.fetchPayRates(context, provider.serviceId, provider.empTypeId);
                                                                               Navigator.pop(context);
                                                                               provider.updatePayRate(updatedPayRate);
                                                                               showDialog(
