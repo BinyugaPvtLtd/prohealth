@@ -846,7 +846,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
             if (!_isFormValid) {
               return; // Stop here if the form is not valid
             }
-            if (!fileAbove20Mb) {
+            if (fileIsPicked && !fileAbove20Mb) {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -948,7 +948,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                       context: context,
                       builder: (BuildContext context) {
                         return AddErrorPopup(
-                          message: 'File is too large!',
+                          message: 'File is too large!????',
                         );
                       },
                     );

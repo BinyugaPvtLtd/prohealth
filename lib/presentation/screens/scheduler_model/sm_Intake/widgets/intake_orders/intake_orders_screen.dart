@@ -83,6 +83,7 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
   String dgnNameSelected = 'Select';
 
   bool dgnAddLoader = false;
+  bool ordersSignAndDate = false;
 
   @override
   void initState() {
@@ -98,7 +99,7 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
   }
 
 
-
+  final GlobalKey<_OrdersCheckboxState> _checkboxKey = GlobalKey();
 
   Future<void> _prefillData() async {
     try {
@@ -113,6 +114,12 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
       if (orders.isNotEmpty) {
         final firstOrder = orders.first;
 
+       // priDiagnosisProvider.toggleOrdersSignAndDate(firstOrder.ordersSignedDate == true);
+        print(";;;;;;;Referral Source ID: ${firstOrder.referralSourceId}");
+        print("Special Order IDs: ${firstOrder.specialOrderIds}");
+        print(";;;;;Orders Signed Date: ${firstOrder.ordersSignedDate}");
+
+
         setState(() {
           receivedDateController.text = firstOrder.dateReceived;
           orderDateController.text = firstOrder.orderDate;
@@ -122,13 +129,11 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
           Marketerid = firstOrder.marketerId;
           refersourceid = firstOrder.referralSourceId;
           selectedOrderIds = firstOrder.specialOrderIds;
+          ordersSignAndDate = firstOrder.ordersSignedDate;
         });
 
-        // ✅ Use provider to set ordersSigned
-        // final isSigned = firstOrder.ordersSignedDate == true;
-        // priDiagnosisProvider.toggleOrdersSignAndDate(isSigned);
-        // ✅ Update Provider outside of setState
-        priDiagnosisProvider.toggleOrdersSignAndDate(firstOrder.ordersSignedDate == false);
+        _checkboxKey.currentState?.update(firstOrder.ordersSignedDate ?? false);
+
 
       }
     } catch (e) {
@@ -273,417 +278,434 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
                                     ),
 
                                   const SizedBox(height: AppSize.s14,),
-                                  SizedBox(
-                                    width: 210,
-                                    child: Consumer<PriDiagnosisProvider>(
-                                      builder: (context, priDiagnosisProvider, child) {
-                                        return ExpCheckboxTile(
-                                          title: 'Orders Signed and Date',
-                                          initialValue: priDiagnosisProvider.ordersSignAndDate,
-                                          isInfoIconVisible: true,
-                                          onChanged: (value) {
-                                            priDiagnosisProvider.toggleOrdersSignAndDate(value);
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  ///
-
-
-
-
-
                                   // SizedBox(
                                   //   width: 210,
-                                  //   child: ExpCheckboxTile(
-                                  //     title: 'Orders Signed and Date',
-                                  //     initialValue: priDiagnosisProvider.ordersSignAndDate,
-                                  //     isInfoIconVisible: true,
-                                  //     onChanged: (value) {
-                                  //       priDiagnosisProvider.toggleOrdersSignAndDate(value);
+                                  //   child: Consumer<PriDiagnosisProvider>(
+                                  //     builder: (context, priDiagnosisProvider, child) {
+                                  //       return ExpCheckboxTile(
+                                  //         title: 'Orders Signed and Date',
+                                  //         initialValue: priDiagnosisProvider.ordersSignAndDate,
+                                  //         isInfoIconVisible: true,
+                                  //         onChanged: (value) {
+                                  //           priDiagnosisProvider.toggleOrdersSignAndDate(value);
+                                  //         },
+                                  //       );
                                   //     },
                                   //   ),
                                   // ),
+                                  ///
+
+                                  // SizedBox(
+                                  //   width: 210,
+                                  //   child: OrdersCheckbox(
+                                  //     key: _checkboxKey,
+                                  //     initialValue: ordersSignAndDate,
+                                  //     onChanged: (value) {
+                                  //       ordersSignAndDate = value;
+                                  //     },
+                                  //   ),
+                                  // ),
+
+
+
+                                  StatefulBuilder(
+                                    builder: (context, setLocalState) {
+                                      return SizedBox(
+                                        width: 210,
+                                        child: ExpCheckboxTile(
+                                          title: 'Orders Signed and Date',
+                                          initialValue: ordersSignAndDate,
+                                          isInfoIconVisible: true,
+                                          onChanged: (value) {
+                                            setLocalState(() {
+                                              ordersSignAndDate = value ;
+                                            });
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ],
                               ),
                             ),
 
                             Expanded(
                               flex: 3,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(left: providerState.isContactTrue ? 7 : 7),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'Disciplines',
-                                            style: AllPopupHeadings.customTextStyle(context),
+
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(left: providerState.isContactTrue ? 7 : 7),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Disciplines',
+                                                style: AllPopupHeadings.customTextStyle(context),
+                                              ),
+                                              const SizedBox(width: 10),
+                                              SvgPicture.asset(
+                                                'images/sm/sm_refferal/i_circle.svg',
+                                                height: 20,
+                                                width: 20,
+                                              )
+                                            ],
                                           ),
-                                          const SizedBox(width: 10),
-                                          SvgPicture.asset(
-                                            'images/sm/sm_refferal/i_circle.svg',
-                                            height: 20,
-                                            width: 20,
-                                          )
-                                        ],
-                                      ),
+                                        ),
+                                        const SizedBox(height: 10),
+
+
+
+
+                                        ///no api
+                                        // Container(
+                                        //   height: providerState.isContactTrue ? AppSize.s150 : AppSize.s200,
+                                        //   width: providerState.isContactTrue ? AppSize.s350 : AppSize.s480,
+                                        //   child: SingleChildScrollView(
+                                        //     child: Row(
+                                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                                        //       children: [
+                                        //         /// Column 1
+                                        //         Expanded(
+                                        //           flex: providerState.isContactTrue ? 4 : 3,
+                                        //           child: Column(
+                                        //             mainAxisAlignment: MainAxisAlignment.start,
+                                        //             children: [
+                                        //               ExpCheckboxTile(
+                                        //                 title: 'Nursing',
+                                        //                 initialValue: isNursing,
+                                        //                 onChanged: (value) {},
+                                        //               ),
+                                        //               ExpCheckboxTile(
+                                        //                 title: 'Physical Therapy',
+                                        //                 initialValue: isPhysicalThe,
+                                        //                 onChanged: (value) {},
+                                        //               ),
+                                        //               ExpCheckboxTile(
+                                        //                 title: providerState.isContactTrue
+                                        //                     ? 'Speech Therapy'
+                                        //                     : 'Home Health Aide',
+                                        //                 initialValue: providerState.isContactTrue
+                                        //                     ? isOccupationalThe
+                                        //                     : isSpeechThe,
+                                        //                 onChanged: (value) {},
+                                        //               ),
+                                        //               if (providerState.isContactTrue)
+                                        //                 CheckboxTile(
+                                        //                   title: 'Dietician',
+                                        //                   initialValue: isMedicalSocialThe,
+                                        //                   onChanged: (value) {},
+                                        //                 ),
+                                        //             ],
+                                        //           ),
+                                        //         ),
+                                        //
+                                        //         SizedBox(width: providerState.isContactTrue ? 3 : 8),
+                                        //
+                                        //         /// Column 2
+                                        //         Expanded(
+                                        //           flex: providerState.isContactTrue ? 5 : 4,
+                                        //           child: Column(
+                                        //             mainAxisAlignment: MainAxisAlignment.start,
+                                        //             children: [
+                                        //               ExpCheckboxTile(
+                                        //                 title: providerState.isContactTrue
+                                        //                     ? 'Home Health Aide'
+                                        //                     : 'Speech Therapy',
+                                        //                 initialValue: providerState.isContactTrue
+                                        //                     ? isSpeechThe
+                                        //                     : isOccupationalThe,
+                                        //                 onChanged: (value) {},
+                                        //               ),
+                                        //               ExpCheckboxTile(
+                                        //                 title: 'Medical Social Services',
+                                        //                 initialValue: isSpeechThe,
+                                        //                 onChanged: (value) {},
+                                        //               ),
+                                        //               ExpCheckboxTile(
+                                        //                 title: 'Occupational Therapy',
+                                        //                 initialValue: isPhysicalThe,
+                                        //                 onChanged: (value) {},
+                                        //               ),
+                                        //               if (providerState.isContactTrue)
+                                        //                 const SizedBox(height: 30),
+                                        //             ],
+                                        //           ),
+                                        //         ),
+                                        //
+                                        //         /// Column 3 (only when isContactTrue == false)
+                                        //         if (!providerState.isContactTrue)
+                                        //           Expanded(
+                                        //             flex: 2,
+                                        //             child: Column(
+                                        //               mainAxisAlignment: MainAxisAlignment.start,
+                                        //               children: [
+                                        //                 ExpCheckboxTile(
+                                        //                   title: 'Dietician',
+                                        //                   initialValue: isMedicalSocialThe,
+                                        //                   onChanged: (value) {},
+                                        //                 ),
+                                        //               ],
+                                        //             ),
+                                        //           ),
+                                        //       ],
+                                        //     ),
+                                        //   ),
+                                        // ),
+
+                                        ///api
+                                        // FutureBuilder<List<EmployeeClinicalData>>(
+                                        //   future: getEmployeeClinicalInReffreals(context: context),
+                                        //   builder: (context, snapshot) {
+                                        //     if (snapshot.connectionState == ConnectionState.waiting) {
+                                        //       return const Center(child: CircularProgressIndicator());
+                                        //     }
+                                        //
+                                        //     if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+                                        //       return const SizedBox.shrink();
+                                        //     }
+                                        //
+                                        //     final clinicalData = snapshot.data!;
+                                        //
+                                        //     final titleMapping = {
+                                        //       'Nursing': ['Nurse'],
+                                        //       'Speech Therapy': ['Speech Therapist'],
+                                        //       'Occupational Therapy': ['Occupational Therapist'],
+                                        //       'Physical Therapy': ['Therapist'],
+                                        //       'Home Health Aide': ['Clinical'],
+                                        //       'Medical Social Services': ['Clinical'],
+                                        //       'Dietician': ['Dietician'],
+                                        //     };
+                                        //
+                                        //     bool shouldShowCheckbox(String title) {
+                                        //       final keywords = titleMapping[title];
+                                        //       if (keywords == null) return false;
+                                        //       return clinicalData.any((e) =>
+                                        //           keywords.any((keyword) =>
+                                        //           e.empType.trim().toLowerCase() == keyword.trim().toLowerCase()));
+                                        //     }
+                                        //
+                                        //     final visibleTitles = titleMapping.keys
+                                        //         .where((title) => shouldShowCheckbox(title))
+                                        //         .toList();
+                                        //
+                                        //     // Group into columns of 3
+                                        //     List<List<String>> columnGroups = [];
+                                        //     for (int i = 0; i < visibleTitles.length; i += 3) {
+                                        //       columnGroups.add(
+                                        //         visibleTitles.sublist(
+                                        //           i,
+                                        //           i + 3 > visibleTitles.length ? visibleTitles.length : i + 3,
+                                        //         ),
+                                        //       );
+                                        //     }
+                                        //
+                                        //     return Container(
+                                        //      // width: providerState.isContactTrue ? AppSize.s350 : AppSize.s480,
+                                        //       padding: const EdgeInsets.all(12),
+                                        //       child: Row(
+                                        //         crossAxisAlignment: CrossAxisAlignment.start,
+                                        //         children: columnGroups.map((group) {
+                                        //           return Padding(
+                                        //             padding: const EdgeInsets.only(right: 20.0),
+                                        //             child: Column(
+                                        //               crossAxisAlignment: CrossAxisAlignment.start,
+                                        //               children: group.map((title) {
+                                        //                 return StatefulBuilder(
+                                        //                   builder: (context, setTileState) {
+                                        //                     bool isChecked = false;
+                                        //
+                                        //                     return SizedBox(
+                                        //                       width: 180,
+                                        //                       child: ExpCheckboxTile(
+                                        //                         title: title,
+                                        //                         initialValue: isChecked,
+                                        //                         onChanged: (value) {
+                                        //                           setTileState(() {
+                                        //                             isChecked = value ?? false;
+                                        //
+                                        //                             if (isChecked) {
+                                        //                               if (!trueSelectedList.contains(title)) {
+                                        //                                 trueSelectedList.add(title);
+                                        //                               }
+                                        //                               falseSelectedList.remove(title);
+                                        //                             } else {
+                                        //                               if (!falseSelectedList.contains(title)) {
+                                        //                                 falseSelectedList.add(title);
+                                        //                               }
+                                        //                               trueSelectedList.remove(title);
+                                        //                             }
+                                        //                           });
+                                        //                         },
+                                        //                       ),
+                                        //                     );
+                                        //                   },
+                                        //                 );
+                                        //               }).toList(),
+                                        //             ),
+                                        //           );
+                                        //         }).toList(),
+                                        //       ),
+                                        //     );
+                                        //   },
+                                        // )
+
+                                        ///
+
+
+                                        FutureBuilder<List<EmployeeClinicalData>>(
+                                          future: getEmployeeClinicalInReffreals(context: context),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState == ConnectionState.waiting) {
+                                              return const Center(child: CircularProgressIndicator());
+                                            }
+
+                                            if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+                                              return const SizedBox.shrink();
+                                            }
+
+                                            final clinicalData = snapshot.data!;
+
+                                            final titleMapping = {
+                                              'Nursing': ['Nurse'],
+                                              'Speech Therapy': ['Speech Therapist'],
+                                              'Occupational Therapy': ['Occupational Therapist'],
+                                              'Physical Therapy': ['Therapist'],
+                                              'Home Health Aide': ['Clinical'],
+                                              'Medical Social Services': ['Clinical'],
+                                              'Dietician': ['Dietician'],
+                                            };
+
+                                            // Map title to the set of matching empTypeIds
+                                            final Map<String, Set<int>> titleToEmpTypeIds = {};
+
+                                            for (final title in titleMapping.keys) {
+                                              final keywords = titleMapping[title]!;
+                                              final matchedIds = clinicalData
+                                                  .where((e) =>
+                                                  keywords.any((kw) =>
+                                                  e.empType.trim().toLowerCase() == kw.trim().toLowerCase()))
+                                                  .map((e) => e.emptypeId)
+                                                  .toSet();
+
+                                              if (matchedIds.isNotEmpty) {
+                                                titleToEmpTypeIds[title] = matchedIds;
+                                              }
+                                            }
+
+                                            final visibleTitles = titleToEmpTypeIds.keys.toList();
+
+                                            return Container(
+                                              padding: const EdgeInsets.all(12),
+                                              child: Wrap(
+                                                spacing: 20.0,
+                                                runSpacing: 12.0,
+                                                children: visibleTitles.map((title) {
+                                                  // return StatefulBuilder(
+                                                  //   builder: (context, setTileState) {
+                                                  //     bool isChecked = false;
+                                                  //
+                                                  //     return SizedBox(
+                                                  //       width: 180,
+                                                  //       child: ExpCheckboxTile(
+                                                  //         title: title,
+                                                  //         initialValue: isChecked,
+                                                  //         onChanged: (value) {
+                                                  //           setTileState(() {
+                                                  //             isChecked = value ?? false;
+                                                  //             final ids = titleToEmpTypeIds[title]!;
+                                                  //
+                                                  //             if (isChecked) {
+                                                  //               for (var id in ids) {
+                                                  //                 if (!trueSelectedList.contains(id)) {
+                                                  //                   trueSelectedList.add(id);
+                                                  //                 }
+                                                  //                 falseSelectedList.remove(id);
+                                                  //               }
+                                                  //               selectedTitleToIds[title] = ids;
+                                                  //             } else {
+                                                  //               for (var id in ids) {
+                                                  //                 if (!falseSelectedList.contains(id)) {
+                                                  //                   falseSelectedList.add(id);
+                                                  //                 }
+                                                  //                 trueSelectedList.remove(id);
+                                                  //               }
+                                                  //               selectedTitleToIds.remove(title);
+                                                  //             }
+                                                  //
+                                                  //             // 🔍 Print selected IDs and titles
+                                                  //             print("✅ Selected Titles and IDs:");
+                                                  //             selectedTitleToIds.forEach((key, value) {
+                                                  //               print('Title: $key, IDs: ${value.join(", ")}');
+                                                  //             });
+                                                  //           });
+                                                  //         },
+                                                  //
+                                                  //       ),
+                                                  //     );
+                                                  //   },
+                                                  // );
+
+                                                  return StatefulBuilder(
+                                                    builder: (context, setTileState) {
+                                                      // Check if any ID for this title is in trueSelectedList
+                                                      final ids = titleToEmpTypeIds[title]!;
+                                                      bool isChecked = ids.any((id) => trueSelectedList.contains(id));
+
+                                                      return SizedBox(
+                                                        width: 180,
+                                                        child: ExpCheckboxTile(
+                                                          title: title,
+                                                          initialValue: isChecked,
+                                                          onChanged: (value) {
+                                                            setTileState(() {
+                                                              isChecked = value ?? false;
+
+                                                              if (isChecked) {
+                                                                for (var id in ids) {
+                                                                  if (!trueSelectedList.contains(id)) {
+                                                                    trueSelectedList.add(id);
+                                                                  }
+                                                                  falseSelectedList.remove(id);
+                                                                }
+                                                                selectedTitleToIds[title] = ids;
+                                                              } else {
+                                                                for (var id in ids) {
+                                                                  if (!falseSelectedList.contains(id)) {
+                                                                    falseSelectedList.add(id);
+                                                                  }
+                                                                  trueSelectedList.remove(id);
+                                                                }
+                                                                selectedTitleToIds.remove(title);
+                                                              }
+
+                                                              // Optional: print updated list
+                                                              print("✅ Selected Titles and IDs:");
+                                                              selectedTitleToIds.forEach((key, value) {
+                                                                print('Title: $key, IDs: ${value.join(", ")}');
+                                                              });
+                                                            });
+                                                          },
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+
+
+
+                                                }).toList(),
+                                              ),
+                                            );
+                                          },
+                                        ),
+
+                                        ///
+                                      ],
                                     ),
-                                    const SizedBox(height: 10),
-
-
-
-
-                                    ///no api
-                                    // Container(
-                                    //   height: providerState.isContactTrue ? AppSize.s150 : AppSize.s200,
-                                    //   width: providerState.isContactTrue ? AppSize.s350 : AppSize.s480,
-                                    //   child: SingleChildScrollView(
-                                    //     child: Row(
-                                    //       crossAxisAlignment: CrossAxisAlignment.start,
-                                    //       children: [
-                                    //         /// Column 1
-                                    //         Expanded(
-                                    //           flex: providerState.isContactTrue ? 4 : 3,
-                                    //           child: Column(
-                                    //             mainAxisAlignment: MainAxisAlignment.start,
-                                    //             children: [
-                                    //               ExpCheckboxTile(
-                                    //                 title: 'Nursing',
-                                    //                 initialValue: isNursing,
-                                    //                 onChanged: (value) {},
-                                    //               ),
-                                    //               ExpCheckboxTile(
-                                    //                 title: 'Physical Therapy',
-                                    //                 initialValue: isPhysicalThe,
-                                    //                 onChanged: (value) {},
-                                    //               ),
-                                    //               ExpCheckboxTile(
-                                    //                 title: providerState.isContactTrue
-                                    //                     ? 'Speech Therapy'
-                                    //                     : 'Home Health Aide',
-                                    //                 initialValue: providerState.isContactTrue
-                                    //                     ? isOccupationalThe
-                                    //                     : isSpeechThe,
-                                    //                 onChanged: (value) {},
-                                    //               ),
-                                    //               if (providerState.isContactTrue)
-                                    //                 CheckboxTile(
-                                    //                   title: 'Dietician',
-                                    //                   initialValue: isMedicalSocialThe,
-                                    //                   onChanged: (value) {},
-                                    //                 ),
-                                    //             ],
-                                    //           ),
-                                    //         ),
-                                    //
-                                    //         SizedBox(width: providerState.isContactTrue ? 3 : 8),
-                                    //
-                                    //         /// Column 2
-                                    //         Expanded(
-                                    //           flex: providerState.isContactTrue ? 5 : 4,
-                                    //           child: Column(
-                                    //             mainAxisAlignment: MainAxisAlignment.start,
-                                    //             children: [
-                                    //               ExpCheckboxTile(
-                                    //                 title: providerState.isContactTrue
-                                    //                     ? 'Home Health Aide'
-                                    //                     : 'Speech Therapy',
-                                    //                 initialValue: providerState.isContactTrue
-                                    //                     ? isSpeechThe
-                                    //                     : isOccupationalThe,
-                                    //                 onChanged: (value) {},
-                                    //               ),
-                                    //               ExpCheckboxTile(
-                                    //                 title: 'Medical Social Services',
-                                    //                 initialValue: isSpeechThe,
-                                    //                 onChanged: (value) {},
-                                    //               ),
-                                    //               ExpCheckboxTile(
-                                    //                 title: 'Occupational Therapy',
-                                    //                 initialValue: isPhysicalThe,
-                                    //                 onChanged: (value) {},
-                                    //               ),
-                                    //               if (providerState.isContactTrue)
-                                    //                 const SizedBox(height: 30),
-                                    //             ],
-                                    //           ),
-                                    //         ),
-                                    //
-                                    //         /// Column 3 (only when isContactTrue == false)
-                                    //         if (!providerState.isContactTrue)
-                                    //           Expanded(
-                                    //             flex: 2,
-                                    //             child: Column(
-                                    //               mainAxisAlignment: MainAxisAlignment.start,
-                                    //               children: [
-                                    //                 ExpCheckboxTile(
-                                    //                   title: 'Dietician',
-                                    //                   initialValue: isMedicalSocialThe,
-                                    //                   onChanged: (value) {},
-                                    //                 ),
-                                    //               ],
-                                    //             ),
-                                    //           ),
-                                    //       ],
-                                    //     ),
-                                    //   ),
-                                    // ),
-
-                                    ///api
-                                    // FutureBuilder<List<EmployeeClinicalData>>(
-                                    //   future: getEmployeeClinicalInReffreals(context: context),
-                                    //   builder: (context, snapshot) {
-                                    //     if (snapshot.connectionState == ConnectionState.waiting) {
-                                    //       return const Center(child: CircularProgressIndicator());
-                                    //     }
-                                    //
-                                    //     if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
-                                    //       return const SizedBox.shrink();
-                                    //     }
-                                    //
-                                    //     final clinicalData = snapshot.data!;
-                                    //
-                                    //     final titleMapping = {
-                                    //       'Nursing': ['Nurse'],
-                                    //       'Speech Therapy': ['Speech Therapist'],
-                                    //       'Occupational Therapy': ['Occupational Therapist'],
-                                    //       'Physical Therapy': ['Therapist'],
-                                    //       'Home Health Aide': ['Clinical'],
-                                    //       'Medical Social Services': ['Clinical'],
-                                    //       'Dietician': ['Dietician'],
-                                    //     };
-                                    //
-                                    //     bool shouldShowCheckbox(String title) {
-                                    //       final keywords = titleMapping[title];
-                                    //       if (keywords == null) return false;
-                                    //       return clinicalData.any((e) =>
-                                    //           keywords.any((keyword) =>
-                                    //           e.empType.trim().toLowerCase() == keyword.trim().toLowerCase()));
-                                    //     }
-                                    //
-                                    //     final visibleTitles = titleMapping.keys
-                                    //         .where((title) => shouldShowCheckbox(title))
-                                    //         .toList();
-                                    //
-                                    //     // Group into columns of 3
-                                    //     List<List<String>> columnGroups = [];
-                                    //     for (int i = 0; i < visibleTitles.length; i += 3) {
-                                    //       columnGroups.add(
-                                    //         visibleTitles.sublist(
-                                    //           i,
-                                    //           i + 3 > visibleTitles.length ? visibleTitles.length : i + 3,
-                                    //         ),
-                                    //       );
-                                    //     }
-                                    //
-                                    //     return Container(
-                                    //      // width: providerState.isContactTrue ? AppSize.s350 : AppSize.s480,
-                                    //       padding: const EdgeInsets.all(12),
-                                    //       child: Row(
-                                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                                    //         children: columnGroups.map((group) {
-                                    //           return Padding(
-                                    //             padding: const EdgeInsets.only(right: 20.0),
-                                    //             child: Column(
-                                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                                    //               children: group.map((title) {
-                                    //                 return StatefulBuilder(
-                                    //                   builder: (context, setTileState) {
-                                    //                     bool isChecked = false;
-                                    //
-                                    //                     return SizedBox(
-                                    //                       width: 180,
-                                    //                       child: ExpCheckboxTile(
-                                    //                         title: title,
-                                    //                         initialValue: isChecked,
-                                    //                         onChanged: (value) {
-                                    //                           setTileState(() {
-                                    //                             isChecked = value ?? false;
-                                    //
-                                    //                             if (isChecked) {
-                                    //                               if (!trueSelectedList.contains(title)) {
-                                    //                                 trueSelectedList.add(title);
-                                    //                               }
-                                    //                               falseSelectedList.remove(title);
-                                    //                             } else {
-                                    //                               if (!falseSelectedList.contains(title)) {
-                                    //                                 falseSelectedList.add(title);
-                                    //                               }
-                                    //                               trueSelectedList.remove(title);
-                                    //                             }
-                                    //                           });
-                                    //                         },
-                                    //                       ),
-                                    //                     );
-                                    //                   },
-                                    //                 );
-                                    //               }).toList(),
-                                    //             ),
-                                    //           );
-                                    //         }).toList(),
-                                    //       ),
-                                    //     );
-                                    //   },
-                                    // )
-
-                                    ///
-
-
-                            FutureBuilder<List<EmployeeClinicalData>>(
-                                future: getEmployeeClinicalInReffreals(context: context),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-
-                      if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
-                        return const SizedBox.shrink();
-                      }
-
-                      final clinicalData = snapshot.data!;
-
-                      final titleMapping = {
-                        'Nursing': ['Nurse'],
-                        'Speech Therapy': ['Speech Therapist'],
-                        'Occupational Therapy': ['Occupational Therapist'],
-                        'Physical Therapy': ['Therapist'],
-                        'Home Health Aide': ['Clinical'],
-                        'Medical Social Services': ['Clinical'],
-                        'Dietician': ['Dietician'],
-                      };
-
-                      // Map title to the set of matching empTypeIds
-                      final Map<String, Set<int>> titleToEmpTypeIds = {};
-
-                      for (final title in titleMapping.keys) {
-                        final keywords = titleMapping[title]!;
-                        final matchedIds = clinicalData
-                            .where((e) =>
-                            keywords.any((kw) =>
-                            e.empType.trim().toLowerCase() == kw.trim().toLowerCase()))
-                            .map((e) => e.emptypeId)
-                            .toSet();
-
-                        if (matchedIds.isNotEmpty) {
-                          titleToEmpTypeIds[title] = matchedIds;
-                        }
-                      }
-
-                      final visibleTitles = titleToEmpTypeIds.keys.toList();
-
-                      return Container(
-                        padding: const EdgeInsets.all(12),
-                        child: Wrap(
-                          spacing: 20.0,
-                          runSpacing: 12.0,
-                          children: visibleTitles.map((title) {
-                            // return StatefulBuilder(
-                            //   builder: (context, setTileState) {
-                            //     bool isChecked = false;
-                            //
-                            //     return SizedBox(
-                            //       width: 180,
-                            //       child: ExpCheckboxTile(
-                            //         title: title,
-                            //         initialValue: isChecked,
-                            //         onChanged: (value) {
-                            //           setTileState(() {
-                            //             isChecked = value ?? false;
-                            //             final ids = titleToEmpTypeIds[title]!;
-                            //
-                            //             if (isChecked) {
-                            //               for (var id in ids) {
-                            //                 if (!trueSelectedList.contains(id)) {
-                            //                   trueSelectedList.add(id);
-                            //                 }
-                            //                 falseSelectedList.remove(id);
-                            //               }
-                            //               selectedTitleToIds[title] = ids;
-                            //             } else {
-                            //               for (var id in ids) {
-                            //                 if (!falseSelectedList.contains(id)) {
-                            //                   falseSelectedList.add(id);
-                            //                 }
-                            //                 trueSelectedList.remove(id);
-                            //               }
-                            //               selectedTitleToIds.remove(title);
-                            //             }
-                            //
-                            //             // 🔍 Print selected IDs and titles
-                            //             print("✅ Selected Titles and IDs:");
-                            //             selectedTitleToIds.forEach((key, value) {
-                            //               print('Title: $key, IDs: ${value.join(", ")}');
-                            //             });
-                            //           });
-                            //         },
-                            //
-                            //       ),
-                            //     );
-                            //   },
-                            // );
-
-                           return StatefulBuilder(
-                              builder: (context, setTileState) {
-                                // Check if any ID for this title is in trueSelectedList
-                                final ids = titleToEmpTypeIds[title]!;
-                                bool isChecked = ids.any((id) => trueSelectedList.contains(id));
-
-                                return SizedBox(
-                                  width: 180,
-                                  child: ExpCheckboxTile(
-                                    title: title,
-                                    initialValue: isChecked,
-                                    onChanged: (value) {
-                                      setTileState(() {
-                                        isChecked = value ?? false;
-
-                                        if (isChecked) {
-                                          for (var id in ids) {
-                                            if (!trueSelectedList.contains(id)) {
-                                              trueSelectedList.add(id);
-                                            }
-                                            falseSelectedList.remove(id);
-                                          }
-                                          selectedTitleToIds[title] = ids;
-                                        } else {
-                                          for (var id in ids) {
-                                            if (!falseSelectedList.contains(id)) {
-                                              falseSelectedList.add(id);
-                                            }
-                                            trueSelectedList.remove(id);
-                                          }
-                                          selectedTitleToIds.remove(title);
-                                        }
-
-                                        // Optional: print updated list
-                                        print("✅ Selected Titles and IDs:");
-                                        selectedTitleToIds.forEach((key, value) {
-                                          print('Title: $key, IDs: ${value.join(", ")}');
-                                        });
-                                      });
-                                    },
                                   ),
-                                );
-                              },
-                            );
 
-
-
-                          }).toList(),
-                        ),
-                      );
-                    },
-                  ),
-
-                  ///
-                                  ],
-                                ),
-                              ),
                             ),
 
 ///
@@ -1289,14 +1311,7 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
 
 
 
-                      // const SizedBox(height: AppSize.s16),
-                      // CustomIconButtonConst(
-                      //     width: 150,
-                      //     text: 'Add Diagnosis',
-                      //     icon: Icons.add,
-                      //     onPressed: () {
-                      //       priDiagnosisProvider.addReferenceForm();
-                      //     }),
+
                       const SizedBox(height: AppSize.s16),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 50),
@@ -1747,7 +1762,7 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
                               print('📊 Referral Source ID: $refersourceid');
                               print('👩‍⚕️ Case Manager: ${caseManagerController.text}');
                               print('🗒️ Tracking Notes: ${trackingNotesController.text}');
-                              print('✍️ Order Signature + Date: ${priDiagnosisProvider.ordersSignAndDate}');
+                              print('✍️ Order Signature + Date: $ordersSignAndDate');
 
                               // 🔁 API Call
                               var response = await postOrderPatient(
@@ -1761,7 +1776,7 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
                                 refersourceid: refersourceid!,
                                 casemanger: caseManagerController.text,
                                 trackingnote: trackingNotesController.text,
-                                ordersignature: priDiagnosisProvider.ordersSignAndDate,
+                                ordersignature: ordersSignAndDate,
                               );
 
                               if (response.statusCode == 200 || response.statusCode == 201) {
@@ -1769,7 +1784,7 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return const AddSuccessPopup(
-                                      message: 'Patient Order Updated Successfully',
+                                      message: 'Patient Order Successfully',
                                     );
                                   },
                                 );
@@ -1853,3 +1868,48 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
 
 
 
+class OrdersCheckbox extends StatefulWidget {
+  final bool initialValue;
+  final ValueChanged<bool> onChanged;
+
+  const OrdersCheckbox({
+    Key? key,
+    required this.initialValue,
+    required this.onChanged,
+  }) : super(key: key);
+
+  @override
+  _OrdersCheckboxState createState() => _OrdersCheckboxState();
+}
+
+class _OrdersCheckboxState extends State<OrdersCheckbox> {
+  late bool _checked;
+
+  @override
+  void initState() {
+    super.initState();
+    _checked = widget.initialValue;
+  }
+
+  // Call this externally to update the checkbox
+  void update(bool value) {
+    setState(() {
+      _checked = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpCheckboxTile(
+      title: 'Orders Signed and Date',
+      initialValue: _checked,
+      isInfoIconVisible: true,
+      onChanged: (value) {
+        setState(() {
+          _checked = value ?? false;
+        });
+        widget.onChanged(_checked);
+      },
+    );
+  }
+}

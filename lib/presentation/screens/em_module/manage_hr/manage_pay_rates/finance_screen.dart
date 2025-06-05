@@ -202,6 +202,7 @@ class FinanceProvider with ChangeNotifier {
 class FinanceScreen extends StatelessWidget {
   const FinanceScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

@@ -758,6 +758,12 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                                                             );
                                                           },
                                                         );
+                                                        Provider.of<SmIntakeProviderManager>(context, listen: false).filterIdIntegration(
+                                                          context: context,
+                                                          marketerId: providerContact.marketerId,
+                                                          sourceId: providerContact.referralSourceId,
+                                                          pcpId: providerContact.pcpId,
+                                                        );
                                                       } else {
                                                         print('Api error');
                                                       }
