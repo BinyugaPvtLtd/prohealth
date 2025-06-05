@@ -16,7 +16,6 @@ import '../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Scre
 import '../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../widgets/intake_flow_contgainer_const.dart';
-
 class PhysicianInfoTab extends StatefulWidget {
   const PhysicianInfoTab({super.key});
 
@@ -201,7 +200,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                           child: SchedularTextField(
                               controller: faxnumController,
                               labelText: "Fax Number",
-                              phoneField:true)),
+                              )),
                       SizedBox(width: AppSize.s35),
                       Flexible(
                           child: SchedularTextField(
@@ -418,46 +417,47 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
               padding: const EdgeInsets.symmetric(vertical: 40),
               child: Divider(),
             ),
-            BlueBGHeadConst(HeadText: "Other Physicians Or Allowed Practitioner"),
-            SizedBox(height: AppSize.s20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 160,
-                  height: 35,
-                  child: ElevatedButton.icon(onPressed: () {
-                    // showDialog(
-                    //   context: context,
-                    //   builder: (BuildContext context) {
-                    //     return AddPopupConstant(title: 'Add Face to Face Attachment',);
-                    //   },
-                    // );
-                  },
-                    label: Text(
-                        "Add Physician",
-                        style: TextStyle(
-                          fontSize: FontSize.s13,
-                          fontWeight: FontWeight.w600,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        )//BlueButtonTextConst.customTextStyle(context),
-                    ),
-                    icon:Icon(Icons.add),
-
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:  ColorManager.bluebottom,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
-                      ),),
-                  ),
-                )
-
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25,bottom: 10),
-              child: Divider(),
-            ),
+            ///dont delete temp hide
+            // BlueBGHeadConst(HeadText: "Other Physicians Or Allowed Practitioner"),
+            // SizedBox(height: AppSize.s20,),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SizedBox(
+            //       width: 160,
+            //       height: 35,
+            //       child: ElevatedButton.icon(onPressed: () {
+            //         // showDialog(
+            //         //   context: context,
+            //         //   builder: (BuildContext context) {
+            //         //     return AddPopupConstant(title: 'Add Face to Face Attachment',);
+            //         //   },
+            //         // );
+            //       },
+            //         label: Text(
+            //             "Add Physician",
+            //             style: TextStyle(
+            //               fontSize: FontSize.s13,
+            //               fontWeight: FontWeight.w600,
+            //               color: ColorManager.white,
+            //               decoration: TextDecoration.none,
+            //             )//BlueButtonTextConst.customTextStyle(context),
+            //         ),
+            //         icon:Icon(Icons.add),
+            //
+            //         style: ElevatedButton.styleFrom(
+            //           backgroundColor:  ColorManager.bluebottom,
+            //           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+            //           ),),
+            //       ),
+            //     )
+            //
+            //   ],
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 25,bottom: 10),
+            //   child: Divider(),
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30),
               child: Row(
