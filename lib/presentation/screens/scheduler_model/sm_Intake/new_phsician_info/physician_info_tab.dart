@@ -52,7 +52,6 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
     super.initState();
     _prefillPhysicianData();
   }
-
   Future<void> _prefillPhysicianData() async {
     final provider = Provider.of<DiagnosisProvider>(context, listen: false);
     try {
@@ -85,10 +84,14 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
       print('Failed to load prefilled data: $e');
     }
   }
+
+
+  bool isSaved = false;
   @override
   Widget build(BuildContext context) {
     final diagnosisProvider = Provider.of<DiagnosisProvider>(context,listen: false);
     final int patientId = diagnosisProvider.patientId;
+    final double spacing = MediaQuery.of(context).size.width * 0.05;
     return Consumer<SmIntakeProviderManager>(
    builder: (context,providerState,child) {
      return SingleChildScrollView(
@@ -109,7 +112,226 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
             ),
             BlueBGHeadConst(HeadText: "Certifying F2F Physician Or Allowed Practitioner"),
             SizedBox(height: AppSize.s10,),
-            Padding(
+            isSaved
+                ? Container(
+              color: Colors.white,
+              height: 400, // Adjust height as needed
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: 120,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF008000),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Verified",
+                                  style: CustomTextStylesCommon.commonStyle(
+                                    //  color:Color(0xFF575757),
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w700,
+                                    color: ColorManager.white,
+                                  )),
+                              Image.asset(
+                                "images/sm/white_tik.png",
+                                height: 20,
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex:3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  spacing: 15,
+                                  children: [
+                                    Text('Name :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('Street :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('Suite/Apt# :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('City :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('State :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('Zip Code :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('Phone Number :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('Fax Number :', style: ThemeManagerDark.customTextStyle(context)),
+                                    // Text('Name :', style: ThemeManagerDark.customTextStyle(context)),
+                                  ],
+                                ),
+                              ),
+
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  spacing: 15,
+                                  children: [
+                                    Text("Alexander Wulffe, MD", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text("1800 Oak Grove Rd", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text("  ", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text("Walnut", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text("CA", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text("94586", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text("925-461-2354", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text("925-461-2333", style: ThemeManagerDarkFont.customTextStyle(context),),
+
+                                  ],
+                                ),
+                              ),
+
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: spacing),
+                        ///
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex:3,
+                                child: Column(
+                                  spacing: 15,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('NPI Number :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('UPI Number :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('Email :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('Protocols :', style: ThemeManagerDark.customTextStyle(context)),
+                                    Text('Notes :', style: ThemeManagerDark.customTextStyle(context)),
+                                  ],
+                                ),
+                              ),
+
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  spacing: 15,
+                                  children: [
+                                    Text("12344785558", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text(" ", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text(" ", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text(" ", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                    Text(" ", style: ThemeManagerDarkFont.customTextStyle(context),),
+                                  ],
+                                ),
+                              ),
+
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: spacing),
+                        // Flexible(
+                        //   fit: FlexFit.loose,
+                        //   child: Column(
+                        //     spacing: 10,
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     mainAxisSize: MainAxisSize.min,
+                        //     children: [
+                        //       Row(
+                        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //         children: [
+                        //           Text('PECOS Status :',  style: ThemeManagerDark.customTextStyle(context)),
+                        //           //SizedBox(width: 5),
+                        //           Text('ENROLLED',  style: CustomTextStylesCommon.commonStyle(
+                        //                           //  color:Color(0xFF575757),
+                        //                           fontSize: FontSize.s12,
+                        //                           fontWeight: FontWeight.w700,
+                        //                           color: Color(0xff04BF00),
+                        //                         )),
+                        //         ],
+                        //       ),
+                        //       Text('Verification Details :',style: ThemeManagerDark.customTextStyle(context)),
+                        //       Text('Confirmed by Natalie MA at Dr. Wulffe’s office ', style: ThemeManagerDarkFont.customTextStyle(context)),
+                        //       Text('1/26/2025, 8:17:00 AM PST by Henry, Rebecca', style: ThemeManagerDarkFont.customTextStyle(context)),
+                        //     ],
+                        //   ),
+                        // ),
+
+                        Expanded(
+
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 15,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('PECOS Status :', style: ThemeManagerDark.customTextStyle(context)),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: Text("ENROLLED",  style: CustomTextStylesCommon.commonStyle(
+                                      //  color:Color(0xFF575757),
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xff04BF00),
+                                    )),
+                                  ),
+                                ],
+                              ),
+                              Text('Verification Details :', style: ThemeManagerDark.customTextStyle(context)),
+                              Text("Confirmed by Natalie MA at Dr. Wulffe’s office   ", style: ThemeManagerDarkFont.customTextStyle(context)),
+                              Text("1/26/2025, 8:17:00 AM PST by Henry, Rebecca  ", style: ThemeManagerDarkFont.customTextStyle(context)),
+
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: spacing),
+                        Expanded(
+                          flex: 1,
+                            child:  Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.edit_outlined,
+                                      color: ColorManager.bluebottom,
+                                      size: IconSize.I22,
+                                    ),
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                  ),
+                                ],
+
+                            )),
+
+                    ],
+                    ),
+                  )
+                ],
+              )
+            )
+                :Padding(
               padding: EdgeInsets.only(left: 25, right: providerState.isContactTrue ? 0 : 25),
               child: Column(
                 children: [
@@ -515,6 +737,11 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                               phyVerified: true,
                               phyVerificationDetails: verificationController.text,
                               phyTrackingNotes: trakingController.text);
+
+
+                          setState(() {
+                            isSaved = true;
+                          });
 
                         } catch (e) {
                           print('Error saving physician info: $e');
