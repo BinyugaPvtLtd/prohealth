@@ -99,7 +99,7 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
   }
 
 
-  final GlobalKey<_OrdersCheckboxState> _checkboxKey = GlobalKey();
+  //final GlobalKey<_OrdersCheckboxState> _checkboxKey = GlobalKey();
 
   Future<void> _prefillData() async {
     try {
@@ -121,6 +121,7 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
 
 
         setState(() {
+          ordersSignAndDate = firstOrder.ordersSignedDate;
           receivedDateController.text = firstOrder.dateReceived;
           orderDateController.text = firstOrder.orderDate;
           caseManagerController.text = firstOrder.caseManager;
@@ -129,10 +130,9 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
           Marketerid = firstOrder.marketerId;
           refersourceid = firstOrder.referralSourceId;
           selectedOrderIds = firstOrder.specialOrderIds;
-          ordersSignAndDate = firstOrder.ordersSignedDate;
+
         });
 
-        _checkboxKey.currentState?.update(firstOrder.ordersSignedDate ?? false);
 
 
       }
@@ -312,13 +312,13 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
                                     builder: (context, setLocalState) {
                                       return SizedBox(
                                         width: 210,
-                                        child: ExpCheckboxTile(
+                                        child:  ExpCheckboxTileoo(
                                           title: 'Orders Signed and Date',
-                                          initialValue: ordersSignAndDate,
+                                          value: ordersSignAndDate,
                                           isInfoIconVisible: true,
                                           onChanged: (value) {
                                             setLocalState(() {
-                                              ordersSignAndDate = value ;
+                                              ordersSignAndDate = value! ;
                                             });
                                           },
                                         ),

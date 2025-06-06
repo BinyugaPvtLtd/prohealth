@@ -73,12 +73,28 @@ class _SmAppBarState extends State<SmAppBar> with SingleTickerProviderStateMixin
               Row(
                 children: [
                   /// Logo
-                  Container(
-                    width: AppSize.s181,
-                    margin: const EdgeInsets.only(left: AppPadding.p20),
-                    child: Image.asset(
-                      'images/logo_login.png',
-                      fit: BoxFit.fill,
+                  AppClickableWidget(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamedAndRemoveUntil(
+                        "/home", // The target route name you want to go back to
+                        ModalRoute.withName(
+                            "/home"), // Condition to pop until the target route
+                      );
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             const HomeScreen()));
+                    },
+                    onHover: (bool val) {},
+                    child: Container(
+                      width: AppSize.s181,
+                      margin: const EdgeInsets.only(left: AppPadding.p20),
+                      child: Image.asset(
+                        'images/logo_login.png',
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
 

@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/intake/intake_physician_info_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/office_location_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/new_phsician_info/physician_info_save_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/api_data/sm_data/sm_intake_data/sm_physician_info/physician_info.dart';
+import '../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../em_module/widgets/button_constant.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import '../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../textfield_dropdown_constant/schedular_textfield_const.dart';
@@ -55,9 +60,18 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
   Future<void> _prefillPhysicianData() async {
     final provider = Provider.of<DiagnosisProvider>(context, listen: false);
     try {
-      List<PhysicianInfoPrefillData> prefilledData =  await getPhysicianInfoById(context: context, patientId: provider.patientId);
+      List<PhysicianInfoPrefillData> prefilledData =  await getPhysicianInfoById(context: context,
+          patientId: provider.patientId);
+
+      // Print the patient ID
+      print(";;;;;Patient ID: ${provider.patientId}");
+
       if (prefilledData.isNotEmpty) {
         final data = prefilledData.first;
+
+        // Print the physician ID
+        print(":::::::::::::Physician ID: ${data.phyId}");
+
         setState(() {
           physicianIdController = TextEditingController(text: data.phyId.toString());
           nameController.text = data.phyFirstName;
@@ -87,11 +101,12 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
 
 
   bool isSaved = false;
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final diagnosisProvider = Provider.of<DiagnosisProvider>(context,listen: false);
     final int patientId = diagnosisProvider.patientId;
-    final double spacing = MediaQuery.of(context).size.width * 0.05;
+
     return Consumer<SmIntakeProviderManager>(
    builder: (context,providerState,child) {
      return SingleChildScrollView(
@@ -113,224 +128,12 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
             BlueBGHeadConst(HeadText: "Certifying F2F Physician Or Allowed Practitioner"),
             SizedBox(height: AppSize.s10,),
             isSaved
-                ? Container(
-              color: Colors.white,
-              height: 400, // Adjust height as needed
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        width: 120,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF008000),
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Verified",
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    //  color:Color(0xFF575757),
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w700,
-                                    color: ColorManager.white,
-                                  )),
-                              Image.asset(
-                                "images/sm/white_tik.png",
-                                height: 20,
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                flex:3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  spacing: 15,
-                                  children: [
-                                    Text('Name :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('Street :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('Suite/Apt# :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('City :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('State :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('Zip Code :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('Phone Number :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('Fax Number :', style: ThemeManagerDark.customTextStyle(context)),
-                                    // Text('Name :', style: ThemeManagerDark.customTextStyle(context)),
-                                  ],
-                                ),
-                              ),
-
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  spacing: 15,
-                                  children: [
-                                    Text("Alexander Wulffe, MD", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text("1800 Oak Grove Rd", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text("  ", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text("Walnut", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text("CA", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text("94586", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text("925-461-2354", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text("925-461-2333", style: ThemeManagerDarkFont.customTextStyle(context),),
-
-                                  ],
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: spacing),
-                        ///
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                flex:3,
-                                child: Column(
-                                  spacing: 15,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('NPI Number :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('UPI Number :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('Email :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('Protocols :', style: ThemeManagerDark.customTextStyle(context)),
-                                    Text('Notes :', style: ThemeManagerDark.customTextStyle(context)),
-                                  ],
-                                ),
-                              ),
-
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  spacing: 15,
-                                  children: [
-                                    Text("12344785558", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text(" ", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text(" ", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text(" ", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                    Text(" ", style: ThemeManagerDarkFont.customTextStyle(context),),
-                                  ],
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: spacing),
-                        // Flexible(
-                        //   fit: FlexFit.loose,
-                        //   child: Column(
-                        //     spacing: 10,
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     mainAxisSize: MainAxisSize.min,
-                        //     children: [
-                        //       Row(
-                        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //         children: [
-                        //           Text('PECOS Status :',  style: ThemeManagerDark.customTextStyle(context)),
-                        //           //SizedBox(width: 5),
-                        //           Text('ENROLLED',  style: CustomTextStylesCommon.commonStyle(
-                        //                           //  color:Color(0xFF575757),
-                        //                           fontSize: FontSize.s12,
-                        //                           fontWeight: FontWeight.w700,
-                        //                           color: Color(0xff04BF00),
-                        //                         )),
-                        //         ],
-                        //       ),
-                        //       Text('Verification Details :',style: ThemeManagerDark.customTextStyle(context)),
-                        //       Text('Confirmed by Natalie MA at Dr. Wulffe’s office ', style: ThemeManagerDarkFont.customTextStyle(context)),
-                        //       Text('1/26/2025, 8:17:00 AM PST by Henry, Rebecca', style: ThemeManagerDarkFont.customTextStyle(context)),
-                        //     ],
-                        //   ),
-                        // ),
-
-                        Expanded(
-
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            spacing: 15,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('PECOS Status :', style: ThemeManagerDark.customTextStyle(context)),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: Text("ENROLLED",  style: CustomTextStylesCommon.commonStyle(
-                                      //  color:Color(0xFF575757),
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff04BF00),
-                                    )),
-                                  ),
-                                ],
-                              ),
-                              Text('Verification Details :', style: ThemeManagerDark.customTextStyle(context)),
-                              Text("Confirmed by Natalie MA at Dr. Wulffe’s office   ", style: ThemeManagerDarkFont.customTextStyle(context)),
-                              Text("1/26/2025, 8:17:00 AM PST by Henry, Rebecca  ", style: ThemeManagerDarkFont.customTextStyle(context)),
-
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: spacing),
-                        Expanded(
-                          flex: 1,
-                            child:  Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.edit_outlined,
-                                      color: ColorManager.bluebottom,
-                                      size: IconSize.I22,
-                                    ),
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                  ),
-                                ],
-
-                            )),
-
-                    ],
-                    ),
-                  )
-                ],
-              )
-            )
+                ? SavePagePhysicianInfo(
+              onEdit: () {
+              setState(() {
+                isSaved = false;
+              });
+            },)
                 :Padding(
               padding: EdgeInsets.only(left: 25, right: providerState.isContactTrue ? 0 : 25),
               child: Column(
@@ -686,83 +489,84 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 
-                  Container(
-                    width: 117,
-                    height: 30,
-                    child: ElevatedButton(
-                      onPressed: (){
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  CustomButtonTransparent(
+                    text: "Skip",
+                    onPressed: () {
 
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(
-                            color: ColorManager.bluebottom,
-                            width: 1,
-                          ),
-                        ),),
-                      child: Text('Skip',
-                        style: TransparentButtonTextConst.customTextStyle(context),
-                      ),),
+                    },
                   ),
                   const SizedBox(width: AppSize.s30,),
-                  Container(
-                    //color: Colors.white,
-                    width: 117,
-                    height: 30,
-                    child: ElevatedButton(
-                      //onPressed: (){},
-                      onPressed: ()async{
-                        try {
-                          var response = await  updatePhysicianMasterPatch(
-                              context: context,
-                              phyId: int.parse(physicianIdController.text),
-                              phyFirstName: nameController.text,
-                              phyLastName: lastController.text,
-                              phySuffix: suffixController.text,
-                              phyPicoNo: pecosController.text,
-                              phyPicoStatus: true,
-                              phyEmail: emailController.text,
-                              phyContact: phonenumberController.text,
-                              phyStreet: streetController.text,
-                              phySuite: suitapiController.text,
-                              phyCity: cityController.text,
-                              phyState: stateController.text,
-                              phyZipCode: zipcodeController.text,
-                              phyFax: faxnumController.text,
-                              phyNPI: int.parse(physicianIdController.text),
-                              phyUPI: upiController.text,
-                              phyProtocols: protocalController.text,
-                              phyNotes: noteController.text,
-                              phyVerified: true,
-                              phyVerificationDetails: verificationController.text,
-                              phyTrackingNotes: trakingController.text);
+                  isLoading
+                      ? const SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: CircularProgressIndicator(),
+                  )
+                      :CustomElevatedButton(
+                    width: 100,
+                    text: AppString.save,
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true; // ✅ Start loader
+                      });
 
+                      try {
+                        var response = await updatePhysicianMasterPatch(
+                          context: context,
+                          phyId: int.parse(physicianIdController.text),
+                          phyFirstName: nameController.text,
+                          phyLastName: lastController.text,
+                          phySuffix: suffixController.text,
+                          phyPicoNo: pecosController.text,
+                          phyPicoStatus: true,
+                          phyEmail: emailController.text,
+                          phyContact: phonenumberController.text,
+                          phyStreet: streetController.text,
+                          phySuite: suitapiController.text,
+                          phyCity: cityController.text,
+                          phyState: stateController.text,
+                          phyZipCode: zipcodeController.text,
+                          phyFax: faxnumController.text,
+                          phyNPI: int.parse(physicianIdController.text),
+                          phyUPI: upiController.text,
+                          phyProtocols: protocalController.text,
+                          phyNotes: noteController.text,
+                          phyVerified: true,
+                          phyVerificationDetails: verificationController.text,
+                          phyTrackingNotes: trakingController.text,
+                        );
 
-                          setState(() {
-                            isSaved = true;
-                          });
-
-                        } catch (e) {
-                          print('Error saving physician info: $e');
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('An error occurred while saving')),
+                        if (response.statusCode == 200 || response.statusCode == 201) {
+                        await  showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const AddSuccessPopup(
+                                message: 'Physician Info Updated Successfully',
+                              );
+                            },
                           );
+                        } else {
+                          print('❌ API error: ${response.statusCode}');
                         }
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor:ColorManager.bluebottom,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),),
-                      child: Text('Save',
-                        style:  TextStyle(
-                          fontSize: FontSize.s13,
-                          fontWeight: FontWeight.w600,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),),
+
+                        setState(() {
+                          isSaved = true;
+                        });
+                      } catch (e) {
+                        print('Error saving physician info: $e');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('An error occurred while saving')),
+                        );
+                      } finally {
+                        setState(() {
+                          isLoading = false; // ✅ Stop loader
+                        });
+                      }
+                    },
                   ),
+
+
+
                 ],
               ),
             ),
