@@ -6,6 +6,7 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/patient_insurance_data.dart';
 import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 class IntakeInsuranceScreen extends StatefulWidget {
@@ -45,6 +46,7 @@ class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> {
       curve: Curves.ease,
     );
   }
+  Object? data;
 
   @override
   Widget build(BuildContext context) {
@@ -146,9 +148,14 @@ class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       IntakePrimaryScreen(patientId: widget.patientId,
-                        onSave: switchToInsuranceSavePage,
+                        onSave: switchToInsuranceSavePage
+                         , onEditScreen:
+                          switchToInsuranceSavePage
+
                       ),
-                      IntakeSecondaryScreen(patientId: widget.patientId,),
+                      IntakeSecondaryScreen(patientId: widget.patientId, onSave: () {switchToInsuranceSavePage();  },),
+                      // InsuranceSavePage(onBack: () {  }, patientId: 1,),
+                      //
                     ]),
               ),
             ),

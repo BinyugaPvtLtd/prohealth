@@ -50,8 +50,8 @@ Future<List<PatientModel>> getPatientReffrealsData({
         // print(item['pt_img_url']);             // Should not be null
 
         itemsData.add(PatientModel(
-          isScheduler: item['isScheduler']??false,
-          schedulerTime: item['schedulerTime'] != null ?convertIsoToDayMonthYear(item['schedulerTime']):'--',
+          isScheduler: item['moveToScheduler']??false,
+          schedulerTime: item['moveToSchedulerDateTime'] != null ?convertIsoToDayMonthYear(item['moveToSchedulerDateTime']):'',
           is_selfPay: item['is_selfPay']??false,
           fk_rpti_id: item['fk_rpti_id']??0,
           isPotential: item['potential_duplicate'] ?? false,
