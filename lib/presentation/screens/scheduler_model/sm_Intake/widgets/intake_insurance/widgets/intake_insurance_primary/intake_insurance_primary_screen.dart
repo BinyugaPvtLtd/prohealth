@@ -32,11 +32,13 @@ import '../../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/refe
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../intake_flow_contgainer_const.dart';
+import '../save_page/insurance_save_page.dart';
 
 class IntakePrimaryScreen extends StatelessWidget {
   final int patientId;
-  final VoidCallback onSave;
-  IntakePrimaryScreen({super.key, required this.patientId,   required this.onSave,});
+  final VoidCallback onEditScreen;
+   final VoidCallback onSave;
+  IntakePrimaryScreen({super.key, required this.patientId,   required this.onSave, required this.onEditScreen,});
 
 
   @override
@@ -864,11 +866,27 @@ class IntakePrimaryScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           spacing: 10,
                           children: [
-                            CustomButtonTransparent(
-                              text: "Skip",
-                              onPressed: () {
+                            SizedBox(
+                              width:AppSize.s100,
+                              height:AppSize.s35,
+                              child: ElevatedButton(
+                                onPressed: () async{
 
-                              },
+                                  // Navigator.pop(context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                                  backgroundColor: ColorManager.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular( 12),
+                                    side: const BorderSide(color: Color(0xFF50B5E5)),
+                                  ),
+                                ),
+                                child: Text(
+                                    'Skip',
+                                    style: TransparentButtonTextConst.customTextStyle(context)
+                                ),
+                              ),
                             ),
                           _isLoading? Center(
                             child: SizedBox(
@@ -880,6 +898,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                               width: AppSize.s100,
                               text: AppString.save,
                               onPressed: ()async{
+
                                 setState((){
                                   _isLoading = true;
                                 });
@@ -918,6 +937,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         );
                                       },
                                     );
+                                    onSave();
                                   }else{
                                     print('Api error');
                                   }
