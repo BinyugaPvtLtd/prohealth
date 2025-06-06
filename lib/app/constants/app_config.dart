@@ -10,8 +10,8 @@ class AppConfig {
   ///
   // static const String dev =  "https://demoapp.symmetry.care";
   static const String dev = "https://resource.symmetry.care";
-  // static const String demo = "https://demoapp.symmetry.care";
-  static const String demo = "https://demo.symmetry.care";
+  static const String demo = "https://demoapp.symmetry.care";/// old instance 2024
+  // static const String demo = "https://demo.symmetry.care"; /// new instance 2025
   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
   static const String deployment = "https://staging.symmetry.care";
   static const String version = "Version 1.0.2 (1) demo";
