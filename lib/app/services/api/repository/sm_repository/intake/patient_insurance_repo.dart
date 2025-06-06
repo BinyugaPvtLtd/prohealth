@@ -5,7 +5,9 @@ class PatientInsuranceRepo{
   static String patientInsuranceDocumentsDelete = '/patient-insurance-documents';
   static String patientInsuranceDocWithPtId = '/patient-insurance-documents/patient';
 
-
+  // insurance
+  static String patientInsuranceInfo = '/patient-insurance/patient';
+  static String updatePatientInsuranceInfo = '/patient-insurance';
 
   static  String getPatientInsuranceDocuments({required int ptId,required bool isPrimary}){
     return "$patientInsuranceDocuments/$ptId/$isPrimary";
@@ -25,5 +27,15 @@ class PatientInsuranceRepo{
 
   static  String getPatientInsuranceDocumentsWithPtId({required int ptId}){
     return "$patientInsuranceDocWithPtId/$ptId";
+  }
+
+  // insurance info
+
+  static  String getPatientInsuranceInfo({required int ptId}){
+    return "$patientInsuranceInfo/$ptId";
+  }
+
+  static String updatePatientInsurance({required int id}){
+    return "$updatePatientInsuranceInfo/$id";
   }
 }

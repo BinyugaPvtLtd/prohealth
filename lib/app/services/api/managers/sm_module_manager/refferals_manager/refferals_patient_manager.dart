@@ -793,7 +793,7 @@ Future<List<PatientDocumentsFtwoFData>> getReffrealsPatientDocumentsFaceTwoFace(
                   f2f_doc_name: d['f2f_doc_name'] ?? "",
                   f2f_doc_content: d['f2f_doc_content'] ?? "",
                   f2f_doc_created_at: d['f2f_doc_created_at'] ?? "",
-                  f2f_doc_created_by: d['f2f_doc_created_by'] ?? 0,);
+                  f2f_doc_created_by: d['f2f_doc_created_by'] ?? "--",);
             }).toList(),
         ));
         //  print("RPTI ID ::::::::::::::::::: ${item['patientInsurance']['rpti_id'].runtimeType}");

@@ -11,9 +11,12 @@ class DemographicPatientDataModel {
   final String demoState;
   final String demoZipcode;
   final int fkCountryId;
+  final String countyName;
   final int fkResidenceTypeId;
+  final String fkResidenceTypeName;
   final String demoFacilityName;
   final int fkZoneId;
+  final String zoneName;
   final String demoLocationNotes;
   final String demoPrimaryContact;
   final String demoPrimaryContactName;
@@ -26,13 +29,19 @@ class DemographicPatientDataModel {
   final String demoSecondaryEmail;
   final String demoDob;
   final int fkGender;
+  final String genderName;
   final int fkSpokenLanguage;
+  final String spokenLanguageName;
   final String demoSocialSecurity;
   final int fkRaceEthnicity;
+  final String RaceEthniname;
   final int fkMaritalStatus;
+  final String maritalStatusName;
   final String demoCreatedAt;
 
-  DemographicPatientDataModel({
+  DemographicPatientDataModel({required this.countyName, required this.fkResidenceTypeName,
+      required this.zoneName, required this.genderName, required this.spokenLanguageName,
+      required this.RaceEthniname, required this.maritalStatusName,
     required this.demoId,
     required this.fkPtId,
     required this.demoFirstName,
@@ -67,3 +76,5 @@ class DemographicPatientDataModel {
     required this.demoCreatedAt,
   });
 }
+
+

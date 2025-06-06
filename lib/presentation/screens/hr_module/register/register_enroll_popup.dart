@@ -25,7 +25,7 @@ class RegisterEnrollPopup extends StatelessWidget {
   final TextEditingController lastName;
   //final TextEditingController phone;
   final TextEditingController email;
-  List<AEClinicalDiscipline> aEClinicalDiscipline;
+  // List<AEClinicalDiscipline> aEClinicalDiscipline;
   final List<AEClinicalCity> cities;  // New parameter
   final List<CompanyOfficeListData> companyOffices;  // New parameter
   final List<AEClinicalZone> zones;
@@ -46,7 +46,6 @@ class RegisterEnrollPopup extends StatelessWidget {
     //required this.position,
     required this.onPressed, required this.userId, required this.role,
     required this.status, required this.employeeId,
-    required this.aEClinicalDiscipline,
     required this.onReferesh,
     required this.depId, required this.cities, required this.companyOffices, required this.zones,
     //required this.empId,
@@ -381,7 +380,7 @@ class RegisterEnrollPopup extends StatelessWidget {
                                             : depId == AppConfig.AdministrationId
                                             ? 'Select Admin Type'
                                             : 'Unknown',
-                                        items: providerState.clinicalDisciplines.map((e) => e.empType!).toList(),
+                                        items:providerState.clinicalDisciplines.isEmpty ? [''] : providerState.clinicalDisciplines.map((e) => e.empType!).toList(),
                                         onChanged: (newValue) {
                                           for (var a in providerState.clinicalDisciplines) {
                                             if (a.empType == newValue) {

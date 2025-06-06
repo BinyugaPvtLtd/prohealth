@@ -39,7 +39,7 @@ class HrRegisterProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _clinicalDisciplines = await HrAddEmplyClinicalDisciplinApi(context, 1);
+      // _clinicalDisciplines = await HrAddEmplyClinicalDisciplinApi(context, 1);
       _clinicalCities = await HrAddEmplyClinicalCityApi(context);
       _companyOffices = await getCompanyOfficeList(context);
       _zone = await HrAddEmplyClinicalZoneApi(context);
