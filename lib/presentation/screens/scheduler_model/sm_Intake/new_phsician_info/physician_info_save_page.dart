@@ -88,8 +88,6 @@ class _SavePagePhysicianInfoState extends State<SavePagePhysicianInfo> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final double spacing  =  MediaQuery.of(context).size.width * 0.05;;
