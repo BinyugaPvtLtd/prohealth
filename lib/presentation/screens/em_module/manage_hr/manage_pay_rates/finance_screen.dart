@@ -728,11 +728,6 @@ class FinanceScreen extends StatelessWidget {
                                       },
                                     ),
                                   ),
-
-
-
-
-                                  ///
                                   PaginationControlsWidget(
                                     currentPage: provider.currentPage,
                                     items: snapshot.data!,
