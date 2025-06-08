@@ -50,8 +50,8 @@ Future<List<PatientModel>> getPatientReffrealsData({
         // print(item['pt_img_url']);             // Should not be null
 
         itemsData.add(PatientModel(
-          isScheduler: item['isScheduler']??false,
-          schedulerTime: item['schedulerTime'] != null ?convertIsoToDayMonthYear(item['schedulerTime']):'--',
+          isScheduler: item['moveToScheduler']??false,
+          schedulerTime: item['moveToSchedulerDateTime'] != null ?convertIsoToDayMonthYear(item['moveToSchedulerDateTime']):'',
           is_selfPay: item['is_selfPay']??false,
           fk_rpti_id: item['fk_rpti_id']??0,
           isPotential: item['potential_duplicate'] ?? false,
@@ -793,7 +793,7 @@ Future<List<PatientDocumentsFtwoFData>> getReffrealsPatientDocumentsFaceTwoFace(
                   f2f_doc_name: d['f2f_doc_name'] ?? "",
                   f2f_doc_content: d['f2f_doc_content'] ?? "",
                   f2f_doc_created_at: d['f2f_doc_created_at'] ?? "",
-                  f2f_doc_created_by: d['f2f_doc_created_by'] ?? 0,);
+                  f2f_doc_created_by: d['f2f_doc_created_by'] ?? "--",);
             }).toList(),
         ));
         //  print("RPTI ID ::::::::::::::::::: ${item['patientInsurance']['rpti_id'].runtimeType}");
@@ -1162,7 +1162,7 @@ Future<ApiData> patchDiagnosisData(
 
 
 
-
+///referal dd
 Future<List<ReferralSourcesData>> getReferalSourceDD({
   required BuildContext context,
 
@@ -1335,5 +1335,171 @@ Future<ApiData> uploadF2FDocumentsBase64({
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+
+
+
+
+/// special order
+Future<List<SpacialOrderData>> getSpecialOrder({
+  required BuildContext context,
+}) async {
+  List<SpacialOrderData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getspecialorderpath(),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(SpacialOrderData(
+            spcialorderid: item['specialOrderId'] ?? 0,
+            spcialordername: item['specialorderName'] ?? '',
+            description: item['description'] ?? '',
+            createdat: item['createdAt'] ?? '',
+            updatedat: item['updatedAt'] ?? ''
+        ));
+      }
+    } else {
+      print("special order type error");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+
+
+
+
+Future<ApiData> postOrderPatient({
+  required BuildContext context,
+  required int patientid,
+  required List<int> specialOrderId,
+  required String dateReceived,
+  required String orderdate,
+  required List<int> ptDisciplines,
+  required int merkatereid,
+  required int refersourceid,
+  required String casemanger,
+  required String trackingnote,
+  required bool ordersignature,
+} ) async {
+  try {
+    // print("/////// pt id ${patientid}");
+    // print("///////ssss ${specialOrderId}");
+    // print("///////ddddd ${dateReceived}");
+    // print("///ooooo ${orderdate}");
+    // print("///optdddd ${ptDisciplines}");
+    // print("///oommmm ${merkatereid}");
+    // print("///ooooorrrrr ${refersourceid}");
+    // print("///ooooocccccc ${casemanger}");
+    // print("///ooooottttt ${trackingnote}");
+    // print("///ooooossssss ${ordersignature}");
+
+
+    var response = await Api(context).post(
+      path: PatientRefferalsRepo.addPatientorder(), // Replace with your actual endpoint
+      data: {
+        "pt_id": patientid,
+        "specialOrderId": specialOrderId,
+        "dateReceived": "${dateReceived}T00:00:00Z"  ,     //dateReceived,      //"${effectiveDate}T00:00:00Z"
+        "orderDate": "${orderdate}T00:00:00Z" ,
+        "pt_disciplines": ptDisciplines,
+        "fk_marketerId": merkatereid,
+        "fk_ref_source_id": refersourceid,
+        "caseManager": casemanger,
+        "trackingNotes": trackingnote,
+        "ordersSignedDate": ordersignature,
+      },
+    );
+    print("📥 Received response:");
+    print("Status Code: ${response.statusCode}");
+    print("Response Data: ${response.data}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Order posted successfully");
+
+      var responseData = response.data;
+
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: true,
+        message: response.statusMessage ?? "Success",
+        banckingId: responseData['orderId'], // Adjust key if needed
+      );
+    } else {
+      print("Order post failed: ${response.statusCode}");
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: false,
+        message: response.data['message'] ?? "Something went wrong",
+      );
+    }
+  } catch (e) {
+    print("Error posting order: $e");
+    return ApiData(
+      statusCode: 404,
+      success: false,
+      message: AppString.somethingWentWrong,
+    );
+  }
+}
+
+
+
+
+
+Future<List<PatientOrderData>> getPatientOrderprifill({
+    required BuildContext context, required int patientId})
+async {
+
+  String convertIsoToDayMonthYear(String isoDate) {
+    DateTime dateTime = DateTime.parse(isoDate);
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+
+ List<PatientOrderData> itemsData = [];
+
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getPatientorderbyid(pt_id: patientId),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        String formattedReceivedDate = convertIsoToDayMonthYear(item['dateReceived']);
+        String formattedOrderDate = convertIsoToDayMonthYear(item['orderDate']);
+
+        itemsData.add(PatientOrderData(
+          orderId: item['orderId'] ?? 0,
+          patientId: item['pt_id'] ?? 0,
+          specialOrderIds: List<int>.from(item['specialOrderId'] ?? []),
+          dateReceived: formattedReceivedDate,
+          orderDate: formattedOrderDate,
+          ptDisciplines: List<int>.from(item['pt_disciplines'] ?? []),
+          marketerId: item['fk_marketerId'] ?? 0,
+          referralSourceId: item['fk_ref_source_id'] ?? 0,
+          caseManager: item['caseManager'] ?? "--",
+          trackingNotes: item['trackingNotes'] ?? "--",
+          ordersSignedDate: item['ordersSignedDate'] ?? false,
+        ));
+      }
+    } else {
+      print("⚠️ Failed to fetch patient orders: ${response.statusCode}");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("❌ Error fetching patient order form: $e");
+    return itemsData;
   }
 }

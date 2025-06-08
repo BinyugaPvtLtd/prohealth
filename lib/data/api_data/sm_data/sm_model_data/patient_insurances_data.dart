@@ -98,7 +98,7 @@ class FTwoFDocumentsModel {
   final String f2f_doc_name;
   final String f2f_doc_content;
   final String f2f_doc_created_at;
-  final int f2f_doc_created_by;
+  final String f2f_doc_created_by;
 
   FTwoFDocumentsModel({
     required this.f2f_doc_id,

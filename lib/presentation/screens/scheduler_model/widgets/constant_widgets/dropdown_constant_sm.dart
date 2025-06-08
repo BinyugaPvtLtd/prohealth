@@ -130,11 +130,11 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
                       //AllPopupHeadings.customTextStyle(context)
                     ),
                   ),
-                  widget.isIconVisible! ? SvgPicture.asset(
-                    'images/sm/sm_refferal/i_circle.svg',
-                    height: IconSize.I20,
-                    width: IconSize.I20,
-                  ) : Offstage()
+                  // widget.isIconVisible! ? SvgPicture.asset(
+                  //   'images/sm/sm_refferal/i_circle.svg',
+                  //   height: IconSize.I20,
+                  //   width: IconSize.I20,
+                  // ) : Offstage()
                 ],
               ),
             ),

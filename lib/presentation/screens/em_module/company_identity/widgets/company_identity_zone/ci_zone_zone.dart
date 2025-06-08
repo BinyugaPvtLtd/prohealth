@@ -227,15 +227,9 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                             context: context,
                                                             builder: (context) {
                                                               return FutureBuilder<CountyZonePrefillGet>(
-                                                                  future: getZoneByCountyPrefill(
-                                                                          context,
-                                                                        zone.zoneId),
-                                                                  builder: (context,
-                                                                      snapshotPrefill) {
-                                                                    if (snapshotPrefill
-                                                                            .connectionState ==
-                                                                        ConnectionState
-                                                                            .waiting) {
+                                                                  future: getZoneByCountyPrefill(context, zone.zoneId),
+                                                                  builder: (context, snapshotPrefill) {
+                                                                    if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                                       return Center(
                                                                         child:
                                                                             CircularProgressIndicator(

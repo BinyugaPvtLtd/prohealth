@@ -782,6 +782,14 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                                   );
                                                                 },
                                                               );
+
+                                                              // ✅ Refresh data
+                                                              Provider.of<SmIntakeProviderManager>(context, listen: false).filterIdIntegration(
+                                                                context: context,
+                                                                marketerId: providerContact.marketerId,
+                                                                sourceId: providerContact.referralSourceId,
+                                                                pcpId: providerContact.pcpId,
+                                                              );
                                                             }else{
                                                               print('Api error');
                                                             }
@@ -864,6 +872,13 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                                        message: 'Data Updated Successfully',
                                                                      );
                                                                    },
+                                                                 );
+                                                                 // ✅ Refresh data
+                                                                 Provider.of<SmIntakeProviderManager>(context, listen: false).filterIdIntegration(
+                                                                   context: context,
+                                                                   marketerId: providerContact.marketerId,
+                                                                   sourceId: providerContact.referralSourceId,
+                                                                   pcpId: providerContact.pcpId,
                                                                  );
                                                                 }else{
                                                                   print('Api error');

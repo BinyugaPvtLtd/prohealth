@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/intake/intake_physician_info_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/office_location_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/new_phsician_info/physician_info_save_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../../data/api_data/sm_data/sm_intake_data/sm_physician_info/physician_info.dart';
+import '../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../em_module/widgets/button_constant.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import '../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../widgets/intake_flow_contgainer_const.dart';
-
 class PhysicianInfoTab extends StatefulWidget {
   const PhysicianInfoTab({super.key});
 
@@ -23,6 +30,7 @@ class PhysicianInfoTab extends StatefulWidget {
 
 class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
 
+  TextEditingController physicianIdController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController lastController = TextEditingController();
   TextEditingController suffixController = TextEditingController();
@@ -41,14 +49,65 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
   TextEditingController pecosController = TextEditingController();
   TextEditingController verificationController = TextEditingController();
   TextEditingController trakingController = TextEditingController();
-
-
+  PhysicianInfoPrefillData? _prefillData;
   String? statustype;
 
   @override
+  void initState() {
+    super.initState();
+    _prefillPhysicianData();
+  }
+  Future<void> _prefillPhysicianData() async {
+    final provider = Provider.of<DiagnosisProvider>(context, listen: false);
+    try {
+      List<PhysicianInfoPrefillData> prefilledData =  await getPhysicianInfoById(context: context,
+          patientId: provider.patientId);
+
+      // Print the patient ID
+      print(";;;;;Patient ID: ${provider.patientId}");
+
+      if (prefilledData.isNotEmpty) {
+        final data = prefilledData.first;
+
+        // Print the physician ID
+        print(":::::::::::::Physician ID: ${data.phyId}");
+
+        setState(() {
+          physicianIdController = TextEditingController(text: data.phyId.toString());
+          nameController.text = data.phyFirstName;
+          lastController.text = data.phyLastName;
+          suffixController.text = data.phySuffix ?? '';
+          streetController.text = data.phyStreet ?? '';
+          suitapiController.text = data.phySuite ?? '';
+          cityController.text = data.phyCity ?? '';
+          stateController.text = data.phyState ?? '';
+          zipcodeController.text = data.phyZipCode ?? '';
+          phonenumberController.text = data.phyContact;
+          faxnumController.text = data.phyFax ?? '';
+          emailController.text = data.phyEmail;
+        //  npiController.text = data.phyNPI.toString();
+          upiController.text = data.phyUPI ?? '';
+          protocalController.text = data.phyProtocols ?? '';
+          noteController.text = data.phyNotes ?? '';
+          verificationController.text = data.phyVerificationDetails ?? '';
+          trakingController.text = data.phyTrackingNotes ?? '';
+          pecosController.text = data.phyPicoNo;
+        });
+      }
+    } catch (e) {
+      print('Failed to load prefilled data: $e');
+    }
+  }
+
+
+  bool isSaved = false;
+  bool isLoading = false;
+  @override
   Widget build(BuildContext context) {
-    return
- Consumer<SmIntakeProviderManager>(
+    final diagnosisProvider = Provider.of<DiagnosisProvider>(context,listen: false);
+    final int patientId = diagnosisProvider.patientId;
+
+    return Consumer<SmIntakeProviderManager>(
    builder: (context,providerState,child) {
      return SingleChildScrollView(
       child: Padding(
@@ -66,11 +125,16 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
 
                 ],),
             ),
-
             BlueBGHeadConst(HeadText: "Certifying F2F Physician Or Allowed Practitioner"),
             SizedBox(height: AppSize.s10,),
-
-            Padding(
+            isSaved
+                ? SavePagePhysicianInfo(
+              onEdit: () {
+              setState(() {
+                isSaved = false;
+              });
+            },)
+                :Padding(
               padding: EdgeInsets.only(left: 25, right: providerState.isContactTrue ? 0 : 25),
               child: Column(
                 children: [
@@ -78,13 +142,18 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                   Row(
                     children: [
                       Flexible(
-                        child: CustomDropdownTextFieldsm(
-                            headText: 'Select from Database',
-                            items: ['Spouse','Patient',],
-                            //dropDownMenuList: dropDownList,
-                            onChanged: (newValue) {
-
-                            }),
+                        child:
+                        SchedularTextField(labelText: 'Select from Database',
+                          controller: physicianIdController,
+                          enable: true,
+                        ),
+                        // CustomDropdownTextFieldsm(
+                        //     headText: 'Select from Database',
+                        //     items: ['Spouse','Patient',],
+                        //     //dropDownMenuList: dropDownList,
+                        //     onChanged: (newValue) {
+                        //
+                        //     }),
                       ),
                       SizedBox(width: AppSize.s35),
                       Flexible(
@@ -156,7 +225,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                           child: SchedularTextField(
                               controller: faxnumController,
                               labelText: "Fax Number",
-                              phoneField:true)),
+                              )),
                       SizedBox(width: AppSize.s35),
                       Flexible(
                           child: SchedularTextField(
@@ -373,95 +442,131 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
               padding: const EdgeInsets.symmetric(vertical: 40),
               child: Divider(),
             ),
-            BlueBGHeadConst(HeadText: "Other Physicians Or Allowed Practitioner"),
-            SizedBox(height: AppSize.s20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 160,
-                  height: 35,
-                  child: ElevatedButton.icon(onPressed: () {
-                    // showDialog(
-                    //   context: context,
-                    //   builder: (BuildContext context) {
-                    //     return AddPopupConstant(title: 'Add Face to Face Attachment',);
-                    //   },
-                    // );
-                  },
-                    label: Text(
-                        "Add Physician",
-                        style: TextStyle(
-                          fontSize: FontSize.s13,
-                          fontWeight: FontWeight.w600,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        )//BlueButtonTextConst.customTextStyle(context),
-                    ),
-                    icon:Icon(Icons.add),
-
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:  ColorManager.bluebottom,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
-                      ),),
-                  ),
-                )
-
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25,bottom: 10),
-              child: Divider(),
-            ),
+            ///dont delete temp hide
+            // BlueBGHeadConst(HeadText: "Other Physicians Or Allowed Practitioner"),
+            // SizedBox(height: AppSize.s20,),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SizedBox(
+            //       width: 160,
+            //       height: 35,
+            //       child: ElevatedButton.icon(onPressed: () {
+            //         // showDialog(
+            //         //   context: context,
+            //         //   builder: (BuildContext context) {
+            //         //     return AddPopupConstant(title: 'Add Face to Face Attachment',);
+            //         //   },
+            //         // );
+            //       },
+            //         label: Text(
+            //             "Add Physician",
+            //             style: TextStyle(
+            //               fontSize: FontSize.s13,
+            //               fontWeight: FontWeight.w600,
+            //               color: ColorManager.white,
+            //               decoration: TextDecoration.none,
+            //             )//BlueButtonTextConst.customTextStyle(context),
+            //         ),
+            //         icon:Icon(Icons.add),
+            //
+            //         style: ElevatedButton.styleFrom(
+            //           backgroundColor:  ColorManager.bluebottom,
+            //           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+            //           ),),
+            //       ),
+            //     )
+            //
+            //   ],
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 25,bottom: 10),
+            //   child: Divider(),
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 
-                  Container(
-                    width: 117,
-                    height: 30,
-                    child: ElevatedButton(
-                      onPressed: (){
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  CustomButtonTransparent(
+                    text: "Skip",
+                    onPressed: () {
 
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(
-                            color: ColorManager.bluebottom,
-                            width: 1,
-                          ),
-                        ),),
-                      child: Text('Skip',
-                        style: TransparentButtonTextConst.customTextStyle(context),
-                      ),),
+                    },
                   ),
-
-
                   const SizedBox(width: AppSize.s30,),
-                  Container(
-                    //color: Colors.white,
-                    width: 117,
-                    height: 30,
-                    child: ElevatedButton(
-                      onPressed: (){
+                  isLoading
+                      ? const SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: CircularProgressIndicator(),
+                  )
+                      :CustomElevatedButton(
+                    width: 100,
+                    text: AppString.save,
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true; // ✅ Start loader
+                      });
 
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor:ColorManager.bluebottom,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),),
-                      child: Text('Save',
-                        style:  TextStyle(
-                          fontSize: FontSize.s13,
-                          fontWeight: FontWeight.w600,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),),
+                      try {
+                        var response = await updatePhysicianMasterPatch(
+                          context: context,
+                          phyId: int.parse(physicianIdController.text),
+                          phyFirstName: nameController.text,
+                          phyLastName: lastController.text,
+                          phySuffix: suffixController.text,
+                          phyPicoNo: pecosController.text,
+                          phyPicoStatus: true,
+                          phyEmail: emailController.text,
+                          phyContact: phonenumberController.text,
+                          phyStreet: streetController.text,
+                          phySuite: suitapiController.text,
+                          phyCity: cityController.text,
+                          phyState: stateController.text,
+                          phyZipCode: zipcodeController.text,
+                          phyFax: faxnumController.text,
+                          phyNPI: int.parse(physicianIdController.text),
+                          phyUPI: upiController.text,
+                          phyProtocols: protocalController.text,
+                          phyNotes: noteController.text,
+                          phyVerified: true,
+                          phyVerificationDetails: verificationController.text,
+                          phyTrackingNotes: trakingController.text,
+                        );
+
+                        if (response.statusCode == 200 || response.statusCode == 201) {
+                        await  showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const AddSuccessPopup(
+                                message: 'Physician Info Updated Successfully',
+                              );
+                            },
+                          );
+                        } else {
+                          print('❌ API error: ${response.statusCode}');
+                        }
+
+                        setState(() {
+                          isSaved = true;
+                        });
+                      } catch (e) {
+                        print('Error saving physician info: $e');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('An error occurred while saving')),
+                        );
+                      } finally {
+                        setState(() {
+                          isLoading = false; // ✅ Stop loader
+                        });
+                      }
+                    },
                   ),
+
+
+
                 ],
               ),
             ),

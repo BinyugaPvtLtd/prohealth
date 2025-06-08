@@ -307,3 +307,75 @@ class _ExpCheckboxTileState extends State<ExpCheckboxTile> {
     );
   }
 }
+
+
+
+
+
+class ExpCheckboxTileoo extends StatelessWidget {
+  final String title;
+  final bool value; // ✅ External state drives checkbox
+  final ValueChanged<bool?>? onChanged;
+  final bool? isInfoIconVisible;
+  final Image? icon;
+
+  const ExpCheckboxTileoo({
+    Key? key,
+    required this.title,
+    required this.value,
+    this.onChanged,
+    this.isInfoIconVisible = false,
+    this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<SmIntakeProviderManager>(
+      builder: (context, providerState, child) {
+        return Row(
+          children: [
+            Theme(
+              data: Theme.of(context).copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                unselectedWidgetColor: ColorManager.bluebottom,
+                checkboxTheme: CheckboxThemeData(
+                  side: BorderSide(color: ColorManager.bluebottom, width: 2),
+                ),
+              ),
+              child: Checkbox(
+                splashRadius: 0,
+                activeColor: ColorManager.bluebottom,
+                value: value, // ✅ Controlled by parent
+                onChanged: onChanged,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: SMTextfieldHeadings.customTextStyle(context),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  if (isInfoIconVisible!)
+                    icon ??
+                        SvgPicture.asset(
+                          'images/sm/sm_refferal/i_circle.svg',
+                          height: IconSize.I20,
+                          width: IconSize.I20,
+                        ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
