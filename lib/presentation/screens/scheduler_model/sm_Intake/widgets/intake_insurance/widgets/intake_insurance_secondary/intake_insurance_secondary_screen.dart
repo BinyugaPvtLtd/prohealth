@@ -34,7 +34,8 @@ import '../../../intake_flow_contgainer_const.dart';
 
 class IntakeSecondaryScreen extends StatelessWidget {
   final int patientId;
-  const IntakeSecondaryScreen({super.key, required this.patientId});
+  final VoidCallback onSave;
+  const IntakeSecondaryScreen({super.key, required this.patientId, required this.onSave});
 
   @override
   Widget build(BuildContext context) {
@@ -115,26 +116,27 @@ class IntakeSecondaryScreen extends StatelessWidget {
                         Container(
                           child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
+                            itemCount: snapshot.data!.length - 1,
                             itemBuilder: (context,index) {
+                              final item = snapshot.data![index + 1];
                               // print('rptiId ${snapshot.data![index].rptiId.toInt()}');
-                              pharmaName = TextEditingController(text:snapshot.data!.isEmpty?'':snapshot.data![index].rptiName);
-                              pharmaType = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index].rptiType);
-                              pharmaCategory = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index].rptiCategory);
-                              pharmacyaddress = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index].rptiStreet);
-                              pharmaSuitApt = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index].rptiSuite);
-                              city = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index].rptiCity);
-                              state = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index].rptiState);
-                              pharmacyzipcode = TextEditingController(text:snapshot.data!.isEmpty?'': snapshot.data![index].rptiZipcode);
-                              pharmaphone =  TextEditingController(text:snapshot.data!.isEmpty?'': snapshot.data![index].rptiContact);
-                              pharmaAuth = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index].rptiAuthorization ? 'NOT REQUIRED' : 'REQUIRED');
-                              pharmaEftDateForm = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index].rptiEffectiveFrom);
-                              pharmaEftDateFormTo = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index].rptiEffectiveTo);
-                              pharmaPolicyHicNo = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index].rptiPolicy);
-                              pharmaGrpNo = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index].rptiGroupNumber.toString());
-                              pharmaGrpName = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index].rptiGroupName);
-                              pharmaEmail = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index].rptiEmail);
-                              statustype = snapshot.data!.isEmpty?'': snapshot.data![index].rptiVerified ? 'Yes' : 'No';
+                              pharmaName = TextEditingController(text:snapshot.data!.isEmpty?'':item.rptiName);
+                              pharmaType = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiType);
+                              pharmaCategory = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiCategory);
+                              pharmacyaddress = TextEditingController(text:snapshot.data!.isEmpty?'':  item.rptiStreet);
+                              pharmaSuitApt = TextEditingController(text:snapshot.data!.isEmpty?'':  item.rptiSuite);
+                              city = TextEditingController(text:snapshot.data!.isEmpty?'': item.rptiCity);
+                              state = TextEditingController(text:snapshot.data!.isEmpty?'':  item.rptiState);
+                              pharmacyzipcode = TextEditingController(text:snapshot.data!.isEmpty?'': item.rptiZipcode);
+                              pharmaphone =  TextEditingController(text:snapshot.data!.isEmpty?'':item.rptiContact);
+                              pharmaAuth = TextEditingController(text:snapshot.data!.isEmpty?'':  item.rptiAuthorization ? 'NOT REQUIRED' : 'REQUIRED');
+                              pharmaEftDateForm = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiEffectiveFrom);
+                              pharmaEftDateFormTo = TextEditingController(text: snapshot.data!.isEmpty?'':item.rptiEffectiveTo);
+                              pharmaPolicyHicNo = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiPolicy);
+                              pharmaGrpNo = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiGroupNumber.toString());
+                              pharmaGrpName = TextEditingController(text:snapshot.data!.isEmpty?'':  item.rptiGroupName);
+                              pharmaEmail = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiEmail);
+                              statustype = snapshot.data!.isEmpty?'': item.rptiVerified ? 'Yes' : 'No';
                               return Container(
                                 //height: providerState.isContactTrue ? AppSize.s540  :null,
                                 padding: providerState.isContactTrue ? const EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) :  const EdgeInsets.symmetric(horizontal: 50,vertical: 25),
@@ -1327,23 +1329,82 @@ class IntakeSecondaryScreen extends StatelessWidget {
                                       });}
                             ),])),
                         const SizedBox(height: AppSize.s60),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          spacing: 10,
-                          children: [
-                            CustomButtonTransparent(
-                              text: "Skip",
-                              onPressed: () {
+                        StatefulBuilder(
+                            builder: (BuildContext context, StateSetter setState){
+                              return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            spacing: 10,
+                            children: [
+                              CustomButtonTransparent(
+                                text: "Skip",
+                                onPressed: () {
 
-                              },
-                            ),
-                            CustomElevatedButton(
-                              width: AppSize.s100,
-                              text: AppString.save,
-                              onPressed: (){},
-                            ),
-                          ],
-                        ),
+                                },
+                              ),
+                              _isLoading? Center(
+                                child: SizedBox(
+                                  width: 25,
+                                  height: 25,
+                                  child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                ),
+                              ) :CustomElevatedButton(
+                                width: AppSize.s100,
+                                text: AppString.save,
+                                onPressed: ()async{
+
+                                  setState((){
+                                    _isLoading = true;
+                                  });
+                                  try{
+                                    var responseUpdate = await updatePatientInsuranceInfo(
+                                        context: context,
+                                        id: snapshot.data![1].rptiId,
+                                        rptiPolicy: pharmaPolicyHicNo.text,
+                                        rptiInsuranceProvider: '',
+                                        rptiType: pharmaType.text,
+                                        rptiInsurancePlan:'' ,
+                                        rptiEligibility: false,
+                                        rptiAuthorization: false,
+                                        rptiName: pharmaName.text,
+                                        rptiCategory: pharmaCategory.text,
+                                        rptiStreet: pharmacyaddress.text,
+                                        rptiSuite: pharmaSuitApt.text,
+                                        rptiCity: city.text,
+                                        rptiState: state.text,
+                                        rptiZipcode: pharmacyzipcode.text,
+                                        rptiContact: pharmaphone.text,
+                                        rptiEffectiveFrom: pharmaEftDateForm.text,
+                                        rptiEffectiveTo: pharmaEftDateFormTo.text,
+                                        rptiGroupNumber: int.parse(pharmaGrpNo.text),
+                                        rptiGroupName: pharmaGrpName.text,
+                                        rptiEmail: pharmaEmail.text,
+                                        rptiVerified: statustype == 'Yes' ? true : false,
+                                        rptiComments: snapshot.data![1].rptiComments);
+                                    if(responseUpdate.statusCode == 200 || responseUpdate.statusCode == 201){
+                                      //onMoveToIntake();
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AddSuccessPopup(
+                                            message: 'Patient Insurance Updated Successfully',
+                                          );
+                                        },
+                                      );
+                                      onSave();
+                                    }else{
+                                      print('Api error');
+                                    }
+                                  }finally{
+                                    setState((){
+                                      _isLoading = false;
+                                    });
+                                  }
+
+                                },
+                              ),
+                            ],
+                          );
+            }),
                         const SizedBox(height: AppSize.s30),
                       ],
                     )

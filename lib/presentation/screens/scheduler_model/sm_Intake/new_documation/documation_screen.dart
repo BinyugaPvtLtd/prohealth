@@ -75,23 +75,22 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
     setState(() {});  // triggers rebuild so loginName is available
   }
   int marketerId = 0;
-
   bool isFormValid = false;
-  String? selectedMarketer;
+  String selectedMarketer = 'Select';
 
-// Add this inside initState if needed to listen for changes.
   void _checkFormValidity() {
     setState(() {
       isFormValid = ffdateController.text.isNotEmpty &&
           postOpDateController.text.isNotEmpty &&
           ffappoController.text.isNotEmpty &&
-          selectedMarketer != null &&
+          // selectedMarketer != null &&
           isPostOpChecked &&
           isAppointmentChecked;
     });
   }
 
   TextEditingController residencyController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final diagnosisProvider = Provider.of<DiagnosisProvider>(context,listen: false);
@@ -414,6 +413,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: StatefulBuilder(
                                       builder: (BuildContext context, StateSetter setState) {
+                                        residencyController = TextEditingController(text:selectedMarketer);
                                         print(isFormValid);
                                         return FutureBuilder<List<PatientMarketerData>>(
                                           future: getMarketerWithDeptId(context: context, deptId: AppConfig.salesId),
@@ -469,7 +469,8 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                           initialCheckboxValue: isPostOpChecked,
                                           onCheckboxChanged: (bool? newValue) {
                                             setState(() {
-                                              isPostOpChecked = newValue ?? false; // 🔁 Update enabled state
+                                              isPostOpChecked = newValue ?? false;
+                                              isPostOpChecked == true ?'':postOpDateController.clear();// 🔁 Update enabled state
                                             });
                                             _checkFormValidity();
                                           },
@@ -493,6 +494,7 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                         onCheckboxChanged: (bool? newValue) {
                                           setState(() {
                                             isAppointmentChecked = newValue ?? false;
+                                            isAppointmentChecked == true ?'':ffappoController.clear();
                                           });
                                           _checkFormValidity();
                                         },
@@ -558,27 +560,71 @@ class _DocumationScreenTabState extends State<DocumationScreenTab> {
                                                 isContact: providerState.isContactTrue,
                                                 onPrintTap: () {},
                                                 onDownloadTap: () {},
-                                                onDeleteTap: () async {
-                                                  setState(() {
-                                                    isLoading = true;
-                                                  });
-                                                  try {
-                                                    var response = await deleteFTwoFDocument(
+                                                onDeleteTap: () async{
+                                                  showDialog(
                                                       context: context,
-                                                      id: doc.f2f_doc_id,
-                                                    );
-                                                    if (response.statusCode == 200 || response.statusCode == 201) {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext context) => const DeleteSuccessPopup(),
-                                                      );
-                                                    }
-                                                  } finally {
-                                                    setState(() {
-                                                      isLoading = false;
-                                                    });
-                                                  }
+                                                      builder: (context) =>
+                                                          StatefulBuilder(
+                                                            builder: (BuildContext context, void Function(void Function())setState) {
+                                                              return DeletePopup(
+                                                                loadingDuration: isLoading,
+                                                                title: 'Delete Document',
+                                                                onCancel: () {
+                                                                  Navigator.pop(context);
+                                                                },
+                                                                onDelete: () async {
+                                                                  setState(() {
+                                                                    isLoading = true;
+                                                                  });
+                                                                  try {
+                                                                    var response =  await deleteFTwoFDocument(
+                                                                      context: context,
+                                                                      id: doc.f2f_doc_id,
+                                                                    );
+                                                                    if(response.statusCode == 200  || response.statusCode == 201) {
+                                                                      Navigator.pop(context);
+                                                                      showDialog(
+                                                                        context: context,
+                                                                        builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                                                      );
+                                                                    }
+                                                                  } finally {
+                                                                    setState(() {
+                                                                      isLoading = false;
+                                                                      //Navigator.pop(context);
+                                                                    });
+                                                                  }
+                                                                  // setState(() async{
+                                                                  //
+                                                                  //   Navigator.pop(context);
+                                                                  // });
+                                                                },
+                                                              );
+                                                            },
+                                                          ));
                                                 },
+
+                                                // async {
+                                                //   setState(() {
+                                                //     isLoading = true;
+                                                //   });
+                                                //   try {
+                                                //     var response = await deleteFTwoFDocument(
+                                                //       context: context,
+                                                //       id: doc.f2f_doc_id,
+                                                //     );
+                                                //     if (response.statusCode == 200 || response.statusCode == 201) {
+                                                //       showDialog(
+                                                //         context: context,
+                                                //         builder: (BuildContext context) => const DeleteSuccessPopup(),
+                                                //       );
+                                                //     }
+                                                //   } finally {
+                                                //     setState(() {
+                                                //       isLoading = false;
+                                                //     });
+                                                //   }
+                                                // },
                                               );
                                             }).toList(),
                                           );

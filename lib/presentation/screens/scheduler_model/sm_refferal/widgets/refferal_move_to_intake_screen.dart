@@ -215,7 +215,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(vertical: 7,),
                                             child: Container(
-                                              height: 79,
+                                            //  height: 79,
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.only(

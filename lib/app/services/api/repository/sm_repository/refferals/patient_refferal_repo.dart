@@ -28,8 +28,12 @@ class PatientRefferalsRepo{
   static String f2fDocAttach = '/f2f/document/attach/';
 
 
-  ///
+  ///order
   static String referalsources = '/referral-sources';
+  static String spacialorder = '/orders/special';
+  static String orderpatient = '/orders/patient';
+  static String orderpatientprifill = '/orders/patient/by-patient';
+
   /// patient diagnosis
  // static String patientDiagnosisGet = '/referral-patient-diagnosis/patient';
  // static String patientDiagnosisAdd = '/referral-patient-diagnosis';
@@ -124,6 +128,10 @@ class PatientRefferalsRepo{
     return "$referalsources";
   }
 
+  static String getspecialorderpath(){
+    return "$spacialorder";
+  }
+
   /// Patient diagnosis
   static  String getPatientDiagnosisWithPtId({required int ptId}){
     return "$patientDiagnosisGet/$ptId";
@@ -135,5 +143,14 @@ class PatientRefferalsRepo{
 
   static  String patchPatientDiagnosis({required int id}){
     return "$patientDiagnosisAdd/$id";
+  }
+
+  ///order screen post
+  static  String addPatientorder(){
+    return "$orderpatient";
+  }
+//prifill
+  static  String getPatientorderbyid({required int pt_id}){
+    return "$orderpatientprifill/$pt_id";
   }
 }

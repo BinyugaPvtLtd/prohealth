@@ -389,7 +389,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                                       .setRoute(
                                                       RouteStrings.smDesktop);
 
-                                                  Navigate to the detail page
+                                                  // Navigate to the detail page
                                                   Navigator.pushNamed(context,
                                                       RouteStrings.smDesktop);
                                                 },

@@ -74,8 +74,7 @@ class DemographicPatientDataModel {
     required this.fkRaceEthnicity,
     required this.fkMaritalStatus,
     required this.demoCreatedAt,
-  }) {
-    // TODO: implement DemographicPatientDataModel
-    throw UnimplementedError();
-  }
+  });
 }
+
+
