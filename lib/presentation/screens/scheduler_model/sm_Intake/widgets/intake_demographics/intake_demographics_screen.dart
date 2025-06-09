@@ -78,7 +78,7 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
   @override
   void initState() {
     super.initState();
-    fetchAIdemoData();
+    // fetchAIdemoData();
     _animationLeftController = AnimationController(
       duration: Duration(milliseconds: 300),
       vsync: this,
@@ -98,15 +98,15 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
       }
     });
   }
-  late AIDemographichModelData fetchedData;
-  Future<void> fetchAIdemoData() async{
-    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
-    fetchedData = await getAIDemographichData(context: context, ptId: providerPatientId.patientId);
-    setState(() {
-      //fetchedData = Data;
-    });
-    // fetchedData = data;
-  }
+  // late AIDemographichModelData fetchedData;
+  // Future<void> fetchAIdemoData() async{
+  //   final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+  //   fetchedData = await getAIDemographichData(context: context, ptId: providerPatientId.patientId);
+  //   setState(() {
+  //     //fetchedData = Data;
+  //   });
+  //   // fetchedData = data;
+  // }
   String? selectedValue;
 
   final List<String> items = ['Option 1', 'Option 2', 'Option 3'];

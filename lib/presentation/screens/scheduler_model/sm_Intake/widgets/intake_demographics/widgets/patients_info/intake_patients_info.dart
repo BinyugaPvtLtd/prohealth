@@ -26,7 +26,7 @@ import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dar
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 import '../../../intake_flow_contgainer_const.dart';
 
-class IntakePatientsDatatInfo extends StatelessWidget {
+class IntakePatientsDatatInfo extends StatefulWidget {
   final Widget childState;
  // final Widget childCity;
   final Widget childCountry;
@@ -43,8 +43,34 @@ class IntakePatientsDatatInfo extends StatelessWidget {
         required this.isIButtonPressed,
         // required this.aIDemographichModelData
       });
+
+  @override
+  State<IntakePatientsDatatInfo> createState() => _IntakePatientsDatatInfoState();
+}
+
+class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetchAIdemoData();
+    super.initState();
+  }
+   AIDemographichModelData? fetchedData;
+  var data;
+  // final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+  Future<void> fetchAIdemoData() async{
+    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+    data = await getAIDemographichData(context: context, ptId: providerPatientId.patientId);
+    // notifyListeners();
+    setState(() {
+       fetchedData = data;
+    });
+    // fetchedData = data;
+  }
   @override
   Widget build(BuildContext context) {
+    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+    // providerFetchdata.fetchAIdemoData(context: context,ptId: providerPatientId.patientId);
     String? status = '';
     // String? getNameFromId(int id, List<DropdownMenuItem<String>> dropDownList) {
     //   final item = dropDownList.firstWhere(
@@ -97,7 +123,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
     TextEditingController maritalStatusController = TextEditingController();
     TextEditingController countryController = TextEditingController();
     TextEditingController zoneController = TextEditingController();
-    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: FutureBuilder<DemographicPatientDataModel>(
@@ -144,6 +170,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
 
           return Consumer<SmIntakeProviderManager>(
             builder: (context,providerState,child) {
+              // providerState.fetchAIdemoData(context: context,ptId: providerPatientId.patientId);
               return Center(
                 child: SingleChildScrollView(
                     child: Column(
@@ -201,8 +228,8 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
-                                        // isIconVisible: aIDemographichModelData.demoFirstNameI.isEmpty ? true : false,
-                                        isIClicked: isIButtonPressed,
+                                       isIconVisible: fetchedData == null ? true: fetchedData!.demoFirstNameI.isEmpty ? true : false,
+                                        isIClicked: widget.isIButtonPressed,
                                         controller: ctlrfirstName,
                                         labelText: 'First Name*',
                                         //showDatePicker:true
@@ -210,12 +237,14 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width:  providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoMiddleInitialI.isEmpty ? true : false,
                                           controller: ctlrMedicalRecord,
                                           labelText: 'Middle Initial',
                                           initialValue: 'A')),
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoLastNameI.isEmpty ? true : false,
                                           controller: ctlrLastName,
                                           labelText: "Last Name*",
                                           initialValue: 'Erica')),
@@ -225,8 +254,8 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
-                                        // isIconVisible: aIDemographichModelData.demoFirstNameI.isEmpty ? true : false,
-                                        isIClicked: isIButtonPressed,
+                                        isIconVisible: fetchedData == null ? true: fetchedData!.demoFirstNameI.isEmpty ? true : false,
+                                        isIClicked: widget.isIButtonPressed,
                                     controller: ctlrfirstName,
                                     labelText: 'First Name*',
                                           //showDatePicker:true
@@ -234,18 +263,21 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoMiddleInitialI.isEmpty ? true : false,
                                           controller: ctlrMedicalRecord,
                                           labelText: 'Middle Initial',
                                           initialValue: 'A')),
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoLastNameI.isEmpty ? true : false,
                                           controller: ctlrLastName,
                                           labelText: "Last Name*",
                                           initialValue: 'Erica')),
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoSuffixI.isEmpty ? true : false,
                                           controller:ctlrSuffix,
                                           labelText: "Suffix",
                                           initialValue: 'Erica')),
@@ -263,12 +295,14 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoSuffixI.isEmpty ? true : false,
                                           controller:ctlrSuffix,
                                           labelText: "Suffix",
                                           initialValue: 'Erica')),
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoStreetI.isEmpty ? true : false,
                                           controller: ctlrStreet,
                                           icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                                           labelText: 'Street*',
@@ -276,6 +310,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoSuiteI.isEmpty ? true : false,
                                           controller: ctlrSuitApt,
                                           labelText: "Suit/Apt#")),
                                 ],
@@ -284,6 +319,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoStreetI.isEmpty ? true : false,
                                           controller: ctlrStreet,
                                           icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                                           labelText: 'Street*',
@@ -291,11 +327,13 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoSuiteI.isEmpty ? true : false,
                                           controller: ctlrSuitApt,
                                           labelText: "Suit/Apt#")),
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                     child:  SchedularTextField(
+                                      isIconVisible :fetchedData == null ? true: fetchedData!.demoCityI.isEmpty ? true : false,
                                       controller: ctlrCity,
                                       labelText: 'City*',
                                     ),
@@ -304,6 +342,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                     child: SchedularTextField(
+                                      isIconVisible :fetchedData == null ? true: fetchedData!.demoStateI.isEmpty ? true : false,
                                       controller: ctlrState,
                                       labelText: 'State*',
                                     ),
@@ -312,6 +351,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoZipcodeI.isEmpty ? true : false,
                                           controller: ctlrZipCode,
                                           onlyAllowNumbers: true,
                                           labelText: AppString.zip_code)
@@ -357,13 +397,15 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                     child: SchedularTextField(
-                                        controller: ctlrCity,
+                                      isIconVisible :fetchedData == null ? true: fetchedData!.demoCityI.isEmpty ? true : false,
+                                      controller: ctlrCity,
                                         labelText: 'City*',
                                      ),
                                      // child: childCity
                                   ),
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible( child:  SchedularTextField(
+                                    isIconVisible :fetchedData == null ? true: fetchedData!.demoStateI.isEmpty ? true : false,
                                     controller: ctlrState,
                                     labelText: 'State*',
                                   ),
@@ -372,6 +414,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoZipcodeI.isEmpty ? true : false,
                                           controller: ctlrZipCode,
                                           onlyAllowNumbers: true,
                                           labelText: AppString.zip_code)
@@ -458,6 +501,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoFacitlityNameI.isEmpty ? true : false,
                                         controller: facilityNameController,
                                         labelText: 'Facility Name',
                                       )),
@@ -509,6 +553,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoLocationNotesI.isEmpty ? true : false,
                                         controller: locationNotesController,
                                         labelText: 'Location Notes',
                                       )),
@@ -599,6 +644,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoFacitlityNameI.isEmpty ? true : false,
                                         controller: facilityNameController,
                                         labelText: 'Facility Name',
                                       )),
@@ -608,6 +654,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryContactI.isEmpty ? true : false,
                                         controller: ctlrPrimaryContact,
                                         labelText: 'Primary Contact*',
                                       ),
@@ -622,23 +669,27 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
-                                          controller: primaryContactNameController,
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryContactNameI.isEmpty ? true : false,
+                                        controller: primaryContactNameController,
                                           labelText: providerState.isContactTrue?'Primary Contact\nName*' :"Primary Contact Name*",
                                           )),
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryPhoneI.isEmpty ? true : false,
                                           controller: ctlrPrimeNo,
                                           labelText: "Primary Phone #*",
                                           phoneField:true)),
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryEmailI.isEmpty ? true : false,
                                           controller: ctlrEmail,
                                           labelText: "Primary Email")),
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoCahpsContactI.isEmpty ? true : false,
                                           controller: cahpsContactController,
                                           labelText: "CAHPS Contact")),
 
@@ -694,12 +745,14 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoLocationNotesI.isEmpty ? true : false,
                                         controller: locationNotesController,
                                         labelText: 'Location Notes',
                                       )),
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryContactI.isEmpty ? true : false,
                                         controller: ctlrPrimaryContact,
                                         labelText: 'Primary Contact*',
                                       ),
@@ -717,6 +770,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryContactI.isEmpty ? true : false,
                                         controller: ctlrSecondContact,
                                         labelText: 'Secondary Contact*',
                                       ),
@@ -731,12 +785,14 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryContactNameI.isEmpty ? true : false,
                                         controller: secondaryPhoneController,
                                         labelText: "Secondary Contact Name",
                                       )),
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryPhoneI.isEmpty ? true : false,
                                         controller: ctlrSecNo,
                                         phoneField: true,
                                         labelText: "Secondary Phone #*",
@@ -744,6 +800,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryEmailI.isEmpty ? true : false,
                                         controller: secEmailController,
                                         labelText: "Secondary Email",
                                       )),
@@ -758,18 +815,21 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryContactNameI.isEmpty ? true : false,
                                         controller: primaryContactNameController,
                                         labelText: "Primary Contact Name*",
                                       )),
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryPhoneI.isEmpty ? true : false,
                                           controller: ctlrPrimeNo,
                                           labelText: "Primary Phone #*",
                                           phoneField:true)),
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryEmailI.isEmpty ? true : false,
                                           controller: ctlrEmail,
                                           labelText: "Primary Email")),
                                 ],
@@ -779,11 +839,13 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIconVisible :fetchedData == null ? true: fetchedData!.demoCahpsContactI.isEmpty ? true : false,
                                           controller: cahpsContactController,
                                           labelText: "CAHPS Contact")),
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible(
                                       child:  SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryContactI.isEmpty ? true : false,
                                         controller: ctlrSecondContact,
                                         labelText: 'Secondary Contact*',
                                       ),
@@ -798,6 +860,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryContactNameI.isEmpty ? true : false,
                                         controller: secondaryPhoneController,
                                         labelText: "Secondary Contact Name",
                                       )),
@@ -808,6 +871,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryPhoneI.isEmpty ? true : false,
                                         controller: ctlrSecNo,
                                         phoneField: true,
                                         labelText: "Secondary Phone #*",
@@ -815,6 +879,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryEmailI.isEmpty ? true : false,
                                         controller: secEmailController,
                                         labelText: "Secondary Email",
                                       )),
@@ -979,6 +1044,7 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                     children: [
                                       Flexible(
                                           child: SchedularTextField(
+                                            isIconVisible :fetchedData == null ? true: fetchedData!.demoSocialSecurityI.isEmpty ? true : false,
                                             controller: ctlrSocialSec,
                                             labelText: 'Social Security',
                                             isPasswordField: true,
@@ -1038,13 +1104,9 @@ class IntakePatientsDatatInfo extends StatelessWidget {
                                       providerState.isContactTrue ? Offstage() : SizedBox(width: AppSize.s35),
                                       providerState.isContactTrue ? Offstage() :Flexible(
                                           child: SizedBox(width:0)),
-
-
                                       //SizedBox(width: AppSize.s35),
-
                                     ],
                                   ),
-
                                 ],
                               ),
                             ) ),

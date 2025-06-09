@@ -66,11 +66,13 @@ Future<DemographicPatientDataModel> getDemographichPatientDetail({
       path: PatientIntakeRepo.getPatientDemographichWithPtId(ptId: patientId),
     );
 
+
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print('county data ${response.data['country']['name']??'null'}');
       // print('residence_type data ${response.data['residence_type']['detail']??'null'}');
       // print('zone data ${response.data['zone']['zoneName']??'null'}');
       // print('maritalStatus data ${response.data['maritalStatus']['maritalStatus']??'null'}');
+
       print('All Response ${response.data}');
         itemsData = DemographicPatientDataModel(
           countyName: response.data['country'] != null ? response.data['country']['name']??'Select' :'Select' ,

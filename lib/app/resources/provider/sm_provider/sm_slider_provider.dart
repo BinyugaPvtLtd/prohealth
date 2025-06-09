@@ -1,11 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographich_ai_data.dart';
 import '../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
+import '../../../../presentation/screens/scheduler_model/sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
+import '../../../services/api/managers/sm_module_manager/intake/all_intake_manager.dart';
 import '../../../services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 
 class SmIntakeProviderManager extends ChangeNotifier{
+  AIDemographichModelData? _fetchedData;
   bool _isContactTrue = false;
   bool _isRightSliderOpen = false;
   bool _isContactCallLive = false;
@@ -54,7 +59,7 @@ class SmIntakeProviderManager extends ChangeNotifier{
   String get pcpId => _pcpId;
 
 
-
+  AIDemographichModelData get fetchedData => _fetchedData!;
 
   int _currentPagepp = 1;
   int _currentPageaa = 1;
@@ -63,6 +68,17 @@ class SmIntakeProviderManager extends ChangeNotifier{
   int get currentPage => _currentPagepp;
   int get currentPageaa => _currentPageaa;
   int get currentPagemm => _currentPagemm;
+
+
+  Future<void> fetchAIdemoData({required BuildContext context}) async{
+    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+    _fetchedData = await getAIDemographichData(context: context, ptId: providerPatientId.patientId);
+    notifyListeners();
+    // setState(() {
+    //   //fetchedData = Data;
+    // });
+    // fetchedData = data;
+  }
 
   void setCurrentPage(int pagepp) {
     _currentPagepp = pagepp;
