@@ -415,4 +415,5 @@ class AppStringSMModule {
   static const String patientInsuranceDocNoData = 'No insurance documents!';
   static const String patientDiagnosisNoData = 'No diagnosis documents!';
   static const String infoUpdateNoData = 'No available information update!';
+  static const String pendingNoData = 'No available pending data!';
 }

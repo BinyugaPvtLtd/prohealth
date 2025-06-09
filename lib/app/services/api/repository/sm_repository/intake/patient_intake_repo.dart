@@ -1,6 +1,7 @@
 class PatientIntakeRepo{
   static String demographich = '/demographics';
   static String aiDemographic = '/ai-demographics/patient';
+  static String discipline = '/discipline';
 
   static  String addPatientDemographich(){
     return "$demographich";
@@ -17,4 +18,9 @@ class PatientIntakeRepo{
   static String getAIDemographich({required int ptId}){
     return "$aiDemographic/$ptId";
   }
+
+  static  String addDiscipline(){
+    return "$discipline";
+  }
+
 }

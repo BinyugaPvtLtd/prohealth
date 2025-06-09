@@ -17,14 +17,14 @@ import '../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referra
 import '../../../../textfield_dropdown_constant/chatbotContainer.dart';
 import '../sm_scheduler_screen_const.dart';
 
-class DisciplinePageView extends StatefulWidget {
-  const DisciplinePageView({super.key});
+class ScheduledPageView extends StatefulWidget {
+  const ScheduledPageView({super.key});
 
   @override
-  State<DisciplinePageView> createState() => _DisciplinePageViewState();
+  State<ScheduledPageView> createState() => _ScheduledPageViewState();
 }
 
-class _DisciplinePageViewState extends State<DisciplinePageView> {
+class _ScheduledPageViewState extends State<ScheduledPageView> {
 
   bool _isChecked = false;
 
