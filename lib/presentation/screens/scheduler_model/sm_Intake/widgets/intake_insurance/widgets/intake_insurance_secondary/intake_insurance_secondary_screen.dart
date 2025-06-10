@@ -116,27 +116,27 @@ class IntakeSecondaryScreen extends StatelessWidget {
                         Container(
                           child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: snapshot.data!.length - 1,
+                            itemCount: snapshot.data!.isEmpty ? 1:snapshot.data!.length - 1,
                             itemBuilder: (context,index) {
-                              final item = snapshot.data![index + 1];
+                              // final item = snapshot.data![index + 1];
                               // print('rptiId ${snapshot.data![index].rptiId.toInt()}');
-                              pharmaName = TextEditingController(text:snapshot.data!.isEmpty?'':item.rptiName);
-                              pharmaType = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiType);
-                              pharmaCategory = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiCategory);
-                              pharmacyaddress = TextEditingController(text:snapshot.data!.isEmpty?'':  item.rptiStreet);
-                              pharmaSuitApt = TextEditingController(text:snapshot.data!.isEmpty?'':  item.rptiSuite);
-                              city = TextEditingController(text:snapshot.data!.isEmpty?'': item.rptiCity);
-                              state = TextEditingController(text:snapshot.data!.isEmpty?'':  item.rptiState);
-                              pharmacyzipcode = TextEditingController(text:snapshot.data!.isEmpty?'': item.rptiZipcode);
-                              pharmaphone =  TextEditingController(text:snapshot.data!.isEmpty?'':item.rptiContact);
-                              pharmaAuth = TextEditingController(text:snapshot.data!.isEmpty?'':  item.rptiAuthorization ? 'NOT REQUIRED' : 'REQUIRED');
-                              pharmaEftDateForm = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiEffectiveFrom);
-                              pharmaEftDateFormTo = TextEditingController(text: snapshot.data!.isEmpty?'':item.rptiEffectiveTo);
-                              pharmaPolicyHicNo = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiPolicy);
-                              pharmaGrpNo = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiGroupNumber.toString());
-                              pharmaGrpName = TextEditingController(text:snapshot.data!.isEmpty?'':  item.rptiGroupName);
-                              pharmaEmail = TextEditingController(text: snapshot.data!.isEmpty?'': item.rptiEmail);
-                              statustype = snapshot.data!.isEmpty?'': item.rptiVerified ? 'Yes' : 'No';
+                              pharmaName = TextEditingController(text:snapshot.data!.isEmpty?'':snapshot.data![index + 1].rptiName);
+                              pharmaType = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index + 1].rptiType);
+                              pharmaCategory = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index + 1].rptiCategory);
+                              pharmacyaddress = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index + 1].rptiStreet);
+                              pharmaSuitApt = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index + 1].rptiSuite);
+                              city = TextEditingController(text:snapshot.data!.isEmpty?'': snapshot.data![index + 1].rptiCity);
+                              state = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index + 1].rptiState);
+                              pharmacyzipcode = TextEditingController(text:snapshot.data!.isEmpty?'': snapshot.data![index + 1].rptiZipcode);
+                              pharmaphone =  TextEditingController(text:snapshot.data!.isEmpty?'':snapshot.data![index + 1].rptiContact);
+                              pharmaAuth = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index + 1].rptiAuthorization ? 'NOT REQUIRED' : 'REQUIRED');
+                              pharmaEftDateForm = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index + 1].rptiEffectiveFrom);
+                              pharmaEftDateFormTo = TextEditingController(text: snapshot.data!.isEmpty?'':snapshot.data![index + 1].rptiEffectiveTo);
+                              pharmaPolicyHicNo = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index + 1].rptiPolicy);
+                              pharmaGrpNo = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index + 1].rptiGroupNumber.toString());
+                              pharmaGrpName = TextEditingController(text:snapshot.data!.isEmpty?'':  snapshot.data![index + 1].rptiGroupName);
+                              pharmaEmail = TextEditingController(text: snapshot.data!.isEmpty?'': snapshot.data![index + 1].rptiEmail);
+                              statustype = snapshot.data!.isEmpty?'': snapshot.data![index + 1].rptiVerified ? 'Yes' : 'No';
                               return Container(
                                 //height: providerState.isContactTrue ? AppSize.s540  :null,
                                 padding: providerState.isContactTrue ? const EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p30,bottom: AppPadding.p30) :  const EdgeInsets.symmetric(horizontal: 50,vertical: 25),

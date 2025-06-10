@@ -73,8 +73,8 @@
 ///dev instance
 class AppConfig {
   static const String demo = "https://demoapp.symmetry.care";
-  static const String dev = "http://35.165.254.214:3033";
-  // static const String dev = "https://resource.symmetry.care";
+  // static const String dev = "http://35.165.254.214:3033";
+  static const String dev = "https://resource.symmetry.care";
   // static const String local = "http://localhost:3000";
   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
   // static const String deployment = "https://prohealth.symmetry.care";
