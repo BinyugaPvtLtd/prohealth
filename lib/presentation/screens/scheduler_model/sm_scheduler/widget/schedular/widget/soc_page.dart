@@ -26,7 +26,6 @@ class SocPageView extends StatefulWidget {
 
 class _SocPageViewState extends State<SocPageView> {
 
-
   bool _isCheckedbulk = true;
   bool _isBulkAssignActive = false;
 

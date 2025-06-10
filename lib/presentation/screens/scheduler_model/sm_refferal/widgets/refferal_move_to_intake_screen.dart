@@ -219,14 +219,10 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.only(
-                                                    bottomLeft: Radius.circular(
-                                                        12),
-                                                    bottomRight: Radius
-                                                        .circular(12),
-                                                    topLeft: Radius.circular(
-                                                        12),
-                                                    topRight: Radius.circular(
-                                                        12)),
+                                                    bottomLeft: Radius.circular(12),
+                                                    bottomRight: Radius.circular(12),
+                                                    topLeft: Radius.circular(12),
+                                                    topRight: Radius.circular(12)),
                                                 border: Border(
                                                   bottom: BorderSide(
                                                     color: Colors.grey.shade300,
@@ -244,8 +240,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                               ),
                                               child:
                                               Column(
-                                                mainAxisAlignment: MainAxisAlignment
-                                                    .center,
+
                                                 children: [
                                                   // Row(
                                                   //     mainAxisAlignment: MainAxisAlignment.end,
@@ -271,69 +266,46 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                                   //     ]
                                                   // ),
                                                   Padding(
-                                                      padding: const EdgeInsets
-                                                          .only(
+                                                      padding: const EdgeInsets.only(
+                                                        top: 8,bottom: 8,
                                                           left: AppPadding.p20,
-                                                          right: AppPadding
-                                                              .p25),
+                                                          right: AppPadding.p25),
                                                       child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment
-                                                            .spaceAround,
+                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                         children: [
 
                                                           ///Image
                                                           ClipOval(
-                                                            child: movetointake
-                                                                .ptImgUrl ==
-                                                                'imgurl' ||
-                                                                movetointake
-                                                                    .ptImgUrl ==
-                                                                    null
+                                                            child: movetointake.ptImgUrl == 'imgurl' ||
+                                                                movetointake.ptImgUrl == null
                                                                 ? CircleAvatar(
                                                               radius: 22,
-                                                              backgroundColor: Colors
-                                                                  .transparent,
-                                                              child: Image
-                                                                  .asset(
-                                                                  "images/profilepic.png"),
+                                                              backgroundColor: Colors.transparent,
+                                                              child: Image.asset("images/profilepic.png"),
                                                             )
                                                                 : Image.network(
-                                                              movetointake
-                                                                  .ptImgUrl!,
-                                                              loadingBuilder: (
-                                                                  context,
-                                                                  child,
-                                                                  loadingProgress) {
-                                                                if (loadingProgress ==
-                                                                    null) {
+                                                              movetointake.ptImgUrl!,
+                                                              loadingBuilder: (context, child, loadingProgress) {
+                                                                if (loadingProgress == null) {
                                                                   return child;
                                                                 } else {
                                                                   return Center(
                                                                     child: CircularProgressIndicator(
                                                                       value: loadingProgress
-                                                                          .expectedTotalBytes !=
-                                                                          null
-                                                                          ? loadingProgress
+                                                                          .expectedTotalBytes != null ? loadingProgress
                                                                           .cumulativeBytesLoaded /
-                                                                          (loadingProgress
-                                                                              .expectedTotalBytes ??
-                                                                              1)
+                                                                          (loadingProgress.expectedTotalBytes ?? 1)
                                                                           : null,
                                                                     ),
                                                                   );
                                                                 }
                                                               },
-                                                              errorBuilder: (
-                                                                  context,
-                                                                  error,
+                                                              errorBuilder: (context, error,
                                                                   stackTrace) {
                                                                 return CircleAvatar(
                                                                   radius: 21,
-                                                                  backgroundColor: Colors
-                                                                      .transparent,
-                                                                  child: Image
-                                                                      .asset(
-                                                                      "images/profilepic.png"),
+                                                                  backgroundColor: Colors.transparent,
+                                                                  child: Image.asset("images/profilepic.png"),
                                                                 );
                                                               },
                                                               fit: BoxFit.cover,
@@ -341,20 +313,14 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                                               width: 40,
                                                             ),
                                                           ),
-                                                          SizedBox(
-                                                              width: AppSize
-                                                                  .s15),
+                                                          SizedBox(width: AppSize.s15),
 
                                                           ///Name
                                                           Expanded(
                                                             flex: 4,
                                                             child: Column(
-                                                              crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              mainAxisAlignment: MainAxisAlignment.center,
                                                               children: [
                                                                 Text(
                                                                   "${movetointake
@@ -454,7 +420,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                                                           ///PCP
                                                           Expanded(
-                                                            flex: 2,
+                                                            flex: 3,
                                                             child: Column(
                                                               crossAxisAlignment: CrossAxisAlignment
                                                                   .start,
@@ -805,6 +771,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
                                                         ],
                                                       )
                                                   ),
+
                                                 ],
                                               ),
                                             ),

@@ -9,9 +9,11 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../../app/services/api/managers/sm_module_manager/intake/all_intake_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/sm_patient_refferal_data.dart';
 import '../../../../../widgets/app_clickable_widget.dart';
+import '../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import '../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../textfield_dropdown_constant/chatbotContainer.dart';
@@ -484,7 +486,31 @@ class InformationUpdateScreen extends StatelessWidget {
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
                                                       hoverColor: Colors.transparent,
-                                                      onTap: (){},
+                                                      onTap: () async {
+                                                  var response = await postDiscipline(context: context, ptId: snapshot.data![index].ptId);
+                                                  if(response.statusCode == 200 || response.statusCode == 201){
+                                                  //onMoveToIntake();
+                                                  showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                  return AddSuccessPopup(
+                                                  message: 'Data Updated Successfully',
+                                                  );
+                                                  },
+                                                  );
+
+                                                  // ✅ Refresh data
+                                                  Provider.of<SmIntakeProviderManager>(context, listen: false).filterIdIntegration(
+                                                  context: context,
+                                                  marketerId: providerContact.marketerId,
+                                                  sourceId: providerContact.referralSourceId,
+                                                  pcpId: providerContact.pcpId,
+                                                  );
+                                                  }else{
+                                                  print('Api error');
+                                                  }
+
+                                                  },
                                                       child: Column(
                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [

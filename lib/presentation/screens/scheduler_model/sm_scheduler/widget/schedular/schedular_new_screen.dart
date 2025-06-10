@@ -118,7 +118,7 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
                       switchToPatientsDetailsPageviweScreen();
                     },
                   ),
-                  DisciplinePageView(),
+                  ScheduledPageView(),
                 ],
               ),
             // ),

@@ -42,14 +42,14 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
               ///button
               Row(
                 children: [
                   CustomSearchFieldSM(
                     onPressed: (){},
                   ),
-                  SizedBox(width: 20,),
+                  const SizedBox(width: 20,),
                   IconButton(
                       hoverColor: Colors.transparent,
                       splashColor: Colors.transparent,
@@ -59,50 +59,50 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                   ),
                 ],
               ),
-              SizedBox(height: AppSize.s20,),
+              const SizedBox(height: AppSize.s20,),
               Wrap(
                 children: [
                   Text("Referral Received", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
-                  SizedBox(width: AppSize.s10,),
+                  const SizedBox(width: AppSize.s10,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  const SizedBox(width: AppSize.s20,),
                   Text("Potential DC Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s10,),
+                  const SizedBox(width: AppSize.s10,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  const SizedBox(width: AppSize.s20,),
                   Text("Referral Source", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s10,),
+                  const SizedBox(width: AppSize.s10,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  const SizedBox(width: AppSize.s20,),
                   Text("Demographics", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s10,),
+                  const SizedBox(width: AppSize.s10,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  const SizedBox(width: AppSize.s20,),
                   Text("Documentation", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s10,),
+                  const SizedBox(width: AppSize.s10,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  const SizedBox(width: AppSize.s20,),
                   Text("Insurance", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s10,),
+                  const SizedBox(width: AppSize.s10,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  const SizedBox(width: AppSize.s20,),
                   Text("Physician Info", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s10,),
+                  const SizedBox(width: AppSize.s10,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  const SizedBox(width: AppSize.s20,),
                   Text("Orders", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s10,),
+                  const SizedBox(width: AppSize.s10,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                  SizedBox(width: AppSize.s20,),
+                  const SizedBox(width: AppSize.s20,),
                   Text("Initial Contact", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                  SizedBox(width: AppSize.s10,),
+                  const SizedBox(width: AppSize.s10,),
                   Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
                 ],
               ),
-              SizedBox(height: AppSize.s30,),
+              const SizedBox(height: AppSize.s30,),
               Expanded(
                   child: ScrollConfiguration(
-                    behavior: ScrollBehavior().copyWith(scrollbars: false),
+                    behavior: const ScrollBehavior().copyWith(scrollbars: false),
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: 10,
@@ -114,7 +114,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                           padding: const EdgeInsets.only(top: 7.0),
                           child: IntakeContainer(
                             child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 border:  Border(
                                   left: BorderSide(
                                     color: Color(0xFFC30909),
@@ -139,20 +139,20 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                 height: AppSize.s16,
                                                 decoration: BoxDecoration(
                                                   color: ColorManager.bluebottom.withOpacity(0.12),
-                                                  borderRadius: BorderRadius.only(topRight: Radius.circular(8)),),
+                                                  borderRadius: const BorderRadius.only(topRight: Radius.circular(8)),),
                                                 child: Center(
                                                   child: Text(
                                                       'Chart #2',
                                                       textAlign: TextAlign.center,
                                                       style: CustomTextStylesCommon.commonStyle(
-                                                          color: Color(0xFF1696C8),
+                                                          color: const Color(0xFF1696C8),
                                                           fontSize: FontSize.s11,
                                                           fontWeight: FontWeight.w700)),
                                                 )),
                                           ]
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p50),
+                                        padding: const EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p50),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -171,7 +171,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(width: 10,),
+                                            const SizedBox(width: 10,),
                                             Expanded(
                                               flex: 3,
                                               child: Column(
@@ -185,7 +185,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorManager.mediumgrey,),
                                                   ),
-                                                  SizedBox(height: 5,),
+                                                  const SizedBox(height: 5,),
                                                   Text(
                                                     "Intake Date: 09/15/2024",
                                                     textAlign: TextAlign.center,
@@ -193,7 +193,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                       fontWeight: FontWeight.w400,
                                                       color: ColorManager.mediumgrey,),
                                                   ),
-                                                  SizedBox(height: 3,),
+                                                  const SizedBox(height: 3,),
                                                   Row(
                                                     children: [
                                                       Flexible(
@@ -481,8 +481,8 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                   children: [
                                                    // SizedBox(height: 3,),
                                                     Image.asset("images/sm/contact_icon.png",height:25),
-                                                    SizedBox(height: 6,),
-                                                    Text("Contact",
+                                                    const SizedBox(height: 6,),
+                                                    const Text("Contact",
                                                       style: TextStyle(
                                                         fontSize: FontSize.s11,
                                                         fontWeight: FontWeight.w600,
@@ -492,7 +492,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(width: 5,),
+                                            const SizedBox(width: 5,),
                                             Expanded(
                                               flex: 1,
                                               child: InkWell(
@@ -504,8 +504,8 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       Image.asset("images/sm/left_bottom.png",height: 20,width: 20,),
-                                                      SizedBox(height: 8,),
-                                                      Text("Restore",
+                                                      const SizedBox(height: 8,),
+                                                      const Text("Restore",
                                                         style: TextStyle(
                                                           fontSize: FontSize.s11,
                                                           fontWeight: FontWeight.w600,
@@ -519,7 +519,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: AppSize.s5),
+                                  const SizedBox(height: AppSize.s5),
                                 ],
                               ),
                             ),
@@ -559,15 +559,15 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                 ),
               ),
             ),
-          AnimatedPositioned(duration:Duration(milliseconds: 300),
+          AnimatedPositioned(duration:const Duration(milliseconds: 300),
               bottom: _isChatbotVisible ? 0 : -500, // Slide in from bottom-right
               right: 0,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xFFF7F8FA),
+                  color: const Color(0xFFF7F8FA),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                height: 450,
+                height: 460,
                 width: 500,
 
 
