@@ -172,7 +172,9 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
                    stream:  Provider.of<SmIntakeProviderManager>(context).patientReferralsStream,
                  // stream: _streamController.stream,
                   builder: (context,snapshot) {
-                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 9999, isIntake: 'false', isArchived: 'true', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                    getPatientReffrealsData(context: context, pageNo: 1, nbrOfRows: 9999,
+                        isIntake: 'false', isArchived: 'true', isScheduled: 'false', isNotAdmit: 'true',
+                        searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                         marketerId: providerContact.marketerId,
                         referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                       _streamController.add(data);

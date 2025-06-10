@@ -197,7 +197,8 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                     getPatientReffrealsData(context: context,
                         pageNo: 1, nbrOfRows: 9999,
                        // pageNo: currentPage, nbrOfRows: itemsPerPage,
-                        isIntake: 'false', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                        isIntake: 'false', isArchived: 'false', isScheduled: 'false', isNotAdmit: 'true',
+                        searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                         marketerId: providerContact.marketerId,
                         referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                       _streamController.add(data);
@@ -868,7 +869,7 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                                  showDialog(
                                                                    context: context,
                                                                    builder: (BuildContext context) {
-                                                                     return AddSuccessPopup(
+                                                                     return const AddSuccessPopup(
                                                                        message: 'Data Updated Successfully',
                                                                      );
                                                                    },

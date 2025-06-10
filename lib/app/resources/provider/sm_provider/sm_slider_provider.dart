@@ -275,7 +275,7 @@ class SmIntakeProviderManager extends ChangeNotifier{
         searchName: searchController.text.isEmpty ? 'all' : searchController.text,
         marketerId: _marketerId,
         referralSourceId: _referralSourceId,
-        pcpId: _pcpId,
+        pcpId: _pcpId, isNotAdmit: 'true',
       );
 
       _streamController.add(data);

@@ -66,7 +66,7 @@ class InformationUpdateScreen extends StatelessWidget {
                 //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 25,),
+                  const SizedBox(height: 25,),
                   ///button
                   Row(
                     children: [
@@ -74,7 +74,7 @@ class InformationUpdateScreen extends StatelessWidget {
                         searchController: _searchController,
                         onPressed: (){},
                       ),
-                      SizedBox(width: 20,),
+                      const SizedBox(width: 20,),
                       IconButton(
                           hoverColor: Colors.transparent,
                           splashColor: Colors.transparent,
@@ -84,53 +84,55 @@ class InformationUpdateScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: AppSize.s20,),
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    children: [
-                      Text("Referral Received", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
-                      SizedBox(width: AppSize.s10,),
-                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                      SizedBox(width: AppSize.s20,),
-                      Text("Potential DC Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                      SizedBox(width: AppSize.s10,),
-                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                      SizedBox(width: AppSize.s20,),
-                      Text("Referral Source", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                      SizedBox(width: AppSize.s10,),
-                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                      SizedBox(width: AppSize.s20,),
-                      Text("Demographics", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                      SizedBox(width: AppSize.s10,),
-                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                      SizedBox(width: AppSize.s20,),
-                      Text("Documentation", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                      SizedBox(width: AppSize.s10,),
-                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                      SizedBox(width: AppSize.s20,),
-                      Text("Insurance", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                      SizedBox(width: AppSize.s10,),
-                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                      SizedBox(width: AppSize.s20,),
-                      Text("Physician Info", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                      SizedBox(width: AppSize.s10,),
-                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                      SizedBox(width: AppSize.s20,),
-                      Text("Orders", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                      SizedBox(width: AppSize.s10,),
-                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                      SizedBox(width: AppSize.s20,),
-                      Text("Initial Contact", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
-                      SizedBox(width: AppSize.s10,),
-                      Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
-                    ],
-                  ),
-                  SizedBox(height: AppSize.s30,),
+                  const SizedBox(height: AppSize.s20,),
+                  // Wrap(
+                  //   crossAxisAlignment: WrapCrossAlignment.start,
+                  //   children: [
+                  //     Text("Referral Received", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12),),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  //     SizedBox(width: AppSize.s20,),
+                  //     Text("Potential DC Date", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  //     SizedBox(width: AppSize.s20,),
+                  //     Text("Referral Source", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  //     SizedBox(width: AppSize.s20,),
+                  //     Text("Demographics", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  //     SizedBox(width: AppSize.s20,),
+                  //     Text("Documentation", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  //     SizedBox(width: AppSize.s20,),
+                  //     Text("Insurance", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  //     SizedBox(width: AppSize.s20,),
+                  //     Text("Physician Info", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  //     SizedBox(width: AppSize.s20,),
+                  //     Text("Orders", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  //     SizedBox(width: AppSize.s20,),
+                  //     Text("Initial Contact", style: TextStyle(color: ColorManager.textBlack,fontSize: FontSize.s12)),
+                  //     SizedBox(width: AppSize.s10,),
+                  //     Image.asset("images/sm/sm_refferal/refferal_arrow.png",height: IconSize.I14,width: IconSize.I16,),
+                  //   ],
+                  // ),
+                  const SizedBox(height: AppSize.s30,),
                   Expanded(
                       child: StreamBuilder<List<PatientModel>>(
                         stream: _streamController.stream,
                         builder: (context,snapshot) {
-                          getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 20, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                          getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 20, isIntake: 'true', isArchived: 'false', isScheduled: 'false',
+                              isNotAdmit: 'true',
+                              searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                               marketerId: providerContact.marketerId,
                               referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                             _streamController.add(data);
@@ -159,7 +161,7 @@ class InformationUpdateScreen extends StatelessWidget {
                           }
                           if(snapshot.hasData){
                             return ScrollConfiguration(
-                              behavior: ScrollBehavior().copyWith(scrollbars: false),
+                              behavior: const ScrollBehavior().copyWith(scrollbars: false),
                               child: ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 itemCount: snapshot.data!.length,
@@ -182,7 +184,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                               width: 6,
                                             ),
                                           ),
-                                          borderRadius: BorderRadius.only(
+                                          borderRadius: const BorderRadius.only(
                                               bottomLeft: Radius.circular(10),
                                               // bottomRight: Radius.circular(12),
                                               // topRight: Radius.circular(12),
@@ -199,13 +201,13 @@ class InformationUpdateScreen extends StatelessWidget {
                                                       height: AppSize.s15,
                                                       decoration: BoxDecoration(
                                                         color: ColorManager.bluebottom.withOpacity(0.12),
-                                                        borderRadius: BorderRadius.only(topRight: Radius.circular(8)),),
+                                                        borderRadius: const BorderRadius.only(topRight: Radius.circular(8)),),
                                                       child: Center(
                                                         child: Text(
                                                             'Chart #${snapshot.data![index].ptChartNo}',
                                                             textAlign: TextAlign.center,
                                                             style: CustomTextStylesCommon.commonStyle(
-                                                                color:  Color(0xFF1696C8),
+                                                                color:  const Color(0xFF1696C8),
                                                                 fontSize: FontSize.s11,
                                                                 fontWeight: FontWeight.w700)),
                                                       )),
@@ -213,7 +215,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                 ]
                                             ),
                                             Padding(
-                                              padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p30),
+                                              padding: const EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p30),
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -257,7 +259,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  SizedBox(width: 10,),
+                                                  const SizedBox(width: 10,),
                                                   Expanded(
                                                     flex: 2,
                                                     child: Column(
@@ -271,7 +273,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                             fontWeight: FontWeight.w700,
                                                             color: ColorManager.mediumgrey,),
                                                         ),
-                                                        SizedBox(height: 5,),
+                                                        const SizedBox(height: 5,),
                                                         Text(
                                                           "Intake Date: ${snapshot.data![index].ptRefferalDate}",
                                                           textAlign: TextAlign.center,
@@ -279,7 +281,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                             fontWeight: FontWeight.w400,
                                                             color: ColorManager.mediumgrey,),
                                                         ),
-                                                        SizedBox(height: 3,),
+                                                        const SizedBox(height: 3,),
                                                         Row(
                                                           children: [
                                                             Flexible(
@@ -333,7 +335,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                     //   ],
                                                     // ),
                                                   ),
-                                                  SizedBox(width: 20),
+                                                  const SizedBox(width: 20),
                                                   SizedBox(width: MediaQuery.of(context).size.width/35,),
                                                   Expanded(
                                                     flex: 5,
@@ -469,8 +471,8 @@ class InformationUpdateScreen extends StatelessWidget {
                                                         children: [
                                                           Image.asset("images/sm/cloud_uploade.png",height: 20,width: 20,),
                                                           // Icon(Icons.cloud_upload_outlined,size: IconSize.I18,color: Color(0xFF2F6D8A), weight: 10,),
-                                                          SizedBox(height: 8,),
-                                                          Text("Update",
+                                                          const SizedBox(height: 8,),
+                                                          const Text("Update",
                                                             style: TextStyle(
                                                               fontSize: FontSize.s11,
                                                               fontWeight: FontWeight.w600,
@@ -493,7 +495,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                   showDialog(
                                                   context: context,
                                                   builder: (BuildContext context) {
-                                                  return AddSuccessPopup(
+                                                  return const AddSuccessPopup(
                                                   message: 'Data Updated Successfully',
                                                   );
                                                   },
@@ -507,6 +509,14 @@ class InformationUpdateScreen extends StatelessWidget {
                                                   pcpId: providerContact.pcpId,
                                                   );
                                                   }else{
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext context) {
+                                                        return AddFailePopup(
+                                                          message: response.message,
+                                                        );
+                                                      },
+                                                    );
                                                   print('Api error');
                                                   }
 
@@ -514,10 +524,10 @@ class InformationUpdateScreen extends StatelessWidget {
                                                       child: Column(
                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [
-                                                          SizedBox(height: 3,),
+                                                          const SizedBox(height: 3,),
                                                           Image.asset("images/sm/move_to_s.png",height: 20,width: 20,),
-                                                          SizedBox(height: 6,),
-                                                          Text(" Move to\nScheduler",
+                                                          const SizedBox(height: 6,),
+                                                          const Text(" Move to\nScheduler",
                                                             style: TextStyle(
                                                               fontSize: FontSize.s11,
                                                               fontWeight: FontWeight.w600,
@@ -533,8 +543,39 @@ class InformationUpdateScreen extends StatelessWidget {
                                                         splashColor: Colors.transparent,
                                                         highlightColor: Colors.transparent,
                                                         hoverColor: Colors.transparent,
-                                                        onTap: (){},
-                                                        child:Column(
+                                                        onTap: ()async{
+                                                          var response = await updateReferralPatient(context: context,
+                                                              isUpdatePatiendData: false,
+                                                              patientId:  snapshot.data![index].ptId, isIntake: false,
+                                                              isNotAdmit: false,isArchived: false);
+                                                          if(response.statusCode == 200 || response.statusCode == 201){
+                                                            showDialog(context: context,
+                                                              builder: (BuildContext context) {
+                                                                return const AddSuccessPopup(
+                                                                  message: 'Data Updated Successfully',
+                                                                );
+                                                              },
+                                                            );
+                                                            // ✅ Refresh data
+                                                            Provider.of<SmIntakeProviderManager>(context, listen: false).filterIdIntegration(
+                                                              context: context,
+                                                              marketerId: providerContact.marketerId,
+                                                              sourceId: providerContact.referralSourceId,
+                                                              pcpId: providerContact.pcpId,
+                                                            );
+                                                          }else{
+                                                            await showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) {
+                                                                return AddFailePopup(
+                                                                  message: response.message,
+                                                                );
+                                                              },
+                                                            );
+                                                            print('Api error');
+                                                          }
+                                                        },
+                                                        child:const Column(
                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             Icon(Icons.block_flipped,size: IconSize.I18,color: Color(0xFF2F6D8A),weight: 10,),
@@ -633,7 +674,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                                   // ),
                                                 ],),
                                             ),
-                                            SizedBox(height: AppSize.s5),
+                                            const SizedBox(height: AppSize.s5),
                                           ],
                                         ),
                                       ),
@@ -643,7 +684,7 @@ class InformationUpdateScreen extends StatelessWidget {
                               ),
                             );
                           }else{
-                            return SizedBox();
+                            return const SizedBox();
                           }
 
                         }
@@ -679,12 +720,12 @@ class InformationUpdateScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              AnimatedPositioned(duration:Duration(milliseconds: 300),
+              AnimatedPositioned(duration:const Duration(milliseconds: 300),
                   bottom: provider._isChatbotVisible ? 0 : -500, // Slide in from bottom-right
                   right: 0,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFFF7F8FA),
+                      color: const Color(0xFFF7F8FA),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     height: 450,
@@ -741,7 +782,7 @@ class SMDashboardMenuButtons extends StatelessWidget {
               final textPainter = TextPainter(
                 text: TextSpan(
                   text: heading,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: FontSize.s10,
                     fontWeight: FontWeight.w400,
                   ),
@@ -779,7 +820,7 @@ class IntakeContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(12),
               bottomRight: Radius.circular(12),
               topLeft: Radius.circular(12),

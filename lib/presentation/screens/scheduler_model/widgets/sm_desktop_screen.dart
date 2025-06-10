@@ -182,7 +182,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
     hRAllData = await getMarketerWithDeptId( context: context, deptId: AppConfig.salesId);
     patientRefferalSourcesData = await getPatientreferralsMaster(context: context,);
     patientPhysicianMasterData = await getPatientPhysicianMaster(context: context);
-    _parientModel =  await getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 20, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: 'all',
+    _parientModel =  await getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 20, isIntake: 'true', isArchived: 'false', isScheduled: 'false',  isNotAdmit: 'true',searchName: 'all',
         marketerId: "all",
         referralSourceId: "all", pcpId:"all");
     _isCheckedList = List<bool>.filled(patientRefferalSourcesData.length, false);
