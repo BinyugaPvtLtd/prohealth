@@ -299,7 +299,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                             ),
                                             Expanded(
                                               flex: 2,
-                                              child:  Center(
+                                              child: Center(
                                               child: Text(snapshot.data![index].referralSource.sourceName,
                                                 textAlign: TextAlign.start,
                                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
@@ -315,7 +315,6 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                               flex: 7,
                                               child:  Wrap(
                                                 spacing: 15,
-
                                                 children: [
                                                   SMDashboardMenuButtons(
                                                       onTap: (int index) {
@@ -581,7 +580,7 @@ class _NonAdmitPageState extends State<NonAdmitPage> {
                                                       context: context,
                                                       isUpdatePatiendData: false,
                                                       patientId: snapshot.data![index].ptId,
-                                                      isIntake: false,
+                                                      isIntake: true,
                                                       isArchived: false,
                                                       isNotAdmit: true, // ✅ Restore means not marked as "Not Admit"
                                                     );
