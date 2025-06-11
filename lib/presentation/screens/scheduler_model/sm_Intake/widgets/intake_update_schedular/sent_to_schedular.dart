@@ -407,7 +407,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                   Expanded(
                                     flex: 2,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Icon(
@@ -418,8 +418,10 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                        SizedBox(width: 10,),
                                         Flexible(
                                           child: Text(
-                                            "132 My Street,Kingston, New York 12401",
+                                            snapshot.data![index].marketer.address,
+                                            //"132 My Street,Kingston, New York 12401",
                                            // overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.start,
                                             style: CustomTextStylesCommon.commonStyle(
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w400,
@@ -432,58 +434,86 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                       ],
                                     ),
                                   ),
-                                       Stack(
-                                         children: [
-                                           Container(
-                                             width: AppSize.s60, // Larger than image
-                                             height: AppSize.s60, // Slightly larger height
-                                             alignment: Alignment.center,
-                                             decoration: BoxDecoration(
-                                               // color: Colors.grey[200], // Optional background color
-                                               borderRadius: BorderRadius.circular(60),
-                                             ),
-                                             child: ClipRRect(
-                                               borderRadius: BorderRadius.circular(60),
-                                               child: SizedBox(
-                                                 width: AppSize.s45,
-                                                 height: AppSize.s45,
-                                                 child: Image.asset(
-                                                   'images/1.png',
+                                       Padding(
+                                         padding: const EdgeInsets.only(right: 5),
+                                         child: Stack(
+                                           children: [
+                                             Container(
+                                               width: AppSize.s60, // Larger than image
+                                               height: AppSize.s60, // Slightly larger height
+                                               alignment: Alignment.center,
+                                               decoration: BoxDecoration(
+                                                 // color: Colors.grey[200], // Optional background color
+                                                 borderRadius: BorderRadius.circular(60),
+                                               ),
+                                               child:  ClipOval(
+                                                 child: snapshot.data![index].ptImgUrl == 'imgurl' ||
+                                                     snapshot.data![index].ptImgUrl == null
+                                                     ? CircleAvatar(
+                                                   radius: 23,
+                                                   backgroundColor: Colors.transparent,
+                                                   child: Image.asset("images/profilepic.png"),
+                                                 )
+                                                     : Image.network(
+                                                   snapshot.data![index].marketer.imgurl,
+                                                   loadingBuilder: (context, child, loadingProgress) {
+                                                     if (loadingProgress == null) {
+                                                       return child;
+                                                     } else {
+                                                       return Center(
+                                                         child: CircularProgressIndicator(
+                                                           value: loadingProgress.expectedTotalBytes != null
+                                                               ? loadingProgress.cumulativeBytesLoaded /
+                                                               (loadingProgress.expectedTotalBytes ?? 1)
+                                                               : null,
+                                                         ),
+                                                       );
+                                                     }
+                                                   },
+                                                   errorBuilder: (context, error, stackTrace) {
+                                                     return CircleAvatar(
+                                                       radius: 21,
+                                                       backgroundColor: Colors.transparent,
+                                                       child: Image.asset("images/profilepic.png"),
+                                                     );
+                                                   },
                                                    fit: BoxFit.cover,
+                                                   height: 40,
+                                                   width: 40,
                                                  ),
                                                ),
                                              ),
-                                           ),
-                                           Positioned(
-                                             left: 40, // Adjusted to fit new container size
-                                             bottom: 5,
-                                             child: Container(
-                                               width: 19,
-                                               height: 19,
-                                               decoration: BoxDecoration(
-                                                 color: Color(0xFF527FB9),
-                                                 borderRadius: BorderRadius.circular(3),
-                                               ),
-                                               child: Center(
-                                                 child: Text(
-                                                   "ST",
-                                                   style: TextStyle(
-                                                     fontWeight: FontWeight.w400,
-                                                     fontSize: 10,
-                                                     color: ColorManager.white,
-                                                     decoration: TextDecoration.none,
+                                             Positioned(
+                                               left: 40, // Adjusted to fit new container size
+                                               bottom: 5,
+                                               child: Container(
+                                                 width: 19,
+                                                 height: 19,
+                                                 decoration: BoxDecoration(
+                                                   color: Color(0xFF527FB9),
+                                                   borderRadius: BorderRadius.circular(3),
+                                                 ),
+                                                 child: Center(
+                                                   child: Text(
+                                                     "ST",
+                                                     style: TextStyle(
+                                                       fontWeight: FontWeight.w400,
+                                                       fontSize: 10,
+                                                       color: ColorManager.white,
+                                                       decoration: TextDecoration.none,
+                                                     ),
                                                    ),
                                                  ),
                                                ),
                                              ),
-                                           ),
-                                         ],
+                                           ],
+                                         ),
                                        ),
 
                                        Expanded(
                                          flex: 1,
                                          child: Text(
-                                           'James',
+                                           "${snapshot.data![index].marketer.firstName} ${snapshot.data![index].marketer.lastName}",
                                            style: CustomTextStylesCommon.commonStyle(
                                              fontSize: FontSize.s12,
                                              fontWeight: FontWeight.w400,
