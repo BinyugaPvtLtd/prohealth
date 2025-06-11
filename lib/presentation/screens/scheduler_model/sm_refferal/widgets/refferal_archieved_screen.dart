@@ -137,7 +137,6 @@ class _RefferalArchievedScreenState extends State<RefferalArchievedScreen> {
               const EdgeInsets.only(left: 60, right: 60, top: 10,),
           child: Column(
             children: [
-
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
