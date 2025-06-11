@@ -168,3 +168,163 @@ class InsuranceModels {
 
 
 }
+
+
+
+
+
+// patient_models.dart
+
+class PatientModelss {
+  final int ptId;
+  final String ptFirstName;
+  final String ptLastName;
+  final String ptContactNo;
+  final String ptZipCode;
+  final int ptChartNo;
+  final String ptSummary;
+  final String ptRefferalDate;
+  final DateTime ptDateOfBirth;
+  final String ptImgUrl;
+  final int fkSrvId;
+  final int fkPtPrimaryDiagnosis;
+  final List<int> fkPtSecondaryDiagnosis;
+  final int fkPtRefferalSource;
+  final int fkPtPcp;
+  final int fkPtMarketer;
+  final List<int> fkPtDiscplines;
+  final int ptCoverageArea;
+  final bool isIntake;
+  final String intakeTime;
+  final bool isArchieved;
+  final DateTime? archievedTime;
+  final DateTime createdAt;
+  final bool isPotential;
+  final int thresould;
+  final ServiceModelss service;
+  final List<PatientDiagnosesModelss> patientDiagnoses;
+  final ReferralSourceModelss referralSource;
+  final PCPModelss pcp;
+  final MarketerModelss marketer;
+  final List<InsuranceModelss> insurance;
+
+  PatientModelss({
+    required this.ptId,
+    required this.ptFirstName,
+    required this.ptLastName,
+    required this.ptContactNo,
+    required this.ptZipCode,
+    required this.ptChartNo,
+    required this.ptSummary,
+    required this.ptRefferalDate,
+    required this.ptDateOfBirth,
+    required this.ptImgUrl,
+    required this.fkSrvId,
+    required this.fkPtPrimaryDiagnosis,
+    required this.fkPtSecondaryDiagnosis,
+    required this.fkPtRefferalSource,
+    required this.fkPtPcp,
+    required this.fkPtMarketer,
+    required this.fkPtDiscplines,
+    required this.ptCoverageArea,
+    required this.isIntake,
+    required this.intakeTime,
+    required this.isArchieved,
+    required this.archievedTime,
+    required this.createdAt,
+    required this.isPotential,
+    required this.thresould,
+    required this.service,
+    required this.patientDiagnoses,
+    required this.referralSource,
+    required this.pcp,
+    required this.marketer,
+    required this.insurance,
+  });
+}
+
+class PatientDiagnosesModelss {
+  final int rptDgnId;
+  final String dgnName;
+  final String dgnCode;
+  final int fkPtId;
+  final int fkDgnId;
+  final bool rptPdgm;
+  final bool rptIsPrimary;
+  final int color;
+
+  PatientDiagnosesModelss({
+    required this.rptDgnId,
+    required this.dgnName,
+    required this.dgnCode,
+    required this.fkPtId,
+    required this.fkDgnId,
+    required this.rptPdgm,
+    required this.rptIsPrimary,
+    required this.color,
+  });
+}
+
+class ServiceModelss {
+  final int srvId;
+  final String srvName;
+  final String srvCode;
+
+  ServiceModelss({
+    required this.srvId,
+    required this.srvName,
+    required this.srvCode,
+  });
+}
+
+class ReferralSourceModelss {
+  final int refSrcId;
+  final String refSrcName;
+
+  ReferralSourceModelss({
+    required this.refSrcId,
+    required this.refSrcName,
+  });
+}
+
+class PCPModelss {
+  final int pcpId;
+  final String pcpName;
+
+  PCPModelss({
+    required this.pcpId,
+    required this.pcpName,
+  });
+}
+
+class MarketerModelss {
+  final int marketerId;
+  final String marketerName;
+
+  MarketerModelss({
+    required this.marketerId,
+    required this.marketerName,
+  });
+}
+
+class InsuranceModelss {
+  final int? rptiId;
+  final int? fkPtId;
+  final String? policy;
+  final String? insuranceProvider;
+  final String? insurancePlan;
+  final String? eligibility;
+  final String? authorization;
+  final String? time;
+
+  InsuranceModelss({
+    this.rptiId,
+    this.fkPtId,
+    this.policy,
+    this.insuranceProvider,
+    this.insurancePlan,
+    this.eligibility,
+    this.authorization,
+    this.time,
+  });
+}

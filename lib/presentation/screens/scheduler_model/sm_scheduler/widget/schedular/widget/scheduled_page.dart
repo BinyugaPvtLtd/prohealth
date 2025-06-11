@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,11 +8,14 @@ import 'package:provider/provider.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/scheduler_tab_manager.dart';
+import '../../../../../../../data/api_data/sm_data/sm_model_data/sm_data.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
@@ -36,6 +41,11 @@ class _ScheduledPageViewState extends State<ScheduledPageView> {
     });
   }
 
+
+  final StreamController<List<PatientModelss>> _streamController = StreamController<List<PatientModelss>>();
+  TextEditingController _searchController = TextEditingController();
+
+
   String _selectedValue = 'Sort';
   @override
   Widget build(BuildContext context) {
@@ -56,6 +66,7 @@ class _ScheduledPageViewState extends State<ScheduledPageView> {
                     children: [
 
                       CustomSearchFieldSM(
+                        searchController: _searchController,
                         onPressed: (){},
                       ),
                       SizedBox(width: AppSize.s20,),
@@ -148,10 +159,40 @@ class _ScheduledPageViewState extends State<ScheduledPageView> {
 
               SizedBox(height: 30,),
               Expanded(
-                child: ScrollConfiguration(
+                child:  StreamBuilder<List<PatientModelss>>(
+                    stream:  _streamController.stream,
+                    builder: (context ,snapshot) {
+                      PatientSchedulerManager().getSchedulerData( context: context,).then((data) {
+                        _streamController.add(data);
+                      }).catchError((error) {
+                        // Handle error
+                      });
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 76),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: ColorManager.blueprime,
+                            ),
+                          ),
+                        );
+                      }
+                      if (snapshot.data!.isEmpty) {
+                        return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 76),
+                              child: Text(
+                                AppStringSMModule.pendingNoData,
+                                style: AllNoDataAvailable.customTextStyle(
+                                    context),
+                              ),
+                            ));
+                      }
+                      if (snapshot.hasData) {
+                        return ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                   child: ListView.builder(
-                    itemCount: 5,
+                    itemCount:  snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) { return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5,),
                       child: borderSchedularContainerConst(
@@ -188,15 +229,40 @@ class _ScheduledPageViewState extends State<ScheduledPageView> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 5),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(60),
-                                      child: SizedBox(
-                                        width: AppSize.s40,
-                                        height: AppSize.s45,
-                                        child: Image.asset(
-                                          'images/hr_dashboard/man.png', // Replace with your image path
-                                          fit: BoxFit.cover,
-                                        ),
+                                    child: ClipOval(
+                                      child: snapshot.data![index].ptImgUrl == 'imgurl' ||
+                                          snapshot.data![index].ptImgUrl == null
+                                          ? CircleAvatar(
+                                        radius: 22,
+                                        backgroundColor: Colors.transparent,
+                                        child: Image.asset("images/profilepic.png"),
+                                      )
+                                          : Image.network(
+                                        snapshot.data![index].ptImgUrl!,
+                                        loadingBuilder: (context, child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          } else {
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress.expectedTotalBytes != null
+                                                    ? loadingProgress.cumulativeBytesLoaded /
+                                                    (loadingProgress.expectedTotalBytes ?? 1)
+                                                    : null,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return CircleAvatar(
+                                            radius: 21,
+                                            backgroundColor: Colors.transparent,
+                                            child: Image.asset("images/profilepic.png"),
+                                          );
+                                        },
+                                        fit: BoxFit.cover,
+                                        height: 40,
+                                        width: 40,
                                       ),
                                     ),
                                   ),
@@ -208,7 +274,7 @@ class _ScheduledPageViewState extends State<ScheduledPageView> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Jeh Tiwari',
+                                          "${snapshot.data![index].ptFirstName} ${snapshot.data![index].ptLastName}",
                                           style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                             fontWeight: FontWeight.w700,
                                             color: ColorManager.mediumgrey,),
@@ -819,7 +885,13 @@ class _ScheduledPageViewState extends State<ScheduledPageView> {
                     ); },
 
                   ),
-                ),
+                );
+  }
+  else{
+  return const SizedBox();
+  }
+}
+)
               ),
             ],
           ),
