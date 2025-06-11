@@ -786,7 +786,8 @@ class _PendingPageViewState extends State<PendingPageView> {
                         return const SizedBox();
                       }
                     }
-                )),
+                )
+              ),
             ],
           ),
         ),
