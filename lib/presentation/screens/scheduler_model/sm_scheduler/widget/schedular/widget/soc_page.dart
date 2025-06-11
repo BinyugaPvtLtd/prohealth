@@ -369,6 +369,7 @@ class _SocPageViewState extends State<SocPageView> {
                                           ],
                                         ),
                                       ),
+
                                       SizedBox(
                                         width: 300,
                                         child: CustomButtonRow(
