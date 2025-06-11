@@ -19,6 +19,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
   required String isIntake,
   required String isArchived,
   required String isScheduled ,
+  required String isNotAdmit ,
   required String searchName,
   required String marketerId,
   required String referralSourceId,
@@ -40,7 +41,7 @@ Future<List<PatientModel>> getPatientReffrealsData({
 
   try {
     final response = await Api(context).get(
-      path: PatientRefferalsRepo.getPatientRefferals(pageNo: pageNo, nbrOfRows: nbrOfRows, isIntake: isIntake, isArchived: isArchived, isScheduled: isScheduled, searchName: searchName, marketerId: marketerId, referralSourceId: referralSourceId, pcpId: pcpId, ),
+      path: PatientRefferalsRepo.getPatientRefferals(pageNo: pageNo, nbrOfRows: nbrOfRows, isIntake: isIntake, isArchived: isArchived, isScheduled: isScheduled, isNonAdmit: isNotAdmit,  searchName: searchName, marketerId: marketerId, referralSourceId: referralSourceId, pcpId: pcpId, ),
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -429,6 +430,7 @@ Future<ApiData> updateReferralPatient(
     required int patientId,
      bool? isIntake,
      bool? isArchived,
+     bool? isNotAdmit,
     required bool isUpdatePatiendData,
      String? firstName,
      String? lastName,
@@ -445,6 +447,7 @@ Future<ApiData> updateReferralPatient(
       data: isUpdatePatiendData == false? {
         "is_intake": isIntake,
         "is_archieved": isArchived,
+//  "is_non_admit": isNotAdmit,
       } : {
         "pt_first_name": firstName,
         "pt_last_name": lastName,
@@ -453,7 +456,8 @@ Future<ApiData> updateReferralPatient(
         "pt_summary": summary,
         "fk_srv_id":serviceId,
         "fk_pt_discplines":disciplineIds,
-         "fk_rpti_id":insuranceId
+         "fk_rpti_id":insuranceId,
+        "is_non_admit" :isNotAdmit,
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

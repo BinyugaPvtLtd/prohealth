@@ -232,6 +232,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                           isIntake: 'true',
                           isArchived: 'false',
                           isScheduled: 'true',
+                          isNotAdmit: 'true',
                           searchName: _searchController.text.isEmpty
                               ? 'all'
                               : _searchController.text,

@@ -157,7 +157,7 @@ class _RefferalMoveToIntakeScreenState extends State<RefferalMoveToIntakeScreen>
 
                     // stream: _streamController.stream,
                     builder: (context,snapshot) {
-                      getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 9999, isIntake: 'true', isArchived: 'false', isScheduled: 'false', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
+                      getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 9999, isIntake: 'true', isArchived: 'false', isScheduled: 'false', isNotAdmit: 'true', searchName: _searchController.text.isEmpty ?'all':_searchController.text,
                           marketerId: providerContact.marketerId,
                           referralSourceId: providerContact.referralSourceId, pcpId: providerContact.pcpId).then((data) {
                         _streamController.add(data);
