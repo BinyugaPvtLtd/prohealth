@@ -72,14 +72,15 @@
 
 ///dev instance
 class AppConfig {
-  static const String demo = "https://demoapp.symmetry.care";
+  // static const String demo = "https://demoapp.symmetry.care";
+  static const String demo = "https://dev.symmetry.care";
   static const String dev = "http://35.165.254.214:3033";
   // static const String dev = "https://resource.symmetry.care";
   // static const String local = "http://localhost:3000";
   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
   // static const String deployment = "https://prohealth.symmetry.care";
   static const String deployment = "https://staging.symmetry.care";
-  static const String version = "Version 1.0.2 (2) dev";
+  static const String version = "Version 1.0.2 (1) dev";
   static const String local = "";
   static const String prod = "";
   static const String endpoint = dev;
