@@ -676,7 +676,17 @@ class _SmIntakeDemographicsScreenState extends State<SmIntakeDemographicsScreen>
                           },
                           ),
                           IntakeRelatedPartiesScreen(
-                            patientId: patientId,
+                            patientId: patientId, onIButtonPressed: providerContact.isRightSliderOpen == true ? (){
+                            // toggleLeftSidebar();
+                            // //providerContact.toogleContactProvider();
+                            // providerContact.toogleLeftSidebarProvider();
+                            // providerContact.toogleRightSliderProvider();
+                          }:(){
+
+                            toggleLeftSidebar();
+                            providerContact.toogleContactProvider();
+                            providerContact.toogleLeftSidebarProvider();
+                          },
                           ),
                         ],
                       ),

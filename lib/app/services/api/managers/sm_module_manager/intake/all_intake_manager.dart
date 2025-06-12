@@ -364,3 +364,96 @@ Future<ApiData> postDiscipline(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+Future<AiEmergencyContactData> getAIEmergencyContact({
+  required BuildContext context,
+  required int ptId
+}) async {
+  var itemsList;
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('MM/dd/yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(path: PatientIntakeRepo.getAIEmergencyContact(ptId: ptId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      var item = response.data;
+      print('All Data ${response.data}');
+      itemsList = AiEmergencyContactData(
+          contactId_I: item['contactId_I']??0,
+          fk_pt_id: item['fk_pt_id']??0,
+          firstName_I: item['firstName_I']??" ",
+          lastName_I: item['lastName_I']??" ",
+          street_I: item['street_I']??" ",
+          suite_I: item['suite_I']??" ",
+          city_I: item['city_I']??" ",
+          state_I: item['state_I']??" ",
+          zipCode_I: item['zipCode_I']??" ",
+          phoneNumber_I: item['phoneNumber_I']??" ",
+          email_I: item['email_I']??" "
+      );
+    } else {
+      print('Api Error');
+    }
+    // print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+Future<AiRepresentativeData> getAIRepresentative({
+  required BuildContext context,
+  required int ptId
+}) async {
+  var itemsList;
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('MM/dd/yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  try {
+    final response = await Api(context).get(path: PatientIntakeRepo.getAIPatientRepresentative(ptId: ptId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      var item = response.data;
+      print('All Data ${response.data}');
+      itemsList = AiRepresentativeData(
+          representiveId_I: item['contactId_I']??0,
+          fk_pt_id: item['fk_pt_id']??0,
+          firstName_I: item['firstName_I']??" ",
+          lastName_I: item['lastName_I']??" ",
+          street_I: item['street_I']??" ",
+          suite_I: item['suite_I']??" ",
+          city_I: item['city_I']??" ",
+          state_I: item['state_I']??" ",
+          zipCode_I: item['zipCode_I']??" ",
+          phoneNumber_I: item['phoneNumber_I']??" ",
+          email_I: item['email_I']??" "
+      );
+    } else {
+      print('Api Error');
+    }
+    // print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
