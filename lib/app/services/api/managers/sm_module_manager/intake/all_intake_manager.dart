@@ -58,7 +58,6 @@ Future<DemographicPatientDataModel> getDemographichPatientDetail({
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
-    //
     return formattedDate;
   }
   try {
