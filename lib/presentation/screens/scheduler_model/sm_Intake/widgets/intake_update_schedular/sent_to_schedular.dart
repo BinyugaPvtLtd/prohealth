@@ -483,6 +483,7 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                                  ),
                                                ),
                                              ),
+
                                              Positioned(
                                                left: 40,
                                                bottom: 5,
