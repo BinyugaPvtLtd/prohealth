@@ -260,3 +260,90 @@ class PatientSchedulerManager {
 }
 
 
+
+
+
+
+Future<PatientWithDisciplinesModel?> getPatientWithDisciplinesDataUsingId({
+  required BuildContext context,
+  required int patientId,
+}) async {
+  PatientWithDisciplinesModel? patientData;
+
+  String convertIsoToDate(String isoDate) {
+    return DateFormat('yyyy-MM-dd').format(DateTime.parse(isoDate));
+  }
+
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.getdisciplanebyid(pt_id: patientId), // Use correct repo path
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final item = response.data;
+
+      final patientJson = item['pt_id'];
+      final disciplinesJson = item['data'];
+
+      patientData = PatientWithDisciplinesModel(
+        patient: PatientModel(
+          ptId: patientJson['pt_id'],
+          ptFirstName: patientJson['pt_first_name'] ?? '',
+          ptLastName: patientJson['pt_last_name'] ?? '',
+          ptContactNo: patientJson['pt_contact_no'] ?? '',
+          ptZipCode: patientJson['pt_zip_code'] ?? '',
+          ptChartNo: patientJson['pt_chart_no'] ?? 0,
+          ptSummary: patientJson['pt_summary'] ?? '',
+          ptRefferalDate: convertIsoToDate(patientJson['pt_refferal_date']),
+          fkSrvId: patientJson['fk_srv_id'] ?? 0,
+          fkPtPrimaryDiagnosis: patientJson['fk_pt_primary_diagnosis'] ?? 0,
+          fkPtSecondaryDiagnosis: List<int>.from(patientJson['fk_pt_secondary_diagnosis'] ?? []),
+          fkPtRefferalSource: patientJson['fk_pt_refferal_source'] ?? 0,
+          fkPtPcp: patientJson['fk_pt_pcp'] ?? 0,
+          fkPtMarketer: patientJson['fk_pt_marketer'] ?? 0,
+          fkPtDiscplines: List<int>.from(patientJson['fk_pt_discplines'] ?? []),
+          ptCoverageArea: patientJson['pt_coverage_area'] ?? 0,
+          isIntake: patientJson['is_intake'] ?? false,
+          intakeTime: patientJson['intake_time'],
+          isArchieved: patientJson['is_archieved'] ?? false,
+          archievedTime: patientJson['archieved_time'] != null ? DateTime.tryParse(patientJson['archieved_time']) : null,
+          createdAt: DateTime.parse(patientJson['created_at']),
+          ptDateOfBirth: DateTime.parse(patientJson['pt_date_of_birth']),
+          ptImgUrl: patientJson['pt_img_url'] ?? '',
+          fk_rpti_id: patientJson['fk_rpti_id'],
+          fkempIdArchieved: patientJson['fk_emp_id_archived'],
+          is_selfPay: patientJson['is_selfPay'] ?? false,
+          documentName: patientJson['document_name'],
+          moveToScheduler: patientJson['moveToScheduler'] ?? false,
+          moveToSchedulerDatetime: patientJson['moveToSchedulerDatetime'],
+          isNonAdmit: patientJson['is_non_admit'] ?? false,
+          admitDateTime: patientJson['admitDateTime'],
+        ),
+        disciplineAssignments: (disciplinesJson as List).map((d) {
+          final empType = d['employeetypeId'];
+          return DisciplineAssignmentModel(
+            disciplineId: d['disciplineId'],
+            employeedId: d['employeedId'],
+            notesToClinician: d['notesToClinician'] ?? '',
+            createdAt: DateTime.parse(d['createdAt']),
+            updatedAt: DateTime.parse(d['updatedAt']),
+            employeeType: EmployeeTypeModel(
+              employeeTypeId: empType['employeeTypeId'],
+              employeeType: empType['employeeType'],
+              color: empType['color'],
+              abbreviation: empType['abbreviation'],
+              departmentId: empType['DepartmentId'],
+            ),
+          );
+        }).toList(),
+      );
+    } else {
+      print("Error: ${response.statusCode} fetching patient data.");
+    }
+  } catch (e) {
+    print("Exception caught: $e");
+  }
+
+  return patientData;
+}
+

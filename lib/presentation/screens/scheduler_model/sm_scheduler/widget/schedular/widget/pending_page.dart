@@ -15,6 +15,7 @@ import '../../../../../../../app/resources/provider/sm_provider/sm_slider_provid
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/refferals_patient_manager.dart';
+import '../../../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import '../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../../textfield_dropdown_constant/chatbotContainer.dart';
 import '../sm_scheduler_screen_const.dart';
@@ -28,7 +29,6 @@ class PendingPageView extends StatefulWidget {
 }
 
 class _PendingPageViewState extends State<PendingPageView> {
-
 
   bool isSwitched = false;
 
@@ -61,6 +61,7 @@ class _PendingPageViewState extends State<PendingPageView> {
   @override
   Widget build(BuildContext context) {
     final providerContact = Provider.of<SmIntakeProviderManager>(context,listen: false);
+    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body:Stack(
@@ -400,7 +401,11 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                   SizedBox(
                                                     width: 300,
                                                     child: CustomButtonRow(
-                                                      onSaveClosePressed: widget.onAutoTap,
+                                                      onSaveClosePressed: () {
+                                                            widget.onAutoTap();
+                                                            providerPatientId.passPatientId(patientIdNo: snapshot.data![index].ptId);
+
+                                                      },
                                                       onSubmitPressed: () {
                                                         // Action for Submit button
                                                         print('Submit pressed');
@@ -408,6 +413,8 @@ class _PendingPageViewState extends State<PendingPageView> {
                                                       onNextPressed: () {
                                                         // Action for Next button
                                                         print('Next pressed');
+                                                        final patientId = snapshot.data![index].ptId; // Replace ptId with actual field name
+                                                        print('Next pressed for Patient ID: $patientId');
                                                       },
                                                     ),
                                                   ),

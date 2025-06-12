@@ -328,3 +328,123 @@ class InsuranceModelss {
     this.time,
   });
 }
+
+
+
+
+
+
+class PatientWithDisciplinesModel {
+  final PatientModel patient;
+  final List<DisciplineAssignmentModel> disciplineAssignments;
+
+  PatientWithDisciplinesModel({
+    required this.patient,
+    required this.disciplineAssignments,
+  });
+}
+
+
+class DisciplineAssignmentModel {
+  final int disciplineId;
+  final int? employeedId;
+  final String notesToClinician;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final EmployeeTypeModel employeeType;
+
+  DisciplineAssignmentModel({
+    required this.disciplineId,
+    this.employeedId,
+    required this.notesToClinician,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.employeeType,
+  });
+}
+
+
+class EmployeeTypeModel {
+  final int employeeTypeId;
+  final String employeeType;
+  final String color;
+  final String abbreviation;
+  final int departmentId;
+
+  EmployeeTypeModel({
+    required this.employeeTypeId,
+    required this.employeeType,
+    required this.color,
+    required this.abbreviation,
+    required this.departmentId,
+  });
+}
+
+
+class PatientModel {
+  final int ptId;
+  final String ptFirstName;
+  final String ptLastName;
+  final String ptContactNo;
+  final String ptZipCode;
+  final int ptChartNo;
+  final String ptSummary;
+  final String ptRefferalDate;
+  final int fkSrvId;
+  final int fkPtPrimaryDiagnosis;
+  final List<int> fkPtSecondaryDiagnosis;
+  final int fkPtRefferalSource;
+  final int fkPtPcp;
+  final int fkPtMarketer;
+  final List<int> fkPtDiscplines;
+  final int ptCoverageArea;
+  final bool isIntake;
+  final String? intakeTime;
+  final bool isArchieved;
+  final DateTime? archievedTime;
+  final DateTime createdAt;
+  final DateTime ptDateOfBirth;
+  final String ptImgUrl;
+  final int? fk_rpti_id;
+  final int? fkempIdArchieved;
+  final bool is_selfPay;
+  final String? documentName;
+  final bool moveToScheduler;
+  final String? moveToSchedulerDatetime;
+  final bool isNonAdmit;
+  final String? admitDateTime;
+
+  PatientModel({
+    required this.ptId,
+    required this.ptFirstName,
+    required this.ptLastName,
+    required this.ptContactNo,
+    required this.ptZipCode,
+    required this.ptChartNo,
+    required this.ptSummary,
+    required this.ptRefferalDate,
+    required this.fkSrvId,
+    required this.fkPtPrimaryDiagnosis,
+    required this.fkPtSecondaryDiagnosis,
+    required this.fkPtRefferalSource,
+    required this.fkPtPcp,
+    required this.fkPtMarketer,
+    required this.fkPtDiscplines,
+    required this.ptCoverageArea,
+    required this.isIntake,
+    this.intakeTime,
+    required this.isArchieved,
+    this.archievedTime,
+    required this.createdAt,
+    required this.ptDateOfBirth,
+    required this.ptImgUrl,
+    this.fk_rpti_id,
+    this.fkempIdArchieved,
+    required this.is_selfPay,
+    this.documentName,
+    required this.moveToScheduler,
+    this.moveToSchedulerDatetime,
+    required this.isNonAdmit,
+    this.admitDateTime,
+  });
+}

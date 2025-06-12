@@ -44,6 +44,7 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
     });
   }
 
+
   void goBackToInitialScreen() {
     setState(() {
       isShowingPatientsDetailsPageview = false;

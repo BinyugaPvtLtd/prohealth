@@ -484,28 +484,58 @@ class _SentToSchedularScreenState extends State<SentToSchedularScreen> {
                                                ),
                                              ),
                                              Positioned(
-                                               left: 40, // Adjusted to fit new container size
+                                               left: 40,
                                                bottom: 5,
-                                               child: Container(
-                                                 width: 19,
-                                                 height: 19,
-                                                 decoration: BoxDecoration(
-                                                   color: Color(0xFF527FB9),
-                                                   borderRadius: BorderRadius.circular(3),
-                                                 ),
-                                                 child: Center(
-                                                   child: Text(
-                                                     "ST",
-                                                     style: TextStyle(
-                                                       fontWeight: FontWeight.w400,
-                                                       fontSize: 10,
-                                                       color: ColorManager.white,
-                                                       decoration: TextDecoration.none,
+                                               child: Row(
+                                                 children: snapshot.data![index].disciplines.map((discipline) {
+                                                   return Container(
+                                                     margin: EdgeInsets.only(right: 4),
+                                                     width: 19,
+                                                     height: 19,
+                                                     decoration: BoxDecoration(
+                                                       color: HexColor.fromHex(discipline.color),       //   hexToColor(discipline.color ?? '#CCCCCC'),
+                                                       borderRadius: BorderRadius.circular(3),
                                                      ),
-                                                   ),
-                                                 ),
+                                                     child: Center(
+                                                       child: Text(
+                                                         discipline.abbreviation ?? '',
+                                                         style: TextStyle(
+                                                           fontWeight: FontWeight.w400,
+                                                           fontSize: 10,
+                                                           color: ColorManager.white,
+                                                           decoration: TextDecoration.none,
+                                                         ),
+                                                       ),
+                                                     ),
+                                                   );
+                                                 }).toList(),
                                                ),
                                              ),
+
+
+                                             // Positioned(
+                                             //   left: 40, // Adjusted to fit new container size
+                                             //   bottom: 5,
+                                             //   child: Container(
+                                             //     width: 19,
+                                             //     height: 19,
+                                             //     decoration: BoxDecoration(
+                                             //       color: Color(0xFF527FB9),
+                                             //       borderRadius: BorderRadius.circular(3),
+                                             //     ),
+                                             //     child: Center(
+                                             //       child: Text(
+                                             //         "ST",
+                                             //         style: TextStyle(
+                                             //           fontWeight: FontWeight.w400,
+                                             //           fontSize: 10,
+                                             //           color: ColorManager.white,
+                                             //           decoration: TextDecoration.none,
+                                             //         ),
+                                             //       ),
+                                             //     ),
+                                             //   ),
+                                             // ),
                                            ],
                                          ),
                                        ),
