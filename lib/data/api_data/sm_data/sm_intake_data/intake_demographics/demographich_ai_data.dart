@@ -51,3 +51,58 @@ class AIDemographichModelData {
     required this.demoCreatedAtI,
   });
 }
+
+class AiEmergencyContactData{
+  final int contactId_I;
+  final int fk_pt_id;
+  final String firstName_I;
+  final String lastName_I;
+  final String street_I;
+  final String suite_I;
+  final String city_I;
+  final String state_I;
+  final String zipCode_I;
+  final String phoneNumber_I;
+  final String email_I;
+
+  AiEmergencyContactData({
+    required this.contactId_I,
+    required this.fk_pt_id,
+    required this.firstName_I,
+    required this.lastName_I,
+    required this.street_I,
+    required this.suite_I,
+    required this.city_I,
+    required this.state_I,
+    required this.zipCode_I,
+    required this.phoneNumber_I,
+    required this.email_I});
+
+}
+
+class AiRepresentativeData{
+  final int representiveId_I;
+  final int fk_pt_id;
+  final String firstName_I;
+  final String lastName_I;
+  final String street_I;
+  final String suite_I;
+  final String city_I;
+  final String state_I;
+  final String zipCode_I;
+  final String phoneNumber_I;
+  final String email_I;
+
+  AiRepresentativeData({
+    required this.representiveId_I,
+    required this.fk_pt_id,
+    required this.firstName_I,
+    required this.lastName_I,
+    required this.street_I,
+    required this.suite_I,
+    required this.city_I,
+    required this.state_I,
+    required this.zipCode_I,
+    required this.phoneNumber_I,
+    required this.email_I});
+}

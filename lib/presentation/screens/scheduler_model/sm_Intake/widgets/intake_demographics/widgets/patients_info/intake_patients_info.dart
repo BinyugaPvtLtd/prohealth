@@ -134,6 +134,11 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
               child: CircularProgressIndicator(color: ColorManager.blueprime,),
             );
           }
+          if(snapshotPatient.hasError){
+            return Center(
+              child: Text('Something went wrong!'),
+            );
+          }
           print('Page error ${snapshotPatient.error}');
           primaryLanguageid = snapshotPatient.data!.fkSpokenLanguage;
           countyId = snapshotPatient.data!.fkCountryId;
@@ -237,6 +242,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width:  providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoMiddleInitialI.isEmpty ? true : false,
                                           controller: ctlrMedicalRecord,
                                           labelText: 'Middle Initial',
@@ -244,6 +250,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoLastNameI.isEmpty ? true : false,
                                           controller: ctlrLastName,
                                           labelText: "Last Name*",
@@ -254,8 +261,8 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
-                                        isIconVisible: fetchedData == null ? true: fetchedData!.demoFirstNameI.isEmpty ? true : false,
                                         isIClicked: widget.isIButtonPressed,
+                                        isIconVisible: fetchedData == null ? true: fetchedData!.demoFirstNameI.isEmpty ? true : false,
                                     controller: ctlrfirstName,
                                     labelText: 'First Name*',
                                           //showDatePicker:true
@@ -263,6 +270,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoMiddleInitialI.isEmpty ? true : false,
                                           controller: ctlrMedicalRecord,
                                           labelText: 'Middle Initial',
@@ -270,6 +278,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoLastNameI.isEmpty ? true : false,
                                           controller: ctlrLastName,
                                           labelText: "Last Name*",
@@ -277,6 +286,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoSuffixI.isEmpty ? true : false,
                                           controller:ctlrSuffix,
                                           labelText: "Suffix",
@@ -295,6 +305,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoSuffixI.isEmpty ? true : false,
                                           controller:ctlrSuffix,
                                           labelText: "Suffix",
@@ -302,6 +313,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoStreetI.isEmpty ? true : false,
                                           controller: ctlrStreet,
                                           icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
@@ -310,6 +322,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoSuiteI.isEmpty ? true : false,
                                           controller: ctlrSuitApt,
                                           labelText: "Suit/Apt#")),
@@ -319,6 +332,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoStreetI.isEmpty ? true : false,
                                           controller: ctlrStreet,
                                           icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
@@ -327,12 +341,14 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoSuiteI.isEmpty ? true : false,
                                           controller: ctlrSuitApt,
                                           labelText: "Suit/Apt#")),
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                     child:  SchedularTextField(
+                                      isIClicked: widget.isIButtonPressed,
                                       isIconVisible :fetchedData == null ? true: fetchedData!.demoCityI.isEmpty ? true : false,
                                       controller: ctlrCity,
                                       labelText: 'City*',
@@ -342,6 +358,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                     child: SchedularTextField(
+                                      isIClicked: widget.isIButtonPressed,
                                       isIconVisible :fetchedData == null ? true: fetchedData!.demoStateI.isEmpty ? true : false,
                                       controller: ctlrState,
                                       labelText: 'State*',
@@ -351,6 +368,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoZipcodeI.isEmpty ? true : false,
                                           controller: ctlrZipCode,
                                           onlyAllowNumbers: true,
@@ -397,6 +415,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                 children: [
                                   Flexible(
                                     child: SchedularTextField(
+                                      isIClicked: widget.isIButtonPressed,
                                       isIconVisible :fetchedData == null ? true: fetchedData!.demoCityI.isEmpty ? true : false,
                                       controller: ctlrCity,
                                         labelText: 'City*',
@@ -405,6 +424,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   ),
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible( child:  SchedularTextField(
+                                    isIClicked: widget.isIButtonPressed,
                                     isIconVisible :fetchedData == null ? true: fetchedData!.demoStateI.isEmpty ? true : false,
                                     controller: ctlrState,
                                     labelText: 'State*',
@@ -414,6 +434,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoZipcodeI.isEmpty ? true : false,
                                           controller: ctlrZipCode,
                                           onlyAllowNumbers: true,
@@ -501,6 +522,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoFacitlityNameI.isEmpty ? true : false,
                                         controller: facilityNameController,
                                         labelText: 'Facility Name',
@@ -553,6 +575,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoLocationNotesI.isEmpty ? true : false,
                                         controller: locationNotesController,
                                         labelText: 'Location Notes',
@@ -644,6 +667,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoFacitlityNameI.isEmpty ? true : false,
                                         controller: facilityNameController,
                                         labelText: 'Facility Name',
@@ -654,6 +678,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryContactI.isEmpty ? true : false,
                                         controller: ctlrPrimaryContact,
                                         labelText: 'Primary Contact*',
@@ -669,6 +694,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryContactNameI.isEmpty ? true : false,
                                         controller: primaryContactNameController,
                                           labelText: providerState.isContactTrue?'Primary Contact\nName*' :"Primary Contact Name*",
@@ -676,6 +702,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryPhoneI.isEmpty ? true : false,
                                           controller: ctlrPrimeNo,
                                           labelText: "Primary Phone #*",
@@ -683,12 +710,14 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryEmailI.isEmpty ? true : false,
                                           controller: ctlrEmail,
                                           labelText: "Primary Email")),
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoCahpsContactI.isEmpty ? true : false,
                                           controller: cahpsContactController,
                                           labelText: "CAHPS Contact")),
@@ -745,6 +774,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoLocationNotesI.isEmpty ? true : false,
                                         controller: locationNotesController,
                                         labelText: 'Location Notes',
@@ -752,6 +782,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryContactI.isEmpty ? true : false,
                                         controller: ctlrPrimaryContact,
                                         labelText: 'Primary Contact*',
@@ -770,6 +801,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryContactI.isEmpty ? true : false,
                                         controller: ctlrSecondContact,
                                         labelText: 'Secondary Contact*',
@@ -785,6 +817,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryContactNameI.isEmpty ? true : false,
                                         controller: secondaryPhoneController,
                                         labelText: "Secondary Contact Name",
@@ -792,6 +825,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryPhoneI.isEmpty ? true : false,
                                         controller: ctlrSecNo,
                                         phoneField: true,
@@ -800,6 +834,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryEmailI.isEmpty ? true : false,
                                         controller: secEmailController,
                                         labelText: "Secondary Email",
@@ -815,6 +850,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryContactNameI.isEmpty ? true : false,
                                         controller: primaryContactNameController,
                                         labelText: "Primary Contact Name*",
@@ -822,6 +858,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryPhoneI.isEmpty ? true : false,
                                           controller: ctlrPrimeNo,
                                           labelText: "Primary Phone #*",
@@ -829,6 +866,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoPrimaryEmailI.isEmpty ? true : false,
                                           controller: ctlrEmail,
                                           labelText: "Primary Email")),
@@ -839,12 +877,14 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                          isIClicked: widget.isIButtonPressed,
                                           isIconVisible :fetchedData == null ? true: fetchedData!.demoCahpsContactI.isEmpty ? true : false,
                                           controller: cahpsContactController,
                                           labelText: "CAHPS Contact")),
                                   SizedBox(width: providerState.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
                                   Flexible(
                                       child:  SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryContactI.isEmpty ? true : false,
                                         controller: ctlrSecondContact,
                                         labelText: 'Secondary Contact*',
@@ -860,6 +900,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryContactNameI.isEmpty ? true : false,
                                         controller: secondaryPhoneController,
                                         labelText: "Secondary Contact Name",
@@ -871,6 +912,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                 children: [
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryPhoneI.isEmpty ? true : false,
                                         controller: ctlrSecNo,
                                         phoneField: true,
@@ -879,6 +921,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                   SizedBox(width:providerState.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
                                   Flexible(
                                       child: SchedularTextField(
+                                        isIClicked: widget.isIButtonPressed,
                                         isIconVisible :fetchedData == null ? true: fetchedData!.demoSecondaryEmailI.isEmpty ? true : false,
                                         controller: secEmailController,
                                         labelText: "Secondary Email",
@@ -1044,6 +1087,7 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                                     children: [
                                       Flexible(
                                           child: SchedularTextField(
+                                            isIClicked: widget.isIButtonPressed,
                                             isIconVisible :fetchedData == null ? true: fetchedData!.demoSocialSecurityI.isEmpty ? true : false,
                                             controller: ctlrSocialSec,
                                             labelText: 'Social Security',
