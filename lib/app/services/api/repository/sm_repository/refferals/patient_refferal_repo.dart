@@ -38,6 +38,7 @@ class PatientRefferalsRepo{
   static String tobescheduler = '/patient-referral/toBeScheduled';
   static String scheduler = '/patient-referral/scheduled';
   static String discipschedulerd = '/discipline/patient';
+  static String disciplinebyid = '/discipline';
 
 
   /// patient diagnosis
@@ -174,4 +175,10 @@ class PatientRefferalsRepo{
   static  String getdisciplanebyid({required int pt_id}){
     return "$discipschedulerd/$pt_id";
   }
+
+  static String patchDisciplineEndpoint({required int id}) {
+    return "$disciplinebyid/$id";
+  }
+
+
 }

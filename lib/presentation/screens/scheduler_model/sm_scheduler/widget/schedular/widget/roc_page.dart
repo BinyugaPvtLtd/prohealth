@@ -485,6 +485,7 @@ import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/scheduler_tab_manager.dart';
 import '../../../../../../../data/api_data/sm_data/sm_model_data/sm_data.dart';
+import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
 import '../../../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
@@ -1122,11 +1123,49 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                                           ),
                                                         ),
                                                       ),
-                                                      Container(
+                                                      SizedBox(
                                                         height: 25,
                                                         width: 90,
                                                         child: ElevatedButton(
-                                                          onPressed: () {},
+                                                          onPressed: () async {
+                                                            final recordId = item.disciplineId; // Discipline record ID
+                                                            final fkEmployeeId = item.employeedId ?? 0; // Fallback to 0 if null
+                                                            final notesToClinician = "Assigned via app"; // Static or dynamic value
+
+                                                            print("////////Record ID: $recordId");
+                                                            print(";;;;;;;Employee ID: $fkEmployeeId");
+                                                            print("////////Notes to Clinician: $notesToClinician");
+
+
+                                                            final response = await patchDisciplineData(
+                                                              context: context,
+                                                              recordId: recordId,
+                                                              notesToClinician: notesToClinician,
+                                                              fkEmployeeId: fkEmployeeId,
+                                                            );
+
+                                                            if (response.success) {
+                                                              // ✅ Show custom success popup
+                                                              showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context) {
+                                                                  return const AddSuccessPopup(
+                                                                    message: 'Data Updated Successfully',
+                                                                  );
+                                                                },
+                                                              );
+                                                            } else {
+                                                              // ❌ Show custom failure popup
+                                                              await showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context) {
+                                                                  return AddFailePopup(
+                                                                    message: response.message,
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
+                                                          },
                                                           style: ElevatedButton.styleFrom(
                                                             backgroundColor: ColorManager.bluebottom,
                                                             shape: RoundedRectangleBorder(
@@ -1142,6 +1181,7 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
                                                             ),
                                                           ),
                                                         ),
+
                                                       ),
                                                     ],
                                                   ),

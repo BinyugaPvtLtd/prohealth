@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_model_data/sm_data.dart';
+import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/sm_repository/refferals/patient_refferal_repo.dart';
 
@@ -347,3 +349,44 @@ Future<PatientWithDisciplinesModel?> getPatientWithDisciplinesDataUsingId({
   return patientData;
 }
 
+
+
+Future<ApiData> patchDisciplineData({
+  required BuildContext context,
+  required int recordId,
+  required String notesToClinician,
+  required int fkEmployeeId,
+}) async {
+  try {
+    var response = await Api(context).patch(
+      path: PatientRefferalsRepo.patchDisciplineEndpoint(id: recordId),
+      data: {
+        "notesToClinician": notesToClinician,
+        "fk_employeeId": fkEmployeeId,
+      },
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Discipline Record Updated");
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: true,
+        message: response.statusMessage ?? "Update successful",
+      );
+    } else {
+      print("Error updating discipline");
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: false,
+        message: response.data['message'] ?? "Unknown error",
+      );
+    }
+  } catch (e) {
+    print("Exception: $e");
+    return ApiData(
+      statusCode: 404,
+      success: false,
+      message: AppString.somethingWentWrong,
+    );
+  }
+}

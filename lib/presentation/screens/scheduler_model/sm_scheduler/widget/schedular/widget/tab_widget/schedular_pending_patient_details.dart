@@ -26,6 +26,15 @@ class SchedularPendingPatientDetails extends StatefulWidget {
 
 class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatientDetails> {
   final PageController _tabPageController = PageController();
+  late Future<PatientWithDisciplinesModel?> _patientFuture;
+
+
+  @override
+  void initState() {
+    super.initState();
+    final patientId = Provider.of<DiagnosisProvider>(context, listen: false).patientId;
+    _patientFuture = getPatientWithDisciplinesDataUsingId(context: context, patientId: patientId);
+  }
 
   int _selectedIndex = 0;
 
@@ -42,12 +51,12 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
 
   @override
   Widget build(BuildContext context) {
-    final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
-    final int patientId = diagnosisProvider.patientId;
+    // final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
+    // final int patientId = diagnosisProvider.patientId;
     return Padding(
-      padding: EdgeInsets.only(left: 60, right: 70, top: 20),
+      padding: const EdgeInsets.only(left: 60, right: 70, top: 20),
       child: ScrollConfiguration(
-          behavior: ScrollBehavior().copyWith(scrollbars: false),
+          behavior: const ScrollBehavior().copyWith(scrollbars: false),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -64,7 +73,7 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                               size: IconSize.I16,
                               color: ColorManager.mediumgrey,
                             )),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Text("Patients Details",
                           style: TextStyle(
                           fontSize: FontSize.s16,
@@ -82,11 +91,11 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 FutureBuilder<PatientWithDisciplinesModel?>(
-                  future: getPatientWithDisciplinesDataUsingId(context: context, patientId: patientId),
+                  future: _patientFuture,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator(); // or shimmer
@@ -139,7 +148,7 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                             ),
                           ),
                         ),
-                        SizedBox(width: AppSize.s12),
+                        const SizedBox(width: AppSize.s12),
                         Expanded(
                           flex: 2,
                           child: Column(
@@ -154,7 +163,7 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                                   color: ColorManager.mediumgrey,
                                 ),
                               ),
-                              SizedBox(height: AppSize.s5),
+                              const SizedBox(height: AppSize.s5),
                               Text(
                                 'MRN #584234',
                                 style: CustomTextStylesCommon.commonStyle(
@@ -163,7 +172,7 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                                   color: ColorManager.mediumgrey,
                                 ),
                               ),
-                              SizedBox(height: AppSize.s5),
+                              const SizedBox(height: AppSize.s5),
                               Text(
                                 patient.ptSummary.isNotEmpty ? patient.ptSummary : 'N/A',
                                 style: CustomTextStylesCommon.commonStyle(
@@ -194,7 +203,7 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Icon(Icons.location_on_outlined, size: IconSize.I18, color: ColorManager.bluebottom),
-                              SizedBox(width: 15),
+                              const SizedBox(width: 15),
                               Flexible(
                                 child: Text(
                                   "132 My Street, Lane no 123, Sacramento 12401", // Currently hardcoded
@@ -214,15 +223,15 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                   },
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Divider(height: 2,),
-                SizedBox(
+                const Divider(height: 2,),
+                const SizedBox(
                   height: 30,
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Column(
@@ -261,32 +270,13 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                           });
                         },
                         children: [
-                          RNSOCPageview(),
-                                PTPageview(),
-                              OTPageview(),
+                          const RNSOCPageview(),
+                                const PTPageview(),
+                              const OTPageview(),
                         ],
                       ),
                     ),
 
-                    // Expanded(
-                    //   child: Padding(
-                    //     padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 70),
-                    //     child: NonScrollablePageView(
-                    //       controller: _tabPageController,
-                    //       onPageChanged: (index) {
-                    //         setState(() {
-                    //           _selectedIndex = index;
-                    //         });
-                    //       },
-                    //       children: [
-                    //         PendingPageView(onAutoTap: (){})
-                    //        // RNSOCPageview(),
-                    //         // PTPageview(),
-                    //         // OTPageview(),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 ),
               ],
@@ -357,14 +347,14 @@ class SMTabbarscheduler extends StatelessWidget {
                 Positioned(
                   right: -5,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4,vertical: 0),
+                    padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 0),
                     decoration: BoxDecoration(
                       color: ColorManager.blueprime, // Badge color
                       borderRadius: BorderRadius.circular(12), // Rounded badge
                     ),
                     child: Text(
                       badgeNumber!.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: FontSize.s10, // Adjust font size
                         fontWeight: FontWeight.bold,
                         color: Colors.white, // Badge text color
@@ -379,7 +369,7 @@ class SMTabbarscheduler extends StatelessWidget {
               final textPainter = TextPainter(
                 text: TextSpan(
                   text: heading,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: FontSize.s14,
                     fontWeight: FontWeight.w700,
                   ),
