@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/roc_page.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/scheduler_tab_manager.dart';
+import '../../../../../../../../data/api_data/sm_data/sm_model_data/sm_data.dart';
 import '../../../../../../../widgets/app_clickable_widget.dart';
 import '../../../../../../em_module/company_identity/widgets/ci_tab_widget/widget/upper_menu_buttons.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../sm_Intake/intake_main_screen.dart';
+import '../../../../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import '../../sm_scheduler_screen_const.dart';
 
 class SchedularPendingPatientDetails extends StatefulWidget {
   final VoidCallback onMergeBackPressed;
-   SchedularPendingPatientDetails({super.key, required this.onMergeBackPressed});
+   SchedularPendingPatientDetails({super.key, required this.onMergeBackPressed
+   });
 
   @override
   State<SchedularPendingPatientDetails> createState() => _SchedularPendingPatientDetailsState();
@@ -37,6 +42,8 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
 
   @override
   Widget build(BuildContext context) {
+    final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
+    final int patientId = diagnosisProvider.patientId;
     return Padding(
       padding: EdgeInsets.only(left: 60, right: 70, top: 20),
       child: ScrollConfiguration(
@@ -78,95 +85,135 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                 SizedBox(
                   height: 30,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(60),
-                        child: SizedBox(
-                          width: AppSize.s40,
-                          height: AppSize.s45,
-                          child: Image.asset(
-                            'images/hr_dashboard/man.png', // Replace with your image path
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: AppSize.s12),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Jeh Tiwari',
-                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey,),
-                          ),
-                          SizedBox(height: AppSize.s5),
-                          Text(
-                            'MRN #584234',
-                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.mediumgrey,),
-                          ),
-                          SizedBox(height: AppSize.s5),
-                          Text(
-                            'Anxiety',
-                            style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.mediumgrey,),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child:  Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomButtonRow(
-                            onSaveClosePressed: (){},
-                            onSubmitPressed: () {
-                              // Action for Submit button
-                              print('Submit pressed');
-                            },
-                            onNextPressed: () {
-                              // Action for Next button
-                              print('Next pressed');
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
+                FutureBuilder<PatientWithDisciplinesModel?>(
+                  future: getPatientWithDisciplinesDataUsingId(context: context, patientId: patientId),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator(); // or shimmer
+                    } else if (snapshot.hasError || !snapshot.hasData) {
+                      return const Text("Error loading patient info");
+                    }
 
-                          Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
-                          SizedBox(width: 15,),
-                          Flexible(
-                            child: Text(
-                              "132 My Street,Lane no 123,  Sacramento 12401",
-                              textAlign: TextAlign.start,
-                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.textBlack,),
+                    final patient = snapshot.data!.patient;
+
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: ClipOval(
+                            child: patient.ptImgUrl == 'imgurl' ||
+                                patient.ptImgUrl  == null
+                                ? CircleAvatar(
+                              radius: 22,
+                              backgroundColor: Colors.transparent,
+                              child: Image.asset("images/profilepic.png"),
+                            )
+                                : Image.network(
+                              patient.ptImgUrl!,
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                } else {
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value: loadingProgress.expectedTotalBytes != null
+                                          ? loadingProgress.cumulativeBytesLoaded /
+                                          (loadingProgress.expectedTotalBytes ?? 1)
+                                          : null,
+                                    ),
+                                  );
+                                }
+                              },
+                              errorBuilder: (context, error, stackTrace) {
+                                return CircleAvatar(
+                                  radius: 21,
+                                  backgroundColor: Colors.transparent,
+                                  child: Image.asset("images/profilepic.png"),
+                                );
+                              },
+                              fit: BoxFit.cover,
+                              height: 40,
+                              width: 40,
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
+                        ),
+                        SizedBox(width: AppSize.s12),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '${patient.ptFirstName} ${patient.ptLastName}',
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
+                              SizedBox(height: AppSize.s5),
+                              Text(
+                                'MRN #584234',
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
+                              SizedBox(height: AppSize.s5),
+                              Text(
+                                patient.ptSummary.isNotEmpty ? patient.ptSummary : 'N/A',
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomButtonRow(
+                                onSaveClosePressed: () {},
+                                onSubmitPressed: () => print('Submit pressed'),
+                                onNextPressed: () => print('Next pressed'),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(Icons.location_on_outlined, size: IconSize.I18, color: ColorManager.bluebottom),
+                              SizedBox(width: 15),
+                              Flexible(
+                                child: Text(
+                                  "132 My Street, Lane no 123, Sacramento 12401", // Currently hardcoded
+                                  textAlign: TextAlign.start,
+                                  style: CustomTextStylesCommon.commonStyle(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorManager.textBlack,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
+
                 SizedBox(
                   height: 10,
                 ),
@@ -174,15 +221,7 @@ class _SchedularPendingPatientDetailsState extends State<SchedularPendingPatient
                 SizedBox(
                   height: 30,
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text("Preferred Date: 2024/12/01 & Time: 12:00 pm",
-                //     style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                //       fontWeight: FontWeight.w400,
-                //       color: ColorManager.textBlack,),),
-                //   ],
-                // ),
+
                 SizedBox(
                   height: 30,
                 ),

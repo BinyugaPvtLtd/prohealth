@@ -11,9 +11,11 @@ import 'package:provider/provider.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/provider/sm_provider/sm_slider_provider.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../../app/services/api/managers/sm_module_manager/intake/all_intake_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/intake/related_parties_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/sm_intake_manager/intake_demographics/intake_demographic_dropdown_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
+import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographich_ai_data.dart';
 import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/demographics_dropdown_data.dart';
 import '../../../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/related_parties_data.dart';
 import '../../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
@@ -211,10 +213,11 @@ class EmergencyContactProvider extends ChangeNotifier {
 }
 class IntakeRelatedPartiesScreen extends StatefulWidget {
   final int patientId;
+  final VoidCallback onIButtonPressed;
 
    IntakeRelatedPartiesScreen({
     super.key,
-    required this.patientId,
+    required this.patientId, required this.onIButtonPressed,
   });
 
   @override
@@ -255,6 +258,7 @@ class _IntakeRelatedPartiesScreenState extends State<IntakeRelatedPartiesScreen>
     loadInitialrepresentative();
     super.initState();
   }
+
   Future<void> loadInitialrepresentative() async{
     final provider = Provider.of<DiagnosisProvider>(context, listen: false);
     final providerState = Provider.of<EmergencyContactProvider>(context, listen: false);
@@ -397,7 +401,9 @@ class _IntakeRelatedPartiesScreenState extends State<IntakeRelatedPartiesScreen>
                               index: index + 1,
                               onRemove: () => removeEmploymentForm,
                               patientId: widget.patientId,
-                              isVisible: isVisibleContact, //emergencyContactData: data,
+                              isVisible: isVisibleContact,
+                              oniButton: widget.onIButtonPressed,
+                              //emergencyContactData: data,
                             );
                           }).toList(),
                         ),
@@ -2050,7 +2056,7 @@ class _IntakeRelatedPartiesScreenState extends State<IntakeRelatedPartiesScreen>
                               index: index + 1,
                               onRemove: () => removeRepresentative(key),
                               patientId: widget.patientId,
-                              isVisible: isVisibleContact,
+                              isVisible: isVisibleContact, oniButton: widget.onIButtonPressed,
                               // patientRepresentativeData: data,
                               // onChanged: (int index, PatientRepresentativeData updatedModel) {
                               //   provider.updateRepresentative(index, updatedModel);
@@ -2234,9 +2240,10 @@ class AddEemergencyContact extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
+  final VoidCallback oniButton;
   // final List<EmergencyContactData> emergencyContactData;
   // final Function(int index, EmergencyContactData updatedModel) onChanged;
-  AddEemergencyContact({super.key, required this.patientId, required this.onRemove, required this.index, required this.isVisible,
+  AddEemergencyContact({super.key, required this.patientId, required this.onRemove, required this.index, required this.isVisible, required this.oniButton,
     // required this.emergencyContactData,
     // required this.onChanged
   });
@@ -2264,6 +2271,7 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
   void initState() {
     super.initState();
     _initializeFormWithPrefilledData();
+    fetchAIdemoData();
     // if (widget.emergencyContactData.length >= widget.index) {
     //   final data = widget.emergencyContactData[widget.index];
     //   firstNameController.text = data.firstName;
@@ -2289,6 +2297,18 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
     // phoneNumberController.addListener(_updateModel);
     // zipCodeController.addListener(_updateModel);
     // emailController.addListener(_updateModel);
+  }
+  AiEmergencyContactData? fetchedData;
+  var data;
+  // final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+  Future<void> fetchAIdemoData() async{
+    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+    data = await getAIEmergencyContact(context: context, ptId: providerPatientId.patientId);
+    // notifyListeners();
+    setState(() {
+      fetchedData = data;
+    });
+    // fetchedData = data;
   }
   // void _updateModel() {
   //   final updatedModel = EmergencyContactData(
@@ -2373,6 +2393,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
           children: [
             Flexible(
                 child: SchedularTextField(
+                  isIClicked: widget.oniButton,
+                  isIconVisible:fetchedData == null ? true: fetchedData!.firstName_I.isEmpty? true : false,
                   controller: firstNameController,
                   labelText: 'First Name*',
                   onChanged: (value){
@@ -2384,6 +2406,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             SizedBox(width:AddemergencyProvider.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  isIClicked: widget.oniButton,
+                  isIconVisible:fetchedData == null ? true: fetchedData!.lastName_I.isEmpty? true : false,
                   controller: lastNameController,
                   labelText: 'Last Name*',
                   onChanged: (value){
@@ -2441,6 +2465,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
           children: [
             Flexible(
                 child: SchedularTextField(
+                  isIClicked: widget.oniButton,
+                  isIconVisible:  fetchedData == null ? true:fetchedData!.firstName_I.isEmpty? true : false,
                   controller: firstNameController,
                   labelText: 'First Name*',
                   onChanged: (value){
@@ -2452,6 +2478,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
             const SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  isIClicked: widget.oniButton,
+                  isIconVisible:fetchedData == null ? true: fetchedData!.lastName_I.isEmpty? true : false,
                   controller: lastNameController,
                   labelText: 'Last Name*',
                   onChanged: (value){
@@ -2520,6 +2548,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         isPrefill= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
+                    isIconVisible:fetchedData == null ? true: fetchedData!.street_I.isEmpty? true : false,
                     controller: streetController,
                     icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                     labelText: "Street*")),
@@ -2531,6 +2561,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         isPrefill= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
+                    isIconVisible:fetchedData == null ? true: fetchedData!.suite_I.isEmpty? true : false,
                     controller: suitAptController,
                     labelText: "Suite/Apt#")),
             SizedBox(width: AddemergencyProvider.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
@@ -2579,6 +2611,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                       isPrefill= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
+                  isIconVisible:fetchedData == null ? true: fetchedData!.city_I.isEmpty? true : false,
                   controller: cityController,
                   labelText: "City*"),
             ),
@@ -2593,6 +2627,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         isPrefill= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
+                    isIconVisible:fetchedData == null ? true: fetchedData!.street_I.isEmpty? true : false,
                     controller: streetController,
                     icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                     labelText: "Street*")),
@@ -2604,6 +2640,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         isPrefill= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
+                    isIconVisible:fetchedData == null ? true: fetchedData!.suite_I.isEmpty? true : false,
                     controller: suitAptController,
                     labelText: "Suite/Apt#")),
             const SizedBox(width: AppSize.s35),
@@ -2652,6 +2690,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                       isPrefill= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
+                  isIconVisible:fetchedData == null ? true: fetchedData!.city_I.isEmpty? true : false,
                   controller: cityController,
                   labelText: "City*"),
             ),
@@ -2702,6 +2742,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                       isPrefill= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
+                  isIconVisible:fetchedData == null ? true: fetchedData!.state_I.isEmpty? true : false,
                   controller: stateController,
                   labelText: "State*"),
             ),
@@ -2713,6 +2755,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         isPrefill= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
+                    isIconVisible:fetchedData == null ? true: fetchedData!.zipCode_I.isEmpty? true : false,
                     controller: zipCodeController,
                     onlyAllowNumbers: true,
                     labelText: "Zip Code*")),
@@ -2768,6 +2812,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                       isPrefill= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
+                  isIconVisible:fetchedData == null ? true: fetchedData!.state_I.isEmpty? true : false,
                   controller: stateController,
                   labelText: "State*"),
             ),
@@ -2779,6 +2825,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         isPrefill= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
+                    isIconVisible:fetchedData == null ? true: fetchedData!.zipCode_I.isEmpty? true : false,
                     controller: zipCodeController,
                     onlyAllowNumbers: true,
                     labelText: "Zip Code*")),
@@ -2790,6 +2838,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         isPrefill= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
+                    isIconVisible:fetchedData == null ? true: fetchedData!.phoneNumber_I.isEmpty? true : false,
                     controller: phoneNumberController,
                     phoneField: true,
                     labelText: "Phone Number*")),
@@ -2804,6 +2854,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         isPrefill= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
+                    isIconVisible:fetchedData == null ? true: fetchedData!.phoneNumber_I.isEmpty? true : false,
                     controller: phoneNumberController,
                     phoneField: true,
                     labelText: "Phone Number*")),
@@ -2815,6 +2867,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         isPrefill= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
+                    isIconVisible:fetchedData == null ? true: fetchedData!.email_I.isEmpty? true : false,
                     controller: emailController,
                     labelText: "Email")),
             // Empty container for alignment
@@ -2836,6 +2890,8 @@ class _AddEemergencyContactState extends State<AddEemergencyContact> {
                         isPrefill= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
+                    isIconVisible:fetchedData == null ? true: fetchedData!.email_I.isEmpty? true : false,
                     controller: emailController,
                     labelText: "Email")),
             // Empty container for alignment
@@ -2858,9 +2914,10 @@ class Representative extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
+  final VoidCallback oniButton;
   // final List<PatientRepresentativeData> patientRepresentativeData;
   // final Function(int index, PatientRepresentativeData updatedModel) onChanged;
-  Representative({super.key, required this.patientId, required this.onRemove, required this.index, required this.isVisible,
+  Representative({super.key, required this.patientId, required this.onRemove, required this.index, required this.isVisible, required this.oniButton,
     // required this.patientRepresentativeData, required this.onChanged
   });
 
@@ -2888,7 +2945,21 @@ class _RepresentativeState extends State<Representative> {
   void initState() {
     super.initState();
     _initializeFormWithPrefilledData();
+    fetchAIdemoData();
   }
+  AiRepresentativeData? fetchedData;
+  var data;
+  // final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+  Future<void> fetchAIdemoData() async{
+    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+    data = await getAIRepresentative(context: context, ptId: providerPatientId.patientId);
+    // notifyListeners();
+    setState(() {
+      fetchedData = data;
+    });
+    // fetchedData = data;
+  }
+
   Future<void> _initializeFormWithPrefilledData() async {
     final provider = Provider.of<DiagnosisProvider>(context, listen: false);
     try {
@@ -2983,11 +3054,13 @@ class _RepresentativeState extends State<Representative> {
           children: [
             Flexible(
                 child: SchedularTextField(
+                  isIconVisible:fetchedData == null ? true: fetchedData!.firstName_I.isEmpty? true : false,
                   onChanged: (value){
                     if(value.isNotEmpty){
                       prefillDataRepresent= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
                   controller: firstNamePRController,
                   labelText: 'First Name*',
 
@@ -2995,11 +3068,13 @@ class _RepresentativeState extends State<Representative> {
             SizedBox(width:RepresentativeProvider.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  isIconVisible:fetchedData == null ? true: fetchedData!.lastName_I.isEmpty? true : false,
                   onChanged: (value){
                     if(value.isNotEmpty){
                       prefillDataRepresent= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
                   controller: lastNamePRController,
                   labelText: 'Last Name*',
                 )),
@@ -3052,11 +3127,13 @@ class _RepresentativeState extends State<Representative> {
           children: [
             Flexible(
                 child: SchedularTextField(
+                  isIconVisible:fetchedData == null ? true: fetchedData!.firstName_I.isEmpty? true : false,
                   onChanged: (value){
                     if(value.isNotEmpty){
                       prefillDataRepresent= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
                   controller: firstNamePRController,
                   labelText: 'First Name*',
 
@@ -3064,11 +3141,13 @@ class _RepresentativeState extends State<Representative> {
             const SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  isIconVisible:fetchedData == null ? true: fetchedData!.lastName_I.isEmpty? true : false,
                   onChanged: (value){
                     if(value.isNotEmpty){
                       prefillDataRepresent= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
                   controller: lastNamePRController,
                   labelText: 'Last Name*',
                 )),
@@ -3286,11 +3365,13 @@ class _RepresentativeState extends State<Representative> {
             SizedBox(width: RepresentativeProvider.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                    isIconVisible:fetchedData == null ? true: fetchedData!.street_I.isEmpty? true : false,
                     onChanged: (value){
                       if(value.isNotEmpty){
                         prefillDataRepresent= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
                     controller: streetPRController,
                     icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                     labelText: "Street*")),
@@ -3300,22 +3381,26 @@ class _RepresentativeState extends State<Representative> {
           children: [
             Flexible(
                 child: SchedularTextField(
+                    isIconVisible:fetchedData == null ? true: fetchedData!.street_I.isEmpty? true : false,
                     onChanged: (value){
                       if(value.isNotEmpty){
                         prefillDataRepresent= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
                     controller: streetPRController,
                     icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                     labelText: "Street*")),
             const SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                    isIconVisible:fetchedData == null ? true: fetchedData!.suite_I.isEmpty? true : false,
                     onChanged: (value){
                       if(value.isNotEmpty){
                         prefillDataRepresent= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
                     controller: suitAptPRController,
                     labelText: "Suite/Apt#")),
             const SizedBox(width: AppSize.s35),
@@ -3359,11 +3444,13 @@ class _RepresentativeState extends State<Representative> {
               // ),
 
               child: SchedularTextField(
+                  isIconVisible:fetchedData == null ? true: fetchedData!.city_I.isEmpty? true : false,
                   onChanged: (value){
                     if(value.isNotEmpty){
                       prefillDataRepresent= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
                   controller: ctlrCity,
                   labelText: AppString.city),
             ),
@@ -3409,11 +3496,13 @@ class _RepresentativeState extends State<Representative> {
               // ),
               //
                 child: SchedularTextField(
+                  isIconVisible:fetchedData == null ? true: fetchedData!.state_I.isEmpty? true : false,
                   onChanged: (value){
                     if(value.isNotEmpty){
                       prefillDataRepresent= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
                   labelText: "State*",
                   controller: ctlrState,
                 )
@@ -3421,11 +3510,13 @@ class _RepresentativeState extends State<Representative> {
             const SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                    isIconVisible:fetchedData == null ? true: fetchedData!.zipCode_I.isEmpty? true : false,
                     onChanged: (value){
                       if(value.isNotEmpty){
                         prefillDataRepresent= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
                     controller: zipCodePRController,
                     onlyAllowNumbers: true,
                     labelText: "Zip Code*")),
@@ -3437,11 +3528,13 @@ class _RepresentativeState extends State<Representative> {
           children: [
             Flexible(
                 child: SchedularTextField(
+                    isIconVisible:fetchedData == null ? true: fetchedData!.suite_I.isEmpty? true : false,
                     onChanged: (value){
                       if(value.isNotEmpty){
                         prefillDataRepresent= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
                     controller: suitAptPRController,
                     labelText: "Suite/Apt#")),
             SizedBox(width:RepresentativeProvider.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
@@ -3485,11 +3578,13 @@ class _RepresentativeState extends State<Representative> {
               // ),
 
               child: SchedularTextField(
+                  isIconVisible:fetchedData == null ? true: fetchedData!.city_I.isEmpty? true : false,
                   onChanged: (value){
                     if(value.isNotEmpty){
                       prefillDataRepresent= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
                   controller: ctlrCity,
                   labelText: AppString.city),
             ),
@@ -3535,11 +3630,13 @@ class _RepresentativeState extends State<Representative> {
               // ),
 
                 child: SchedularTextField(
+                  isIconVisible:fetchedData == null ? true: fetchedData!.state_I.isEmpty? true : false,
                   onChanged: (value){
                     if(value.isNotEmpty){
                       prefillDataRepresent= false;
                     }
                   },
+                  isIClicked: widget.oniButton,
                   labelText: "State*",
                   controller: ctlrState,
                 )
@@ -3550,22 +3647,26 @@ class _RepresentativeState extends State<Representative> {
           children: [
             Flexible(
                 child: SchedularTextField(
+                    isIconVisible:fetchedData == null ? true: fetchedData!.phoneNumber_I.isEmpty? true : false,
                     onChanged: (value){
                       if(value.isNotEmpty){
                         prefillDataRepresent= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
                     controller: phoneNumberPRController,
                     phoneField:true,
                     labelText: "Phone Number*")),
             SizedBox(width: RepresentativeProvider.isLeftSidebarOpen ?  AppSize.s70 : AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                    isIconVisible:fetchedData == null ? true: fetchedData!.email_I.isEmpty? true : false,
                     onChanged: (value){
                       if(value.isNotEmpty){
                         prefillDataRepresent= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
                     controller: emailPRController,
                     labelText: "Email")),
             // Empty container for alignment
@@ -3582,33 +3683,39 @@ class _RepresentativeState extends State<Representative> {
           children: [
             Flexible(
                 child: SchedularTextField(
+                    isIconVisible:fetchedData == null ? true: fetchedData!.zipCode_I.isEmpty? true : false,
                     onChanged: (value){
                       if(value.isNotEmpty){
                         prefillDataRepresent= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
                     controller: zipCodePRController,
                     onlyAllowNumbers: true,
                     labelText: "Zip Code*")),
             SizedBox(width:RepresentativeProvider.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                    isIconVisible:fetchedData == null ? true: fetchedData!.phoneNumber_I.isEmpty? true : false,
                     onChanged: (value){
                       if(value.isNotEmpty){
                         prefillDataRepresent= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
                     controller: phoneNumberPRController,
                     phoneField:true,
                     labelText: "Phone Number*")),
             SizedBox(width:RepresentativeProvider.isLeftSidebarOpen ?  AppSize.s70 :  AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                    isIconVisible:fetchedData == null ? true: fetchedData!.email_I.isEmpty? true : false,
                     onChanged: (value){
                       if(value.isNotEmpty){
                         prefillDataRepresent= false;
                       }
                     },
+                    isIClicked: widget.oniButton,
                     controller: emailPRController,
                     labelText: "Email")),
           ],

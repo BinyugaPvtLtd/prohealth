@@ -34,6 +34,12 @@ class PatientRefferalsRepo{
   static String orderpatient = '/orders/patient';
   static String orderpatientprifill = '/orders/patient/by-patient';
 
+  ///scheduler
+  static String tobescheduler = '/patient-referral/toBeScheduled';
+  static String scheduler = '/patient-referral/scheduled';
+  static String discipschedulerd = '/discipline/patient';
+
+
   /// patient diagnosis
  // static String patientDiagnosisGet = '/referral-patient-diagnosis/patient';
  // static String patientDiagnosisAdd = '/referral-patient-diagnosis';
@@ -152,5 +158,20 @@ class PatientRefferalsRepo{
 //prifill
   static  String getPatientorderbyid({required int pt_id}){
     return "$orderpatientprifill/$pt_id";
+  }
+
+
+
+  ///get
+  static  String gettobescheduler(){
+    return "$tobescheduler";
+  }
+
+  static  String getscheduler(){
+    return "$scheduler";
+  }
+
+  static  String getdisciplanebyid({required int pt_id}){
+    return "$discipschedulerd/$pt_id";
   }
 }

@@ -475,6 +475,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -482,10 +483,14 @@ import '../../../../../../../app/resources/establishment_resources/establish_the
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../app/services/api/managers/sm_module_manager/refferals_manager/scheduler_tab_manager.dart';
+import '../../../../../../../data/api_data/sm_data/sm_model_data/sm_data.dart';
 import '../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
+import '../../../../sm_refferal/widgets/refferal_pending_widgets/r_p_eye_pageview_screen.dart';
 import '../../../../sm_refferal/widgets/refferal_pending_widgets/widgets/referral_Screen_const.dart';
 import '../../../../widgets/constant_widgets/dropdown_constant_sm.dart';
+
 
 class RNSOCPageview extends StatefulWidget {
   const RNSOCPageview({super.key});
@@ -501,7 +506,8 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
   String selectedType = "Auto-assign";
   @override
   Widget build(BuildContext context) {
-
+    final diagnosisProvider = Provider.of<DiagnosisProvider>(context, listen: false);
+    final int patientId = diagnosisProvider.patientId;
     return  Column(
       children: [
         // isAssigned
@@ -844,368 +850,402 @@ class _RNSOCPageviewState extends State<RNSOCPageview> {
         // )
         //     :
         Expanded(
-              child: Container(
-                        child: SingleChildScrollView(
-                          child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+              child: SingleChildScrollView(
+                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 20),
+                                Text(
+                                  "Clinician Preference",
+                                  style: CustomTextStylesCommon.commonStyle(
+                                      color: ColorManager.mediumgrey,
+                                      fontSize: FontSize.s14,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                const SizedBox(height: 40),
+                                Row(
+                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CustomSearchFieldSM(
+                                      onPressed: () {},
+                                    ),
+                                    const SizedBox(width: 50,),
+
+
+
+                                    FilterBy(body: [
+
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          const SizedBox(height: 20),
                                           Text(
-                                            "Clinician Preference",
-                                            style: CustomTextStylesCommon.commonStyle(
-                                                color: ColorManager.mediumgrey,
-                                                fontSize: FontSize.s14,
-                                                fontWeight: FontWeight.w700),
+                                              "Filter By",
+                                              style:TextStyle(
+                                                fontSize: FontSize.s15,
+                                                fontWeight: FontWeight.w700,
+                                                color: ColorManager.blueprime,
+                                                decoration: TextDecoration.none,
+                                              )
                                           ),
-                                          const SizedBox(height: 40),
-                                          Row(
-                                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              CustomSearchFieldSM(
-                                                onPressed: () {},
-                                              ),
-                                              const SizedBox(width: 50,),
+                                          IconButton(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            icon:  Icon(
+                                              Icons.close,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+
+                                        ],
+                                      ),
+              const SizedBox(height: 10,),
+                                      Filterpopup(text: 'Counties', bluetext: 'sacramento',),
+                                      Filterpopup(text: 'Zones', bluetext: 'sacramento Z1',),
+                                      Filterpopup(text: 'Employment', bluetext: 'Salaried',),
+                                      Filterpopup(text: 'Gender', bluetext: 'Male',),
+                                      Filterpopup(text: 'Skills', bluetext: 'lorem ipsum',),
+
+                                      Row(
+                                        children: [
+                                          SMCheckbox(
+                                            value: reClinician,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                reClinician = value!;
+                                              });
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            width: AppSize.s5,
+                                          ),
+                                          Text(
+                                            "Recommended Clinician",
+                                            style: DocDefineTableDataID
+                                                .customTextStyle(context),
+                                          )
+                                        ],
+                                      )
+                                    ],
+
+                                    )
 
 
+                                    // SmDropdownConst(
+                                    //   height: 36,
+                                    //   width: 150,
+                                    //   isAstric: false,
+                                    //   initialValue: 'Filter by',
+                                    //   headText: "",
+                                    //   items: ['Filter by', 'Referral App', 'E-Fax', 'E-Referrals', 'Manual'],
+                                    //   onChanged: (newValue) {},
+                                    // ),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                Text(
+                                  "Suggestions",
+                                  style: CustomTextStylesCommon.commonStyle(
+                                      color: ColorManager.mediumgrey,
+                                      fontSize: FontSize.s14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                const SizedBox(height: 20),
+                                FutureBuilder<PatientWithDisciplinesModel?>(
+                                  future: getPatientWithDisciplinesDataUsingId(
+                                    context: context,
+                                    patientId: patientId, // replace with actual ID
+                                  ),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                      return const Center(child: CircularProgressIndicator());
+                                    } else if (snapshot.hasError) {
+                                      return Center(child: Text("Error: ${snapshot.error}"));
+                                    } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.disciplineAssignments.isEmpty) {
+                                      return const Center(child: Text("No disciplines assigned."));
+                                    }
 
-                                              FilterBy(body: [
+                                    final disciplines = snapshot.data!.disciplineAssignments;
 
+                                    return SizedBox(
+                                      height: 145,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: disciplines.length,
+                                        itemBuilder: (context, index) {
+                                          final item = disciplines[index];
+                                          final empType = item.employeeType;
+
+                                          return Container(
+                                            width: 270,
+                                            margin: const EdgeInsets.only(right: 20),
+                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: ColorManager.bluebottom, width: 2),
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      "In Zone",
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        color: ColorManager.greenDark,
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w700,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    Text(
-                                                        "Filter By",
-                                                        style:TextStyle(
-                                                          fontSize: FontSize.s15,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: ColorManager.blueprime,
-                                                          decoration: TextDecoration.none,
+                                                    // Avatar & Role
+                                                    Column(
+                                                      children: [
+                                                        Stack(
+                                                          children: [
+                                                            Container(
+                                                              width: 60,
+                                                              height: 60,
+                                                              alignment: Alignment.center,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(60),
+                                                              ),
+                                                              child: ClipRRect(
+                                                                borderRadius: BorderRadius.circular(60),
+                                                                child: SizedBox(
+                                                                  width: 45,
+                                                                  height: 45,
+                                                                  child: Image.asset(
+                                                                    'images/1.png',
+                                                                    fit: BoxFit.cover,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Positioned(
+                                                              left: 40,
+                                                              bottom: 5,
+                                                              child: Container(
+                                                                width: 19,
+                                                                height: 19,
+                                                                decoration: BoxDecoration(
+                                                                  color: HexColor.fromHex(empType.color),
+                                                                  borderRadius: BorderRadius.circular(3),
+                                                                ),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    empType.abbreviation ?? '',
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 10,
+                                                                      color: ColorManager.white,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Text(
+                                                          'Salaried',
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            color: ColorManager.mediumgrey,
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w700,
+                                                          ),
                                                         )
-                                                    ),
-                                                    IconButton(
-                                                      splashColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      icon:  Icon(
-                                                        Icons.close,
-                                                        color: ColorManager.mediumgrey,
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.of(context).pop();
-                                                      },
+                                                      ],
                                                     ),
 
+                                                    // Employee details
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "N/A", // You can display name if available
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            color: ColorManager.mediumgrey,
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(height: 10),
+                                                        Text(
+                                                          "Available",
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            color: ColorManager.greenDark,
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(height: 10),
+                                                        Text(
+                                                          "Location: Unknown",
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            color: ColorManager.mediumgrey,
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ],
                                                 ),
-const SizedBox(height: 10,),
-                                                Filterpopup(text: 'Counties', bluetext: 'sacramento',),
-                                                Filterpopup(text: 'Zones', bluetext: 'sacramento Z1',),
-                                                Filterpopup(text: 'Employment', bluetext: 'Salaried',),
-                                                Filterpopup(text: 'Gender', bluetext: 'Male',),
-                                                Filterpopup(text: 'Skills', bluetext: 'lorem ipsum',),
-
-                                                Row(
-                                                  children: [
-                                                    SMCheckbox(
-                                                      value: reClinician,
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          reClinician = value!;
-                                                        });
-                                                      },
-                                                    ),
-                                                    const SizedBox(
-                                                      width: AppSize.s5,
-                                                    ),
-                                                    Text(
-                                                      "Recommended Clinician",
-                                                      style: DocDefineTableDataID
-                                                          .customTextStyle(context),
-                                                    )
-                                                  ],
-                                                )
+                                                const SizedBox(height: 4),
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      InkWell(
+                                                        child: Image.asset("images/sm/contact_icon.png", height: 20),
+                                                        onTap: () {},
+                                                      ),
+                                                      const SizedBox(width: 20),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(right: 15),
+                                                        child: Text(
+                                                          "Accepted",
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            color: ColorManager.greenDark,
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        height: 25,
+                                                        width: 90,
+                                                        child: ElevatedButton(
+                                                          onPressed: () {},
+                                                          style: ElevatedButton.styleFrom(
+                                                            backgroundColor: ColorManager.bluebottom,
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.circular(15),
+                                                            ),
+                                                          ),
+                                                          child: Text(
+                                                            "Assign",
+                                                            style: CustomTextStylesCommon.commonStyle(
+                                                              color: ColorManager.white,
+                                                              fontSize: FontSize.s13,
+                                                              fontWeight: FontWeight.w600,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ],
-
-                                              )
-
-
-                                              // SmDropdownConst(
-                                              //   height: 36,
-                                              //   width: 150,
-                                              //   isAstric: false,
-                                              //   initialValue: 'Filter by',
-                                              //   headText: "",
-                                              //   items: ['Filter by', 'Referral App', 'E-Fax', 'E-Referrals', 'Manual'],
-                                              //   onChanged: (newValue) {},
-                                              // ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Text(
-                                            "Suggestions",
-                                            style: CustomTextStylesCommon.commonStyle(
-                                                color: ColorManager.mediumgrey,
-                                                fontSize: FontSize.s14,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          SizedBox(
-                                            height: 145,
-                                            child: ListView.builder(
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount: 4,
-                                              itemBuilder: (context, index) {
-                                                return Container(
-                          width: 270,
-                          margin: const EdgeInsets.only(right: 20),
-                          padding: const EdgeInsets.only(left: 5, right: 8, top: 5,bottom: 5),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: ColorManager.bluebottom,width: 2),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "In Zone",
-                                        style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
-                                            fontSize: FontSize.s12, fontWeight: FontWeight.w700),
-                                      ),
-                                    ],),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Stack(
-                                            children: [
-                                              Container(
-                                                width: AppSize.s60, // Larger than image
-                                                height: AppSize.s60, // Slightly larger height
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  // color: Colors.grey[200], // Optional background color
-                                                  borderRadius: BorderRadius.circular(60),
-                                                ),
-                                                child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(60),
-                                                  child: SizedBox(
-                                                    width: AppSize.s45,
-                                                    height: AppSize.s45,
-                                                    child: Image.asset(
-                                                      'images/1.png',
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                left: 40, // Adjusted to fit new container size
-                                                bottom: 5,
-                                                child: Container(
-                                                  width: 19,
-                                                  height: 19,
-                                                  decoration: BoxDecoration(
-                                                    color: const Color(0xFF527FB9),
-                                                    borderRadius: BorderRadius.circular(3),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "ST",
-                                                      style: TextStyle(
-                                                        fontWeight: FontWeight.w400,
-                                                        fontSize: 10,
-                                                        color: ColorManager.white,
-                                                        decoration: TextDecoration.none,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Text('Salaried', style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
-                                              fontSize: FontSize.s12, fontWeight: FontWeight.w700),)
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Adam Johnson",
-                                            style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
-                                                fontSize: FontSize.s12, fontWeight: FontWeight.w700),
-                                          ),
-                                          const SizedBox(height: 10,),
-                                          Text("Available (22/25)",
-                                            style: CustomTextStylesCommon.commonStyle(color: ColorManager.greenDark,
-                                                fontSize: FontSize.s12, fontWeight: FontWeight.w600),),
-                                          const SizedBox(height: 10,),
-                                          Text("Sacramento Z1 (2.4 Miles Away)",
-                                            style: CustomTextStylesCommon.commonStyle(color: ColorManager.mediumgrey,
-                                                fontSize: FontSize.s12, fontWeight: FontWeight.w400),),
-                                        ],
-                                      )
-                                        
-                                    ],
-                                  ),
-                                ],
-                              ),
-                                      const SizedBox(height: 4,),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8,),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    InkWell(
-                                      hoverColor: Colors.transparent,
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      child: Image.asset("images/sm/contact_icon.png",height: 20,)
-                                      ,onTap: (){},),
-                                   const SizedBox(width: 20,),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 15),
-                                      child: Text(
-                                        "Accepted",
-                                        style: CustomTextStylesCommon.commonStyle(
-                                            color: ColorManager.greenDark,
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ),
-                                  //  SizedBox(width: 20,),
-                                    Container(
-                                      height: 25,
-                                      width:90,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          // setState(() {
-                                          //   isAssigned = true;
-                                          // });
+                                            ),
+                                          );
                                         },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: ColorManager.bluebottom,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(15),
-                                          ),
-                                        //  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12), // optional
-                                        ),
-                                        child: Text("Assign",  style: CustomTextStylesCommon.commonStyle(
-                                            color: ColorManager.white,
-                                            fontSize: FontSize.s13,
-                                            fontWeight: FontWeight.w600),),
                                       ),
+                                    );
+                                  },
+                                ),
+
+                                const SizedBox(height:20),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    "Notes to Clinician",
+                                    style: CustomTextStylesCommon.commonStyle(
+                                        color: ColorManager.mediumgrey,
+                                        fontSize: FontSize.s14,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  width:  AppSize.s400,
+                                  height: AppSize.s50,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: const Color(0xFFB1B1B1), width: 1),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: TextFormField(
+                                    autofocus: false,
+                                    enabled: false ,
+                                    controller: firstNameController,
+                                    cursorColor: Colors.black,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    decoration:  InputDecoration(
+                                      hintStyle: CustomTextStylesCommon.commonStyle(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: FontSize.s12,
+                                          color: ColorManager.mediumgrey,
+                                          fontStyle: FontStyle.italic
+                                      ),
+                                      hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
+                                      border: InputBorder.none,
+                                      contentPadding: const EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
                                     ),
+                                    style: CustomTextStylesCommon.commonStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
+                                        fontStyle: FontStyle.italic
+                                    ),
+                                    //validator: widget.validator,
+                                    onTap: (){},
+                                    //validator: widget.validator,
+                                    // onTap: widget.onChange,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                CustomeTransparentAddShift(
+                                    width: 130,
+                                    height: 30,
+                                    text: "Add Clinician", onPressed: (){}),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    FloatingActionButton(
+                                      onPressed: () {},
+                                      backgroundColor: ColorManager.bluebottom, // Adjust color as needed
+                                      shape: const CircleBorder(),
+                                      child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
+                  //SizedBox(height: 4),
+                  Text(
+                    'Contact',
+                    style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
+                  ),
+                ],
+                                      ),
+                                    )
                                   ],
                                 ),
-                              ),
-                            ],
-                          ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                          const SizedBox(height:20),
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 10),
-                                            child: Text(
-                                              "Notes to Clinician",
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                  color: ColorManager.mediumgrey,
-                                                  fontSize: FontSize.s14,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Container(
-                                            width:  AppSize.s400,
-                                            height: AppSize.s50,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(color: const Color(0xFFB1B1B1), width: 1),
-                                              borderRadius: BorderRadius.circular(5),
-                                            ),
-                                            child: TextFormField(
-                                              autofocus: false,
-                                              enabled: false ,
-                                              controller: firstNameController,
-                                              cursorColor: Colors.black,
-                                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                                              decoration:  InputDecoration(
-                                                hintStyle: CustomTextStylesCommon.commonStyle(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: FontSize.s12,
-                                                    color: ColorManager.mediumgrey,
-                                                    fontStyle: FontStyle.italic
-                                                ),
-                                                hintText: "Preferred Date: 2024/12/01 & Time: 12:00 pm",
-                                                border: InputBorder.none,
-                                                contentPadding: const EdgeInsets.only(bottom:18, left: AppPadding.p10,top: 15),
-                                              ),
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                  fontWeight: FontWeight.w300,
-                                                  fontSize: FontSize.s12,
-                                                  color: ColorManager.mediumgrey,
-                                                  fontStyle: FontStyle.italic
-                                              ),
-                                              //validator: widget.validator,
-                                              onTap: (){},
-                                              //validator: widget.validator,
-                                              // onTap: widget.onChange,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          CustomeTransparentAddShift(
-                                              width: 130,
-                                              height: 30,
-                                              text: "Add Clinician", onPressed: (){}),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              FloatingActionButton(
-                                                onPressed: () {},
-                                                backgroundColor: ColorManager.bluebottom, // Adjust color as needed
-                                                shape: const CircleBorder(),
-                                                child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.phone, color: Colors.white, size: IconSize.I20),
-                            //SizedBox(height: 4),
-                            Text(
-                              'Contact',
-                              style: CustomTextStylesCommon.commonStyle(fontSize: 10,color: ColorManager.white,fontWeight: FontWeight.w400),
-                            ),
-                          ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          const Divider(),
-                                          // Spacer(),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              CustomElevatedButton(
-                                                width: AppSize.s105,
-                                                height: AppSize.s30,
-                                                text: "Submit",
-                                                color: ColorManager.bluebottom,
-                                                onPressed: () {},
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                          ),
-                        ),
-                      ),
+                                const Divider(),
+                                // Spacer(),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CustomElevatedButton(
+                                      width: AppSize.s105,
+                                      height: AppSize.s30,
+                                      text: "Submit",
+                                      color: ColorManager.bluebottom,
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                )
+                              ],
+                ),
+              ),
             )
       ],
     );
