@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/data/api_data/sm_data/sm_model_data/patient_insurances_data.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../../../app/constants/app_config.dart';
@@ -34,12 +35,37 @@ import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dar
 import '../../../intake_flow_contgainer_const.dart';
 import '../save_page/insurance_save_page.dart';
 
-class IntakePrimaryScreen extends StatelessWidget {
+class IntakePrimaryScreen extends StatefulWidget {
   final int patientId;
   final VoidCallback onEditScreen;
    final VoidCallback onSave;
-  IntakePrimaryScreen({super.key, required this.patientId,   required this.onSave, required this.onEditScreen,});
+  final VoidCallback isIButtonPressed;
+  IntakePrimaryScreen({super.key,
+    required this.patientId,   required this.onSave,
+    required this.onEditScreen, required this.isIButtonPressed});
 
+  @override
+  State<IntakePrimaryScreen> createState() => _IntakePrimaryScreenState();
+}
+
+class _IntakePrimaryScreenState extends State<IntakePrimaryScreen> {
+  @override
+  void initState() {
+    fetchAIRefInsurance();
+    super.initState();
+  }
+
+  AIRefPatientInsurance? fetchedData;
+  var data;
+  Future<void> fetchAIRefInsurance() async{
+    final providerPatientId = Provider.of<DiagnosisProvider>(context,listen: false);
+    data = await getSingleAIRefPatientInsurance(context: context, ptId: providerPatientId.patientId);
+    // notifyListeners();
+    setState(() {
+      fetchedData = data;
+    });
+    // fetchedData = data;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,10 +196,14 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_name_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmaName, labelText: 'Name*')),
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                             isIconVisible: fetchedData == null ? true : fetchedData!.rpti_type_I.isEmpty ? true : false,
+                                             isIClicked: widget.isIButtonPressed,
                                               controller: pharmaType,
                                               labelText: 'Type*',
                                             )),
@@ -192,17 +222,22 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_name_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmaName, labelText: 'Name*')),
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                              isIconVisible: fetchedData == null ? true : fetchedData!.rpti_type_I.isEmpty ? true : false,
+                                              isIClicked: widget.isIButtonPressed,
                                                 controller: pharmaType,
                                                 labelText: 'Type*',
                                                 )),
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
-                                              isIconVisible: true,
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_category_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmaCategory, labelText: 'Category')),
                                         const SizedBox(width: AppSize.s35),
                                         const Flexible(
@@ -214,17 +249,22 @@ class IntakePrimaryScreen extends StatelessWidget {
                                       children: [
                                         Flexible(
                                             child: SchedularTextField(
-                                                isIconVisible: true,
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_category_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmaCategory, labelText: 'Category')),
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_street_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmacyaddress,
                                                 icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                                                 labelText: 'Street*')),
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_suite_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmaSuitApt,
                                                 labelText: 'Suite/Apt#')),
                                       ],
@@ -234,11 +274,15 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         Flexible(
                                             child: SchedularTextField(
                                                 controller: pharmacyaddress,
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_street_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 icon: Icon(Icons.location_on_outlined, color: ColorManager.blueprime,size: IconSize.I18,),
                                                 labelText: 'Street*')),
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_suite_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmaSuitApt,
                                                 labelText: 'Suite/Apt#')),
                                         const SizedBox(width: AppSize.s35),
@@ -276,6 +320,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                                           //   },
                                           // ),
                                           child: SchedularTextField(
+                                              isIconVisible: fetchedData == null ? true : fetchedData!.rpti_city_I.isEmpty ? true : false,
+                                              isIClicked: widget.isIButtonPressed,
                                               controller: city, labelText: 'City*'),
                                         ),
                                         const SizedBox(width: AppSize.s35),
@@ -313,6 +359,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                                           //   },
                                           // ),
                                           child:  SchedularTextField(
+                                            isIconVisible: fetchedData == null ? true : fetchedData!.rpti_state_I.isEmpty ? true : false,
+                                            isIClicked: widget.isIButtonPressed,
                                               labelText: "State*",
                                               controller: state,
                                             )
@@ -320,6 +368,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_zipcode_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmacyzipcode,
                                                 onlyAllowNumbers: true,
                                                 labelText: 'Zip Code*')),
@@ -364,6 +414,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                                           //   },
                                           // ),
                                           child: SchedularTextField(
+                                              isIconVisible: fetchedData == null ? true : fetchedData!.rpti_city_I.isEmpty ? true : false,
+                                              isIClicked: widget.isIButtonPressed,
                                               controller: city, labelText: 'City*'),
                                         ),
                                         const SizedBox(width: AppSize.s35),
@@ -401,6 +453,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                                           //   },
                                           // ),
                                           child: SchedularTextField(
+                                            isIconVisible: fetchedData == null ? true : fetchedData!.rpti_state_I.isEmpty ? true : false,
+                                            isIClicked: widget.isIButtonPressed,
                                             labelText: "State*",
                                             controller: state,
                                           ),
@@ -408,6 +462,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_zipcode_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmacyzipcode,
                                                 onlyAllowNumbers: true,
                                                 labelText: 'Zip Code*')),
@@ -417,6 +473,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                                       children: [
                                         Flexible(
                                             child: SchedularTextField(
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_contact_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmaphone,
                                                 phoneField:true,
                                                 labelText: 'Phone Number')),
@@ -448,6 +506,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                                       children: [
                                         Flexible(
                                             child: SchedularTextField(
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_contact_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 controller: pharmaphone,
                                                 phoneField:true,
                                                 labelText: 'Phone Number')),
@@ -469,21 +529,29 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         Flexible(
                                             child: SchedularTextField(
                                                 controller: pharmaPolicyHicNo,
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_policy_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,
                                                 labelText: 'Policy/HIC Number')),
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                              isIconVisible: fetchedData == null ? true : fetchedData!.rpti_groupName_I.isEmpty ? true : false,
+                                              isIClicked: widget.isIButtonPressed,
                                               controller: pharmaGrpNo,
                                               labelText: 'Group Number',
                                               )),
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                              isIconVisible: fetchedData == null ? true : fetchedData!.rpti_groupName_I.isEmpty ? true : false,
+                                              isIClicked: widget.isIButtonPressed,
                                               controller: pharmaGrpName, labelText: 'Group Name',
                                             )),
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                              isIconVisible: fetchedData == null ? true : fetchedData!.rpti_email_I.isEmpty ? true : false,
+                                              isIClicked: widget.isIButtonPressed,
                                               controller: pharmaEmail, labelText: 'Primary Email',
                                               )),
                                         const SizedBox(width: AppSize.s35),
@@ -548,7 +616,8 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
-                                                controller: pharmaPolicyHicNo,
+                                                isIconVisible: fetchedData == null ? true : fetchedData!.rpti_policy_I.isEmpty ? true : false,
+                                                isIClicked: widget.isIButtonPressed,                                                controller: pharmaPolicyHicNo,
                                                 labelText: 'Policy/HIC Number')),
                                       ],
                                     ) : const Offstage(),
@@ -563,11 +632,15 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                              isIconVisible: fetchedData == null ? true : fetchedData!.rpti_groupName_I.isEmpty ? true : false,
+                                              isIClicked: widget.isIButtonPressed,
                                               controller: pharmaGrpName, labelText: 'Group Name',
                                             )),
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                              isIconVisible: fetchedData == null ? true : fetchedData!.rpti_email_I.isEmpty ? true : false,
+                                              isIClicked: widget.isIButtonPressed,
                                               controller: pharmaEmail, labelText: 'Primary Email',
                                             )),
                                       ],
@@ -937,7 +1010,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         );
                                       },
                                     );
-                                    onSave();
+                                    widget.onSave();
                                   }else{
                                     print('Api error');
                                   }
@@ -962,7 +1035,5 @@ class IntakePrimaryScreen extends StatelessWidget {
           );
         }
       );
-
-
   }
 }

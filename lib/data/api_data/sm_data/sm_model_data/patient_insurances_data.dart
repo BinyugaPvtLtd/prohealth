@@ -110,3 +110,43 @@ class FTwoFDocumentsModel {
     required this.f2f_doc_created_by,
 });
 }
+
+class AIRefPatientInsurance {
+  final int rpti_id_I;
+  final int fk_pt_id;
+  final String rpti_policy_I;
+  final String rpti_insurance_provider_I;
+  final String rpti_insurance_plan_I;
+  final String rpti_name_I;
+  final String rpti_type_I;
+  final String rpti_category_I;
+  final String rpti_street_I;
+  final String rpti_suite_I;
+  final String rpti_city_I;
+  final String rpti_state_I;
+  final String rpti_zipcode_I;
+  final String rpti_contact_I;
+  final String rpti_groupName_I;
+  final String rpti_email_I;
+  final String rpti_comments_I;
+
+  AIRefPatientInsurance({
+    required this.rpti_id_I,
+    required this.fk_pt_id,
+    required this.rpti_policy_I,
+    required this.rpti_insurance_provider_I,
+    required this.rpti_insurance_plan_I,
+    required this.rpti_name_I,
+    required this.rpti_type_I,
+    required this.rpti_category_I,
+    required this.rpti_street_I,
+    required this.rpti_suite_I,
+    required this.rpti_city_I,
+    required this.rpti_state_I,
+    required this.rpti_zipcode_I,
+    required this.rpti_contact_I,
+    required this.rpti_groupName_I,
+    required this.rpti_email_I,
+    required this.rpti_comments_I,
+});
+}
