@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -58,6 +59,80 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
   final StreamController<List<PatientModel>> _streamController = StreamController();
    TextEditingController _searchController = TextEditingController();
   final int itemsPerPage = 10;
+
+
+  Future<void> makeVoiceCall() async {
+    final accountSid = 'ACcd531cacdbbd92fe6df8a16ea07b7ba5';
+    final authToken = '2a9d783c99d81bbfdb6b379ea08f04f9';
+    final fromNumber = '+17753630157'; // your Twilio number
+    // final toNumber = '+918618133801';
+    final toNumber = '+917385448124'; // destination phone number
+
+    final url = Uri.parse('https://api.twilio.com/2010-04-01/Accounts/$accountSid/Calls.json');
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization':
+        'Basic ${base64Encode(utf8.encode('$accountSid:$authToken'))}',
+      },
+      body: {
+        'From': fromNumber,
+        'To': toNumber,
+        'Url': 'https://demo.twilio.com/welcome/voice/', // TwiML URL
+      },
+    );
+    if (response.statusCode == 201) {
+      print('Call placed successfully!');
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text("In Call"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.call, size: 60, color: Colors.green),
+              SizedBox(height: 10),
+              Text("Connected to $toNumber"),
+              SizedBox(height: 20),
+              CircularProgressIndicator(),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("End Call", style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      );
+    } else {
+      print('Failed to place call: ${response.body}');
+      var error = response.body;
+      showDialog(
+        context: context,
+        builder: (_) => Container(
+          width: 300,
+          child: AlertDialog(
+            title: Text("Call Failed", style: TextStyle(color: Colors.red)),
+            content: Container(
+              width: 300,
+                child: Text("Error: ${response.reasonPhrase}\n${response.body}")),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text("OK"),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    // if (response.statusCode == 201) {
+    //   print('Call placed successfully!');
+    // } else {
+    //   print('Failed to place call: ${response.body}');
+    // }
+  }
 
   // @override
   // void initState() {
@@ -753,7 +828,9 @@ class _RefferalPendingScreenState extends State<RefferalPendingScreen> {
                                                           splashColor: Colors.transparent,
                                                           highlightColor:
                                                           Colors.transparent,
-                                                          onPressed: () {},
+                                                          onPressed: () {
+                                                            makeVoiceCall();
+                                                          },
                                                           icon: Icon(
                                                             Icons.phone,
                                                             color: ColorManager.bluebottom,
