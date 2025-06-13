@@ -382,7 +382,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                           ],
                         ),
                       ),
-                      SizedBox(width: providerState.isContactTrue ? AppSize.s90 : AppSize.s35),
+                      SizedBox(width: AppSize.s90),
                       Padding(
                         padding: EdgeInsets.only(right: providerState.isContactTrue ?140 :0),
                         child: SizedBox(
@@ -397,7 +397,7 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                               labelText: "PECOS Status"),
                         ),
                       ),
-                      providerState.isContactTrue ?Offstage() : SizedBox(width: AppSize.s35),
+                     // providerState.isContactTrue ?Offstage() : SizedBox(width: AppSize.s35),
                       providerState.isContactTrue ?Offstage() : SizedBox(width:0),
                       providerState.isContactTrue ?Offstage() :  SizedBox(width: AppSize.s35),
                       SizedBox(width:0),
@@ -492,7 +492,6 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                   CustomButtonTransparent(
                     text: "Skip",
                     onPressed: () {
-
                     },
                   ),
                   const SizedBox(width: AppSize.s30,),

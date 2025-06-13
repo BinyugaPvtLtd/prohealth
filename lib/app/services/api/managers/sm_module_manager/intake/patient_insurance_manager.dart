@@ -1,10 +1,9 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/sm_data/sm_intake_data/intake_demographics/patient_insurance_data.dart';
+import '../../../../../../data/api_data/sm_data/sm_model_data/patient_insurances_data.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../../base64/encode_decode_base64.dart';
 import '../../../api.dart';
@@ -307,4 +306,78 @@ Future<ApiData> updatePatientInsuranceInfo(
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
+}
+
+///ai-emergency-contact/patient/{patientId}
+// Future<List<IntakeEmergencyContact>> getIntakeEmergencyContact({
+//   required BuildContext context,
+//   required int ptId
+// }) async {
+//   List<IntakeEmergencyContact> itemsList = [];
+//   try {
+//     final response = await Api(context).get(path: PatientInsuranceRepo.getIntakeEmergencyContact(ptId: ptId));
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       for (var item in response.data) {
+//         itemsList.add(IntakeEmergencyContact(
+//             contactId_I: item['contactId_I']??0,
+//             fk_pt_id: item['fk_pt_id']??0,
+//             firstName_I: item['firstName_I']??'',
+//             lastName_I: item['lastName_I']??'',
+//             street_I: item['street_I']??'',
+//             suite_I: item['suite_I']??'',
+//             city_I: item['city_I']??'',
+//             state_I: item['state_I']??'',
+//             zipCode_I: item['zipCode_I']??'',
+//             phoneNumber_I: item['phoneNumber_I']??'',
+//             email_I: item['email_I']??''
+//         ));
+//       }
+//     } else {
+//       print('Api Error');
+//     }
+//     print("Response:::::${response}");
+//     return itemsList;
+//   } catch (e) {
+//     print("Error $e");
+//     return itemsList;
+//   }
+// }
+
+Future<AIRefPatientInsurance?> getSingleAIRefPatientInsurance({
+  required BuildContext context,
+  required int ptId,
+}) async {
+  try {
+    final response = await Api(context).get(
+      path: PatientInsuranceRepo.getIntakeRefPatientInsurance(ptId: ptId),
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final item = response.data;
+      return AIRefPatientInsurance(
+        rpti_id_I: item['rpti_id_I'] ?? 0,
+        fk_pt_id: item['fk_pt_id'] ?? 0,
+        rpti_policy_I: item['rpti_policy_I'] ?? '',
+        rpti_insurance_provider_I: item['rpti_insurance_provider_I'] ?? '',
+        rpti_insurance_plan_I: item['rpti_insurance_plan_I'] ?? '',
+        rpti_name_I: item['rpti_name_I'] ?? '',
+        rpti_type_I: item['rpti_type_I'] ?? '',
+        rpti_category_I: item['rpti_category_I'] ?? '',
+        rpti_street_I: item['rpti_street_I'] ?? '',
+        rpti_suite_I: item['rpti_suite_I'] ?? '',
+        rpti_city_I: item['rpti_city_I'] ?? '',
+        rpti_state_I: item['rpti_state_I'] ?? '',
+        rpti_zipcode_I: item['rpti_zipcode_I'] ?? '',
+        rpti_contact_I: item['rpti_contact_I'] ?? '',
+        rpti_groupName_I: item['rpti_groupName_I'] ?? '',
+        rpti_email_I: item['rpti_email_I'] ?? '',
+        rpti_comments_I: item['rpti_comments_I'] ?? '',
+      )
+      ;
+    } else {
+      print('API Error with status: ${response.statusCode}');
+    }
+  } catch (e) {
+    print("Error fetching single intake emergency contact: $e");
+  }
+  return null;
 }

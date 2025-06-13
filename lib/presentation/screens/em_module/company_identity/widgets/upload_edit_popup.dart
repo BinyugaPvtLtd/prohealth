@@ -715,22 +715,36 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
           ? CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
-        text: AppStringEM.save, // Submit
+        text: AppStringEM.save,
         onPressed: () async {
+
+
+          // ✅ Validate file
+          if (fileIsPicked && !fileAbove20Mb) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AddErrorPopup(
+                  message: 'File is too large!',
+                );
+              },
+            );
+            return;
+          }
           setState(() {
             loading = true; // Show loader
           });
 
           try {
-            // Prepare expiry date
-            String? validateExpDate = expiryDateController.text;
-            String? expiryDate;
-            expiryDate = widget.selectedExpiryType == AppConfig.issuer
-                ? validateExpDate == expiryDateController.text ? widget.expiryDate : datePicked!.toIso8601String() + "Z"
+            // ✅ Prepare expiry date
+            String? expiryDate = widget.selectedExpiryType == AppConfig.issuer
+                ?  datePicked!.toIso8601String() + "Z"
                 : null;
-            print(expiryDate);
-            print(expiryDateController.text);
-            // Step 1: Update Document
+
+            print('Final Expiry Date: $expiryDate');
+            print('Expiry Date Field Text: ${expiryDateController.text}');
+
+            // ✅ Step 1: Update metadata
             var response = await updateOrgDoc(
               context: context,
               orgDocId: widget.orgDocId,
@@ -743,80 +757,46 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               officeid: widget.officeId,
             );
 
-            if (response.statusCode == 200 || response.statusCode == 201) {
-              if (fileIsPicked) {
-                // Step 2: Upload Document
-                if(fileAbove20Mb){
-                  var uploadDocNew = await uploadDocumentsoffice(
-                    context: context,
-                    documentFile: filePath,
-                    fileName: fileName,
-                    orgOfficeDocumentId: response.orgOfficeDocumentId!,
-                  );
-                  if (uploadDocNew.statusCode == 413) {
-                    setState(() {
-                      loading = false;
-                    });
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddErrorPopup(
-                          message: 'File is too large!',
-                        );
-                      },
-                    );
-                    return; // Exit further execution
-                  } else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CountySuccessPopup(
-                          message: 'Document updated and file uploaded successfully!',
-                        );
-                      },
-                    );
-                  } else {
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddErrorPopup(
-                          message: 'File is too large!',
-                        );
-                      },
-                    );
-                  }
-                }else{
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddErrorPopup(
-                        message: 'File is too large!',
-                      );
-                    },
-                  );
-                }
+            // ✅ Step 2: Upload file if picked
+            if (fileIsPicked) {
+              var uploadDocNew = await uploadDocumentsoffice(
+                context: context,
+                documentFile: filePath,
+                fileName: fileName,
+                orgOfficeDocumentId: response.orgOfficeDocumentId!,
+              );
 
-              } else {
-                // Navigator.pop(context);
+              // Close loader
+
+              if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
+                Navigator.pop(context);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return CountySuccessPopup(
+                    return const AddSuccessPopup(
                       message: 'Document updated successfully!',
                     );
                   },
                 );
+              } else {
                 Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return FailedPopup(text: response.message);
+                  },
+                );
               }
             } else {
+              // ✅ No file picked, but metadata updated — show success popup
               Navigator.pop(context);
               showDialog(
                 context: context,
-                builder: (BuildContext context) => FailedPopup(text: response.message),
+                builder: (BuildContext context) {
+                  return const AddSuccessPopup(
+                    message: 'Document updated successfully!',
+                  );
+                },
               );
             }
           } catch (e) {
@@ -829,13 +809,15 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 );
               },
             );
-          } finally {
-            setState(() {
-              loading = false; // Turn off loader
-            });
           }
+          setState(() {
+            loading = false; // Turn off loader
+          });
+
         },
       )
+
+
 
 
           : CustomElevatedButton(

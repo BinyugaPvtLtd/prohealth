@@ -1303,22 +1303,18 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                       Padding(padding: EdgeInsets.symmetric(horizontal: AppPadding.p13),
                                       child: Column(
                                         children: [
-                                          FutureBuilder<
-                                              List<PatientDiagnosisMasterData>>(
+                                          FutureBuilder<List<PatientDiagnosisMasterData>>(
                                               future: getPatientDiagnosisMaster(context: context),
                                               builder: (context, snapshotDgn) {
-                                                if (snapshotDgn.connectionState ==
-                                                    ConnectionState.waiting) {
+                                                if (snapshotDgn.connectionState == ConnectionState.waiting) {
                                                   return Container(
                                                     width: 354,
                                                     height: 30,
                                                     decoration: BoxDecoration(
                                                       border: Border.all(
-                                                          color: ColorManager
-                                                              .containerBorderGrey,
+                                                          color: ColorManager.containerBorderGrey,
                                                           width: AppSize.s1),
-                                                      borderRadius:
-                                                      BorderRadius.circular(4),
+                                                      borderRadius: BorderRadius.circular(4),
                                                     ),
                                                     child:  Align(
                                                       alignment: Alignment.centerLeft,
@@ -1326,10 +1322,17 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                                         padding: const EdgeInsets
                                                             .symmetric(
                                                             horizontal: 10),
-                                                        child: Text(
-                                                            dgnNameSelected,
-                                                            //AppString.dataNotFound,
-                                                            style: DocumentTypeDataStyle.customTextStyle(context)
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              "Select",
+                                                               // dgnNameSelected,
+                                                                //AppString.dataNotFound,
+                                                                style: DocumentTypeDataStyle.customTextStyle(context)
+                                                            ),
+                                                            Icon(Icons.arrow_drop_down),
+                                                          ],
                                                         ),
                                                       ),
                                                     ),
@@ -1404,8 +1407,8 @@ class _ReferalPendingEyePageviewState extends State<ReferalPendingEyePageview> {
                                     ],
                                     bottomButtons: dgnAddLoader ? Center(
                                       child: SizedBox(
-                                        height: 30,
-                                          width: 30,
+                                        height: 35,
+                                          width: 35,
                                           child: CircularProgressIndicator(color: ColorManager.blueprime,)),
                                     ):CustomElevatedButton(
                                       text: 'Add',
