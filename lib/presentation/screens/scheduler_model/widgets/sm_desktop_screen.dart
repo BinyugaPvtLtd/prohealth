@@ -180,7 +180,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   
   Future<void> loadInitialData() async {
     hRAllData = await getMarketerWithDeptId( context: context, deptId: AppConfig.salesId);
-    patientRefferalSourcesData = await getPatientreferralsMaster(context: context,);
+    patientRefferalSourcesData = await getPatientreferralsSearchMaster(context: context, nameSearch: 'all',);
     patientPhysicianMasterData = await getPatientPhysicianMaster(context: context);
     _parientModel =  await getPatientReffrealsData(context: context, pageNo:1 , nbrOfRows: 20, isIntake: 'true', isArchived: 'false', isScheduled: 'false',  isNotAdmit: 'true',searchName: 'all',
         marketerId: "all",
@@ -196,6 +196,13 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
   void switchToCalenderPageviweScreen() {
     setState(() {
       isShowingCalenderPageview  = true;
+    });
+  }
+  Future<void> loadSearchData({required String name}) async{
+    patientRefferalSourcesData = await getPatientreferralsSearchMaster(context: context, nameSearch: name,);
+    _isCheckedList = List<bool>.filled(patientRefferalSourcesData.length, false);
+    setState(() {
+
     });
   }
 
@@ -726,7 +733,8 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                   ? SingleChildScrollView(
                                     child: Column(
                                                                   children: [
-                                    TextField(
+                                    TextFormField(
+
                                       style: DocumentTypeDataStyle.customTextStyle(context),
                                       decoration: InputDecoration(
                                         hintText: 'Search...',
@@ -745,6 +753,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                         //  contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                                       ),
                                       onChanged: (value) {
+                                       value.isEmpty ?loadSearchData(name: 'all'):loadSearchData(name: value);
                                         // Handle search logic here (e.g., filtering options)
                                       },
                                     ),
