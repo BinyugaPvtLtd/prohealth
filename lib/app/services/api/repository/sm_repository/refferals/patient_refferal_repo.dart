@@ -122,6 +122,10 @@ class PatientRefferalsRepo{
     return "$patientRefferalsMaster";
   }
 
+  static  String patientReffrealsSearchSources({required String searchPatient}){
+    return "$patientRefferalsMaster/name/$searchPatient";
+  }
+
   /// marketer data
   static  String getMarketerIdWithData({required int deptId}){
     return "$marketerApi/$deptId";

@@ -517,7 +517,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
               AnimatedPositioned(
                 duration: Duration(milliseconds: 300),
                 right: providerState.isFilterOpen ? -0 : -320, // Slide in/out effect
-                top: 80,
+                top: 10,
                 bottom: 0,
                 child: Container(
                   width: 250,
@@ -625,7 +625,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                                                         providerState.filterIdIntegration(
                                                           context: context,
                                                          // marketerId: hRAllData[index].employeeTypesId.toString(),
-                                                         marketerId: hRAllData[index].employeeTypeId.toString(),
+                                                         marketerId: hRAllData[index].employeeId.toString(),
                                                           sourceId: 'all',
                                                           pcpId: 'all',
                                                         );

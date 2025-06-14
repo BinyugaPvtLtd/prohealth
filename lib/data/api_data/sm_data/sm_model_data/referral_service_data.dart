@@ -11,7 +11,8 @@ class PatientRefferalSourcesData{
   final String source_name;
   final String description;
   final String referral_source_img_url;
-  PatientRefferalSourcesData({
+  final String documentName;
+  PatientRefferalSourcesData({required this.documentName,
     required this.ref_source_id,
     required this.source_name,
     required this.description,

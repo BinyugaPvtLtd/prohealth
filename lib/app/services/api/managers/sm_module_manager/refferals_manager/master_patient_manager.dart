@@ -55,7 +55,8 @@ Future<List<PatientRefferalSourcesData>> getPatientreferralsMaster({
             ref_source_id: item['ref_source_id']??0,
             source_name: item['source_name']??'',
             description: item['description']??'',
-            referral_source_img_url: item['referral_source_img_url']??''
+            referral_source_img_url: item['referral_source_img_url']??'',
+            documentName:item['documentName']??''
         ));
       }
     }
@@ -92,6 +93,39 @@ Future<List<PatientDiagnosisMasterData>> getPatientDiagnosisMaster({
     }
     else {
       print("patient Diagnosis master");
+    }
+
+    return itemsData;
+  } catch (e) {
+    print("error: $e");
+    return itemsData;
+  }
+}
+
+///  patient referral master
+Future<List<PatientRefferalSourcesData>> getPatientreferralsSearchMaster({
+  required BuildContext context,
+  required String nameSearch
+}) async {
+  List<PatientRefferalSourcesData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+      path: PatientRefferalsRepo.patientReffrealsSearchSources(searchPatient: nameSearch),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(PatientRefferalSourcesData(
+            ref_source_id: item['ref_source_id']??0,
+            source_name: item['source_name']??'',
+            description: item['description']??'',
+            referral_source_img_url: item['referral_source_img_url']??'',
+            documentName:item['documentName']??''
+        ));
+      }
+    }
+    else {
+      print("patient referrals master");
     }
 
     return itemsData;
