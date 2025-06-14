@@ -21,6 +21,7 @@ class IntakeInsuranceScreen extends StatefulWidget {
   State<IntakeInsuranceScreen> createState() => _IntakeInsuranceScreenState();
 }
 
+
 class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> with TickerProviderStateMixin {
   int selectedIndex = 0;
   final PageController smIntakePageController = PageController();
