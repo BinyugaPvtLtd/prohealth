@@ -513,9 +513,11 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
 
-                      CustomButtonTransparent(
+                      SkipButtonTransparent(
                         text: "Skip",
                         onPressed: () {
+                          print("🔹 Skip button tapped - going to initial contact screen");
+                          widget.onSkip(); // This should trigger jumpToPage(4)
                         },
                       ),
                       const SizedBox(width: AppSize.s30,),
