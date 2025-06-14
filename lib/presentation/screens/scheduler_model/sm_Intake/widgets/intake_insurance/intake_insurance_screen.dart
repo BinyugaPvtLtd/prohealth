@@ -14,7 +14,8 @@ import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 class IntakeInsuranceScreen extends StatefulWidget {
   final int patientId;
-  const IntakeInsuranceScreen({super.key, required this.patientId,});
+  final VoidCallback onSkip;
+  const IntakeInsuranceScreen({super.key, required this.patientId, required this.onSkip,});
 
   @override
   State<IntakeInsuranceScreen> createState() => _IntakeInsuranceScreenState();
@@ -473,7 +474,7 @@ class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> with Tick
                                   toggleLeftSidebar();
                                   providerContact.toogleContactProvider();
                                   providerContact.toogleLeftSidebarProvider();
-                                },
+                                }, onSkip: () {   selectButton(1); },
 
                             ),
                             IntakeSecondaryScreen(patientId: widget.patientId, onSave: () {switchToInsuranceSavePage();  },
@@ -488,7 +489,7 @@ class _IntakeInsuranceScreenState extends State<IntakeInsuranceScreen> with Tick
                                 toggleLeftSidebar();
                                 providerContact.toogleContactProvider();
                                 providerContact.toogleLeftSidebarProvider();
-                              },),
+                              }, onSkip: () { widget.onSkip(); },),
                             // InsuranceSavePage(onBack: () {  }, patientId: 1,),
                             //
                           ]),

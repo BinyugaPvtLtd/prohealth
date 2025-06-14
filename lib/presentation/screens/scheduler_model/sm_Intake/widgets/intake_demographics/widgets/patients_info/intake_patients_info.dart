@@ -33,6 +33,7 @@ class IntakePatientsDatatInfo extends StatefulWidget {
   final Widget childStatus;
   // late AIDemographichModelData aIDemographichModelData;
   final VoidCallback isIButtonPressed;
+  final VoidCallback onSkip;
 
   IntakePatientsDatatInfo(
       {super.key,
@@ -40,7 +41,7 @@ class IntakePatientsDatatInfo extends StatefulWidget {
      // required this.childCity,
       required this.childCountry,
         required this.childStatus,
-        required this.isIButtonPressed,
+        required this.isIButtonPressed, required this.onSkip,
         // required this.aIDemographichModelData
       });
 
@@ -1159,11 +1160,13 @@ class _IntakePatientsDatatInfoState extends State<IntakePatientsDatatInfo> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           spacing: 10,
                           children: [
-                            CustomButtonTransparent(
+                            SkipButtonTransparent(
                               width: AppSize.s110,
                               text: "Skip",
                               onPressed: () {
-
+                                print("🔹 Skip button tapped - going to documentation screen");
+                                widget.onSkip();
+                                // Navigator.pop(context);
                               },
                             ),
                             CustomElevatedButton(

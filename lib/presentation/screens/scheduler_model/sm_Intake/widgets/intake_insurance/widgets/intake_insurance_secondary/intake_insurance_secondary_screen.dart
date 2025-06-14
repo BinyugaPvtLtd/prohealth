@@ -37,9 +37,10 @@ class IntakeSecondaryScreen extends StatefulWidget {
   final int patientId;
   final VoidCallback onSave;
   final VoidCallback isIButtonPressed;
+  final VoidCallback onSkip;
   const IntakeSecondaryScreen({super.key,
     required this.patientId, required this.onSave,
-  required this.isIButtonPressed});
+  required this.isIButtonPressed, required this.onSkip});
 
   @override
   State<IntakeSecondaryScreen> createState() => _IntakeSecondaryScreenState();
@@ -1406,10 +1407,11 @@ class _IntakeSecondaryScreenState extends State<IntakeSecondaryScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: 10,
                             children: [
-                              CustomButtonTransparent(
+                              SkipButtonTransparent(
                                 text: "Skip",
                                 onPressed: () {
-
+                                  print("🔹 Skip button tapped - going to info screen");
+                                  widget.onSkip(); // This should trigger jumpToPage(4)
                                 },
                               ),
                               _isLoading? Center(

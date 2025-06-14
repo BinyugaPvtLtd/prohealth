@@ -214,10 +214,11 @@ class EmergencyContactProvider extends ChangeNotifier {
 class IntakeRelatedPartiesScreen extends StatefulWidget {
   final int patientId;
   final VoidCallback onIButtonPressed;
+  final VoidCallback onSkip;
 
    IntakeRelatedPartiesScreen({
     super.key,
-    required this.patientId, required this.onIButtonPressed,
+    required this.patientId, required this.onIButtonPressed, required this.onSkip,
   });
 
   @override
@@ -2087,10 +2088,11 @@ class _IntakeRelatedPartiesScreenState extends State<IntakeRelatedPartiesScreen>
                     mainAxisAlignment: MainAxisAlignment.center,
                     spacing: 10,
                     children: [
-                      CustomButtonTransparent(
+                      SkipButtonTransparent(
                         text: "Skip",
                         onPressed: () {
-
+                          print("🔹 Skip button tapped - going to document screen");
+                          widget.onSkip(); // This should trigger jumpToPage(4)
                         },
                       ),
                       isLoading ? SizedBox(

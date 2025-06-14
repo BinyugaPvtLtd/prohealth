@@ -32,6 +32,7 @@ class SMIntakeScreen extends StatefulWidget {
 class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStateMixin{
 
   final PageController intakePageController = PageController(initialPage: 0);
+  final PageController intakePageControllerskip = PageController(initialPage: 0);
   final PageController intakeContactPageController = PageController(initialPage: 0);
   int _selectedIndex = 0;
   int callerLogSelectIndex = 0;
@@ -47,6 +48,20 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
         // duration: const Duration(milliseconds: 500),
         // curve: Curves.ease,
       );
+    }
+  }
+  void intakeSelectButtonskip(int index) {
+    if (index == 0 || patientId != 0) {
+      if (intakePageControllerskip.hasClients) {
+        setState(() {
+          _selectedIndex = index;
+        });
+        intakePageControllerskip.jumpToPage(index); // remove +1
+      } else {
+        print("❗️intakePageControllerskip is not attached yet.");
+      }
+    } else {
+      print("❗️Cannot navigate. patientId is 0.");
     }
   }
   void intakeContactSelectButton(int index) {
@@ -507,12 +522,40 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> with TickerProviderStat
                               }, iButtonClickd: (){
                                 toggleLeftSidebar();
                                 providerContact.toogleContactProvider();},
+                              onSkip: () {
+                                WidgetsBinding.instance.addPostFrameCallback((_) {
+                                  intakeSelectButton(1); // Go to Orders tab
+                                });
+                              },
+
+
                             ),
                             // SMIntakeReferralScreen(patientId: patientId),
                             DocumationScreenTab(),
-                            IntakeInsuranceScreen(patientId: 0),
-                            PhysicianInfoTab(),
-                            SMIntakeOrdersScreen(patientId: 0),
+                            IntakeInsuranceScreen(
+                                patientId: 0,
+                              onSkip: () {
+                                WidgetsBinding.instance.addPostFrameCallback((_) {
+                                  intakeSelectButton(3); // Go to Orders tab
+                                });
+                              },
+                            ),
+                            PhysicianInfoTab(
+                              onSkip: () {
+                                WidgetsBinding.instance.addPostFrameCallback((_) {
+                                  intakeSelectButton(4); // Go to Orders tab
+                                });
+                              },
+                            ),
+                            SMIntakeOrdersScreen(
+                                patientId: 0,
+                              onSkip: () {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                              intakeSelectButton(5); // Go to Orders tab
+                              });
+                              },
+
+                            ),
                             SmIntakeInitialContactScreen(patientId: 0, onOpenContact: () {
                               toggleSidebar();
                               providerContact.toogleContactProvider();

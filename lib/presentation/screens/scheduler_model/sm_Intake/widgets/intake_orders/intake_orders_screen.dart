@@ -59,9 +59,9 @@ class PriDiagnosisProvider with ChangeNotifier {
 
 class SMIntakeOrdersScreen extends StatefulWidget {
   final int patientId;
-
+  final VoidCallback onSkip;
    SMIntakeOrdersScreen({super.key,
-    required this.patientId
+    required this.patientId, required this.onSkip
    });
 
   @override
@@ -1728,10 +1728,11 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     spacing: 10,
                     children: [
-                      CustomButtonTransparent(
+                      SkipButtonTransparent(
                         text: "Skip",
                         onPressed: () {
-
+                          print("🔹 Skip button tapped - going to initial contact screen");
+                          widget.onSkip(); // This should trigger jumpToPage(4)
                         },
                       ),
 

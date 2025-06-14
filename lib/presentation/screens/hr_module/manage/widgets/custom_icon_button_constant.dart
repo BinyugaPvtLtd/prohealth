@@ -459,3 +459,72 @@ class CustomTitleButtonsm extends StatelessWidget {
     );
   }
 }
+
+
+
+
+class SkipButtonTransparent extends StatefulWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final double? height;
+  final double? width;
+  final double? borderRadius;
+  final TextStyle? style;
+
+  const SkipButtonTransparent({
+    required this.text,
+    required this.onPressed,
+    this.height = AppSize.s35,
+    this.width = AppSize.s100,
+    this.style,
+    this.borderRadius = 12,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<SkipButtonTransparent> createState() => _SkipButtonTransparentState();
+}
+
+class _SkipButtonTransparentState extends State<SkipButtonTransparent> {
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? CircularProgressIndicator(color: ColorManager.blueprime)
+        : SizedBox(
+      height: widget.height,
+      width: widget.width,
+      child: ElevatedButton(
+        onPressed: () {
+          print("🔹 CustomButtonTransparent: ${widget.text} tapped");
+          setState(() {
+            isLoading = true;
+          });
+
+          try {
+            widget.onPressed(); // ✅ Correctly call
+          } finally {
+            setState(() {
+              isLoading = false;
+            });
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          backgroundColor: ColorManager.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
+            side: const BorderSide(color: Color(0xFF50B5E5)),
+          ),
+        ),
+        child: Text(
+          widget.text,
+          style: widget.style ?? TransparentButtonTextConst.customTextStyle(context),
+        ),
+      ),
+    );
+  }
+}
+
+

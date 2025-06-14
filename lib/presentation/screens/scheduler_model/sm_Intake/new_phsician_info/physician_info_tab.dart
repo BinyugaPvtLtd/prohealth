@@ -22,7 +22,8 @@ import '../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../widgets/intake_flow_contgainer_const.dart';
 class PhysicianInfoTab extends StatefulWidget {
-  const PhysicianInfoTab({super.key});
+  final VoidCallback onSkip;
+  const PhysicianInfoTab({super.key, required this.onSkip});
 
   @override
   State<PhysicianInfoTab> createState() => _PhysicianInfoTabState();
@@ -489,9 +490,11 @@ class _PhysicianInfoTabState extends State<PhysicianInfoTab> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 
-                  CustomButtonTransparent(
+                  SkipButtonTransparent(
                     text: "Skip",
                     onPressed: () {
+                      print("🔹 Skip button tapped - going to Orders screen");
+                      widget.onSkip(); // This should trigger jumpToPage(4)
                     },
                   ),
                   const SizedBox(width: AppSize.s30,),

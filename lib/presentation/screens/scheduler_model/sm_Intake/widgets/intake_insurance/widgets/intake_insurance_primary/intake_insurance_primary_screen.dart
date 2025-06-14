@@ -40,9 +40,10 @@ class IntakePrimaryScreen extends StatefulWidget {
   final VoidCallback onEditScreen;
    final VoidCallback onSave;
   final VoidCallback isIButtonPressed;
+  final VoidCallback onSkip;
   IntakePrimaryScreen({super.key,
     required this.patientId,   required this.onSave,
-    required this.onEditScreen, required this.isIButtonPressed});
+    required this.onEditScreen, required this.isIButtonPressed, required this.onSkip});
 
   @override
   State<IntakePrimaryScreen> createState() => _IntakePrimaryScreenState();
@@ -943,8 +944,9 @@ class _IntakePrimaryScreenState extends State<IntakePrimaryScreen> {
                               width:AppSize.s100,
                               height:AppSize.s35,
                               child: ElevatedButton(
-                                onPressed: () async{
-
+                                onPressed: () {
+                                  print("🔹 Skip button tapped - going to initial contact screen");
+                                  widget.onSkip();
                                   // Navigator.pop(context);
                                 },
                                 style: ElevatedButton.styleFrom(
