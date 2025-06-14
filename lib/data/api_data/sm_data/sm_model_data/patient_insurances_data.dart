@@ -1,0 +1,112 @@
+class PatientInsurancesData{
+  final int insurance_id;
+  final String insurance_policy;
+  final String insurance_provider;
+  final String insurance_plan;
+
+  PatientInsurancesData({
+    required this.insurance_id,
+    required this.insurance_policy,
+    required this.insurance_provider,
+    required this.insurance_plan});
+}
+
+/// patient documents
+class PatientDocumentsData{
+  final int rptd_id;
+  final int fk_pt_id;
+  final String rptd_url;
+  final String documentName;
+  final String rptd_created_at;
+  final int rptd_created_by;
+  final int rptd_document_type;
+  final String rptd_content;
+
+
+  PatientDocumentsData({required this.rptd_id,
+    required this.documentName,
+    required this.fk_pt_id,
+    required this.rptd_url,
+    required this.rptd_created_at, required this.rptd_created_by, required this.rptd_document_type,
+    required this.rptd_content});
+}
+
+///patient document billing attachment
+class PatientDocumentsBillingData{
+  final int rptd_id;
+  final int fk_pt_id;
+  final String rptd_url;
+  final String documentName;
+  final String rptd_created_at;
+  final int rptd_created_by;
+  final int rptd_document_type;
+  final String rptd_content;
+  PatientDocumentsBillingData({required this.rptd_id,
+    required this.documentName,
+    required this.fk_pt_id,
+    required this.rptd_url, required this.rptd_created_at, required this.rptd_created_by, required this.rptd_document_type,
+    required this.rptd_content});
+}
+
+///patient document Consent
+class PatientDocumentsConsentData{
+  final int rptd_id;
+  final int fk_pt_id;
+  final String rptd_url;
+  final String documentName;
+  final String rptd_created_at;
+  final int rptd_created_by;
+  final int rptd_document_type;
+  final String rptd_content;
+
+  PatientDocumentsConsentData({required this.rptd_id,
+    required this.documentName,
+    required this.fk_pt_id,
+    required this.rptd_url, required this.rptd_created_at, required this.rptd_created_by, required this.rptd_document_type,
+    required this.rptd_content});
+}
+
+///patient document F2f
+class PatientDocumentsFtwoFData{
+  final int f2f_id;
+  final int fk_pt_id;
+  final String rptd_F2FDate;
+  final int fk_marketerId;
+  final String? rptd_visitNote;
+  final String? rptd_F2Fappointment;
+  final String documentName;
+  final String rptd_created_at;
+  final String rptd_content;
+  final int rptd_created_by;
+  final List<FTwoFDocumentsModel>? documents;
+
+  PatientDocumentsFtwoFData({required this.f2f_id,
+    required this.documentName,
+    required this.fk_pt_id,
+    required this.fk_marketerId,
+    this.documents,
+    this.rptd_visitNote,
+    this.rptd_F2Fappointment,
+    required this.rptd_content,
+    required this.rptd_F2FDate, required this.rptd_created_at, required this.rptd_created_by,});
+}
+
+class FTwoFDocumentsModel {
+  final int f2f_doc_id;
+  final int fk_f2f_id;
+  final String f2f_doc_url;
+  final String f2f_doc_name;
+  final String f2f_doc_content;
+  final String f2f_doc_created_at;
+  final String f2f_doc_created_by;
+
+  FTwoFDocumentsModel({
+    required this.f2f_doc_id,
+    required this.fk_f2f_id,
+    required this.f2f_doc_url,
+    required this.f2f_doc_name,
+    required this.f2f_doc_content,
+    required this.f2f_doc_created_at,
+    required this.f2f_doc_created_by,
+});
+}

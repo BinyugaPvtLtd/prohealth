@@ -1,177 +1,201 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
+import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_adr.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_cap_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_license.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_medical_cost_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_quarterly_balance_report.dart';
-
+import 'package:provider/provider.dart';
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 
-class CICorporateCompilianceDocument extends StatefulWidget {
-  const CICorporateCompilianceDocument({super.key});
+class CICorporateComplianceState with ChangeNotifier {
+  int _selectedIndex = 0;
+  String _selectedSubDocType = "";
 
-  @override
-  State<CICorporateCompilianceDocument> createState() => _CICorporateCompilianceDocumentState();
+  String get selectedSubDocType => _selectedSubDocType;
+
+  int get selectedIndex => _selectedIndex;
+
+  void setSelectedIndex(int index) {
+    _selectedIndex = index;
+    _selectedSubDocType = getSubDocTypeForIndex(index);
+    notifyListeners();
+  }
+
+  String getSubDocTypeForIndex(int index) {
+    switch (index) {
+      case 0:
+        return AppStringEM.licenses;
+      case 1:
+        return AppStringEM.ard;
+      case 2:
+        return AppStringEM.mcr;
+      case 3:
+        return AppStringEM.capReport;
+      case 4:
+        return AppStringEM.qbr;
+      default:
+        return "";
+    }
+  }
+
+  int getSubDocIdForIndex(int index) {
+    switch (index) {
+      case 0:
+        return AppConfig.subDocId1Licenses;
+      case 1:
+        return AppConfig.subDocId2Adr;
+      case 2:
+        return AppConfig.subDocId3CICCMedicalCR;
+      case 3:
+        return AppConfig.subDocId4CapReport;
+      case 4:
+        return AppConfig.subDocId5BalReport;
+      default:
+        return 0;
+    }
+  }
 }
 
-class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceDocument> {
-  final PageController _tabPageController = PageController();
+class CICorporateCompilianceDocument extends StatelessWidget {
+  final int docID;
+  final Function(int) onSubDocIdSelected;
+  final String selectedSubDocType;
 
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
+  const CICorporateCompilianceDocument({
+    Key? key,
+    required this.docID,
+    required this.onSubDocIdSelected,
+    required this.selectedSubDocType,
+  }) : super(key: key);
 
-  int _selectedIndex = 0;
-
-
-  void _selectButton(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    _tabPageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 20,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 450,
-              height: 30,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+    final pageController = PageController();
+
+    return ChangeNotifierProvider(
+      create: (_) => CICorporateComplianceState(),
+      child: Consumer<CICorporateComplianceState>(
+        builder: (context, corporateState, child) {
+          // Sync PageController with selectedIndex
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (pageController.hasClients &&
+                pageController.page?.round() != corporateState.selectedIndex) {
+              pageController.jumpToPage(corporateState.selectedIndex);
+            }
+          });
+
+          return Column(
+            children: [
+              SizedBox(height: AppSize.s20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InkWell(
-                    onTap: () => _selectButton(0),
-                    child: Column(
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.8,
+                    height: AppSize.s50,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          "License",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.grey,
+                        // Repeatable Tab Item
+                        for (int index = 0; index < 5; index++)
+                          InkWell(
+                            highlightColor: const Color(0xFFF2F9FC),
+                            hoverColor: const Color(0xFFF2F9FC),
+                            child: Container(
+                              height: AppSize.s50,
+                              width: index == 4
+                                  ? MediaQuery.of(context).size.width / 9
+                                  : MediaQuery.of(context).size.width / 10,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    corporateState.getSubDocTypeForIndex(index),
+                                    style: TransparentBgTabbar.customTextStyle(
+                                      index,
+                                      corporateState.selectedIndex,
+                                    ),
+                                  ),
+                                  corporateState.selectedIndex == index
+                                      ? Divider(
+                                    color: ColorManager.blueprime,
+                                    thickness: 2,
+                                  )
+                                      : const Offstage(),
+                                ],
+                              ),
+                            ),
+                            onTap: () {
+                              corporateState.setSelectedIndex(index);
+                              onSubDocIdSelected(
+                                  corporateState.getSubDocIdForIndex(index));
+                              pageController.animateToPage(
+                                index,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            },
                           ),
-                        ),
-                        Container(
-                          height: 2,
-                          width: 40,
-                          color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.transparent,
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => _selectButton(1),
-                    child: Column(
-                      children: [
-                        Text(
-                          "ADR",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.grey,
-                          ),
-                        ),
-                        Container(
-                          height: 2,
-                          width: 60,
-                          color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.transparent,
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => _selectButton(2),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Medical Cost Reporter",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 2 ? ColorManager.blueprime : Colors.grey,
-                          ),
-                        ),
-                        Container(
-                          height: 2,
-                          width: 60,
-                          color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => _selectButton(3),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Cap Report",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 3 ?  ColorManager.blueprime : Colors.grey,
-                          ),
-                        ),
-                        Container(
-                          height: 2,
-                          width: 40,
-                          color: _selectedIndex == 3 ?  ColorManager.blueprime : Colors.transparent,
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => _selectButton(4),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Quarterly Balance Report",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 4 ?  ColorManager.blueprime : Colors.grey,
-                          ),
-                        ),
-                        Container(
-                          height: 2,
-                          width: 60,
-                          color: _selectedIndex == 4 ?  ColorManager.blueprime: Colors.transparent,
-                        ),
                       ],
                     ),
                   ),
                 ],
               ),
-            )
-          ],
-        ),
-        Expanded(
-          child: NonScrollablePageView(
-            controller: _tabPageController,
-            onPageChanged: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            children: [
-              CICcdLicense(),
-              CICcdADR(),
-              CiCcdMedicalCostReport(),
-              CiCcdCapReports(),
-              CICcdQuarteryBalanceReport()
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: AppPadding.p10),
+                  child: PageView(
+                    controller: pageController,
+                    onPageChanged: (index) {
+                      corporateState.setSelectedIndex(index);
+                      onSubDocIdSelected(
+                          corporateState.getSubDocIdForIndex(index));
+                    },
+                    children: [
+                      ChangeNotifierProvider(
+                      create: (_) => CICcdLicenseProvider(),
+                      child: CICcdLicense(subDocID: docID, docID: AppConfig.subDocId1Licenses),
+                      ),
+                      ChangeNotifierProvider(
+                        create: (_) => CICcdADRProvider(),
+                        child: CICcdADR(
+                          docID: docID,
+                          subDocID: AppConfig.subDocId2Adr,
+                        ),
+                      ),
+                      ChangeNotifierProvider(
+                        create: (_) => CiCcdMedicalCostReportProvider(),
+                        child: CiCcdMedicalCostReport(
+                          docID: docID,
+                          subDocID: AppConfig.subDocId3CICCMedicalCR,
+                        ),
+                      ),
+                      ChangeNotifierProvider(
+                        create: (_) => CiCcdCapReportsProvider(),
+                        child: CiCcdCapReports(
+                          docID: docID,
+                          subDocId: AppConfig.subDocId4CapReport,
+                        ),
+                      ),
+                      ChangeNotifierProvider(
+                        create: (_) => CICcdQuarteryBalanceReportProvider(),
+                        child: CICcdQuarteryBalanceReport(
+                          docId: docID,
+                          subDocID: AppConfig.subDocId5BalReport,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
-          ),
-        ),
-      ],
+          );
+        },
+      ),
     );
   }
 }

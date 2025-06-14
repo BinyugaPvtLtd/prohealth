@@ -5,6 +5,7 @@ import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
@@ -52,7 +53,7 @@ class _LoginMobileState extends State<LoginMobile> {
                 child: TextFormField(
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.black.withOpacity(0.5),
-                    fontWeight: FontWeightManager.medium,
+                    fontWeight: FontWeight.w500,
                     fontSize: FontSize.s14,
                   ),
                   focusNode: emailFocusNode,
@@ -70,7 +71,7 @@ class _LoginMobileState extends State<LoginMobile> {
                     errorStyle: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.red,
                       fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.bold,
+                      fontWeight: FontWeight.w700,
                     ),
                     labelText: AppString.email,
                     hintText: AppString.emailhint,
@@ -81,9 +82,9 @@ class _LoginMobileState extends State<LoginMobile> {
                     if (value == null || value.isEmpty) {
                       return AppString.enteremail;
                     }
-                    // if (!emailRegex.hasMatch(value)) {
-                    //   return AppString.entervalidemail;
-                    // }
+                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                      return AppString.entervalidemail;
+                    }
                     return null;
                   },
                   onFieldSubmitted: (_) async {
@@ -127,7 +128,7 @@ class _LoginMobileState extends State<LoginMobile> {
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.white,
                     fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {

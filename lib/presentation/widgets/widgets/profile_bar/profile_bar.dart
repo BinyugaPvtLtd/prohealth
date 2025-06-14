@@ -1,288 +1,1347 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/licenses_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
+import 'package:prohealth/app/services/base64/base64_image.dart';
+import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/licenses_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/expired_license_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profile_clipoval_const.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profilebar_editor.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../profile_bar/widget/profil_custom_widget.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+
+
+ typedef EditCallback = void Function();
 
 class ProfileBar extends StatelessWidget {
-  const ProfileBar({super.key});
+  const ProfileBar({
+    super.key, this.searchByEmployeeIdProfileData,
+    required this.onEditPressed,});
+  final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
+  final VoidCallback onEditPressed;
 
+  // int expiredCount = 0;
+
+
+  // String? sSNNBR;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Material(
-          elevation: 4,
-          child: Container(
-              height: MediaQuery.of(context).size.height / 4,
-              width: AppSize.s50,
-              decoration: BoxDecoration(
-                color: ColorManager.greenF,
-              ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(AppString.profile,
-                      style: ThemeManagerWhite.customTextStyle(context),
-                    ),
-                  ])),
-        ),
-        Material(
-          elevation: 4,
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
-          child: Container(
-            height: MediaQuery.of(context).size.height / 4,
-            width: MediaQuery.of(context).size.width / 1.1,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(8),
-                  topRight: Radius.circular(8)),
-              color: ColorManager.whitebluecolor.withOpacity(0.25),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSize.s10, vertical: AppSize.s15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        width: AppSize.s70,
-                        height: AppSize.s70,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Image.asset(
-                              'images/profile.png',
-                              height: AppSize.s50,
-                              width: AppSize.s50
+    var hexColor;
+
+    final profileState = Provider.of<HrManageProvider>(context, listen: false);
+    hexColor = searchByEmployeeIdProfileData?.color.replaceAll("#", "");
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      profileState.dispose();
+      profileState.clearLicenseData();
+      profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
+      profileState.updateAddress(searchByEmployeeIdProfileData!.finalAddress);
+      profileState.updateSummery(searchByEmployeeIdProfileData!.summary);
+  profileState.updateZone(searchByEmployeeIdProfileData!.zone);
+      profileState.maskString(searchByEmployeeIdProfileData!.SSNNbr, 4);
+      if (searchByEmployeeIdProfileData?.dateofHire != null) {
+        profileState.calculateHireDateTimeStamp(searchByEmployeeIdProfileData!.dateofHire);
+      }
+      if (searchByEmployeeIdProfileData?.dateOfBirth != null) {
+        profileState.calculateAge(searchByEmployeeIdProfileData!.dateOfBirth);
+      }
+    });
+
+    int currentPage = 1;
+    int itemsPerPage = 30;
+    return Container(
+          color: ColorManager.whitebluecolor,
+          width: MediaQuery.of(context).size.width / 1,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                ///profile%
+                Material(
+                  elevation: 4,
+                  child: FutureBuilder<ProfilePercentage>(
+                      future: getPercentage(context,
+                          searchByEmployeeIdProfileData!.employeeId!),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return SizedBox(width: AppSize.s70);
+                        }
+                        if(snapshot.hasData){
+                          double percentage = double.parse(snapshot.data!.percentage);
+                          double maxHeight = 200; // Maximum height in pixels for 100%
+                          double containerHeight = (percentage / 100) * maxHeight;
+                          Color containerColor;
+                          if (percentage <= 30) {
+                            containerColor = Colors.red;
+                          } else if (percentage <= 60) {
+                            containerColor = Color(0xffFEBD4D);
+                          } else {
+                            containerColor = ColorManager.greenF;
+                          }
+                          return Container(
+                            height: containerHeight,
+                            width: AppSize.s70,
+                            decoration: BoxDecoration(
+                              color: containerColor,
                             ),
-                            // you can replace
-                            SizedBox(
-                              height: AppSize.s53,
-                              width: AppSize.s53,
-                              child:  CircularProgressIndicator(
-                                valueColor:
-                                AlwaysStoppedAnimation<Color>(ColorManager.greenF),
-                                strokeWidth: 3,
-                                value: 0.70,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Profile ${snapshot.data!.percentage}%",
+                                    style: ThemeManagerWhite.customTextStyle(context).copyWith(
+                                      fontSize: (int.tryParse(snapshot.data!.percentage) ?? 0) <= 10 ? 7 : null,
+                                    ),
+                                  ),
+                                ]),
+                          );
+                          // return Container(
+                          //     height: containerHeight,
+                          //     width: AppSize.s70,
+                          //     decoration: BoxDecoration(
+                          //       color: containerColor,
+                          //     ),
+                          //     child: Column(
+                          //         mainAxisAlignment: MainAxisAlignment.center,
+                          //         children: [
+                          //           Text(
+                          //             "Profile\n${snapshot.data!.percentage}%",
+                          //             style: ThemeManagerWhite.customTextStyle(context),
+                          //           ),
+                          //         ]),
+                          // );
+                        }
+                        else{
+                          return SizedBox();
+                        }
+                      })
+                ),
+                Consumer<HrManageProvider>(
+                  builder: (context,providerState,child) {
+                    return Flexible(
+                      child: Material(
+                        elevation: 4,
+                         child: Container(
+                          height: 200,
+                          decoration: BoxDecoration(
+                           color: ColorManager.whitebluecolor,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ///image
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:15.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 70,
+                                          width: 70,
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              // Outer grey circle
+                                              Container(
+                                                height: 70,
+                                                width: 70,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(color: ColorManager.greenF, width: 2), // Grey border
+                                                ),
+                                              ),
+                                              ClipOval(
+                                                child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                                    searchByEmployeeIdProfileData!.imgurl == null
+                                                    ? CircleAvatar(
+                                                  radius: 32,
+                                                  backgroundColor: Colors.transparent,
+                                                  child: Image.asset("images/profilepic.png"),
+                                                )
+                                                    : Image.network(
+                                                  searchByEmployeeIdProfileData!.imgurl!,
+                                                  loadingBuilder: (context, child, loadingProgress) {
+                                                    if (loadingProgress == null) {
+                                                      return child;
+                                                    } else {
+                                                      return Center(
+                                                        child: CircularProgressIndicator(
+                                                          value: loadingProgress.expectedTotalBytes != null
+                                                              ? loadingProgress.cumulativeBytesLoaded /
+                                                              (loadingProgress.expectedTotalBytes ?? 1)
+                                                              : null,
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                  errorBuilder: (context, error, stackTrace) {
+                                                    return CircleAvatar(
+                                                      radius: 32,
+                                                      backgroundColor: Colors.transparent,
+                                                      child: Image.asset("images/profilepic.png"),
+                                                    );
+                                                  },
+                                                  fit: BoxFit.cover,
+                                                  height: 67,
+                                                  width: 67,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 70,
+                                                width: 70,
+                                                child: CircularProgressIndicator(
+                                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenF),
+                                                  strokeWidth: 3,
+                                                  value: searchByEmployeeIdProfileData!.profileScorePercentage,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+
+                                        // SizedBox(
+                                        //   height: 70,
+                                        //   width: 70,
+                                        //   child: Stack(
+                                        //     alignment: Alignment.center,
+                                        //     children: [
+                                        //       // Circular avatar for the image or icon
+                                        //       // ClipOval(
+                                        //       //   child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                        //       //       searchByEmployeeIdProfileData!.imgurl == null
+                                        //       //       ? CircleAvatar(radius: 60,backgroundColor: ColorManager.faintGrey,child: Image.asset("images/profilepic.png"),)
+                                        //       //       : CachedNetworkImage(
+                                        //       //     imageUrl: searchByEmployeeIdProfileData!.imgurl,
+                                        //       //     placeholder: (context, url) => CircularProgressIndicator(),
+                                        //       //     errorWidget: (context, url, error) =>    CircleAvatar(child: Image.asset("images/profilepic.png"),),
+                                        //       //     fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                        //       //     height: 67, // Adjust image height for proper fit
+                                        //       //     width: 67, // Adjust image width for proper fit
+                                        //       //   ),
+                                        //       // ),
+                                        //       ClipOval(
+                                        //         child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                        //             searchByEmployeeIdProfileData!.imgurl == null
+                                        //             ? CircleAvatar(
+                                        //           radius: 60,
+                                        //           backgroundColor: ColorManager.faintGrey,
+                                        //           child: Image.asset("images/profilepic.png"),
+                                        //         )
+                                        //             : Image.network(
+                                        //           searchByEmployeeIdProfileData!.imgurl!,
+                                        //           loadingBuilder: (context, child, loadingProgress) {
+                                        //             if (loadingProgress == null) {
+                                        //               return child;
+                                        //             } else {
+                                        //               return Center(
+                                        //                 child: CircularProgressIndicator(
+                                        //                     value: loadingProgress.expectedTotalBytes != null
+                                        //                         ? loadingProgress.cumulativeBytesLoaded /
+                                        //                         (loadingProgress.expectedTotalBytes ?? 1)
+                                        //                         : null),
+                                        //               );
+                                        //             }
+                                        //           },
+                                        //           errorBuilder: (context, error, stackTrace) {
+                                        //             return CircleAvatar(child: Image.asset("images/profilepic.png"));
+                                        //           },
+                                        //           fit: BoxFit.cover,
+                                        //           height: 67,
+                                        //           width: 67,
+                                        //         ),
+                                        //       ),
+                                        //       // Circular progress indicator around the image
+                                        //       SizedBox(
+                                        //         height: AppSize.s70,
+                                        //         width: AppSize.s70,
+                                        //         child: CircularProgressIndicator(
+                                        //           valueColor: AlwaysStoppedAnimation<Color>(ColorManager.grey),
+                                        //           strokeWidth: 3,
+                                        //           value: searchByEmployeeIdProfileData!.profileScorePercentage,
+                                        //         ),
+                                        //       ),
+                                        //     ],
+                                        //   ),
+                                        // ),
+
+                                        searchByEmployeeIdProfileData!.active
+                                            ? Text(
+                                              "Active",
+                                              style: ThemeManagerBlack.customTextStyle(context),
+                                            )
+                                            :Text(
+                                              "Inactive",
+                                              style: ThemeManagerBlack.customTextStyle(context),
+                                            ),
+                                       // SizedBox(height: 15,),
+                                        FutureBuilder<ProfilePercentage>(
+                                            future: getPercentage(
+                                                context,
+                                                searchByEmployeeIdProfileData!.employeeId!),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return Padding(
+                                                  padding: const EdgeInsets.only(bottom: 43.0),
+                                                  child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Text(
+                                                          "Annual Skills 0%",
+                                                          style:
+                                                          ProfileBarTextBoldStyle.customEditTextStyle(),
+                                                        ),
+                                                      ]),
+                                                );
+                                              }
+                                              return Padding(
+                                                padding: const EdgeInsets.only(bottom: 43.0),
+                                                child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Annual Skills 0%",
+                                                        style:
+                                                        ProfileBarTextBoldStyle.customEditTextStyle(),
+                                                      ),
+                                                    ]),
+                                              );
+                                            })
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: 30,),
+                                  ///edit button column
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18.0, bottom: 8),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        ///text john scott
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "${searchByEmployeeIdProfileData!.firstName.capitalizeFirst}"
+                                                  " ${searchByEmployeeIdProfileData!.lastName.capitalizeFirst}",
+                                              style: ThemeManagerBlack.customTextStyle(context),
+                                            ),
+                                            SizedBox(width: 15,),
+                                            InkWell(
+                                                onTap: onEditPressed,
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                child: Icon(Icons.edit_outlined, size: 14, color: IconColorManager.bluebottom,)),
+                                          ],
+                                        ),
+                                        Container(
+                                          height: 25,
+                                          width: MediaQuery.of(context).size.width / 10,
+                                          decoration: BoxDecoration(
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Color(0xff000000).withValues(alpha: 0.2),
+                                                  spreadRadius: 0,
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 4),
+                                                ),
+                                              ],
+                                              color: Color(int.parse("0xFF$hexColor"))),
+                                          child: Center(
+                                            child: Text(
+                                              searchByEmployeeIdProfileData!.employeeType.capitalizeFirst!,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: providerState.isDarkColor(Color(int.parse('0xFF$hexColor')))?ColorManager.white:ColorManager.black,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Employment Type :',
+                                              style: ThemeManagerDark.customTextStyle(context),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              searchByEmployeeIdProfileData!.employment[0].toUpperCase() +
+                                                  searchByEmployeeIdProfileData!.employment.substring(1),
+                                              style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                            ),
+                                          ],
+                                        ),
+
+
+
+                                        MouseRegion(
+                                          onEnter: (event) => profileState.showZoneListOverlay(
+                                              context, event.position, searchByEmployeeIdProfileData!.zone),
+                                          onExit: (_) => profileState.removeZoneListOverlay(),
+                                          child: Text(
+                                          // searchByEmployeeIdProfileData!.zone,
+                                           providerState.trimmedZone,
+                                            style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 2.0),
+                                          child: Text(
+                                            AppString.address,
+                                            style: ThemeManagerDark.customTextStyle(context),
+                                          ),
+                                        ),
+
+                                        MouseRegion(
+                                          onEnter: (event) => profileState.showOverlayAddress(
+                                              context, event.position, searchByEmployeeIdProfileData!.finalAddress),
+                                          onExit: (_) => profileState.removeOverlayAddress(),
+                                          child: Container(
+                                            height: 30,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  providerState.line1,
+                                                  textAlign: TextAlign.start,
+                                                  style: ThemeManagerAddressPB.customTextStyle(context),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                                Text(
+                                                  providerState.line2,
+                                                  textAlign: TextAlign.start,
+                                                  style: ThemeManagerAddressPB.customTextStyle(context),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
+
+                              ///age phone msg
+                              Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10.0,top: 11),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: MyConstants.personalInfoTexts(context),
+                                    ),
+                                  ),
+                                 // SizedBox(width: 20),
+                                  ///age phone message
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10.0,left: 8,top: 10),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          "${searchByEmployeeIdProfileData!.dateOfBirth} ( ${providerState.dateOfBirthStamp ?? 'N/A'} )",
+                                          style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                        ),
+                                        Text(
+                                          searchByEmployeeIdProfileData!.gender,
+                                          style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                        ),
+                                        Text(
+                                          providerState.maskedString,
+                                          style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                        ),
+
+                                        ///phone, comment
+                                        ProfileBarPhoneCmtConst(
+                                          phoneNo : searchByEmployeeIdProfileData!.primaryPhoneNbr,
+                                        ),
+
+                                        ProfileBarPhoneCmtConst(
+                                          phoneNo : searchByEmployeeIdProfileData!.secondryPhoneNbr,
+                                        ),
+
+                                        ProfileBarPhoneCmtConst(
+                                          phoneNo : searchByEmployeeIdProfileData!.workPhoneNbr,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            //  SizedBox(width: MediaQuery.of(context).size.width/50),
+                              Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding:  const EdgeInsets.only(bottom: 10.0,top: 10),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: MyConstantsColumn.personalInfoTexts(context),
+                                    ),
+                                  ),
+                                  //SizedBox(width: 20),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10.0,left: 8,top: 10),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          child: Text(
+                                            searchByEmployeeIdProfileData!.personalEmail ?? 'No email provided',
+                                            style: ProfileBarConst.profileTextStyle(context),
+                                          ),
+                                          onTap: () async {
+                                            String? email = searchByEmployeeIdProfileData!.personalEmail;
+                                            if (email != null && email.isNotEmpty) {
+                                              // Create a mailto Uri with the email address
+                                              final Uri emailUri = Uri(
+                                                scheme: 'mailto',
+                                                path: email,
+                                                queryParameters: {
+                                                  'subject': 'Hello!',
+                                                  'body': 'I would like to reach out to you.',
+                                                },
+                                              );
+
+                                              // Launch the email client
+                                              if (await canLaunchUrl(emailUri)) {
+                                                await launchUrl(emailUri);
+                                              } else {
+                                                print('Could not launch $emailUri');
+                                              }
+                                            }
+                                          },
+                                        ),
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap:() async {
+                                            String? email = searchByEmployeeIdProfileData!.workEmail;
+                                            if (email != null && email.isNotEmpty) {
+                                              final Uri emailUri = Uri(
+                                                scheme: 'mailto',
+                                                path: email,
+                                                queryParameters: {
+                                                  'subject': 'Hello!',
+                                                  'body': 'I would like to reach out to you.',
+                                                },
+                                              );
+                                              if (await canLaunchUrl(emailUri)) {
+                                                await launchUrl(emailUri);
+                                              } else {
+                                                print('Could not launch $emailUri');
+                                              }
+                                            }
+                                          },
+                                          child: Text(
+                                              searchByEmployeeIdProfileData!.workEmail,
+                                              style: ProfileBarConst.profileTextStyle(context)),
+                                        ),
+                                        Text(
+                                          searchByEmployeeIdProfileData!.expertise,
+                                          style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                        ),
+                                        Text(
+                                          searchByEmployeeIdProfileData!.service,
+                                          style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                        ),
+                                        Text(
+                                          searchByEmployeeIdProfileData!.regOfficId,
+                                          style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                        ),
+                                        MouseRegion(
+                                          onEnter: (event) =>
+                                              profileState.showSummeryOverlay(context, event.position,searchByEmployeeIdProfileData!.summary),
+                                          onExit: (_) => profileState.removeSummeryOverlay(),
+                                          child: Text(
+                                            providerState.trimmedSummery,
+                                            style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                             // SizedBox(width: MediaQuery.of(context).size.width/50,),
+                              ///hire date pta column
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  ///hire date pta
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(AppString.hideDate,
+                                                  style: ThemeManagerDark.customTextStyle(context)
+                                              ),
+                                              SizedBox(height: 10,),
+                                              Text('PTA :',
+                                                  style: ThemeManagerDark.customTextStyle(context)),
+                                            ],
+                                          ),
+                                      //   SizedBox(width: 20),
+                                         // SizedBox(width: MediaQuery.of(context).size.width/50,),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 8),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text("${searchByEmployeeIdProfileData!.dateofHire} ( ${providerState.hireDateTimeStamp ?? ''} )",
+                                                    style: ProfileBarTextBoldStyle.customEditTextStyle(),),
+                                                SizedBox(height: 10,),
+                                                Text('1.2', style: ProfileBarTextBoldStyle.customEditTextStyle(),),
+                                              ],
+                                            ),
+                                          )
+                                        ]),
+                                  ),
+                                  SizedBox(height: 30,),
+                                  ///licenses
+                                  Flexible(
+                                    child: Column(
+                                      children: [
+                                        StatefulBuilder(builder: (BuildContext context,
+                                            void Function(void Function()) setState) {
+                                          return  StreamBuilder<Map<String, int>>(
+                                          stream: profileState.licenseStream,
+                                          builder: (BuildContext context, snapshot) {
+                                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                                              profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
+
+                                            });
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return SizedBox(height: 1, width: 1);
+                                            }
+                                            return Padding(
+                                              padding: const EdgeInsets.only(top: 15.0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  ///"Expired License"
+                                                  ProfileBarClipConst(
+                                                    onTap: () {
+                                                      showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) {
+                                                            return ExpiredLicensePopup(
+                                                                title: 'Expired License',
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets.symmetric(
+                                                                    vertical: AppPadding.p3,
+                                                                    horizontal: AppPadding.p20,
+                                                                  ),
+                                                                  child: SingleChildScrollView(
+                                                                    child: Column(
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                      children: [
+                                                                        Container(
+                                                                          height: 30,
+                                                                          decoration: BoxDecoration(
+                                                                            color: Colors.grey,
+                                                                            borderRadius:
+                                                                            BorderRadius.circular(12),
+                                                                          ),
+                                                                          child: Padding(
+                                                                            padding: const EdgeInsets.symmetric(horizontal: 18),
+                                                                            child: Row(
+                                                                              mainAxisAlignment:
+                                                                              MainAxisAlignment
+                                                                                  .spaceAround,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  child: Center(
+                                                                                    child: Text(
+                                                                                        'Sr No.',
+                                                                                        style:ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                                                Expanded(
+                                                                                  child: Center(
+                                                                                    child: Text(
+                                                                                        'Name Of License',
+                                                                                        textAlign:
+                                                                                        TextAlign
+                                                                                            .start,
+                                                                                        style:ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                                  ),
+                                                                                ),
+                                                                                Expanded(
+                                                                                  child: Center(
+                                                                                    child: Text(
+                                                                                        'Date',
+                                                                                        textAlign:
+                                                                                        TextAlign
+                                                                                            .start,
+                                                                                        style:ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        const SizedBox(height: 10,),
+                                                                        FutureBuilder<Map<String, List<LicensesData>>>(
+                                                                            future: getLicenseStatusWise(context, searchByEmployeeIdProfileData!.employeeId!),
+                                                                            builder: (context, snapshot) {
+                                                                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                                return Center(
+                                                                                  child: Padding(
+                                                                                    padding: const EdgeInsets.symmetric(vertical: 150),
+                                                                                    child: CircularProgressIndicator(
+                                                                                      color: ColorManager.blueprime,
+                                                                                    ),
+                                                                                  ),
+                                                                                );
+                                                                              }
+                                                                              if (snapshot.data!['Expired']!.isEmpty) {
+                                                                                return Center(
+                                                                                    child: Padding(padding:
+                                                                                      const EdgeInsets.symmetric(vertical: 150),
+                                                                                      child: Text(NoDataMessage.noexpiredlicense,
+                                                                                        style: AllNoDataAvailable.customTextStyle(context),
+                                                                                      ),
+                                                                                    ));
+                                                                              }
+                                                                              if (snapshot.hasData) {
+                                                                                final expiredLicenses = snapshot.data!['Expired']!;
+                                                                                //final inactiveLicenses = snapshot.data!['Inactive']!;
+                                                                                return Container(
+                                                                                  height: MediaQuery.of(context).size.height / 2,
+                                                                                  child: ScrollConfiguration(
+                                                                                    behavior:  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                                                                                    child: ListView.builder(scrollDirection: Axis.vertical,
+                                                                                        itemCount: expiredLicenses.length,
+                                                                                        itemBuilder: (context, index) {
+                                                                                          //profileState.expiredCount = expiredLicenses.length;
+                                                                                          print("Expired count :: ${profileState.expiredCount}");
+                                                                                          int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                                                                          String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                                                                                          return Column(
+                                                                                            crossAxisAlignment:
+                                                                                            CrossAxisAlignment.start,
+                                                                                            children: [
+                                                                                              // SizedBox(height: 5),
+                                                                                              Padding(
+                                                                                                padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 3),
+                                                                                                child: Container(
+                                                                                                    decoration: BoxDecoration(
+                                                                                                      color: Colors.white,
+                                                                                                      borderRadius: BorderRadius.circular(4),
+                                                                                                      boxShadow: [
+                                                                                                        BoxShadow(
+                                                                                                          color: const Color(0xff000000).withOpacity(0.25),
+                                                                                                          spreadRadius: 0,
+                                                                                                          blurRadius: 4,
+                                                                                                          offset: const Offset(0, 2),
+                                                                                                        ),
+                                                                                                      ],
+                                                                                                    ),
+                                                                                                    height: 50,
+                                                                                                    child: Padding(
+                                                                                                      padding: const EdgeInsets.only(left: 20,right: 20),
+                                                                                                      child: Row(
+                                                                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                                        children: [
+                                                                                                          Expanded(
+                                                                                                            child: Center(
+                                                                                                              child: Text(
+                                                                                                                  formattedSerialNumber,
+                                                                                                                  // formattedSerialNumber,
+                                                                                                                  style: AboutExpiredLStyle .customEditTextStyle()
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          // Text(''),
+                                                                                                          Expanded(
+                                                                                                            child: Center(
+                                                                                                              child: Text(
+                                                                                                                  expiredLicenses[index].licenseure,
+                                                                                                                  style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          Expanded(
+                                                                                                            child: Center(
+                                                                                                              child: Text(
+                                                                                                                  expiredLicenses[index].expDate,
+                                                                                                                  style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ],
+                                                                                                      ),
+                                                                                                    )),
+                                                                                              ),
+                                                                                            ],
+                                                                                          );
+                                                                                        }),
+                                                                                  ),
+                                                                                );
+                                                                              }
+                                                                              return Offstage();
+                                                                            }),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ));
+                                                          });
+                                                    },
+                                                    text: AppString.expiredlicense,
+                                                    // containerColor: Colors.deepOrangeAccent,
+                                                    containerColor: Color(0xffD16D6A),
+                                                    textOval: profileState.expiredCount.toString(),
+                                                  ),
+                                                  SizedBox(
+                                                      height:10),
+
+                                                  ///"About To Expired License"
+                                                  ProfileBarClipConst(
+                                                      onTap: () {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext context) {
+                                                              return ExpiredLicensePopup(
+                                                                  title: 'About To Expired License',
+                                                                  child: Padding(
+                                                                    padding:
+                                                                    const EdgeInsets.symmetric(
+                                                                      vertical: AppPadding.p3,
+                                                                      horizontal: AppPadding.p20,
+                                                                    ),
+                                                                    child: SingleChildScrollView(
+                                                                      child: Column(
+                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                        children: [
+                                                                          Container(
+                                                                            height: 30,
+                                                                            decoration:
+                                                                            BoxDecoration(color: Colors.grey,
+                                                                              borderRadius: BorderRadius.circular(12),
+                                                                            ),
+                                                                            child: Padding(
+                                                                              padding:
+                                                                              const EdgeInsets.symmetric(horizontal: 18),
+                                                                              child: Row(
+                                                                                mainAxisAlignment:
+                                                                                MainAxisAlignment
+                                                                                    .spaceAround,
+                                                                                children: [
+                                                                                  Expanded(
+                                                                                    child: Center(
+                                                                                      child: Text(
+                                                                                          'Sr No.',
+                                                                                          style:ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                  //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                                                  Expanded(
+                                                                                    child: Center(
+                                                                                      child: Text(
+                                                                                          'Name Of License',
+                                                                                          textAlign:
+                                                                                          TextAlign
+                                                                                              .start,
+                                                                                          style: ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                                    ),
+                                                                                  ),
+                                                                                  Expanded(
+                                                                                    child: Center(
+                                                                                      child: Text(
+                                                                                          'Date',
+                                                                                          textAlign:
+                                                                                          TextAlign
+                                                                                              .start,
+                                                                                          style: ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                            height: 10,
+                                                                          ),
+                                                                          FutureBuilder<
+                                                                              Map<
+                                                                                  String,
+                                                                                  List<
+                                                                                      LicensesData>>>(
+                                                                              future: getLicenseStatusWise(
+                                                                                  context,
+                                                                                  searchByEmployeeIdProfileData!
+                                                                                      .employeeId!),
+                                                                              builder: (context,
+                                                                                  snapshot) {
+                                                                                if (snapshot
+                                                                                    .connectionState ==
+                                                                                    ConnectionState
+                                                                                        .waiting) {
+                                                                                  return Center(
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets
+                                                                                          .symmetric(
+                                                                                          vertical:
+                                                                                          150),
+                                                                                      child:
+                                                                                      CircularProgressIndicator(
+                                                                                        color: ColorManager
+                                                                                            .blueprime,
+                                                                                      ),
+                                                                                    ),
+                                                                                  );
+                                                                                }
+                                                                                if (snapshot
+                                                                                    .data![
+                                                                                'About to Expire']!
+                                                                                    .isEmpty) {
+                                                                                  return Center(
+                                                                                      child:
+                                                                                      Padding(
+                                                                                        padding: const EdgeInsets
+                                                                                            .symmetric(
+                                                                                            vertical:
+                                                                                            150),
+                                                                                        child: Text(NoDataMessage.noabouttoexpired,
+                                                                                          style: AllNoDataAvailable.customTextStyle(context),
+
+                                                                                        ),
+                                                                                      ));
+                                                                                }
+                                                                                if (snapshot.hasData) {
+                                                                                  final aboutToExpiredLicenses =
+                                                                                  snapshot.data![
+                                                                                  'About to Expire']!;
+                                                                                  //final inactiveLicenses = snapshot.data!['Inactive']!;
+                                                                                  return Container(
+                                                                                    height: MediaQuery.of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height /
+                                                                                        2,
+                                                                                    child: ScrollConfiguration(
+                                                                                      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                                                                                      child: ListView
+                                                                                          .builder(
+                                                                                          scrollDirection:
+                                                                                          Axis
+                                                                                              .vertical,
+                                                                                          itemCount:
+                                                                                          aboutToExpiredLicenses
+                                                                                              .length,
+                                                                                          itemBuilder:
+                                                                                              (context,
+                                                                                              index) {
+                                                                                            int serialNumber = index +
+                                                                                                1 +
+                                                                                                (currentPage - 1) * itemsPerPage;
+                                                                                            String
+                                                                                            formattedSerialNumber =
+                                                                                            serialNumber.toString().padLeft(2, '0');
+                                                                                            return Column(
+                                                                                              crossAxisAlignment:
+                                                                                              CrossAxisAlignment.start,
+                                                                                              children: [
+                                                                                                // SizedBox(height: 5),
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 3),
+                                                                                                  child: Container(
+                                                                                                      decoration: BoxDecoration(
+                                                                                                        color: Colors.white,
+                                                                                                        borderRadius: BorderRadius.circular(4),
+                                                                                                        boxShadow: [
+                                                                                                          BoxShadow(
+                                                                                                            color: const Color(0xff000000).withOpacity(0.25),
+                                                                                                            spreadRadius: 0,
+                                                                                                            blurRadius: 4,
+                                                                                                            offset: const Offset(0, 2),
+                                                                                                          ),
+                                                                                                        ],
+                                                                                                      ),
+                                                                                                      height: 50,
+                                                                                                      child: Padding(
+                                                                                                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                                        child: Row(
+                                                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                                          children: [
+                                                                                                            Expanded(
+                                                                                                              child: Center(
+                                                                                                                child: Text(
+                                                                                                                    formattedSerialNumber,
+                                                                                                                    // formattedSerialNumber,
+                                                                                                                    style:AboutExpiredLStyle.customEditTextStyle()
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                            // Text(''),
+                                                                                                            Expanded(
+                                                                                                              child: Center(
+                                                                                                                child: Text(
+                                                                                                                    aboutToExpiredLicenses[index].licenseure,
+                                                                                                                    style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                            Expanded(
+                                                                                                              child: Center(
+                                                                                                                child: Text(
+                                                                                                                    aboutToExpiredLicenses[index].expDate,
+                                                                                                                    style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      )),
+                                                                                                ),
+                                                                                              ],
+                                                                                            );
+                                                                                          }),
+                                                                                    ),
+                                                                                  );
+                                                                                }
+                                                                                return Offstage();
+                                                                              }),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ));
+                                                            });
+                                                      },
+                                                      text: AppString.abouttoexpire,
+                                                      // containerColor: Colors.orange,
+                                                      containerColor: Color(0xffFEBD4D),
+                                                      textOval:profileState.aboutToCount.toString()),
+                                                  SizedBox(height: 10),
+
+                                                  ///"Up To Date License"
+                                                  ProfileBarClipConst(
+                                                      onTap: () {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext context) {
+                                                              return ExpiredLicensePopup(
+                                                                  title: 'Up To Date License',
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.symmetric(
+                                                                      vertical: AppPadding.p3, horizontal: AppPadding.p20,
+                                                                    ),
+                                                                    child: SingleChildScrollView(
+                                                                      child: Column(
+                                                                        crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                        mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceEvenly,
+                                                                        children: [
+                                                                          Container(
+                                                                            height: 30,
+                                                                            decoration:
+                                                                            BoxDecoration(
+                                                                              color: Colors.grey,
+                                                                              borderRadius:
+                                                                              BorderRadius
+                                                                                  .circular(12),
+                                                                            ),
+                                                                            child: Padding(
+                                                                              padding:
+                                                                              const EdgeInsets.symmetric(horizontal: 18),
+                                                                              child: Row(
+                                                                                mainAxisAlignment:
+                                                                                MainAxisAlignment
+                                                                                    .spaceAround,
+                                                                                children: [
+                                                                                  Expanded(
+                                                                                    child: Center(
+                                                                                      child: Text(
+                                                                                          'Sr No.',
+                                                                                          style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                  //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                                                  Expanded(
+                                                                                    child: Center(
+                                                                                      child: Text(
+                                                                                          'Name Of License',
+                                                                                          textAlign:
+                                                                                          TextAlign
+                                                                                              .start,
+                                                                                          style: ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                                    ),
+                                                                                  ),
+                                                                                  Expanded(
+                                                                                    child: Center(
+                                                                                      child: Text(
+                                                                                          'Date',
+                                                                                          textAlign:
+                                                                                          TextAlign
+                                                                                              .start,
+                                                                                          style: ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                            height: 10,
+                                                                          ),
+                                                                          FutureBuilder<Map<String, List<LicensesData>>>(
+                                                                              future: getLicenseStatusWise(
+                                                                                  context,
+                                                                                  searchByEmployeeIdProfileData!
+                                                                                      .employeeId!),
+                                                                              builder: (context, snapshot) {
+                                                                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                                  return Center(
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets.symmetric(vertical: 150),
+                                                                                      child:
+                                                                                      CircularProgressIndicator(
+                                                                                        color: ColorManager
+                                                                                            .blueprime,
+                                                                                      ),
+                                                                                    ),
+                                                                                  );
+                                                                                }
+                                                                                if (snapshot
+                                                                                    .data!['Upto date']!.isEmpty) {
+                                                                                  return Center(
+                                                                                      child:
+                                                                                      Padding(
+                                                                                        padding: const EdgeInsets
+                                                                                            .symmetric(
+                                                                                            vertical:
+                                                                                            150),
+                                                                                        child: Text(NoDataMessage.nouptodate,
+                                                                                          style: AllNoDataAvailable.customTextStyle(context),
+                                                                                        ),
+
+                                                                                      ));
+                                                                                }
+                                                                                if (snapshot
+                                                                                    .hasData) {
+                                                                                  final upToDateLicenses =
+                                                                                  snapshot.data![
+                                                                                  'Upto date']!;
+                                                                                  //final inactiveLicenses = snapshot.data!['Inactive']!;
+                                                                                  return Container(
+                                                                                    height: MediaQuery.of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height /
+                                                                                        2,
+                                                                                    child: ScrollConfiguration(
+                                                                                      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                                                                                      child: ListView
+                                                                                          .builder(
+                                                                                          scrollDirection:
+                                                                                          Axis
+                                                                                              .vertical,
+                                                                                          itemCount:
+                                                                                          upToDateLicenses
+                                                                                              .length,
+                                                                                          itemBuilder:
+                                                                                              (context,
+                                                                                              index) {
+                                                                                            int serialNumber = index +
+                                                                                                1 +
+                                                                                                (currentPage - 1) * itemsPerPage;
+                                                                                            String
+                                                                                            formattedSerialNumber =
+                                                                                            serialNumber.toString().padLeft(2, '0');
+                                                                                            return Column(
+                                                                                              crossAxisAlignment:
+                                                                                              CrossAxisAlignment.start,
+                                                                                              children: [
+                                                                                                // SizedBox(height: 5),
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 3),
+                                                                                                  child: Container(
+                                                                                                      decoration: BoxDecoration(
+                                                                                                        color: Colors.white,
+                                                                                                        borderRadius: BorderRadius.circular(4),
+                                                                                                        boxShadow: [
+                                                                                                          BoxShadow(
+                                                                                                            color: const Color(0xff000000).withOpacity(0.25),
+                                                                                                            spreadRadius: 0,
+                                                                                                            blurRadius: 4,
+                                                                                                            offset: const Offset(0, 2),
+                                                                                                          ),
+                                                                                                        ],
+                                                                                                      ),
+                                                                                                      height: 50,
+                                                                                                      child: Padding(
+                                                                                                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                                        child: Row(
+                                                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                                          children: [
+                                                                                                            Expanded(
+                                                                                                              child: Center(
+                                                                                                                child: Text(
+                                                                                                                    formattedSerialNumber,
+                                                                                                                    // formattedSerialNumber,
+                                                                                                                    style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                            // Text(''),
+                                                                                                            Expanded(
+                                                                                                              child: Center(
+                                                                                                                child: Text(
+                                                                                                                    upToDateLicenses[index].licenseure,
+                                                                                                                    style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                            Expanded(
+                                                                                                              child: Center(
+                                                                                                                child: Text(
+                                                                                                                    upToDateLicenses[index].expDate,
+                                                                                                                    style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      )),
+                                                                                                ),
+                                                                                              ],
+                                                                                            );
+                                                                                          }),
+                                                                                    ),
+                                                                                  );
+                                                                                }
+                                                                                return Offstage();
+                                                                              }),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ));
+                                                            });
+                                                      },
+                                                      text: AppString.uptodate,
+                                                      // containerColor: Colors.lightGreen,
+                                                      containerColor: Color(0xffB4DB4C),
+                                                      textOval: profileState.upToDateCount.toString()),
+                                                  SizedBox(height: 10),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                          },
+
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Text(
-                        AppString.active,
-                        style: ThemeManagerBlack.customTextStyle(context),
-                      ),
-                      Text(
-                        AppString.annualSkill,
-                        style: ThemeManager.customTextStyle(context),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ///text john scott
-                      Text(
-                        AppString.johnSmith,
-                        style: ThemeManagerBlack.customTextStyle(context),
-                      ),
-                      SizedBox(height: AppSize.s2,),
-                      Container(
-                        height: MediaQuery.of(context).size.height / 40,
-                        width: MediaQuery.of(context).size.width / 10,
-                        child: ElevatedButton(
-                          child: Text(
-                            AppString.physical,
-                            style: ThemeManagerWhite.customTextStyle(context),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero,
-                            ),
-                            backgroundColor: ColorManager.faintOrange.withOpacity(0.9),
-                            elevation: 4,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                      Text(
-                        AppString.employmentType,
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      Text(
-                        AppString.saanJoes,
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      Text(
-                        AppString.address,
-                        style: ThemeManagerBlack.customTextStyle(context),
-                      ),
-                      Text(
-                        AppString.houseaddress,
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: AppSize.s10,
-                          color: ColorManager.primary,
-                          fontWeight: FontWeightManager.light,
-                        )
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: MyConstants.personalInfoTexts(context),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ///text john scott
-                      Text(
-                       AppString.dateprofile,
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      Text(
-                        AppString.male,
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      Text(
-                        AppString.star,
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-
-                      ///phone, comment
-                     ProfileBarPhoneCmtConst(),
-                     ProfileBarPhoneCmtConst(),
-                     ProfileBarPhoneCmtConst(),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: MyConstantsColumn.personalInfoTexts(context),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(AppString.personmail,
-                          style: ProfileBarConst.profileTextStyle(context)),
-                      Text(
-                          AppString.personmail,
-                        style: ProfileBarConst.profileTextStyle(context)
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            AppString.proheaalthsan,
-                            style: ThemeManagerDark.customTextStyle(context),
-                          ),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width / 99),
-                          Container(
-                            height: MediaQuery.of(context).size.height / 35,
-                            width: MediaQuery.of(context).size.width / 16,
-                            margin: EdgeInsets.only(right: AppSize.s40),
-                            child: ElevatedButton(
-                              onPressed:
-                                  () {},
-                              child: Text(
-                               AppString.viewzone,
-                                style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s10,
-                                    fontWeight: FontWeightManager.bold,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: ColorManager.white
-                                ),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AppSize.s15, vertical: AppSize.s10),
-                                backgroundColor: ColorManager.blueprime,
-                                shadowColor: ColorManager.grey.withOpacity(0.3),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                       AppString.phone,
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      Text(
-                        AppString.physical,
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      Text(
-                        AppString.na,
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            AppString.hideDate,
-                            style:ProfileBarConstText.profileTextStyle(context)
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 35,
-                          ),
-                          Text(
-                           AppString.datetime,
-                            style: ProfileBarConstText.profileTextStyle(context)
-                          ),
-                        ],
-                      ),
-
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ///"Expired License"
-                          ProfileBarClipConst(
-                              text: AppString.expiredlicense,
-                              containerColor: ColorManager.rednew,
-                              textOval: AppString.zero),
-                          ///"About To Expired License"
-                          ProfileBarClipConst(
-                              text: AppString.abouttoexpire,
-                              containerColor: Colors.green,
-                              textOval: AppString.two),
-
-                          ///"Up To Date License"
-                          ProfileBarClipConst(
-                              text: AppString.uptodate,
-                              containerColor: Colors.yellow,
-                              textOval: AppString.four),
-                        ],
-                      ),
-                    ],
-                  ),
+                    );
+                  }
+                ),
                 ],
-              ),
             ),
-          ),
-        ),
-      ],
+          );
+
+  }
+}
+
+class ProfileBarTextBoldStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.textPrimaryColor,
+
+      // decoration: TextDecoration.none,
+    );
+  }
+}
+class ProfileBarZoneStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: const Color(0xff686464),
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class ProfileBarNameLicenseStyle {
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class AboutExpiredLStyle{
+  static TextStyle customEditTextStyle() {
+    return TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: const Color(0xff686464),
+      decoration: TextDecoration.none,
     );
   }
 }

@@ -1,283 +1,560 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../../../widgets/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/profile_editor/profile_editor.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/clinical_licenses.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/form_status.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profilebar_editor.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../widgets/widgets/profile_bar/profile_bar.dart';
-import '../controller/controller.dart';
-import '../widgets/bottom_row.dart';
-import '../widgets/child_tabbar_constant.dart';
+import '../widgets/child_tabbar_screen/bancking_child/banking_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/acknowledgements_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/add_vaccination_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/compensation_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/other_child_tabbar.dart';
+import '../widgets/child_tabbar_screen/payrates_child/pay_rates_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/education_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/employment_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/licenses_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/references_child_tabbar.dart';
-import '../widgets/head_tabbar_constant.dart';
-import '../widgets/head_tabbar_screen/banking_head_tabbar.dart';
-import '../widgets/head_tabbar_screen/health_records_head_tabbar.dart';
-import '../widgets/head_tabbar_screen/inventory_head_tabbar.dart';
-import '../widgets/head_tabbar_screen/pay_rates_head_tabbar.dart';
-import '../widgets/head_tabbar_screen/termination_head_tabbar.dart';
-import '../widgets/head_tabbar_screen/time_off_head_tabbar.dart';
-///done by saloni
+import '../widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
+import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
+
 class ManageScreen extends StatefulWidget {
+  final int employeeId;
+  final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
+  final PageController pageManageController;
+  final int? employeeEnrollId;
+  final Function() onRefresh;
+
+  ManageScreen({
+    super.key,
+    this.searchByEmployeeIdProfileData,
+    required this.employeeId,
+    required this.onRefresh,
+    required this.pageManageController,
+    this.employeeEnrollId,
+  });
+
   @override
   State<ManageScreen> createState() => _ManageScreenState();
 }
+
 class _ManageScreenState extends State<ManageScreen> {
-  late CenteredTabBarChildController childController;
-  late CenteredTabBarChildController childControlleOne;
-  late CenteredTabBarController centeredTabBarController;
+  bool _isEditMode = false;
+  // final  _isEditMode = ;
 
-  @override
-  void initState() {
-    childController = CenteredTabBarChildController(
-      tabs: [
-        Tab(text: 'Employment'),
-        Tab(text: 'Education'),
-        Tab(text: 'References'),
-        Tab(text: 'Licenses'),
-      ],
-      tabViews: [
-        ///employment
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.only(right: 40),
-                  child: CustomIconButtonConst(
-                      text: 'Add', icon: Icons.add, onPressed: () {}),
-                ),
-              ],
-            ),
-            EmploymentContainerConstant(),
-          ],
-        ),
-        ///education
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButtonConst(
-                      text: 'Add', icon: Icons.add, onPressed: () {}),
-                ),
-              ],
-            ),
-            EducationChildTabbar(),
-          ],
-        ),
-        ///reference
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButtonConst(
-                      text: 'Add', icon: Icons.add, onPressed: () {}),
-                ),
-              ],
-            ),
-            SizedBox(height: 1,),
-            ReferencesChildTabbar(),
-          ],
-        ),
-        ///license
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  height: 27,
-                  width: 250,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                    border: Border.all(color: Color(0xffB1B1B1)), // Black border
-                    borderRadius: BorderRadius.circular(5), // Rounded corners
-                  ),
-                  child: DropdownButtonFormField<String>(
-                    focusColor: Colors.transparent,
-                    icon: Icon(Icons.arrow_drop_down_sharp,color: Color(0xff50B5E5),),
-                    decoration: InputDecoration.collapsed(hintText: ''),
-                    items: <String>['Select Document', 'Drivers License', 'CPR', 'Liability Insurence']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                    },
-                    value: 'Select Document',style: TextStyle(color: Color(0xff686464),fontSize: 12),
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButtonConst(
-                      text: 'Add', icon: Icons.add, onPressed: () {}),
-                ),
-              ],
-            ),
-            SizedBox(height: 1,),
-            LicensesChildTabbar(),
-          ],
-        ),
-      ],
-    );
-    childControlleOne = CenteredTabBarChildController(tabs: [
-      Tab(text: 'Acknowledgements'),
-      Tab(text: 'Compensation'),
-      Tab(text: 'Additional Vaccination'),
-      Tab(text: 'Others'),
-    ], tabViews: [
-      ///aknowledgment
-      Column(
-        children: [
-          Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
-             // width: 100,
-              margin: EdgeInsets.only(right: 20),
-              child: CustomIconButtonConst(
-                  text: 'Add New', icon: Icons.add, onPressed: () {}),
-            ),
-          ],
-        ),
-          SizedBox(height: 30,),
-          AcknowledgementsChildBar(),
-        ],
-      ),
-      ///compensation
-      Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                // width: 100,
-                margin: EdgeInsets.only(right: 60),
-                child: CustomIconButtonConst(
-                    text: 'Add New', icon: Icons.add, onPressed: () {}),
-              ),
-            ],
-          ),
-          SizedBox(height: 20,),
-          CompensationChildTabbar(),
-        ],
-      ),
-      Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                // width: 100,
-                margin: EdgeInsets.only(right: 60),
-                child: CustomIconButtonConst(
-                    text: 'Add New', icon: Icons.add, onPressed: () {}),
-              ),
-            ],
-          ),
-          SizedBox(height: 20,),
-          AdditionalVaccinationsChildBar(),
-        ],
-      ),
-      Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                // width: 100,
-                margin: EdgeInsets.only(right: 60),
-                child: CustomIconButtonConst(
-                    text: 'Add New', icon: Icons.add, onPressed: () {}),
-              ),
-            ],
-          ),
-          SizedBox(height: 20,),
-          OtherChildTabbar(),
-        ],
-      ),
-    ]);
+  ProfileEditorModal? _prefilledData;
 
-    centeredTabBarController = Get.put(CenteredTabBarController(
-      tabs: [
-        Tab(text: 'Qualifications'),
-        Tab(text: 'Documents'),
-        Tab(text: 'Banking'),
-        Tab(text: 'Health Records'),
-        Tab(text: 'Inventory'),
-        Tab(text: 'Pay Rates'),
-        Tab(text: 'Termination'),
-        Tab(text: 'Time Off'),
-      ],
-      tabViews: [
-        CenteredTabBarChild(childController),
-        CenteredTabBarChild(childControlleOne),
-        BankingHeadTabbar(),
-        HealthRecordsHeadTabbar(),
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  // width: 100,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.25),
-                        //spreadRadius: 1,
-                        blurRadius: 4,
-                        offset: Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  margin: EdgeInsets.only(right: 10),
-                  child: CustomIconButtonConst(
-                      text: 'Add New', icon: Icons.add, onPressed: () {}),
-                ),
-              ],
-            ),
-            SizedBox(height: 20,),
-            InventoryHeadTabbar(),
-          ],
-        ),
-        PayRatesHeadTabbar(),
-        TerminationHeadTabbar(),
-        TimeOffHeadTabbar(),
-      ],
-    ));
-    super.initState();
-  }
-
+  // final ValueNotifier<bool> _isEditMode = ValueNotifier<bool>(false); // Use ValueNotifier to track edit mode
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-      /// green blue container
-      ProfileBar(),
-      ///TabBar
-      CenteredTabBar(),
-      /// bottom row
-      BottomBarRow(),
-    ]);
+    final tabState = Provider.of<HrManageProvider>(context, listen: false);
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(children: [
+          Expanded(
+              child: _isEditMode
+                  ? ProfileEditScreen(
+                      onCancel: () {
+                        widget.onRefresh();
+                        setState(() {
+                          _isEditMode = false;
+                        });
+                      },
+                      employeeId: widget.employeeId,
+                      // employeeEnrollId: widget.employeeEnrollId!,
+                    )
+                  : ListView(
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        // Profile Bar
+                        ProfileBar(
+                          searchByEmployeeIdProfileData:
+                              widget.searchByEmployeeIdProfileData!,
+                          onEditPressed: () {
+                            setState(() {
+                              _isEditMode = true;
+                            });
+                          },
+                        ),
+
+                        ///sub tab bar
+                        DefaultTabController(
+                          length: 7,
+                          initialIndex: tabState.currentTab,
+                          child: Column(
+                            children: [
+                              TabBar(
+                                onTap: (index) {
+                                  tabState.setTab(index);
+                                  print('Tab index $index');
+                                },
+                                indicatorWeight: 6,
+                                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                                indicator: CustomTabIndicator(
+                                  color: Color(0xFF50B5E5), // Blue color
+                                  radius: 13, // Circular border
+                                  height: 6, // Thickness
+                                  shadowBlurRadius: 3, // Shadow blur
+                                  shadowColor: Colors.black26, // Shadow color
+                                ),
+                                indicatorSize: TabBarIndicatorSize.tab,
+                                labelColor: Color(0xFF50B5E5),
+                                labelStyle: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                unselectedLabelColor: ColorManager.textPrimaryColor,
+                                dividerColor: Colors.transparent,
+                                tabs: [
+                                  Tab(text: AppStringHr.qualification),
+                                  Tab(text: AppStringHr.documents),
+                                  Tab(text: AppStringHr.bankings),
+                                  Tab(text: AppStringHr.inventory),
+                                  Tab(text: AppStringHr.payRate),
+                                  Tab(text: AppStringHr.termination),
+                                  Tab(text: AppStringHr.timeOff),
+                                ],
+                              ),
+                              Container(
+                                height: MediaQuery.of(context).size.height /
+                                    2, // Adjust height as needed
+                                child: TabBarView(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  children: [
+                                    /// Qualification Tab Views
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5),
+                                      child: DefaultTabController(
+                                        initialIndex: tabState.qulificationModuleTab,
+                                        length: 4,
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 322.0, right: 305, top: 5),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(24),
+                                                  color: Color(0xFF50B5E5),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      // color: Colors.black.withOpacity(0.2),
+                                                      color: Colors.black.withOpacity(0.25),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 4,
+                                                      offset: Offset(0, 3),
+                                                    ),
+                                                  ],
+                                                ),
+                                                height: 30,
+                                                // width: 720.0,
+                                                child: TabBar(
+                                                  splashBorderRadius: BorderRadius.circular(50),
+                                                  isScrollable: false,
+                                                  onTap: (index) {
+                                                    tabState.setQulificationModuleTab(index); // Update the active tab
+                                                  },
+                                                  tabs: [
+                                                    Tab(
+                                                      text: AppStringHr
+                                                          .employment,
+                                                    ),
+                                                    Tab(
+                                                        text: AppStringHr
+                                                            .education),
+                                                    Tab(
+                                                        text: AppStringHr
+                                                            .referance),
+                                                    Tab(
+                                                        text: AppStringHr
+                                                            .license),
+                                                  ],
+                                                  dividerColor:
+                                                      Colors.transparent,
+                                                  indicator: BoxDecoration(
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          // color: Colors.black.withOpacity(0.2),
+                                                          color: Colors.black
+                                                              .withOpacity(0.2),
+                                                          spreadRadius: 1,
+                                                          blurRadius: 5,
+                                                          offset: Offset(0, 3),
+                                                        ),
+                                                      ],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50), // Creates border
+                                                      color: Colors.white),
+                                                  indicatorSize:
+                                                      TabBarIndicatorSize.tab,
+                                                  indicatorColor: Colors.white,
+                                                  labelColor: Color(0xFF686464),
+                                                  unselectedLabelStyle:
+                                                      TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                  labelStyle: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                  unselectedLabelColor:
+                                                      Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 5),
+                                            Expanded(
+                                              child: TabBarView(
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
+                                                children: [
+                                                  SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        EmploymentContainerConstant(
+                                                            employeeId: widget
+                                                                .employeeId!),
+                                                        SizedBox(height: 30),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        EducationChildTabbar(
+                                                            employeeId: widget
+                                                                .searchByEmployeeIdProfileData!
+                                                                .employeeId!),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        ReferencesChildTabbar(
+                                                            employeeId: widget
+                                                                .searchByEmployeeIdProfileData!
+                                                                .employeeId!),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        LicensesChildTabbar(
+                                                            employeeId: widget
+                                                                .searchByEmployeeIdProfileData!
+                                                                .employeeId!),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                                    /// Documents Tab Views
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 5,
+                                      ),
+                                      child: DefaultTabController(
+                                        length: widget.searchByEmployeeIdProfileData!.departmentId == 1?6:5,
+                                        initialIndex: tabState.qulificationModuleTab,
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding:  EdgeInsets.only(
+                                                  left: widget.searchByEmployeeIdProfileData!.departmentId == 1 ? 310:312.0,
+                                                  right: widget.searchByEmployeeIdProfileData!.departmentId == 1 ?290:295,
+                                                  top: 5),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(24),
+                                                  color: Color(0xFF50B5E5),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      // color: Colors.black.withOpacity(0.2),
+                                                      color: Colors.black
+                                                          .withOpacity(0.25),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 4,
+                                                      offset: Offset(0, 3),
+                                                    ),
+                                                  ],
+                                                ),
+                                                height: 30,
+                                                // width: 820.0,
+                                                child: TabBar(
+                                                  splashBorderRadius: BorderRadius.circular(50),
+                                                  isScrollable: false,
+                                                  onTap: (index){
+                                                    tabState.setDocumentsModuleTab(index);
+                                                  },
+                                                  tabs: [
+                                                    Tab(
+                                                        text: AppStringHr
+                                                            .acknowledgement),
+                                                    Tab(
+                                                        text: AppStringHr
+                                                            .compensation),
+                                                    Tab(
+                                                        text: AppStringHr
+                                                            .addVaccination),
+                                                    Tab(
+                                                        text:
+                                                            AppStringHr.others),
+                                                    Tab(
+                                                        text: AppStringHr
+                                                            .formStatus),
+                                                    if(widget
+                                                        .searchByEmployeeIdProfileData!.departmentId == 1)
+                                                    Tab(text: AppStringHr.clinicalLicenses),
+                                                  ],
+                                                  dividerColor:
+                                                      Colors.transparent,
+                                                  //padding: EdgeInsets.only(top: 2),
+                                                  indicator: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(50), // Creates border
+                                                      color: Colors.white),
+                                                  indicatorSize: TabBarIndicatorSize.tab,
+                                                  indicatorColor: Colors.white,
+                                                  labelColor: Color(0xFF686464),
+                                                  unselectedLabelStyle:
+                                                      TextStyle(
+                                                    fontSize: AppSize.s14,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                  labelStyle: TextStyle(
+                                                    fontSize: AppSize.s14,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                  unselectedLabelColor:
+                                                      Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: TabBarView(
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
+                                                children: [
+                                                  SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        AcknowledgementsChildBar(
+                                                            employeeId: widget
+                                                                .searchByEmployeeIdProfileData!
+                                                                .employeeId!),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        CompensationChildTabbar(
+                                                            employeeId: widget
+                                                                .searchByEmployeeIdProfileData!
+                                                                .employeeId!),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        AdditionalVaccinationsChildBar(
+                                                            employeeId: widget
+                                                                .searchByEmployeeIdProfileData!
+                                                                .employeeId!),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        OtherChildTabbar(
+                                                            employeeId: widget
+                                                                .searchByEmployeeIdProfileData!
+                                                                .employeeId!),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          height: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .height,
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top:
+                                                                      AppPadding
+                                                                          .p15),
+                                                          child: FormStatusScreen(
+                                                              employeeId: widget
+                                                                  .searchByEmployeeIdProfileData!
+                                                                  .employeeId!),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  widget
+                                                      .searchByEmployeeIdProfileData!.departmentId == 1 ? SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        ClinicalLicensesDoc(
+                                                            employeeId: widget
+                                                                .searchByEmployeeIdProfileData!
+                                                                .employeeId!),
+                                                      ],
+                                                    ),
+                                                  ):Offstage()
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                                    /// Banking Tab
+                                    BankingHeadTabbar(
+                                        employeeID: widget
+                                            .searchByEmployeeIdProfileData!
+                                            .employeeId!),
+
+                                    /// Inventory Tab
+                                    SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          InventoryHeadTabbar(
+                                              employeeId: widget
+                                                  .searchByEmployeeIdProfileData!
+                                                  .employeeId!),
+                                        ],
+                                      ),
+                                    ),
+
+                                    /// Pay Rates Tab
+                                    PayRatesHeadTabbar(
+                                      employeeId: widget
+                                          .searchByEmployeeIdProfileData!
+                                          .employeeId!,
+                                    ),
+
+                                    /// Termination Tab
+                                    TerminationHeadTabbar(
+                                      employeeId: widget
+                                          .searchByEmployeeIdProfileData!
+                                          .employeeId!,
+                                    ),
+
+                                    /// Time Off Tab
+                                    const TimeOffHeadTabbar(),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )),
+          //BottomBarRow(),
+        ]));
   }
 }
+
+class CustomTabIndicator extends Decoration {
+  final Color color;
+  final double height;
+  final double radius;
+  final double shadowBlurRadius;
+  final Color shadowColor;
+
+  CustomTabIndicator({
+    required this.color,
+    required this.radius,
+    required this.height,
+    required this.shadowBlurRadius,
+    required this.shadowColor,
+  });
+
+  @override
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
+    return _CustomTabIndicatorPainter(
+      color: color,
+      radius: radius,
+      height: height,
+      shadowBlurRadius: shadowBlurRadius,
+      shadowColor: shadowColor,
+      onChanged: onChanged,
+    );
+  }
+}
+
+class _CustomTabIndicatorPainter extends BoxPainter {
+  final Color color;
+  final double height;
+  final double radius;
+  final double shadowBlurRadius;
+  final Color shadowColor;
+
+  _CustomTabIndicatorPainter({
+    required this.color,
+    required this.height,
+    required this.radius,
+    required this.shadowBlurRadius,
+    required this.shadowColor,
+    VoidCallback? onChanged,
+  }) : super(onChanged);
+
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+    final Paint paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+
+    final shadowPaint = Paint()
+      ..color = shadowColor
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, shadowBlurRadius);
+
+    final tabWidth = configuration.size!.width;
+    final tabHeight = configuration.size!.height;
+
+    // Shadow
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(offset.dx, tabHeight - height + 2, tabWidth, height),
+        Radius.circular(radius),
+      ),
+      shadowPaint,
+    );
+
+    // Blue indicator
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(offset.dx, tabHeight - height, tabWidth, height),
+        Radius.circular(radius),
+      ),
+      paint,
+    );
+  }
+}
+

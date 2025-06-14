@@ -12,15 +12,20 @@ class Api {
     dio = Dio(BaseOptions(baseUrl: AppConfig.endpoint))
       ..interceptors.add(InterceptorsWrapper(onError: (error, handler) {
         if (error.response!.data["message"] == "Unauthorized") {
-
           print(error.response!.data);
           TokenManager.removeAccessToken();
           Navigator.pushNamedAndRemoveUntil(
               buildContext, LoginScreen.routeName, (route) => false);
         }
+       // User with ID 0 not found
+        // Invalid Employee ID , record not found for EmployeeId:0
         if (error.response!.statusCode == 404) {
           print(":::::");
-          print(error.response!.data);
+          print(error.response!.data['message']);
+         if(error.response!.data['message'] == 'User with ID 0 not found'){
+           Navigator.pushNamedAndRemoveUntil(
+               buildContext, LoginScreen.routeName, (route) => false);
+         }
         }
         if (error.response!.statusCode == 401) {
           print(error.response!.data);
@@ -44,6 +49,9 @@ class Api {
     var response = await dio.get(
       path,
     );
+    // print(path);
+    // print("Prachi:::::::::${response}"
+
     return response;
   }
 
@@ -52,10 +60,30 @@ class Api {
       path,
       data: data,
     );
+    //  print(path);
+    // print("Prachi POST:::::::::${response}");
+    return response;
+  }
+
+  Future<Response> postList({required String path, required List data}) async {
+    var response = await dio.post(
+      path,
+      data: data,
+    );
+    //  print(path);
+    // print("Prachi POST:::::::::${response}");
     return response;
   }
 
   Future<Response> patch({required String path, required Map data}) async {
+    var response = await dio.patch(
+      path,
+      data: data,
+    );
+    return response;
+  }
+
+  Future<Response> patchList({required String path, required List data}) async {
     var response = await dio.patch(
       path,
       data: data,

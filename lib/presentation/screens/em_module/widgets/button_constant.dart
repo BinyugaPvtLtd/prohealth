@@ -1,5 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
+import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/value_manager.dart';
+///register screen button enroll,onboard ... etc
+class CustomTextButton extends StatefulWidget {
+  final String text;
+  final Color? color;
+  final Color? textColor;
+  final Future<void> Function() onPressed;
+
+  CustomTextButton({
+    required this.text,
+    required this.onPressed,
+    this.color,
+    this.textColor,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<CustomTextButton> createState() => _CustomTextButtonState();
+}
+
+class _CustomTextButtonState extends State<CustomTextButton> {
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    // return isLoading
+    //     ? Padding(
+    //       padding: const EdgeInsets.only(right: 40),
+    //       child: SizedBox(
+    //             height: 20,
+    //             width: 20,
+    //             child: CircularProgressIndicator(color: ColorManager.blueprime),
+    //           ),
+    //     )
+    //     :
+   return Container(
+      width: AppSize.s110,
+      margin:
+      const EdgeInsets.only(right: AppMargin.m5),
+          child: ElevatedButton(
+                onPressed: () async {
+         // setState(() => isLoading = true);
+          await widget.onPressed();
+         // setState(() => isLoading = false);
+                },
+                child: Text(
+          widget.text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: FontSize.s14,
+            fontWeight: FontWeight.w600,
+            color: widget.textColor ?? ColorManager.white,
+          ),
+                ),
+                style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          backgroundColor: widget.color ?? Color(0xFF50B5E5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 5,
+                ),
+              ),
+        );
+  }
+}
 
 ///button constant with transparent bg, colored text
 class CustomButtonTransparentSM extends StatelessWidget {
@@ -14,85 +83,114 @@ class CustomButtonTransparentSM extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontFamily: 'FiraSans',
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-          color: Color(0xFFF6928A),
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: Color(0xFFF6928A)),
+    return Material(
+      borderRadius: BorderRadius.circular(12),
+      elevation: 4,
+      child: Container(
+        height:AppSize.s30,
+        width: AppSize.s100,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          child: Text(
+            text,
+            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+              fontWeight: FontWeight.w500,
+              color: ColorManager.blueprime,)
+          ),
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.symmetric(horizontal: 23, vertical: 10),
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(color: ColorManager.blueprime),
+            ),
+          ),
         ),
       ),
     );
   }
 }
 
-///custom button submit
-class CustomElevatedButton extends StatelessWidget {
+///
+class CustomElevatedButton extends StatefulWidget {
   final String? text;
   final VoidCallback onPressed;
-  // final Color color;
+  final Color? color;
   final Color textColor;
   final double borderRadius;
   final double paddingVertical;
   final double paddingHorizontal;
   final double width;
   final double height;
-  final TextStyle style;
+  final TextStyle? style;
   final Widget? child;
+  final int? loadingDuration;
+  bool? isSelectShow;
 
-  const CustomElevatedButton({
+   CustomElevatedButton({
     Key? key,
     this.text,
+    this.isSelectShow = true,
     required this.onPressed,
-    // this.color = Colors.blue,
+    this.color,
     this.textColor = Colors.white,
     this.borderRadius = 12.0,
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 16.0,
-    this.width = 100,
-    //this.width = double.infinity,
+    this.width = 150,
     this.height = 35.0,
-    this.style = const TextStyle(color: Colors.white),
-    this.child,
+    this.style,
+    this.child,  this.loadingDuration = 3,
   }) : super(key: key);
 
   @override
+  State<CustomElevatedButton> createState() => _CustomElevatedButtonState();
+}
+
+class _CustomElevatedButtonState extends State<CustomElevatedButton> {
+  bool _isLoading = false;
+  bool  _isSubmitting= false;
+
+  void _handlePress() {
+
+    // setState(() {
+    //   _isLoading = true;
+    // });
+
+    widget.onPressed();
+    // Future.delayed(Duration(seconds: widget.loadingDuration!), () {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // });
+  }
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
-      height: height,
-      child: ElevatedButton(
-        onPressed: onPressed,
+      width: widget.width,
+      height: widget.height,
+      child: _isLoading ? Center(
+        child: SizedBox(child: SizedBox(
+          width: 25,
+            height: 25,
+            child: CircularProgressIndicator(color: ColorManager.blueprime,))),
+      ) :ElevatedButton(
+        onPressed: widget.isSelectShow! ? widget.onPressed : null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF1696C8),
-          foregroundColor: textColor,
+          backgroundColor: widget.color ?? ColorManager.bluebottom,
+          foregroundColor: widget.textColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: BorderRadius.circular(widget.borderRadius),
           ),
           padding: EdgeInsets.symmetric(
-            vertical: paddingVertical,
-            horizontal: paddingHorizontal,
+            vertical: widget.paddingVertical,
+            horizontal: widget.paddingHorizontal,
           ),
         ),
-        child: text != null
-            ? Text(text!,
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ))
-            : child,
+        child: widget.text != null
+            ? Text(widget.text!,
+            style: widget.style ?? BlueButtonTextConst.customTextStyle(context))
+            : widget.child,
       ),
     );
   }

@@ -1,13 +1,11 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_contract.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 
 class CiPageview extends StatelessWidget {
+  final int docId;
   final PageController managePageController;
   final int selectedIndex;
   final Function(int) selectButton;
@@ -22,19 +20,21 @@ class CiPageview extends StatelessWidget {
     required this.selectedIndex,
     required this.selectButton,
     required this.nameList,
-    required this.screenList, required this.mediaQueryWidth,
+    required this.screenList, required this.mediaQueryWidth, required this.docId,
   }) : super(key: key);
-   // CiInsurancePageview({super.key});
+  // CiInsurancePageview({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Column(children: [
         Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(vertical: AppPadding.p12,horizontal: AppPadding.p8),
           child: Container(
-            height: 30,
+            height: AppSize.s40,
             width: MediaQuery.of(context).size.width / mediaQueryWidth,
+            color: Colors.transparent,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: nameList
@@ -42,25 +42,18 @@ class CiPageview extends StatelessWidget {
                   .entries
                   .map(
                     (entry) => InkWell(
-                      splashColor: Colors.white,
-                  highlightColor: Colors.white,
-                  hoverColor: Colors.white,
+                  //splashColor: Colors.white,
+                  highlightColor: Color(0xFFF2F9FC),
+                  hoverColor: Color(0xFFF2F9FC),
                   child: Container(
-                    height: 30,
+                    height: AppSize.s40,
                     width: MediaQuery.of(context).size.width / 10,
                     child: Column(
                       children: [
                         Text(
                           entry.value,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeightManager.bold,
-                            color:selectedIndex == entry.key
-                                ? ColorManager.blueprime
-                                : ColorManager.mediumgrey,
-
-                          ),
+                          style:TransparentBgTabbar.customTextStyle(selectedIndex, 0)
                         ),
                         selectedIndex == entry.key ?
                         Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
@@ -74,6 +67,7 @@ class CiPageview extends StatelessWidget {
             ),
           ),
         ),
+       
         Expanded(
           flex: 10,
           child: Padding(
@@ -90,5 +84,3 @@ class CiPageview extends StatelessWidget {
     );
   }
 }
-
-

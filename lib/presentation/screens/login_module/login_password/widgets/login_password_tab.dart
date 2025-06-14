@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
@@ -79,7 +80,7 @@ class _LoginPassswordTabState extends State<LoginPassswordTab> {
                 child: TextFormField(
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.black.withOpacity(0.5),
-                    fontWeight: FontWeightManager.medium,
+                    fontWeight: FontWeight.w500,
                     fontSize: FontSize.s14,
                   ),
                   onFieldSubmitted: (_) {
@@ -135,6 +136,12 @@ class _LoginPassswordTabState extends State<LoginPassswordTab> {
                 height: MediaQuery.of(context).size.height / 18,
                 width: MediaQuery.of(context).size.height / 4,
                 text: AppString.loginbtn,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: ColorManager.white,
+                    decoration: TextDecoration.none,
+                  ),
                 onPressed: _isLoading ? () {} : _login,
               ),
               if (_errorMessage != null)

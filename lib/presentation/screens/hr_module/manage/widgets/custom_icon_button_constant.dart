@@ -1,211 +1,239 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../app/resources/theme_manager.dart';
 
 ///done by saloni
 ///button constant for circularborder with text and with/without icon
-class CustomIconButton extends StatelessWidget {
+class CustomIconButton extends StatefulWidget {
   final String text;
   final IconData? icon;
-  final VoidCallback onPressed;
+  final Color? color;
+  final Color? textColor;
+  final FontWeight? textWeight;
+  final double? textSize;
+  final Future<void> Function() onPressed;
 
-  const CustomIconButton({
+   CustomIconButton({
+     this.textColor,
     required this.text,
     this.icon,
     required this.onPressed,
-    Key? key,
+    Key? key,  this.color, this.textWeight, this.textSize,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      icon: icon != null
-          ? Icon(icon!, color: Colors.white, size: 20)
-          : SizedBox.shrink(),
-      label: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontFamily: 'FiraSans',
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-          color: Colors.white,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        backgroundColor: Color(0xFF50B5E5),
-        shadowColor: Colors.grey,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-    );
-  }
+  State<CustomIconButton> createState() => _CustomIconButtonState();
 }
 
-///button constant with white bg, colored text
-class CustomButtonTransparent extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
-
-  const CustomButtonTransparent({
-    required this.text,
-    required this.onPressed,
-    Key? key,
-  }) : super(key: key);
+class _CustomIconButtonState extends State<CustomIconButton> {
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontFamily: 'FiraSans',
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-          color: Color(0xFF50B5E5),
-        ),
-      ),
+    return isLoading
+        ? SizedBox(
+        height:25,
+        width:25,
+        child: CircularProgressIndicator( color: ColorManager.blueprime,))
+        :ElevatedButton.icon(
+      onPressed: () async{
+          await widget.onPressed();
+      },
+      icon: widget.icon != null
+          ? Icon(widget.icon!, color: Colors.white, size: 20)
+          : const SizedBox.shrink(),
+      label: Text(
+          widget.text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: widget.textSize == null ? FontSize.s14 : FontSize.s12,
+              fontWeight: widget.textWeight == null ? FontWeight.w600 : widget.textWeight,
+              color: widget.textColor == null ? ColorManager.white:widget.textColor)),
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-        backgroundColor: Colors.white,
+        padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        backgroundColor:  widget.color == null ? Color(0xFF50B5E5) : widget.color,
+        // shadowColor: Colors.grey,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: Color(0xFF50B5E5)),
+        ),
+        elevation: 5
+      ),
+    );
+  }
+}
+
+
+
+
+///button constant with white bg, colored text
+class CustomButtonTransparent extends StatefulWidget {
+  final String text;
+   VoidCallback onPressed;
+  final double? height;
+  final double? width;
+  final double? borderRadius;
+  final TextStyle? style;
+
+   CustomButtonTransparent({
+    required this.text,
+    required this.onPressed,
+     this.height = AppSize.s35,
+     this.width = AppSize.s100,
+     this.style,
+    Key? key, this.borderRadius = 12,
+  }) : super(key: key);
+
+  @override
+  State<CustomButtonTransparent> createState() => _CustomButtonTransparentState();
+}
+
+class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? CircularProgressIndicator( color: ColorManager.blueprime,)
+        :SizedBox(height: widget.height,width: widget.width,
+
+          child: ElevatedButton(
+                onPressed: () async{
+          setState(() {
+            isLoading = true;
+          });
+          try {
+            await widget.onPressed;
+          } finally {
+            setState(() {
+              isLoading = false;
+            });
+          }
+         // Navigator.pop(context);
+          },
+                style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          backgroundColor: ColorManager.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
+            side: const BorderSide(color: Color(0xFF50B5E5)),
+          ),
+                ),
+                child: Text(
+          widget.text,
+          style: widget.style ?? TransparentButtonTextConst.customTextStyle(context)
+                ),
+              ),
+        );
+  }
+}
+
+/// whiteLebbling back button
+class CustomeTransparentWhitelabeling extends StatefulWidget {
+  final String text;
+  VoidCallback onPressed;
+  final double? height;
+  final double? width;
+   CustomeTransparentWhitelabeling({required this.text,
+  required this.onPressed,
+  this.height,
+  this.width,super.key});
+
+  @override
+  State<CustomeTransparentWhitelabeling> createState() => _CustomeTransparentWhitelabelingState();
+}
+
+class _CustomeTransparentWhitelabelingState extends State<CustomeTransparentWhitelabeling> {
+  bool isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? CircularProgressIndicator( color: ColorManager.blueprime,)
+        :SizedBox(height: AppSize.s35,width: AppSize.s100,
+
+      child: ElevatedButton(
+        onPressed: () async{
+          setState(() {
+            isLoading = true;
+          });
+          try {
+            await widget.onPressed;
+          } finally {
+            setState(() {
+              isLoading = false;
+            });
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          backgroundColor: ColorManager.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: const BorderSide(color: Color(0xFF50B5E5)),
+          ),
+        ),
+        child: Text(
+            widget.text,
+            style: LoginFlowBase.customTextStyle(context)
         ),
       ),
     );
   }
 }
+
 
 class CustomeTransparentAddShift extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final IconData? icon;
-  const CustomeTransparentAddShift({super.key, required this.text, required this.onPressed, this.icon});
+  final double? width;
+  final double? height;
+  const CustomeTransparentAddShift(
+      {super.key, required this.text, required this.onPressed, this.icon, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       onTap: onPressed,
       child: Container(
-        height: MediaQuery.of(context).size.height/25,
-        width: MediaQuery.of(context).size.width/15,
-        decoration: BoxDecoration(border: Border.all(color: ColorManager.blueprime),borderRadius: BorderRadius.circular(30)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Icon(Icons.add,color: ColorManager.blueprime, size: MediaQuery.of(context).size.width/100),
-            Text(
-              text,
-              style: TextStyle(
-                fontFamily: 'FiraSans',
-                fontSize: MediaQuery.of(context).size.width/100,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.blueprime,
+          height: height ?? MediaQuery.of(context).size.height / 30,
+          width: width ?? MediaQuery.of(context).size.width / 17,
+          decoration: BoxDecoration(
+              border: Border.all(color: ColorManager.blueprime),
+              borderRadius: BorderRadius.circular(30)),
+          padding: EdgeInsets.only(right: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Icon(
+                  Icons.add,
+                  color: ColorManager.blueprime,
+                  size: IconSize.I14),
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: FontSize.s12,
+                  fontWeight: FontWeight.w600,
+                  color: ColorManager.blueprime,
+                  decoration: TextDecoration.none,
+                ),
               ),
-            ),
-          ],
-        )
-      ),
+            ],
+          )),
     );
   }
 }
-// ElevatedButton.icon(
-// icon:icon != null
-// ? Icon(icon!, color: ColorManager.blueprime, size: MediaQuery.of(context).size.width/100,)
-//     : Offstage(),
-// onPressed: onPressed,
-// label: Text(
-// text,
-// style: TextStyle(
-// fontFamily: 'FiraSans',
-// fontSize: 12,
-// fontWeight: FontWeight.w700,
-// color: ColorManager.blueprime,
-// ),
-// ),
-// style: ElevatedButton.styleFrom(
-// // padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-// backgroundColor: Colors.white,
-// shape: RoundedRectangleBorder(
-// borderRadius: BorderRadius.circular(30),
-// side: BorderSide(color: Color(0xFF50B5E5)),
-// ),
-// ),
-// ),
 
-///custombutton size managebleimport 'package:flutter/material.dart';
-
-// class CustomButton extends StatelessWidget {
-//   final String? text;
-//   final VoidCallback onPressed;
-//   // final Color color;
-//   final Color textColor;
-//   final double borderRadius;
-//   final double paddingVertical;
-//   final double paddingHorizontal;
-//   final double width;
-//   final double height;
-//   final TextStyle style;
-//   final Widget? child;
-//
-//   const CustomButton({
-//     Key? key,
-//     this.text,
-//     required this.onPressed,
-//     // this.color = Colors.blue,
-//     this.textColor = Colors.white,
-//     this.borderRadius = 14.0,
-//     this.paddingVertical = 12.0,
-//     this.paddingHorizontal = 16.0,
-//     this.width = 50,
-//     //this.width = double.infinity,
-//     this.height = 50.0,
-//     this.style = const TextStyle(color: Colors.white),
-//     this.child,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       width: width,
-//       height: height,
-//       child: ElevatedButton(
-//         onPressed: onPressed,
-//         style: ElevatedButton.styleFrom(
-//           backgroundColor: Color(0xFF50B5E5),
-//           foregroundColor: textColor,
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(borderRadius),
-//           ),
-//           padding: EdgeInsets.symmetric(
-//             vertical: paddingVertical,
-//             horizontal: paddingHorizontal,
-//           ),
-//         ),
-//         child: text != null
-//             ? Text(
-//                 text!,
-//                 style: GoogleFonts.firaSans(
-//                   fontSize: MediaQuery.of(context).size.width / 90,
-//                   fontWeight: FontWeight.w700,
-//                 ),
-//               )
-//             : child,
-//       ),
-//     );
-//   }
-// }
-///
 class CustomButton extends StatelessWidget {
   final String? text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color backgroundColor; // Added parameter for background color
   final Color textColor;
   final double borderRadius;
@@ -233,10 +261,10 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultTextStyle = GoogleFonts.firaSans(
+    final defaultTextStyle = TextStyle(
       color: textColor,
-      fontSize: MediaQuery.of(context).size.width / 90,
-      fontWeight: FontWeight.w700,
+      fontSize: FontSize.s14,
+      fontWeight: FontWeight.w600,
     );
     final mergedTextStyle = defaultTextStyle.merge(style);
     return Container(
@@ -244,20 +272,21 @@ class CustomButton extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
+        boxShadow: onPressed != null
+            ? [
+          const BoxShadow(
             color: Color(0x40000000),
             offset: Offset(0, 4),
             blurRadius: 3,
             spreadRadius: 0,
           ),
-        ],
+        ]
+            : [],
       ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor:
-              backgroundColor, // Utilizing the backgroundColor parameter
+          backgroundColor: backgroundColor, // Utilizing the backgroundColor parameter
           foregroundColor: textColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
@@ -294,24 +323,34 @@ class CustomTitleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: GestureDetector(
+      elevation: isSelected ? 4 : 0,
+      borderRadius: BorderRadius.circular(12),
+      color: ColorManager.white,
+      child: AppClickableWidget(
         onTap: onPressed,
+        onHover: (bool val) {},
         child: Container(
-          height: height,
-          width: width,
           alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: isSelected
               ? BoxDecoration(
-            color: ColorManager.blueprime,
-            borderRadius: BorderRadius.circular(8),
-          )
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xff51B5E6),
+                      Color(0xff008ABD),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                )
               : null,
           child: Text(
             text,
-            style: GoogleFonts.firaSans(
-              fontSize: MediaQuery.of(context).size.width / 120,
+            style: CustomTextStylesCommon.commonStyle(
+              fontSize: FontSize.s14,
               fontWeight: FontWeight.w700,
-              color: isSelected ? Colors.white : Colors.black,
+              color: isSelected ? ColorManager.white : ColorManager.textPrimaryColor,
             ),
           ),
         ),
@@ -320,226 +359,103 @@ class CustomTitleButton extends StatelessWidget {
   }
 }
 
-///sm desktop
-// class CustomTitleButton extends StatelessWidget {
-//   final String? text;
-//   final VoidCallback onPressed;
-//   // final Color color;
-//   final Color textColor;
-//   final double borderRadius;
-//   final double paddingVertical;
-//   final double paddingHorizontal;
-//   final double width;
-//   final double height;
-//   final TextStyle style;
-//   final Widget? child;
-//   final bool isSelected;
-//
-//   const CustomTitleButton({
-//     Key? key,
-//     this.text,
-//     required this.onPressed,
-//     // this.color = Colors.blue,
-//     this.textColor = Colors.white,
-//     this.borderRadius = 8.0,
-//     this.paddingVertical = 10.0,
-//     this.paddingHorizontal = 16.0,
-//     this.width = 50,
-//     //this.width = double.infinity,
-//     this.height = 50.0,
-//     this.style = const TextStyle(color: Colors.white),
-//     this.child,
-//     required this.isSelected,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       width: width,
-//       height: height,
-//       child: ElevatedButton(
-//         onPressed: onPressed,
-//         style: ElevatedButton.styleFrom(
-//           backgroundColor: isSelected ? Color(0xFF50B5E5) : Colors.white,
-//           foregroundColor: textColor,
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(borderRadius),
-//           ),
-//           padding: EdgeInsets.symmetric(
-//             vertical: paddingVertical,
-//             horizontal: paddingHorizontal,
-//           ),
-//         ),
-//         child: text != null
-//             ? Text(
-//                 text!,
-//                 style: GoogleFonts.firaSans(
-//                   fontSize: MediaQuery.of(context).size.width / 120,
-//                   fontWeight: FontWeight.w700,
-//                   color: isSelected ? Colors.white : Colors.black,
-//                 ),
-//               )
-//             : child,
-//       ),
-//     );
-//   }
-// }
+/// DZone button
+class DZoneButton extends StatelessWidget {
+  final bool isSelected;
+  final VoidCallback onTap;
+   DZoneButton({super.key,required this.isSelected,required this.onTap});
 
-///CustomDropdownButton
-/// sm desktop
-// class CustomDropdownButton extends StatelessWidget {
-//   final List<String> items;
-//   final String? selectedItem;
-//   final ValueChanged<String?>? onChanged;
-//   final double borderRadius;
-//   final double paddingVertical;
-//   final double paddingHorizontal;
-//   final double width;
-//   final double height;
-//
-//   const CustomDropdownButton({
-//     Key? key,
-//     required this.items,
-//     this.selectedItem,
-//     this.onChanged,
-//     this.borderRadius = 8.0,
-//     this.paddingVertical = 11.0,
-//     this.paddingHorizontal = 16.0,
-//     this.width = 40,
-//     this.height = 40.0,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Material(
-//       elevation: 4,
-//       borderRadius: BorderRadius.circular(borderRadius),
-//       child: Container(
-//         width: width,
-//         height: height,
-//         decoration: BoxDecoration(
-//           color: ColorManager.blueprime,
-//           borderRadius: BorderRadius.circular(borderRadius),
-//         ),
-//         child: DropdownButtonHideUnderline(
-//           child: DropdownButton<String>(
-//             value: selectedItem,
-//             onChanged: onChanged,
-//             style: TextStyle(
-//               color: Colors.black,
-//               fontSize: 13,
-//               // MediaQuery.of(context).size.width / 10,
-//               fontWeight: FontWeight.w700,
-//             ),
-//             dropdownColor: ColorManager.white,
-//
-//             /// Background color for dropdown
-//             borderRadius: BorderRadius.circular(borderRadius),
-//             icon: Icon(Icons.arrow_drop_down, color: Colors.black),
-//             iconSize: 20.0,
-//             isExpanded: true,
-//             items: items.map((String value) {
-//               return DropdownMenuItem<String>(
-//                 value: value,
-//                 child: Padding(
-//                   padding: EdgeInsets.symmetric(
-//                     vertical: paddingVertical,
-//                     horizontal: paddingHorizontal,
-//                   ),
-//                   child: Text(
-//                     value,
-//                     style: TextStyle(
-//                       color: Color(0xff686464),
-//                      // fontSize: MediaQuery.of(context).size.width / 120,
-//                       fontSize: 12,
-//                     ), // Text color
-//                   ),
-//                 ),
-//               );
-//             }).toList(),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: AppSize.s32,
+      height: AppSize.s25,
+      decoration: BoxDecoration(
+        color: isSelected ? ColorManager.blueprime : ColorManager.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x40000000),
+            offset: Offset(0, 4),
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      child: InkWell(
+        splashColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: onTap,
+        child: Center(
+          child: Text(
+            'DZ',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: FontSize.s13,
+              fontWeight: FontWeight.w600,
+              color: isSelected ? ColorManager.white : ColorManager.black,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
-class CustomDropdownButton extends StatelessWidget {
-  final List<String> items;
-  final String? selectedItem;
-  final ValueChanged<String?>? onChanged;
-  final double borderRadius;
-  final double paddingVertical;
-  final double paddingHorizontal;
-  final double width;
+
+
+
+///sm
+class CustomTitleButtonsm extends StatelessWidget {
   final double height;
+  final double width;
+  final VoidCallback onPressed;
+  final String text;
+  final bool isSelected;
 
-  const CustomDropdownButton({
-    Key? key,
-    required this.items,
-    this.selectedItem,
-    this.onChanged,
-    this.borderRadius = 8.0,
-    this.paddingVertical = 11.0,
-    this.paddingHorizontal = 16.0,
-    this.width = 40,
-    this.height = 40.0,
-  }) : super(key: key);
+  CustomTitleButtonsm({
+    required this.height,
+    required this.width,
+    required this.onPressed,
+    required this.text,
+    required this.isSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(borderRadius),
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: ColorManager.blueprime,
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            value: selectedItem,
-            onChanged: onChanged,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
+      elevation: isSelected ? 3 : 0,
+      borderRadius: BorderRadius.circular(12),
+      color: ColorManager.white,
+      child: AppClickableWidget(
+        onTap: onPressed,
+        onHover: (bool val) {},
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          decoration: isSelected
+              ? BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xff51B5E6),
+                Color(0xff008ABD),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-            dropdownColor: ColorManager.white,
-            borderRadius: BorderRadius.circular(borderRadius),
-            icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-            iconSize: 20.0,
-            isExpanded: true,
-            items: items.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                enabled: value != 'Select a module', // Disable the heading item
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: paddingVertical,
-                    horizontal: paddingHorizontal,
-                  ),
-                  child: Text(
-                    value,
-                    style: TextStyle(
-                        // color: ColorManager.mediumgrey,
-                        //value == 'Select a module' ? ColorManager.mediumgrey : Color(0xff686464),
-                        color: value == selectedItem
-                            ? ColorManager.white
-                            : ColorManager.mediumgrey,
-                        fontSize: 12,
-                        fontWeight: FontWeightManager.bold),
-                  ),
-                ),
-              );
-            }).toList(),
+          )
+              : null,
+          child: Text(
+            text,
+            style: CustomTextStylesCommon.commonStyle(
+              fontSize: FontSize.s13,
+              fontWeight: FontWeight.w700,
+              color: isSelected ? ColorManager.white :  Color(0xFF2EA3D4),
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-///

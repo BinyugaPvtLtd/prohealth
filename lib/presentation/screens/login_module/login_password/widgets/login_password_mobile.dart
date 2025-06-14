@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
@@ -78,14 +79,14 @@ class _LoginPasswordMobileState extends State<LoginPasswordMobile> {
                     style: CustomTextStylesCommon.commonStyle(
                         color: ColorManager.mediumgrey,
                         fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.medium),
+                        fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
               TextFormField(
                 style: CustomTextStylesCommon.commonStyle(
                   color: ColorManager.black.withOpacity(0.5),
-                  fontWeight: FontWeightManager.medium,
+                  fontWeight: FontWeight.w500,
                   fontSize: FontSize.s14,
                 ),
                 onFieldSubmitted: (_) {
@@ -111,7 +112,7 @@ class _LoginPasswordMobileState extends State<LoginPasswordMobile> {
                   errorStyle: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.red,
                     fontSize: FontSize.s10,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -148,7 +149,7 @@ class _LoginPasswordMobileState extends State<LoginPasswordMobile> {
                 text: AppString.loginbtn,
                 style: CustomTextStylesCommon.commonStyle(
                   fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.bold,
+                  fontWeight: FontWeight.w700,
                   color: ColorManager.white,
                 ),
                 onPressed: _isLoading ? () {} : _login,
@@ -162,7 +163,7 @@ class _LoginPasswordMobileState extends State<LoginPasswordMobile> {
                     style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.red,
                       fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.bold,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),

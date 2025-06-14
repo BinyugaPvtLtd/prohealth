@@ -1,19 +1,30 @@
+
+
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:open_file/open_file.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/whitelabelling_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../../../../app/resources/color.dart';
-import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../app/resources/value_manager.dart';
-import '../../../widgets/button_constant.dart';
-import '../../../widgets/text_form_field_const.dart';
+
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../data/api_data/establishment_data/whitelabelling_modal/whitelabelling_modal_.dart';
 
 class WhitelabellingScreen extends StatefulWidget {
-  WhitelabellingScreen({super.key});
+  final String officeId;
+  final VoidCallback backButtonCallback;
+
+  WhitelabellingScreen({super.key, required this.officeId, required this.backButtonCallback});
 
   @override
   State<WhitelabellingScreen> createState() => _WhitelabellingScreenState();
@@ -21,95 +32,372 @@ class WhitelabellingScreen extends StatefulWidget {
 
 class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   TextEditingController nameController = TextEditingController();
-
   TextEditingController addressController = TextEditingController();
-
   TextEditingController secNumberController = TextEditingController();
-
   TextEditingController primNumController = TextEditingController();
-
   TextEditingController altNumController = TextEditingController();
-
   TextEditingController emailController = TextEditingController();
-
   TextEditingController hcoNumController = TextEditingController();
-
   TextEditingController medicareController = TextEditingController();
-
   TextEditingController npiNumController = TextEditingController();
+  TextEditingController faxController = TextEditingController();
 
-  TextEditingController faxontroller = TextEditingController();
+  ///
+  TextEditingController addressCtlr = TextEditingController();
+  TextEditingController nameCtlr = TextEditingController();
+  TextEditingController secNumberCtlr = TextEditingController();
+  TextEditingController primNumCtlr = TextEditingController();
+  TextEditingController altNumCtlr = TextEditingController();
+  TextEditingController emailCtlr = TextEditingController();
+  TextEditingController hcoNumCtlr = TextEditingController();
+  TextEditingController medicareCtlr = TextEditingController();
+  TextEditingController npiNumCtlr = TextEditingController();
+  TextEditingController faxCtlr = TextEditingController();
+  final StreamController<List<PlatformFile>> _mobileFilesStreamController =
+      StreamController<List<PlatformFile>>.broadcast();
+  final StreamController<List<PlatformFile>> _webFilesStreamController =
+      StreamController<List<PlatformFile>>.broadcast();
+  final StreamController<List<WhiteLabellingCompanyDetailModal>> _controller =
+      StreamController<List<WhiteLabellingCompanyDetailModal>>();
+  bool showManageScreen = false;
+  bool showWhitelabellingScreen = true;
+  @override
+  void dispose() {
+    _mobileFilesStreamController.close();
+    _webFilesStreamController.close();
+    addressController.removeListener(_onAddressChanged);
+
+    super.dispose();
+  }
+
   String fileName = "No Chosen";
+  String? _previewImageUrl;
+  dynamic filePath;
 
-  void pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+  List<PlatformFile>? pickedMobileFiles;
+  List<PlatformFile>? pickedWebFiles;
+  Future<void> pickMobileLogo() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom, // Custom type to specify allowed extensions
+      allowedExtensions: [
+        'png',
+        'jpg',
+        'jpeg',
+      ], // Restrict to PNG, JPG, and JPEG
+    );
 
     if (result != null) {
-      setState(() {
-        fileName = result.files.single.name;
-      });
+      pickedMobileFiles = result.files;
+      filePath = result.files.first.bytes;
+      _mobileFilesStreamController.add(pickedMobileFiles!);
     } else {
-      // User canceled the picker
-      setState(() {
-        fileName = "No Chosen";
-      });
+      // User canceled the picker or no valid files selected
+      // You can handle this scenario if needed
     }
   }
+
+  var maskFormatter = new MaskTextInputFormatter(
+      mask: '+# (###) ###-##-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
+  Future<void> pickWebLogo() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type:
+          FileType.custom, // Use custom file type to specify allowed extensions
+      allowedExtensions: [
+        'png',
+        'jpg',
+        'jpeg',
+      ], // Restrict to PNG, JPG, and JPEG
+    );
+
+    if (result != null) {
+      pickedWebFiles = result.files;
+      filePath = result.files.first.bytes;
+      _webFilesStreamController.add(pickedWebFiles!);
+    } else {
+      // Handle the case where the user cancels the picker or no valid files are selected
+    }
+  }
+
+  void openFile(PlatformFile file) {
+    OpenFile.open(file.path!);
+  }
+
+  List<String> _suggestions = [];
+  @override
+  void initState() {
+    super.initState();
+    //fetchData();
+    addressController.addListener(_onAddressChanged);
+  }
+
+  ValueNotifier<List<String>> _suggestionsNotifier = ValueNotifier([]);
+void fetchData()async{
+  CompanyContactPrefill companyContactPrefill = await getCompanyContactPrefill(context);
+}
+  void _onAddressChanged() async {
+    if (addressController.text.isEmpty) {
+      _suggestionsNotifier.value = [];
+      return;
+    }
+    final suggestions = await fetchSuggestions(addressController.text);
+    _suggestionsNotifier.value = suggestions;
+  }
+
+  bool _isEditing = false;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(Icons.arrow_back_outlined, size: 15),
-                  color: ColorManager.mediumgrey,
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CompanyIdentityScreen()));
-                  },
-                ),
-                Text(
-                  'Go Back',
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeightManager.bold,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration
-                        .underline,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppSize.s40),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      onPressed: widget.backButtonCallback,
+                      icon: Icon(Icons.arrow_back_rounded, color: ColorManager.mediumgrey, size: IconSize.I16,
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.only(left: AppPadding.p15),
+                    child: Text(
+                      AppStringEM.logos,
+                      style: TextStyle(
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeight.w600,
+                        color: ColorManager.mediumgrey,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(width: MediaQuery.of(context).size.width / 4.2),
+                  Expanded(
+                    child: Text(
+                      AppStringEM.details,
+                      style: TextStyle(
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeight.w600,
+                        color: ColorManager.mediumgrey,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: AppSize.s30,
+                    width: AppSize.s90,
+                    child: CustomButton(
+                      borderRadius: 12,
+                      style: BlueButtonTextConst.customTextStyle(context),
+                      text: AppStringEM.save,
+                      onPressed: () async{
+                        var response = await uploadWebAndAppLogo(
+                            context: context,
+                            type: "web",
+                            documentFile: filePath,
+                            documentName: fileName);
+                        if(response.statusCode == 200 || response.statusCode == 201){
+                          setState(() {
+                            getWhiteLabellingData(context);
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return EditSuccessPopup(
+                                message:
+                                'Submitted Successfully',
+                              );
+                            },
+                          );
+                        }
+
+                      },
+                    ),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width / 50),
+                  FutureBuilder(
+                    future: getWhiteLabellingData(context),
+                    builder: (context, snapshot) {
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return SizedBox();
+                      }
+
+                      return Padding(
+                        padding: const EdgeInsets.only(right: AppPadding.p20),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: snapshot.data!.logos.isEmpty ? Column(
+                            children: [
+                              CustomIconButton(
+                                  icon: Icons.edit_outlined,
+                                  text: "Add Logo",
+                                  onPressed: () async{
+                                    pickWebLogo();
+                                  }),
+                              // SizedBox(height: 2,),
+                              // Text(fileName,style:DocumentTypeDataStyle.customTextStyle(context),)
+                            ],
+                          ):SizedBox()
+                        ),
+                      );
+                    }
+                  ),
+                ],
+              ),
             ),
             Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: CustomIconButton(
-                    icon: Icons.edit_outlined,
-                    text: "Edit Details",
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            backgroundColor: Colors.white,
-                            content: Container(
-                              height: 300,
-                              width: 950,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    flex: 2, //2
+                    child: Container(
+                     // color: Colors.greenAccent,
+                      height: 320,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.blueprime,
+
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child:
+
+                          ///old code
+                          FutureBuilder<WhiteLabellingCompanyDetailModal>(
+                        future: getWhiteLabellingData(context),
+                        builder: (context, snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Center(child: CircularProgressIndicator());
+                          }
+                          if(snapshot.data!.logos.isEmpty){
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: AppSize.s100,
+                                  child: Center(
+                                    child: Text('No available logo!',style: DocumentTypeDataStyle.customTextStyle(context),),
+                                  )
+                                ),
+                              ],
+                            );
+                          }
+                          if (snapshot.hasData) {
+                            print("Image url ${snapshot.data!.logos[0].url}");
+                            var data = snapshot.data!;
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: AppSize.s100,
+                                  child: snapshot.data!.logos.isNotEmpty
+                                      ? Image.network(
+                                    snapshot.data!.logos[0].url,
+                                    loadingBuilder: (context, child, loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return SizedBox(
+                                          height: AppSize.s25,
+                                          width: AppSize.s25,
+                                        );
+                                      }
+                                    },
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset("images/forwebprohealth.png");
+                                    },
+                                    fit: BoxFit.cover,
+                                    height: AppSize.s100,
+                                    width: AppSize.s100,
+                                  )
+                                      : Container(),
+                                )
+
+
+
+                                // Container(
+                                //   height: AppSize.s100,
+                                //   child: snapshot.data!.logos.isNotEmpty
+                                //       ? CachedNetworkImage(
+                                //     imageUrl: snapshot.data!.logos[0].url,
+                                //     placeholder: (context, url) => SizedBox(
+                                //         height:AppSize.s25,
+                                //         width:AppSize.s25,
+                                //         ),
+                                //     errorWidget: (context, url, error) => Image.asset("images/forappprohealth.png"),
+                                //     fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                //     height: AppSize.s100, // Adjust image height for proper fit// Adjust image width for proper fit
+                                //   )
+                                //       : Container(),
+                                // ),
+                              ],
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return SizedBox();
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: AppSize.s35,
+                  ),
+                  Expanded(
+                    flex: 6, //6
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(15.0),
+                          padding: const EdgeInsets.all(AppPadding.p3),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: ColorManager.blueprime,
+                                // color: Colors.orange
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          height: 320,
+                          width: 1100,
+                          // color: ColorManager.red,
+                          child: FutureBuilder<
+                                  WhiteLabellingCompanyDetailModal>(
+                              future: getWhiteLabellingData(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (snapshot.hasData) {
+                                  var data = snapshot.data!;
+                                  print("NameController : ${data.companyDetail.name}");
+                                  nameController = TextEditingController(
+                                      text: data.companyDetail.name);
+                                  secNumberController.text =
+                                      data.contactDetail.secondaryPhone;
+                                  faxController.text =
+                                      data.contactDetail.primaryFax;
+                                  addressController.text =
+                                      data.companyDetail.address;
+                                  primNumController.text =
+                                      data.contactDetail.primaryPhone;
+                                  altNumController.text =
+                                      data.contactDetail.alternativePhone;
+                                  emailController.text =
+                                      data.contactDetail.email;
+                                  return Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -117,115 +405,32 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                         Column(
-                                           mainAxisAlignment: MainAxisAlignment.start,
-                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                           children: [
-                                             Text("Company App Logo",
-                                                 style: GoogleFonts.firaSans(
-                                                   fontSize: FontSize.s12,
-                                                   fontWeight:
-                                                   FontWeightManager.bold,
-                                                   color: Color(0xff686464),
-                                                 )),
-                                             Container(
-                                               width: 354,
-                                               height: 50,
-                                               decoration: BoxDecoration(
-                                                 border: Border.all(
-                                                     color: Colors.grey),
-                                                 borderRadius: BorderRadius.all(
-                                                     Radius.circular(10)),
-                                               ),
-                                               child: Row(
-                                                 mainAxisAlignment:
-                                                 MainAxisAlignment.spaceAround,
-                                                 children: [
-                                                   Text(
-                                                       "Upload Immunization Records from PDF",
-                                                       style: GoogleFonts.firaSans(
-                                                           fontSize: 10,
-                                                           fontWeight: FontWeight
-                                                               .w500,
-                                                           color: Color(0xff686464))
-                                                   ),
-                                                   Container(
-                                                     width: 130,
-                                                     height: 30,
-                                                     decoration: BoxDecoration(
-                                                       border: Border.all(
-                                                           color: Colors.grey),
-                                                       borderRadius:
-                                                       BorderRadius.all(
-                                                           Radius.circular(
-                                                               10)),
-                                                     ),
-                                                     child: Row(
-                                                       mainAxisAlignment:
-                                                       MainAxisAlignment
-                                                           .spaceAround,
-                                                       children: [
-                                                         InkWell(
-                                                           onTap: pickFile,
-                                                           child: Container(
-                                                             color:
-                                                             Color(0xffD9D9D9),
-                                                             child: Text(
-                                                               "Choose File",
-                                                               style: GoogleFonts
-                                                                   .firaSans(
-                                                                 fontSize: 10,
-                                                                 fontWeight:
-                                                                 FontWeight
-                                                                     .w500,
-                                                                 color:
-                                                                 Colors.grey,
-                                                               ),
-                                                             ),
-                                                           ),
-                                                         ),
-                                                         Container(
-                                                           child: Text(
-                                                             fileName,
-                                                             style: GoogleFonts
-                                                                 .firaSans(
-                                                               fontSize: 10,
-                                                               fontWeight:
-                                                               FontWeight.w500,
-                                                               color: Colors.grey,
-                                                             ),
-                                                           ),
-                                                         ),
-                                                       ],
-                                                     ),
-                                                   ),
-                                                 ],
-                                               ),
-                                             ),
-                                           ],
-                                         ),
-                                          SMTextFConst(
+                                          EditTextField(
+                                            enabled: _isEditing,
                                             controller: nameController,
                                             keyboardType: TextInputType.text,
                                             text: AppStringEM.companyName,
                                           ),
-                                          SizedBox(height: AppSize.s4),
-                                          SMTextFConst(
+                                          SizedBox(height: AppSize.s9),
+                                          EditTextFieldPhone(
                                             controller: secNumberController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.secNum,
+                                            enabled: _isEditing,
                                           ),
-                                          SizedBox(height: AppSize.s4),
-                                          SMTextFConst(
-                                            controller: faxontroller,
+                                          SizedBox(height: AppSize.s9),
+                                          EditTextField(
+                                            controller: faxController,
                                             keyboardType: TextInputType.text,
                                             text: AppStringEM.fax,
+                                            enabled: _isEditing,
                                           ),
-                                          SizedBox(height: AppSize.s4),
-                                          SMTextFConst(
-                                            controller: addressController,
+                                          SizedBox(height: AppSize.s9),
+                                          EditTextField(
+                                            controller: emailController,
                                             keyboardType: TextInputType.text,
-                                            text: AppStringEM.address,
+                                            text: AppStringEM.primarymail,
+                                            enabled: _isEditing,
                                           ),
                                         ],
                                       ),
@@ -233,291 +438,45 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Company App Logo",
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight:
-                                                    FontWeightManager.bold,
-                                                    color: Color(0xff686464),
-                                                  )),
-                                              Container(
-                                                width: 354,
-                                                height: 50,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey),
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(10)),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    Text(
-                                                        "Upload Immunization Records from PDF",
-                                                        style: GoogleFonts.firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight
-                                                                .w500,
-                                                            color: Color(0xff686464))
-                                                    ),
-                                                    Container(
-                                                      width: 130,
-                                                      height: 30,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: Colors.grey),
-                                                        borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10)),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: pickFile,
-                                                            child: Container(
-                                                              color:
-                                                              Color(0xffD9D9D9),
-                                                              child: Text(
-                                                                "Choose File",
-                                                                style: GoogleFonts
-                                                                    .firaSans(
-                                                                  fontSize: 10,
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  color:
-                                                                  Colors.grey,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            child: Text(
-                                                              fileName,
-                                                              style: GoogleFonts
-                                                                  .firaSans(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                FontWeight.w500,
-                                                                color: Colors.grey,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SMTextFConst(
+                                          EditTextFieldPhone(
                                             controller: primNumController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.primNum,
+                                            enabled: _isEditing,
                                           ),
-                                          SizedBox(height: AppSize.s4),
-                                          SMTextFConst(
+                                          SizedBox(height: AppSize.s9),
+                                          EditTextFieldPhone(
                                             controller: altNumController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.alternatephone,
+                                            enabled: _isEditing,
                                           ),
-                                          SizedBox(height: AppSize.s4),
-                                          SMTextFConst(
-                                            controller: emailController,
+                                          SizedBox(height: AppSize.s9),
+                                          EditTextField(
+                                            controller: addressController,
                                             keyboardType: TextInputType.text,
-                                            text: AppStringEM.primarymail,
+                                            text: "Street Address",
+                                            enabled: _isEditing,
                                           ),
                                           SizedBox(
-                                            width: 354,
-                                            height: 30,
-                                          ),
-                                          SizedBox(
-                                            width: 354,
-                                            height: 30,
+                                            height: AppSize.s60,
+                                            width: AppSize.s354,
                                           )
-
-
                                         ],
                                       ),
                                     ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            actions: [
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: CustomElevatedButton(
-                                    width: 105,
-                                    height: 31,
-                                    text: 'Submit',
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    }),
-                              )
-                            ],
-                          );
-                        },
-                      );
-                    }),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 40),
-              child: Row(
-                children: [
-                  Text("Logos",
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.medium,
-                        color: ColorManager.mediumgrey,
-                      )),
-                  SizedBox(width: MediaQuery.of(context).size.width / 5),
-                  Text("Details",
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.medium,
-                        color: ColorManager.mediumgrey,
-                      ))
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                }
+                                return SizedBox();
+                              }),
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 290,
-                        margin: const EdgeInsets.all(15.0),
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: ColorManager.blueprime),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        height: 260,
-                        // color: ColorManager.green,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Image.asset(
-                                "images/formainlogoprohealth.png",
-                                // height: 60,
-                                //   width: 120,
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Image.asset(
-                                "images/forwebprohealth.png",
-                                // height: 60,
-                                // width: 120,
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Image.asset(
-                                "images/forappprohealth.png",
-                                // height: 60,
-                                // width: 120,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 6,
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(15.0),
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: ColorManager.blueprime,),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        height: 260,
-                        // color: ColorManager.red,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SMTextFConst(
-                                  controller: nameController,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.companyName,
-                                ),
-                                SizedBox(height: AppSize.s4),
-                                SMTextFConst(
-                                  controller: secNumberController,
-                                  keyboardType: TextInputType.number,
-                                  text: AppStringEM.secNum,
-                                ),
-                                SizedBox(height: AppSize.s4),
-                                SMTextFConst(
-                                  controller: faxontroller,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.fax,
-                                ),
-                                SizedBox(height: AppSize.s4),
-                                SMTextFConst(
-                                  controller: addressController,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.address,
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SMTextFConst(
-                                  controller: primNumController,
-                                  keyboardType: TextInputType.number,
-                                  text: AppStringEM.primNum,
-                                ),
-                                SizedBox(height: AppSize.s4),
-                                SMTextFConst(
-                                  controller: altNumController,
-                                  keyboardType: TextInputType.number,
-                                  text: AppStringEM.alternatephone,
-                                ),
-                                SizedBox(height: AppSize.s4),
-                                SMTextFConst(
-                                  controller: emailController,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.primarymail,
-                                ),
-                                SizedBox(
-                                  width: 354,
-                                  height: 30,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
             )
           ],
         ),

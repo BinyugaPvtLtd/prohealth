@@ -1,61 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../app/resources/font_manager.dart';
 
-///saloni
+///saloni///
 class CustomIconButtonConst extends StatelessWidget {
-  final String text;
+  final String? text;
   final IconData? icon;
   final VoidCallback onPressed;
-
+  final double? width;
+  final double? height;
+  final bool? enabled;
+  final Color? color;
+  final double? paddingLeft;
+  final double? paddingRight;
 
   const CustomIconButtonConst({
-    required this.text,
+    this.text,
     this.icon,
+    this.paddingLeft,
+    this.paddingRight,
     required this.onPressed,
-    Key? key,
+    this.width,
+    this.color,
+    Key? key, this.enabled, this.height,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-      decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x40000000),
-            offset: Offset(0, 2),
-            blurRadius: 4,
-          ),
-        ],
-        borderRadius: BorderRadius.circular(12)
-      ),
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: icon != null
-            ? Icon(icon!, color: ColorManager.white, size: AppSize.s20)
-            : SizedBox.shrink(),
-        label: Text(
-          text,
-          style: GoogleFonts.firaSans(
-            fontSize: AppSize.s12,
-            fontWeight: FontWeightManager.bold,
-            color: ColorManager.white,
-          )
-        ),
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: AppSize.s15, vertical: AppSize.s10),
-          backgroundColor: ColorManager.blueprime,
-          shape: RoundedRectangleBorder(
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: onPressed,
+        child: Container(
+          width: width ?? AppSize.s145,
+          height: height ?? 32,
+          // padding: EdgeInsets.symmetric(horizontal: AppPadding.p15, vertical: AppPadding.p5),
+          decoration: BoxDecoration(
+            color:color ?? ColorManager.blueprime,
             borderRadius: BorderRadius.circular(12),
           ),
-          elevation: 4,
-          shadowColor: ColorManager.black.withOpacity(0.4),
+          child:
+          Padding(
+            padding: EdgeInsets.only(left: paddingLeft?? AppPadding.p8,right: paddingRight ?? AppPadding.p15, top: AppPadding.p5,bottom: AppPadding.p5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+              icon != null
+                      ? Icon(icon!,
+                      color: ColorManager.white, size: IconSize.I20)
+                      : Offstage(),
+                 SizedBox(width: 2,),
+                 Text(
+                    text!,
+                    style: BlueButtonTextConst.customTextStyle(context)
+                  ),
+              ],
+            ),
+          )
         ),
       ),
     );
   }
 }
+

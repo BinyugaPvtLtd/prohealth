@@ -1,13 +1,18 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:html' as html;
+
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
+import 'package:prohealth/app/resources/provider/version_provider.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
+import 'package:provider/provider.dart';
+
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
-import '../../../../../app/resources/font_manager.dart';
-import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../../widgets/widgets/login_screen/widgets/login_flow_base_struct.dart';
@@ -21,7 +26,7 @@ class LoginWeb extends StatefulWidget {
 }
 
 class _LoginWebState extends State<LoginWeb> {
-   TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   FocusNode fieldOne = FocusNode();
   FocusNode fieldTow = FocusNode();
   final _formKey = GlobalKey<FormState>();
@@ -31,9 +36,16 @@ class _LoginWebState extends State<LoginWeb> {
   FocusNode passwordFocusNode = FocusNode();
   String? otpFromRunTab;
   String? _errorMessage;
+  void clearSvgCache() {
+    final cache = PaintingBinding.instance.imageCache;
+    cache.clear();
+    cache.clearLiveImages();
+  }
+
   @override
   void initState() {
     super.initState();
+    clearSvgCache();
   }
 
   @override
@@ -51,7 +63,8 @@ class _LoginWebState extends State<LoginWeb> {
       try {
         ApiData response =
             await AuthManager.getOTP(_emailController.text, context);
-        print("Response::::::::${response.data}+${response.statusCode}+${response.message}");
+        print(
+            "Response::::::::${response.data}+${response.statusCode}+${response.message}");
         if (response.success) {
           Navigator.pushNamed(context, EmailVerification.routeName,
               arguments: ScreenArguments(title: _emailController.text));
@@ -68,13 +81,18 @@ class _LoginWebState extends State<LoginWeb> {
     }
   }
 
+  void _reloadPage() {
+    html.window.location.reload();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: LoginBaseConstant(
           onTap: () {},
           titleText: AppString.login,
-          textAction: '',
+          textAction:
+              Provider.of<VersionProviderManager>(context).refreshVersionText,
           child: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(24),
@@ -91,17 +109,22 @@ class _LoginWebState extends State<LoginWeb> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Text(
+                          // // "Version 1.0.3 (4) demo",
+                          // providerState.versionText,
+                          AppConfig.version,
+                          style: TextStyle(
+                            fontSize: 10,
+                          ),
+                        ),
+
                         ///textfield Email
                         Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: MediaQuery.of(context).size.width / 30,
                           ),
                           child: TextFormField(
-                            style: CustomTextStylesCommon.commonStyle(
-                              color: ColorManager.blackForLoginTexts,
-                              fontWeight: FontWeightManager.medium,
-                              fontSize: FontSize.s14,
-                            ),
+                            style: LoginFlowTextField.customTextStyle(context),
                             focusNode: emailFocusNode,
                             controller: _emailController,
                             cursorColor: ColorManager.black,
@@ -123,7 +146,12 @@ class _LoginWebState extends State<LoginWeb> {
                               if (value == null || value.isEmpty) {
                                 return AppString.enteremail;
                               }
+                              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                  .hasMatch(value)) {
+                                return AppString.entervalidemail;
+                              }
                               return null;
+                              // SizedBox(height: AppSize.s12,);
                             },
                             onFieldSubmitted: (_) {
                               _getOtpByEmail();
@@ -132,13 +160,17 @@ class _LoginWebState extends State<LoginWeb> {
                         ),
                         Center(
                           child: _isSendingEmail
-                              ? CircularProgressIndicator(
-                                  color: ColorManager.blueprime,
+                              ? SizedBox(
+                                  height: AppSize.s40,
+                                  width: AppSize.s40,
+                                  child: CircularProgressIndicator(
+                                    color: ColorManager.blueprime,
+                                  ),
                                 )
                               : CustomButton(
                                   borderRadius: 28,
-                                  height: 40,
-                                  width: 100,
+                                  height: AppSize.s40,
+                                  width: AppSize.s100,
                                   text: AppString.next,
                                   onPressed: () async {
                                     _getOtpByEmail();
@@ -150,11 +182,7 @@ class _LoginWebState extends State<LoginWeb> {
                             padding: const EdgeInsets.all(AppPadding.p8),
                             child: Text(
                               _errorMessage!,
-                              style: CustomTextStylesCommon.commonStyle(
-                                color: ColorManager.red,
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeightManager.bold,
-                              ),
+                              style: LoginFlowErrorMsg.customTextStyle(context),
                             ),
                           ),
                       ])),
@@ -163,3 +191,5 @@ class _LoginWebState extends State<LoginWeb> {
     );
   }
 }
+
+///

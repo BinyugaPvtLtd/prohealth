@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 
 class ResponsiveContainer extends StatelessWidget {
   final String text;
@@ -39,11 +37,7 @@ class ResponsiveContainer extends StatelessWidget {
                 child: Text(
                   text,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.firaSans(
-                    color: ColorManager.mediumgrey,
-                    fontSize: 12,
-                    fontWeight: FontWeightManager.extrabold,
-                  ),
+                  style: MenuContainerTextStylling.customTextStyle(context),
                 ),
               ),
             ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
@@ -65,18 +65,18 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
                 children: [
                   Text(
                     AppString.forgotenter,
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       letterSpacing: 0.5,
                       color: ColorManager.mediumgrey,
-                      fontSize: MediaQuery.of(context).size.width / 120,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontSize: FontSize.s10,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   TextFormField(
                     controller: emailController,
                     style: CustomTextStylesCommon.commonStyle(
                       color: Color(0xff000000).withOpacity(0.5),
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                       //fontSize: MediaQuery.of(context).size.width / 92,
                       fontSize: FontSize.s14,
                     ),
@@ -116,8 +116,14 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
                     child: CustomButton(
                       borderRadius: 24,
                       height: MediaQuery.of(context).size.height / 18,
-                      width: MediaQuery.of(context).size.width / 10,
+                      width: MediaQuery.of(context).size.width / 6,
                       text: AppString.continuet,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
                       onPressed: submitForm,
                     ),
                   )

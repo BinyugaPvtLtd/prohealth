@@ -8,6 +8,7 @@ import 'package:prohealth/presentation/screens/login_module/email_verification/e
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../widgets/tablet_constant/tab_const.dart';
 import '../../../hr_module/manage/controller/controller.dart';
@@ -62,7 +63,7 @@ class _LoginTabletState extends State<LoginTablet> {
                           child: TextFormField(
                             style: CustomTextStylesCommon.commonStyle(
                               color: ColorManager.black.withOpacity(0.5),
-                              fontWeight: FontWeightManager.medium,
+                              fontWeight: FontWeight.w500,
                               fontSize: FontSize.s14,
                             ),
                             focusNode: emailFocusNode,
@@ -125,6 +126,12 @@ class _LoginTabletState extends State<LoginTablet> {
                             height: MediaQuery.of(context).size.height / 22,
                             width: MediaQuery.of(context).size.height / 6,
                             text: AppString.next,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.white,
+                                decoration: TextDecoration.none,
+                              ),
                             onPressed: () async {
                               if (_formKey.currentState?.validate() ??
                                   false) {

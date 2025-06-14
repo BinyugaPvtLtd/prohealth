@@ -1,204 +1,425 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/references_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_reference_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import 'package:provider/provider.dart';
+
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../icon_button_constant.dart';
-import '../../row_container_widget_const.dart';
+
 ///done by saloni
 class ReferencesChildTabbar extends StatelessWidget {
-  const ReferencesChildTabbar({super.key});
+  final int employeeId;
+   ReferencesChildTabbar({super.key, required this.employeeId});
 
+  // String _trimAddress(String address) {
+  OverlayEntry? _overlayEntry;
+
+  bool _isOverlayVisible = false;
+
+  // OverlayEntry _createOverlayEntry(BuildContext context, Offset position, String text) {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width/80,
-          vertical: MediaQuery.of(context).size.height/100),
-      child: TwoContainersRow(
-        child1: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+   final referenceProviderState = Provider.of<HrManageProvider>(context,listen: false,);
+   final LayerLink _layerLink = LayerLink();
+    final StreamController<List<ReferenceData>> referenceStreamController =
+    StreamController<List<ReferenceData>>();
+    TextEditingController nameController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController titlePositionController = TextEditingController();
+    TextEditingController knowPersonController = TextEditingController();
+    TextEditingController companyNameController = TextEditingController();
+    TextEditingController associationLengthController = TextEditingController();
+    TextEditingController mobileNumberController = TextEditingController();
+    TextEditingController referredBController = TextEditingController();
+
+   // Truncate the text to 10 characters
+   String _truncateText(String text, int maxLength) {
+     if (text.length > maxLength) {
+       return text.substring(0, maxLength) + '...'; // Add "..." if the text exceeds 10 characters
+     }
+     return text;
+   }
+
+    return Column(
+      children: [
+        ///add button
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Row(
-              children: [
-                Text('References #1',
-                  style: TextStyle(
-                    fontFamily: 'FiraSans',
-                    fontSize: 13,
-                    color: Color(0xFF333333),
-                    fontWeight: FontWeight.bold,
-                  ),),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/50,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Name',
-                      style: ThemeManager.customTextStyle(context)),
-                  SizedBox(height: 10,),
-                  Text('Title/ Position',
-                      style: ThemeManager.customTextStyle(context)),
-                  SizedBox(height: 15,),
-                  Text('Company/ Organization',
-                      style: ThemeManager.customTextStyle(context)),
-                  SizedBox(height: 10,),
-                  Text('Mobile Number',
-                      style: ThemeManager.customTextStyle(context)),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('John Smith',
-                    style: ThemeManagerDark.customTextStyle(context),),
-                  SizedBox(height: 10,),
-                  Text('Developer',
-                    style: ThemeManagerDark.customTextStyle(context),),
-                  SizedBox(height: 15,),
-                  Text('Google',
-                    style: ThemeManagerDark.customTextStyle(context),),
-                  SizedBox(height: 10,),
-                  Text('+11234567891',
-                    style: ThemeManagerDark.customTextStyle(context),),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Email',
-                      style: ThemeManager.customTextStyle(context)),
-                  SizedBox(height: 10,),
-                  Text('How do you know this\nperson ?',
-                      style: ThemeManager.customTextStyle(context)),
-                  SizedBox(height: 5,),
-                  Text('Length of Association',
-                      style: ThemeManager.customTextStyle(context)),
-                  SizedBox(height: 5,),
-                  Text('Referred By',
-                      style: ThemeManager.customTextStyle(context)),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('john@gmail.com',
-                    style: ThemeManagerDark.customTextStyle(context),),
-                  SizedBox(height: 10,),
-                  Text('Linked In',
-                    style: ThemeManagerDark.customTextStyle(context),),
-                  SizedBox(height: 15,),
-                  Text('1',
-                    style: ThemeManagerDark.customTextStyle(context),),
-                  SizedBox(height: 10,),
-                  Text('John',
-                    style: ThemeManagerDark.customTextStyle(context),),
-                ],
-              ),
-            ],),
-            SizedBox(height: MediaQuery.of(context).size.height/40,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButtonWidget(iconData: Icons.edit_outlined,
-                    buttonText: 'Edit', onPressed: (){})
-              ],
-            )
+            CustomIconButtonConst(
+                width: 80,
+                text: AppStringHr.add,
+                icon: Icons.add,
+                onPressed: () {
+                  nameController.clear();
+                  emailController.clear();
+                  titlePositionController.clear();
+                  knowPersonController.clear();
+                  companyNameController.clear();
+                  associationLengthController.clear();
+                  referredBController.clear();
+                  mobileNumberController.clear();
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddReferencePopup(
+                          nameController: nameController,
+                          emailController: emailController,
+                          titlePositionController: titlePositionController,
+                          knowPersonController: knowPersonController,
+                          companyNameController: companyNameController,
+                          associationLengthController: associationLengthController,
+                          mobileNumberController: mobileNumberController,
+                          referredBy: referredBController,
+                          onpressedClose: () {},
+                          onpressedSave: () async {
+                            var response = await addReferencePost(
+                                context,
+                                associationLengthController.text,
+                                'Reference',
+                                companyNameController.text,
+                                emailController.text,
+                                employeeId!,
+                                mobileNumberController.text,
+                                nameController.text,
+                                knowPersonController.text,
+                                titlePositionController.text);
+                            var referenceResponse =
+                            await approveOnboardQualifyReferencePatch(
+                                context, response.referenceId!);
+
+                            if (referenceResponse.statusCode == 200 ||
+                                referenceResponse.statusCode == 201) {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddSuccessPopup(
+                                    message: 'Reference Added Successfully',
+                                  );
+                                },
+                              );
+                            }else if(response.statusCode == 400 || response.statusCode == 404){
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => const FourNotFourPopup(),
+                              );
+                            }
+                            else {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FailedPopup(text: response.message),
+                              );
+                            }
+                          },
+                          title: 'Add Reference',
+                        );
+                      });
+                }),
+            SizedBox(width: 100,)
           ],
         ),
-        child2: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text('References #2',
-                  style: TextStyle(
-                    fontFamily: 'FiraSans',
-                    fontSize: 13,
-                    color: Color(0xFF333333),
-                    fontWeight: FontWeight.bold,
-                  ),),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/50,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Name',
-                        style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 10,),
-                    Text('Title/ Position',
-                        style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 15,),
-                    Text('Company/ Organization',
-                        style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 10,),
-                    Text('Mobile Number',
-                        style: ThemeManager.customTextStyle(context)),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('John Smith',
-                      style: ThemeManagerDark.customTextStyle(context),),
-                    SizedBox(height: 10,),
-                    Text('Developer',
-                      style: ThemeManagerDark.customTextStyle(context),),
-                    SizedBox(height: 15,),
-                    Text('Google',
-                      style: ThemeManagerDark.customTextStyle(context),),
-                    SizedBox(height: 10,),
-                    Text('+11234567891',
-                      style: ThemeManagerDark.customTextStyle(context),),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Email',
-                        style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 10,),
-                    Text('How do you know this\nperson ?',
-                        style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 5,),
-                    Text('Length of Association',
-                        style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 5,),
-                    Text('Referred By',
-                        style: ThemeManager.customTextStyle(context)),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('john@gmail.com',
-                      style: ThemeManagerDark.customTextStyle(context),),
-                    SizedBox(height: 10,),
-                    Text('Linked In',
-                      style: ThemeManagerDark.customTextStyle(context),),
-                    SizedBox(height: 15,),
-                    Text('1',
-                      style: ThemeManagerDark.customTextStyle(context),),
-                    SizedBox(height: 10,),
-                    Text('John',
-                      style: ThemeManagerDark.customTextStyle(context),),
-                  ],
-                ),
-              ],),
-            SizedBox(height: MediaQuery.of(context).size.height/40,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButtonWidget(iconData: Icons.edit_outlined,
-                    buttonText: 'Edit', onPressed: (){})
-              ],
-            )
-          ],
-        ),),
+        SizedBox(
+          height: 1,
+        ),
+        StreamBuilder<List<ReferenceData>>(
+            stream: referenceStreamController.stream,
+            builder: (context, snapshot) {
+              getReferences(context, employeeId).then((data) {
+                referenceStreamController.add(data);
+              }).catchError((error) {  });
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
+                  ),
+                );
+              }
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 100),
+                      child: Text(
+                        AppStringHRNoData.referenceNoData,
+                        style: AllNoDataAvailable.customTextStyle(context),
+                      ),
+                    ));
+              }
+              if (snapshot.hasData) {
+                return WrapWidget(
+                    children: List.generate(snapshot.data!.length, (index) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        referenceProviderState.trimCompanyString(snapshot.data![index].company ?? '--');
+                        referenceProviderState.trimTitleString(snapshot.data![index].title ?? '--');
+                        referenceProviderState.trimReferenceString(snapshot.data![index].references ?? '--');
+                      });
+                      return CardDetails(
+                        childWidget: DetailsFormate(
+                            title: 'References #${index + 1}',
+                            row1Child1: [
+                              Text('Name :', style: ThemeManagerDark.customTextStyle(context)),
+                              const SizedBox(height: 10,),
+                              Text('Title/ Position :', style: ThemeManagerDark.customTextStyle(context)),
+                              const SizedBox(height: 10,),
+                              Text('Mobile Number :', style: ThemeManagerDark.customTextStyle(context)),
+                              const SizedBox(height: 10,),
+                              Text('Email :', style: ThemeManagerDark.customTextStyle(context)),
+                            ],
+
+                            row1Child2: [
+                              Text(snapshot.data![index].name,
+                                style: ThemeManagerDarkFont.customTextStyle(context),
+                              ),
+                              const SizedBox(height: 10,),
+                              MouseRegion(
+                                onHover: (event){
+                                  referenceProviderState.showOverlay(context, event.position, snapshot.data![index].title ?? '--');
+                                },
+                                onExit: (_) {  referenceProviderState.removeOverlay();
+                                },
+                                child: CompositedTransformTarget(link: _layerLink,
+                                  child: Text(
+                                    _truncateText(snapshot.data![index].title ?? '--', 10),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),
+                                    overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                    maxLines: 1,
+                                    //   snapshot.data![index].title,
+                                    // style: ThemeManagerDarkFont.customTextStyle(context),
+                                  ),),
+                              ),
+                              const SizedBox(height: 10,),
+                              Text(
+                                snapshot.data![index].mobNumber,
+                                style: ThemeManagerDarkFont.customTextStyle(context),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(snapshot.data![index].email,
+                                style: ThemeManagerDarkFont.customTextStyle(context),
+                              ),
+                            ],
+                            row2Child1: [
+                              Text('Company/ Organization :', style: ThemeManagerDark.customTextStyle(context)),
+                              const SizedBox(height: 10,),
+                              Text('How do you know this person ? :',
+                                  style: ThemeManagerDark.customTextStyle(context)),
+                              const SizedBox(height: 10,),
+                              Text('Length of Association :',
+                                  style: ThemeManagerDark.customTextStyle(context)),
+                              const SizedBox(height: 10),
+                              SizedBox(height: 30, width: 90,)
+                            ],
+                            row2Child2: [
+                              MouseRegion(
+                                onHover: (event){
+                                  referenceProviderState.showOverlay(context, event.position, snapshot.data![index].company ?? '--');
+                                },
+                                onExit: (_) {
+                                  referenceProviderState.removeOverlay();
+                                },
+                                child: CompositedTransformTarget(link: _layerLink,
+                                  child: Text(
+                                    _truncateText(snapshot.data![index].company ?? '--', 10),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),
+                                    overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                    maxLines: 1,
+                                    // snapshot.data![index].company,
+                                    // style: ThemeManagerDarkFont.customTextStyle(context),
+                                  ),),
+                              ),
+                              const SizedBox(height: 10,),
+                              MouseRegion(
+                                onHover: (event){
+                                  referenceProviderState.showOverlay(context, event.position, snapshot.data![index].references ?? '--');
+                                },
+                                onExit: (_) { referenceProviderState.removeOverlay();
+                                },
+                                child: CompositedTransformTarget(link: _layerLink,
+                                  child: Text(
+                                    _truncateText(snapshot.data![index].references ?? '--', 10),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),
+                                    overflow: TextOverflow.ellipsis,  // Adds "..." when the text overflows
+                                    maxLines: 1,
+                                    // snapshot.data![index].references,
+                                    // style: ThemeManagerDarkFont.customTextStyle(context),
+                                  ),),
+                              ),
+                              const SizedBox(height: 10,),
+                              Text(
+                                snapshot.data![index].association,
+                                style: ThemeManagerDarkFont.customTextStyle(context),
+                              ),
+                              const SizedBox(height: 10,),
+                              SizedBox(height: 30, width: 90,)
+                            ],
+                            button: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                snapshot.data![index].approve == null ? SizedBox(
+                                  height: AppSize.s25,
+                                  child: Text('Not Approved',style:TextStyle(
+                                    fontSize: 13,
+                                    color: ColorManager.mediumgrey,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                                )
+                                    : BorderIconButton(
+                                    iconData: Icons.edit_outlined,
+                                    buttonText: 'Edit',
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return FutureBuilder<
+                                                ReferencePrefillData>(
+                                                future: getPrefillReferences(context,
+                                                    snapshot.data![index].referenceId),
+                                                builder: (context, snapshotPrefill) {
+                                                  if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                    return Center(child: CircularProgressIndicator(
+                                                        color: ColorManager.blueprime,
+                                                      ),
+                                                    );
+                                                  }
+                                                  var name = snapshotPrefill.data!.name;
+                                                  nameController = TextEditingController(
+                                                          text: snapshotPrefill.data!.name);
+                                                  var comment = snapshotPrefill.data!.comment;
+                                                  var email = snapshotPrefill.data!.email;
+                                                  emailController = TextEditingController(text: snapshotPrefill.data!.email);
+                                                  var title = snapshotPrefill.data!.title;
+                                                  titlePositionController = TextEditingController(text: snapshotPrefill.data!.title);
+
+                                                  var knowPerson =  snapshotPrefill.data!.references;
+                                                  knowPersonController = TextEditingController(text:  snapshotPrefill.data!.references);
+
+                                                  var companyName = snapshotPrefill.data!.company;
+                                                  companyNameController = TextEditingController(text: snapshotPrefill.data!.company);
+
+                                                  var association = snapshotPrefill.data!.association;
+                                                  associationLengthController = TextEditingController(text: snapshotPrefill.data!.association);
+                                                  var referredby = snapshotPrefill.data!.references;
+                                                  referredBController = TextEditingController(text: snapshotPrefill.data!.references);
+                                                  var mobileNumber = snapshotPrefill.data!.mobNumber;
+                                                  mobileNumberController = TextEditingController(text: snapshotPrefill.data!.mobNumber);
+                                                  return StatefulBuilder(
+                                                    builder: (BuildContext context,
+                                                        void Function(void Function())setState) {
+                                                      return AddReferencePopup(
+                                                        nameController:
+                                                        nameController,
+                                                        emailController:
+                                                        emailController,
+                                                        titlePositionController:
+                                                        titlePositionController,
+                                                        knowPersonController:
+                                                        knowPersonController,
+                                                        companyNameController:
+                                                        companyNameController,
+                                                        associationLengthController:
+                                                        associationLengthController,
+                                                        mobileNumberController:
+                                                        mobileNumberController,
+                                                        referredBy:
+                                                        referredBController,
+                                                        onpressedClose: () {
+                                                          Navigator.pop(context);
+                                                        },
+                                                        onpressedSave: () async {
+                                                          var response =
+                                                          await updateReferencePatch(
+                                                            context,
+                                                            snapshot.data![index].referenceId,
+                                                            association == associationLengthController.text
+                                                                ? association.toString()
+                                                                : associationLengthController.text,
+                                                            comment.toString(),
+                                                            companyName == companyNameController.text
+                                                                ? companyName.toString()
+                                                                : companyNameController.text,
+                                                            /////////////////
+                                                            email == emailController.text
+                                                                ? email.toString()
+                                                                : emailController.text,
+                                                            employeeId,
+                                                            ////////////////////////
+                                                            mobileNumber == mobileNumberController.text
+                                                                ? mobileNumber.toString()
+                                                                : mobileNumberController.text,
+                                                            name == nameController.text
+                                                                ? name.toString()
+                                                                : nameController.text,
+                                                            knowPerson ==    knowPersonController.text
+                                                                ? knowPerson.toString()
+                                                                : knowPersonController.text,
+                                                            ////////////////////////////
+                                                            title == titlePositionController.text
+                                                                ? title.toString()
+                                                                : titlePositionController.text,
+                                                            ////////////////////
+
+                                                          );
+                                                          if (response.statusCode == 200 || response.statusCode == 201) {
+                                                            Navigator.pop(context);
+                                                            showDialog(context: context,
+                                                              builder: (BuildContext context) {
+                                                                return AddSuccessPopup(
+                                                                  message: 'Reference Edit Successfully',
+                                                                );
+                                                              },
+                                                            );
+                                                          }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                            Navigator.pop(context);
+                                                            showDialog(context: context,
+                                                              builder: (BuildContext context) => const FourNotFourPopup(),
+                                                            );
+                                                          }
+                                                          else {
+                                                            Navigator.pop(context);
+                                                            showDialog(context: context,
+                                                              builder: (BuildContext context) => FailedPopup(text: response.message),
+                                                            );
+                                                          }
+                                                        },
+                                                        title: 'Edit Reference',
+                                                      );
+                                                    },
+                                                  );
+                                                });
+                                          });
+                                    })
+                              ],
+                            )),
+                      );
+                    }));
+              } else {
+                return const SizedBox();
+              }
+            }),
+      ],
     );
   }
 }
