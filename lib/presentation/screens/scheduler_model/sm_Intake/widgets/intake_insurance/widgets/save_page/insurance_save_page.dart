@@ -235,10 +235,7 @@ class InsuranceSavePage extends StatelessWidget {
                                   Text('',
                                       style: ThemeManagerDark.customTextStyle(
                                           context)),
-                                  const SizedBox(height: AppSize.s15),
-                                  Text('',
-                                      style: DocDefineTableData.customTextStyle(
-                                          context)),
+
                                 ],
                               ),
                               SizedBox(
@@ -279,17 +276,14 @@ class InsuranceSavePage extends StatelessWidget {
                                   Text('',
                                       style: ThemeManagerDarkFont.customTextStyle(
                                           context)),
-                                  const SizedBox(height: AppSize.s15),
-                                  Text('',
-                                      style: DocDefineTableData.customTextStyle(
-                                          context)),
+
                                 ],
                               )
                             ],
                           ),
 
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 30.0),
+                            padding: const EdgeInsets.only(bottom: 20.0),
                             child: Row(
                               children: [
                                 Column(

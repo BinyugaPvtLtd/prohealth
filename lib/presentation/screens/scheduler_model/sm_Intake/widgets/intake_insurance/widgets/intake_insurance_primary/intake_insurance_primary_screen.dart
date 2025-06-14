@@ -423,6 +423,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                              textColor: Color(0xff04BF00),
                                                 controller: pharmaAuth,
                                                 labelText: 'Auth Status',
                                                 )),
@@ -454,6 +455,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                         const SizedBox(width: AppSize.s35),
                                         Flexible(
                                             child: SchedularTextField(
+                                              textColor: Color(0xff04BF00),
                                               controller: pharmaAuth,
                                               labelText: 'Auth Status',
                                             )),
@@ -708,7 +710,7 @@ class IntakePrimaryScreen extends StatelessWidget {
                                                       Text('${snapshotDoc.data![index].docName}',
                                                           style: DocDefineTableData.customTextStyle(context)),
                                                       const SizedBox(height: AppSize.s8,),
-                                                      Text("Uploaded $formatedData, ${DateFormat.jm().format(snapshotDoc.data![index].createdAt)} PST by Henry, Rebecca",
+                                                      Text("Uploaded $formatedData, ${DateFormat.jm().format(snapshotDoc.data![index].createdAt)} PST by ${snapshotDoc.data![index].updatedBy}",
                                                           style:  DocDefineTableDataID.customTextStyle(context)),
                                                     ],
                                                   )
