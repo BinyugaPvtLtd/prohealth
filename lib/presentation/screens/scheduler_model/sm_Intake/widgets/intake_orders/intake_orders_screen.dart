@@ -1677,17 +1677,16 @@ class _SMIntakeOrdersScreenState extends State<SMIntakeOrdersScreen> {
                             }
 
                             final specialOrders = snapshot.data!;
-
                             return Wrap(
-                              spacing: 16.0,
-                              runSpacing: 16.0,
+                              spacing: 80.0,
+                              runSpacing: 0.0,
                               children: specialOrders.map((order) {
                                 return StatefulBuilder(
                                   builder: (context, setTileState) {
                                     bool isChecked = selectedOrderIds.contains(order.spcialorderid);
 
                                     return SizedBox(
-                                      width: 180,
+                                      width: 160,
                                       child: ExpCheckboxTile(
                                         title: order.spcialordername,
                                         initialValue: isChecked,
